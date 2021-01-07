@@ -1,9 +1,20 @@
 const { spacing, fontFamily } = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
 
 module.exports = {
   purge: ["./pages/**/*.js", "./components/**/*.js", "./layouts/**/*.js"],
   darkMode: "class",
   theme: {
+    colors: {
+      transparent: "transparent",
+      current: "currentColor",
+      white: colors.white,
+      black: colors.black,
+      gray: colors.warmGray,
+      red: colors.red,
+      blue: colors.lightBlue,
+      yellow: colors.yellow,
+    },
     extend: {
       fontFamily: {
         sans: ["Inter", ...fontFamily.sans],
