@@ -3,10 +3,16 @@ import Container from "../components/Container";
 export default function Home() {
   return (
     <Container>
-      <div className="py-20">
-        <h1 className="text-5xl text-center text-gray-700 dark:text-gray-100">
-          LES GOOOOOOO
+      <div className="flex flex-col justify-center items-start max-w-4xl mx-auto mb-16 py-8">
+        <h1 className="font-bold text-3xl md:text-6xl tracking-tight mb-4 text-gray-700">
+          Lorem ipsum dolor sit.
         </h1>
+        <h2 className="text-gray-600 mb-16">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae
+          suscipit quisquam atque quidem aut, dignissimos ut eaque eos
+          provident, tempora vitae sed optio at et aperiam a amet, nesciunt
+          cupiditate!
+        </h2>
       </div>
     </Container>
   );

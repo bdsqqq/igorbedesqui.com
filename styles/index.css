@@ -16,8 +16,29 @@ body {
   @apply px-4 py-2 font-bold text-white bg-blue-500 rounded;
 }
 
+* {
+  @apply box-border;
+}
+
 /* Start purging... */
 @tailwind utilities;
 /* Stop purging. */
 
 /* Your own custom utilities */
+@layer utilities {
+  .h-70vh {
+    height: 70vh;
+  }
+  .min-h-30vh {
+    min-height: 30vh;
+  }
+  @variants responsive {
+    /*this is here because next/image has inline padding build into it, which overwrites the padding from tailwind, this is the cleanest way I found to do this, sorry about this humanity but i'm about to use "!important caralho" here*/
+    .p-16-caralho {
+      padding: 4rem !caralho;
+    }
+    .p-24-caralho {
+      padding: 6rem !caralho;
+    }
+  }
+}
