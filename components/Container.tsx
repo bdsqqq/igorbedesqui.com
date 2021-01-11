@@ -17,7 +17,7 @@ const Container: React.FC = ({ children }) => {
         <div className="absolute h-full w-full bg-gray-400 bg-opacity-70" />
       </div>
       <div className="z-10 h-70vh relative">
-        <nav className="sticky-nav flex justify-between items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto">
+        <nav className="flex justify-between items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto">
           <div>
             <h1 className="font-bold text-xl md:text-2xl my-auto tracking-tight text-gray-700">
               IgorBedesqui
