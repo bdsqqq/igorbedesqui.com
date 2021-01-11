@@ -2,7 +2,10 @@ import Container from "../components/Container";
 
 export default function Home() {
   return (
-    <Container>
+    <Container
+      heading="desenvolvedor criativo pronto para criar algo incrivel"
+      heroSrc="/images/giphy.gif"
+    >
       <div className="flex flex-col justify-center items-start max-w-4xl mx-auto mb-16 py-8">
         <h1 className="font-bold text-3xl md:text-6xl tracking-tight mb-4 text-gray-700">
           Lorem ipsum dolor sit.
