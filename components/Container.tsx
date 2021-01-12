@@ -4,7 +4,7 @@ import Image from "next/image";
 import Footer from "./Footer";
 
 interface ContainerProps {
-  heading: string;
+  heading: JSX.Element;
   heroSrc: string;
 }
 
