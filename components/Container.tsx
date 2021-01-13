@@ -2,7 +2,7 @@ import NextLink from "next/link";
 import Image from "next/image";
 
 import Footer from "./Footer";
-
+import ChangeLang from "./ChangeLang";
 interface ContainerProps {
   heading: JSX.Element;
   heroSrc: string;
@@ -36,6 +36,11 @@ const Container: React.FC<ContainerProps> = ({
             <NextLink href="/work">
               <a className="p-1 sm:p-4 text-gray-900">/folio </a>
             </NextLink>
+            <ChangeLang
+              generalClasses="p-1 sm:p-2 "
+              activeClasses="text-gray-900"
+              inactiveClasses="text-gray-500"
+            />
           </div>
         </nav>
         <h1 className="max-w-xs mx-8 mt-8 md:max-w-3xl md:mx-16 md:mt-16 font-bold text-3xl md:text-5xl tracking-tight mb-4 text-gray-700 uppercase">
