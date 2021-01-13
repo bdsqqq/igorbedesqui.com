@@ -1,7 +1,7 @@
 import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import i18nConfig from "../i18n.json";
-import { useEffect } from "react";
+import { Fragment } from "react";
 
 interface ChangeLangProps {
   generalClasses: string;
@@ -26,19 +26,19 @@ const ChangeLang: React.FC<ChangeLangProps> = ({
 
         if (lng === lang)
           return (
-            <>
+            <Fragment key={lng}>
               <a className={generalClasses.concat(" " + activeClasses)}>
                 {t(`${lng}`)}
               </a>
               {count < locales.length && (
                 <span className={generalClasses}>|</span>
               )}
-            </>
+            </Fragment>
           );
 
         return (
-          <>
-            <Link href="/" locale={lng} key={lng}>
+          <Fragment key={lng}>
+            <Link href="/" locale={lng}>
               <a className={generalClasses.concat(" " + inactiveClasses)}>
                 {t(`${lng}`)}
               </a>
@@ -46,7 +46,7 @@ const ChangeLang: React.FC<ChangeLangProps> = ({
             {count < locales.length && (
               <span className={generalClasses}>|</span>
             )}
-          </>
+          </Fragment>
         );
       })}
     </>
