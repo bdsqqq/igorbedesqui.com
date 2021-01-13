@@ -16,6 +16,12 @@ module.exports = {
       yellow: colors.yellow,
     },
     extend: {
+      colors: {
+        oliver: {
+          500: "#29222E",
+          700: "#403547",
+        },
+      },
       fontFamily: {
         sans: ["Inter", ...fontFamily.sans],
       },
