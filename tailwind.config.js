@@ -23,7 +23,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Martel Sans", ...fontFamily.sans],
+        sans: ["Mplus", ...fontFamily.sans],
       },
       typography: (theme) => ({
         DEFAULT: {

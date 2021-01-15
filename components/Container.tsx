@@ -37,20 +37,18 @@ const Container: React.FC<ContainerProps> = ({
               <a className="p-1 sm:p-4 text-gray-900">/folio </a>
             </NextLink>
             <ChangeLang
-              generalClasses="p-1 sm:p-2 "
+              generalClasses="p-1 sm:p-2 lowercase"
               activeClasses="text-gray-900"
               inactiveClasses="text-gray-500"
             />
           </div>
         </nav>
-        <h1 className="max-w-xs mx-8 mt-8 md:max-w-3xl md:mx-16 md:mt-16 font-bold text-3xl md:text-5xl tracking-tight mb-4 text-gray-700 uppercase">
+        <h1 className="max-w-xs mx-8 mt-8 md:max-w-3xl md:mx-16 md:mt-16 text-3xl md:text-5xl tracking-tight mb-4 text-gray-700 uppercase">
           {heading}
         </h1>
       </div>
-      <div className="z-10 relative -mt-6 bg-gray-300 rounded-tl-2xl min-h-30vh w-full px-8">
-        <main className="flex flex-col justify-center max-w-5xl mx-auto">
-          {children}
-        </main>
+      <div className="z-10 relative -mt-6 bg-gray-300 rounded-tl-2xl min-h-30vh w-full">
+        <main className="flex flex-col justify-center">{children}</main>
         <Footer />
       </div>
     </div>
