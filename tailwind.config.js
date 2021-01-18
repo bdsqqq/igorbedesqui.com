@@ -18,7 +18,7 @@ module.exports = {
     extend: {
       colors: {
         oliver: {
-          light: "fffcf5",
+          light: "#fffcf5",
           500: "#29222E",
           700: "#403547",
         },
