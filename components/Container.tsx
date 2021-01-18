@@ -25,7 +25,7 @@ const Container: React.FC<ContainerProps> = ({
         />
         <div className="absolute h-full w-full bg-oliver-light bg-opacity-90" />
       </div>
-      <div className="z-10 h-70vh relative">
+      <div className="h-70vh relative">
         <nav className="flex justify-between items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto">
           <div>
             <h1 className="font-bold text-xl md:text-2xl my-auto tracking-tight text-gray-700"></h1>
@@ -42,7 +42,7 @@ const Container: React.FC<ContainerProps> = ({
           {heading}
         </h1>
       </div>
-      <div className="z-10 relative -mt-2 bg-oliver-light min-h-30vh rounded-tl-2xl w-full">
+      <div className="relative -mt-2 bg-oliver-light min-h-30vh rounded-tl-2xl w-full">
         <main className="flex flex-col justify-center">{children}</main>
         <Footer />
       </div>
