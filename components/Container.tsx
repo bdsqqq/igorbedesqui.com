@@ -23,31 +23,26 @@ const Container: React.FC<ContainerProps> = ({
           layout="fill"
           objectFit="cover"
         />
-        <div className="absolute h-full w-full bg-gray-400 bg-opacity-70" />
+        <div className="absolute h-full w-full bg-oliver-light bg-opacity-90" />
       </div>
       <div className="z-10 h-70vh relative">
         <nav className="flex justify-between items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto">
           <div>
-            <h1 className="font-bold text-xl md:text-2xl my-auto tracking-tight text-gray-700">
-              IgorBedesqui
-            </h1>
+            <h1 className="font-bold text-xl md:text-2xl my-auto tracking-tight text-gray-700"></h1>
           </div>
           <div>
-            <NextLink href="/work">
-              <a className="p-1 sm:p-4 text-gray-900">/folio </a>
-            </NextLink>
             <ChangeLang
               generalClasses="p-1 sm:p-2 lowercase"
-              activeClasses="text-gray-900"
+              activeClasses="font-bold text-gray-900"
               inactiveClasses="text-gray-500"
             />
           </div>
         </nav>
-        <h1 className="max-w-xs mx-8 mt-8 md:max-w-3xl md:mx-16 md:mt-16 text-3xl md:text-5xl tracking-tight mb-4 text-gray-700 uppercase">
+        <h1 className="max-w-xs mx-8 mt-8 md:max-w-3xl md:mx-16 md:mt-16 text-lg md:text-3xl tracking-tight mb-4 text-oliver-500 md:leading-snug uppercase">
           {heading}
         </h1>
       </div>
-      <div className="z-10 relative -mt-6 bg-gray-300 rounded-tl-2xl min-h-30vh w-full">
+      <div className="z-10 relative -mt-2 bg-oliver-light min-h-30vh rounded-tl-2xl w-full">
         <main className="flex flex-col justify-center">{children}</main>
         <Footer />
       </div>
