@@ -1,4 +1,3 @@
-import NextLink from "next/link";
 import Image from "next/image";
 
 import Footer from "./Footer";

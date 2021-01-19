@@ -16,7 +16,7 @@ export default function Home() {
       }
       heroSrc="/images/giphy.gif"
     >
-      <section className="max-w-5xl mx-auto  px-8 ">
+      <section className="max-w-5xl mx-auto px-8 ">
         <div className="flex flex-col justify-center items-start max-w-4xl mx-auto mb-16 py-8">
           <h1 className="text-2xl md:text-5xl tracking-tight mb-4 text-gray-700">
             <Trans
