@@ -16,6 +16,9 @@ module.exports = {
       yellow: colors.yellow,
     },
     extend: {
+      gridTemplateColumns: {
+        "1fr12rem": "repeat(auto-fit, minmax(12rem, 1fr))",
+      },
       colors: {
         oliver: {
           light: "#fffcf5",
