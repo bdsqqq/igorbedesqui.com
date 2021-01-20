@@ -1,19 +1,5 @@
 import Link from "next/link";
-
-interface ExternalLinkProps {
-  href?: string;
-}
-
-const ExternalLink: React.FC<ExternalLinkProps> = ({ href, children }) => (
-  <a
-    className="text-sm text-gray-500 hover:text-gray-600 transition"
-    target="_blank"
-    rel="noopener noreferrer"
-    href={href}
-  >
-    {children}
-  </a>
-);
+import ExternalLink from "./ExternalLink";
 
 export default function Footer() {
   return (
