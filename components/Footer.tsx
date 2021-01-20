@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="flex flex-col items-center pb-8">
       <div className="flex space-x-4 mb-4">
-        <ExternalLink href="https://github.com/leerob">
+        <ExternalLink href="https://github.com/bdsqqq">
           <span className="sr-only">Github</span>
           <svg className="h-5 w-5" viewBox="0 0 24 24">
             <g
@@ -19,23 +19,7 @@ export default function Footer() {
             </g>
           </svg>
         </ExternalLink>
-        <ExternalLink href="https://www.linkedin.com/in/leeerob">
-          <span className="sr-only">LinkedIn</span>
-          <svg className="h-5 w-5" viewBox="0 0 24 24">
-            <g
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-              <rect x="2" y="9" width="4" height="12" />
-              <circle cx="4" cy="4" r="2" />
-            </g>
-          </svg>
-        </ExternalLink>
-        <ExternalLink href="mailto:me@leerob.io">
+        <ExternalLink href="mailto:igorbedesqui@gmail.com">
           <span className="sr-only">Email</span>
           <svg className="h-5 w-5" viewBox="0 0 24 24">
             <g
