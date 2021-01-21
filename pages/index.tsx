@@ -10,7 +10,7 @@ export default function Home() {
         <Trans
           i18nKey="home:hero"
           components={[
-            <span className="font-light text-sm md:text-2xl" />,
+            <span className="font-light text-sm sm:text-lg md:text-2xl" />,
             <br />,
             <span className="font-bold" />,
           ]}

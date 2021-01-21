@@ -42,7 +42,7 @@ const Container: React.FC<ContainerProps> = ({
             />
           </div>
         </nav>
-        <h1 className="max-w-xs mx-8 mt-8 md:max-w-3xl md:mx-16 md:mt-16 text-lg md:text-3xl tracking-tight mb-4 text-oliver-500 md:leading-snug uppercase">
+        <h1 className="max-w-2xl md:max-w-4xl mx-8 mt-8 md:mx-16 md:mt-16 text-lg sm:text-2xl md:text-3xl tracking-tight mb-4 text-oliver-500 md:leading-snug uppercase">
           {heading}
         </h1>
       </div>
