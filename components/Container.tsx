@@ -22,7 +22,7 @@ const Container: React.FC<ContainerProps> = ({
           layout="fill"
           objectFit="cover"
         />
-        <div className="absolute h-full w-full bg-oliver-light bg-opacity-90" />
+        <div className="absolute h-full w-full bg-oliver-light bg-opacity-75" />
       </div>
       <div className="h-70vh relative">
         <nav className="flex justify-between items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto">
