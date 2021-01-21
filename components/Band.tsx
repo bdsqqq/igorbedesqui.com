@@ -20,8 +20,8 @@ interface BandPropsBasic {
 
 interface BandWithGrid extends BandPropsBasic {
   headline: {
-    number: string;
-    text: string;
+    bold: string;
+    thin: string;
   };
   gridless?: never;
   id?: never;
@@ -43,14 +43,16 @@ const Band: React.FC<BandProps> = ({
   cta,
   children,
 }) => {
-  let bandId;
+  let bandId: string = "";
   id && (bandId = id);
-  headline && (bandId = headline.text);
+  headline && (bandId = headline.thin);
+
+  cta && (cta.target = cta.target.replace(/\s+/g, "-").toLowerCase());
 
   return (
     <>
       <section
-        id={bandId}
+        id={bandId.replace(/\s+/g, "-").toLowerCase()}
         className={`w-full py-16
         ${
           dark
@@ -66,9 +68,9 @@ const Band: React.FC<BandProps> = ({
           {!gridless ? (
             <>
               <div className="col-span-1">
-                <span className="font-bold">{headline?.number}</span>
+                <span className="font-bold">{headline?.bold}</span>
                 <br />
-                <span className="font-extralight">{headline?.text}</span>
+                <span className="font-extralight">{headline?.thin}</span>
                 <br />
                 <br />
                 <span className="hidden md:inline">//</span>
