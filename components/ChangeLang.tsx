@@ -27,9 +27,9 @@ const ChangeLang: React.FC<ChangeLangProps> = ({
         if (lng === lang)
           return (
             <Fragment key={lng}>
-              <a className={generalClasses.concat(" " + activeClasses)}>
+              <span className={generalClasses.concat(" " + activeClasses)}>
                 {t(`${lng}`)}
-              </a>
+              </span>
               {count < locales.length && (
                 <span className={generalClasses}>|</span>
               )}
@@ -39,9 +39,13 @@ const ChangeLang: React.FC<ChangeLangProps> = ({
         return (
           <Fragment key={lng}>
             <Link href="/" locale={lng}>
-              <a className={generalClasses.concat(" " + inactiveClasses)}>
+              <span
+                className={generalClasses.concat(
+                  " " + inactiveClasses + " cursor-pointer select-none"
+                )}
+              >
                 {t(`${lng}`)}
-              </a>
+              </span>
             </Link>
             {count < locales.length && (
               <span className={generalClasses}>|</span>

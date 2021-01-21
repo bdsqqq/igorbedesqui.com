@@ -4,25 +4,30 @@ import Footer from "./Footer";
 import ChangeLang from "./ChangeLang";
 interface ContainerProps {
   heading: JSX.Element;
-  heroSrc: string;
+  heroImg: {
+    src: string;
+    alt: string;
+  };
 }
 
 const Container: React.FC<ContainerProps> = ({
   heading,
-  heroSrc,
+  heroImg,
   children,
 }) => {
   return (
     <div className="relative min-h-screen">
       <div className="absolute h-70vh w-full my-0 mx-auto">
         <Image
+          priority
           className="p-16-caralho md:p-24-caralho"
-          src={heroSrc}
-          alt=""
+          src={heroImg.src}
+          alt={heroImg.alt}
           layout="fill"
           objectFit="cover"
+          objectPosition="center"
         />
-        <div className="absolute h-full w-full bg-oliver-light bg-opacity-90" />
+        <div className="absolute h-full w-full bg-oliver-light bg-opacity-75" />
       </div>
       <div className="h-70vh relative">
         <nav className="flex justify-between items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto">
@@ -37,7 +42,7 @@ const Container: React.FC<ContainerProps> = ({
             />
           </div>
         </nav>
-        <h1 className="max-w-xs mx-8 mt-8 md:max-w-3xl md:mx-16 md:mt-16 text-lg md:text-3xl tracking-tight mb-4 text-oliver-500 md:leading-snug uppercase">
+        <h1 className="max-w-2xl md:max-w-4xl mx-8 mt-8 md:mx-16 md:mt-16 text-lg sm:text-2xl md:text-3xl tracking-tight mb-4 text-oliver-500 md:leading-snug uppercase">
           {heading}
         </h1>
       </div>

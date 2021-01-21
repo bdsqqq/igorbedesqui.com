@@ -10,13 +10,13 @@ export default function Home() {
         <Trans
           i18nKey="home:hero"
           components={[
-            <span className="font-light text-sm md:text-2xl" />,
+            <span className="font-light text-sm sm:text-lg md:text-2xl" />,
             <br />,
             <span className="font-bold" />,
           ]}
         />
       }
-      heroSrc="/images/giphy.gif"
+      heroImg={{ src: "/images/background.jpg", alt: "bob ross" }}
     >
       <Band gridless id="hej">
         <h1 className="text-2xl md:text-5xl tracking-tight text-center">
@@ -28,11 +28,10 @@ export default function Home() {
       </Band>
       <Band
         dark
-        headline={{ number: "01", text: "Title" }}
+        headline={{ bold: "01", thin: "Title" }}
         cta={{
-          target: "https://www.igorbedesqui.com",
-          text: "CTA TEXT",
-          external: true,
+          target: "#lets's connect!",
+          text: "Connect with me",
         }}
       >
         <h3 className="text-2xl">
@@ -55,18 +54,51 @@ export default function Home() {
         </h3>
       </Band>
       <Band
-        headline={{ number: "02", text: "Gallery" }}
+        headline={{ bold: "02", thin: "Gallery" }}
         cta={{
           target: "/example",
           text: "CTA TEXT",
         }}
       >
         <div className="grid grid-cols-1fr12rem gap-4 pb-8">
-          <Image src="/images/background.jpg" width={1200} height={900} />
-          <Image src="/images/background.jpg" width={1200} height={900} />
-          <Image src="/images/background.jpg" width={1200} height={900} />
-          <Image src="/images/background.jpg" width={1200} height={900} />
+          <Image
+            alt="sunset at montmajour"
+            src="/images/background.jpg"
+            width={700}
+            height={500}
+          />
+          <Image
+            alt="sunset at montmajour"
+            src="/images/background.jpg"
+            width={700}
+            height={500}
+          />
+          <Image
+            alt="sunset at montmajour"
+            src="/images/background.jpg"
+            width={700}
+            height={500}
+          />
+          <Image
+            alt="sunset at montmajour"
+            src="/images/background.jpg"
+            width={700}
+            height={500}
+          />
         </div>
+      </Band>
+      <Band
+        headline={{ bold: "Hey", thin: "lets's connect!" }}
+        cta={{
+          target: "#",
+          text: "back to the top",
+        }}
+      >
+        <h3 className="text-2xl">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum laborum
+          porro distinctio obcaecati sequi dolorum aperiam ipsam molestiae est
+          beatae!
+        </h3>
       </Band>
     </Container>
   );
