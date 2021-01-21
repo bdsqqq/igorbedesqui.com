@@ -62,10 +62,30 @@ export default function Home() {
         }}
       >
         <div className="grid grid-cols-1fr12rem gap-4 pb-8">
-          <Image src="/images/background.jpg" width={1200} height={900} />
-          <Image src="/images/background.jpg" width={1200} height={900} />
-          <Image src="/images/background.jpg" width={1200} height={900} />
-          <Image src="/images/background.jpg" width={1200} height={900} />
+          <Image
+            alt="sunset at montmajour"
+            src="/images/background.jpg"
+            width={700}
+            height={500}
+          />
+          <Image
+            alt="sunset at montmajour"
+            src="/images/background.jpg"
+            width={700}
+            height={500}
+          />
+          <Image
+            alt="sunset at montmajour"
+            src="/images/background.jpg"
+            width={700}
+            height={500}
+          />
+          <Image
+            alt="sunset at montmajour"
+            src="/images/background.jpg"
+            width={700}
+            height={500}
+          />
         </div>
       </Band>
     </Container>
