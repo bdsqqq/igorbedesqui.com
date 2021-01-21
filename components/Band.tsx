@@ -67,7 +67,7 @@ const Band: React.FC<BandProps> = ({
         >
           {!gridless ? (
             <>
-              <div className="col-span-1">
+              <div className="mb-12 md:col-span-1">
                 <span className="font-bold">{headline?.bold}</span>
                 <br />
                 <span className="font-extralight">{headline?.thin}</span>
@@ -75,7 +75,7 @@ const Band: React.FC<BandProps> = ({
                 <br />
                 <span className="hidden md:inline">//</span>
               </div>
-              <div className="col-span-3">{children}</div>
+              <div className="md:col-span-3">{children}</div>
             </>
           ) : (
             <>{children}</>
