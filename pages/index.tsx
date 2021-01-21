@@ -28,11 +28,10 @@ export default function Home() {
       </Band>
       <Band
         dark
-        headline={{ number: "01", text: "Title" }}
+        headline={{ bold: "01", thin: "Title" }}
         cta={{
-          target: "https://www.igorbedesqui.com",
-          text: "CTA TEXT",
-          external: true,
+          target: "#lets's connect!",
+          text: "Connect with me",
         }}
       >
         <h3 className="text-2xl">
@@ -55,7 +54,7 @@ export default function Home() {
         </h3>
       </Band>
       <Band
-        headline={{ number: "02", text: "Gallery" }}
+        headline={{ bold: "02", thin: "Gallery" }}
         cta={{
           target: "/example",
           text: "CTA TEXT",
@@ -87,6 +86,19 @@ export default function Home() {
             height={500}
           />
         </div>
+      </Band>
+      <Band
+        headline={{ bold: "Hey", thin: "lets's connect!" }}
+        cta={{
+          target: "#",
+          text: "back to the top",
+        }}
+      >
+        <h3 className="text-2xl">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum laborum
+          porro distinctio obcaecati sequi dolorum aperiam ipsam molestiae est
+          beatae!
+        </h3>
       </Band>
     </Container>
   );
