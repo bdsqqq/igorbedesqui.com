@@ -41,7 +41,7 @@ const ChangeLang: React.FC<ChangeLangProps> = ({
             <Link href="/" locale={lng}>
               <span
                 className={generalClasses.concat(
-                  " " + inactiveClasses + " cursor-pointer"
+                  " " + inactiveClasses + " cursor-pointer select-none"
                 )}
               >
                 {t(`${lng}`)}
