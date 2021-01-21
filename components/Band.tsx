@@ -68,7 +68,7 @@ const Band: React.FC<BandProps> = ({
               <div className="col-span-1">
                 <span className="font-bold">{headline?.number}</span>
                 <br />
-                <span className="font-thin">{headline?.text}</span>
+                <span className="font-extralight">{headline?.text}</span>
               </div>
               <div className="col-span-3">{children}</div>
             </>
