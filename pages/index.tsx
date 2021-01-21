@@ -16,7 +16,7 @@ export default function Home() {
           ]}
         />
       }
-      heroSrc="/images/giphy.gif"
+      heroImg={{ src: "/images/background.jpg", alt: "bob ross" }}
     >
       <Band gridless id="hej">
         <h1 className="text-2xl md:text-5xl tracking-tight text-center">

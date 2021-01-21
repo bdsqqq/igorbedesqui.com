@@ -4,23 +4,28 @@ import Footer from "./Footer";
 import ChangeLang from "./ChangeLang";
 interface ContainerProps {
   heading: JSX.Element;
-  heroSrc: string;
+  heroImg: {
+    src: string;
+    alt: string;
+  };
 }
 
 const Container: React.FC<ContainerProps> = ({
   heading,
-  heroSrc,
+  heroImg,
   children,
 }) => {
   return (
     <div className="relative min-h-screen">
       <div className="absolute h-70vh w-full my-0 mx-auto">
         <Image
+          priority
           className="p-16-caralho md:p-24-caralho"
-          src={heroSrc}
-          alt=""
+          src={heroImg.src}
+          alt={heroImg.alt}
           layout="fill"
           objectFit="cover"
+          objectPosition="center"
         />
         <div className="absolute h-full w-full bg-oliver-light bg-opacity-75" />
       </div>
