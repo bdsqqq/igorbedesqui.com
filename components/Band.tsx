@@ -55,9 +55,7 @@ const Band: React.FC<BandProps> = ({
         id={bandId.replace(/\s+/g, "-").toLowerCase()}
         className={`w-full py-16
         ${
-          dark
-            ? "bg-oliver-500 text-oliver-light"
-            : "bg-oliver-light text-oliver-500"
+          dark ? "bg-igor-500 text-igor-light" : "bg-igor-light text-igor-500"
         }`}
       >
         <div
