@@ -25,6 +25,11 @@ module.exports = {
           500: "#29222E",
           700: "#403547",
         },
+        igor: {
+          light: "#fffcf5",
+          500: "#2e2225",
+          700: "#473539",
+        },
       },
       fontFamily: {
         sans: ["Mplus", ...fontFamily.sans],
