@@ -1,10 +1,3 @@
-import Head from "next/head";
-import Trans from "next-translate/Trans";
-import useTranslation from "next-translate/useTranslation";
-import Band from "../components/Band";
-import Container from "../components/Container";
-import Image from "next/image";
-
 export default function Home() {
   const { t } = useTranslation("home");
 
@@ -114,3 +107,11 @@ export default function Home() {
     </>
   );
 }
+
+import Head from "next/head";
+import Image from "next/image";
+import Trans from "next-translate/Trans";
+import useTranslation from "next-translate/useTranslation";
+import Band from "../components/Band";
+import Container from "../components/Container";
+import Projects from "../components/Projects";
