@@ -29,12 +29,12 @@ export default function Home() {
         heroImg={{ src: "/images/background.jpg", alt: "bob ross" }}
       >
         <Band gridless id="hej">
-          <h1 className="text-2xl md:text-5xl tracking-tight text-center">
+          <p className="text-2xl md:text-5xl tracking-tight text-center">
             <Trans
               i18nKey="home:about"
               components={[<span className="font-bold" />]}
             />
-          </h1>
+          </p>
         </Band>
         <Band
           dark
@@ -44,11 +44,11 @@ export default function Home() {
             text: "Connect with me",
           }}
         >
-          <h3 className="text-2xl">
+          <p className="text-2xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
             laborum porro distinctio obcaecati sequi dolorum aperiam ipsam
             molestiae est beatae!
-          </h3>
+          </p>
         </Band>
         <Band
           gridless
@@ -58,10 +58,10 @@ export default function Home() {
             text: "CTA TEXT",
           }}
         >
-          <h3 className="text-4xl text-center italic font-light">
+          <p className="text-4xl text-center italic font-light">
             " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod qui
             facere voluptate! "
-          </h3>
+          </p>
         </Band>
         <Band
           headline={{ bold: "02", thin: "Gallery" }}
@@ -104,11 +104,11 @@ export default function Home() {
             text: "back to the top",
           }}
         >
-          <h3 className="text-2xl">
+          <p className="text-2xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
             laborum porro distinctio obcaecati sequi dolorum aperiam ipsam
             molestiae est beatae!
-          </h3>
+          </p>
         </Band>
       </Container>
     </>
