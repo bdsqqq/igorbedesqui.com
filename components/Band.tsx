@@ -65,14 +65,14 @@ const Band: React.FC<BandProps> = ({
         >
           {!gridless ? (
             <>
-              <div className="mb-12 md:col-span-1">
+              <h2 className="mb-12 md:col-span-1">
                 <span className="font-bold">{headline?.bold}</span>
                 <br />
                 <span className="font-extralight">{headline?.thin}</span>
                 <br />
                 <br />
                 <span className="hidden md:inline">//</span>
-              </div>
+              </h2>
               <div className="md:col-span-3">{children}</div>
             </>
           ) : (
@@ -80,7 +80,11 @@ const Band: React.FC<BandProps> = ({
           )}
         </div>
         {cta && (
-          <div className="flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 text-gray-500 hover:text-gray-600 transition">
+          <div
+            className={`flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 text-opacity-70 hover:text-opacity-90 focus-within:text-opacity-90 transition-all ${
+              dark ? " text-igor-light" : " text-igor-500"
+            }`}
+          >
             {cta.external ? (
               <ExternalLink href={cta.target}>
                 {cta.text ? "— " + cta.text : cta.child}
