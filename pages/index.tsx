@@ -29,19 +29,8 @@ export default function Home() {
             />
           </p>
         </Band>
-        <Band
-          dark
-          headline={{ bold: "01", thin: "Title" }}
-          cta={{
-            target: "#lets's connect!",
-            text: "Connect with me",
-          }}
-        >
-          <p className="text-2xl">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
-            laborum porro distinctio obcaecati sequi dolorum aperiam ipsam
-            molestiae est beatae!
-          </p>
+        <Band dark headline={{ bold: "01", thin: "Projects" }}>
+          <Projects />
         </Band>
         <Band
           gridless
