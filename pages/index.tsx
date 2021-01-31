@@ -21,15 +21,18 @@ export default function Home() {
         }
         heroImg={{ src: "/images/background.jpg", alt: "bob ross" }}
       >
-        <Band gridless id="hej">
-          <p className="text-2xl md:text-5xl tracking-tight text-center">
-            <Trans
-              i18nKey="home:about"
-              components={[<span className="font-bold" />]}
-            />
+        <Band headline={{ bold: "01", thin: "In a few words" }}>
+          <p className="text-xl md:text-3xl tracking-tight ">
+            I create <span className="font-bold"> digital solutions</span> using
+            <span className="font-bold"> motion</span> and
+            <span className="font-bold"> contrast</span> to enrich content. I'm
+            not afraid of failing, pivoting, and being
+            <span className="font-bold"> agile</span>. Testing and iterating,
+            making sure to let the
+            <span className="font-bold"> user decide</span>.
           </p>
         </Band>
-        <Band dark headline={{ bold: "01", thin: "Projects" }}>
+        <Band dark headline={{ bold: "02", thin: "Work" }}>
           <Projects />
         </Band>
         <Band
@@ -46,7 +49,7 @@ export default function Home() {
           </p>
         </Band>
         <Band
-          headline={{ bold: "02", thin: "Gallery" }}
+          headline={{ bold: "03", thin: "Gallery" }}
           cta={{
             target: "/example",
             text: "CTA TEXT",
