@@ -24,7 +24,7 @@ export default function Projects() {
       <ul className="h-48">
         {images.map((image, i) => {
           return (
-            <>
+            <Fragment key={`li-${i}`}>
               <li
                 className={`my-2 transition-opacity ${
                   i != currentImage && "opacity-70"
@@ -58,7 +58,7 @@ export default function Projects() {
                   <hr className="opacity-50 w-8 mb-2 mt-6" />
                 )}
               </li>
-            </>
+            </Fragment>
           );
         })}
       </ul>
@@ -93,6 +93,6 @@ export default function Projects() {
   );
 }
 
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
