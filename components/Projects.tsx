@@ -20,7 +20,7 @@ export default function Projects() {
   const [isGray, setIsGray] = useState(true);
 
   return (
-    <div className="flex flex-col items-center justify-start md:flex-row md:justify-between">
+    <div className="flex flex-col items-center justify-start min-h-96 md:flex-row md:justify-between">
       <ul className="h-48">
         {images.map((image, i) => {
           return (
@@ -41,11 +41,13 @@ export default function Projects() {
                   setIsGray(true);
                 }}
               >
-                <span className="font-bold text-lg">{image.src}</span> -{" "}
-                <span className="font-light opacity-50 mr-1">FrontEnd dev</span>
+                <span className="font-bold text-lg">{image.src} </span>
+                <span className="font-light opacity-50 mr-1">
+                  - FrontEnd dev
+                </span>
                 {i == currentImage ? (
                   <motion.div
-                    className="cursor-pointer"
+                    className="cursor-pointer p-1 pb-0 select-none"
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 0.6, x: 0 }}
                     whileHover={{ opacity: 1, x: 10 }}
@@ -53,13 +55,14 @@ export default function Projects() {
                     leia mais ⟶
                   </motion.div>
                 ) : (
-                  <hr className="opacity-50 w-8 mt-4" />
+                  <hr className="opacity-50 w-8 mb-2 mt-6" />
                 )}
               </li>
             </>
           );
         })}
       </ul>
+      <div className="h-24 md:hidden" />
       <div className="flex justify-items-center overflow-hidden items-center mx-auto h-96 w-full md:w-96">
         <motion.div
           className="overflow-hidden relative mx-auto"
