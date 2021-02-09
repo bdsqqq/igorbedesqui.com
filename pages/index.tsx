@@ -25,11 +25,7 @@ export default function Home() {
           <p className="text-xl md:text-3xl tracking-tight ">
             I create <span className="font-bold"> digital solutions</span> using
             <span className="font-bold"> motion</span> and
-            <span className="font-bold"> contrast</span> to enrich content. I'm
-            not afraid of failing, pivoting, and being
-            <span className="font-bold"> agile</span>. Testing and iterating,
-            making sure to let the
-            <span className="font-bold"> user decide</span>.
+            <span className="font-bold"> contrast</span> to enrich content.
           </p>
         </Band>
         <Band dark headline={{ bold: "02", thin: "Work" }}>
