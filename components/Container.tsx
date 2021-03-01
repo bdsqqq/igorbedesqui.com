@@ -1,7 +1,3 @@
-import Image from "next/image";
-
-import Footer from "./Footer";
-import ChangeLang from "./ChangeLang";
 interface ContainerProps {
   heading: JSX.Element;
   heroImg: {
@@ -15,6 +11,8 @@ const Container: React.FC<ContainerProps> = ({
   heroImg,
   children,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="relative min-h-screen">
       <div className="absolute h-70vh w-full my-0 mx-auto">
@@ -30,19 +28,22 @@ const Container: React.FC<ContainerProps> = ({
         <div className="absolute h-full w-full bg-igor-light bg-opacity-75" />
       </div>
       <div className="h-70vh relative">
-        <nav className="flex justify-between items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto">
-          <div>
-            <h1 className="font-bold text-xl md:text-2xl my-auto tracking-tight text-gray-700"></h1>
-          </div>
-          <div>
-            <ChangeLang
-              generalClasses="p-1 sm:p-2 lowercase"
-              activeClasses="font-bold text-gray-900"
-              inactiveClasses="text-gray-500"
-            />
-          </div>
+        <nav className="flex justify-end items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto">
+          <a href="#skip" className="sr-only focus:not-sr-only">
+            {t("common:skip")}
+          </a>
+
+          <ChangeLang
+            generalClasses="p-1 sm:p-2 lowercase"
+            activeClasses="font-bold text-gray-900"
+            inactiveClasses="text-gray-500"
+          />
         </nav>
-        <h1 className="max-w-2xl md:max-w-4xl mx-8 mt-8 md:mx-16 md:mt-16 text-lg sm:text-2xl md:text-3xl tracking-tight mb-4 text-igor-500 md:leading-snug uppercase">
+        <h1
+          id="skip"
+          tabIndex={-1}
+          className="max-w-2xl md:max-w-4xl mx-8 mt-8 md:mx-16 md:mt-16 text-lg sm:text-2xl md:text-3xl tracking-tight mb-4 text-igor-500 md:leading-snug uppercase"
+        >
           {heading}
         </h1>
       </div>
@@ -55,3 +56,9 @@ const Container: React.FC<ContainerProps> = ({
 };
 
 export default Container;
+
+import Image from "next/image";
+import useTranslation from "next-translate/useTranslation";
+
+import Footer from "./Footer";
+import ChangeLang from "./ChangeLang";

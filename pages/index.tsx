@@ -19,7 +19,7 @@ export default function Home() {
             ]}
           />
         }
-        heroImg={{ src: "/images/background.jpg", alt: "bob ross" }}
+        heroImg={{ src: "/images/background.jpg", alt: "" }}
       >
         <Band headline={{ bold: "01", thin: "In a few words" }}>
           <p className="text-xl md:text-3xl tracking-tight ">

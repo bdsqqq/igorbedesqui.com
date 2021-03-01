@@ -1,4 +1,4 @@
 {
-    "title": "Hello world",
-    "variable-example": "Using a variable {{count}}"
+    "switch": "Change to english",
+    "skip": "Skip to content"
 }
