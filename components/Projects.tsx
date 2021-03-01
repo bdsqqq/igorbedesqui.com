@@ -24,12 +24,9 @@ export default function Projects() {
       <ul className="h-48">
         {images.map((image, i) => {
           return (
-            <Fragment key={`li-${i}`}>
-              <li
-                className={`my-2 transition-opacity ${
-                  i != currentImage && "opacity-70"
-                }`}
-                onClick={() => {
+            <Link href={`/projects/${image.src}`} passHref key={`li-${i}`}>
+              <a
+                onFocus={() => {
                   setIsGray(false);
                   setCurrentImage(i);
                 }}
@@ -41,24 +38,31 @@ export default function Projects() {
                   setIsGray(true);
                 }}
               >
-                <span className="font-bold text-lg">{image.src} </span>
-                <span className="font-light opacity-50 mr-1">
-                  - FrontEnd dev
-                </span>
-                {i == currentImage ? (
-                  <motion.div
-                    className="cursor-pointer p-1 pb-0 select-none"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 0.6, x: 0 }}
-                    whileHover={{ opacity: 1, x: 10 }}
-                  >
-                    leia mais ⟶
-                  </motion.div>
-                ) : (
-                  <hr className="opacity-50 w-8 mb-2 mt-6" />
-                )}
-              </li>
-            </Fragment>
+                <li
+                  className={`my-2 transition-opacity ${
+                    i != currentImage && "opacity-70"
+                  }`}
+                >
+                  <span className="font-bold text-lg">{image.src} </span>
+                  <span className="font-light opacity-50 mr-1">
+                    - FrontEnd dev
+                  </span>
+                  {i == currentImage ? (
+                    <motion.div
+                      className="cursor-pointer p-1 pb-0 select-none"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 0.6, x: 0 }}
+                      whileHover={{ opacity: 1, x: 10 }}
+                      whileFocus={{ opacity: 1, x: 10 }}
+                    >
+                      leia mais ⟶
+                    </motion.div>
+                  ) : (
+                    <hr className="opacity-50 w-8 mb-2 mt-6" />
+                  )}
+                </li>
+              </a>
+            </Link>
           );
         })}
       </ul>
@@ -93,6 +97,7 @@ export default function Projects() {
   );
 }
 
-import { useState, Fragment } from "react";
+import { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
