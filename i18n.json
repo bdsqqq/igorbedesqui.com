@@ -3,7 +3,8 @@
     "defaultLocale": "en",
     "pages": {
         "*": ["common"],
-        "/": ["home"],
+        "/": ["home", "projs/meta"],
+        "rgx:/p/": ["projs/meta"], 
         "/p/iss": ["projs/iss"]
     }
 }
