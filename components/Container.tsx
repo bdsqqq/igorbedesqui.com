@@ -1,6 +1,6 @@
 interface ContainerProps {
   heading: JSX.Element;
-  heroImg: {
+  heroImg?: {
     src: string;
     alt: string;
   };
@@ -15,18 +15,20 @@ const Container: React.FC<ContainerProps> = ({
 
   return (
     <div className="relative min-h-screen">
-      <div className="absolute h-70vh w-full my-0 mx-auto">
-        <Image
-          priority
-          className="p-16-caralho md:p-24-caralho"
-          src={heroImg.src}
-          alt={heroImg.alt}
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
-        />
-        <div className="absolute h-full w-full bg-igor-light bg-opacity-75" />
-      </div>
+      {heroImg && (
+        <div className="absolute h-70vh w-full my-0 mx-auto">
+          <Image
+            priority
+            className="p-16-caralho md:p-24-caralho"
+            src={heroImg.src}
+            alt={heroImg.alt}
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+          />
+          <div className="absolute h-full w-full bg-igor-light bg-opacity-75" />
+        </div>
+      )}
       <div className="h-70vh relative">
         <nav className="flex justify-end items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto">
           <a href="#skip" className="sr-only focus:not-sr-only">
