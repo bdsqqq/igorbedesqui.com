@@ -79,7 +79,7 @@ export default function Home() {
           </div>
         </Band>
         <Band
-          headline={{ bold: "Hey", thin: "lets's connect!" }}
+          headline={{ bold: "Hey", thin: `let's connect!` }}
           cta={{
             target: "#",
             text: "back to the top",
