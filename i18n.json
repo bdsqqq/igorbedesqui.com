@@ -3,6 +3,7 @@
     "defaultLocale": "en",
     "pages": {
         "*": ["common"],
-        "/": ["home"]
+        "/": ["home"],
+        "/proj/iss": ["projs/iss"]
     }
 }
