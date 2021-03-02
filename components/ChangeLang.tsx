@@ -41,17 +41,18 @@ const ChangeLang: React.FC<ChangeLangProps> = ({
 
         return (
           <li className="inline" key={lng}>
-            <Link href="/" passHref locale={lng}>
-              <a aria-label={switchMessage}>
-                <span
-                  className={generalClasses.concat(
-                    " " + inactiveClasses + " cursor-pointer select-none"
-                  )}
-                >
-                  {t(`${lng}`)}
-                </span>
-              </a>
-            </Link>
+            <button
+              onClick={async () => await setLanguage(lng)}
+              aria-label={switchMessage}
+            >
+              <span
+                className={generalClasses.concat(
+                  " " + inactiveClasses + " cursor-pointer select-none"
+                )}
+              >
+                {t(`${lng}`)}
+              </span>
+            </button>
             {count < locales.length && (
               <span className={generalClasses}>|</span>
             )}
@@ -64,8 +65,8 @@ const ChangeLang: React.FC<ChangeLangProps> = ({
 
 export default ChangeLang;
 
-import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
+import setLanguage from "next-translate/setLanguage";
 import i18nConfig from "../i18n.json";
 
 import en from "../locales/en/common.json";
