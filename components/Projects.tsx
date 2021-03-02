@@ -30,6 +30,9 @@ export default function Projects() {
                   setIsGray(false);
                   setCurrentImage(i);
                 }}
+                onBlur={() => {
+                  setIsGray(true);
+                }}
                 onMouseOver={() => {
                   setIsGray(false);
                   setCurrentImage(i);
