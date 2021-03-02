@@ -4,11 +4,13 @@ interface ContainerProps {
     src: string;
     alt: string;
   };
+  backable?: boolean;
 }
 
 const Container: React.FC<ContainerProps> = ({
   heading,
   heroImg,
+  backable,
   children,
 }) => {
   const { t } = useTranslation();
@@ -30,7 +32,18 @@ const Container: React.FC<ContainerProps> = ({
         </div>
       )}
       <div className="h-70vh relative">
-        <nav className="flex justify-end items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto">
+        <nav
+          className={`flex ${
+            backable ? "justify-between" : "justify-end"
+          } items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto`}
+        >
+          {backable && (
+            <Link href="/" passHref>
+              <a>
+                ⟵ <span>{t("common:back")}</span>{" "}
+              </a>
+            </Link>
+          )}
           <a href="#skip" className="sr-only focus:not-sr-only">
             {t("common:skip")}
           </a>
@@ -64,3 +77,4 @@ import useTranslation from "next-translate/useTranslation";
 
 import Footer from "./Footer";
 import ChangeLang from "./ChangeLang";
+import Link from "next/link";
