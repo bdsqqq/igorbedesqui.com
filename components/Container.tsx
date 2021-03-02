@@ -15,6 +15,15 @@ const Container: React.FC<ContainerProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const a = {
+    active: { opacity: 1, x: -8 },
+    innactive: { opacity: 0.5, x: 0 },
+  };
+  const item = {
+    active: { opacity: 1, y: 0 },
+    innactive: { opacity: 0.01, y: 5 },
+  };
+
   return (
     <div className="relative min-h-screen">
       {heroImg && (
@@ -39,9 +48,22 @@ const Container: React.FC<ContainerProps> = ({
         >
           {backable && (
             <Link href="/" passHref>
-              <a>
-                ⟵ <span>{t("common:back")}</span>{" "}
-              </a>
+              <motion.a
+                className="cursor-pointer px-4 pb-0 select-none"
+                initial="innactive"
+                variants={a}
+                whileFocus={"active"}
+                whileHover={"active"}
+              >
+                ⟵{" "}
+                <motion.span
+                  className="inline-block"
+                  transition={{ duration: 0.1 }}
+                  variants={item}
+                >
+                  {t("common:back")}
+                </motion.span>{" "}
+              </motion.a>
             </Link>
           )}
           <a href="#skip" className="sr-only focus:not-sr-only">
@@ -74,6 +96,7 @@ export default Container;
 
 import Image from "next/image";
 import useTranslation from "next-translate/useTranslation";
+import { motion } from "framer-motion";
 
 import Footer from "./Footer";
 import ChangeLang from "./ChangeLang";
