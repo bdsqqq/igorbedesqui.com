@@ -1,9 +1,9 @@
 {
     "iss": {
         "name": "ISS" ,
-        "role": "Designer, Escritor de conteúdo e Desenvolvedor Fullstack",
+        "roles": "Designer, Escritor de conteúdo, Desenvolvedor Fullstack",
         "type": "Personal",
-        "tools": "" ,
+        "tools": "Tool1, Tool2",
         "date": "Fev 2021"
     }
     
