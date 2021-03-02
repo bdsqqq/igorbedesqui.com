@@ -12,7 +12,6 @@ export default function Iss() {
             ]}
           />
         }
-        heroImg={{ src: "/images/background.jpg", alt: "" }}
       ></Container>
     </>
   );

@@ -4,6 +4,6 @@
     "pages": {
         "*": ["common"],
         "/": ["home"],
-        "/proj/iss": ["projs/iss"]
+        "/p/iss": ["projs/iss"]
     }
 }
