@@ -29,7 +29,7 @@ const Container: React.FC<ContainerProps> = ({
     childrenArray[childrenArray.length - 1].props.dark;
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen bg-igor-light">
       {heroImg && (
         <div className="absolute h-70vh w-full my-0 mx-auto">
           <Image
