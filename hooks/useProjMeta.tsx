@@ -6,6 +6,9 @@ function useProjMeta(projName: string) {
     type: t(`${projName}.type`),
     tools: t(`${projName}.tools`).split(","),
     date: t(`${projName}.date`),
+    imgSrc: t(`${projName}.imgSrc`),
+    imgWidth: t(`${projName}.imgWidth`),
+    imgHeight: t(`${projName}.imgHeight`),
   };
 }
 

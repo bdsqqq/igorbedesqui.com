@@ -4,7 +4,10 @@
         "roles": "Designer, Escritor de conteúdo, Desenvolvedor Fullstack",
         "type": "Personal",
         "tools": "Tool1, Tool2",
-        "date": "Fev 2021"
+        "date": "Fev 2021",
+        "imgSrc": "projects/iss.jpg",
+        "imgWidth": "144",
+        "imgHeight": "256"
     }
     
 
