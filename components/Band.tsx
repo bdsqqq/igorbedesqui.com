@@ -5,13 +5,13 @@ interface BandPropsBasic {
   dark?: boolean;
   cta?:
     | {
-        external?: boolean;
+        outOfSite?: boolean;
         target: string;
         text: string;
         child?: never;
       }
     | {
-        external?: boolean;
+        outOfSite?: boolean;
         target: string;
         child: React.ReactNode;
         text?: never;
@@ -87,7 +87,7 @@ const Band: React.FC<BandProps> = ({
               dark ? " text-igor-light" : " text-igor-500"
             }`}
           >
-            {cta.external ? (
+            {cta.outOfSite ? (
               <ExternalLink href={cta.target}>
                 {cta.text ? "— " + cta.text : cta.child}
               </ExternalLink>
