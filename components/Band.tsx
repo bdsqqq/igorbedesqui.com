@@ -5,13 +5,13 @@ interface BandPropsBasic {
   dark?: boolean;
   cta?:
     | {
-        external?: boolean;
+        outOfSite?: boolean;
         target: string;
         text: string;
         child?: never;
       }
     | {
-        external?: boolean;
+        outOfSite?: boolean;
         target: string;
         child: React.ReactNode;
         text?: never;
@@ -65,10 +65,12 @@ const Band: React.FC<BandProps> = ({
         >
           {!gridless ? (
             <>
-              <h2 className="mb-12 md:col-span-1">
-                <span className="font-bold">{headline?.bold}</span>
+              <h2 className="mb-12 md:col-span-1 md:pr-6">
+                <span className="font-bold text-sm">{headline?.bold}</span>
                 <br />
-                <span className="font-extralight">{headline?.thin}</span>
+                <span className="font-extralight text-sm">
+                  {headline?.thin}
+                </span>
                 <br />
                 <br />
                 <span className="hidden md:inline">//</span>
@@ -85,7 +87,7 @@ const Band: React.FC<BandProps> = ({
               dark ? " text-igor-light" : " text-igor-500"
             }`}
           >
-            {cta.external ? (
+            {cta.outOfSite ? (
               <ExternalLink href={cta.target}>
                 {cta.text ? "— " + cta.text : cta.child}
               </ExternalLink>

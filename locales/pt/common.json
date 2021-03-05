@@ -1,4 +1,7 @@
 {
-    "title": "Olá <0>mundo</0>",
-    "variable-example": "Usando uma variavel {{count}}"
+    "switch": "Mudar para português",
+    "back": "Voltar",
+    "skip": "Pular para o conteúdo",
+    "secondary": "Secundaria"
+
 }

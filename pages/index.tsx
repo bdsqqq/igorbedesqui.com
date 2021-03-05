@@ -19,17 +19,13 @@ export default function Home() {
             ]}
           />
         }
-        heroImg={{ src: "/images/background.jpg", alt: "bob ross" }}
+        heroImg={{ src: "/images/background.jpg", alt: "" }}
       >
         <Band headline={{ bold: "01", thin: "In a few words" }}>
           <p className="text-xl md:text-3xl tracking-tight ">
             I create <span className="font-bold"> digital solutions</span> using
             <span className="font-bold"> motion</span> and
-            <span className="font-bold"> contrast</span> to enrich content. I'm
-            not afraid of failing, pivoting, and being
-            <span className="font-bold"> agile</span>. Testing and iterating,
-            making sure to let the
-            <span className="font-bold"> user decide</span>.
+            <span className="font-bold"> contrast</span> to enrich content.
           </p>
         </Band>
         <Band dark headline={{ bold: "02", thin: "Work" }}>
@@ -83,7 +79,7 @@ export default function Home() {
           </div>
         </Band>
         <Band
-          headline={{ bold: "Hey", thin: "lets's connect!" }}
+          headline={{ bold: "Hey", thin: `let's connect!` }}
           cta={{
             target: "#",
             text: "back to the top",
@@ -106,4 +102,4 @@ import Trans from "next-translate/Trans";
 import useTranslation from "next-translate/useTranslation";
 import Band from "../components/Band";
 import Container from "../components/Container";
-import Projects from "../components/Projects";
+import Projects from "../components/ProjectStuff/Projects";
