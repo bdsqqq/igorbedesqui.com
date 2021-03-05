@@ -1,30 +1,20 @@
 export default function Projects() {
-  const images = [
-    {
-      src: "street.jpg",
-      width: 144,
-      height: 256,
-    },
-    {
-      src: "background.jpg",
-      width: 30,
-      height: 600,
-    },
-    {
-      src: "cars.jpg",
-      width: 400,
-      height: 600,
-    },
-  ];
+  const issMeta = useProjMeta("iss");
+  const projectsMeta = [issMeta, issMeta];
+
   const [currentImage, setCurrentImage] = useState(0);
   const [isGray, setIsGray] = useState(true);
 
   return (
     <div className="flex flex-col items-center justify-start min-h-96 md:flex-row md:justify-between">
       <ul className="h-48">
-        {images.map((image, i) => {
+        {projectsMeta.map((project, i) => {
           return (
-            <Link href={`/projects/${image.src}`} passHref key={`li-${i}`}>
+            <Link
+              href={`/p/${project.name.toLowerCase()}`}
+              passHref
+              key={`li-${i}`}
+            >
               <a
                 onFocus={() => {
                   setIsGray(false);
@@ -46,9 +36,10 @@ export default function Projects() {
                     i != currentImage && "opacity-70"
                   }`}
                 >
-                  <span className="font-bold text-lg">{image.src} </span>
+                  <span className="font-bold text-lg">{project.name}</span>
+                  <br />
                   <span className="font-light opacity-50 mr-1">
-                    - FrontEnd dev
+                    {project.roles[0]}
                   </span>
                   {i == currentImage ? (
                     <motion.div
@@ -74,19 +65,23 @@ export default function Projects() {
         <motion.div
           className="overflow-hidden relative mx-auto"
           animate={{
-            width: images[currentImage].width,
-            height: images[currentImage].height,
+            width: parseInt(projectsMeta[currentImage].imgWidth),
+            height: parseInt(projectsMeta[currentImage].imgHeight),
             transition: { duration: 0.4 },
           }}
           exit={{
-            width: images[(currentImage + 1) % images.length].width,
-            height: images[(currentImage + 1) % images.length].height,
+            width: parseInt(
+              projectsMeta[(currentImage + 1) % projectsMeta.length].imgWidth
+            ),
+            height: parseInt(
+              projectsMeta[(currentImage + 1) % projectsMeta.length].imgHeight
+            ),
             transition: { duration: 0.2 },
           }}
           initial={false}
         >
           <Image
-            src={`/images/${images[currentImage].src}`}
+            src={`/images/${projectsMeta[currentImage].imgSrc}`}
             layout="fill"
             objectFit="cover"
             objectPosition="center"
@@ -104,3 +99,5 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+
+import useProjMeta from "../../hooks/useProjMeta";
