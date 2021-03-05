@@ -1,11 +1,26 @@
-export default function Footer() {
+interface FooterProps {
+  dark?: boolean;
+}
+
+const Footer: React.FC<FooterProps> = ({ dark }) => {
   const { t } = usetranslation();
 
+  const linkClassList = `text-sm text-opacity-80 hover:text-opacity-100 focus:text-opacity-100 transition-all ${
+    dark ? "text-igor-light" : " text-igor-500"
+  }`;
+
   return (
-    <footer className="flex flex-col items-center pb-8">
+    <footer
+      className={`flex flex-col items-center pb-8 ${
+        dark ? "bg-igor-500" : "bg-igor-light"
+      }`}
+    >
       <nav aria-label={t("common:secondary")}>
         <div className="flex space-x-4 mb-4">
-          <ExternalLink href="https://github.com/bdsqqq">
+          <ExternalLink
+            href="https://github.com/bdsqqq"
+            aClassList={linkClassList}
+          >
             <span className="sr-only">Github</span>
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <g
@@ -19,7 +34,10 @@ export default function Footer() {
               </g>
             </svg>
           </ExternalLink>
-          <ExternalLink href="mailto:igorbedesqui@gmail.com">
+          <ExternalLink
+            href="mailto:igorbedesqui@gmail.com"
+            aClassList={linkClassList}
+          >
             <span className="sr-only">Email</span>
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <g
@@ -36,16 +54,16 @@ export default function Footer() {
           </ExternalLink>
         </div>
         <div className="space-x-3">
-          <Link href="/example">
-            <a className="text-sm text-gray-500 hover:text-gray-600">
-              /example
-            </a>
+          <Link href="/example" passHref>
+            <a className={linkClassList}>/example</a>
           </Link>
         </div>
       </nav>
     </footer>
   );
-}
+};
+
+export default Footer;
 
 import Link from "next/link";
 import ExternalLink from "./ExternalLink";
