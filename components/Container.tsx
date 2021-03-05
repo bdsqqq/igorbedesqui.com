@@ -24,6 +24,10 @@ const Container: React.FC<ContainerProps> = ({
     innactive: { opacity: 0.01, y: 5 },
   };
 
+  const childrenArray: any = Children.toArray(children);
+  const dark: boolean | undefined =
+    childrenArray[childrenArray.length - 1].props.dark;
+
   return (
     <div className="relative min-h-screen">
       {heroImg && (
@@ -86,7 +90,7 @@ const Container: React.FC<ContainerProps> = ({
       </div>
       <div className="relative -mt-2 bg-igor-light min-h-30vh rounded-tl-2xl w-full">
         <main className="flex flex-col justify-center">{children}</main>
-        <Footer />
+        <Footer dark={dark} />
       </div>
     </div>
   );
@@ -94,6 +98,7 @@ const Container: React.FC<ContainerProps> = ({
 
 export default Container;
 
+import { Children } from "react";
 import Image from "next/image";
 import useTranslation from "next-translate/useTranslation";
 import { motion } from "framer-motion";
