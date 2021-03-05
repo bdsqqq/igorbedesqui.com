@@ -102,4 +102,4 @@ import Trans from "next-translate/Trans";
 import useTranslation from "next-translate/useTranslation";
 import Band from "../components/Band";
 import Container from "../components/Container";
-import Projects from "../components/Projects";
+import Projects from "../components/ProjectStuff/Projects";
