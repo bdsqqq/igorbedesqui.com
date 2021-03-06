@@ -1,16 +1,31 @@
-interface ContainerProps {
-  heading: JSX.Element;
-  heroImg?: {
-    src: string;
-    alt: string;
-  };
-  backable?: boolean;
-}
+type ContainerProps =
+  | {
+      heading: JSX.Element;
+      heroImg?: {
+        src: string;
+        alt: string;
+      };
+      backable?: boolean;
+      backMessage?: never;
+      backTarget?: never;
+    }
+  | {
+      heading: JSX.Element;
+      heroImg?: {
+        src: string;
+        alt: string;
+      };
+      backable: true;
+      backMessage?: string;
+      backTarget?: string;
+    };
 
 const Container: React.FC<ContainerProps> = ({
   heading,
   heroImg,
   backable,
+  backMessage,
+  backTarget,
   children,
 }) => {
   const { t } = useTranslation();
@@ -51,7 +66,7 @@ const Container: React.FC<ContainerProps> = ({
           } items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto`}
         >
           {backable && (
-            <Link href="/" passHref>
+            <Link href={backTarget ? `/#${backTarget}` : "/"} passHref>
               <motion.a
                 className="cursor-pointer px-4 pb-0 select-none"
                 initial="innactive"
@@ -65,7 +80,7 @@ const Container: React.FC<ContainerProps> = ({
                   transition={{ duration: 0.1 }}
                   variants={item}
                 >
-                  {t("common:back")}
+                  {backMessage ? backMessage : t("common:back")}
                 </motion.span>{" "}
               </motion.a>
             </Link>
@@ -106,3 +121,4 @@ import { motion } from "framer-motion";
 import Footer from "./Footer";
 import ChangeLang from "./ChangeLang";
 import Link from "next/link";
+import { type } from "os";
