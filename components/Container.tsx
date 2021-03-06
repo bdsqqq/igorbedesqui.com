@@ -30,13 +30,15 @@ const Container: React.FC<ContainerProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const [backIsActive, setBackIsActive] = useState(false);
+
   const a = {
     active: { opacity: 1, x: -8 },
-    innactive: { opacity: 0.5, x: 0 },
+    inactive: { opacity: 0.5, x: 0 },
   };
-  const item = {
+  const div = {
     active: { opacity: 1, y: 0 },
-    innactive: { opacity: 0.01, y: 5 },
+    inactive: { opacity: 0.01, y: 5 },
   };
 
   const childrenArray: any = Children.toArray(children);
@@ -68,20 +70,31 @@ const Container: React.FC<ContainerProps> = ({
           {backable && (
             <Link href={backTarget ? `/#${backTarget}` : "/"} passHref>
               <motion.a
-                className="cursor-pointer px-4 pb-0 select-none"
-                initial="innactive"
+                className="cursor-pointer px-4 pb-0 select-none text-xl"
                 variants={a}
-                whileFocus={"active"}
-                whileHover={"active"}
+                animate={backIsActive ? "active" : "inactive"}
+                onFocus={() => {
+                  setBackIsActive(true);
+                }}
+                onBlur={() => {
+                  setBackIsActive(false);
+                }}
+                onMouseOver={() => {
+                  setBackIsActive(true);
+                }}
+                onMouseLeave={() => {
+                  setBackIsActive(false);
+                }}
               >
-                ⟵{" "}
-                <motion.span
-                  className="inline-block"
+                <span className="font-bold">⟵</span>
+                <motion.div
+                  className="ml-1 inline-block"
                   transition={{ duration: 0.1 }}
-                  variants={item}
+                  variants={div}
+                  animate={backIsActive ? "active" : "inactive"}
                 >
                   {backMessage ? backMessage : t("common:back")}
-                </motion.span>{" "}
+                </motion.div>
               </motion.a>
             </Link>
           )}
@@ -113,7 +126,7 @@ const Container: React.FC<ContainerProps> = ({
 
 export default Container;
 
-import { Children } from "react";
+import { Children, useState } from "react";
 import Image from "next/image";
 import useTranslation from "next-translate/useTranslation";
 import { motion } from "framer-motion";
@@ -121,4 +134,3 @@ import { motion } from "framer-motion";
 import Footer from "./Footer";
 import ChangeLang from "./ChangeLang";
 import Link from "next/link";
-import { type } from "os";
