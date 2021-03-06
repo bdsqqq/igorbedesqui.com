@@ -36,7 +36,7 @@ const Container: React.FC<ContainerProps> = ({
     active: { opacity: 1, x: -8 },
     inactive: { opacity: 0.5, x: 0 },
   };
-  const div = {
+  const span = {
     active: { opacity: 1, y: 0 },
     inactive: { opacity: 0.01, y: 5 },
   };
@@ -87,14 +87,14 @@ const Container: React.FC<ContainerProps> = ({
                 }}
               >
                 <span className="font-bold">⟵</span>
-                <motion.div
+                <motion.span
                   className="ml-1 inline-block"
                   transition={{ duration: 0.1 }}
-                  variants={div}
+                  variants={span}
                   animate={backIsActive ? "active" : "inactive"}
                 >
                   {backMessage ? backMessage : t("common:back")}
-                </motion.div>
+                </motion.span>
               </motion.a>
             </Link>
           )}
