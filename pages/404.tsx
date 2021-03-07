@@ -2,7 +2,7 @@ export default function Custom404() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-igor-light text-igor-500">
       <MainNav backable />
 
       <div
