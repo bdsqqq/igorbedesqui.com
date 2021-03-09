@@ -1,6 +1,7 @@
 function useProjMeta(projName: string) {
   const { t } = useTranslation(`projs/meta`);
   return {
+    shortName: projName,
     name: t(`${projName}.name`),
     roles: t(`${projName}.roles`).split(","),
     type: t(`${projName}.type`),
