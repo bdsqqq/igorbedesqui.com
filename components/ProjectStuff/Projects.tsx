@@ -7,7 +7,7 @@ export default function Projects() {
       <ul className="min-h-4 w-full grid grid-cols-1fr18rem gap-12">
         {projectsMeta.map((project, i) => {
           return (
-            <li>
+            <li key={`p-${i}`}>
               <article>
                 <h3 className="font-bold text-2xl">{project.name}</h3>
 
