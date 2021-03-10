@@ -65,16 +65,19 @@ const Band: React.FC<BandProps> = ({
         >
           {!gridless ? (
             <>
-              <h2 className="mb-12 md:col-span-1 md:pr-6">
-                <span className="font-bold text-sm">{headline?.bold}</span>
-                <br />
-                <span className="font-extralight text-sm">
-                  {headline?.thin}
+              <h2 className="mb-12 md:col-span-1 md:pr-6 ">
+                <span className="font-bold text-md md:text-7xl md:t-writing-mode-vlr">
+                  {headline?.bold}
                 </span>
-                <br />
-                <br />
-                <span className="hidden md:inline">//</span>
+                <div
+                  className={`md:inline-block md:w-12 font-light text-opacity-80 text-md md:text-lg align-top md:break-normal ${
+                    dark ? "text-igor-light" : "text-igor-500"
+                  }`}
+                >
+                  {headline?.thin}
+                </div>
               </h2>
+
               <div className="md:col-span-3">{children}</div>
             </>
           ) : (
