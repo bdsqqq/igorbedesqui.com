@@ -3,6 +3,7 @@ import NextLink from "next/link";
 
 interface BandPropsBasic {
   dark?: boolean;
+  padless?: boolean;
   cta?:
     | {
         outOfSite?: boolean;
@@ -38,6 +39,7 @@ type BandProps = BandWithGrid | BandGridless;
 const Band: React.FC<BandProps> = ({
   dark,
   gridless,
+  padless,
   id,
   headline,
   cta,
@@ -50,59 +52,58 @@ const Band: React.FC<BandProps> = ({
   cta && (cta.target = cta.target.replace(/\s+/g, "-").toLowerCase());
 
   return (
-    <>
-      <section
-        id={bandId.replace(/\s+/g, "-").toLowerCase()}
-        className={`w-full py-16
+    <section
+      id={bandId.replace(/\s+/g, "-").toLowerCase()}
+      className={`w-full 
+        ${!padless && "py-16"}
         ${
           dark ? "bg-igor-500 text-igor-light" : "bg-igor-light text-igor-500"
         }`}
-      >
-        <div
-          className={`max-w-6xl mx-auto px-8 md:px-16 
+    >
+      <div
+        className={` mx-auto ${!padless && "max-w-6xl px-8 md:px-16 "}
             ${!gridless && "md:grid grid-cols-4"}
         `}
-        >
-          {!gridless ? (
-            <>
-              <h2 className="mb-12 md:col-span-1 md:pr-6 ">
-                <span className="font-bold text-md md:text-7xl md:t-writing-mode-vlr">
-                  {headline?.bold}
-                </span>
-                <div
-                  className={`md:inline-block md:w-12 font-light text-opacity-80 text-md md:text-lg align-top md:break-normal ${
-                    dark ? "text-igor-light" : "text-igor-500"
-                  }`}
-                >
-                  {headline?.thin}
-                </div>
-              </h2>
+      >
+        {!gridless ? (
+          <>
+            <h2 className="mb-12 md:col-span-1 md:pr-6 ">
+              <span className="font-bold text-md md:text-7xl md:t-writing-mode-vlr">
+                {headline?.bold}
+              </span>
+              <div
+                className={`md:inline-block md:w-12 font-light text-opacity-80 text-md md:text-lg align-top md:break-normal ${
+                  dark ? "text-igor-light" : "text-igor-500"
+                }`}
+              >
+                {headline?.thin}
+              </div>
+            </h2>
 
-              <div className="md:col-span-3">{children}</div>
-            </>
+            <div className="md:col-span-3">{children}</div>
+          </>
+        ) : (
+          <>{children}</>
+        )}
+      </div>
+      {cta && (
+        <div
+          className={`flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 text-opacity-70 hover:text-opacity-90 focus-within:text-opacity-90 transition-all ${
+            dark ? " text-igor-light" : " text-igor-500"
+          }`}
+        >
+          {cta.outOfSite ? (
+            <ExternalLink href={cta.target}>
+              {cta.text ? "— " + cta.text : cta.child}
+            </ExternalLink>
           ) : (
-            <>{children}</>
+            <NextLink href={cta.target}>
+              {cta.text ? "— " + cta.text : cta.child}
+            </NextLink>
           )}
         </div>
-        {cta && (
-          <div
-            className={`flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 text-opacity-70 hover:text-opacity-90 focus-within:text-opacity-90 transition-all ${
-              dark ? " text-igor-light" : " text-igor-500"
-            }`}
-          >
-            {cta.outOfSite ? (
-              <ExternalLink href={cta.target}>
-                {cta.text ? "— " + cta.text : cta.child}
-              </ExternalLink>
-            ) : (
-              <NextLink href={cta.target}>
-                {cta.text ? "— " + cta.text : cta.child}
-              </NextLink>
-            )}
-          </div>
-        )}
-      </section>
-    </>
+      )}
+    </section>
   );
 };
 
