@@ -8,22 +8,23 @@ export default function Home() {
         <meta content={t("title")} name="description" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Container
-        heading={
+      <Container>
+        <HeroBand heroImg={{ src: "/images/background.jpg", alt: "" }}>
           <Trans
             i18nKey="home:hero"
             components={[
-              <span className="font-light text-sm sm:text-lg md:text-2xl" />,
+              <span className="font-light text-lg md:text-2xl" />,
               <br />,
               <span className="font-bold" />,
             ]}
           />
-        }
-        heroImg={{ src: "/images/background.jpg", alt: "" }}
-      >
+        </HeroBand>
         <Band headline={{ bold: "01", thin: "In a few words" }}>
           <p className="text-xl md:text-3xl tracking-tight ">
-            I create <span className="font-bold"> digital solutions</span> using
+            I'm a philosophy nerd who thinks coding is fun.
+            <br />
+            Professionally I create
+            <span className="font-bold"> digital solutions</span> using
             <span className="font-bold"> motion</span> and
             <span className="font-bold"> contrast</span> to enrich content.
           </p>
@@ -103,3 +104,4 @@ import useTranslation from "next-translate/useTranslation";
 import Band from "../components/Band";
 import Container from "../components/Container";
 import Projects from "../components/ProjectStuff/Projects";
+import HeroBand from "../components/HeroBand";

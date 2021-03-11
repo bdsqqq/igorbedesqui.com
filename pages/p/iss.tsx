@@ -1,9 +1,8 @@
 export default function Iss() {
   const issMeta = useProjMeta("iss");
   return (
-    <Container
-      backable
-      heading={
+    <Container backable backMessage="Jump right back">
+      <HeroBand>
         <Trans
           i18nKey="projs/iss:something"
           components={[
@@ -12,8 +11,7 @@ export default function Iss() {
             <span className="font-bold" />,
           ]}
         />
-      }
-    >
+      </HeroBand>
       <DetailsBand projName={issMeta.name}>
         <div className="leading-loose mb-6">
           <h3 className="font-bold text-xl">Role</h3>
@@ -68,6 +66,7 @@ import Trans from "next-translate/Trans";
 
 import Container from "../../components/Container";
 import Band from "../../components/Band";
+import HeroBand from "../../components/HeroBand";
 import DetailsBand from "../../components/ProjectStuff/DetailsBand";
 
 import useProjMeta from "../../hooks/useProjMeta";
