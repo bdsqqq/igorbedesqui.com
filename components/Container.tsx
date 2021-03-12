@@ -2,18 +2,18 @@ type ContainerProps =
   | {
       backable?: boolean;
       backMessage?: never;
-      backTarget?: never;
+      backAnchor?: never;
     }
   | {
       backable: true;
       backMessage?: string;
-      backTarget?: string;
+      backAnchor?: string;
     };
 
 const Container: React.FC<ContainerProps> = ({
   backable,
   backMessage,
-  backTarget,
+  backAnchor,
   children,
 }) => {
   const childrenArray: any = Children.toArray(children);
@@ -28,7 +28,7 @@ const Container: React.FC<ContainerProps> = ({
         <MainNav
           backable={backable}
           backMessage={backMessage}
-          backTarget={backTarget}
+          backAnchor={backAnchor}
         />
       )}
       <div className="relative -mt-2 bg-igor-light min-h-30vh rounded-tl-2xl w-full">
