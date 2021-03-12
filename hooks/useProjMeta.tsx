@@ -1,3 +1,15 @@
+export type projMeta = {
+  shortName: string;
+  name: string;
+  roles: string[];
+  type: string;
+  tools: string[];
+  date: string;
+  imgSrc: string;
+  imgWidth: string;
+  imgHeight: string;
+};
+
 function useProjMeta(projName: string) {
   const { t } = useTranslation(`projs/meta`);
   return {
