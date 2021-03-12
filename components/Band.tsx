@@ -1,6 +1,3 @@
-import ExternalLink from "./ExternalLink";
-import NextLink from "next/link";
-
 interface BandPropsBasic {
   dark?: boolean;
   padless?: boolean;
@@ -51,6 +48,12 @@ const Band: React.FC<BandProps> = ({
 
   cta && (cta.target = cta.target.replace(/\s+/g, "-").toLowerCase());
 
+  const [ctaIsActive, setCtaIsActive] = useState(false);
+  const a = {
+    active: { opacity: 1, x: 8 },
+    inactive: { opacity: 0.5, x: 0 },
+  };
+
   return (
     <section
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
@@ -88,19 +91,37 @@ const Band: React.FC<BandProps> = ({
       </div>
       {cta && (
         <div
-          className={`flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 text-opacity-70 hover:text-opacity-90 focus-within:text-opacity-90 transition-all ${
+          className={`flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 ${
             dark ? " text-igor-light" : " text-igor-500"
           }`}
         >
-          {cta.outOfSite ? (
-            <ExternalLink href={cta.target}>
-              {cta.text ? "— " + cta.text : cta.child}
-            </ExternalLink>
-          ) : (
-            <NextLink href={cta.target}>
-              {cta.text ? "— " + cta.text : cta.child}
-            </NextLink>
-          )}
+          <motion.div
+            className="cursor-pointer px-4 pb-0 select-none"
+            variants={a}
+            animate={ctaIsActive ? "active" : "inactive"}
+            onFocus={() => {
+              setCtaIsActive(true);
+            }}
+            onBlur={() => {
+              setCtaIsActive(false);
+            }}
+            onMouseOver={() => {
+              setCtaIsActive(true);
+            }}
+            onMouseLeave={() => {
+              setCtaIsActive(false);
+            }}
+          >
+            {cta.outOfSite ? (
+              <ExternalLink href={cta.target}>
+                {cta.text ? "— " + cta.text : cta.child}
+              </ExternalLink>
+            ) : (
+              <NextLink href={cta.target} passHref>
+                <a>{cta.text ? "— " + cta.text : cta.child}</a>
+              </NextLink>
+            )}
+          </motion.div>
         </div>
       )}
     </section>
@@ -108,3 +129,9 @@ const Band: React.FC<BandProps> = ({
 };
 
 export default Band;
+
+import { useState } from "react";
+import NextLink from "next/link";
+import { motion } from "framer-motion";
+
+import ExternalLink from "./ExternalLink";
