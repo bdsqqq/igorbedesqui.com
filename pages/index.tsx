@@ -31,7 +31,11 @@ export default function Home() {
             <span className="font-bold"> contrast</span> to enrich content.
           </p>
         </Band>
-        <Band dark headline={{ bold: "02", thin: "Work" }}>
+        <Band
+          dark
+          headline={{ bold: "02", thin: "Work" }}
+          cta={{ target: "/p", text: "see all the projects" }}
+        >
           <Projects projectsMeta={projsMeta} />
         </Band>
         <Band
