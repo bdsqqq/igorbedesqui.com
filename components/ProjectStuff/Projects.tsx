@@ -1,7 +1,7 @@
-export default function Projects() {
-  const issMeta = useProjMeta("iss");
-  const projectsMeta = [issMeta, issMeta, issMeta];
-
+type ProjectsProps = {
+  projectsMeta: projMeta[];
+};
+const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
   return (
     <div className="flex flex-col items-center justify-start min-h-96 md:flex-row md:justify-between">
       <ul className="min-h-4 w-full grid grid-cols-1fr18rem gap-12">
@@ -44,9 +44,11 @@ export default function Projects() {
       </ul>
     </div>
   );
-}
+};
+
+export default Projects;
 
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import useProjMeta from "../../hooks/useProjMeta";
+import { projMeta } from "../../hooks/useProjMeta";

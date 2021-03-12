@@ -1,5 +1,7 @@
 export default function Home() {
   const { t } = useTranslation("home");
+  const issMeta = useProjMeta("iss");
+  const projsMeta = [issMeta, issMeta, issMeta];
 
   return (
     <>
@@ -30,7 +32,7 @@ export default function Home() {
           </p>
         </Band>
         <Band dark headline={{ bold: "02", thin: "Work" }}>
-          <Projects />
+          <Projects projectsMeta={projsMeta} />
         </Band>
         <Band
           gridless
@@ -101,6 +103,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Trans from "next-translate/Trans";
 import useTranslation from "next-translate/useTranslation";
+import useProjMeta from "../hooks/useProjMeta";
 import Band from "../components/Band";
 import Container from "../components/Container";
 import Projects from "../components/ProjectStuff/Projects";
