@@ -1,7 +1,7 @@
 export default function Iss() {
   const issMeta = useProjMeta("iss");
   return (
-    <Container backable backMessage="Jump right back">
+    <ProjectContainer backMessage="Jump right back">
       <HeroBand>
         <Trans
           i18nKey="projs/iss:something"
@@ -58,13 +58,13 @@ export default function Iss() {
         headline={{ bold: "A", thin: "aa" }}
         cta={{ target: "/", text: "something", outOfSite: true }}
       ></Band>
-    </Container>
+    </ProjectContainer>
   );
 }
 
 import Trans from "next-translate/Trans";
 
-import Container from "../../components/Container";
+import ProjectContainer from "../../components/ProjectStuff/ProjectContainer";
 import Band from "../../components/Band";
 import HeroBand from "../../components/HeroBand";
 import DetailsBand from "../../components/ProjectStuff/DetailsBand";
