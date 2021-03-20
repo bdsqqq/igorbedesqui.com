@@ -10,7 +10,7 @@ export default function Home() {
         <meta content={t("title")} name="description" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Container>
+      <Container key="index">
         <HeroBand heroImg={{ src: "/images/background.jpg", alt: "" }}>
           <Trans
             i18nKey="home:hero"

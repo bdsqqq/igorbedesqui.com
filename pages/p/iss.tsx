@@ -1,7 +1,7 @@
 export default function Iss() {
   const issMeta = useProjMeta("iss");
   return (
-    <ProjectContainer backMessage="Jump right back">
+    <ProjectContainer key="issProj" backMessage="Jump right back">
       <HeroBand>
         <Trans
           i18nKey="projs/iss:something"

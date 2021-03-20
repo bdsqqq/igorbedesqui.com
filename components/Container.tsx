@@ -21,7 +21,13 @@ const Container: React.FC<ContainerProps> = ({
     childrenArray[childrenArray.length - 1].props.dark;
 
   return (
-    <div className="relative min-h-screen bg-igor-light">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="relative min-h-screen bg-igor-light"
+    >
       {!backable ? (
         <MainNav />
       ) : (
@@ -35,7 +41,7 @@ const Container: React.FC<ContainerProps> = ({
         <main className="flex flex-col justify-center">{children}</main>
         <Footer dark={dark} />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -45,3 +51,4 @@ import { Children } from "react";
 
 import MainNav from "./MainNav";
 import Footer from "./Footer";
+import { motion } from "framer-motion";
