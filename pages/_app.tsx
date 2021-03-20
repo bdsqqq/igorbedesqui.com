@@ -3,16 +3,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     <HistoryProvider>
       <div className="relative">
         <motion.div
+          tabIndex={-1}
           className="fixed z-50 h-screen w-full bg-igor-700"
           animate={{ x: "100vw" }}
           transition={{ delay: 0.4, duration: 0.2 }}
         />
         <motion.div
+          tabIndex={-1}
           className="fixed z-40 h-screen w-full bg-igor-500"
           animate={{ x: "100vw" }}
           transition={{ delay: 0.6, duration: 0.2 }}
         />
         <motion.div
+          tabIndex={-1}
           className="fixed z-30 h-screen w-full bg-igor-700"
           animate={{ x: "100vw" }}
           transition={{ delay: 0.8, duration: 0.1 }}
