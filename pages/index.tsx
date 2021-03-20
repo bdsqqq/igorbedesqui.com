@@ -12,13 +12,11 @@ export default function Home() {
       </Head>
       <Container key="index">
         <HeroBand heroImg={{ src: "/images/background.jpg", alt: "" }}>
-          <Trans
+          <TransWithComps
             i18nKey="home:hero"
-            components={[
-              <span className="font-light text-lg md:text-2xl" />,
-              <br />,
-              <span className="font-bold" />,
-            ]}
+            extraComponents={{
+              intro: <span className="font-light text-lg md:text-2xl" />,
+            }}
           />
         </HeroBand>
         <Band headline={{ bold: "01", thin: "In a few words" }}>
@@ -105,10 +103,11 @@ export default function Home() {
 
 import Head from "next/head";
 import Image from "next/image";
-import Trans from "next-translate/Trans";
 import useTranslation from "next-translate/useTranslation";
 import useProjMeta from "../hooks/useProjMeta";
+
 import Band from "../components/Band";
 import Container from "../components/Container";
+import TransWithComps from "../components/i18nStuff/TransWithComps";
 import Projects from "../components/ProjectStuff/Projects";
 import HeroBand from "../components/HeroBand";
