@@ -1,6 +1,6 @@
 {
-    "title": "Igor Bedesqui | Desenvolvedor criativo",
-    "description": "Desenvolvedor front-end criativo localizado in São Paulo",
-    "hero": "<0>Olá  — </0><1/><1/>Meu nome é <2>Igor Bedesqui</2>, eu sou um desenvolvedor criativo localizado em São Paulo e essa é uma seleção de alguns dos meus projetos <2>pessoais</2> e <2>profissionais</2>.",
+    "title": "Igor Bedesqui | Desenvolvedor Web",
+    "description": "Desenvolvedor Web front-end localizado in São Paulo",
+    "hero": "<intro>Olá  — </intro><br/><br/>Meu nome é <b>Igor Bedesqui</b>, eu sou um desenvolvedor web localizado em São Paulo e essa é uma seleção de alguns dos meus projetos <b>pessoais</b> e <b>profissionais</b>.",
     "about": "hej"
 }
