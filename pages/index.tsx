@@ -19,20 +19,15 @@ export default function Home() {
             }}
           />
         </HeroBand>
-        <Band headline={{ bold: "01", thin: "In a few words" }}>
+        <Band headline={{ bold: "01", thin: t("01Title") }}>
           <p className="text-xl md:text-3xl tracking-tight ">
-            I'm a philosophy nerd who thinks coding is fun.
-            <br />
-            Professionally I create
-            <span className="font-bold"> digital solutions</span> using
-            <span className="font-bold"> motion</span> and
-            <span className="font-bold"> contrast</span> to enrich content.
+            <TransWithComps i18nKey="home:inAFewWords" />
           </p>
         </Band>
         <Band
           dark
-          headline={{ bold: "02", thin: "Work" }}
-          cta={{ target: "/p", text: "see all the projects" }}
+          headline={{ bold: "02", thin: t("02Title") }}
+          cta={{ target: "/p", text: t("02Cta") as string }}
         >
           <Projects projectsMeta={projsMeta} />
         </Band>
