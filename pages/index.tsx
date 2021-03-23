@@ -24,11 +24,7 @@ export default function Home() {
             <TransWithComps i18nKey="home:01Copy" />
           </p>
         </Band>
-        <Band
-          dark
-          headline={{ bold: "02", thin: t("02Title") }}
-          cta={{ target: "/p", text: t("02Cta") as string }}
-        >
+        <Band dark headline={{ bold: "02", thin: t("02Title") }}>
           <Projects projectsMeta={projsMeta} />
         </Band>
         <Band headline={{ bold: t("hey"), thin: t("heyTitle") }}>
