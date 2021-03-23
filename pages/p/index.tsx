@@ -1,15 +1,6 @@
 export default function ProjectsPage() {
-  const issMeta = useProjMeta("iss");
-  const projsMeta = [
-    issMeta,
-    issMeta,
-    issMeta,
-    issMeta,
-    issMeta,
-    issMeta,
-    issMeta,
-    issMeta,
-  ];
+  const wasmGifMeta = useProjMeta("wasmGif");
+  const projsMeta = [wasmGifMeta];
 
   return (
     <Container key="projsHome" backable>

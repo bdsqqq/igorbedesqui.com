@@ -1,5 +1,7 @@
 export default function Home() {
   const { t } = useTranslation("home");
+  const wasmGifMeta = useProjMeta("wasmGif");
+  const projsMeta = [wasmGifMeta];
 
   return (
     <>
@@ -21,6 +23,13 @@ export default function Home() {
           <p className="text-xl md:text-3xl tracking-tight ">
             <TransWithComps i18nKey="home:01Copy" />
           </p>
+        </Band>
+        <Band
+          dark
+          headline={{ bold: "02", thin: t("02Title") }}
+          cta={{ target: "/p", text: t("02Cta") as string }}
+        >
+          <Projects projectsMeta={projsMeta} />
         </Band>
         <Band headline={{ bold: t("hey"), thin: t("heyTitle") }}>
           <p className="text-2xl">
@@ -50,9 +59,11 @@ export default function Home() {
 
 import Head from "next/head";
 import useTranslation from "next-translate/useTranslation";
+import useProjMeta from "../hooks/useProjMeta";
 
 import Band from "../components/Band";
 import Container from "../components/Container";
 import TransWithComps from "../components/i18nStuff/TransWithComps";
 import HeroBand from "../components/HeroBand";
+import Projects from "../components/ProjectStuff/Projects";
 import ExternalLink from "../components/ExternalLink";
