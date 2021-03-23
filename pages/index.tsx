@@ -9,7 +9,7 @@ export default function Home() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Container key="index">
-        <HeroBand heroImg={{ src: "/images/background.jpg", alt: "" }}>
+        <HeroBand>
           <TransWithComps
             i18nKey="home:hero"
             extraComponents={{
