@@ -14,10 +14,7 @@ const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
                 <div className="font-light opacity-50 mb-4">
                   {project.roles[0]}
                 </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-                  sapiente iusto iure vitae nesciunt magni.
-                </p>
+                <p>{project.description}</p>
 
                 <div className="flex justify-between">
                   <span> — </span>
