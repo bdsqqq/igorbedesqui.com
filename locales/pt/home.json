@@ -4,8 +4,12 @@
     "hero": "<intro>Olá  — </intro><br/><br/>Meu nome é <b>Igor Bedesqui</b>, eu sou um desenvolvedor web localizado em São Paulo e essa é uma seleção de alguns dos meus projetos <b>pessoais</b> e <b>profissionais</b>.",
 
     "01Title": "Em poucas palavras",
-    "inAFewWords": "Eu sou um estudante que acha programar divertido.<br/> Profissionalmente, eu crio <b> soluções digitais</b> usando <b> movimento</b> e<b> contraste</b> para enriquecer conteúdo.",
+    "01Copy": "Eu sou um estudante que acha programar divertido.<br/> Profissionalmente, eu crio <b> soluções digitais</b> usando <b> movimento</b> e<b> contraste</b> para enriquecer conteúdo.",
 
     "02Title": "Trabalho",
-    "02Cta": "Veja mais projetos"
+    "02Cta": "Veja mais projetos",
+
+    "hey": "Eai",
+    "heyTitle": "Bora se conectar!",
+    "heyCopy": "Você pode me encontra no <twitter>Twitter</twitter>, escrutinar meu código no <github>Github</github> ou entrar em contato via <email>Email</email>"
 }
