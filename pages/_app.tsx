@@ -1,13 +1,44 @@
-import "../styles/index.css";
-import type { AppProps } from "next/app";
-import { HistoryProvider } from "../contexts/History";
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <HistoryProvider>
-      <Component {...pageProps} />
+      <div className="relative">
+        <motion.div
+          tabIndex={-1}
+          className="fixed z-50 h-screen w-full bg-igor-700"
+          animate={{ x: "100vw" }}
+          transition={{ delay: 0.4, duration: 0.3 }}
+        />
+        <motion.div
+          tabIndex={-1}
+          className="fixed z-40 h-screen w-full bg-igor-500"
+          animate={{ x: "100vw" }}
+          transition={{ delay: 0.6, duration: 0.3 }}
+        />
+        <motion.div
+          tabIndex={-1}
+          className="fixed z-30 h-screen w-full bg-igor-700"
+          animate={{ x: "100vw" }}
+          transition={{ delay: 0.8, duration: 0.15 }}
+        />
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9, duration: 0.6 }}
+          className="bg-igor-light"
+        >
+          <AnimatePresence exitBeforeEnter>
+            <Component {...pageProps} />
+          </AnimatePresence>
+        </motion.div>
+      </div>
     </HistoryProvider>
   );
 }
 
 export default MyApp;
+
+import "../styles/index.css";
+import type { AppProps } from "next/app";
+import { HistoryProvider } from "../contexts/History";
+import { motion, AnimatePresence } from "framer-motion";

@@ -12,7 +12,7 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <Container backable>
+    <Container key="projsHome" backable>
       <Band headline={{ bold: "01", thin: "Work" }}>
         <Projects projectsMeta={projsMeta} />
       </Band>
