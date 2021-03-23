@@ -1,14 +1,18 @@
 {
     "iss": {
-        "name": "ISS" ,
+        "name": "Onde está a ISS" ,
         "roles": "Designer, Escritor de conteúdo, Desenvolvedor Fullstack",
         "type": "Personal",
         "tools": "Tool1, Tool2",
-        "date": "Fev 2021",
-        "imgSrc": "projects/iss.jpg",
-        "imgWidth": "144",
-        "imgHeight": "256"
-    }
+        "date": "Fev 2021"
+    },
     
-
+    "wasmGif": {
+        "name": "Wasm Conversor de Gifs" ,
+        "description": "Esse é um site que te ajuda a converter vídeos em gifs, sem enviar dados para lugar nenhum.",
+        "roles": "Desenvolvedor FrontEnd, UX/UI Designer",
+        "type": "Pessoal",
+        "tools": "ffmpeg, Web Assembly, NextJS, React, Framer Motion, TailwindCSS",
+        "date": "Mar 2021"
+    }
 }
