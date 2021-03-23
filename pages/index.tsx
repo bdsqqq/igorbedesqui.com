@@ -27,12 +27,6 @@ export default function Home() {
             <TransWithComps
               i18nKey="home:heyCopy"
               extraComponents={{
-                twitter: (
-                  <ExternalLink
-                    aClassList="font-bold opacity-90 hover:opacity-100 focus:opacity-100 transition transition-all"
-                    href="https://twitter.com/Igorbdsq"
-                  ></ExternalLink>
-                ),
                 github: (
                   <ExternalLink
                     aClassList="font-bold opacity-90 hover:opacity-100 focus:opacity-100 transition transition-all"
