@@ -1,18 +1,23 @@
+import TransWithComps from "../../components/i18nStuff/TransWithComps";
+
 export default function wasmGif() {
-  const { t } = useTranslation();
+  const { t } = useTranslation("projs/wasmGif");
   const wasmGifMeta = useProjMeta("wasmGif");
   return (
     <ProjectContainer key="wasmGifProj">
-      <HeroBand>
-        <Trans
-          i18nKey="projs/wasmGif:something"
-          components={[
-            <span className="font-light text-sm sm:text-lg md:text-2xl" />,
-            <br />,
-            <span className="font-bold" />,
-          ]}
-        />
+      <HeroBand heroImg={{ src: "/images/wow.gif", alt: "" }}>
+        <TransWithComps i18nKey={"projs/wasmGif:heroTitle"} />
       </HeroBand>
+      <Band headline={{ bold: "01", thin: t("01Thin") }}>
+        <p className="text-xl md:text-2xl">
+          <TransWithComps i18nKey={"projs/wasmGif:01Copy"} />
+        </p>
+      </Band>
+      <Band dark headline={{ bold: "02", thin: t("02Thin") }}>
+        <p className="text-xl md:text-2xl">
+          <TransWithComps i18nKey={"projs/wasmGif:02Copy"} />
+        </p>
+      </Band>
       <DetailsBand projName={wasmGifMeta.name}>
         <div className="leading-loose mb-6">
           <h3 className="font-bold text-3xl">{t("projs/detail:role")}</h3>
@@ -49,16 +54,6 @@ export default function wasmGif() {
           </ul>
         </div>
       </DetailsBand>
-      <Band
-        dark
-        headline={{ bold: "A", thin: "aa" }}
-        cta={{ target: "/", text: "something" }}
-      ></Band>
-      <Band
-        dark
-        headline={{ bold: "A", thin: "aa" }}
-        cta={{ target: "/", text: "something", outOfSite: true }}
-      ></Band>
     </ProjectContainer>
   );
 }
