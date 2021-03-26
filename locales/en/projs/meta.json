@@ -9,7 +9,7 @@
     },
     
     "wasmGif": {
-        "name": "Wasm Gif Conversor" ,
+        "name": "Wasm Gif Converter" ,
         "description": "This is a website that helps you convert videos into gifs without sending any data anywhere.",
         "roles": "FrontEnd Developer, UX/UI Designer",
         "type": "Personal",
