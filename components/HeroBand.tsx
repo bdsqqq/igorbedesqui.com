@@ -23,11 +23,11 @@ const HeroBand: React.FC<HeroBandProps> = ({ heroImg, children }) => {
             <div className="absolute h-full bg-igor-light w-full bg-opacity-75" />
           </div>
         )}
-        <div className="relative min-h-70vh flex items-center">
+        <div className="relative min-h-70vh flex items-center max-w-6xl px-8 md:px-16 mx-auto">
           <h1
             id="skip"
             tabIndex={-1}
-            className="max-w-2xl md:w-2/3 mx-8 md:mx-16 text-2xl md:text-3xl tracking-tight mb-4 md:leading-snug uppercase"
+            className="max-w-2xl md:w-2/3 mx-8 md:mr-16 text-2xl md:text-3xl tracking-tight mb-4 md:leading-snug uppercase"
           >
             {children}
           </h1>

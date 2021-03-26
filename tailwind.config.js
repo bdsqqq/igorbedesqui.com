@@ -18,7 +18,6 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         "1fr12rem": "repeat(auto-fit, minmax(12rem, 1fr))",
-        "1fr18rem": "repeat(auto-fit, minmax(18rem, 1fr))",
       },
       colors: {
         oliver: {
