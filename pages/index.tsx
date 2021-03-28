@@ -5,11 +5,51 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>{t("title")}</title>
-        <meta content={t("title")} name="description" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <NextSeo
+        title={t("title")}
+        description={t("description")}
+        openGraph={{
+          type: "website",
+          url: "https://igorbedesquidotcom.vercel.app/",
+          title: t("title"),
+          description: t("description"),
+          images: [
+            {
+              url: "https://igorbedesquidotcom.vercel.app/images/og/home.jpg",
+              width: 800,
+              height: 600,
+              alt: "Street lit by neon sign of a restaurant",
+            },
+          ],
+          site_name: "Igor Bedesqui",
+        }}
+        twitter={{
+          handle: "@igorbdsq",
+          site: "@site",
+          cardType: "summary_large_image",
+        }}
+        languageAlternates={[
+          {
+            hrefLang: "pt",
+            href: "https://igorbedesquidotcom.vercel.app/pt",
+          },
+          {
+            hrefLang: "en",
+            href: "https://igorbedesquidotcom.vercel.app/",
+          },
+        ]}
+        additionalMetaTags={[
+          {
+            property: "viewport",
+            content: "initial-scale=1.0, width=device-width",
+          },
+          {
+            httpEquiv: "x-ua-compatible",
+            content: "IE=edge; chrome=1",
+          },
+        ]}
+      />
+
       <Container key="index">
         <HeroBand>
           <TransWithComps
@@ -56,6 +96,7 @@ export default function Home() {
 import Head from "next/head";
 import useTranslation from "next-translate/useTranslation";
 import useProjMeta from "../hooks/useProjMeta";
+import { NextSeo } from "next-seo";
 
 import Band from "../components/Band";
 import Container from "../components/Container";
