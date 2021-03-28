@@ -20,6 +20,7 @@
 html {
   min-width: 360px;
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
 html,
@@ -54,6 +55,9 @@ body {
     }
     .t-writing-mode-reset {
       writing-mode: horizontal-tb;
+    }
+    .max-w-1\/2 {
+      max-width: 49.99%;
     }
   }
 }

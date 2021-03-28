@@ -1,8 +1,6 @@
 {
-    "details": "Detalhes do projeto",
-
     "role": "Funções",
-    "type": "Tipo",
+    "type": "Tipo de projeto",
     "tools": "Ferramentas",
     "date": "Data"
 }

@@ -1,8 +1,6 @@
 {
-    "details": "Project Details",
-
     "role": "Role",
-    "type": "Type",
+    "type": "Project type",
     "tools": "Tools",
     "date": "Date"
 }

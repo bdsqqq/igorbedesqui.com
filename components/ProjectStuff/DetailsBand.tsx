@@ -4,8 +4,10 @@ interface DetailsBandProps {
 
 const DetailsBand: React.FC<DetailsBandProps> = ({ projName, children }) => {
   return (
-    <Band headline={{ bold: "-", thin: projName }}>
-      <div className="grid grid-cols-1fr12rem gap-4 pb-8">{children}</div>
+    <Band gridless id={projName}>
+      <div className="grid grid-cols-1fr12rem gap-8 pb-8 md:pl-4 text-xl">
+        {children}
+      </div>
     </Band>
   );
 };
