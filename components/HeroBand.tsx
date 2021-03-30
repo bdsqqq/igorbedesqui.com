@@ -37,12 +37,15 @@ const HeroBand: React.FC<HeroBandProps> = ({
             {heroVideo && (
               <div className="block overflow-hidden w-full h-full box-border absolute">
                 <video
+                  preload="none"
+                  playsInline
                   autoPlay
                   muted
                   loop
                   className="absolute visible w-0 h-0 object-center object-cover min-h-full max-h-full min-w-full max-w-full p-sm-caralho md:p-lg-caralho"
                 >
-                  <source src={heroVideo} />
+                  <source src={`${heroVideo}.webm`} type="video/webm" />
+                  <source src={`${heroVideo}.mp4`} type="video/mp4" />
                 </video>
               </div>
             )}
