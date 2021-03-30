@@ -8,6 +8,12 @@ export default function wasmGif() {
       <ProjectContainer key="wasmGifProj">
         <HeroBand heroVideo={"/videos/wow"}>
           <TransWithComps i18nKey={"projs/wasmGif:heroTitle"} />
+          <div className="mt-6">
+            <CodeAndDemoButtons
+              codeUrl="https://github.com/bdsqqq/next-wasm-gif"
+              demoUrl="https://gif-maker-bdsq.vercel.app/"
+            />
+          </div>
         </HeroBand>
 
         <Band headline={{ bold: "01", thin: t("01Thin") }}>
@@ -65,6 +71,7 @@ import useTranslation from "next-translate/useTranslation";
 import TransWithComps from "../../components/i18nStuff/TransWithComps";
 
 import ProjectContainer from "../../components/ProjectStuff/ProjectContainer";
+import CodeAndDemoButtons from "../../components/ProjectStuff/CodeAndDemoButtons";
 import Seo from "../../components/Seo";
 import Band from "../../components/Band";
 import HeroBand from "../../components/HeroBand";
