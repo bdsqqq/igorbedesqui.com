@@ -1,25 +1,54 @@
-type HeroBandProps = {
+type HeroBandImg = {
   heroImg?: {
     src: string;
     alt: string;
   };
+  heroVideo?: never;
 };
 
-const HeroBand: React.FC<HeroBandProps> = ({ heroImg, children }) => {
+type HeroBandVideo = {
+  heroVideo?: string;
+  heroImg?: never;
+};
+
+type HeroBandProps = HeroBandVideo | HeroBandImg;
+
+const HeroBand: React.FC<HeroBandProps> = ({
+  heroImg,
+  heroVideo,
+  children,
+}) => {
   return (
     <Band gridless id="hero" padless>
       <div className="relative w-full min-h-70vh">
-        {heroImg && (
+        {(heroImg || heroVideo) && (
           <div className="absolute h-full w-full my-0 mx-auto">
-            <Image
-              priority
-              className="p-sm-caralho md:p-lg-caralho"
-              src={heroImg.src}
-              alt={heroImg.alt}
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-            />
+            {heroImg && (
+              <Image
+                priority
+                className="p-sm-caralho md:p-lg-caralho"
+                src={heroImg.src}
+                alt={heroImg.alt}
+                layout="fill"
+                objectFit="cover"
+                objectPosition="center"
+              />
+            )}
+            {heroVideo && (
+              <div className="block overflow-hidden w-full h-full box-border absolute">
+                <video
+                  preload="none"
+                  playsInline
+                  autoPlay
+                  muted
+                  loop
+                  className="absolute visible w-0 h-0 object-center object-cover min-h-full max-h-full min-w-full max-w-full p-sm-caralho md:p-lg-caralho"
+                >
+                  <source src={`${heroVideo}.webm`} type="video/webm" />
+                  <source src={`${heroVideo}.mp4`} type="video/mp4" />
+                </video>
+              </div>
+            )}
             <div className="absolute h-full bg-igor-light w-full bg-opacity-75" />
           </div>
         )}
@@ -27,7 +56,7 @@ const HeroBand: React.FC<HeroBandProps> = ({ heroImg, children }) => {
           <h1
             id="skip"
             tabIndex={-1}
-            className="max-w-2xl md:w-2/3 mx-8 md:mr-16 text-2xl md:text-3xl tracking-tight mb-4 md:leading-snug uppercase"
+            className="max-w-2xl md:w-2/3 mx-4 md:mx-8 md:mr-16 text-2xl md:text-3xl tracking-tight mb-4 md:leading-snug uppercase"
           >
             {children}
           </h1>

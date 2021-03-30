@@ -4,5 +4,7 @@
     "skip": "Skip to content",
     "newTab": "Opens in a new tab",
     "secondary": "Secondary",
-    "404": "Page Not Found"
+    "404": "Page Not Found",
+    "code": "code",
+    "demo": "demo"
 }
