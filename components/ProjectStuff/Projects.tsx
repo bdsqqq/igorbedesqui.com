@@ -36,7 +36,7 @@ const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
                       whileHover={{ opacity: 1, x: 10 }}
                       whileFocus={{ opacity: 1, x: 10 }}
                     >
-                      {t("readMore")} ⟶
+                      {project.readMore ? project.readMore : t("readMore")} ⟶
                     </motion.a>
                   </Link>
                 </div>
