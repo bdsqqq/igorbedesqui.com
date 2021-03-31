@@ -53,11 +53,6 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
             </svg>
           </ExternalLink>
         </div>
-        <div className="space-x-3">
-          <Link href="/example" passHref>
-            <a className={linkClassList}>/example</a>
-          </Link>
-        </div>
       </nav>
     </footer>
   );
