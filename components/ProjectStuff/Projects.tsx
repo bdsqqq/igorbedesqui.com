@@ -2,6 +2,7 @@ type ProjectsProps = {
   projectsMeta: projMeta[];
 };
 const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
+  const { t } = useTranslation("common");
   return (
     <div className="flex flex-col items-center justify-start min-h-96 md:flex-row md:justify-between">
       <ul className="min-h-4 w-full flex flex-wrap">
@@ -35,7 +36,7 @@ const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
                       whileHover={{ opacity: 1, x: 10 }}
                       whileFocus={{ opacity: 1, x: 10 }}
                     >
-                      leia mais ⟶
+                      {t("readMore")} ⟶
                     </motion.a>
                   </Link>
                 </div>
@@ -54,3 +55,4 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { projMeta } from "../../hooks/useProjMeta";
+import useTranslation from "next-translate/useTranslation";
