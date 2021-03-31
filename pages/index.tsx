@@ -31,13 +31,13 @@ export default function Home() {
               extraComponents={{
                 github: (
                   <ExternalLink
-                    aClassList="font-bold opacity-90 hover:opacity-100 focus:opacity-100 transition transition-all"
+                    aClassList="font-bold border-current border-solid border-b-2 opacity-90 hover:opacity-100 focus:opacity-100 transition transition-all"
                     href="https://github.com/bdsqqq"
                   ></ExternalLink>
                 ),
                 email: (
                   <ExternalLink
-                    aClassList="font-bold opacity-90 hover:opacity-100 focus:opacity-100 transition transition-all"
+                    aClassList="font-bold border-current border-solid border-b-2 opacity-90 hover:opacity-100 focus:opacity-100 transition transition-all"
                     href="mailto:igorbedesqui@gmail.com"
                   ></ExternalLink>
                 ),
