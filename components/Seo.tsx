@@ -1,29 +1,42 @@
-import { Translate } from "next-translate";
-interface Props {
+interface withoutImage {
+  t: Translate;
+  lang?: never;
+  image?: never;
+}
+interface withImage {
   t: Translate;
   lang?: string;
+  image: string;
 }
 
-const Seo: React.FC<Props> = ({ t, lang }) => {
+const Seo: React.FC<withoutImage | withImage> = ({ t, lang, image }) => {
+  const og: OpenGraph = {
+    type: "website",
+    url: "https://igorbedesquidotcom.vercel.app/",
+    title: t("title"),
+    images: [],
+    description: t("description"),
+    site_name: "Igor Bedesqui",
+  };
+
+  image &&
+    Object.assign(og, {
+      images: [
+        {
+          url: `https://igorbedesquidotcom.vercel.app/images/og/${image}${
+            lang ? lang : ""
+          }.jpg`,
+          width: 1200,
+          height: 630,
+          alt: t("ogAlt"),
+        },
+      ],
+    });
   return (
     <NextSeo
       title={t("title")}
       description={t("description")}
-      openGraph={{
-        type: "website",
-        url: "https://igorbedesquidotcom.vercel.app/",
-        title: t("title"),
-        description: t("description"),
-        images: [
-          {
-            url: "https://igorbedesquidotcom.vercel.app/images/og/home.jpg",
-            width: 800,
-            height: 600,
-            alt: "Street lit by neon sign of a restaurant",
-          },
-        ],
-        site_name: "Igor Bedesqui",
-      }}
+      openGraph={og}
       twitter={{
         handle: "@igorbdsq",
         site: "@site",
@@ -56,3 +69,5 @@ const Seo: React.FC<Props> = ({ t, lang }) => {
 export default Seo;
 
 import { NextSeo } from "next-seo";
+import { OpenGraph } from "next-seo/lib/types";
+import { Translate } from "next-translate";
