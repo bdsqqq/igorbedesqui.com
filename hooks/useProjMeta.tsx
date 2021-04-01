@@ -6,18 +6,39 @@ export type projMeta = {
   type: string;
   tools: string[];
   date: string;
+  readMore?: string;
+};
+
+type projMetaT = {
+  name: string;
+  description: string;
+  roles: string;
+  type: string;
+  tools: string;
+  date: string;
+  readMore?: string;
 };
 
 function useProjMeta(projName: string) {
   const { t } = useTranslation(`projs/meta`);
+  const {
+    name,
+    description,
+    roles,
+    type,
+    tools,
+    date,
+    readMore,
+  }: projMetaT = t(projName, null, { returnObjects: true });
   return {
     shortName: projName,
-    name: t(`${projName}.name`),
-    description: t(`${projName}.description`),
-    roles: t(`${projName}.roles`).split(","),
-    type: t(`${projName}.type`),
-    tools: t(`${projName}.tools`).split(","),
-    date: t(`${projName}.date`),
+    name: name,
+    description: description,
+    roles: roles.split(","),
+    type: type,
+    tools: tools.split(","),
+    date: date,
+    readMore: readMore,
   };
 }
 
