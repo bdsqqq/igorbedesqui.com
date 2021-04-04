@@ -1,4 +1,4 @@
-export default function Home() {
+export default function About() {
   const { t } = useTranslation("home");
   const wasmGifMeta = useProjMeta("wasmGif");
 
