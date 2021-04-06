@@ -1,7 +1,4 @@
 export default function About() {
-  const { t } = useTranslation("home");
-  const wasmGifMeta = useProjMeta("wasmGif");
-
   return (
     <>
       <NextSeo />
@@ -17,11 +14,6 @@ export default function About() {
   );
 }
 
-import useTranslation from "next-translate/useTranslation";
-import useProjMeta from "../hooks/useProjMeta";
 import { NextSeo, SocialProfileJsonLd } from "next-seo";
 
-import Band from "../components/Band";
 import Container from "../components/Container";
-import TransWithComps from "../components/i18nStuff/TransWithComps";
-import HeroBand from "../components/HeroBand";
