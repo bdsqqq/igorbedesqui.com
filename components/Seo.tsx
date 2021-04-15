@@ -1,18 +1,20 @@
 interface withoutImage {
   t: Translate;
+  url?: string;
   lang?: never;
   image?: never;
 }
 interface withImage {
   t: Translate;
+  url?: string;
   lang?: string;
   image: string;
 }
 
-const Seo: React.FC<withoutImage | withImage> = ({ t, lang, image }) => {
+const Seo: React.FC<withoutImage | withImage> = ({ t, url, lang, image }) => {
   const og: OpenGraph = {
     type: "website",
-    url: "https://igorbedesquidotcom.vercel.app/",
+    url: url ? url : "https://www.igorbedesqui.com",
     title: t("title"),
     images: [],
     description: t("description"),
