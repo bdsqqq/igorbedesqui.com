@@ -16,7 +16,6 @@ const Seo: React.FC<withoutImage | withImage> = ({ t, url, lang, image }) => {
     type: "website",
     url: url ? url : "https://www.igorbedesqui.com",
     title: t("title"),
-    images: [],
     description: t("description"),
     site_name: "Igor Bedesqui",
   };
@@ -25,7 +24,7 @@ const Seo: React.FC<withoutImage | withImage> = ({ t, url, lang, image }) => {
     Object.assign(og, {
       images: [
         {
-          url: `https://igorbedesquidotcom.vercel.app/images/og/${image}${
+          url: `https://www.igorbedesqui.com/images/og/${image}${
             lang ? lang : ""
           }.jpg`,
           width: 1200,
@@ -34,6 +33,7 @@ const Seo: React.FC<withoutImage | withImage> = ({ t, url, lang, image }) => {
         },
       ],
     });
+  console.table(og);
   return (
     <NextSeo
       title={t("title")}
@@ -47,11 +47,11 @@ const Seo: React.FC<withoutImage | withImage> = ({ t, url, lang, image }) => {
       languageAlternates={[
         {
           hrefLang: "pt",
-          href: "https://igorbedesquidotcom.vercel.app/pt",
+          href: "https://www.igorbedesqui.com/pt",
         },
         {
           hrefLang: "en",
-          href: "https://igorbedesquidotcom.vercel.app/",
+          href: "https://www.igorbedesqui.com/",
         },
       ]}
       additionalMetaTags={[
