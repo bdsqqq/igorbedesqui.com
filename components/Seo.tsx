@@ -1,11 +1,13 @@
 interface withoutImage {
   t: Translate;
+  /** url will default to "https://www.igorbedesqui.com" if not provided*/
   url?: string;
   lang?: never;
   image?: never;
 }
 interface withImage {
   t: Translate;
+  /** url will default to "https://www.igorbedesqui.com" if not provided*/
   url?: string;
   lang?: string;
   image: string;
