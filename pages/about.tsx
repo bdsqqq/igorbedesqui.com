@@ -5,7 +5,7 @@ export default function About() {
       <SocialProfileJsonLd
         type="Person"
         name="Igor Bedesqui"
-        url="http://igorbedesqui.com"
+        url="https://www.igorbedesqui.com"
         sameAs={["https://www.linkedin.com/in/igor-bedesqui/"]}
       />
 
