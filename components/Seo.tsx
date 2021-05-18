@@ -2,7 +2,8 @@ interface withoutImage {
   t: Translate;
   /** url will default to "https://www.igorbedesqui.com" if not provided*/
   url?: string;
-  lang?: never;
+  lang?: string;
+  imglang?: never;
   image?: never;
 }
 interface withImage {
@@ -10,13 +11,22 @@ interface withImage {
   /** url will default to "https://www.igorbedesqui.com" if not provided*/
   url?: string;
   lang?: string;
+  imglang?: string;
   image: string;
 }
 
-const Seo: React.FC<withoutImage | withImage> = ({ t, url, lang, image }) => {
+const Seo: React.FC<withoutImage | withImage> = ({
+  t,
+  url,
+  lang,
+  image,
+  imglang,
+}) => {
   const og: OpenGraph = {
     type: "website",
-    url: url ? url : "https://www.igorbedesqui.com",
+    url: `https://www.igorbedesqui.com${lang != "en" ? "/" + lang : ""}${
+      url ? "/" + url : ""
+    }`,
     title: t("title"),
     description: t("description"),
     site_name: "Igor Bedesqui",
@@ -27,7 +37,7 @@ const Seo: React.FC<withoutImage | withImage> = ({ t, url, lang, image }) => {
       images: [
         {
           url: `https://www.igorbedesqui.com/images/og/${image}${
-            lang ? lang : ""
+            imglang ? imglang : ""
           }.jpg`,
           width: 1200,
           height: 630,
@@ -49,11 +59,15 @@ const Seo: React.FC<withoutImage | withImage> = ({ t, url, lang, image }) => {
       languageAlternates={[
         {
           hrefLang: "pt",
-          href: "https://www.igorbedesqui.com/pt",
+          href: `https://www.igorbedesqui.com/pt${url ? "/" + url : ""}`,
         },
         {
           hrefLang: "en",
-          href: "https://www.igorbedesqui.com/",
+          href: `https://www.igorbedesqui.com${url ? "/" + url : ""}`,
+        },
+        {
+          hrefLang: "x-default",
+          href: `https://www.igorbedesqui.com${url ? "/" + url : ""}`,
         },
       ]}
       additionalMetaTags={[

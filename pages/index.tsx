@@ -5,7 +5,7 @@ export default function Home() {
 
   return (
     <>
-      <Seo t={t} />
+      <Seo t={t} lang={lang} />
 
       <Container key="index">
         <HeroBand>
