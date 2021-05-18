@@ -1,20 +1,33 @@
 interface withoutImage {
   t: Translate;
-  lang?: never;
+  /** url will default to "https://www.igorbedesqui.com" if not provided*/
+  url?: string;
+  lang?: string;
+  imglang?: never;
   image?: never;
 }
 interface withImage {
   t: Translate;
+  /** url will default to "https://www.igorbedesqui.com" if not provided*/
+  url?: string;
   lang?: string;
+  imglang?: string;
   image: string;
 }
 
-const Seo: React.FC<withoutImage | withImage> = ({ t, lang, image }) => {
+const Seo: React.FC<withoutImage | withImage> = ({
+  t,
+  url,
+  lang,
+  image,
+  imglang,
+}) => {
   const og: OpenGraph = {
     type: "website",
-    url: "https://igorbedesquidotcom.vercel.app/",
+    url: `https://www.igorbedesqui.com${lang != "en" ? "/" + lang : ""}${
+      url ? "/" + url : ""
+    }`,
     title: t("title"),
-    images: [],
     description: t("description"),
     site_name: "Igor Bedesqui",
   };
@@ -23,8 +36,8 @@ const Seo: React.FC<withoutImage | withImage> = ({ t, lang, image }) => {
     Object.assign(og, {
       images: [
         {
-          url: `https://igorbedesquidotcom.vercel.app/images/og/${image}${
-            lang ? lang : ""
+          url: `https://www.igorbedesqui.com/images/og/${image}${
+            imglang ? imglang : ""
           }.jpg`,
           width: 1200,
           height: 630,
@@ -32,6 +45,7 @@ const Seo: React.FC<withoutImage | withImage> = ({ t, lang, image }) => {
         },
       ],
     });
+  console.table(og);
   return (
     <NextSeo
       title={t("title")}
@@ -45,11 +59,15 @@ const Seo: React.FC<withoutImage | withImage> = ({ t, lang, image }) => {
       languageAlternates={[
         {
           hrefLang: "pt",
-          href: "https://igorbedesquidotcom.vercel.app/pt",
+          href: `https://www.igorbedesqui.com/pt${url ? "/" + url : ""}`,
         },
         {
           hrefLang: "en",
-          href: "https://igorbedesquidotcom.vercel.app/",
+          href: `https://www.igorbedesqui.com${url ? "/" + url : ""}`,
+        },
+        {
+          hrefLang: "x-default",
+          href: `https://www.igorbedesqui.com${url ? "/" + url : ""}`,
         },
       ]}
       additionalMetaTags={[

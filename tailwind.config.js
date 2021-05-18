@@ -34,6 +34,15 @@ module.exports = {
       fontFamily: {
         sans: ["Mplus", ...fontFamily.sans],
       },
+      animation: {
+        fadeIn: "fadeIn 0.6s linear",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {

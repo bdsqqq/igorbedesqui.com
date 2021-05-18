@@ -38,7 +38,7 @@ const MainNav: React.FC<MainNavProps> = ({
 
   const a = {
     active: { opacity: 1, x: -8 },
-    inactive: { opacity: 0.5, x: 0 },
+    inactive: { opacity: 0.8, x: 0 },
   };
   const span = {
     active: { opacity: 1, y: 0 },
@@ -71,7 +71,7 @@ const MainNav: React.FC<MainNavProps> = ({
           >
             <span className="font-bold">⟵</span>
             <motion.span
-              className="ml-1 inline-block"
+              className="ml-1"
               transition={{ duration: 0.1 }}
               variants={span}
               animate={backIsActive ? "active" : "inactive"}

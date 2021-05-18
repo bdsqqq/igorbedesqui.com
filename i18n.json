@@ -4,8 +4,11 @@
     "pages": {
         "*": ["common"],
         "/": ["home", "projs/meta"],
+
         "rgx:/p": ["projs/meta", "projs/detail"], 
         "/p/iss": ["projs/iss"],
-        "/p/wasmgif": ["projs/wasmGif"]
+        "/p/wasmgif": ["projs/wasmGif"],
+        
+        "/about" : ["about"]
     }
 }

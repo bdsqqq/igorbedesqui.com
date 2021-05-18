@@ -1,9 +1,9 @@
 export default function wasmGif() {
-  const { t } = useTranslation("projs/wasmGif");
+  const { t, lang } = useTranslation("projs/wasmGif");
   const wasmGifMeta = useProjMeta("wasmGif");
   return (
     <>
-      <Seo t={t} />
+      <Seo t={t} lang={lang} url="p/wasmgif" />
 
       <ProjectContainer key="wasmGifProj">
         <HeroBand heroVideo={"/videos/wow"}>

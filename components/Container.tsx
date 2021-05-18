@@ -16,9 +16,11 @@ const Container: React.FC<ContainerProps> = ({
   backAnchor,
   children,
 }) => {
-  const childrenArray: any = Children.toArray(children);
-  const dark: boolean | undefined =
-    childrenArray[childrenArray.length - 1].props.dark;
+  const childrenArray: any[] = Children.toArray(children);
+  let dark: boolean | undefined;
+  if (childrenArray.length > 0) {
+    dark = childrenArray[childrenArray.length - 1].props.dark;
+  }
 
   return (
     <motion.div
