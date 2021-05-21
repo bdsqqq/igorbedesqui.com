@@ -22,7 +22,7 @@ export default function ComponentsPage() {
       <Container key="compsHome" backable>
         <Band headline={{ bold: "01", thin: "Animated masonry grid" }}>
           <div className="relative h-full">
-            <div className="flex justify-evenly w-full">
+            <div className="flex flex-col md:flex-row md:justify-evenly w-full gap-4">
               <div>
                 <h3 className="text-center font-bold text-2xl">
                   {cardNumber} Cards

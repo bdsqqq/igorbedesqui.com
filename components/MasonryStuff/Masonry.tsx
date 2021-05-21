@@ -43,7 +43,7 @@ const Masonry: React.FC<MasonryProps> = ({ cards, columns }) => {
           <div
             className={`bg-${
               cards[index].color ? cards[index].color : "red"
-            }-500 h-full flex items-center justify-center text-4xl shadow-lg`}
+            }-500 h-full flex items-center justify-center text-2xl md:text-4xl shadow-lg`}
           >
             {index + 1}
           </div>
