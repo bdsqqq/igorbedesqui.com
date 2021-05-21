@@ -30,14 +30,15 @@ const Masonry: React.FC<MasonryProps> = ({ cards, columns }) => {
     >
       {gridItems.map((gridItem, index) => (
         <motion.div
-          className="absolute transition-all p-2"
+          className="absolute p-2"
+          layout
           key={index}
-          initial="initial"
           style={{
             x: gridItem.x,
             y: gridItem.y,
             width: gridItem.width,
             height: gridItem.height,
+            willChange: "transform, width, height",
           }}
         >
           <div
