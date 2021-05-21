@@ -13,7 +13,8 @@
     "next-seo": "^4.23.0",
     "next-translate": "^1.0.4",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-use-measure": "^2.0.4"
   },
   "devDependencies": {
     "@types/node": "^14.14.20",
