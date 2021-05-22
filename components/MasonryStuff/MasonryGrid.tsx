@@ -54,6 +54,9 @@ const Masonry: React.FC<MasonryProps> = ({ cards, columns }) => {
             </div>
           </motion.div>
         ))}
+        <span className="hidden bg-blue-400" />
+        <span className="hidden bg-red-400" />
+        <span className="hidden bg-yellow-400" />
       </AnimatePresence>
     </div>
   );
