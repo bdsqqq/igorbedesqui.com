@@ -7,8 +7,6 @@ type MasonryProps = {
 };
 
 const Masonry: React.FC<MasonryProps> = ({ cards, columns }) => {
-  const { t } = useTranslation("common");
-
   const [measureRef, { width }] = useMeasure();
 
   const [...items] = cards;
@@ -54,10 +52,10 @@ const Masonry: React.FC<MasonryProps> = ({ cards, columns }) => {
             </div>
           </motion.div>
         ))}
-        <span className="hidden bg-blue-400" />
-        <span className="hidden bg-red-400" />
-        <span className="hidden bg-yellow-400" />
       </AnimatePresence>
+      <span className="hidden bg-blue-400" />
+      <span className="hidden bg-red-400" />
+      <span className="hidden bg-yellow-400" />
     </div>
   );
 };
@@ -65,5 +63,4 @@ const Masonry: React.FC<MasonryProps> = ({ cards, columns }) => {
 export default Masonry;
 
 import { motion, AnimatePresence } from "framer-motion";
-import useTranslation from "next-translate/useTranslation";
 import useMeasure from "react-use-measure";
