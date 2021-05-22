@@ -6,7 +6,7 @@ export default function ComponentsPage() {
     <>
       <Seo t={t} lang={lang} url="c" />
       <Container key="compsHome" backable>
-        <Band headline={{ bold: "01", thin: "Animated masonry grid" }}>
+        <Band headline={{ bold: "01", thin: t("masonryThin") }}>
           <MasonryShell
             t={MasonryTranslation.t}
             cardNumberControls
