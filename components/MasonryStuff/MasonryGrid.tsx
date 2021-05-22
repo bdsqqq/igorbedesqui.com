@@ -28,34 +28,39 @@ const Masonry: React.FC<MasonryProps> = ({ cards, columns }) => {
       style={{ height: `${Math.max(...heights)}px` }}
       className="relative w-full h-full"
     >
-      {gridItems.map((gridItem, index) => (
-        <motion.div
-          className="absolute p-2"
-          layout
-          key={index}
-          style={{
-            x: gridItem.x,
-            y: gridItem.y,
-            width: gridItem.width,
-            height: gridItem.height,
-            willChange: "transform, width, height",
-          }}
-        >
-          <div
-            className={`bg-${
-              cards[index].color ? cards[index].color : "red"
-            }-500 h-full flex items-center justify-center text-2xl md:text-4xl shadow-lg`}
+      <AnimatePresence>
+        {gridItems.map((gridItem, index) => (
+          <motion.div
+            className="absolute p-2"
+            layout
+            key={index}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{
+              x: gridItem.x,
+              y: gridItem.y,
+              width: gridItem.width,
+              height: gridItem.height,
+              willChange: "transform, width, height, opacity",
+            }}
           >
-            {index + 1}
-          </div>
-        </motion.div>
-      ))}
+            <div
+              className={`bg-${
+                cards[index].color ? cards[index].color : "red"
+              }-400 h-full w-full flex items-center justify-center t-writing-mode-vlr rounded text-2xl md:text-4xl shadow-lg`}
+            >
+              {index + 1}
+            </div>
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 };
 
 export default Masonry;
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import useTranslation from "next-translate/useTranslation";
 import useMeasure from "react-use-measure";

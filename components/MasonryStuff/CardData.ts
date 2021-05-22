@@ -1,7 +1,7 @@
-export const sizes = [250, 375, 500];
+export const sizes = [150, 225, 312, 396, 439, 513, 587];
 export const colors = ["red", "blue", "yellow"];
 
-export const makeCards = (numberOfCards: number) => {
+export const makeCards = (numberOfCards: number, sizes: number[]) => {
   const cards = [];
   for (let i = 1; i <= numberOfCards; i++) {
     cards.push({
