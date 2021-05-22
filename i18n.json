@@ -10,6 +10,7 @@
         "/p/wasmgif": ["projs/wasmGif"],
 
         "rgx:/c": ["comps/common"],
+        "/c": ["comps/masonry"],
         
         "/about" : ["about"]
     }

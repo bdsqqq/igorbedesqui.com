@@ -1,0 +1,11 @@
+{
+    "card": {
+        "0": "Caixas",
+        "one":  "Caixa",
+        "other": "Caixas"
+    },
+    "column": {
+        "one":  "Coluna",
+        "other": "Colunas"
+    }
+}
