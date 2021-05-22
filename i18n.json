@@ -8,6 +8,8 @@
         "rgx:/p": ["projs/meta", "projs/detail"], 
         "/p/iss": ["projs/iss"],
         "/p/wasmgif": ["projs/wasmGif"],
+
+        "rgx:/c": ["comps/common"],
         
         "/about" : ["about"]
     }
