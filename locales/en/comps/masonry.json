@@ -1,0 +1,11 @@
+{
+    "card": {
+        "0": "Cards",
+        "one":  "Card",
+        "other": "Cards"
+    },
+    "column": {
+        "one":  "Column",
+        "other": "Columns"
+    }
+}
