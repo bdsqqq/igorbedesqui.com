@@ -28,7 +28,7 @@ export default function wasmGif() {
         </Band>
         <DetailsBand id={wasmGifMeta.name}>
           <div className="leading-loose mb-6">
-            <h3 className="font-bold text-3xl">{t("projs/detail:role")}</h3>
+            <h3 className="font-bold text-3xl">{t("detail:role")}</h3>
             <ul>
               {wasmGifMeta.roles.map((role, i) => {
                 return (
@@ -42,14 +42,14 @@ export default function wasmGif() {
           </div>
 
           <div className="leading-loose mb-6">
-            <h3 className="font-bold text-3xl">{t("projs/detail:date")}</h3>
+            <h3 className="font-bold text-3xl">{t("detail:date")}</h3>
             <p>{wasmGifMeta.date}</p>
-            <h3 className="font-bold text-3xl">{t("projs/detail:type")}</h3>
+            <h3 className="font-bold text-3xl">{t("detail:type")}</h3>
             <p>{wasmGifMeta.type}</p>
           </div>
 
           <div className="leading-loose mb-6">
-            <h3 className="font-bold text-3xl">{t("projs/detail:tools")}</h3>
+            <h3 className="font-bold text-3xl">{t("detail:tools")}</h3>
             <ul>
               {wasmGifMeta.tools.map((tool, i) => {
                 return (
