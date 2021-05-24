@@ -12,7 +12,7 @@ export default function Iss() {
           ]}
         />
       </HeroBand>
-      <DetailsBand projName={issMeta.name}>
+      <DetailsBand id={issMeta.name}>
         <div className="leading-loose mb-6">
           <h3 className="font-bold text-xl">Role</h3>
           <ul>
@@ -67,6 +67,6 @@ import Trans from "next-translate/Trans";
 import ProjectContainer from "../../components/ProjectStuff/ProjectContainer";
 import Band from "../../components/Band";
 import HeroBand from "../../components/HeroBand";
-import DetailsBand from "../../components/ProjectStuff/DetailsBand";
+import DetailsBand from "../../components/Bands/DetailsBand";
 
 import useProjMeta from "../../hooks/useProjMeta";

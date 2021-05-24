@@ -26,7 +26,7 @@ export default function wasmGif() {
             <TransWithComps i18nKey={"projs/wasmGif:02Copy"} />
           </p>
         </Band>
-        <DetailsBand projName={wasmGifMeta.name}>
+        <DetailsBand id={wasmGifMeta.name}>
           <div className="leading-loose mb-6">
             <h3 className="font-bold text-3xl">{t("projs/detail:role")}</h3>
             <ul>
@@ -75,6 +75,6 @@ import CodeAndDemoButtons from "../../components/ProjectStuff/CodeAndDemoButtons
 import Seo from "../../components/Seo";
 import Band from "../../components/Band";
 import HeroBand from "../../components/HeroBand";
-import DetailsBand from "../../components/ProjectStuff/DetailsBand";
+import DetailsBand from "../../components/Bands/DetailsBand";
 
 import useProjMeta from "../../hooks/useProjMeta";
