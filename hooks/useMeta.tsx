@@ -1,4 +1,4 @@
-export type projMeta = {
+export type Meta = {
   shortName: string;
   name: string;
   description: string;
@@ -9,7 +9,7 @@ export type projMeta = {
   readMore?: string;
 };
 
-type projMetaT = {
+type MetaT = {
   name: string;
   description: string;
   roles: string;
@@ -19,19 +19,15 @@ type projMetaT = {
   readMore?: string;
 };
 
-function useProjMeta(projName: string) {
-  const { t } = useTranslation(`projs/meta`);
-  const {
-    name,
-    description,
-    roles,
-    type,
-    tools,
-    date,
-    readMore,
-  }: projMetaT = t(projName, null, { returnObjects: true });
+function useMeta(metaName: string, namespace: string) {
+  const { t } = useTranslation(`${namespace}/meta`);
+  const { name, description, roles, type, tools, date, readMore }: MetaT = t(
+    metaName,
+    null,
+    { returnObjects: true }
+  );
   return {
-    shortName: projName,
+    shortName: metaName,
     name: name,
     description: description,
     roles: roles.split(","),
@@ -42,6 +38,6 @@ function useProjMeta(projName: string) {
   };
 }
 
-export default useProjMeta;
+export default useMeta;
 
 import useTranslation from "next-translate/useTranslation";

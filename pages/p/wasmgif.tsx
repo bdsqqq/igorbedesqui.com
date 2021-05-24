@@ -1,6 +1,6 @@
 export default function wasmGif() {
   const { t, lang } = useTranslation("projs/wasmGif");
-  const wasmGifMeta = useProjMeta("wasmGif");
+  const wasmGifMeta = useMeta("wasmGif", "projs");
   return (
     <>
       <Seo t={t} lang={lang} url="p/wasmgif" />
@@ -77,4 +77,4 @@ import Band from "../../components/Band";
 import HeroBand from "../../components/HeroBand";
 import DetailsBand from "../../components/Bands/DetailsBand";
 
-import useProjMeta from "../../hooks/useProjMeta";
+import useMeta from "../../hooks/useMeta";

@@ -1,5 +1,5 @@
 type ProjectsProps = {
-  projectsMeta: projMeta[];
+  projectsMeta: Meta[];
 };
 const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
   const { t } = useTranslation("common");
@@ -54,5 +54,5 @@ export default Projects;
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { projMeta } from "../../hooks/useProjMeta";
+import { Meta } from "../../hooks/useMeta";
 import useTranslation from "next-translate/useTranslation";

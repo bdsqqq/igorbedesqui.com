@@ -1,5 +1,5 @@
 export default function Iss() {
-  const issMeta = useProjMeta("iss");
+  const issMeta = useMeta("iss", "projs");
   return (
     <ProjectContainer key="issProj" backMessage="Jump right back">
       <HeroBand>
@@ -69,4 +69,4 @@ import Band from "../../components/Band";
 import HeroBand from "../../components/HeroBand";
 import DetailsBand from "../../components/Bands/DetailsBand";
 
-import useProjMeta from "../../hooks/useProjMeta";
+import useMeta from "../../hooks/useMeta";

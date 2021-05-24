@@ -1,6 +1,6 @@
 export default function Home() {
   const { t, lang } = useTranslation("home");
-  const wasmGifMeta = useProjMeta("wasmGif");
+  const wasmGifMeta = useMeta("wasmGif", "projs");
   const projsMeta = [wasmGifMeta];
 
   return (
@@ -51,7 +51,7 @@ export default function Home() {
 }
 
 import useTranslation from "next-translate/useTranslation";
-import useProjMeta from "../hooks/useProjMeta";
+import useMeta from "../hooks/useMeta";
 
 import Seo from "../components/Seo";
 import Band from "../components/Band";
