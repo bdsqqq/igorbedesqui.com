@@ -14,4 +14,4 @@ const DetailsBand: React.FC<DetailsBandProps> = ({ id, children }) => {
 
 export default DetailsBand;
 
-import Band from "../Band";
+import Band from "@/components/Band";

@@ -51,5 +51,5 @@ const CodeAndDemoButtons: React.FC<CodeAndDemoButtonsProps> = ({
 
 export default CodeAndDemoButtons;
 
-import ExternalLink from "../ExternalLink";
+import ExternalLink from "@/components/ExternalLink";
 import useTranslation from "next-translate/useTranslation";

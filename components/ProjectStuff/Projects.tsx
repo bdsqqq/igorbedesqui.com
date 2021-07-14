@@ -54,5 +54,5 @@ export default Projects;
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { Meta } from "../../hooks/useMeta";
+import { Meta } from "@/hooks/useMeta";
 import useTranslation from "next-translate/useTranslation";

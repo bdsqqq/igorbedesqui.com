@@ -134,4 +134,4 @@ import { useState } from "react";
 import NextLink from "next/link";
 import { motion } from "framer-motion";
 
-import ExternalLink from "./ExternalLink";
+import ExternalLink from "@/components/ExternalLink";

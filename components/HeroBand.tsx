@@ -69,4 +69,4 @@ const HeroBand: React.FC<HeroBandProps> = ({
 export default HeroBand;
 
 import Image from "next/image";
-import Band from "./Band";
+import Band from "@/components/Band";

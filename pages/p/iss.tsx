@@ -69,4 +69,4 @@ import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
 import DetailsBand from "@/components/Bands/DetailsBand";
 
-import useMeta from "../../hooks/useMeta";
+import useMeta from "@/hooks/useMeta";

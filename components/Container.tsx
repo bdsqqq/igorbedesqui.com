@@ -51,6 +51,6 @@ export default Container;
 
 import { Children } from "react";
 
-import MainNav from "./MainNav";
-import Footer from "./Footer";
+import MainNav from "@/components/MainNav";
+import Footer from "@/components/Footer";
 import { motion } from "framer-motion";

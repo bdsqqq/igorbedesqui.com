@@ -99,5 +99,5 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import useTranslation from "next-translate/useTranslation";
-import { useHistory } from "../contexts/History";
-import ChangeLang from "./ChangeLang";
+import { useHistory } from "@/contexts/History";
+import ChangeLang from "@/components/ChangeLang";
