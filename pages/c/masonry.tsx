@@ -51,13 +51,13 @@ export default function Masonry() {
 }
 
 import useTranslation from "next-translate/useTranslation";
-import TransWithComps from "../../components/i18nStuff/TransWithComps";
+import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
-import ProjectContainer from "../../components/ProjectStuff/ProjectContainer";
-import CodeAndDemoButtons from "../../components/ProjectStuff/CodeAndDemoButtons";
-import Seo from "../../components/Seo";
-import Band from "../../components/Band";
-import HeroBand from "../../components/HeroBand";
-import DetailsBand from "../../components/Bands/DetailsBand";
+import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
+import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
+import Seo from "@/components/Seo";
+import Band from "@/components/Band";
+import HeroBand from "@/components/HeroBand";
+import DetailsBand from "@/components/Bands/DetailsBand";
 
 import useMeta from "../../hooks/useMeta";

@@ -11,4 +11,4 @@ const ProjectContainer: React.FC<{ backMessage?: string }> = ({
 
 export default ProjectContainer;
 
-import Container from "../../components/Container";
+import Container from "@/components/Container";

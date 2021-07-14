@@ -25,10 +25,10 @@ export default function ComponentsPage() {
 
 import useTranslation from "next-translate/useTranslation";
 
-import Seo from "../../components/Seo";
-import HeroBand from "../../components/HeroBand";
-import TransWithComps from "../../components/i18nStuff/TransWithComps";
-import Band from "../../components/Band";
-import Container from "../../components/Container";
+import Seo from "@/components/Seo";
+import HeroBand from "@/components/HeroBand";
+import TransWithComps from "@/components/i18nStuff/TransWithComps";
+import Band from "@/components/Band";
+import Container from "@/components/Container";
 
-import MasonryShell from "../../components/MasonryStuff/Shell";
+import MasonryShell from "@/components/MasonryStuff/Shell";

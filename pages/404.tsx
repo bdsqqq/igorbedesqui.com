@@ -17,4 +17,4 @@ export default function Custom404() {
 }
 
 import useTranslation from "next-translate/useTranslation";
-import Container from "../components/Container";
+import Container from "@/components/Container";

@@ -53,10 +53,10 @@ export default function Home() {
 import useTranslation from "next-translate/useTranslation";
 import useMeta from "../hooks/useMeta";
 
-import Seo from "../components/Seo";
-import Band from "../components/Band";
-import Container from "../components/Container";
-import TransWithComps from "../components/i18nStuff/TransWithComps";
-import HeroBand from "../components/HeroBand";
-import Projects from "../components/ProjectStuff/Projects";
-import ExternalLink from "../components/ExternalLink";
+import Seo from "@/components/Seo";
+import Band from "@/components/Band";
+import Container from "@/components/Container";
+import TransWithComps from "@/components/i18nStuff/TransWithComps";
+import HeroBand from "@/components/HeroBand";
+import Projects from "@/components/ProjectStuff/Projects";
+import ExternalLink from "@/components/ExternalLink";

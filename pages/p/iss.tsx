@@ -64,9 +64,9 @@ export default function Iss() {
 
 import Trans from "next-translate/Trans";
 
-import ProjectContainer from "../../components/ProjectStuff/ProjectContainer";
-import Band from "../../components/Band";
-import HeroBand from "../../components/HeroBand";
-import DetailsBand from "../../components/Bands/DetailsBand";
+import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
+import Band from "@/components/Band";
+import HeroBand from "@/components/HeroBand";
+import DetailsBand from "@/components/Bands/DetailsBand";
 
 import useMeta from "../../hooks/useMeta";

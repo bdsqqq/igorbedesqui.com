@@ -20,7 +20,7 @@ import useTranslation from "next-translate/useTranslation";
 
 import useMeta from "../../hooks/useMeta";
 
-import Seo from "../../components/Seo";
-import Band from "../../components/Band";
-import Projects from "../../components/ProjectStuff/Projects";
-import Container from "../../components/Container";
+import Seo from "@/components/Seo";
+import Band from "@/components/Band";
+import Projects from "@/components/ProjectStuff/Projects";
+import Container from "@/components/Container";
