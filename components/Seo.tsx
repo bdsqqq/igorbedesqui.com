@@ -49,6 +49,9 @@ const Seo: React.FC<withoutImage | withImage> = ({
       title={t("title")}
       description={t("description")}
       openGraph={og}
+      robotsProps={{
+        notranslate: true,
+      }}
       twitter={{
         handle: "@igorbdsq",
         site: "@site",
