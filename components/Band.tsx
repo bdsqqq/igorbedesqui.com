@@ -57,7 +57,7 @@ const Band: React.FC<BandProps> = ({
   return (
     <section
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
-      className={`w-full 
+      className={`w-full
         ${!padless && "py-16"}
         ${
           dark ? "bg-igor-500 text-igor-light" : "bg-igor-light text-igor-500"
@@ -70,7 +70,7 @@ const Band: React.FC<BandProps> = ({
       >
         {!gridless ? (
           <>
-            <h2 className="mb-12 md:col-span-1 md:pr-6 ">
+            <h2 className="mb-12 md:col-span-1 md:pr-6 h-max-content md:sticky md:top-4">
               <span className="font-bold text-md md:text-7xl md:t-writing-mode-vlr">
                 {headline?.bold}
               </span>

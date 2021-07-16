@@ -56,6 +56,9 @@ body {
     .t-writing-mode-reset {
       writing-mode: horizontal-tb;
     }
+    .h-max-content {
+      height: max-content;
+    }
     .max-w-1\/2 {
       max-width: 49.99%;
     }
