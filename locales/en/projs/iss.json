@@ -1,3 +1,18 @@
 {
-    "something" : "something"
+    "title": "Where's the ISS?",
+    "description": "One step closer to infinity | made by Igor Bedesqui",
+
+
+    "heroTitle" : "Where's the <b>ISS</b>?",
+    "heroSubHead": "(In space, probably, don't tell anyone)",
+
+    "01Thin": "Why?",
+    "01Copy": "If there's one person I can't get enough of is <a1> Daniel Shiffman </a1>, I fell in love with coding by watching his code challenges and learned how to request data from third-party servers on his <a2> series about Data and APIs </a2>.<br/> Following along with the series, I created my first website with communication to an API, and it got me my first job interview!<br/> Now, a few years later, I'm revisiting this project to give it an overhaul and take it to an unnecessarily complicated architecture, just because I like to practice new tools on my old stuff <br/><br/> So, get ready to see where's the ISS, and maybe more content if you're reading this in the future.",
+
+    "02Thin": "how?",
+    "02Copy": "Hello there",
+
+    "03Thin": "What I've learned?",
+    "03Copy": "This ain't ready yet, are you looking through the commits?"
+
 }

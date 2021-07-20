@@ -1,72 +1,52 @@
 export default function Iss() {
+  const { t, lang } = useTranslation("projs/iss");
   const issMeta = useMeta("iss", "projs");
+
   return (
-    <ProjectContainer key="issProj" backMessage="Jump right back">
-      <HeroBand>
-        <Trans
-          i18nKey="projs/iss:something"
-          components={[
-            <span className="font-light text-sm sm:text-lg md:text-2xl" />,
-            <br />,
-            <span className="font-bold" />,
-          ]}
-        />
-      </HeroBand>
-      <DetailsBand id={issMeta.name}>
-        <div className="leading-loose mb-6">
-          <h3 className="font-bold text-xl">Role</h3>
-          <ul>
-            {issMeta.roles.map((role, i) => {
-              return (
-                <li key={i}>
-                  {role}
-                  {i < issMeta.roles.length - 1 && ","}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        <div className="leading-loose mb-6">
-          <h3 className="font-bold text-xl">Tools</h3>
-          <ul>
-            {issMeta.tools.map((tool, i) => {
-              return (
-                <li key={i}>
-                  {tool}
-                  {i < issMeta.tools.length - 1 && ","}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        <div className="leading-loose mb-6">
-          <h3 className="font-bold text-xl">Date</h3>
-          <p>June 2020</p>
-          <h3 className="font-bold text-xl">Project type</h3>
-          <p>Personal</p>
-        </div>
-      </DetailsBand>
-      <Band
-        dark
-        headline={{ bold: "A", thin: "aa" }}
-        cta={{ target: "/", text: "something" }}
-      ></Band>
-      <Band
-        dark
-        headline={{ bold: "A", thin: "aa" }}
-        cta={{ target: "/", text: "something", outOfSite: true }}
-      ></Band>
-    </ProjectContainer>
+    <>
+      <Seo t={t} lang={lang} url="p/iss" />
+      <ProjectContainer key="issProj" backMessage="Fly back home">
+        <HeroBand heroVideo="/videos/iss/space">
+          <TransWithComps i18nKey="projs/iss:heroTitle" />
+          <p aria-hidden="true" className="text-transparent">
+            {t("projs/iss:heroSubHead")}
+          </p>
+          <div className="mt-6">
+            <CodeAndDemoButtons
+              codeUrl="https://github.com/bdsqqq/iss-asset"
+              demoUrl="https://iss.igorbedesqui.com/"
+            />
+          </div>
+        </HeroBand>
+        <Band headline={{ bold: "01", thin: t("01Thin") }}>
+          <p className="text-xl md:text-2xl">
+            <TransWithComps i18nKey={"projs/iss:01Copy"} />
+          </p>
+        </Band>
+        <Band dark headline={{ bold: "02", thin: t("02Thin") }}>
+          <p className="text-xl md:text-2xl">
+            <TransWithComps i18nKey={"projs/iss:02Copy"} />
+          </p>
+        </Band>
+        <Band headline={{ bold: "03", thin: t("03Thin") }}>
+          <p className="text-xl md:text-2xl">
+            <TransWithComps i18nKey={"projs/iss:03Copy"} />
+          </p>
+        </Band>
+        <DetailsBand id={issMeta.name} projMeta={issMeta} t={t} />
+      </ProjectContainer>
+    </>
   );
 }
 
-import Trans from "next-translate/Trans";
+import useTranslation from "next-translate/useTranslation";
+import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
+import Seo from "@/components/Seo";
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
-import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
+import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
+import Band from "@/components/Band";
 import DetailsBand from "@/components/Bands/DetailsBand";
 
 import useMeta from "@/hooks/useMeta";
