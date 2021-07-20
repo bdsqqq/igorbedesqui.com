@@ -26,42 +26,7 @@ export default function wasmGif() {
             <TransWithComps i18nKey={"projs/wasmGif:02Copy"} />
           </p>
         </Band>
-        <DetailsBand id={wasmGifMeta.name}>
-          <div className="leading-loose mb-6">
-            <h3 className="font-bold text-3xl">{t("detail:role")}</h3>
-            <ul>
-              {wasmGifMeta.roles.map((role, i) => {
-                return (
-                  <li key={i}>
-                    {role}
-                    {i < wasmGifMeta.roles.length - 1 && ","}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div className="leading-loose mb-6">
-            <h3 className="font-bold text-3xl">{t("detail:date")}</h3>
-            <p>{wasmGifMeta.date}</p>
-            <h3 className="font-bold text-3xl">{t("detail:type")}</h3>
-            <p>{wasmGifMeta.type}</p>
-          </div>
-
-          <div className="leading-loose mb-6">
-            <h3 className="font-bold text-3xl">{t("detail:tools")}</h3>
-            <ul>
-              {wasmGifMeta.tools.map((tool, i) => {
-                return (
-                  <li key={i}>
-                    {tool}
-                    {i < wasmGifMeta.tools.length - 1 && ","}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </DetailsBand>
+        <DetailsBand id="details" projMeta={wasmGifMeta} t={t} />
       </ProjectContainer>
     </>
   );
