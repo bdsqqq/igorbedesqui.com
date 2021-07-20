@@ -6,7 +6,7 @@ export default function wasmGif() {
       <Seo t={t} lang={lang} url="p/wasmgif" />
 
       <ProjectContainer key="wasmGifProj">
-        <HeroBand heroVideo={"/videos/wow"}>
+        <HeroBand heroVideo={"/videos/wasmgif/wow"}>
           <TransWithComps i18nKey={"projs/wasmGif:heroTitle"} />
           <div className="mt-6">
             <CodeAndDemoButtons
