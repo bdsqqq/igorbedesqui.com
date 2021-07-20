@@ -19,7 +19,18 @@ type MetaT = {
   readMore?: string;
 };
 
-function useMeta(metaName: string, namespace: string) {
+export type useMetaReturn = {
+  shortName: string;
+  name: string;
+  description: string;
+  roles: string[];
+  type: string;
+  tools: string[];
+  date: string;
+  readMore: string | undefined;
+};
+
+function useMeta(metaName: string, namespace: string): useMetaReturn {
   const { t } = useTranslation(`${namespace}/meta`);
   const { name, description, roles, type, tools, date, readMore }: MetaT = t(
     metaName,
