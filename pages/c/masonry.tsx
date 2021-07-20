@@ -21,30 +21,32 @@ export default function Masonry() {
             <TransWithComps i18nKey={"comps/masonry:02Copy"} />
           </p>
         </Band>
-        <DetailsBand id={masonryMeta.name}>
-          <div className="leading-loose mb-6">
-            <h3 className="font-bold text-3xl">{t("detail:date")}</h3>
-            <p>{masonryMeta.date}</p>
-          </div>
-          <div className="leading-loose mb-6">
-            <h3 className="font-bold text-3xl">{t("detail:type")}</h3>
-            <p>{masonryMeta.type}</p>
-          </div>
+        <Band gridless id="details">
+          <div className="grid grid-cols-1fr12rem gap-8 pb-8 md:pl-4 text-xl">
+            <div className="leading-loose mb-6">
+              <h3 className="font-bold text-3xl">{t("detail:date")}</h3>
+              <p>{masonryMeta.date}</p>
+            </div>
+            <div className="leading-loose mb-6">
+              <h3 className="font-bold text-3xl">{t("detail:type")}</h3>
+              <p>{masonryMeta.type}</p>
+            </div>
 
-          <div className="leading-loose mb-6">
-            <h3 className="font-bold text-3xl">{t("detail:tools")}</h3>
-            <ul>
-              {masonryMeta.tools.map((tool, i) => {
-                return (
-                  <li key={i}>
-                    {tool}
-                    {i < masonryMeta.tools.length - 1 && ","}
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="leading-loose mb-6">
+              <h3 className="font-bold text-3xl">{t("detail:tools")}</h3>
+              <ul>
+                {masonryMeta.tools.map((tool, i) => {
+                  return (
+                    <li key={i}>
+                      {tool}
+                      {i < masonryMeta.tools.length - 1 && ","}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
-        </DetailsBand>
+        </Band>
       </ProjectContainer>
     </>
   );
@@ -54,10 +56,8 @@ import useTranslation from "next-translate/useTranslation";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
-import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
-import DetailsBand from "@/components/Bands/DetailsBand";
 
 import useMeta from "@/hooks/useMeta";
