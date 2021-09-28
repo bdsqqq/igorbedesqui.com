@@ -14,7 +14,7 @@
 }
 
 ::selection {
-  @apply bg-igor-700 text-gray-100;
+  @apply bg-sandDark-sand5 text-sandDark-sand12;
 }
 
 html {

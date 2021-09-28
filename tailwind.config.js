@@ -1,5 +1,6 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
+const { sand, sandDark } = require("@radix-ui/colors");
 
 module.exports = {
   purge: ["./components/**/*.{js,ts,jsx,tsx}", "./pages/**/*.{js,ts,jsx,tsx}"],
@@ -29,6 +30,12 @@ module.exports = {
           light: "#fffcf5",
           500: "#2e2225",
           700: "#473539",
+        },
+        sand: {
+          ...sand,
+        },
+        sandDark: {
+          ...sandDark,
         },
       },
       fontFamily: {

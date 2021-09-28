@@ -9,7 +9,7 @@ export default function Custom404() {
         className="flex items-center justify-center"
         style={{ minHeight: "77vh" }}
       >
-        <h1 className="text-2xl pr-6 border-r border-igor-500">404</h1>
+        <h1 className="text-2xl pr-6 border-r border-sandDark-sand6">404</h1>
         <h2 className="pl-6">{t("common:404")}</h2>
       </div>
     </Container>

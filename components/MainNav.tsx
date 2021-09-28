@@ -85,9 +85,9 @@ const MainNav: React.FC<MainNavProps> = ({
         {t("common:skip")}
       </a>
       <ChangeLang
-        generalClasses="p-1 sm:p-2 lowercase"
-        activeClasses="font-bold text-gray-900"
-        inactiveClasses="text-gray-500"
+        generalClasses="p-1 sm:p-2 lowercase select-none"
+        activeClasses="font-bold text-sand-sand12"
+        inactiveClasses="text-sand-sand11"
       />
     </nav>
   );
