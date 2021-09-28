@@ -30,7 +30,7 @@ const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
                     key={`li-${i}`}
                   >
                     <motion.a
-                      className=" cursor-pointer inline-block p-1 mr-2 pb-0 select-none"
+                      className=" cursor-pointer inline-block p-1 mr-2 pb-0 select-none focus:ring-sand-sand7 focus:ring-offset-sandDark-sand1"
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 0.6, x: 0 }}
                       whileHover={{ opacity: 1, x: 10 }}

@@ -32,6 +32,17 @@ body {
   @apply box-border;
 }
 
+*:focus-visible {
+  outline: none;
+  border: none;
+  @apply ring-2 ring-offset-sand-sand1 ring-sandDark-sand7;
+}
+@supports not selector(*:focus-visible) {
+  *:focus {
+    @apply ring-2 ring-offset-sand-sand1 ring-sandDark-sand7;
+  }
+}
+
 @layer utilities {
   .min-h-70vh {
     min-height: 70vh;
