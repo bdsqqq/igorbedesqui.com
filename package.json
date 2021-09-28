@@ -16,6 +16,7 @@
     "react-use-measure": "^2.0.4"
   },
   "devDependencies": {
+    "@radix-ui/colors": "^0.1.7",
     "@types/node": "^14.14.20",
     "@types/react": "^17.0.0",
     "autoprefixer": "10.0.2",
