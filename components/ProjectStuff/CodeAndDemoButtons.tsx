@@ -9,7 +9,7 @@ const CodeAndDemoButtons: React.FC<CodeAndDemoButtonsProps> = ({
 }) => {
   const { t } = useTranslation("common");
   const buttonClasses =
-    "flex items-center text-lg py-1 px-2 align-middle bg-sandDark-sand3 text-sandDark-sand12 shadow-lg rounded mr-2 hover:bg-sandDark-sand4 hover:shadow-xl focus:bg-sandDark-sand5 focus:ring-2 ring-offset-sand-sand1 ring-sandDark-sand7 ring-offset-2 active:bg-sandDark-sand5 focus:shadow-xl transition-all cursor-pointer";
+    "flex items-center text-lg py-1 px-2 align-middle bg-sandDark-sand3 text-sandDark-sand12 shadow-lg rounded mr-2 hover:bg-sandDark-sand4 hover:shadow-xl focus:bg-sandDark-sand5 active:bg-sandDark-sand5 focus:shadow-xl transition-all cursor-pointer";
   return (
     <div className="flex">
       {codeUrl && (
