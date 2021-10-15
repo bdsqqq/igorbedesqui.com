@@ -1,3 +1,18 @@
 {
-    "something" : "something"
+    "title": "Onde está a ISS?",
+    "description": "Um passo mais perto do infinito | feito por Igor Bedesqui",
+
+
+    "heroTitle" : "Onde está a <b>ISS</b>?",
+    "heroSubHead": "(No espaço, provavelmente, mas não conta pra ninguém)",
+
+    "01Thin": "Por quê?",
+    "01Copy": "Working at a company with a lot of sensitive data like IBM made me realise the danger of uploading stuff to places you don't trust;<br/><br/>And as a person who makes gifs for my friends regularly, I got concerned! What if some shady conversion website is laughing at my friend's grimace face?<br/><br/>The natural course of action as a programmer was to make the tool myself, this way I can rest assured that <b>no data is going anywhere</b>.",
+
+    "02Thin": "Como?",
+    "02Copy": "Hello there",
+
+    "03Thin": "O que aprendi?",
+    "03Copy": "This ain't ready yet, are you looking through the commits?"
+
 }

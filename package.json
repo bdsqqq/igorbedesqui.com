@@ -7,7 +7,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@tailwindcss/typography": "^0.3.1",
     "framer-motion": "^3.1.4",
     "next": "latest",
     "next-seo": "^4.23.0",
@@ -17,6 +16,7 @@
     "react-use-measure": "^2.0.4"
   },
   "devDependencies": {
+    "@radix-ui/colors": "^0.1.7",
     "@types/node": "^14.14.20",
     "@types/react": "^17.0.0",
     "autoprefixer": "10.0.2",

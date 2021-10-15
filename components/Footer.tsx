@@ -6,13 +6,13 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
   const { t } = usetranslation();
 
   const linkClassList = `text-sm text-opacity-80 hover:text-opacity-100 focus:text-opacity-100 transition-all ${
-    dark ? "text-igor-light" : " text-igor-500"
+    dark ? "text-sandDark-sand12" : "text-sand-sand12"
   }`;
 
   return (
     <footer
       className={`flex flex-col items-center pb-8 ${
-        dark ? "bg-igor-500" : "bg-igor-light"
+        dark ? "bg-sandDark-sand1" : "bg-sand-sand1"
       }`}
     >
       <nav aria-label={t("common:secondary")}>

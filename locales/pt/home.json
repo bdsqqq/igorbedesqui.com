@@ -3,7 +3,7 @@
     "description": "Desenvolvedor Web front-end localizado em São Paulo",
 
 
-    "hero": "<intro>Olá  — </intro><br/><br/>Meu nome é <b>Igor Bedesqui</b>, eu sou um desenvolvedor web localizado em São Paulo e essa é uma seleção de alguns dos meus projetos <b>pessoais</b> e <b>profissionais</b>.",
+    "hero": "<intro>Olá  — </intro><br/><br/>Meu nome é <b>Igor Bedesqui</b>, eu sou um desenvolvedor web interessado em design, soluções simples e UX.",
 
     "01Title": "Quem sou eu?",
     "01Copy": "Em poucas palavras:<br/><br/>Eu sou um louco da filosofia que acha programar divertido.<br/> Profissionalmente, eu crio <b> soluções digitais</b> usando <b> movimento</b> e<b> contraste</b> para enriquecer conteúdo.",
@@ -12,6 +12,6 @@
     "02Cta": "Veja mais projetos",
 
     "hey": "Eai",
-    "heyTitle": "Bora se conectar!",
-    "heyCopy": "Você pode me encontrar em várias redes sociais provavelmente inativas, ver meu código no <github>Github</github> ou entrar em contato via <email>Email</email>"
+    "heyTitle": "Bora se falar!",
+    "heyCopy": "Você pode me encontrar em várias redes sociais que não gosto de usar, ver meu código no <github>Github</github> ou entrar em contato via <email>Email</email>"
 }

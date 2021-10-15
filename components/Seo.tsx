@@ -1,19 +1,17 @@
-interface withoutImage {
+type withoutImage = {
   t: Translate;
-  /** url will default to "https://www.igorbedesqui.com" if not provided*/
   url?: string;
   lang?: string;
   imglang?: never;
   image?: never;
-}
-interface withImage {
+};
+type withImage = {
   t: Translate;
-  /** url will default to "https://www.igorbedesqui.com" if not provided*/
   url?: string;
   lang?: string;
   imglang?: string;
   image: string;
-}
+};
 
 const Seo: React.FC<withoutImage | withImage> = ({
   t,
@@ -51,6 +49,9 @@ const Seo: React.FC<withoutImage | withImage> = ({
       title={t("title")}
       description={t("description")}
       openGraph={og}
+      robotsProps={{
+        notranslate: true,
+      }}
       twitter={{
         handle: "@igorbdsq",
         site: "@site",

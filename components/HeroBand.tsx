@@ -49,7 +49,7 @@ const HeroBand: React.FC<HeroBandProps> = ({
                 </video>
               </div>
             )}
-            <div className="absolute h-full bg-igor-light w-full bg-opacity-75" />
+            <div className="absolute h-full bg-sand-sand1 w-full opacity-75" />
           </div>
         )}
         <div className="relative min-h-70vh flex items-center max-w-6xl px-8 md:px-16 mx-auto">
@@ -69,4 +69,4 @@ const HeroBand: React.FC<HeroBandProps> = ({
 export default HeroBand;
 
 import Image from "next/image";
-import Band from "./Band";
+import Band from "@/components/Band";

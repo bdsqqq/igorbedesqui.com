@@ -5,11 +5,11 @@
         "*": ["common"],
         "/": ["home", "projs/meta"],
 
-        "rgx:/p": ["projs/meta", "projs/detail"], 
+        "rgx:/p": ["projs/meta", "detail"], 
         "/p/iss": ["projs/iss"],
         "/p/wasmgif": ["projs/wasmGif"],
 
-        "rgx:/c": ["comps/common"],
+        "rgx:/c": ["comps/common", "comps/meta", "detail"],
         "/c": ["comps/masonry"],
         
         "/about" : ["about"]

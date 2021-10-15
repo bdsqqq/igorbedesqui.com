@@ -57,10 +57,12 @@ const Band: React.FC<BandProps> = ({
   return (
     <section
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
-      className={`w-full 
+      className={`w-full
         ${!padless && "py-16"}
         ${
-          dark ? "bg-igor-500 text-igor-light" : "bg-igor-light text-igor-500"
+          dark
+            ? "bg-sandDark-sand1 text-sandDark-sand12"
+            : "bg-sand-sand1 text-sand-sand12"
         }`}
     >
       <div
@@ -70,13 +72,13 @@ const Band: React.FC<BandProps> = ({
       >
         {!gridless ? (
           <>
-            <h2 className="mb-12 md:col-span-1 md:pr-6 ">
+            <h2 className="mb-12 md:col-span-1 md:pr-6 h-max-content md:sticky md:top-4">
               <span className="font-bold text-md md:text-7xl md:t-writing-mode-vlr">
                 {headline?.bold}
               </span>
               <div
                 className={`md:inline-block md:w-12 font-light text-opacity-80 text-md md:text-lg align-top md:break-normal ${
-                  dark ? "text-igor-light" : "text-igor-500"
+                  dark ? "text-sandDark-sand12" : "text-sand-sand12"
                 }`}
               >
                 {headline?.thin}
@@ -92,7 +94,7 @@ const Band: React.FC<BandProps> = ({
       {cta && (
         <div
           className={`flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 ${
-            dark ? " text-igor-light" : " text-igor-500"
+            dark ? " text-sandDark-sand12" : " text-sand-sand12"
           }`}
         >
           <motion.div
@@ -134,4 +136,4 @@ import { useState } from "react";
 import NextLink from "next/link";
 import { motion } from "framer-motion";
 
-import ExternalLink from "./ExternalLink";
+import ExternalLink from "@/components/ExternalLink";

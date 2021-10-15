@@ -3,8 +3,7 @@
     "description": "front-end Web Developer based in São Paulo",
     
     
-    "hero": "<intro>Hello — </intro><br/><br/>My name is <b>Igor Bedesqui</b>, I'm a web developer based in São Paulo and this is a selection of my <b>personal</b> and <b>professional</b> work.",
-
+    "hero": "<intro>Hello — </intro><br/><br/>My name is <b>Igor Bedesqui</b>, I'm a web developer interested in design, simple solutions and UX.", 
     "01Title": "Who am I?",
     "01Copy": "In a few words:<br/><br/>I'm a philosophy nerd who thinks coding is fun.<br/> Professionally I create <b> digital solutions</b> using <b> motion</b> and<b> contrast</b> to enrich content.",
 
@@ -13,5 +12,5 @@
 
     "hey": "Hey",
     "heyTitle": "Let's connect!",
-    "heyCopy": "You can find me on various platforms that I don't really use, see my code at <github>Github</github> or get in touch via <email>Email</email>."
+    "heyCopy": "You can find me on various platforms that I don't really like using, see my code at <github>Github</github> or get in touch via <email>Email</email>."
 }

@@ -14,7 +14,7 @@
 }
 
 ::selection {
-  @apply bg-igor-700 text-gray-100;
+  @apply bg-sandDark-sand5 text-sandDark-sand12;
 }
 
 html {
@@ -30,6 +30,17 @@ body {
 
 * {
   @apply box-border;
+}
+
+*:focus-visible {
+  outline: none;
+  border: none;
+  @apply ring-2 ring-offset-sand-sand1 ring-sandDark-sand7;
+}
+@supports not selector(*:focus-visible) {
+  *:focus {
+    @apply ring-2 ring-offset-sand-sand1 ring-sandDark-sand7;
+  }
 }
 
 @layer utilities {
@@ -55,6 +66,9 @@ body {
     }
     .t-writing-mode-reset {
       writing-mode: horizontal-tb;
+    }
+    .h-max-content {
+      height: max-content;
     }
     .max-w-1\/2 {
       max-width: 49.99%;

@@ -19,4 +19,4 @@ export const removeFromCards = (
   return cards.slice(0, cards.length - amount);
 };
 
-import getRandomFromArray from "../../lib/getRandomFromArray";
+import getRandomFromArray from "@/lib/getRandomFromArray";

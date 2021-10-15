@@ -16,4 +16,4 @@ export default function About() {
 
 import { NextSeo, SocialProfileJsonLd } from "next-seo";
 
-import Container from "../components/Container";
+import Container from "@/components/Container";
