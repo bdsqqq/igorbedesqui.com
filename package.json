@@ -8,15 +8,11 @@
   },
   "dependencies": {
     "framer-motion": "^3.1.4",
-    "next": "^11.1.2",
-    "next-plugin-preact": "^3.0.6",
+    "next": "latest",
     "next-seo": "^4.23.0",
     "next-translate": "^1.0.4",
-    "preact": "^10.5.15",
-    "preact-render-to-string": "^5.1.19",
-    "react": "npm:@preact/compat",
-    "react-dom": "npm:@preact/compat",
-    "react-ssr-prepass": "npm:preact-ssr-prepass",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-use-measure": "^2.0.4"
   },
   "devDependencies": {
