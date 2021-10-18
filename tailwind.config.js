@@ -20,6 +20,14 @@ module.exports = {
       gridTemplateColumns: {
         "1fr12rem": "repeat(auto-fit, minmax(12rem, 1fr))",
       },
+      stroke: {
+        sand: {
+          ...sand,
+        },
+        sandDark: {
+          ...sandDark,
+        },
+      },
       colors: {
         oliver: {
           light: "#fffcf5",
