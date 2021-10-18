@@ -7,6 +7,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^0.1.1",
     "framer-motion": "^3.1.4",
     "next": "latest",
     "next-seo": "^4.23.0",
