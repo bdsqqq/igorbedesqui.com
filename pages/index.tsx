@@ -1,7 +1,8 @@
 export default function Home() {
   const { t, lang } = useTranslation("home");
   const wasmGifMeta = useMeta("wasmGif", "projs");
-  const projsMeta = [wasmGifMeta];
+  const bebopMeta = useMeta("bebop", "projs");
+  const projsMeta = [bebopMeta, wasmGifMeta];
 
   return (
     <>
@@ -30,16 +31,16 @@ export default function Home() {
               i18nKey="home:heyCopy"
               extraComponents={{
                 github: (
-                  <ExternalLink
-                    aClassList="font-bold border-current border-solid border-b-2 opacity-90 hover:opacity-100 focus:opacity-100 transition transition-all"
+                  <UnstyledLink
+                    className="font-bold border-current border-solid border-b-2 opacity-90 hover:opacity-100 focus:opacity-100 transition"
                     href="https://github.com/bdsqqq"
-                  ></ExternalLink>
+                  ></UnstyledLink>
                 ),
                 email: (
-                  <ExternalLink
-                    aClassList="font-bold border-current border-solid border-b-2 opacity-90 hover:opacity-100 focus:opacity-100 transition transition-all"
+                  <UnstyledLink
+                    className="font-bold border-current border-solid border-b-2 opacity-90 hover:opacity-100 focus:opacity-100 transition"
                     href="mailto:igorbedesqui@gmail.com"
-                  ></ExternalLink>
+                  ></UnstyledLink>
                 ),
               }}
             />
@@ -59,4 +60,4 @@ import Container from "@/components/Container";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 import HeroBand from "@/components/HeroBand";
 import Projects from "@/components/ProjectStuff/Projects";
-import ExternalLink from "@/components/ExternalLink";
+import UnstyledLink from "@/components/UnstyledLink";

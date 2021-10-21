@@ -3,6 +3,7 @@ const colors = require("tailwindcss/colors");
 const { sand, sandDark } = require("@radix-ui/colors");
 
 module.exports = {
+  mode: "jit",
   purge: ["./components/**/*.{js,ts,jsx,tsx}", "./pages/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
   theme: {
@@ -19,6 +20,14 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         "1fr12rem": "repeat(auto-fit, minmax(12rem, 1fr))",
+      },
+      stroke: {
+        sand: {
+          ...sand,
+        },
+        sandDark: {
+          ...sandDark,
+        },
       },
       colors: {
         oliver: {

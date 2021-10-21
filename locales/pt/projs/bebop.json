@@ -1,0 +1,22 @@
+{
+   "backMessage": "Até logo cowboy do espaço...",
+   "title": "O trabalho, que se torna um novo gênero em sí mesmo, será chamado... COWBOY BEBOP",
+   "description": "O projeto que criei para a segunda edição da WebJam | feito por Igor Bedesqui",
+
+   "heroTitle" : "O trabalho, que se torna um novo gênero em sí mesmo, será chamado... <b>COWBOY BEBOP</b> ",
+
+   "01Thin": "Por que?",
+   "01Copy": "Eu criei esse projeto para a segunda edição da <hc><s>WebJam</s></hc>.  <br/><br/>O desafio dessa WebJam foi criar uma website de uma página e não scrollavel para um filme qualquer. O site deve funcionar em qualquer tela e ilustrar o filme escolhido.",
+   "webjamHc": "A <b>WebJam</b> é uma hackathon onde os participantes tentam criar um website seguindo um tema e algumas regras.", 
+
+   "02Thin": "Design",
+   "02Copy": "Minha escolha de filme foi Cowboy Bebop, é um dos meus favoritos e ele grita personalidade com sua arte. A mistura de Jazz, Noir, Western e Espaço é única e serve como uma ótima inspiração para um site.<br/><br/>O principal desafio desse exercicio foi espaço. Tomei inspiração de tipos de mídia com a mesma limitação, como posters, artes de capa e a série em sí. Depois de passar uma quantidade desconfortável de tempo reassistindo a abertura de Cowboy Bebop, percebi que precisava incluir uma das cenas icônicas de silhuetas em um fundo colorido; Até encontrei uma das peças que inspirou os artistas do programa: a arte de capa do filme \"Tokyo Drifter\".<br/><br/>A esse ponto eu já havia decidido que seguiria a direção de um website que poderia ser confundido com um poster. Fiz um rascunho rápido em um pedaço de papel e comecei a programar.",
+
+   "03Thin": "Desenvolvimento",
+   "03Copy": "Evitando complexidade desnecessária, Eu abordei esse projeto de uma perspectiva minimalista, criei um arquivo HTML limpo com tailwindcss e construí um design responsivo com dois blocos principais, um para o conteúdo em texto e outro para a silhueta; No segundo, me inspirei na abertura do anime onde encontramos um paragrafo misturado na cor de fundo, contando uma história que acaba na ambiciosa frase que dá titúlo ao website \"O trabalho, que se torna um novo gênero em sí mesmo, será chamado... COWBOY BEBOP\".<br/><br/>Ficou claro que eu precisaria criar midia para a silhueta. Baixe o Adobe Illustrator depois de anos para fazer algumas figuras e me surpreendi com os resultados. Apesar do meu plano inicial de usar a silhueta como uma \"máscara\" que continha a animação da nave não ter funcionado, fiquei satisfeito quando usei um elemento de clip-path para cobrir a silhueta com um padrão de estrelas. Adicionar animações à fumaça e uma trilha criada pela nave deu vida ao que seria um poster entediantemente estático.<br/><br/>Para os toques finais, eu deixei o título quebrar sua caixa e sobrepor os elementos da silhueta, dando aquele sabor que faltava. Para criar aquela sensação de poster que eu queria, Adicionei uma imagem de papel amassado e com CSS filters transformei o website em algo que você acharia colado numa parede e finalmente tudo estava pronto.",
+
+   "04Thin": "Resultado",
+   "04IntroCopy": "Você pode ver o website <a>clicando aqui</a>.<br/> ou olhando para essas imagens:",
+   "04Copy": "Depois de trabalhar nesse projeto, estou mais confiante na minha habilidade de criar um design legal e traduzi-lo para código. Além de trabalhar com ferramentas de design como o Adobe Illustrator e Photoshop quando necessário. Também tive a chance de aprender uma nova biblioteca de animação chamada Motion One e adorei cada segundo do processo.<br/><br/>Gostei da experiência de WebJam e estou animado para participar das futuras edições."
+
+}

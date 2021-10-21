@@ -15,5 +15,15 @@
         "tools": "ffmpeg, Web Assembly, NextJS, React, Framer Motion, TailwindCSS",
         "date": "Mar 2021",
         "readMore": "Veja como ele foi feito"
+    },
+
+    "bebop": {
+        "name": "Cowboy Bebop web poster" ,
+        "description": "Website criado para a segunda edição da WebJam.",
+        "roles": "Desenvolvedor FrontEnd, UX/UI Designer",
+        "type": "Pessoal",
+        "tools": "TailwindCSS, Motion One, HTML, Adobe Illustrator",
+        "date": "Out 2021",
+        "readMore": "Veja como ele foi feito"
     }
 }
