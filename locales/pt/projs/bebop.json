@@ -1,11 +1,12 @@
 {
+   "backMessage": "Até logo cowboy do espaço...",
    "title": "O trabalho, que se torna um novo gênero em sí mesmo, será chamado... COWBOY BEBOP",
    "description": "O projeto que criei para a segunda edição da WebJam | feito por Igor Bedesqui",
 
    "heroTitle" : "O trabalho, que se torna um novo gênero em sí mesmo, será chamado... <b>COWBOY BEBOP</b> ",
 
    "01Thin": "Por que?",
-   "01Copy": "Eu criei esse projeto para a segunda edição da <hc><s>WebJam</s></hc>.  <br/><br/>O desafio dessa WebJam foi criar uma website de uma página/não scrollavel para um filme qualquer. O site deve funcionar em qualquer tela e ilustrar o filme escolhido.",
+   "01Copy": "Eu criei esse projeto para a segunda edição da <hc><s>WebJam</s></hc>.  <br/><br/>O desafio dessa WebJam foi criar uma website de uma página e não scrollavel para um filme qualquer. O site deve funcionar em qualquer tela e ilustrar o filme escolhido.",
    "webjamHc": "A <b>WebJam</b> é uma hackathon onde os participantes tentam criar um website seguindo um tema e algumas regras.", 
 
    "02Thin": "Design",

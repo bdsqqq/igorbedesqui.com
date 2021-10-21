@@ -5,7 +5,7 @@ export default function bebop() {
     <>
       <Seo t={t} lang={lang} url="p/bebop" />
 
-      <ProjectContainer key="bebopProj">
+      <ProjectContainer key="bebopProj" backMessage={t("backMessage")}>
         <HeroBand heroVideo={"/videos/bebop/noodles"}>
           <TransWithComps i18nKey={"projs/bebop:heroTitle"} />
           <div className="mt-6">
