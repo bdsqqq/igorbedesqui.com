@@ -19,7 +19,7 @@
 
     "bebop": {
         "name": "Cowboy Bebop web poster" ,
-        "description": "Website criado para a segunda edição da WebJam",
+        "description": "Website criado para a segunda edição da WebJam.",
         "roles": "Desenvolvedor FrontEnd, UX/UI Designer",
         "type": "Pessoal",
         "tools": "TailwindCSS, Motion One, HTML, Adobe Illustrator",

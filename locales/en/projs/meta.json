@@ -20,7 +20,7 @@
 
     "bebop": {
         "name": "Cowboy Bebop web poster" ,
-        "description": "My entry for the second installment of the WebJam",
+        "description": "My entry for the second installment of the WebJam.",
         "roles": "FrontEnd Developer, UX/UI Designer",
         "type": "Personal",
         "tools": "TailwindCSS, Motion One, HTML, Adobe Illustrator",
