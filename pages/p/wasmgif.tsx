@@ -28,6 +28,9 @@ export default function wasmGif() {
         </Band>
         <DetailsBand id="details" projMeta={wasmGifMeta} t={t} />
       </ProjectContainer>
+      <FABContainer>
+        <BackToTop />
+      </FABContainer>
     </>
   );
 }
@@ -41,5 +44,7 @@ import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
 import DetailsBand from "@/components/Bands/DetailsBand";
+import { FABContainer } from "@/ui/primitives/";
+import BackToTop from "@/components/ui/BackToTop";
 
 import useMeta from "@/hooks/useMeta";
