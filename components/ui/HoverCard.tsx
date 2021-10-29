@@ -64,4 +64,4 @@ const HoverCardContent = styled(HoverCardPrimitive.Content, {
   transformOrigin: "var(--radix-hover-card-content-transform-origin)",
 });
 
-import { styled, keyframes } from "@stitches/react";
+import { styled, keyframes } from "stitches.config";
