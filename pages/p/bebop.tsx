@@ -80,6 +80,9 @@ export default function bebop() {
         </Band>
         <DetailsBand id="details" projMeta={bebopMeta} t={t} />
       </ProjectContainer>
+      <FABContainer>
+        <BackToTop />
+      </FABContainer>
     </>
   );
 }
@@ -96,5 +99,7 @@ import DetailsBand from "@/components/Bands/DetailsBand";
 import UnstyledLink from "@/components/UnstyledLink";
 import HoverCard from "@/components/ui/HoverCard";
 import Image from "next/image";
+import { FABContainer } from "@/ui/primitives/";
+import BackToTop from "@/components/ui/BackToTop";
 
 import useMeta from "@/hooks/useMeta";
