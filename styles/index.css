@@ -2,46 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Mplus";
-  font-style: normal;
-  font-weight: 300 400 700;
-  font-display: optional;
-  src: url(/fonts/Mplus.woff2) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
-}
-
-::selection {
-  @apply bg-sandDark-sand5 text-sandDark-sand12;
-}
-
-html {
-  min-width: 360px;
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-}
-
-html,
-body {
-  @apply bg-gray-50;
-}
-
-* {
-  @apply box-border;
-}
-
-*:focus-visible {
-  outline: none;
-  border: none;
-  @apply ring-2 ring-offset-sand-sand1 ring-sandDark-sand7;
-}
-@supports not selector(*:focus-visible) {
-  *:focus {
-    @apply ring-2 ring-offset-sand-sand1 ring-sandDark-sand7;
-  }
-}
 
 @layer utilities {
   .min-h-70vh {
@@ -74,12 +34,4 @@ body {
       max-width: 49.99%;
     }
   }
-}
-
-/* Remove Safari input shadow on mobile */
-input[type="text"],
-input[type="email"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
