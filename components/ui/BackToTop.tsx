@@ -1,4 +1,5 @@
 const BackToTop = () => {
+  const { t, lang } = useTranslation("common");
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -25,6 +26,7 @@ const BackToTop = () => {
       visible={isVisible}
       tabIndex={isVisible ? 0 : -1}
       onClick={scrollToTop}
+      aria-label={t("backToTop")}
     >
       <svg
         width="100%"
@@ -89,3 +91,4 @@ export default BackToTop;
 
 import { styled } from "stitches.config";
 import { useState, useEffect } from "react";
+import useTranslation from "next-translate/useTranslation";
