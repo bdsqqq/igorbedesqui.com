@@ -2,21 +2,6 @@ import { sand, sandDark } from "@radix-ui/colors";
 import { createStitches } from "@stitches/react";
 import type * as Stitches from "@stitches/react";
 
-const sandDarkWithNames = {
-  sandDark1: sandDark.sand1,
-  sandDark2: sandDark.sand2,
-  sandDark3: sandDark.sand3,
-  sandDark4: sandDark.sand4,
-  sandDark5: sandDark.sand5,
-  sandDark6: sandDark.sand6,
-  sandDark7: sandDark.sand7,
-  sandDark8: sandDark.sand8,
-  sandDark9: sandDark.sand9,
-  sandDark10: sandDark.sand10,
-  sandDark11: sandDark.sand11,
-  sandDark12: sandDark.sand12,
-};
-
 export const {
   styled,
   css,
@@ -30,7 +15,6 @@ export const {
   theme: {
     colors: {
       ...sand,
-      ...sandDarkWithNames,
     },
   },
   media: {
@@ -70,5 +54,11 @@ export const {
         outlineWidth: "2px",
       },
     }),
+  },
+});
+
+export const darkTheme = createTheme({
+  colors: {
+    ...sandDark,
   },
 });

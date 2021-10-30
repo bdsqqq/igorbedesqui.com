@@ -23,6 +23,7 @@ const BackToTop = () => {
 
   return (
     <Button
+      className={darkTheme}
       visible={isVisible}
       tabIndex={isVisible ? 0 : -1}
       onClick={scrollToTop}
@@ -52,11 +53,11 @@ const Button = styled("button", {
   borderRadius: 9999,
   padding: "0.75rem",
 
-  color: "$sandDark12",
-  backgroundColor: "$sandDark3",
+  color: "$sand12",
+  backgroundColor: "$sand3",
   borderStyle: "solid",
   borderWidth: "1px",
-  borderColor: "$sandDark7",
+  borderColor: "$sand7",
 
   display: "hidden",
   opacity: "0",
@@ -77,18 +78,18 @@ const Button = styled("button", {
   },
 
   "&:hover": {
-    backgroundColor: "$sandDark4",
-    borderColor: "$sandDark8",
+    backgroundColor: "$sand4",
+    borderColor: "$sand8",
   },
 
   "&:active, &:focus-visible, &:focus": {
-    backgroundColor: "$sandDark5",
-    borderColor: "$sandDark8",
+    backgroundColor: "$sand5",
+    borderColor: "$sand8",
   },
 });
 
 export default BackToTop;
 
-import { styled } from "stitches.config";
+import { styled, darkTheme } from "stitches.config";
 import { useState, useEffect } from "react";
 import useTranslation from "next-translate/useTranslation";
