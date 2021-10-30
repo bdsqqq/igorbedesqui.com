@@ -1,19 +1,6 @@
 interface BandPropsBasic {
   dark?: boolean;
   padless?: boolean;
-  cta?:
-    | {
-        outOfSite?: boolean;
-        target: string;
-        text: string;
-        child?: never;
-      }
-    | {
-        outOfSite?: boolean;
-        target: string;
-        child: React.ReactNode;
-        text?: never;
-      };
 }
 
 interface BandWithGrid extends BandPropsBasic {
@@ -39,101 +26,124 @@ const Band: React.FC<BandProps> = ({
   padless,
   id,
   headline,
-  cta,
   children,
 }) => {
   let bandId: string = "";
   id && (bandId = id);
   headline && (bandId = headline.thin);
 
-  cta && (cta.target = cta.target.replace(/\s+/g, "-").toLowerCase());
-
-  const [ctaIsActive, setCtaIsActive] = useState(false);
-  const a = {
-    active: { opacity: 1, x: 8 },
-    inactive: { opacity: 0.5, x: 0 },
-  };
-
   return (
-    <section
+    <BandWrapper
+      padless={padless}
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
-      className={`w-full
-        ${!padless && "py-16"}
-        ${
-          dark
-            ? "bg-mauveDark-mauve1 text-mauveDark-mauve12"
-            : "bg-mauve-mauve1 text-mauve-mauve12"
-        }`}
+      className={dark ? darkTheme : ""}
     >
-      <div
-        className={` mx-auto ${!padless && "max-w-6xl px-8 md:px-16 "}
-            ${!gridless && "md:grid grid-cols-4"}
-        `}
-      >
+      <BandContent padless={padless} gridless={gridless}>
         {!gridless ? (
           <>
-            <h2 className="mb-12 md:col-span-1 md:pr-6 h-max-content md:sticky md:top-4">
-              <span className="font-bold text-md md:text-7xl md:t-writing-mode-vlr">
-                {headline?.bold}
-              </span>
-              <div
-                className={`md:inline-block md:w-12 font-light text-opacity-80 text-md md:text-lg align-top md:break-normal ${
-                  dark ? "text-mauveDark-mauve12" : "text-mauve-mauve12"
-                }`}
-              >
-                {headline?.thin}
-              </div>
-            </h2>
+            <Title>
+              <HeadlineBold>{headline?.bold}</HeadlineBold>
+              <HeadlineThin>{headline?.thin}</HeadlineThin>
+            </Title>
 
-            <div className="md:col-span-3">{children}</div>
+            <Box
+              css={{
+                "@md": {
+                  gridColumn: "span 3 / span 3",
+                },
+              }}
+            >
+              {children}
+            </Box>
           </>
         ) : (
           <>{children}</>
         )}
-      </div>
-      {cta && (
-        <div
-          className={`flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 ${
-            dark ? " text-mauveDark-mauve12" : " text-mauve-mauve12"
-          }`}
-        >
-          <motion.div
-            className="cursor-pointer px-4 pb-0 select-none"
-            variants={a}
-            animate={ctaIsActive ? "active" : "inactive"}
-            onFocus={() => {
-              setCtaIsActive(true);
-            }}
-            onBlur={() => {
-              setCtaIsActive(false);
-            }}
-            onMouseOver={() => {
-              setCtaIsActive(true);
-            }}
-            onMouseLeave={() => {
-              setCtaIsActive(false);
-            }}
-          >
-            {cta.outOfSite ? (
-              <ExternalLink href={cta.target}>
-                {cta.text ? "— " + cta.text : cta.child}
-              </ExternalLink>
-            ) : (
-              <NextLink href={cta.target} passHref>
-                <a>{cta.text ? "— " + cta.text : cta.child}</a>
-              </NextLink>
-            )}
-          </motion.div>
-        </div>
-      )}
-    </section>
+      </BandContent>
+    </BandWrapper>
   );
 };
 
+const BandWrapper = styled("section", {
+  width: "100%",
+  background: "$mauve1",
+  color: "$mauve12",
+
+  py: "4rem",
+
+  variants: {
+    padless: {
+      true: {
+        padding: 0,
+      },
+    },
+  },
+});
+
+const BandContent = styled("div", {
+  maxWidth: "72rem",
+  margin: "0 auto",
+  px: "2rem",
+
+  "@md": {
+    px: "4rem",
+
+    display: "grid",
+    gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+  },
+
+  variants: {
+    padless: {
+      true: {
+        py: "0",
+      },
+    },
+    gridless: {
+      true: {
+        display: "block",
+      },
+    },
+  },
+});
+
+const Title = styled("h2", {
+  marginBottom: "3rem",
+  height: "max-content",
+
+  "@md": {
+    position: "sticky",
+    top: "1rem",
+
+    gridColumn: "span 1 / span 1",
+    paddingRight: "1.5rem",
+  },
+});
+
+const HeadlineBold = styled("span", {
+  fontWeight: "bold",
+
+  "@md": {
+    fontSize: "4.5rem",
+    lineHeight: "1",
+    writingMode: "vertical-lr",
+  },
+});
+
+const HeadlineThin = styled("div", {
+  fontWeight: "light",
+  color: "$mauve11",
+  verticalAlign: "top",
+
+  "@md": {
+    display: "inline-block",
+    width: "auto",
+
+    fontSize: "1.125rem",
+    lineHeight: "1.75rem",
+  },
+});
+
 export default Band;
 
-import { useState } from "react";
-import NextLink from "next/link";
-import { motion } from "framer-motion";
-
-import ExternalLink from "@/components/ExternalLink";
+import { styled, darkTheme } from "stitches.config";
+import { Box } from "./ui/primitives";
