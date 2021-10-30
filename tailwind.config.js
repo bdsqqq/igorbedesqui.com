@@ -1,6 +1,6 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
-const { sand, sandDark } = require("@radix-ui/colors");
+const { mauve, mauveDark } = require("@radix-ui/colors");
 
 module.exports = {
   mode: "jit",
@@ -22,11 +22,11 @@ module.exports = {
         "1fr12rem": "repeat(auto-fit, minmax(12rem, 1fr))",
       },
       stroke: {
-        sand: {
-          ...sand,
+        mauve: {
+          ...mauve,
         },
-        sandDark: {
-          ...sandDark,
+        mauveDark: {
+          ...mauveDark,
         },
       },
       colors: {
@@ -40,11 +40,11 @@ module.exports = {
           500: "#2e2225",
           700: "#473539",
         },
-        sand: {
-          ...sand,
+        mauve: {
+          ...mauve,
         },
-        sandDark: {
-          ...sandDark,
+        mauveDark: {
+          ...mauveDark,
         },
       },
       fontFamily: {

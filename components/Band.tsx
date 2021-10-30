@@ -61,8 +61,8 @@ const Band: React.FC<BandProps> = ({
         ${!padless && "py-16"}
         ${
           dark
-            ? "bg-sandDark-sand1 text-sandDark-sand12"
-            : "bg-sand-sand1 text-sand-sand12"
+            ? "bg-mauveDark-mauve1 text-mauveDark-mauve12"
+            : "bg-mauve-mauve1 text-mauve-mauve12"
         }`}
     >
       <div
@@ -78,7 +78,7 @@ const Band: React.FC<BandProps> = ({
               </span>
               <div
                 className={`md:inline-block md:w-12 font-light text-opacity-80 text-md md:text-lg align-top md:break-normal ${
-                  dark ? "text-sandDark-sand12" : "text-sand-sand12"
+                  dark ? "text-mauveDark-mauve12" : "text-mauve-mauve12"
                 }`}
               >
                 {headline?.thin}
@@ -94,7 +94,7 @@ const Band: React.FC<BandProps> = ({
       {cta && (
         <div
           className={`flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 ${
-            dark ? " text-sandDark-sand12" : " text-sand-sand12"
+            dark ? " text-mauveDark-mauve12" : " text-mauve-mauve12"
           }`}
         >
           <motion.div

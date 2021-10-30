@@ -10,8 +10,8 @@ const globalStyles = globalCss({
   },
 
   "&::selection": {
-    backgroundColor: "sandDark5",
-    color: "sandDark12",
+    backgroundColor: "mauveDark5",
+    color: "mauveDark12",
   },
 
   "*": {
@@ -19,11 +19,11 @@ const globalStyles = globalCss({
     margin: 0,
     boxSizing: "border-box",
 
-    outlineRing: "$sandDark8",
+    outlineRing: "$mauveDark8",
   },
 
   "html, body": {
-    backgroundColor: "$sand1",
+    backgroundColor: "$mauve1",
   },
 
   html: {
@@ -43,7 +43,7 @@ const globalStyles = globalCss({
 function MyApp({ Component, pageProps }: AppProps) {
   globalStyles();
   return (
-    <div className="bg-sand-sand1">
+    <div className="bg-mauve-mauve1">
       <HistoryProvider>
         <div className="fadeIn">
           <Component {...pageProps} />

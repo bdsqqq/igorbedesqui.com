@@ -86,8 +86,8 @@ const MainNav: React.FC<MainNavProps> = ({
       </a>
       <ChangeLang
         generalClasses="p-1 sm:p-2 lowercase select-none"
-        activeClasses="font-bold text-sand-sand12"
-        inactiveClasses="text-sand-sand11"
+        activeClasses="font-bold text-mauve-mauve12"
+        inactiveClasses="text-mauve-mauve11"
       />
     </nav>
   );

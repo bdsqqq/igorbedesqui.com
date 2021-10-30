@@ -53,11 +53,11 @@ const Button = styled("button", {
   borderRadius: 9999,
   padding: "0.75rem",
 
-  color: "$sand12",
-  backgroundColor: "$sand3",
+  color: "$mauve12",
+  backgroundColor: "$mauve3",
   borderStyle: "solid",
   borderWidth: "1px",
-  borderColor: "$sand7",
+  borderColor: "$mauve7",
 
   display: "hidden",
   opacity: "0",
@@ -78,13 +78,13 @@ const Button = styled("button", {
   },
 
   "&:hover": {
-    backgroundColor: "$sand4",
-    borderColor: "$sand8",
+    backgroundColor: "$mauve4",
+    borderColor: "$mauve8",
   },
 
   "&:active, &:focus-visible, &:focus": {
-    backgroundColor: "$sand5",
-    borderColor: "$sand8",
+    backgroundColor: "$mauve5",
+    borderColor: "$mauve8",
   },
 });
 

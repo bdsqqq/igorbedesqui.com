@@ -49,7 +49,7 @@ const HeroBand: React.FC<HeroBandProps> = ({
                 </video>
               </div>
             )}
-            <div className="absolute h-full bg-sand-sand1 w-full opacity-75" />
+            <div className="absolute h-full bg-mauve-mauve1 w-full opacity-75" />
           </div>
         )}
         <div className="relative min-h-70vh flex items-center max-w-6xl px-8 md:px-16 mx-auto">

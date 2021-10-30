@@ -28,7 +28,7 @@ const Container: React.FC<ContainerProps> = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="relative min-h-screen bg-sand-1"
+      className="relative min-h-screen bg-mauve-1"
     >
       {!backable ? (
         <MainNav />
@@ -39,7 +39,7 @@ const Container: React.FC<ContainerProps> = ({
           backAnchor={backAnchor}
         />
       )}
-      <div className="relative -mt-2 bg-sand-1 min-h-30vh rounded-tl-2xl w-full">
+      <div className="relative -mt-2 bg-mauve-1 min-h-30vh rounded-tl-2xl w-full">
         <main className="flex flex-col justify-center">{children}</main>
         <Footer dark={dark} />
       </div>

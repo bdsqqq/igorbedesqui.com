@@ -1,4 +1,4 @@
-import { sand, sandDark } from "@radix-ui/colors";
+import { mauve, mauveDark, crimson, crimsonDark } from "@radix-ui/colors";
 import { createStitches } from "@stitches/react";
 import type * as Stitches from "@stitches/react";
 
@@ -14,7 +14,8 @@ export const {
 } = createStitches({
   theme: {
     colors: {
-      ...sand,
+      ...mauve,
+      ...crimson,
     },
   },
   media: {
@@ -49,7 +50,7 @@ export const {
         borderColor: "transparent",
       },
       "&:focus-visible": {
-        outlineColor: value || "$sand8",
+        outlineColor: value || "$mauve8",
         outlineStyle: "solid",
         outlineWidth: "2px",
       },
@@ -59,6 +60,7 @@ export const {
 
 export const darkTheme = createTheme({
   colors: {
-    ...sandDark,
+    ...mauveDark,
+    ...crimsonDark,
   },
 });

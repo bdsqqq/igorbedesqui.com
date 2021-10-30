@@ -11,16 +11,16 @@ const HoverCard: React.FC<HoverCard> = ({ children, content, dark }) => (
       side="top"
       className={`relative p-4 w-64 rounded-sm shadow-md border ${
         !dark
-          ? "bg-sand-sand3 text-sand-sand12 border-sand-sand7"
-          : "bg-sandDark-sand3 text-sandDark-sand12 border-sandDark-sand7"
+          ? "bg-mauve-mauve3 text-mauve-mauve12 border-mauve-mauve7"
+          : "bg-mauveDark-mauve3 text-mauveDark-mauve12 border-mauveDark-mauve7"
       }`}
     >
       {content}
       <HoverCardPrimitive.Arrow
         className={`fill-current filter drop-shadow stroke-1 ${
           !dark
-            ? "text-sand-sand3 stroke-sand-sand7"
-            : "text-sandDark-sand3 stroke-sandDark-sand7"
+            ? "text-mauve-mauve3 stroke-mauve-mauve7"
+            : "text-mauveDark-mauve3 stroke-mauveDark-mauve7"
         }`}
       />
     </HoverCardContent>
