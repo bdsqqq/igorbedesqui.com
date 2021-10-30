@@ -3,56 +3,109 @@ type ProjectsProps = {
 };
 const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
   const { t } = useTranslation("common");
+
   return (
-    <div className="flex flex-col items-center justify-start min-h-96 md:flex-row md:justify-between">
-      <ul className="min-h-4 w-full flex flex-wrap">
-        {projectsMeta.map((project, i) => {
-          return (
-            <li
-              className={`md:max-w-1/2 ${
-                (i + 1) % 2 == 0 ? "md:pl-4" : "md:pr-4"
-              }`}
-              key={`p-${i}`}
-            >
-              <article>
-                <h3 className="font-bold text-2xl">{project.name}</h3>
+    <ProjsList className="min-h-4 w-full flex flex-wrap">
+      {projectsMeta.map((project, i) => {
+        return (
+          <ProjLi key={`p-${i}`}>
+            <Proj>
+              <Box>
+                <Title>{project.name}</Title>
 
-                <div className="font-light opacity-50 mb-4">
-                  {project.roles[0]}
-                </div>
+                <SubTitle>{project.roles[0]}</SubTitle>
                 <p>{project.description}</p>
+              </Box>
 
-                <div className="flex justify-between">
-                  <span> — </span>
-                  <Link
-                    href={`/p/${project.shortName.toLowerCase()}`}
-                    passHref
-                    key={`li-${i}`}
-                  >
-                    <motion.a
-                      className=" cursor-pointer inline-block p-1 mr-2 pb-0 select-none focus:ring-mauve-mauve7 focus:ring-offset-mauveDark-mauve1"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 0.6, x: 0 }}
-                      whileHover={{ opacity: 1, x: 10 }}
-                      whileFocus={{ opacity: 1, x: 10 }}
-                    >
-                      {project.readMore ? project.readMore : t("readMore")} ⟶
-                    </motion.a>
-                  </Link>
-                </div>
-              </article>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+              <Box css={{ display: "flex", justifyContent: "space-between" }}>
+                <Span css={{ userSelect: "none" }}> — </Span>
+                <Link
+                  href={`/p/${project.shortName.toLowerCase()}`}
+                  passHref
+                  key={`li-${i}`}
+                >
+                  <AnimatedLink>
+                    {project.readMore ? project.readMore : t("readMore")} ⟶
+                  </AnimatedLink>
+                </Link>
+              </Box>
+            </Proj>
+          </ProjLi>
+        );
+      })}
+    </ProjsList>
   );
 };
+
+const ProjsList = styled("ul", {
+  width: "100%",
+
+  display: "flex",
+  flexWrap: "wrap",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "start",
+  gap: "2rem",
+
+  "@md": {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gap: "4rem",
+  },
+});
+
+const ProjLi = styled("li", {
+  width: "100%",
+  height: "100%",
+});
+
+const Proj = styled("article", {
+  width: "100%",
+  height: "100%",
+
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+});
+
+const Title = styled("h3", {
+  fontWeight: "bold",
+  fontSize: "1.5rem",
+  lineHeight: "2rem",
+});
+
+const SubTitle = styled("div", {
+  fontWeight: "300",
+  color: "$mauve11",
+  marginBottom: "1rem",
+});
+
+const AnimatedLink = styled("a", {
+  cursor: "pointer",
+  userSelect: "none",
+
+  display: "inline-block",
+  padding: "0.25rem",
+  paddingBottom: "0",
+  marginRight: "0.5rem",
+
+  color: "$mauve11",
+
+  transform: "translate(0)",
+  transitionDuration: "150ms",
+  transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+
+  "&:hover, &:focus": {
+    color: "$mauve12",
+    transform: "translate(1rem)",
+  },
+});
 
 export default Projects;
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 
+import { styled } from "stitches.config";
+import { Box, Span } from "../ui/primitives";
 import { Meta } from "@/hooks/useMeta";
 import useTranslation from "next-translate/useTranslation";
