@@ -19,7 +19,8 @@ export const {
     },
   },
   media: {
-    bp1: "(min-width: 480px)",
+    sm: "(min-width: 480px)",
+    md: "(min-width: 768px)",
   },
   utils: {
     marginX: (value: Stitches.PropertyValue<"margin">) => ({
