@@ -102,9 +102,7 @@ const AnimatedLink = styled("span", {
 
 export default Projects;
 
-import UnstyledLink from "@/components/UnstyledLink";
-
 import { styled } from "stitches.config";
-import { Box, Span } from "@/ui/primitives";
+import { Box, Span, UnstyledLink } from "@/ui/primitives";
 import { Meta } from "@/hooks/useMeta";
 import useTranslation from "next-translate/useTranslation";

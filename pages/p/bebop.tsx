@@ -96,10 +96,9 @@ import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
 import DetailsBand from "@/components/Bands/DetailsBand";
-import UnstyledLink from "@/components/UnstyledLink";
 import HoverCard from "@/components/ui/HoverCard";
 import Image from "next/image";
-import { FABContainer } from "@/ui/primitives/";
+import { FABContainer, UnstyledLink } from "@/ui/primitives/";
 import BackToTop from "@/components/ui/BackToTop";
 
 import useMeta from "@/hooks/useMeta";

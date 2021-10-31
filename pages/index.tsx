@@ -63,6 +63,5 @@ import Container from "@/components/Container";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 import HeroBand from "@/components/HeroBand";
 import Projects from "@/components/ProjectStuff/Projects";
-import UnstyledLink from "@/components/UnstyledLink";
-import { FABContainer } from "@/ui/primitives/";
+import { FABContainer, UnstyledLink } from "@/ui/primitives/";
 import BackToTop from "@/components/ui/BackToTop";
