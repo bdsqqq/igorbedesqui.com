@@ -8,7 +8,7 @@ const UnstyledLink: React.FC<unstyledLink> = ({ href, children, ...rest }) => {
 
   if (isInternalLink) {
     return (
-      <Link href={href}>
+      <Link href={href} passHref>
         <A {...rest}>{children}</A>
       </Link>
     );
