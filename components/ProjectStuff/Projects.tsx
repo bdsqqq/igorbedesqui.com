@@ -19,15 +19,14 @@ const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
 
               <Box css={{ display: "flex", justifyContent: "space-between" }}>
                 <Span css={{ userSelect: "none" }}> — </Span>
-                <Link
-                  href={`/p/${project.shortName.toLowerCase()}`}
-                  passHref
-                  key={`li-${i}`}
-                >
-                  <AnimatedLink>
+                <AnimatedLink>
+                  <UnstyledLink
+                    href={`/p/${project.shortName.toLowerCase()}`}
+                    key={`li-${i}`}
+                  >
                     {project.readMore ? project.readMore : t("readMore")} ⟶
-                  </AnimatedLink>
-                </Link>
+                  </UnstyledLink>
+                </AnimatedLink>
               </Box>
             </Proj>
           </ProjLi>
@@ -80,7 +79,7 @@ const SubTitle = styled("div", {
   marginBottom: "1rem",
 });
 
-const AnimatedLink = styled("a", {
+const AnimatedLink = styled("span", {
   cursor: "pointer",
   userSelect: "none",
 
@@ -95,7 +94,7 @@ const AnimatedLink = styled("a", {
   transitionDuration: "150ms",
   transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
 
-  "&:hover, &:focus": {
+  "&:hover, &:focus-within": {
     color: "$mauve12",
     transform: "translate(1rem)",
   },
@@ -103,9 +102,9 @@ const AnimatedLink = styled("a", {
 
 export default Projects;
 
-import Link from "next/link";
+import UnstyledLink from "@/components/UnstyledLink";
 
 import { styled } from "stitches.config";
-import { Box, Span } from "../ui/primitives";
+import { Box, Span } from "@/ui/primitives";
 import { Meta } from "@/hooks/useMeta";
 import useTranslation from "next-translate/useTranslation";
