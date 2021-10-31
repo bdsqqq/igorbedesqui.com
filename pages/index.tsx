@@ -31,16 +31,10 @@ export default function Home() {
               i18nKey="home:heyCopy"
               extraComponents={{
                 github: (
-                  <UnstyledLink
-                    className="font-bold border-current border-solid border-b-2 opacity-90 hover:opacity-100 focus:opacity-100 transition"
-                    href="https://github.com/bdsqqq"
-                  ></UnstyledLink>
+                  <AnimatedLink href="https://github.com/bdsqqq"></AnimatedLink>
                 ),
                 email: (
-                  <UnstyledLink
-                    className="font-bold border-current border-solid border-b-2 opacity-90 hover:opacity-100 focus:opacity-100 transition"
-                    href="mailto:igorbedesqui@gmail.com"
-                  ></UnstyledLink>
+                  <AnimatedLink href="mailto:igorbedesqui@gmail.com"></AnimatedLink>
                 ),
               }}
             />
@@ -54,6 +48,23 @@ export default function Home() {
   );
 }
 
+const AnimatedLink = styled(UnstyledLink, {
+  cursor: "pointer",
+  fontWeight: "bold",
+
+  color: "$mauve12",
+  borderBottom: "2px",
+  borderColor: "CurrentColor",
+  borderStyle: "solid",
+
+  transitionDuration: "150ms",
+  transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+
+  "&:hover, &:focus-within": {
+    color: "$crimson11",
+  },
+});
+
 import useTranslation from "next-translate/useTranslation";
 import useMeta from "@/hooks/useMeta";
 
@@ -65,3 +76,5 @@ import HeroBand from "@/components/HeroBand";
 import Projects from "@/components/ProjectStuff/Projects";
 import { FABContainer, UnstyledLink } from "@/ui/primitives/";
 import BackToTop from "@/components/ui/BackToTop";
+
+import { styled } from "stitches.config";
