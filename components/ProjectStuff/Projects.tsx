@@ -19,13 +19,11 @@ const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
 
               <Box css={{ display: "flex", justifyContent: "space-between" }}>
                 <Span css={{ userSelect: "none" }}> — </Span>
-                <AnimatedLink>
-                  <UnstyledLink
-                    href={`/p/${project.shortName.toLowerCase()}`}
-                    key={`li-${i}`}
-                  >
-                    {project.readMore ? project.readMore : t("readMore")} ⟶
-                  </UnstyledLink>
+                <AnimatedLink
+                  href={`/p/${project.shortName.toLowerCase()}`}
+                  key={`li-${i}`}
+                >
+                  {project.readMore ? project.readMore : t("readMore")} ⟶
                 </AnimatedLink>
               </Box>
             </Proj>
@@ -79,7 +77,7 @@ const SubTitle = styled("div", {
   marginBottom: "1rem",
 });
 
-const AnimatedLink = styled("span", {
+const AnimatedLink = styled(UnstyledLink, {
   cursor: "pointer",
   userSelect: "none",
 
