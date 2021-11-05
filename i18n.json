@@ -9,6 +9,7 @@
         "/p/iss": ["projs/iss"],
         "/p/wasmgif": ["projs/wasmGif"],
         "/p/bebop": ["projs/bebop"],
+        "/p/minesweeper": ["projs/minesweeper"],
 
         "rgx:/c": ["comps/common", "comps/meta", "detail"],
         "/c": ["comps/masonry"],
