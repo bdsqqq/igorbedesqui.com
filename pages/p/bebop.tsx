@@ -50,10 +50,7 @@ export default function bebop() {
               i18nKey={"projs/bebop:04IntroCopy"}
               extraComponents={{
                 a: (
-                  <UnstyledLink
-                    className="font-bold border-current border-solid border-b-2 opacity-90 hover:opacity-100 focus:opacity-100 transition"
-                    href="https://bebop-webjam.vercel.app/"
-                  ></UnstyledLink>
+                  <StyledLink href="https://bebop-webjam.vercel.app/"></StyledLink>
                 ),
               }}
             />
@@ -98,7 +95,8 @@ import HeroBand from "@/components/HeroBand";
 import DetailsBand from "@/components/Bands/DetailsBand";
 import HoverCard from "@/components/ui/HoverCard";
 import Image from "next/image";
-import { FABContainer, UnstyledLink } from "@/ui/primitives/";
-import BackToTop from "@/components/ui/BackToTop";
+import { FABContainer } from "@/ui/primitives/";
+import BackToTop from "@/ui/BackToTop";
+import StyledLink from "@/ui/StyledLink";
 
 import useMeta from "@/hooks/useMeta";
