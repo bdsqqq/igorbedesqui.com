@@ -2,7 +2,6 @@ const StyledLink = styled(UnstyledLink, {
   cursor: "pointer",
   fontWeight: "bold",
 
-  color: "$mauve12",
   borderBottom: "2px",
   borderColor: "CurrentColor",
   borderStyle: "solid",
