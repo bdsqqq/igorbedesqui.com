@@ -12,11 +12,13 @@
     "@stitches/react": "^1.2.5",
     "framer-motion": "^3.1.4",
     "next": "latest",
+    "next-auth": "^4.0.0-beta.6",
     "next-seo": "^4.23.0",
     "next-translate": "^1.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-use-measure": "^2.0.4"
+    "react-use-measure": "^2.0.4",
+    "swr": "^1.0.1"
   },
   "devDependencies": {
     "@radix-ui/colors": "^0.1.7",
