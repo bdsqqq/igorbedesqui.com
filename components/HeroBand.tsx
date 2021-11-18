@@ -56,7 +56,7 @@ const HeroBand: React.FC<HeroBandProps> = ({
           <h1
             id="skip"
             tabIndex={-1}
-            className="max-w-2xl md:w-2/3 mx-4 md:mx-8 md:mr-16 text-2xl md:text-3xl tracking-tight mb-4 md:leading-snug uppercase"
+            className="md:max-w-2xl md:w-2/3 md:mx-8 md:mr-16 text-2xl md:text-3xl tracking-tight mb-4 md:leading-snug uppercase"
           >
             {children}
           </h1>
