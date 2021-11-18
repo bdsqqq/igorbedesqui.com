@@ -140,6 +140,7 @@ const HeadlineThin = styled("div", {
 
     fontSize: "1.125rem",
     lineHeight: "1.75rem",
+    writingMode: "vertical-lr",
   },
 });
 
