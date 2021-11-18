@@ -1,30 +1,30 @@
-import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
-interface HoverCard {
+interface PopOver {
   content: React.ReactNode;
   dark?: boolean;
   questionMark?: boolean;
 }
 
-const HoverCard: React.FC<HoverCard> = ({
+const PopOver: React.FC<PopOver> = ({
   children,
   content,
   dark,
   questionMark = true,
 }) => (
-  <HoverCardPrimitive.Root openDelay={200} closeDelay={100}>
-    <HoverCardTrigger>
+  <PopoverPrimitive.Root>
+    <PopOverTrigger>
       {children}
       {questionMark && <QuestionMarkCircledIcon />}
-    </HoverCardTrigger>
-    <HoverCardContent className={dark ? darkTheme : ""} side="top">
+    </PopOverTrigger>
+    <PopOverContent className={dark ? darkTheme : ""} side="top">
       {content}
-      <HoverCardArrow />
-    </HoverCardContent>
-  </HoverCardPrimitive.Root>
+      <PopOverArrow />
+    </PopOverContent>
+  </PopoverPrimitive.Root>
 );
 
-export default HoverCard;
+export default PopOver;
 
 const scaleIn = keyframes({
   "0%": { opacity: 0, transform: "scale(0)" },
@@ -46,11 +46,11 @@ const slideUp = keyframes({
   "100%": { opacity: 1, transform: "translateY(0)" },
 });
 
-const HoverCardTrigger = styled(HoverCardPrimitive.Trigger, {
+const PopOverTrigger = styled(PopoverPrimitive.Trigger, {
   display: "inline-flex",
 });
 
-const HoverCardContent = styled(HoverCardPrimitive.Content, {
+const PopOverContent = styled(PopoverPrimitive.Content, {
   position: "relative",
 
   padding: "1rem",
@@ -81,7 +81,7 @@ const HoverCardContent = styled(HoverCardPrimitive.Content, {
   transformOrigin: "var(--radix-hover-card-content-transform-origin)",
 });
 
-const HoverCardArrow = styled(HoverCardPrimitive.Arrow, {
+const PopOverArrow = styled(PopoverPrimitive.Arrow, {
   fill: "$mauve3",
 
   strokeWidth: "1px",

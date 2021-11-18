@@ -93,7 +93,7 @@ import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
 import DetailsBand from "@/components/Bands/DetailsBand";
-import HoverCard from "@/components/ui/HoverCard";
+import HoverCard from "@/components/ui/Popover";
 import Image from "next/image";
 import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
