@@ -1,28 +1,25 @@
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 interface HoverCard {
   content: React.ReactNode;
   dark?: boolean;
+  questionMark?: boolean;
 }
 
-const HoverCard: React.FC<HoverCard> = ({ children, content, dark }) => (
+const HoverCard: React.FC<HoverCard> = ({
+  children,
+  content,
+  dark,
+  questionMark = true,
+}) => (
   <HoverCardPrimitive.Root openDelay={200} closeDelay={100}>
-    <HoverCardPrimitive.Trigger>{children}</HoverCardPrimitive.Trigger>
-    <HoverCardContent
-      side="top"
-      className={`relative p-4 w-64 rounded-sm shadow-md border ${
-        !dark
-          ? "bg-mauve-mauve3 text-mauve-mauve12 border-mauve-mauve7"
-          : "bg-mauveDark-mauve3 text-mauveDark-mauve12 border-mauveDark-mauve7"
-      }`}
-    >
+    <HoverCardTrigger>
+      {children}
+      {questionMark && <QuestionMarkCircledIcon />}
+    </HoverCardTrigger>
+    <HoverCardContent className={dark ? darkTheme : ""} side="top">
       {content}
-      <HoverCardPrimitive.Arrow
-        className={`fill-current filter drop-shadow stroke-1 ${
-          !dark
-            ? "text-mauve-mauve3 stroke-mauve-mauve7"
-            : "text-mauveDark-mauve3 stroke-mauveDark-mauve7"
-        }`}
-      />
+      <HoverCardArrow />
     </HoverCardContent>
   </HoverCardPrimitive.Root>
 );
@@ -49,7 +46,27 @@ const slideUp = keyframes({
   "100%": { opacity: 1, transform: "translateY(0)" },
 });
 
+const HoverCardTrigger = styled(HoverCardPrimitive.Trigger, {
+  display: "inline-flex",
+});
+
 const HoverCardContent = styled(HoverCardPrimitive.Content, {
+  position: "relative",
+
+  padding: "1rem",
+  width: "16rem",
+
+  background: "$mauve3",
+  color: "$mauve12",
+
+  boxShadow:
+    "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$mauve7",
+  borderRadius: "2px",
+
   '&[data-side="top"]': { animationName: slideUp, scaleIn },
   '&[data-side="bottom"]': { animationName: slideDown, scaleIn },
 
@@ -64,4 +81,14 @@ const HoverCardContent = styled(HoverCardPrimitive.Content, {
   transformOrigin: "var(--radix-hover-card-content-transform-origin)",
 });
 
-import { styled, keyframes } from "stitches.config";
+const HoverCardArrow = styled(HoverCardPrimitive.Arrow, {
+  fill: "$mauve3",
+
+  strokeWidth: "1px",
+  stroke: "$mauve7",
+
+  filter:
+    "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.06))",
+});
+
+import { styled, keyframes, darkTheme } from "stitches.config";
