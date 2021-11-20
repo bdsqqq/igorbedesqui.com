@@ -14,6 +14,7 @@
         "rgx:/c": ["comps/common", "comps/meta", "detail"],
         "/c": ["comps/masonry"],
         
-        "/about" : ["about"]
+        "/about" : ["about"],
+        "/now" : ["now"]
     }
 }
