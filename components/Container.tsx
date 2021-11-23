@@ -23,12 +23,18 @@ const Container: React.FC<ContainerProps> = ({
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="relative min-h-screen bg-mauve-1"
+    <Box
+      css={{
+        position: "relative",
+        minHeight: "100vh",
+        backgroundColor: "$mauve1",
+
+        "@motion": {
+          animation: `${fade}`,
+          animationDuration: "550ms",
+          animationTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
+        },
+      }}
     >
       {!backable ? (
         <MainNav />
@@ -39,11 +45,31 @@ const Container: React.FC<ContainerProps> = ({
           backAnchor={backAnchor}
         />
       )}
-      <div className="relative -mt-2 bg-mauve-1 min-h-30vh rounded-tl-2xl w-full">
-        <main className="flex flex-col justify-center">{children}</main>
+      <Flex
+        css={{
+          position: "relative",
+
+          marginTop: "-0.5rem",
+          minHeight: "calc(100vh - 92px)",
+          width: "100%",
+          backgroundCOlor: "$mauve1",
+
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <Flex
+          as="main"
+          css={{
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          {children}
+        </Flex>
         <Footer dark={dark} />
-      </div>
-    </motion.div>
+      </Flex>
+    </Box>
   );
 };
 
@@ -51,6 +77,8 @@ export default Container;
 
 import { Children } from "react";
 
+import { Box, Flex } from "@/ui/primitives";
+import { fade } from "@/animations";
+
 import MainNav from "@/components/MainNav";
 import Footer from "@/components/Footer";
-import { motion } from "framer-motion";
