@@ -21,6 +21,7 @@ export const {
   media: {
     sm: "(min-width: 480px)",
     md: "(min-width: 768px)",
+    motion: "(prefers-reduced-motion: no-preference)",
   },
   utils: {
     marginX: (value: Stitches.PropertyValue<"margin">) => ({
