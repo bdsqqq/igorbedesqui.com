@@ -14,6 +14,9 @@
       "@/ui/*": [
         "components/ui/*"
       ],
+      "@/animations": [
+        "styles/animations"
+      ],
       "@/contexts/*": [
         "contexts/*"
       ],
