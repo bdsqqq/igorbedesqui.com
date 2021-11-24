@@ -100,7 +100,7 @@ import { Span } from "@/ui/primitives";
 
 import useTranslation from "next-translate/useTranslation";
 import setLanguage from "next-translate/setLanguage";
-import i18nConfig from "../i18n.json";
+import i18nConfig from "../../i18n.json";
 
 import en from "@/locales/en/common.json";
 import pt from "@/locales/pt/common.json";
