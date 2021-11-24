@@ -16,9 +16,6 @@ const MainNav: React.FC<MainNavProps> = ({
   backAnchor,
 }) => {
   const { t } = useTranslation();
-
-  const [backIsActive, setBackIsActive] = useState(false);
-
   const { history } = useHistory();
   const [anchor, setAnchor] = useState("/");
   useEffect(() => {
@@ -36,68 +33,100 @@ const MainNav: React.FC<MainNavProps> = ({
     }
   }, []);
 
-  const a = {
-    active: { opacity: 1, x: -8 },
-    inactive: { opacity: 0.8, x: 0 },
-  };
-  const span = {
-    active: { opacity: 1, y: 0 },
-    inactive: { opacity: 0.01, y: 5 },
-  };
   return (
-    <nav
-      className={`flex ${
-        backable ? "justify-between" : "justify-end"
-      } items-start w-full px-8 py-8 my-0 md:pt-8 md:px-16 mx-auto`}
-    >
+    <Nav backable={backable}>
       {backable && (
         <Link href={anchor ? anchor : "/"} passHref>
-          <motion.a
-            className="cursor-pointer px-4 pb-0 select-none text-xl"
-            variants={a}
-            animate={backIsActive ? "active" : "inactive"}
-            onFocus={() => {
-              setBackIsActive(true);
-            }}
-            onBlur={() => {
-              setBackIsActive(false);
-            }}
-            onMouseOver={() => {
-              setBackIsActive(true);
-            }}
-            onMouseLeave={() => {
-              setBackIsActive(false);
-            }}
-          >
-            <span className="font-bold">⟵</span>
-            <motion.span
-              className="ml-1"
-              transition={{ duration: 0.1 }}
-              variants={span}
-              animate={backIsActive ? "active" : "inactive"}
-            >
+          <BackLink>
+            <Span css={{ fontWeight: "bold" }}>⟵</Span>
+            <span id="backMessage">
               {backMessage ? backMessage : t("common:back")}
-            </motion.span>
-          </motion.a>
+            </span>
+          </BackLink>
         </Link>
       )}
-      <a href="#skip" className="sr-only focus:not-sr-only">
+      <SrOnly as="a" href="#skip">
         {t("common:skip")}
-      </a>
-      <ChangeLang
-        generalClasses="p-1 sm:p-2 lowercase select-none"
-        activeClasses="font-bold text-mauve-mauve12"
-        inactiveClasses="text-mauve-mauve11"
-      />
-    </nav>
+      </SrOnly>
+      <ChangeLang />
+    </Nav>
   );
 };
+
+const Nav = styled("nav", {
+  display: "flex",
+  justifyContent: "end",
+  alignItems: "flex-start",
+
+  width: "100%",
+  px: "2rem",
+  py: "2rem",
+  marginY: 0,
+
+  "@md": {
+    px: "4rem",
+    marginX: "auto",
+  },
+
+  variants: {
+    backable: {
+      true: {
+        justifyContent: "space-between",
+      },
+    },
+  },
+});
+
+const BackLink = styled("a", {
+  cursor: "ponter",
+  userSelect: "none",
+
+  px: "1rem",
+  paddingBottom: "0",
+
+  fontSize: "1.25rem",
+  lineHeight: "1.75rem",
+  color: "$mauve11",
+
+  transform: "translate(0)",
+
+  "@motion": {
+    transitionProperty: "color, transform",
+
+    transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+    transitionDuration: "150ms",
+  },
+
+  "& #backMessage": {
+    marginLeft: "0.25rem",
+
+    opacity: "0.01",
+
+    "@motion": {
+      transitionProperty: "opacity",
+
+      transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+      transitionDuration: "110ms",
+    },
+  },
+
+  "&:hover, &:focus": {
+    color: "$mauve12",
+    transform: "translate(-8px)",
+
+    "& #backMessage": {
+      opacity: "1",
+    },
+  },
+});
 
 export default MainNav;
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import useTranslation from "next-translate/useTranslation";
 import { useHistory } from "@/contexts/History";
-import ChangeLang from "@/components/ChangeLang";
+import ChangeLang from "@/components/i18nStuff/ChangeLang";
+
+import { styled } from "stitches.config";
+import { Span, SrOnly } from "@/ui/primitives";
