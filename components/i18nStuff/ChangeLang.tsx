@@ -18,7 +18,9 @@ const ChangeLang = () => {
                 </ChangeLangButton>
               </InlineLi>
               {count < locales.length && (
-                <Span css={{ userSelect: "none" }}>|</Span>
+                <Span key={`${count}-separator`} css={{ userSelect: "none" }}>
+                  |
+                </Span>
               )}
             </>
           );
@@ -43,7 +45,9 @@ const ChangeLang = () => {
               </ChangeLangButton>
             </InlineLi>
             {count < locales.length && (
-              <Span css={{ userSelect: "none" }}>|</Span>
+              <Span key={`${count}-separator`} css={{ userSelect: "none" }}>
+                |
+              </Span>
             )}
           </>
         );
