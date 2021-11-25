@@ -1,4 +1,11 @@
 {
    "title": "Agora | Igor Bedesqui",
-   "description": "O que estou fazendo agora"
+   "description": "O que estou fazendo agora",
+
+   "doingArray": [
+      "algo01",
+      "algo02"
+   ],
+
+   "lastUpdated": "Atualizado pela última vez em <date>24 de novembro, 2021</date>"
 }

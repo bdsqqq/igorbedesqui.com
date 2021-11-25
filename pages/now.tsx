@@ -1,5 +1,12 @@
 export default function Home() {
   const { t, lang } = useTranslation("now");
+  const thingsImDoing = t(
+    "doingArray",
+    {},
+    {
+      returnObjects: true,
+    }
+  ) as string[];
 
   return (
     <>
@@ -8,22 +15,20 @@ export default function Home() {
       <Container backable key="index">
         <Band gridless id="main">
           <Box css={{ maxWidth: "60ch", marginX: "auto" }}>
-            {
-              // Look into https://github.com/vinissimus/next-translate#7-nested-translations to loop through the entries
-            }
             <h1 className="text-4xl font-semibold">What I'm doing now</h1>
             <Ul>
-              <li>Something</li>
-              <li>Something</li>
-              <li>Something</li>
-              <li>Something</li>
+              {thingsImDoing.map((thing) => {
+                return <li key={thing}>{thing}</li>;
+              })}
             </Ul>
 
             <p>Lorem ipsum dolor sit amet consectetur.</p>
 
             <hr />
 
-            <p>last updated on ____</p>
+            <p>
+              <TransWithComps i18nKey="now:lastUpdated" />
+            </p>
           </Box>
         </Band>
       </Container>
@@ -49,3 +54,4 @@ import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 
 import { styled } from "stitches.config";
+import { useEffect } from "react";

@@ -1,4 +1,11 @@
 {
    "title": "Now | Igor Bedesqui",
-   "description": "What I'm doing now" 
+   "description": "What I'm doing now",
+
+   "doingArray": [
+      "something01",
+      "something02"
+   ],
+
+   "lastUpdated": "Last updated on <date>November 24, 2021</date>"
 }
