@@ -6,13 +6,35 @@ export default function Home() {
       <Seo t={t} lang={lang} />
 
       <Container backable key="index">
-        {
-          // Look into https://github.com/vinissimus/next-translate#7-nested-translations to loop through the entries
-        }
+        <Band gridless id="main">
+          <Box css={{ maxWidth: "60ch", marginX: "auto" }}>
+            {
+              // Look into https://github.com/vinissimus/next-translate#7-nested-translations to loop through the entries
+            }
+            <h1 className="text-4xl font-semibold">What I'm doing now</h1>
+            <Ul>
+              <li>Something</li>
+              <li>Something</li>
+              <li>Something</li>
+              <li>Something</li>
+            </Ul>
+
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+
+            <hr />
+
+            <p>last updated on ____</p>
+          </Box>
+        </Band>
       </Container>
     </>
   );
 }
+
+const Ul = styled("ul", {
+  listStyleType: "circle",
+  listStylePosition: "outside",
+});
 
 import useTranslation from "next-translate/useTranslation";
 
@@ -22,6 +44,8 @@ import Container from "@/components/Container";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 import HeroBand from "@/components/HeroBand";
 import Projects from "@/components/ProjectStuff/Projects";
-import { FABContainer } from "@/ui/primitives/";
+import { FABContainer, Box } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
+
+import { styled } from "stitches.config";
