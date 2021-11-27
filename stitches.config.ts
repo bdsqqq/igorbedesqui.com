@@ -39,6 +39,14 @@ export const {
       "4xl": "6rem", // 96px
       "5xl": "6.75rem", // 108px
     },
+    letterSpacings: {
+      tighter: "-0.05em",
+      tight: "-0.025em",
+      normal: "0em",
+      wide: "0.025em",
+      wider: "0.05em",
+      widest: "0.1em",
+    },
   },
   media: {
     sm: "(min-width: 480px)",
