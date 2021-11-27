@@ -17,6 +17,28 @@ export const {
       ...mauve,
       ...crimson,
     },
+    fontSizes: {
+      xs: "0.75rem", // 12px
+      sm: "0.875", // 14px
+      base: "1rem", // 16px
+      lg: "1.25rem", // 20px
+      xl: "1.5rem", // 24px
+      "2xl": "2rem", // 32px
+      "3xl": "3rem", // 48px
+      "4xl": "4rem", // 64px
+      "5xl": "4.5rem", // 72px
+    },
+    lineHeights: {
+      xs: "1.125rem", // 18px
+      sm: "1.3125rem", // 21px
+      base: "1.5rem", // 24px
+      lg: "1.875rem", // 30px
+      xl: "2.25rem", // 36px
+      "2xl": "3rem", // 48px
+      "3xl": "4.5rem", // 72px
+      "4xl": "6rem", // 96px
+      "5xl": "6.75rem", // 108px
+    },
   },
   media: {
     sm: "(min-width: 480px)",
