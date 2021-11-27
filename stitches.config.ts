@@ -47,6 +47,21 @@ export const {
       wider: "0.05em",
       widest: "0.1em",
     },
+    space: {
+      "spacing-01": "0.125rem", // 2px
+      "spacing-02": "0.25rem", // 4px
+      "spacing-03": "0.5rem", // 8px
+      "spacing-04": "0.75rem", // 12px
+      "spacing-05": "1rem", // 16px
+      "spacing-06": "1.5rem", // 24px
+      "spacing-07": "2rem", // 32px
+      "spacing-08": "2.5rem", // 40px
+      "spacing-09": "3rem", // 48px
+      "spacing-10": "4rem", // 64px
+      "spacing-11": "5rem", // 80px
+      "spacing-12": "6rem", // 96px
+      "spacing-13": "10rem", // 160px
+    },
   },
   media: {
     sm: "(min-width: 480px)",
