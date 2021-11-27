@@ -16,7 +16,7 @@ export default function Home() {
         <Band gridless id="main">
           <Box css={{ maxWidth: "60ch", marginX: "auto" }}>
             <Text as="h1" presetStyle="heading">
-              What I'm doing now
+              {t("doingTitle")}
             </Text>
             <Flex
               as="ul"
