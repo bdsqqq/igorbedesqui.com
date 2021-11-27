@@ -58,9 +58,14 @@ export default function Home() {
 
             <Hr
               css={{
-                width: "24rem",
+                width: "12rem",
                 marginX: "auto",
                 marginBottom: "$spacing-07",
+                borderColor: "$mauve6",
+
+                "@md": {
+                  width: "24rem",
+                },
               }}
             />
 
