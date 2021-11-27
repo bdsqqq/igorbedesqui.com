@@ -50,7 +50,7 @@ const Container: React.FC<ContainerProps> = ({
           position: "relative",
 
           marginTop: "-0.5rem",
-          minHeight: "calc(100vh - 92px)",
+          minHeight: "calc(100vh - 104px)",
           width: "100%",
           backgroundCOlor: "$mauve1",
 
