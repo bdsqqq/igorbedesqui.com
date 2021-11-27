@@ -1,11 +1,15 @@
 {
-   "title": "Agora | Igor Bedesqui",
+   "title": "Agora — Igor Bedesqui",
    "description": "O que estou fazendo agora",
 
    "doingArray": [
-      "algo01",
-      "algo02"
+      "Super-complicando meu website pessoal.",
+      "Tentando aprender mais sobre design dissecando sites feitos por pessoas incríveis.",
+      "Ainda tentando(e falhando) tirar fotos bonitas com minha namorada.",
+      "Tentando terminar alguns projetos abandonados."
    ],
 
-   "lastUpdated": "Atualizado pela última vez em <date>24 de novembro, 2021</date>"
+   "bottomText": "Lentamente superando meu eu de ontem.",
+
+   "lastUpdated": "Atualizado pela última vez em <date>27 de novembro, 2021</date>"
 }
