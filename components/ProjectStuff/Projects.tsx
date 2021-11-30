@@ -5,7 +5,7 @@ const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
   const { t } = useTranslation("common");
 
   return (
-    <ProjsList className="min-h-4 w-full flex flex-wrap">
+    <ProjsList>
       {projectsMeta.map((project, i) => {
         return (
           <ProjLi key={`p-${i}`}>
