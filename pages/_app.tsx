@@ -1,3 +1,8 @@
+import "../styles/index.css";
+import type { AppProps } from "next/app";
+import { HistoryProvider } from "@/contexts/History";
+import { globalCss } from "stitches.config";
+
 const globalStyles = globalCss({
   "@font-face": {
     fontFamily: "Mplus",
@@ -52,8 +57,3 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
-
-import "../styles/index.css";
-import type { AppProps } from "next/app";
-import { HistoryProvider } from "@/contexts/History";
-import { globalCss } from "stitches.config";
