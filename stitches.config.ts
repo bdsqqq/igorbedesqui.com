@@ -62,6 +62,13 @@ export const {
       "spacing-12": "6rem", // 96px
       "spacing-13": "10rem", // 160px
     },
+    radii: {
+      sm: "3px",
+      md: "5px",
+      lg: "15px",
+      round: "50%",
+      pill: "9999px",
+    },
   },
   media: {
     sm: "(min-width: 480px)",
