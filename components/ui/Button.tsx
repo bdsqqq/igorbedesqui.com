@@ -11,7 +11,7 @@ const buttonCss: Stitches.CSS<typeof config> = {
   borderStyle: "solid",
   borderWidth: "1px",
   borderColor: "transparent",
-  borderRadius: "0.25rem",
+  borderRadius: "$sm",
 
   fontSize: "$lg",
   lineHeight: "$lg",
@@ -21,8 +21,10 @@ const buttonCss: Stitches.CSS<typeof config> = {
   px: "0.5rem",
   verticalAlign: "middle",
 
-  transitionDuration: "150ms",
-  transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+  "@motionOk": {
+    transitionDuration: "150ms",
+    transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+  },
 
   variants: {
     color: {
