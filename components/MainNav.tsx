@@ -90,7 +90,7 @@ const BackLink = styled("a", {
 
   transform: "translate(0)",
 
-  "@motion": {
+  "@motionOk": {
     transitionProperty: "color, transform",
 
     transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
@@ -102,7 +102,7 @@ const BackLink = styled("a", {
 
     opacity: "0.01",
 
-    "@motion": {
+    "@motionOk": {
       transitionProperty: "opacity",
 
       transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",

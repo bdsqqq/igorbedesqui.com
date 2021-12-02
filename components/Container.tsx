@@ -29,7 +29,7 @@ const Container: React.FC<ContainerProps> = ({
         minHeight: "100vh",
         backgroundColor: "$mauve1",
 
-        "@motion": {
+        "@motionOk": {
           animation: `${fade}`,
           animationDuration: "550ms",
           animationTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
