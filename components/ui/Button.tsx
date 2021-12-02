@@ -13,8 +13,9 @@ const buttonCss: Stitches.CSS<typeof config> = {
   borderColor: "transparent",
   borderRadius: "0.25rem",
 
-  fontSize: "1.125rem" /* 18px */,
-  lineHeight: "1.75rem" /* 28px */,
+  fontSize: "$lg",
+  lineHeight: "$lg",
+  letterSpacing: "$normal",
 
   py: "0.25rem",
   px: "0.5rem",
