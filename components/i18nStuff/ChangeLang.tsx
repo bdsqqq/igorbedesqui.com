@@ -1,6 +1,7 @@
 const { locales } = i18nConfig;
 
 const ChangeLang = () => {
+  const router = useRouter();
   const { t, lang } = useTranslation();
 
   let count = 0;
@@ -13,9 +14,9 @@ const ChangeLang = () => {
           return (
             <>
               <InlineLi key={lng}>
-                <ChangeLangButton state="active" disabled>
+                <span className={ChangeLangLink({ state: "active" })}>
                   {t(`${lng}`)}
-                </ChangeLangButton>
+                </span>
               </InlineLi>
               {count < locales.length && (
                 <Span key={`${count}-separator`} css={{ userSelect: "none" }}>
@@ -36,13 +37,20 @@ const ChangeLang = () => {
         return (
           <>
             <InlineLi key={lng}>
-              <ChangeLangButton
-                onClick={async () => await setLanguage(lng)}
-                aria-label={switchMessage}
-                state="inactive"
+              <Link
+                href={router.pathname}
+                locale={lng}
+                key={lng}
+                passHref
+                scroll={false}
               >
-                {t(`${lng}`)}
-              </ChangeLangButton>
+                <a
+                  aria-label={switchMessage}
+                  className={ChangeLangLink({ state: "inactive" })}
+                >
+                  {t(`${lng}`)}
+                </a>
+              </Link>
             </InlineLi>
             {count < locales.length && (
               <Span key={`${count}-separator`} css={{ userSelect: "none" }}>
@@ -69,7 +77,7 @@ const InlineLi = styled("li", {
   display: "inline",
 });
 
-const ChangeLangButton = styled("button", {
+const ChangeLangLink = css({
   color: "$mauve12",
   textTransform: "lowercase",
   userSelect: "none",
@@ -99,9 +107,11 @@ const ChangeLangButton = styled("button", {
 
 export default ChangeLang;
 
-import { styled } from "stitches.config";
+import { styled, css } from "stitches.config";
 import { Span } from "@/ui/primitives";
 
+import Link from "next/link";
+import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import setLanguage from "next-translate/setLanguage";
 import i18nConfig from "../../i18n.json";
