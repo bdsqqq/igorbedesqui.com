@@ -6,18 +6,18 @@ const ChangeLang = () => {
 
   let count = 0;
   return (
-    <Ul>
+    <LangChangeContainer>
       {locales.map((lng: string) => {
         count++;
 
         if (lng === lang)
           return (
             <>
-              <InlineLi key={lng}>
+              <InlineSpan key={lng}>
                 <span className={ChangeLangLink({ state: "active" })}>
                   {t(`${lng}`)}
                 </span>
-              </InlineLi>
+              </InlineSpan>
               {count < locales.length && (
                 <Span key={`${count}-separator`} css={{ userSelect: "none" }}>
                   |
@@ -36,7 +36,7 @@ const ChangeLang = () => {
 
         return (
           <>
-            <InlineLi key={lng}>
+            <InlineSpan key={lng}>
               <Link
                 href={router.pathname}
                 locale={lng}
@@ -51,7 +51,7 @@ const ChangeLang = () => {
                   {t(`${lng}`)}
                 </a>
               </Link>
-            </InlineLi>
+            </InlineSpan>
             {count < locales.length && (
               <Span key={`${count}-separator`} css={{ userSelect: "none" }}>
                 |
@@ -60,11 +60,11 @@ const ChangeLang = () => {
           </>
         );
       })}
-    </Ul>
+    </LangChangeContainer>
   );
 };
 
-const Ul = styled("ul", {
+const LangChangeContainer = styled("div", {
   display: "flex",
   gap: "0.5rem",
   justifyContent: "space-between",
@@ -73,7 +73,7 @@ const Ul = styled("ul", {
   color: "$mauve11",
 });
 
-const InlineLi = styled("li", {
+const InlineSpan = styled("span", {
   display: "inline",
 });
 
