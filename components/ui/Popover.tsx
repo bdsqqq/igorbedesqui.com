@@ -48,6 +48,7 @@ const slideUp = keyframes({
 
 const PopOverTrigger = styled(PopoverPrimitive.Trigger, {
   display: "inline-flex",
+  userSelect: "text",
 });
 
 const PopOverContent = styled(PopoverPrimitive.Content, {
