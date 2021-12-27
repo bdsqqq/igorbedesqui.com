@@ -49,6 +49,17 @@ const slideUp = keyframes({
 const PopOverTrigger = styled(PopoverPrimitive.Trigger, {
   display: "inline-flex",
   userSelect: "text",
+
+  transitionDuration: "150ms",
+  transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+
+  "&:hover, &:focus-within": {
+    color: "$crimson11",
+  },
+
+  '&[data-state="open"]': {
+    color: "$crimson11",
+  },
 });
 
 const PopOverContent = styled(PopoverPrimitive.Content, {
