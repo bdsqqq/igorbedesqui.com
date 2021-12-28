@@ -22,11 +22,11 @@ export default function bebop() {
               i18nKey={"projs/bebop:01Copy"}
               extraComponents={{
                 hc: (
-                  <HoverCard
+                  <Popover
                     content={
                       <TransWithComps i18nKey={"projs/bebop:webjamHc"} />
                     }
-                  ></HoverCard>
+                  ></Popover>
                 ),
                 s: <span className="cursor-pointer font-bold"></span>,
               }}
@@ -93,7 +93,7 @@ import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
 import DetailsBand from "@/components/Bands/DetailsBand";
-import HoverCard from "@/components/ui/Popover";
+import Popover from "@/components/ui/Popover";
 import Image from "next/image";
 import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
