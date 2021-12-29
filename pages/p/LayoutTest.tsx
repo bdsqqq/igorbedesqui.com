@@ -65,7 +65,7 @@ export default function bebop() {
                 <Image
                   layout="responsive"
                   width="100%"
-                  height="200%"
+                  height="192%"
                   objectFit="contain"
                   src="/images/projs/bebop/smartphone-screenshot.png"
                 ></Image>
