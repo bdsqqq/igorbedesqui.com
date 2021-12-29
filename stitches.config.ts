@@ -73,6 +73,7 @@ export const {
   media: {
     sm: "(min-width: 480px)",
     md: "(min-width: 768px)",
+    lg: "(min-width: 1024px)",
     motionOk: "(prefers-reduced-motion: no-preference)",
   },
   utils: {
