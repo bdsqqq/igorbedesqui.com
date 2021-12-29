@@ -1,6 +1,7 @@
 export default function bebop() {
   const { t, lang } = useTranslation("projs/bebop");
   const bebopMeta = useMeta("bebop", "projs");
+
   return (
     <>
       <Seo t={t} lang={lang} url="p/bebop" />
@@ -16,66 +17,74 @@ export default function bebop() {
           </div>
         </HeroBand>
 
-        <Band headline={{ bold: "01", thin: t("01Thin") }}>
-          <p className="text-xl md:text-2xl max-w-[30em] mx-auto">
-            <TransWithComps
-              i18nKey={"projs/bebop:01Copy"}
-              extraComponents={{
-                hc: (
-                  <Popover
-                    content={
-                      <TransWithComps i18nKey={"projs/bebop:webjamHc"} />
-                    }
-                  ></Popover>
-                ),
-                s: <span className="cursor-pointer font-bold"></span>,
-              }}
-            />
-          </p>
-        </Band>
-        <Band dark headline={{ bold: "02", thin: t("02Thin") }}>
-          <p className="text-xl md:text-2xl max-w-[30em] mx-auto">
-            <TransWithComps i18nKey={"projs/bebop:02Copy"} />
-          </p>
-        </Band>
-        {/*<Band gridless id="references"></Band> */}
-        <Band dark headline={{ bold: "03", thin: t("03Thin") }}>
-          <p className="text-xl md:text-2xl max-w-[30em] mx-auto">
-            <TransWithComps i18nKey={"projs/bebop:03Copy"} />
-          </p>
-        </Band>
-        <Band headline={{ bold: "04", thin: t("04Thin") }}>
-          <p className="text-xl md:text-2xl">
-            <TransWithComps
-              i18nKey={"projs/bebop:04IntroCopy"}
-              extraComponents={{
-                a: (
-                  <StyledLink href="https://bebop-webjam.vercel.app/"></StyledLink>
-                ),
-              }}
-            />
-          </p>
-          <div className="grid grid-cols-4 gap-2 md:gap-4 h-96 my-4">
-            <div className="relative col-start-1 col-end-2 w-full h-full">
-              <Image
-                layout="fill"
-                objectFit="contain"
-                src="/images/projs/bebop/smartphone-screenshot.png"
-              ></Image>
+        <ProjectLayout projMeta={bebopMeta}>
+          <Band smolPadding headline={{ bold: "01", thin: t("01Thin") }}>
+            <Text presetStyle="paragraph">
+              <TransWithComps
+                i18nKey={"projs/bebop:01Copy"}
+                extraComponents={{
+                  hc: (
+                    <Popover
+                      content={
+                        <TransWithComps i18nKey={"projs/bebop:webjamHc"} />
+                      }
+                    ></Popover>
+                  ),
+                  s: <span className="cursor-pointer font-bold"></span>,
+                }}
+              />
+            </Text>
+          </Band>
+
+          <Band smolPadding headline={{ bold: "02", thin: t("02Thin") }}>
+            <Text presetStyle="paragraph">
+              <TransWithComps i18nKey={"projs/bebop:02Copy"} />
+            </Text>
+          </Band>
+
+          <Band smolPadding headline={{ bold: "03", thin: t("03Thin") }}>
+            <Text presetStyle="paragraph">
+              <TransWithComps i18nKey={"projs/bebop:03Copy"} />
+            </Text>
+          </Band>
+
+          <Band smolPadding headline={{ bold: "04", thin: t("04Thin") }}>
+            <Text presetStyle="paragraph">
+              <TransWithComps
+                i18nKey={"projs/bebop:04IntroCopy"}
+                extraComponents={{
+                  a: (
+                    <StyledLink href="https://bebop-webjam.vercel.app/"></StyledLink>
+                  ),
+                }}
+              />
+            </Text>
+
+            <div className="grid grid-cols-4 items-center min-h-0 gap-1 my-2">
+              <div className=" col-start-1 col-end-2">
+                <Image
+                  layout="responsive"
+                  width="100%"
+                  height="192%"
+                  objectFit="contain"
+                  src="/images/projs/bebop/smartphone-screenshot.png"
+                ></Image>
+              </div>
+              <div className=" col-start-2 col-end-5">
+                <Image
+                  layout="responsive"
+                  width="100%"
+                  height="100%"
+                  objectFit="contain"
+                  src="/images/projs/bebop/desktop-screenshot.png"
+                ></Image>
+              </div>
             </div>
-            <div className="relative col-start-2 col-end-5 w-full h-full">
-              <Image
-                layout="fill"
-                objectFit="contain"
-                src="/images/projs/bebop/desktop-screenshot.png"
-              ></Image>
-            </div>
-          </div>
-          <p className="text-xl md:text-2xl">
-            <TransWithComps i18nKey={"projs/bebop:04Copy"} />
-          </p>
-        </Band>
-        <DetailsBand id="details" projMeta={bebopMeta} t={t} />
+            <Text presetStyle="paragraph">
+              <TransWithComps i18nKey={"projs/bebop:04Copy"} />
+            </Text>
+          </Band>
+        </ProjectLayout>
       </ProjectContainer>
       <FABContainer>
         <BackToTop />
@@ -92,11 +101,12 @@ import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
-import DetailsBand from "@/components/Bands/DetailsBand";
 import Popover from "@/components/ui/Popover";
+import Text from "@/components/ui/Text";
 import Image from "next/image";
 import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 
 import useMeta from "@/hooks/useMeta";
+import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
