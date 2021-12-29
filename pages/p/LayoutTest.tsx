@@ -60,17 +60,21 @@ export default function bebop() {
               />
             </Text>
 
-            <div className="grid grid-cols-4 gap-2 md:gap-4 h-96 my-4">
-              <div className="relative col-start-1 col-end-2 w-full h-full">
+            <div className="grid grid-cols-4 items-center min-h-0 gap-1 my-2">
+              <div className=" col-start-1 col-end-2">
                 <Image
-                  layout="fill"
+                  layout="responsive"
+                  width="100%"
+                  height="200%"
                   objectFit="contain"
                   src="/images/projs/bebop/smartphone-screenshot.png"
                 ></Image>
               </div>
-              <div className="relative col-start-2 col-end-5 w-full h-full">
+              <div className=" col-start-2 col-end-5">
                 <Image
-                  layout="fill"
+                  layout="responsive"
+                  width="100%"
+                  height="100%"
                   objectFit="contain"
                   src="/images/projs/bebop/desktop-screenshot.png"
                 ></Image>
