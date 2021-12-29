@@ -24,10 +24,13 @@ export default function bebop() {
           <Box
             css={{
               display: "grid",
-              gap: "80px",
-
               "@md": {
+                gap: "20px",
                 gridTemplateColumns: "1fr 330px",
+              },
+
+              "@lg": {
+                gap: "80px",
               },
             }}
           >
@@ -101,8 +104,10 @@ export default function bebop() {
                   position: "sticky",
                   top: "$spacing-06",
                   paddingTop: "$spacing-07",
+                  px: "$spacing-07",
+
                   left: 0,
-                  "@md": { paddingRight: "$spacing-12" },
+                  "@md": { paddingRight: "$spacing-12", px: 0 },
                 }}
               >
                 <Box>
@@ -166,9 +171,8 @@ export default function bebop() {
                       }}
                       as="span"
                     >
-                      <StyledLink href="">
-                        Wasm gif maker <ArrowTopRightIcon />
-                      </StyledLink>
+                      <StyledLink href="/p/wasmgif">Wasm gif maker</StyledLink>
+                      <ArrowTopRightIcon />
                     </Text>
                   </Box>
                 </Box>
