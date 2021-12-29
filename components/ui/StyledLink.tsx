@@ -1,10 +1,10 @@
 const StyledLink = styled(UnstyledLink, {
+  fontSize: "inherit",
   cursor: "pointer",
   fontWeight: "bold",
 
-  borderBottom: "2px",
-  borderColor: "CurrentColor",
-  borderStyle: "solid",
+  textDecoration: "underline",
+  textUnderlineOffset: "2px",
 
   transitionDuration: "150ms",
   transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",

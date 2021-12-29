@@ -2,5 +2,6 @@
     "role": "Role",
     "type": "Project type",
     "tools": "Tools",
-    "date": "Date"
+    "date": "Date", 
+    "next": "Next project"
 }

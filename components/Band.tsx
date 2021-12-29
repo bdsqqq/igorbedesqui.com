@@ -1,6 +1,7 @@
 interface BandPropsBasic {
   dark?: boolean;
   padless?: boolean;
+  smolPadding?: boolean;
 }
 
 interface BandWithGrid extends BandPropsBasic {
@@ -24,6 +25,7 @@ const Band: React.FC<BandProps> = ({
   dark,
   gridless,
   padless,
+  smolPadding,
   id,
   headline,
   children,
@@ -34,6 +36,7 @@ const Band: React.FC<BandProps> = ({
 
   return (
     <BandWrapper
+      smolPadding={smolPadding}
       padless={padless}
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
       className={dark ? darkTheme : ""}
@@ -72,6 +75,11 @@ const BandWrapper = styled("section", {
   py: "4rem",
 
   variants: {
+    smolPadding: {
+      true: {
+        py: "2rem",
+      },
+    },
     padless: {
       true: {
         padding: 0,
@@ -95,7 +103,7 @@ const BandContent = styled("div", {
   variants: {
     padless: {
       true: {
-        py: "0",
+        px: "0",
       },
     },
     gridless: {

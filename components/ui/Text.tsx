@@ -6,10 +6,21 @@ const Text = styled("span", {
   fontVariantNumeric: "tabular-nums",
 
   variants: {
+    bold: {
+      true: {
+        fontWeight: "bold",
+      },
+    },
+
     presetStyle: {
       heading: {
         fontSize: "$3xl",
         lineHeight: "$2xl",
+      },
+
+      paragraph: {
+        fontSize: "$base",
+        lineHeight: "$base",
       },
     },
   },

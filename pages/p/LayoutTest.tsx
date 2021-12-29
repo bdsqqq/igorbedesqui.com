@@ -104,9 +104,10 @@ import HeroBand from "@/components/HeroBand";
 import Popover from "@/components/ui/Popover";
 import Text from "@/components/ui/Text";
 import Image from "next/image";
-import { FABContainer } from "@/ui/primitives/";
+import { Box, FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 
 import useMeta from "@/hooks/useMeta";
+import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
