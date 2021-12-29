@@ -2,6 +2,8 @@ export const ProjectLayout: React.FC<{ projMeta: Meta }> = ({
   children,
   projMeta,
 }) => {
+  const { t } = useTranslation("detail");
+
   return (
     <Box css={{ maxWidth: "1345px", marginX: "auto" }}>
       <Box
@@ -34,7 +36,7 @@ export const ProjectLayout: React.FC<{ projMeta: Meta }> = ({
             <Box>
               <Box css={{ marginBottom: "$spacing-06" }}>
                 <Text presetStyle="paragraph" bold>
-                  Roles
+                  {t("detail:role")}
                 </Text>
                 <Text as="ul" presetStyle="paragraph">
                   {projMeta.roles.map((role, i) => {
@@ -53,7 +55,7 @@ export const ProjectLayout: React.FC<{ projMeta: Meta }> = ({
 
               <Box css={{ marginBottom: "$spacing-06" }}>
                 <Text presetStyle="paragraph" bold>
-                  tools
+                  {t("detail:tools")}
                 </Text>
                 <Text as="ul" presetStyle="paragraph">
                   {projMeta.tools.map((tool, i) => {
@@ -69,7 +71,7 @@ export const ProjectLayout: React.FC<{ projMeta: Meta }> = ({
 
               <Box css={{ marginBottom: "$spacing-07" }}>
                 <Text presetStyle="paragraph" bold>
-                  Date
+                  {t("detail:date")}
                 </Text>
                 <Text as="p" presetStyle="paragraph">
                   {projMeta.date}
@@ -78,7 +80,7 @@ export const ProjectLayout: React.FC<{ projMeta: Meta }> = ({
 
               <Box css={{ marginBottom: "$spacing-06" }}>
                 <Text presetStyle="paragraph" bold>
-                  Project type
+                  {t("detail:type")}
                 </Text>
                 <Text as="p" presetStyle="paragraph">
                   {projMeta.type}
@@ -96,7 +98,7 @@ export const ProjectLayout: React.FC<{ projMeta: Meta }> = ({
 
               <Box css={{ marginBottom: "$spacing-06" }}>
                 <Text presetStyle="paragraph" bold>
-                  Next project
+                  {t("detail:next")}
                 </Text>
                 <Text
                   presetStyle="paragraph"
@@ -127,3 +129,4 @@ import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import StyledLink from "@/ui/StyledLink";
 
 import { Meta } from "@/hooks/useMeta";
+import useTranslation from "next-translate/useTranslation";
