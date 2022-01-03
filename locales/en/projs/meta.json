@@ -5,7 +5,8 @@
         "roles": "Designer, Content writer, Fullstack Developer",
         "type": "Personal",
         "tools": "Tool1, Tool2",
-        "date": "Feb 2021"
+        "date": "Feb 2021",
+        "urlSlug": "iss"
     },
     
     "wasmGif": {
@@ -15,7 +16,8 @@
         "type": "Personal",
         "tools": "ffmpeg, Web Assembly, NextJS, React, Framer Motion, TailwindCSS",
         "date": "Mar 2021",
-        "readMore": "See how it was made"
+        "readMore": "See how it was made",
+        "urlSlug": "wasmgif"
     },
 
     "bebop": {
@@ -25,7 +27,8 @@
         "type": "Personal",
         "tools": "TailwindCSS, Motion One, HTML, Adobe Illustrator",
         "date": "Oct 2021",
-        "readMore": "See how it was made"
+        "readMore": "See how it was made",
+        "urlSlug": "bebop"
     },
 
     "minesweeper": {
@@ -35,6 +38,7 @@
         "type": "Personal",
         "tools": "",
         "date": "Oct 2021",
-        "readMore": "See how it was made"
+        "readMore": "See how it was made",
+        "urlSlug": "minesweeper"
     }
 }

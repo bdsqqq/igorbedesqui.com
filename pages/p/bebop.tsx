@@ -1,6 +1,7 @@
 export default function bebop() {
   const { t, lang } = useTranslation("projs/bebop");
   const bebopMeta = useMeta("bebop", "projs");
+  const wasmGifMeta = useMeta("wasmGif", "projs");
 
   return (
     <>
@@ -17,7 +18,7 @@ export default function bebop() {
           </div>
         </HeroBand>
 
-        <ProjectLayout projMeta={bebopMeta}>
+        <ProjectLayout projMeta={bebopMeta} nextProjMeta={wasmGifMeta}>
           <Band smolPadding headline={{ bold: "01", thin: t("01Thin") }}>
             <Text presetStyle="paragraph">
               <TransWithComps

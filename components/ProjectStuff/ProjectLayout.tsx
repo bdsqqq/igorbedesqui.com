@@ -1,7 +1,7 @@
-export const ProjectLayout: React.FC<{ projMeta: Meta }> = ({
-  children,
-  projMeta,
-}) => {
+export const ProjectLayout: React.FC<{
+  projMeta: Meta;
+  nextProjMeta?: Meta;
+}> = ({ children, projMeta, nextProjMeta }) => {
   const { t } = useTranslation("detail");
 
   return (
@@ -86,35 +86,39 @@ export const ProjectLayout: React.FC<{ projMeta: Meta }> = ({
                   {projMeta.type}
                 </Text>
               </Box>
-              <Box
-                css={{
-                  width: "45px",
-                  height: "1px",
 
-                  marginY: "$spacing-09",
-                  backgroundColor: "$mauve6",
-                }}
-              />
+              {nextProjMeta && (
+                <>
+                  <Separator
+                    css={{
+                      width: "45px",
+                      marginY: "$spacing-09",
+                    }}
+                  />
 
-              <Box css={{ marginBottom: "$spacing-06" }}>
-                <Text presetStyle="paragraph" bold>
-                  {t("detail:next")}
-                </Text>
-                <Text
-                  presetStyle="paragraph"
-                  css={{
-                    display: "flex",
-                    gap: "$spacing-01",
-                    alignItems: "center",
-                    color: "$mauve11",
-                    fontWeight: "normal",
-                  }}
-                  as="span"
-                >
-                  <StyledLink href="/p/wasmgif">Wasm gif maker</StyledLink>
-                  <ArrowTopRightIcon />
-                </Text>
-              </Box>
+                  <Box css={{ marginBottom: "$spacing-06" }}>
+                    <Text presetStyle="paragraph" bold>
+                      {t("detail:next")}
+                    </Text>
+                    <Text
+                      presetStyle="paragraph"
+                      css={{
+                        display: "flex",
+                        gap: "$spacing-01",
+                        alignItems: "center",
+                        color: "$mauve11",
+                        fontWeight: "normal",
+                      }}
+                      as="span"
+                    >
+                      <StyledLink href={`/p/${nextProjMeta.urlSlug}`}>
+                        {nextProjMeta.name}
+                      </StyledLink>
+                      <ArrowTopRightIcon />
+                    </Text>
+                  </Box>
+                </>
+              )}
             </Box>
           </Box>
         </Box>
@@ -123,7 +127,7 @@ export const ProjectLayout: React.FC<{ projMeta: Meta }> = ({
   );
 };
 
-import { Box } from "@/ui/primitives/";
+import { Box, Separator } from "@/ui/primitives/";
 import Text from "@/components/ui/Text";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import StyledLink from "@/ui/StyledLink";
