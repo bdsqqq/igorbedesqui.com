@@ -1,10 +1,12 @@
 {
     "iss": {
         "name": "Onde está a ISS" ,
+        "description": "lorem",
         "roles": "Designer, Escritor de conteúdo, Desenvolvedor Fullstack",
         "type": "Personal",
         "tools": "Tool1, Tool2",
-        "date": "Fev 2021"
+        "date": "Fev 2021",
+        "urlSlug": "iss"
     },
     
     "wasmGif": {
@@ -14,7 +16,8 @@
         "type": "Pessoal",
         "tools": "ffmpeg, Web Assembly, NextJS, React, Framer Motion, TailwindCSS",
         "date": "Mar 2021",
-        "readMore": "Veja como ele foi feito"
+        "readMore": "Veja como ele foi feito",
+        "urlSlug": "wasmgif"
     },
 
     "bebop": {
@@ -24,7 +27,8 @@
         "type": "Pessoal",
         "tools": "TailwindCSS, Motion One, HTML, Adobe Illustrator",
         "date": "Out 2021",
-        "readMore": "Veja como ele foi feito"
+        "readMore": "Veja como ele foi feito",
+        "urlSlug": "bebop"
     },
 
     "minesweeper": {
@@ -34,6 +38,7 @@
         "type": "Personal",
         "tools": "",
         "date": "Oct 2021",
-        "readMore": "See how it was made"
+        "readMore": "See how it was made",
+        "urlSlug": "minesweeper"
     }
 }
