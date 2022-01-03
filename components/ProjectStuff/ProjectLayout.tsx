@@ -114,7 +114,6 @@ export const ProjectLayout: React.FC<{
                       <StyledLink href={`/p/${nextProjMeta.urlSlug}`}>
                         {nextProjMeta.name}
                       </StyledLink>
-                      <ArrowTopRightIcon />
                     </Text>
                   </Box>
                 </>
@@ -129,7 +128,6 @@ export const ProjectLayout: React.FC<{
 
 import { Box, Separator } from "@/ui/primitives/";
 import Text from "@/components/ui/Text";
-import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import StyledLink from "@/ui/StyledLink";
 
 import { Meta } from "@/hooks/useMeta";
