@@ -25,7 +25,7 @@
         "description": "My entry for the second installment of the WebJam.",
         "roles": "FrontEnd Developer, UX/UI Designer",
         "type": "Personal",
-        "tools": "TailwindCSS, Motion One, HTML, Adobe Illustrator",
+        "tools": "Javascript, TailwindCSS, CSS, Motion One, Vite, Rollup, HTML, Adobe Illustrator",
         "date": "Oct 2021",
         "readMore": "See how it was made",
         "urlSlug": "bebop"

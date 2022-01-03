@@ -25,7 +25,7 @@
         "description": "Website criado para a segunda edição da WebJam.",
         "roles": "Desenvolvedor FrontEnd, UX/UI Designer",
         "type": "Pessoal",
-        "tools": "TailwindCSS, Motion One, HTML, Adobe Illustrator",
+        "tools": "Javascript, TailwindCSS, CSS, Motion One, Vite, Rollup, HTML, Adobe Illustrator",
         "date": "Out 2021",
         "readMore": "Veja como ele foi feito",
         "urlSlug": "bebop"
