@@ -1,4 +1,8 @@
 const StyledLink = styled(UnstyledLink, {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "$spacing-01",
+
   fontSize: "inherit",
   cursor: "pointer",
   fontWeight: "bold",
@@ -12,9 +16,56 @@ const StyledLink = styled(UnstyledLink, {
   "&:hover, &:focus-within": {
     color: "$crimson11",
   },
+
+  "& > svg": {
+    transform: "translateY(-2px)",
+  },
 });
 
-export default StyledLink;
+const StyledLinkWithIcon = ({
+  href,
+  children,
+  icon = null,
+  iconless,
+}: {
+  href: string;
+  children?: React.ReactNode;
+  icon?: React.ReactNode;
+  iconless?: boolean;
+}) => {
+  const ICONS_ENUM = {
+    external: <ArrowTopRightIcon />,
+    twitter: <TwitterLogoIcon />,
+    github: <GitHubLogoIcon />,
+  };
+  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
+
+  // Sets the icon automatically if icon isn't set in props.
+  // Only runs this logic if this link isn't iconless
+  !iconless && icon == null && isInternalLink
+    ? (icon = null)
+    : href.startsWith("https://www.github.com") ||
+      href.startsWith("https://github.com")
+    ? (icon = ICONS_ENUM["github"])
+    : href.startsWith("https://www.twitter.com") ||
+      href.startsWith("https://twitter.com")
+    ? (icon = ICONS_ENUM["twitter"])
+    : (icon = ICONS_ENUM["external"]);
+
+  return (
+    <StyledLink href={href}>
+      {children} {!iconless && icon}
+    </StyledLink>
+  );
+};
+
+export default StyledLinkWithIcon;
 
 import { styled } from "stitches.config";
 import { UnstyledLink } from "@/ui/primitives";
+
+import {
+  ArrowTopRightIcon,
+  TwitterLogoIcon,
+  GitHubLogoIcon,
+} from "@radix-ui/react-icons";
