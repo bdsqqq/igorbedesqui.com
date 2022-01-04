@@ -12,7 +12,7 @@ const ChangeLang = () => {
 
         if (lng === lang)
           return (
-            <>
+            <React.Fragment key={`${lng}-fragment`}>
               <InlineSpan key={lng}>
                 <span className={ChangeLangLink({ state: "active" })}>
                   {t(`${lng}`)}
@@ -23,7 +23,7 @@ const ChangeLang = () => {
                   |
                 </Span>
               )}
-            </>
+            </React.Fragment>
           );
 
         let switchMessage;
@@ -35,7 +35,7 @@ const ChangeLang = () => {
         }
 
         return (
-          <>
+          <React.Fragment key={`${lng}-fragment`}>
             <InlineSpan key={lng}>
               <Link
                 href={router.pathname}
@@ -57,7 +57,7 @@ const ChangeLang = () => {
                 |
               </Span>
             )}
-          </>
+          </React.Fragment>
         );
       })}
     </LangChangeContainer>
@@ -113,8 +113,8 @@ import { Span } from "@/ui/primitives";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
-import setLanguage from "next-translate/setLanguage";
 import i18nConfig from "../../i18n.json";
 
 import en from "@/locales/en/common.json";
 import pt from "@/locales/pt/common.json";
+import React from "react";
