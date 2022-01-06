@@ -5,7 +5,6 @@ const StyledLink = styled(UnstyledLink, {
 
   fontSize: "inherit",
   cursor: "pointer",
-  fontWeight: "bold",
 
   textDecoration: "underline",
   textUnderlineOffset: "2px",
@@ -20,6 +19,18 @@ const StyledLink = styled(UnstyledLink, {
   "& > svg": {
     transform: "translateY(-2px)",
   },
+
+  variants: {
+    bold: {
+      true: {
+        fontWeight: "bold",
+      },
+    },
+  },
+
+  defaultVariants: {
+    bold: true,
+  },
 });
 
 const StyledLinkWithIcon = ({
@@ -27,11 +38,13 @@ const StyledLinkWithIcon = ({
   children,
   icon = null,
   iconless,
+  bold,
 }: {
   href: string;
   children?: React.ReactNode;
   icon?: React.ReactNode;
   iconless?: boolean;
+  bold?: boolean;
 }) => {
   const ICONS_ENUM = {
     external: <ArrowTopRightIcon />,
@@ -53,7 +66,7 @@ const StyledLinkWithIcon = ({
     : (icon = ICONS_ENUM["external"]);
 
   return (
-    <StyledLink href={href}>
+    <StyledLink href={href} bold={bold}>
       {children} {!iconless && icon}
     </StyledLink>
   );
