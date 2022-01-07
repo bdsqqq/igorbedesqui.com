@@ -19,8 +19,7 @@
     "next-translate": "^1.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-use-measure": "^2.0.4",
-    "zustand": "^3.6.8"
+    "react-use-measure": "^2.0.4"
   },
   "devDependencies": {
     "@radix-ui/colors": "^0.1.7",
