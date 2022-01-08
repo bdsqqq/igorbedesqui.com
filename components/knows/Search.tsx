@@ -49,7 +49,13 @@ export const Search = () => {
         }}
       >
         <label htmlFor="serachBox">SearchBox</label>
-        <input ref={inputRef} id="serachBox" type="text" />
+        <input
+          autoComplete="off"
+          spellCheck="false"
+          ref={inputRef}
+          id="serachBox"
+          type="text"
+        />
         <button>Submit</button>
       </form>
 
