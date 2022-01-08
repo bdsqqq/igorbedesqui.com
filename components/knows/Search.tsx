@@ -1,8 +1,8 @@
-const initialData = [
+const initialDataAtom = atom([
   "some",
   "data",
   "I will probably rewrite this as objects instead of strings",
-];
+]);
 
 const queriesAtom = atom<string[]>([]);
 const addQueryAtom = atom(null, (_get, set, newQuery) => {
@@ -17,7 +17,7 @@ const removeQueryAtom = atom(null, (_get, set, removedQuery: string) => {
 const filteredDataAtom = atom((get) => {
   return get(queriesAtom)
     .map((serachItem) => {
-      return initialData.filter(
+      return get(initialDataAtom).filter(
         (item) => item.toLowerCase() == serachItem.toLowerCase()
       );
     })
@@ -27,6 +27,7 @@ const filteredDataAtom = atom((get) => {
 export const Search = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  const [initialData] = useAtom(initialDataAtom);
   const [queries] = useAtom(queriesAtom);
   const [filteredData] = useAtom(filteredDataAtom);
   const [, addQuery] = useAtom(addQueryAtom);
