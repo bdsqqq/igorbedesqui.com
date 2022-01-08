@@ -5,8 +5,20 @@ const initialDataAtom = atom([
 ]);
 
 const queriesAtom = atom<string[]>([]);
-const addQueryAtom = atom(null, (_get, set, newQuery) => {
-  set(queriesAtom, (prev) => [...prev, newQuery as string]);
+const addQueryAtom = atom(null, (_get, set, newQuery: string) => {
+  set(queriesAtom, (prevQueries) => {
+    // if queries already has this new query or the new query is empty, don't add it
+    if (
+      prevQueries.some(
+        (item) =>
+          item.toLowerCase() == newQuery.toLowerCase() && newQuery.length > 0
+      )
+    ) {
+      return prevQueries;
+    } else {
+      return [...prevQueries, newQuery];
+    }
+  });
 });
 const removeQueryAtom = atom(null, (_get, set, removedQuery: string) => {
   set(queriesAtom, (prev) =>
@@ -38,10 +50,7 @@ export const Search = () => {
       <form
         onSubmit={(e) => {
           if (inputRef.current) {
-            if (
-              inputRef.current.value &&
-              !queries.includes(inputRef.current.value)
-            ) {
+            if (inputRef.current.value) {
               addQuery(inputRef.current.value);
             }
           }
@@ -95,3 +104,4 @@ export const Search = () => {
 
 import { useEffect, useRef, useState } from "react";
 import { atom, useAtom } from "jotai";
+import getIntersection from "@/lib/getIntersection";
