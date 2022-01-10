@@ -102,6 +102,5 @@ export const Search = () => {
   );
 };
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { atom, useAtom } from "jotai";
-import getIntersection from "@/lib/getIntersection";
