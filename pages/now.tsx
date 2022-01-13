@@ -56,7 +56,7 @@ export default function Home() {
               <TransWithComps i18nKey="now:bottomText" />
             </Text>
 
-            <Hr
+            <Separator
               css={{
                 width: "12rem",
                 marginX: "auto",
@@ -89,7 +89,7 @@ import Container from "@/components/Container";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 import HeroBand from "@/components/HeroBand";
 import Projects from "@/components/ProjectStuff/Projects";
-import { FABContainer, Box, Flex } from "@/ui/primitives/";
+import { FABContainer, Box, Flex, Separator } from "@/ui/primitives/";
 import Text from "@/components/ui/Text";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
