@@ -11,7 +11,11 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
         display: "flex",
         justifyContent: "center",
         width: "100%",
+
+        backgroundColor: "$mauve1",
+        color: "$mauve12",
       }}
+      className={dark ? darkTheme : ""}
     >
       <Box
         css={{
@@ -19,7 +23,6 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
           px: "$spacing-08",
           width: "100%",
         }}
-        className={dark ? darkTheme : ""}
       >
         <Separator
           css={{
