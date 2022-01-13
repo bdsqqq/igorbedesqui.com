@@ -8,5 +8,9 @@
     "404": "Page Not Found",
     "code": "code",
     "live": "live",
-    "readMore": "Read more"
+    "readMore": "Read more",
+
+    "footer": {
+        "connect": "Connect"
+    }
 }

@@ -74,7 +74,7 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
           </LinkList> */}
 
             <LinkList>
-              <Title as="h6">Connect</Title>
+              <Title as="h6">{t("common:footer.connect")}</Title>
               <li>
                 <StyledLink bold={false} href="https://github.com/bdsqqq/">
                   Github
@@ -114,7 +114,6 @@ const Title = styled("h6", {
 
 export default Footer;
 
-import Link from "next/link";
 import { darkTheme, styled } from "stitches.config";
 import usetranslation from "next-translate/useTranslation";
 

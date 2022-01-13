@@ -8,6 +8,9 @@
     "404": "Página não encontrada",
     "code": "código",
     "live": "visitar",
-    "readMore": "Leia mais"
+    "readMore": "Leia mais",
 
+    "footer": {
+        "connect": "Social"
+    }
 }
