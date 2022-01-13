@@ -39,6 +39,7 @@ const StyledLinkWithIcon = ({
   icon = null,
   iconless,
   bold,
+  ...rest
 }: {
   href: string;
   children?: React.ReactNode;
@@ -66,7 +67,7 @@ const StyledLinkWithIcon = ({
     : (icon = ICONS_ENUM["external"]);
 
   return (
-    <StyledLink href={href} bold={bold}>
+    <StyledLink {...rest} href={href} bold={bold}>
       {children} {!iconless && icon}
     </StyledLink>
   );
