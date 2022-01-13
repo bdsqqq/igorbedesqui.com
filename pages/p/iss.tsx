@@ -22,13 +22,26 @@ export default function Iss() {
         <ProjectLayout projMeta={issMeta}>
           <Band headline={{ bold: "01", thin: t("01Thin") }}>
             <Text>
-              <TransWithComps i18nKey={"projs/iss:01Copy"} />
+              A few years ago I fell in love with coding by watching{" "}
+              <StyledLinkWithIcon href="https://www.youtube.com/c/TheCodingTrain">
+                Daniel Shiffman's youtube channel
+              </StyledLinkWithIcon>
+              , following along with{" "}
+              <StyledLinkWithIcon href="https://www.youtube.com/watch?v=DbcLg8nRWEg&list=PLRqwX-V7Uu6YxDKpFzf_2D84p0cyk4T7X">
+                his series about Data and APIs
+              </StyledLinkWithIcon>{" "}
+              I created the website that got me my first job interview. This
+              project is an update for that website and a lesson on prioritizing
+              and focusing on outcome, it started as me trying to replicate the
+              layout of an asset I saw on ibm.com but it quickly transformed
+              into a side project that reflects the quality of the work I do.
+              Instead of adding as many animations, features, and info as
+              possible, I choose to focus on functionality, simplicity and
+              aesthetics.
             </Text>
           </Band>
-          <Band headline={{ bold: "02", thin: t("02Thin") }}>
-            <Text>
-              <TransWithComps i18nKey={"projs/iss:02Copy"} />
-            </Text>
+          <Band headline={{ bold: "02", thin: "challenges" }}>
+            <Text></Text>
           </Band>
           <Band headline={{ bold: "03", thin: t("03Thin") }}>
             <Text>
@@ -53,3 +66,4 @@ import Text from "@/components/ui/Text";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
 
 import useMeta from "@/hooks/useMeta";
+import StyledLinkWithIcon from "@/components/ui/StyledLink";
