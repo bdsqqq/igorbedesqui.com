@@ -1,41 +1,3 @@
-const initialDataAtom = atom([
-  "some",
-  "data",
-  "I will probably rewrite this as objects instead of strings",
-]);
-
-const queriesAtom = atom<string[]>([]);
-const addQueryAtom = atom(null, (_get, set, newQuery: string) => {
-  set(queriesAtom, (prevQueries) => {
-    // if queries already has this new query or the new query is empty, don't add it
-    if (
-      prevQueries.some(
-        (item) =>
-          item.toLowerCase() == newQuery.toLowerCase() && newQuery.length > 0
-      )
-    ) {
-      return prevQueries;
-    } else {
-      return [...prevQueries, newQuery];
-    }
-  });
-});
-const removeQueryAtom = atom(null, (_get, set, removedQuery: string) => {
-  set(queriesAtom, (prev) =>
-    prev.filter((value) => value.toLowerCase() != removedQuery.toLowerCase())
-  );
-});
-
-const filteredDataAtom = atom((get) => {
-  return get(queriesAtom)
-    .map((serachItem) => {
-      return get(initialDataAtom).filter(
-        (item) => item.toLowerCase() == serachItem.toLowerCase()
-      );
-    })
-    .flat();
-});
-
 export const Search = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -103,4 +65,12 @@ export const Search = () => {
 };
 
 import { useRef } from "react";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
+
+import {
+  initialDataAtom,
+  queriesAtom,
+  addQueryAtom,
+  removeQueryAtom,
+  filteredDataAtom,
+} from "./store";
