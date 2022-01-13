@@ -57,9 +57,10 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
                 },
               }}
             >
-              <StyledLink href="/">
-                <Text as="a" bold>
-                  IgorBedesqui
+              {/*@ts-expect-error Styled link doesn't expose the css prop but it will be passed as ...rest down the component tree */}
+              <StyledLink css={{ textDecoration: "none" }} href="/">
+                <Text css={{ fontWeight: "400", textDecoration: "none" }}>
+                  Igor Bedesqui
                 </Text>
               </StyledLink>
             </Box>
