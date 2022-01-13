@@ -18,22 +18,24 @@ export default function Iss() {
             />
           </div>
         </HeroBand>
-        <Band headline={{ bold: "01", thin: t("01Thin") }}>
-          <p className="text-xl md:text-2xl">
-            <TransWithComps i18nKey={"projs/iss:01Copy"} />
-          </p>
-        </Band>
-        <Band dark headline={{ bold: "02", thin: t("02Thin") }}>
-          <p className="text-xl md:text-2xl">
-            <TransWithComps i18nKey={"projs/iss:02Copy"} />
-          </p>
-        </Band>
-        <Band headline={{ bold: "03", thin: t("03Thin") }}>
-          <p className="text-xl md:text-2xl">
-            <TransWithComps i18nKey={"projs/iss:03Copy"} />
-          </p>
-        </Band>
-        <DetailsBand id={issMeta.name} projMeta={issMeta} t={t} />
+
+        <ProjectLayout projMeta={issMeta}>
+          <Band headline={{ bold: "01", thin: t("01Thin") }}>
+            <Text>
+              <TransWithComps i18nKey={"projs/iss:01Copy"} />
+            </Text>
+          </Band>
+          <Band headline={{ bold: "02", thin: t("02Thin") }}>
+            <Text>
+              <TransWithComps i18nKey={"projs/iss:02Copy"} />
+            </Text>
+          </Band>
+          <Band headline={{ bold: "03", thin: t("03Thin") }}>
+            <Text>
+              <TransWithComps i18nKey={"projs/iss:03Copy"} />
+            </Text>
+          </Band>
+        </ProjectLayout>
       </ProjectContainer>
     </>
   );
@@ -47,6 +49,7 @@ import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Band from "@/components/Band";
-import DetailsBand from "@/components/Bands/DetailsBand";
+import Text from "@/components/ui/Text";
+import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
 
 import useMeta from "@/hooks/useMeta";
