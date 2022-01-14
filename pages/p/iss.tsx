@@ -41,7 +41,15 @@ export default function Iss() {
             </Text>
           </Band>
           <Band headline={{ bold: "02", thin: "challenges" }}>
-            <Text></Text>
+            <Text>
+              ## Handling cache
+              {`By using data from a third party, I had a couple of limitations, the most important of them was that I could only make one request per second to the API across all clients, meaning that if enough people visited the website at the same time, I would quickly exceed my API quota. This called for an interesting solution; creating a serverless cache layer to store fresh data and distribute it or refresh it when apropriate is something I never did before but had fun implementing. Using a blazing fast cache like redis on Upstash(coloca o link do upstash aqui igor do futuro) allowed me to deliver an almost instant experience to users while keeping the amount of requests to an external API in check.`}
+              <br />
+              <br />
+              {`While server-side challenges are something I don't deal with that much, this one proved to be an interesting learning experience and tought me a pattern that I'm sure I'll use on the future. Also, if you're a nerd, here's a diagram of the caching layer. Simple but effective stuff.`}
+              <img src="" alt="Diagrama" />
+              ## Incremental enhacement
+            </Text>
           </Band>
           <Band headline={{ bold: "03", thin: t("03Thin") }}>
             <Text>
