@@ -49,6 +49,9 @@ export default function Iss() {
               {`While server-side challenges are something I don't deal with that much, this one proved to be an interesting learning experience and tought me a pattern that I'm sure I'll use on the future. Also, if you're a nerd, here's a diagram of the caching layer. Simple but effective stuff.`}
               <img src="" alt="Diagrama" />
               ## Incremental enhacement
+              {`While experimenting with the UI, I came across a problems with browser support, firefox didn't allow me to use some filter features to blur the content behind a div. While I could've just dropped the idea, I took this opportunity to use a pattern called Incremental Enchacement, using the "@supports" query in css, I applied some styles only on browsers that suppored a specific feature. This allowed me to deliver the experience I wanted to users with cutting edge browsers without sacrificing the experience of any user.`}
+              <img src="" alt="Firefox screenshot" />
+              <img src="" alt="Chrome screenshot" />
             </Text>
           </Band>
           <Band headline={{ bold: "03", thin: t("03Thin") }}>
