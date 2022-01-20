@@ -22,6 +22,14 @@ const Text = styled("span", {
         fontSize: "$base",
         lineHeight: "$base",
       },
+
+      caption: {
+        fontSize: "$sm",
+        lineHeight: "$sm",
+        fontStyle: "italic",
+        letterSpacing: "0.2px",
+        color: "$mauve11",
+      },
     },
   },
 });
