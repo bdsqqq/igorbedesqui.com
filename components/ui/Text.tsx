@@ -18,6 +18,12 @@ const Text = styled("span", {
         lineHeight: "$2xl",
       },
 
+      semiHeading: {
+        fontSize: "$lg",
+        lineHeight: "$lg",
+        fontWeight: "bold",
+      },
+
       paragraph: {
         fontSize: "$base",
         lineHeight: "$base",
