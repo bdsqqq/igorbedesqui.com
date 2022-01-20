@@ -1,10 +1,10 @@
 {
     "iss": {
-        "name": "Wheres the iss?" ,
-        "description": "lorem",
-        "roles": "Designer, Content writer, Fullstack Developer",
+        "name": "Where's the iss?" ,
+        "description": "Real time tracking of the International Space Station",
+        "roles": "Fullstack Developer, UX/UI Designer",
         "type": "Personal",
-        "tools": "Tool1, Tool2",
+        "tools": "NextJS, React, Typescript, Stitches, Radix-ui, SWR, Zustand, Vercel, Redis, Upstash",
         "date": "Feb 2021",
         "urlSlug": "iss"
     },

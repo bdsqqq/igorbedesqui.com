@@ -1,10 +1,10 @@
 {
     "iss": {
         "name": "Onde está a ISS" ,
-        "description": "lorem",
-        "roles": "Designer, Escritor de conteúdo, Desenvolvedor Fullstack",
-        "type": "Personal",
-        "tools": "Tool1, Tool2",
+        "description": "Localização em tempo real da Estação Espacial Internacional",
+        "roles": "Desenvolvedor Fullstack, UX/UI Designer",
+        "type": "Pessoal",
+        "tools": "NextJS, React, Typescript, Stitches, Radix-ui, SWR, Zustand, Vercel, Redis, Upstash",
         "date": "Fev 2021",
         "urlSlug": "iss"
     },
