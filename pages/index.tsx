@@ -2,7 +2,8 @@ export default function Home() {
   const { t, lang } = useTranslation("home");
   const wasmGifMeta = useMeta("wasmGif", "projs");
   const bebopMeta = useMeta("bebop", "projs");
-  const projsMeta = [bebopMeta, wasmGifMeta];
+  const issMeta = useMeta("iss", "projs");
+  const projsMeta = [bebopMeta, issMeta, wasmGifMeta];
 
   return (
     <>
