@@ -5,8 +5,8 @@
     "heroTitle" : "Onde está a <b>ISS</b>?",
     "heroSubHead": "(No espaço, provavelmente, mas não conta pra ninguém)",
 
-    "01Thin": "Why?",
-    "01Copy": "Years ago I fell in love with coding by watching <a1>Daniel Shiffman's youtube channel</a1>, following along with <a2>his series about Data and APIs<a2> I created the website that got me my first job interview. This project is an update for that website and a lesson on prioritizing and focusing on the outcome, it started as me trying to replicate the layout of an asset I saw on ibm.com but it quickly transformed into a side project that reflects the quality of the work I do. Instead of adding as many animations, features, and info as possible, I choose to focus on functionality, simplicity, and aesthetics.",
+    "01Thin": "Motivação?",
+    "01Copy": "Anos atrás, eu me apaixonei por programação assistindo o <a1>Canal do Daniel Shiffman no youtube</a1> e seguindo <a2>sua série sobre Dados e APIs<a2> eu criei o site que conseguiu minha primeira entrevista. Esse projeto é uma versão atualizada daquele mesmo site e uma lição em como priorizar resultados, ele começou comigo tentando replicar o layout de um asset que vi em ibm.com mas rápidamente se transformou em  //  This project is an update for that website and a lesson on prioritizing and focusing on the outcome, it started as me trying to replicate the layout of an asset I saw on ibm.com but it quickly transformed into a side project that reflects the quality of the work I do. Instead of adding as many animations, features, and info as possible, I choose to focus on functionality, simplicity, and aesthetics.",
 
     "02Thin": "Challenges",
     "02Copy": {
