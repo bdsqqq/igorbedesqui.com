@@ -52,9 +52,7 @@ export default function Home() {
               css={{
                 marginBottom: "$spacing-07",
               }}
-            >
-              <TransWithComps i18nKey="now:bottomText" />
-            </Text>
+            ></Text>
 
             <Separator
               css={{
@@ -70,7 +68,10 @@ export default function Home() {
             />
 
             <Text as="p">
-              <TransWithComps i18nKey="now:lastUpdated" />
+              <TransWithComps
+                text={t("lastUpdated")}
+                extraComponents={{ date: <Text></Text> }}
+              />
             </Text>
           </Box>
         </Band>
@@ -95,4 +96,3 @@ import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 
 import { styled } from "stitches.config";
-import { useEffect } from "react";
