@@ -21,18 +21,18 @@ export default function Home() {
             }}
           />
         </HeroBand>
-        <Band headline={{ bold: "01", thin: t("01Title") }}>
+        <Band headline={{ bold: "01", thin: t("01.title") }}>
           <p className="text-xl md:text-3xl tracking-tight ">
-            <TransWithComps text={t("01Copy")} />
+            <TransWithComps text={t("01.copy")} />
           </p>
         </Band>
-        <Band dark headline={{ bold: "02", thin: t("02Title") }}>
+        <Band dark headline={{ bold: "02", thin: t("02.title") }}>
           <Projects projectsMeta={projsMeta} />
         </Band>
-        <Band headline={{ bold: t("hey"), thin: t("heyTitle") }}>
+        <Band headline={{ bold: t("hey.greet"), thin: t("hey.title") }}>
           <p className="text-2xl">
             <TransWithComps
-              text={t("heyCopy")}
+              text={t("hey.copy")}
               extraComponents={{
                 github: (
                   <StyledLink href="https://github.com/bdsqqq"></StyledLink>

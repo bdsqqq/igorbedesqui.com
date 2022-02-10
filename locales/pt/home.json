@@ -5,13 +5,19 @@
 
     "hero": "<intro>Olá  — </intro><br/><br/>Meu nome é <b>Igor Bedesqui</b>, eu sou um desenvolvedor web localizado em São Paulo",
 
-    "01Title": "Quem sou eu?",
-    "01Copy": "Em poucas palavras:<br/><br/>Eu sou apaixonado por design, UX e interatividade.<br/> Profissionalmente eu crio soluções <b>simples</b>, <b>funcionais</b>, e <b>belas</b>.",
+    "01": {
+        "title": "Quem sou eu?",
+        "copy": "Em poucas palavras:<br/><br/>Eu sou apaixonado por design, UX e interatividade.<br/> Profissionalmente eu crio soluções <b>simples</b>, <b>funcionais</b>, e <b>belas</b>."
+    },
 
-    "02Title": "Trabalho",
-    "02Cta": "Veja mais projetos",
+    "02": {
+        "title": "Trabalho",
+        "copy": "Veja mais projetos"
+    },
 
-    "hey": "Eai",
-    "heyTitle": "Bora se falar!",
-    "heyCopy": "Você pode me encontrar em várias redes sociais que não gosto de usar, ver meu código no <github>Github</github> ou entrar em contato via <email>Email</email>"
+    "hey": {
+        "greet": "Eai",
+        "title": "Bora se falar!",
+        "copy": "Você pode me encontrar em várias redes sociais que não gosto de usar, ver meu código no <github>Github</github> ou entrar em contato via <email>Email</email>"
+    }
 }
