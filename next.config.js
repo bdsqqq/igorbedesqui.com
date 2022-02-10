@@ -25,4 +25,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withPlugins([withContentlayer, nextTranslate], nextConfig);
+module.exports = withPlugins([withContentlayer(), nextTranslate()], nextConfig);
