@@ -1,6 +1,11 @@
+const withPlugins = require("next-compose-plugins");
 const { withContentlayer } = require("next-contentlayer");
+const nextTranslate = require("next-translate");
 
-module.exports = withContentlayer()({
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
   reactStrictMode: true,
   i18n: {
     locales: ["en", "pt"],
@@ -18,4 +23,6 @@ module.exports = withContentlayer()({
 
     return config;
   },
-});
+};
+
+module.exports = withPlugins([withContentlayer, nextTranslate], nextConfig);
