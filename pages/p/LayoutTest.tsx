@@ -1,4 +1,4 @@
-export default function bebop() {
+export default function Bebop() {
   const { t, lang } = useTranslation("projs/bebop");
   const bebopMeta = useMeta("bebop", "projs");
 
@@ -8,7 +8,7 @@ export default function bebop() {
 
       <ProjectContainer key="bebopProj" backMessage={t("backMessage")}>
         <HeroBand heroVideo={"/videos/bebop/noodles"}>
-          <TransWithComps i18nKey={"projs/bebop:heroTitle"} />
+          <TransWithComps text={"projs/bebop:heroTitle"} />
           <div className="mt-6">
             <CodeAndDemoButtons
               codeUrl="https://github.com/bdsqqq/bebop-webjam"
@@ -21,13 +21,11 @@ export default function bebop() {
           <Band smolPadding headline={{ bold: "01", thin: t("01Thin") }}>
             <Text presetStyle="paragraph">
               <TransWithComps
-                i18nKey={"projs/bebop:01Copy"}
+                text={"projs/bebop:01Copy"}
                 extraComponents={{
                   hc: (
                     <Popover
-                      content={
-                        <TransWithComps i18nKey={"projs/bebop:webjamHc"} />
-                      }
+                      content={<TransWithComps text={"projs/bebop:webjamHc"} />}
                     ></Popover>
                   ),
                   s: <span className="cursor-pointer font-bold"></span>,
@@ -38,20 +36,20 @@ export default function bebop() {
 
           <Band smolPadding headline={{ bold: "02", thin: t("02Thin") }}>
             <Text presetStyle="paragraph">
-              <TransWithComps i18nKey={"projs/bebop:02Copy"} />
+              <TransWithComps text={"projs/bebop:02Copy"} />
             </Text>
           </Band>
 
           <Band smolPadding headline={{ bold: "03", thin: t("03Thin") }}>
             <Text presetStyle="paragraph">
-              <TransWithComps i18nKey={"projs/bebop:03Copy"} />
+              <TransWithComps text={"projs/bebop:03Copy"} />
             </Text>
           </Band>
 
           <Band smolPadding headline={{ bold: "04", thin: t("04Thin") }}>
             <Text presetStyle="paragraph">
               <TransWithComps
-                i18nKey={"projs/bebop:04IntroCopy"}
+                text={"projs/bebop:04IntroCopy"}
                 extraComponents={{
                   a: (
                     <StyledLink href="https://bebop-webjam.vercel.app/"></StyledLink>
@@ -81,7 +79,7 @@ export default function bebop() {
               </div>
             </div>
             <Text presetStyle="paragraph">
-              <TransWithComps i18nKey={"projs/bebop:04Copy"} />
+              <TransWithComps text={"projs/bebop:04Copy"} />
             </Text>
           </Band>
         </ProjectLayout>

@@ -1,4 +1,4 @@
-export default function wasmGif() {
+export default function WasmGif() {
   const { t, lang } = useTranslation("projs/wasmGif");
   const wasmGifMeta = useMeta("wasmGif", "projs");
   return (
@@ -7,7 +7,7 @@ export default function wasmGif() {
 
       <ProjectContainer key="wasmGifProj">
         <HeroBand heroVideo={"/videos/wasmgif/wow"}>
-          <TransWithComps i18nKey={"projs/wasmGif:heroTitle"} />
+          <TransWithComps text={"projs/wasmGif:heroTitle"} />
           <div className="mt-6">
             <CodeAndDemoButtons
               codeUrl="https://github.com/bdsqqq/next-wasm-gif"
@@ -19,12 +19,12 @@ export default function wasmGif() {
         <ProjectLayout projMeta={wasmGifMeta}>
           <Band smolPadding headline={{ bold: "01", thin: t("01Thin") }}>
             <Text presetStyle="paragraph">
-              <TransWithComps i18nKey={"projs/wasmGif:01Copy"} />
+              <TransWithComps text={"projs/wasmGif:01Copy"} />
             </Text>
           </Band>
           <Band smolPadding headline={{ bold: "02", thin: t("02Thin") }}>
             <Text presetStyle="paragraph">
-              <TransWithComps i18nKey={"projs/wasmGif:02Copy"} />
+              <TransWithComps text={"projs/wasmGif:02Copy"} />
             </Text>
           </Band>
         </ProjectLayout>
