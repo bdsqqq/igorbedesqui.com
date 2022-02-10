@@ -64,6 +64,7 @@ const globalStyles = globalCss({
 
   a: {
     textDecoration: "none",
+    color: "inherit",
   },
 
   "ol, ul": {
