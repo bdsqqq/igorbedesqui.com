@@ -93,7 +93,7 @@ const Overlay = styled("div", {
   zIndex: "2",
   width: "100%",
   height: "100%",
-  backgroundImage: `url("images/grain.png")`,
+  backgroundImage: `url("/images/grain.png")`,
   backgroundPosition: "0px 0px",
   backgroundSize: "250px",
   opacity: 0.4,
