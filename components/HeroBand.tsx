@@ -13,6 +13,8 @@ type HeroBandVideo = {
 
 type HeroBandProps = HeroBandVideo | HeroBandImg;
 
+const StyledImage = styled(Image);
+
 const HeroBand: React.FC<HeroBandProps> = ({
   heroImg,
   heroVideo,
@@ -20,13 +22,36 @@ const HeroBand: React.FC<HeroBandProps> = ({
 }) => {
   return (
     <Band gridless id="hero" padless>
-      <div className="relative w-full min-h-70vh">
+      <Box
+        css={{
+          position: "relative",
+          width: "100%",
+          minHeight: "70vh",
+        }}
+      >
         {(heroImg || heroVideo) && (
-          <div className="absolute h-full w-full my-0 mx-auto">
+          <Box
+            css={{
+              position: "absolute",
+              height: "100%",
+              width: "100%",
+              marginY: 0,
+              marginX: "auto",
+            }}
+          >
             {heroImg && (
-              <Image
+              <StyledImage
                 priority
-                className="p-sm-caralho md:p-lg-caralho"
+                css={{
+                  padding: "4rem !important",
+
+                  "@md": {
+                    paddingRight: "6rem !important",
+                    paddingLeft: "18rem !important",
+                    paddingTop: "4rem !important",
+                    paddingBottom: "4rem !important",
+                  },
+                }}
                 src={heroImg.src}
                 alt={heroImg.alt}
                 layout="fill"
@@ -35,33 +60,96 @@ const HeroBand: React.FC<HeroBandProps> = ({
               />
             )}
             {heroVideo && (
-              <div className="block overflow-hidden w-full h-full box-border absolute">
-                <video
+              <Box
+                css={{
+                  overflow: "hidden",
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                }}
+              >
+                <Box
+                  as={"video"}
                   preload="none"
                   playsInline
                   autoPlay
                   muted
                   loop
-                  className="absolute visible w-0 h-0 object-center object-cover min-h-full max-h-full min-w-full max-w-full p-sm-caralho md:p-lg-caralho"
+                  css={{
+                    position: "absolute",
+                    visibility: "visible",
+                    width: "100%",
+                    height: "100%",
+                    objectPosition: "center",
+                    objectFit: "cover",
+
+                    padding: "4rem !important",
+
+                    "@md": {
+                      paddingRight: "6rem !important",
+                      paddingLeft: "18rem !important",
+                      paddingTop: "4rem !important",
+                      paddingBottom: "4rem !important",
+                    },
+                  }}
                 >
                   <source src={`${heroVideo}.webm`} type="video/webm" />
                   <source src={`${heroVideo}.mp4`} type="video/mp4" />
-                </video>
-              </div>
+                </Box>
+              </Box>
             )}
-            <div className="absolute h-full bg-mauve-mauve1 w-full opacity-75" />
-          </div>
+            <Box
+              css={{
+                position: "absolute",
+                height: "100%",
+                width: "100%",
+                background: "$mauve1",
+                opacity: "75%",
+              }}
+            />
+          </Box>
         )}
-        <div className="relative min-h-70vh flex items-center max-w-6xl px-8 md:px-16 mx-auto">
-          <h1
+        <Box
+          css={{
+            position: "relative",
+            minHeight: "70vh",
+            display: "flex",
+            alignItems: "center",
+            maxWidth: "72rem",
+            padding: "$spacing-07",
+            marginX: "auto",
+
+            "@md": {
+              padding: "$spacing-10 ",
+            },
+          }}
+        >
+          <Text
+            as="h1"
+            css={{
+              marginBottom: "$spacing-05",
+              letterSpacing: "$tight",
+              lineHeight: "$xl",
+              fontSize: "$xl",
+
+              "@md": {
+                maxWidth: "42rem",
+                width: "66.6%",
+                marginLeft: "$spacing-07",
+                marginRight: "$spacing-10",
+
+                lineHeight: "$2xl",
+                fontSize: "$2xl",
+                textTransform: "uppercase",
+              },
+            }}
             id="skip"
             tabIndex={-1}
-            className="md:max-w-2xl md:w-2/3 md:mx-8 md:mr-16 text-2xl md:text-3xl tracking-tight mb-4 md:leading-snug uppercase"
           >
             {children}
-          </h1>
-        </div>
-      </div>
+          </Text>
+        </Box>
+      </Box>
     </Band>
   );
 };
@@ -69,4 +157,8 @@ const HeroBand: React.FC<HeroBandProps> = ({
 export default HeroBand;
 
 import Image from "next/image";
+import { styled } from "stitches.config";
+
 import Band from "@/components/Band";
+import { Box } from "./ui/primitives";
+import Text from "./ui/Text";
