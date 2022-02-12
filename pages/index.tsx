@@ -17,20 +17,27 @@ export default function Home() {
           <TransWithComps
             text={t("hero")}
             extraComponents={{
-              intro: <span className="font-light text-lg md:text-2xl" />,
+              intro: (
+                <Text
+                  presetStyle="lgParagraph"
+                  css={{
+                    fontWeight: "300",
+                  }}
+                />
+              ),
             }}
           />
         </HeroBand>
         <Band headline={{ bold: "01", thin: t("01.title") }}>
-          <p className="text-xl md:text-3xl tracking-tight ">
+          <Text as="p" presetStyle="lgParagraph">
             <TransWithComps text={t("01.copy")} />
-          </p>
+          </Text>
         </Band>
         <Band dark headline={{ bold: "02", thin: t("02.title") }}>
           <Projects projectsMeta={projsMeta} />
         </Band>
         <Band headline={{ bold: t("hey.greet"), thin: t("hey.title") }}>
-          <p className="text-2xl">
+          <Text as="p" presetStyle="lgParagraph">
             <TransWithComps
               text={t("hey.copy")}
               extraComponents={{
@@ -42,7 +49,7 @@ export default function Home() {
                 ),
               }}
             />
-          </p>
+          </Text>
         </Band>
       </Container>
       <FABContainer>
@@ -67,3 +74,4 @@ import StyledLink from "@/ui/StyledLink";
 
 import type { Leaves } from "@/lib/nestedKeyOfTypes";
 import homeNamespace from "@/locales/en/home.json";
+import Text from "@/components/ui/Text";
