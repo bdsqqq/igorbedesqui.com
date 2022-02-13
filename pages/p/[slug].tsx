@@ -1,11 +1,3 @@
-import { useMDXComponent } from "next-contentlayer/hooks";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { allProjects } from ".contentlayer/data";
-import type { Project } from ".contentlayer/types";
-import type { GetStaticPathsContext, GetStaticPathsResult } from "next";
-
 export async function getStaticPaths({
   locales,
 }: GetStaticPathsContext): Promise<GetStaticPathsResult> {
@@ -35,16 +27,6 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
   return { props: { project } };
 }
 
-const Component = () => {
-  return (
-    <div style={{ background: "black", width: "200px", height: "200px" }} />
-  );
-};
-
-const mdxComponents = {
-  Component,
-};
-
 const ProjectLayout = ({ project }: { project: Project }) => {
   const MDXContent = useMDXComponent(project.body.code);
   const router = useRouter();
@@ -69,10 +51,20 @@ const ProjectLayout = ({ project }: { project: Project }) => {
         <div>
           <h1>{project.title}</h1>
         </div>
-        <MDXContent components={mdxComponents} />
+        <MDXContent components={MDXComponents} />
       </article>
     </>
   );
 };
 
 export default ProjectLayout;
+
+import { useMDXComponent } from "next-contentlayer/hooks";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { allProjects } from ".contentlayer/data";
+import type { Project } from ".contentlayer/types";
+import type { GetStaticPathsContext, GetStaticPathsResult } from "next";
+
+import MDXComponents from "@/components/MDXcomponents";
