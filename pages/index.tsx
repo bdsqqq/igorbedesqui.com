@@ -1,12 +1,16 @@
 export default function Home() {
-  const { t, lang } = useTranslation("home");
+  const homeTranslation = useTranslation("home");
+  const t = (translationKey: Leaves<typeof homeNamespace>) => {
+    return homeTranslation.t(translationKey);
+  };
+
   const wasmGifMeta = useMeta("wasmGif", "projs");
   const bebopMeta = useMeta("bebop", "projs");
   const projsMeta = [bebopMeta, wasmGifMeta];
 
   return (
     <>
-      <Seo t={t} lang={lang} />
+      <Seo t={homeTranslation.t} lang={homeTranslation.lang} />
 
       <Container key="index">
         <HeroBand>
@@ -60,3 +64,6 @@ import Projects from "@/components/ProjectStuff/Projects";
 import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
+
+import type { Leaves } from "@/lib/nestedKeyOfTypes";
+import homeNamespace from "@/locales/en/home.json";
