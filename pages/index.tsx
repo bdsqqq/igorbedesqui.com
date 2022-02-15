@@ -15,7 +15,7 @@ export default function Home() {
       <Container key="index">
         <HeroBand>
           <TransWithComps
-            i18nKey="home:hero"
+            text={t("hero")}
             extraComponents={{
               intro: <span className="font-light text-lg md:text-2xl" />,
             }}
@@ -23,7 +23,7 @@ export default function Home() {
         </HeroBand>
         <Band headline={{ bold: "01", thin: t("01Title") }}>
           <p className="text-xl md:text-3xl tracking-tight ">
-            <TransWithComps i18nKey="home:01Copy" />
+            <TransWithComps text={t("01Copy")} />
           </p>
         </Band>
         <Band dark headline={{ bold: "02", thin: t("02Title") }}>
@@ -32,7 +32,7 @@ export default function Home() {
         <Band headline={{ bold: t("hey"), thin: t("heyTitle") }}>
           <p className="text-2xl">
             <TransWithComps
-              i18nKey="home:heyCopy"
+              text={t("heyCopy")}
               extraComponents={{
                 github: (
                   <StyledLink href="https://github.com/bdsqqq"></StyledLink>
