@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { HistoryProvider } from "@/contexts/History";
-import { globalCss } from "stitches.config";
+import { Box } from "@/ui/primitives";
+import { globalCss, styled } from "stitches.config";
 
 const globalStyles = globalCss({
   "@font-face": {
@@ -82,13 +83,32 @@ const globalStyles = globalCss({
   },
 });
 
+const Overlay = styled("div", {
+  pointerEvents: "none",
+  position: "absolute",
+  left: "0%",
+  top: "0%",
+  right: "0%",
+  bottom: "0%",
+  zIndex: "2",
+  width: "100%",
+  height: "100%",
+  backgroundImage: `url("/images/grain.png")`,
+  backgroundPosition: "0px 0px",
+  backgroundSize: "250px",
+  opacity: 0.4,
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
   globalStyles();
   return (
     <HistoryProvider>
-      <div className="fadeIn">
-        <Component {...pageProps} />
-      </div>
+      <Box css={{ position: "relative" }}>
+        <div className="fadeIn">
+          <Overlay />
+          <Component {...pageProps} />
+        </div>
+      </Box>
     </HistoryProvider>
   );
 }
