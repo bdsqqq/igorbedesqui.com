@@ -67,6 +67,7 @@ export default function Bebop() {
                   height="192%"
                   objectFit="contain"
                   src="/images/projs/bebop/smartphone-screenshot.png"
+                  alt=""
                 ></Image>
               </div>
               <div className=" col-start-2 col-end-5">
@@ -76,6 +77,7 @@ export default function Bebop() {
                   height="100%"
                   objectFit="contain"
                   src="/images/projs/bebop/desktop-screenshot.png"
+                  alt=""
                 ></Image>
               </div>
             </div>
