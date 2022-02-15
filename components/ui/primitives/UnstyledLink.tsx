@@ -8,13 +8,13 @@ const UnstyledLink: React.FC<LinkProps> = ({ href, children, ...rest }) => {
   if (isInternalLink) {
     return (
       <Link href={href} passHref {...rest}>
-        <A>{children}</A>
+        <a {...rest}>{children}</a>
       </Link>
     );
   }
 
   return (
-    <A
+    <a
       target="_blank"
       rel="noopener noreferrer"
       href={href as string}
@@ -22,11 +22,9 @@ const UnstyledLink: React.FC<LinkProps> = ({ href, children, ...rest }) => {
     >
       {children}
       <SrOnly>{t("newTab")}</SrOnly>
-    </A>
+    </a>
   );
 };
-
-const A = styled("a");
 
 export default UnstyledLink;
 
