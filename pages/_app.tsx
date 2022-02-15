@@ -104,10 +104,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <HistoryProvider>
       <Box css={{ position: "relative" }}>
-        <div className="fadeIn">
-          <Overlay />
-          <Component {...pageProps} />
-        </div>
+        <Overlay />
+        <Component {...pageProps} />
       </Box>
     </HistoryProvider>
   );
