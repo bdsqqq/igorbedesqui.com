@@ -17,22 +17,29 @@ export default function Home() {
           <TransWithComps
             text={t("hero")}
             extraComponents={{
-              intro: <span className="font-light text-lg md:text-2xl" />,
+              intro: (
+                <Text
+                  presetStyle="lgParagraph"
+                  css={{
+                    fontWeight: "300",
+                  }}
+                />
+              ),
             }}
           />
         </HeroBand>
-        <Band headline={{ bold: "01", thin: t("01Title") }}>
-          <p className="text-xl md:text-3xl tracking-tight ">
-            <TransWithComps text={t("01Copy")} />
-          </p>
+        <Band headline={{ bold: "01", thin: t("01.title") }}>
+          <Text as="p" presetStyle="lgParagraph">
+            <TransWithComps text={t("01.copy")} />
+          </Text>
         </Band>
-        <Band dark headline={{ bold: "02", thin: t("02Title") }}>
+        <Band dark headline={{ bold: "02", thin: t("02.title") }}>
           <Projects projectsMeta={projsMeta} />
         </Band>
-        <Band headline={{ bold: t("hey"), thin: t("heyTitle") }}>
-          <p className="text-2xl">
+        <Band headline={{ bold: t("hey.greet"), thin: t("hey.title") }}>
+          <Text as="p" presetStyle="lgParagraph">
             <TransWithComps
-              text={t("heyCopy")}
+              text={t("hey.copy")}
               extraComponents={{
                 github: (
                   <StyledLink href="https://github.com/bdsqqq"></StyledLink>
@@ -42,7 +49,7 @@ export default function Home() {
                 ),
               }}
             />
-          </p>
+          </Text>
         </Band>
       </Container>
       <FABContainer>
@@ -64,6 +71,7 @@ import Projects from "@/components/ProjectStuff/Projects";
 import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
+import Text from "@/components/ui/Text";
 
 import type { Leaves } from "@/lib/nestedKeyOfTypes";
 import homeNamespace from "@/locales/en/home.json";
