@@ -29,6 +29,14 @@ const Text = styled("span", {
         lineHeight: "$base",
       },
 
+      lgParagraph: {
+        fontSize: "$lg",
+
+        "@md": {
+          fontSize: "$xl",
+        },
+      },
+
       caption: {
         fontSize: "$sm",
         lineHeight: "$sm",
