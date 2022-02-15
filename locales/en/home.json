@@ -1,16 +1,22 @@
 {
     "title": "Igor Bedesqui — Web Developer",
     "description": "front-end Web Developer based in São Paulo",
-    
-    
-    "hero": "<intro>Hello — </intro><br/><br/>My name is <b>Igor Bedesqui</b>, I'm a web developer based in São Paulo", 
-    "01Title": "Who am I?",
-    "01Copy": "In a few words:<br/><br/>I'm passionate about design, UX and interactivity.<br/> Professionally I create <b>simple</b>, <b>functional</b>, and <b>beautiful</b> solutions.",
 
-    "02Title": "Work",
-    "02Cta": "See more projects",
+    "hero": "<intro>Hello — </intro><br/><br/>My name is <b>Igor Bedesqui</b>, I'm a web developer based in São Paulo",
 
-    "hey": "Hey",
-    "heyTitle": "Let's connect!",
-    "heyCopy": "You can find me on various platforms that I don't really like using, see my code at <github>Github</github> or get in touch via <email>Email</email>."
-}
+    "01": {
+        "title": "Who am I?",
+        "copy": "In a few words:<br/><br/>I'm passionate about design, UX and interactivity.<br/> Professionally I create <b>simple</b>, <b>functional</b>, and <b>beautiful</b> solutions."
+    },
+
+    "02": {
+        "title": "Work",
+        "copy": "See more projects"
+    },
+
+    "hey": {
+        "greet": "hey",
+        "title": "Let's connect!",
+        "copy": "You can find me on various platforms that I don't really like using, see my code at <github>Github</github> or get in touch via <email>Email</email>."
+    }
+} 
