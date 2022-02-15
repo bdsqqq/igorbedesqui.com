@@ -28,6 +28,18 @@ export const Project = defineDocumentType(() => ({
       description: "The language of the project",
       required: true,
     },
+    heroImg: {
+      type: "json",
+      required: false,
+    },
+    heroVideo: {
+      type: "string",
+      required: false,
+    },
+    hej: {
+      type: "mdx",
+      required: false,
+    },
     alternate: {
       type: "nested",
       of: [Alternate],

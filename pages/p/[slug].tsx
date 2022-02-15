@@ -27,44 +27,43 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
   return { props: { project } };
 }
 
-const ProjectLayout = ({ project }: { project: Project }) => {
+const Page = ({ project }: { project: Project }) => {
   const MDXContent = useMDXComponent(project.body.code);
-  const router = useRouter();
+  const HeroMdx = useMDXComponent(project.hej?.code);
+  const issMeta = useMeta("iss", "projs");
 
   return (
     <>
-      <Head>
-        <title>{project.title}</title>
-      </Head>
-      <article>
-        <Link
-          href={`${project?.alternate?.slug}`}
-          locale={project?.alternate?.locale}
-        >{`${project?.alternate?.slug}`}</Link>
+      <HeroBand heroImg={project.heroImg} heroVideo={project.heroVideo}>
+        <HeroMdx />
         <button
           onClick={() => {
-            console.log(router.locale);
+            console.log(project);
           }}
         >
           Hej
         </button>
-        <div>
-          <h1>{project.title}</h1>
-        </div>
+      </HeroBand>
+      <Head>
+        <title>{project.title}</title>
+      </Head>
+      <ProjectLayout projMeta={issMeta}>
         <MDXContent components={MDXComponents} />
-      </article>
+      </ProjectLayout>
     </>
   );
 };
 
-export default ProjectLayout;
+export default Page;
 
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import { allProjects } from ".contentlayer/data";
 import type { Project } from ".contentlayer/types";
 import type { GetStaticPathsContext, GetStaticPathsResult } from "next";
 
 import MDXComponents from "@/components/MDXcomponents";
+import HeroBand from "@/components/HeroBand";
+import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
+import useMeta from "@/hooks/useMeta";
+import Seo from "@/components/Seo";
