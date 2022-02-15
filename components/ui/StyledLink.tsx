@@ -33,19 +33,21 @@ const StyledLink = styled(UnstyledLink, {
   },
 });
 
-const StyledLinkWithIcon = ({
+import type { LinkProps } from "next/link";
+interface StyledLinkProps extends LinkProps {
+  href: string;
+  icon?: React.ReactNode;
+  iconless?: boolean;
+  bold?: boolean;
+}
+
+const StyledLinkWithIcon: React.FC<StyledLinkProps> = ({
   href,
   children,
   icon = null,
   iconless,
   bold,
   ...rest
-}: {
-  href: string;
-  children?: React.ReactNode;
-  icon?: React.ReactNode;
-  iconless?: boolean;
-  bold?: boolean;
 }) => {
   const ICONS_ENUM = {
     external: <ArrowTopRightIcon />,

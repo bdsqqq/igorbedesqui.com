@@ -6,7 +6,7 @@ export default function Iss() {
       <Seo t={t} lang={lang} url="p/iss" />
       <ProjectContainer key="issProj" backMessage="Fly back home">
         <HeroBand heroVideo="/videos/iss/space">
-          <TransWithComps i18nKey="projs/iss:heroTitle" />
+          <TransWithComps text={t("heroTitle")} />
           <p aria-hidden="true" className="text-transparent">
             {t("projs/iss:heroSubHead")}
           </p>
@@ -23,7 +23,7 @@ export default function Iss() {
             <Text>
               A few years ago I fell in love with coding by watching{" "}
               <StyledLinkWithIcon href="https://www.youtube.com/c/TheCodingTrain">
-                Daniel Shiffman's youtube channel
+                {`Daniel Shiffman's youtube channel`}
               </StyledLinkWithIcon>
               , following along with{" "}
               <StyledLinkWithIcon href="https://www.youtube.com/watch?v=DbcLg8nRWEg&list=PLRqwX-V7Uu6YxDKpFzf_2D84p0cyk4T7X">
@@ -106,6 +106,7 @@ export default function Iss() {
                       height="58%"
                       objectFit="contain"
                       src="/images/projs/iss/chrome_ui.jpg"
+                      alt=""
                     />
                   </Box>
                   <figcaption>
@@ -140,6 +141,7 @@ export default function Iss() {
                       height="58%"
                       objectFit="contain"
                       src="/images/projs/iss/firefox_ui.jpg"
+                      alt=""
                     />
                   </Box>
 

@@ -48,6 +48,8 @@ const BackToTop = () => {
 };
 
 const Button = styled("button", {
+  cursor: "pointer",
+
   width: "3rem",
   height: "3rem",
   borderRadius: 9999,

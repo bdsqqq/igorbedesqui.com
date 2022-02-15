@@ -7,7 +7,7 @@ export default function Minesweeper() {
       <Seo t={t} lang={lang} url="p/minesweeper" />
       <ProjectContainer key="minesweeperProj">
         <HeroBand>
-          <TransWithComps i18nKey="projs/minesweeper:heroTitle" />
+          <TransWithComps text={t("heroTitle")} />
           <p aria-hidden="true" className="text-transparent">
             {t("projs/minesweeper:heroSubHead")}
           </p>

@@ -53,7 +53,7 @@ export default function Home() {
                 marginBottom: "$spacing-07",
               }}
             >
-              <TransWithComps i18nKey="now:bottomText" />
+              <TransWithComps text={t("bottomText")} />
             </Text>
 
             <Separator
@@ -70,7 +70,10 @@ export default function Home() {
             />
 
             <Text as="p">
-              <TransWithComps i18nKey="now:lastUpdated" />
+              <TransWithComps
+                text={t("lastUpdated")}
+                extraComponents={{ date: <span /> }}
+              />
             </Text>
           </Box>
         </Band>
@@ -78,8 +81,6 @@ export default function Home() {
     </>
   );
 }
-
-const Hr = styled("hr", {});
 
 import useTranslation from "next-translate/useTranslation";
 

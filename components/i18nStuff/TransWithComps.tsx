@@ -1,9 +1,9 @@
 type TransWithCompsProps = {
-  i18nKey: string;
+  text: string;
   extraComponents?: object;
 };
 const TransWithComps: React.FC<TransWithCompsProps> = ({
-  i18nKey,
+  text,
   extraComponents,
 }) => {
   const baseComponents = {
@@ -12,8 +12,8 @@ const TransWithComps: React.FC<TransWithCompsProps> = ({
   };
 
   return (
-    <Trans
-      i18nKey={i18nKey}
+    <TransText
+      text={text}
       components={
         extraComponents
           ? Object.assign(baseComponents, extraComponents)
@@ -25,4 +25,4 @@ const TransWithComps: React.FC<TransWithCompsProps> = ({
 
 export default TransWithComps;
 
-import Trans from "next-translate/Trans";
+import TransText from "next-translate/TransText";

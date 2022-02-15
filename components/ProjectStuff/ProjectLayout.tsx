@@ -111,7 +111,7 @@ export const ProjectLayout: React.FC<{
                       }}
                       as="span"
                     >
-                      <StyledLink href={`/p/${nextProjMeta.urlSlug}`}>
+                      <StyledLink scroll href={`/p/${nextProjMeta.urlSlug}`}>
                         {nextProjMeta.name}
                       </StyledLink>
                     </Text>

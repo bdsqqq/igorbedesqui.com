@@ -12,23 +12,20 @@
     "@radix-ui/react-popover": "^0.1.1",
     "@radix-ui/react-separator": "^0.1.3",
     "@stitches/react": "^1.2.5",
-    "framer-motion": "^3.1.4",
     "jotai": "^1.5.0",
-    "next": "latest",
+    "next": "^12.0.10",
     "next-seo": "^4.23.0",
     "next-translate": "^1.2.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-use-measure": "^2.0.4"
+    "preact": "^10.6.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@radix-ui/colors": "^0.1.7",
     "@types/node": "^14.14.20",
     "@types/react": "^17.0.0",
-    "autoprefixer": "10.0.2",
-    "postcss": "8.1.7",
-    "postcss-caralho": "^2.6.0",
-    "tailwindcss": "^2.2.15",
+    "eslint": "^8.8.0",
+    "eslint-config-next": "^12.0.10",
     "typescript": "^4.1.3"
   },
   "license": "MIT"
