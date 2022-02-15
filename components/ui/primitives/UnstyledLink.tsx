@@ -1,21 +1,25 @@
-type unstyledLink = {
-  href: string;
-};
+import type { LinkProps } from "next/link";
 
-const UnstyledLink: React.FC<unstyledLink> = ({ href, children, ...rest }) => {
-  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
+const UnstyledLink: React.FC<LinkProps> = ({ href, children, ...rest }) => {
+  const isInternalLink =
+    typeof href == "string" && (href.startsWith("/") || href.startsWith("#"));
   const { t } = useTranslation("common");
 
   if (isInternalLink) {
     return (
-      <Link href={href} passHref>
-        <A {...rest}>{children}</A>
+      <Link href={href} passHref {...rest}>
+        <A>{children}</A>
       </Link>
     );
   }
 
   return (
-    <A target="_blank" rel="noopener noreferrer" href={href} {...rest}>
+    <A
+      target="_blank"
+      rel="noopener noreferrer"
+      href={href as string}
+      {...rest}
+    >
       {children}
       <SrOnly>{t("newTab")}</SrOnly>
     </A>
