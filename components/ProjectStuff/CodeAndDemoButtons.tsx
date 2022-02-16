@@ -14,7 +14,7 @@ const CodeAndDemoButtons: React.FC<CodeAndDemoButtonsProps> = ({
       {codeUrl && (
         <LinkButton href={codeUrl}>
           <span>{t("code")}</span>
-          <span className="sr-only">Github</span>
+          <SrOnly>Github</SrOnly>
           <GitHubLogoIcon height="23" width="23" />
         </LinkButton>
       )}
@@ -28,15 +28,10 @@ const CodeAndDemoButtons: React.FC<CodeAndDemoButtonsProps> = ({
   );
 };
 
-const Svg = styled("svg", {
-  width: "1.25rem",
-  height: "1.25rem",
-});
-
 export default CodeAndDemoButtons;
 
-import { darkTheme, styled } from "stitches.config";
+import { darkTheme } from "stitches.config";
 import { LinkButton } from "@/ui/Button";
-import { Box } from "@/ui/primitives";
+import { Box, SrOnly } from "@/ui/primitives";
 import useTranslation from "next-translate/useTranslation";
 import { GitHubLogoIcon, ArrowTopRightIcon } from "@radix-ui/react-icons";
