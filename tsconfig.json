@@ -28,7 +28,11 @@
       ],
       "@/locales/*": [
         "locales/*"
+      ],
+      "@/public/*": [
+        "public/*"
       ]
+      
     },
     "allowJs": true,
     "skipLibCheck": true,
