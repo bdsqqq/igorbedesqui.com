@@ -59,28 +59,45 @@ export default function Bebop() {
               />
             </Text>
 
-            <div className="grid grid-cols-4 items-center min-h-0 gap-1 my-2">
-              <div className=" col-start-1 col-end-2">
+            <Box
+              css={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, 1fr)",
+                alignItems: "center",
+                minHeight: "0",
+                gap: "$spacing-02",
+                marginY: "$spacing-02",
+              }}
+            >
+              <Box
+                css={{
+                  gridColumn: "1 / 2",
+                }}
+              >
                 <Image
+                  src={smartphoneScreenshot}
                   layout="responsive"
                   width="100%"
                   height="192%"
                   objectFit="contain"
-                  src="/images/projs/bebop/smartphone-screenshot.png"
                   alt=""
-                ></Image>
-              </div>
-              <div className=" col-start-2 col-end-5">
+                />
+              </Box>
+              <Box
+                css={{
+                  gridColumn: "2 / 5",
+                }}
+              >
                 <Image
+                  src={desktopScreenshot}
                   layout="responsive"
                   width="100%"
-                  height="100%"
+                  height="63%"
                   objectFit="contain"
-                  src="/images/projs/bebop/desktop-screenshot.png"
                   alt=""
-                ></Image>
-              </div>
-            </div>
+                />
+              </Box>
+            </Box>
             <Text presetStyle="paragraph">
               <TransWithComps text={t("04Copy")} />
             </Text>
@@ -105,9 +122,12 @@ import HeroBand from "@/components/HeroBand";
 import Popover from "@/components/ui/Popover";
 import Text from "@/components/ui/Text";
 import Image from "next/image";
-import { FABContainer } from "@/ui/primitives/";
+import { FABContainer, Box } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 
 import useMeta from "@/hooks/useMeta";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
+
+import desktopScreenshot from "@/public/images/projs/bebop/desktop-screenshot.png";
+import smartphoneScreenshot from "@/public/images/projs/bebop/smartphone-screenshot.png";
