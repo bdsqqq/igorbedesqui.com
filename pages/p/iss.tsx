@@ -7,9 +7,9 @@ export default function Iss() {
       <ProjectContainer key="issProj" backMessage="Fly back home">
         <HeroBand heroVideo="/videos/iss/space">
           <TransWithComps text={t("heroTitle")} />
-          <p aria-hidden="true" className="text-transparent">
+          <Text as="p" css={{ color: "transparent" }} aria-hidden="true">
             {t("projs/iss:heroSubHead")}
-          </p>
+          </Text>
           <div className="mt-6">
             <CodeAndDemoButtons
               codeUrl="https://github.com/bdsqqq/iss-asset"
@@ -210,11 +210,10 @@ import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Band from "@/components/Band";
 import Text from "@/components/ui/Text";
+import StyledLinkWithIcon from "@/components/ui/StyledLink";
+import { Box } from "@/components/ui/primitives";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
 
 import useMeta from "@/hooks/useMeta";
-import StyledLinkWithIcon from "@/components/ui/StyledLink";
 
 import Image from "next/image";
-import { Box } from "@/components/ui/primitives";
-import { styled } from "stitches.config";
