@@ -1,8 +1,4 @@
 const StyledLink = styled(UnstyledLink, {
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "$spacing-01",
-
   fontSize: "inherit",
   cursor: "pointer",
 
@@ -17,7 +13,7 @@ const StyledLink = styled(UnstyledLink, {
   },
 
   "& > svg": {
-    transform: "translateY(-2px)",
+    display: "inline",
   },
 
   variants: {
