@@ -1,13 +1,18 @@
 import type { LinkProps } from "next/link";
 
-const UnstyledLink: React.FC<LinkProps> = ({ href, children, ...rest }) => {
+const UnstyledLink: React.FC<LinkProps> = ({
+  href,
+  children,
+  scroll,
+  ...rest
+}) => {
   const isInternalLink =
     typeof href == "string" && (href.startsWith("/") || href.startsWith("#"));
   const { t } = useTranslation("common");
 
   if (isInternalLink) {
     return (
-      <Link href={href} passHref {...rest}>
+      <Link href={href} scroll passHref {...rest}>
         <a {...rest}>{children}</a>
       </Link>
     );
