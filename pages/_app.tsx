@@ -68,6 +68,10 @@ const globalStyles = globalCss({
     color: "inherit",
   },
 
+  "a:focus": {
+    outline: "none",
+  },
+
   "ol, ul": {
     listStyle: "none",
     margin: 0,
