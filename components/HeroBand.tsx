@@ -144,7 +144,6 @@ const HeroBand: React.FC<HeroBandProps> = ({
               },
             }}
             id="skip"
-            tabIndex={-1}
           >
             {children}
           </Text>
