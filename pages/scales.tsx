@@ -98,7 +98,7 @@ const Scales = () => {
 
   return (
     <Container>
-      <Band headline={{ bold: "01", thin: "Title" }}>
+      <Band smolPadding headline={{ bold: "01", thin: "Title" }}>
         <form style={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor="ratio">
             Ratio:
@@ -150,7 +150,26 @@ const Scales = () => {
             />
           </label>
         </form>
-        {getFi(-1, ratio, scaleLength, f0)}
+      </Band>
+      <Band gridless smolPadding id="results">
+        <ul>
+          {[...Array(scaleLength * 3 /*Intervals?*/)].map((_, i) => {
+            let f = getFi(i - scaleLength, ratio, scaleLength, f0);
+            return (
+              <ol className="hej" key={`${i}_Scale`}>
+                <sub>{i - scaleLength + 1}</sub>
+                <span
+                  style={{
+                    fontSize: `${f}rem`,
+                  }}
+                >
+                  a
+                </span>
+                <sub>{`${f.toFixed(2)}rem`}</sub>
+              </ol>
+            );
+          })}
+        </ul>
       </Band>
     </Container>
   );
