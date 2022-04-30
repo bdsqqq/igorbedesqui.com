@@ -164,6 +164,17 @@ const StyledComboBox = styled(Combobox, {
   border: "none",
   borderRadius: "$sm",
   outlineRing: "",
+  outlineColor: "transparent",
+
+  "@motionOk": {
+    transitionProperty: "outline-color",
+    transitionDuration: "110ms",
+    transitionTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
+
+    "&:focus-visible": {
+      transitionTimingFunction: "cubic-bezier(0.4, 0.14, 1, 1)",
+    },
+  },
 });
 
 const StyledComboboxPopover = styled(ComboboxPopover, {
