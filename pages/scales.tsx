@@ -128,7 +128,7 @@ const Scales = () => {
 
           <label htmlFor="scaleLength">
             Scale Length:
-            <input
+            <StyledInput
               name="scaleLength"
               type="number"
               value={scaleLength}
@@ -140,7 +140,7 @@ const Scales = () => {
 
           <label htmlFor="fundamentalFrequency">
             Fundamental frequency (f0):
-            <input
+            <StyledInput
               name="fundamentalFrequency"
               type="number"
               value={f0}
@@ -159,6 +159,7 @@ const Scales = () => {
 const StyledComboBox = styled(Combobox, {
   padding: "$spacing-02",
   width: "16ch",
+  backgroundColor: "transparent",
 
   border: "none",
   borderRadius: "$sm",
@@ -211,6 +212,29 @@ const StyledComboBoxItem = styled(ComboboxItem, {
 
   "&[aria-selected=true]": {
     backgroundColor: "$mauve8",
+  },
+});
+
+const StyledInput = styled("input", {
+  appearance: "textfield",
+  backgroundColor: "transparent",
+
+  padding: "$spacing-02",
+  width: "8ch",
+
+  border: "none",
+  borderRadius: "$sm",
+  outlineRing: "",
+  outlineColor: "transparent",
+
+  "@motionOk": {
+    transitionProperty: "outline-color",
+    transitionDuration: "110ms",
+    transitionTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
+
+    "&:focus-visible": {
+      transitionTimingFunction: "cubic-bezier(0.4, 0.14, 1, 1)",
+    },
   },
 });
 
