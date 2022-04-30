@@ -45,7 +45,7 @@ const Scales = () => {
   };
 
   const comboboxState = useComboboxState({
-    defaultValue: preDefinedScales[0].value,
+    defaultValue: "1", // default value 1 allows the user to see all the others options in the combobox while being a good starting point too
     gutter: 8,
     sameWidth: false,
     animated: true,
