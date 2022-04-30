@@ -47,7 +47,8 @@ const Scales = () => {
   const comboboxState = useComboboxState({
     defaultValue: preDefinedScales[0].value,
     gutter: 8,
-    sameWidth: true,
+    sameWidth: false,
+    animated: true,
   });
 
   const [filteredPreDefinedScales, setFilteredPreDefinedScales] =
@@ -101,7 +102,7 @@ const Scales = () => {
         <form style={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor="ratio">
             Ratio:
-            <Combobox
+            <StyledComboBox
               autoComplete="list"
               autoSelect
               state={comboboxState}
@@ -109,17 +110,20 @@ const Scales = () => {
             />
           </label>
           {filteredPreDefinedScales.length > 0 && (
-            <ComboboxPopover state={comboboxState} className="popover">
+            <StyledComboboxPopover
+              data-placement={comboboxState.currentPlacement}
+              state={comboboxState}
+            >
               {filteredPreDefinedScales.map((scale) => (
-                <ComboboxItem
+                <StyledComboBoxItem
                   key={`${scale.name}_ComboboxItem`}
                   className="combobox-item"
                   value={scale.value}
                 >
                   {scale.name}
-                </ComboboxItem>
+                </StyledComboBoxItem>
               ))}
-            </ComboboxPopover>
+            </StyledComboboxPopover>
           )}
 
           <label htmlFor="scaleLength">
@@ -152,6 +156,64 @@ const Scales = () => {
   );
 };
 
+const StyledComboBox = styled(Combobox, {
+  padding: "$spacing-02",
+  width: "16ch",
+
+  border: "none",
+  borderRadius: "$sm",
+  outlineRing: "",
+});
+
+const StyledComboboxPopover = styled(ComboboxPopover, {
+  backgroundColor: "$mauve2",
+  width: "max-content",
+  padding: "$spacing-02",
+  borderRadius: "$sm",
+
+  border: "1px solid $mauve7",
+
+  "@motionOk": {
+    "&[data-placement='top-start']": {
+      transformOrigin: "bottom",
+      animationName: `${scaleIn}, ${slideUp}`,
+      animationDuration: "150ms",
+      animationTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
+
+      "&[data-leave]": {
+        animationName: `${slideDown}, ${scaleOut}`,
+        animationDuration: "150ms",
+        animationTimingFunction: "cubic-bezier(0.4, 0.14, 1, 1)",
+      },
+    },
+
+    "&[data-placement='bottom-start']": {
+      transformOrigin: "top",
+      animationName: `${scaleIn}, ${slideDown}`,
+      animationDuration: "150ms",
+      animationTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
+
+      "&[data-leave]": {
+        animationName: `${slideUp}, ${scaleOut}`,
+        animationDuration: "150ms",
+        animationTimingFunction: "cubic-bezier(0.4, 0.14, 1, 1)",
+      },
+    },
+  },
+});
+
+const StyledComboBoxItem = styled(ComboboxItem, {
+  padding: "$spacing-02 $spacing-04",
+
+  border: "none",
+  borderRadius: "$sm",
+  outlineRing: "none",
+
+  "&[aria-selected=true]": {
+    backgroundColor: "$mauve8",
+  },
+});
+
 export default Scales;
 
 import { useEffect, useState } from "react";
@@ -162,6 +224,7 @@ import {
   useComboboxState,
 } from "ariakit/combobox";
 import { styled } from "stitches.config";
+import { scaleIn, scaleOut, slideDown, slideUp } from "@/animations";
 
 import Band from "@/components/Band";
 import Container from "@/components/Container";
