@@ -26,26 +26,6 @@ const PopOver: React.FC<PopOver> = ({
 
 export default PopOver;
 
-const scaleIn = keyframes({
-  "0%": { opacity: 0, transform: "scale(0)" },
-  "100%": { opacity: 1, transform: "scale(1)" },
-});
-
-const scaleOut = keyframes({
-  "0%": { opacity: 1, transform: "scale(1)" },
-  "100%": { opacity: 0, transform: "scale(0)" },
-});
-
-const slideDown = keyframes({
-  "0%": { opacity: 0, transform: "translateY(-5px)" },
-  "100%": { opacity: 1, transform: "translateY(0)" },
-});
-
-const slideUp = keyframes({
-  "0%": { opacity: 0, transform: "translateY(5px)" },
-  "100%": { opacity: 1, transform: "translateY(0)" },
-});
-
 const PopOverTrigger = styled(PopoverPrimitive.Trigger, {
   all: "unset",
   cursor: "pointer",
@@ -84,8 +64,8 @@ const PopOverContent = styled(PopoverPrimitive.Content, {
   borderColor: "$mauve7",
   borderRadius: "2px",
 
-  '&[data-side="top"]': { animationName: slideUp, scaleIn },
-  '&[data-side="bottom"]': { animationName: slideDown, scaleIn },
+  '&[data-side="top"]': { animationName: `${slideUp}, ${scaleIn}` },
+  '&[data-side="bottom"]': { animationName: `${slideDown}, ${scaleIn}` },
 
   '&[data-state="closed"]': {
     animationName: scaleOut,
@@ -108,4 +88,5 @@ const PopOverArrow = styled(PopoverPrimitive.Arrow, {
     "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.06))",
 });
 
-import { styled, keyframes, darkTheme } from "stitches.config";
+import { styled, darkTheme } from "stitches.config";
+import { scaleIn, scaleOut, slideDown, slideUp } from "@/animations";
