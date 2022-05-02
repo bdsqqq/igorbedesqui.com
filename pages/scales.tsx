@@ -39,14 +39,12 @@ const defaultValues = {
   ratio: preDefinedScales[0].value,
   scaleLength: 2,
   f0: 1, // f0 == fundamental frequency. Usually this is 12pt(1 pica) for print but using 1(rem) makes sense since it's equivalent to 16px.
-  intervals: 3,
 };
 
 const Scales = () => {
   const [ratio, setRatio] = useState(parseFloat(defaultValues.ratio));
   const [scaleLength, setScaleLength] = useState(defaultValues.scaleLength);
   const [f0, setF0] = useState(defaultValues.f0);
-  const [intervals, setIntervals] = useState(defaultValues.intervals);
   const [inputsSetAsDefault, setInputsSetAsDefault] = useState<
     { label: string; name: string }[]
   >([]);
@@ -205,19 +203,6 @@ const Scales = () => {
               }}
             />
           </label>
-
-          <label htmlFor={Object.keys(defaultValues)[3]}>
-            Intervals:
-            <StyledInput
-              id={Object.keys(defaultValues)[3]}
-              name="Intervals"
-              type="number"
-              defaultValue={defaultValues.intervals}
-              onChange={(event) => {
-                handleInputChange(event, defaultValues.intervals, setIntervals);
-              }}
-            />
-          </label>
         </form>
       </Band>
       <Band gridless smolPadding id="results">
@@ -236,11 +221,11 @@ const Scales = () => {
           </ul>
         )}
         <ul>
-          {[...Array(scaleLength * intervals)].map((_, i) => {
-            let f = getFi(i - scaleLength, ratio, scaleLength, f0);
+          {[...Array(scaleLength + 2)].map((_, i) => {
+            let f = getFi(i - 1, ratio, scaleLength, f0);
             return (
-              <ol className="hej" key={`${i}_Scale`}>
-                <sub>{i - scaleLength + 1}</sub>
+              <ol key={`${i}_Scale`}>
+                <sub>{i + 1}</sub>
                 <span
                   style={{
                     fontSize: `${f}rem`,
