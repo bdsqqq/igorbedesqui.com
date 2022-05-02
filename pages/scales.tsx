@@ -39,6 +39,7 @@ const Scales = () => {
   const [ratio, setRatio] = useState(parseFloat(preDefinedScales[0].value));
   const [scaleLength, setScaleLength] = useState(2);
   const [f0, setF0] = useState(1); // f0 == fundamental frequency. Usually this is 12pt(1 pica) for print but using 1(rem) makes sense since it's equivalent to 16px.
+  const [intervals, setIntervals] = useState(3);
 
   const getFi = (i: number, ratio: number, scaleLength: number, f0: number) => {
     return f0 * Math.pow(ratio, i / scaleLength);
@@ -149,11 +150,23 @@ const Scales = () => {
               }}
             />
           </label>
+
+          <label htmlFor="intervals">
+            Intervals:
+            <StyledInput
+              name="intervals"
+              type="number"
+              value={intervals}
+              onChange={(event) => {
+                setIntervals(parseFloat(event.target.value));
+              }}
+            />
+          </label>
         </form>
       </Band>
       <Band gridless smolPadding id="results">
         <ul>
-          {[...Array(scaleLength * 3 /*Intervals?*/)].map((_, i) => {
+          {[...Array(scaleLength * intervals)].map((_, i) => {
             let f = getFi(i - scaleLength, ratio, scaleLength, f0);
             return (
               <ol className="hej" key={`${i}_Scale`}>
