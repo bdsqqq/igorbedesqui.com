@@ -47,20 +47,22 @@ const Scales = () => {
   const [scaleLength, setScaleLength] = useState(defaultValues.scaleLength);
   const [f0, setF0] = useState(defaultValues.f0);
   const [intervals, setIntervals] = useState(defaultValues.intervals);
-  const [inputsSetAsDefault, setInputsSetAsDefault] = useState<string[]>([]);
+  const [inputsSetAsDefault, setInputsSetAsDefault] = useState<
+    { label: string; name: string }[]
+  >([]);
 
   // add name to inputsSetAsDefault if it's not already there
-  const addToInputsSetAsDefault = (name: string) => {
-    if (inputsSetAsDefault.indexOf(name) === -1) {
-      setInputsSetAsDefault([...inputsSetAsDefault, name]);
+  const addToInputsSetAsDefault = (label: string, name: string) => {
+    if (inputsSetAsDefault.findIndex((i) => i.name === name) === -1) {
+      setInputsSetAsDefault([...inputsSetAsDefault, { label, name }]);
     }
   };
 
   // remove name from inputsSetAsDefault if it's there
   const removeFromInputsSetAsDefault = (name: string) => {
-    if (inputsSetAsDefault.indexOf(name) !== -1) {
-      setInputsSetAsDefault(inputsSetAsDefault.filter((n) => n !== name));
-    }
+    setInputsSetAsDefault(
+      inputsSetAsDefault.filter((input) => input.name !== name)
+    );
   };
 
   const getFi = (i: number, ratio: number, scaleLength: number, f0: number) => {
@@ -80,10 +82,10 @@ const Scales = () => {
     const value = event.target.value;
     if (numberInputIsValid(value)) {
       setState(parseFloat(value));
-      removeFromInputsSetAsDefault(event.target.name);
+      removeFromInputsSetAsDefault(event.target.id);
     } else {
       setState(defaultValue);
-      addToInputsSetAsDefault(event.target.name);
+      addToInputsSetAsDefault(event.target.name, event.target.id);
     }
   };
 
@@ -101,9 +103,12 @@ const Scales = () => {
     const valueWithoutComma = comboboxState.value.replace(",", ".");
     if (numberInputIsValid(valueWithoutComma)) {
       setRatio(parseFloat(valueWithoutComma));
+      removeFromInputsSetAsDefault(Object.keys(defaultValues)[0]);
     } else {
       setRatio(2);
+      addToInputsSetAsDefault("Ratio", Object.keys(defaultValues)[0]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comboboxState.value]);
 
   useEffect(() => {
@@ -143,9 +148,11 @@ const Scales = () => {
     <Container>
       <Band smolPadding headline={{ bold: "01", thin: "Title" }}>
         <form style={{ display: "flex", flexDirection: "column" }}>
-          <label htmlFor="ratio">
+          <label htmlFor={Object.keys(defaultValues)[0]}>
             Ratio:
             <StyledComboBox
+              id={Object.keys(defaultValues)[0]}
+              name="Ratio"
               autoComplete="list"
               autoSelect
               state={comboboxState}
@@ -169,12 +176,13 @@ const Scales = () => {
             </StyledComboboxPopover>
           )}
 
-          <label htmlFor="scaleLength">
+          <label htmlFor={Object.keys(defaultValues)[1]}>
             Scale Length:
             <StyledInput
-              name="scaleLength"
+              id={Object.keys(defaultValues)[1]}
+              name="Scale Length"
               type="number"
-              value={scaleLength}
+              defaultValue={defaultValues.scaleLength}
               onChange={(event) => {
                 handleInputChange(
                   event,
@@ -185,24 +193,26 @@ const Scales = () => {
             />
           </label>
 
-          <label htmlFor="fundamentalFrequency">
+          <label htmlFor={Object.keys(defaultValues)[2]}>
             Fundamental frequency (f0):
             <StyledInput
-              name="fundamentalFrequency"
+              id={Object.keys(defaultValues)[2]}
+              name="Fundamental frequency (f0)"
               type="number"
-              value={f0}
+              defaultValue={defaultValues.f0}
               onChange={(event) => {
                 handleInputChange(event, defaultValues.f0, setF0);
               }}
             />
           </label>
 
-          <label htmlFor="intervals">
+          <label htmlFor={Object.keys(defaultValues)[3]}>
             Intervals:
             <StyledInput
-              name="intervals"
+              id={Object.keys(defaultValues)[3]}
+              name="Intervals"
               type="number"
-              value={intervals}
+              defaultValue={defaultValues.intervals}
               onChange={(event) => {
                 handleInputChange(event, defaultValues.intervals, setIntervals);
               }}
@@ -211,6 +221,20 @@ const Scales = () => {
         </form>
       </Band>
       <Band gridless smolPadding id="results">
+        {inputsSetAsDefault.length > 0 && (
+          <ul>
+            {inputsSetAsDefault.map((input) => (
+              <li key={`${input.name}_InputSetAsDefault`}>
+                {input.label} is not a valid number. Using the default value:{" "}
+                {Object.keys(defaultValues)
+                  .filter((key) => key === input.name)
+                  .map(
+                    (key) => defaultValues[key as keyof typeof defaultValues]
+                  )}
+              </li>
+            ))}
+          </ul>
+        )}
         <ul>
           {[...Array(scaleLength * intervals)].map((_, i) => {
             let f = getFi(i - scaleLength, ratio, scaleLength, f0);
