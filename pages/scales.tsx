@@ -35,11 +35,33 @@ const preDefinedScales = [
   },
 ];
 
+const defaultValues = {
+  ratio: preDefinedScales[0].value,
+  scaleLength: 2,
+  f0: 1, // f0 == fundamental frequency. Usually this is 12pt(1 pica) for print but using 1(rem) makes sense since it's equivalent to 16px.
+  intervals: 3,
+};
+
 const Scales = () => {
-  const [ratio, setRatio] = useState(parseFloat(preDefinedScales[0].value));
-  const [scaleLength, setScaleLength] = useState(2);
-  const [f0, setF0] = useState(1); // f0 == fundamental frequency. Usually this is 12pt(1 pica) for print but using 1(rem) makes sense since it's equivalent to 16px.
-  const [intervals, setIntervals] = useState(3);
+  const [ratio, setRatio] = useState(parseFloat(defaultValues.ratio));
+  const [scaleLength, setScaleLength] = useState(defaultValues.scaleLength);
+  const [f0, setF0] = useState(defaultValues.f0);
+  const [intervals, setIntervals] = useState(defaultValues.intervals);
+  const [inputsSetAsDefault, setInputsSetAsDefault] = useState<string[]>([]);
+
+  // add name to inputsSetAsDefault if it's not already there
+  const addToInputsSetAsDefault = (name: string) => {
+    if (inputsSetAsDefault.indexOf(name) === -1) {
+      setInputsSetAsDefault([...inputsSetAsDefault, name]);
+    }
+  };
+
+  // remove name from inputsSetAsDefault if it's there
+  const removeFromInputsSetAsDefault = (name: string) => {
+    if (inputsSetAsDefault.indexOf(name) !== -1) {
+      setInputsSetAsDefault(inputsSetAsDefault.filter((n) => n !== name));
+    }
+  };
 
   const getFi = (i: number, ratio: number, scaleLength: number, f0: number) => {
     return f0 * Math.pow(ratio, i / scaleLength);
@@ -47,6 +69,22 @@ const Scales = () => {
 
   const numberInputIsValid = (value: string) => {
     return !isNaN(parseFloat(value));
+  };
+
+  // handle input on change, if the input is valid, set the state. if not, set the state to the provided defualt value and add the input name to the error array.
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    defaultValue: number,
+    setState: (value: number) => void
+  ) => {
+    const value = event.target.value;
+    if (numberInputIsValid(value)) {
+      setState(parseFloat(value));
+      removeFromInputsSetAsDefault(event.target.name);
+    } else {
+      setState(defaultValue);
+      addToInputsSetAsDefault(event.target.name);
+    }
   };
 
   const comboboxState = useComboboxState({
@@ -138,7 +176,11 @@ const Scales = () => {
               type="number"
               value={scaleLength}
               onChange={(event) => {
-                setScaleLength(parseFloat(event.target.value));
+                handleInputChange(
+                  event,
+                  defaultValues.scaleLength,
+                  setScaleLength
+                );
               }}
             />
           </label>
@@ -150,7 +192,7 @@ const Scales = () => {
               type="number"
               value={f0}
               onChange={(event) => {
-                setF0(parseFloat(event.target.value));
+                handleInputChange(event, defaultValues.f0, setF0);
               }}
             />
           </label>
@@ -162,7 +204,7 @@ const Scales = () => {
               type="number"
               value={intervals}
               onChange={(event) => {
-                setIntervals(parseFloat(event.target.value));
+                handleInputChange(event, defaultValues.intervals, setIntervals);
               }}
             />
           </label>
