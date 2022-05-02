@@ -45,6 +45,10 @@ const Scales = () => {
     return f0 * Math.pow(ratio, i / scaleLength);
   };
 
+  const numberInputIsValid = (value: string) => {
+    return !isNaN(parseFloat(value));
+  };
+
   const comboboxState = useComboboxState({
     defaultValue: "1", // default value 1 allows the user to see all the others options in the combobox while being a good starting point too
     gutter: 8,
@@ -57,7 +61,7 @@ const Scales = () => {
 
   useEffect(() => {
     const valueWithoutComma = comboboxState.value.replace(",", ".");
-    if (!isNaN(parseFloat(valueWithoutComma))) {
+    if (numberInputIsValid(valueWithoutComma)) {
       setRatio(parseFloat(valueWithoutComma));
     } else {
       setRatio(2);
