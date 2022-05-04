@@ -94,6 +94,7 @@ const Scales = () => {
     animated: true,
     fitViewport: true,
     focusLoop: true,
+    flip: false,
   });
 
   const [filteredPreDefinedScales, setFilteredPreDefinedScales] =
