@@ -37,7 +37,7 @@ const preDefinedScales = [
 
 const defaultValues = {
   ratio: preDefinedScales[0].value,
-  scaleLength: 2,
+  scaleLength: 14,
   f0: 1, // f0 == fundamental frequency. Usually this is 12pt(1 pica) for print but using 1(rem) makes sense since it's equivalent to 16px.
 };
 
