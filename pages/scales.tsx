@@ -154,96 +154,8 @@ const Scales = () => {
         >
           𝑓<sub>𝑖</sub>＝ 𝑓<sub>0</sub>r<sup>𝑖/𝑛</sup>
         </Box>
-        <Box
-          css={{
-            display: "grid",
-            gridTemplateRows: "repeat(3, 1fr)",
-            gridAutoColumns: "min-content",
-            width: "min-content",
-          }}
-        >
-          <Box
-            as="span"
-            css={{
-              width: "fit-content",
-              gridRow: "2 / 4",
-              fontSize: "2rem",
-            }}
-          >
-            𝑓
-          </Box>
-          <Box
-            as="span"
-            css={{
-              width: "fit-content",
-              gridRow: "3 / 4",
-            }}
-          >
-            𝑖
-          </Box>
-          <Box
-            as="span"
-            css={{
-              width: "fit-content",
-              gridRow: "2 / 4",
-              fontSize: "2rem",
-            }}
-          >
-            =
-          </Box>
-          <Box
-            as="span"
-            css={{
-              width: "fit-content",
-              gridRow: "2 / 4",
-              fontSize: "2rem",
-            }}
-          >
-            𝑓
-          </Box>
-          <Box
-            as="span"
-            css={{
-              width: "fit-content",
-              gridRow: "3 / 4",
-            }}
-          >
-            0
-          </Box>
-          <Box
-            as="span"
-            css={{
-              width: "fit-content",
-              gridRow: "2 / 4",
-              fontSize: "2rem",
-            }}
-          >
-            r
-          </Box>
-          <Box
-            as="span"
-            css={{
-              width: "fit-content",
-              gridRow: "2 / 4",
 
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "-0.2em",
-              lineHeight: "0.8em",
-            }}
-          >
-            <Box
-              css={{
-                borderBottom: "1px solid currentColor",
-                paddingBottom: "0.2em",
-              }}
-            >
-              𝑖
-            </Box>
-            <Box>𝑛</Box>
-          </Box>
-        </Box>
+        <Formula />
         <form style={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor={Object.keys(defaultValues)[0]}>
             Ratio:
@@ -475,6 +387,101 @@ const StyledInput = styled("input", {
     },
   },
 });
+
+const Formula = () => {
+  return (
+    <Box
+      css={{
+        display: "grid",
+        gridTemplateRows: "repeat(3, 1fr)",
+        gridAutoColumns: "min-content",
+        width: "min-content",
+      }}
+    >
+      <Box
+        as="span"
+        css={{
+          width: "fit-content",
+          gridRow: "2 / 4",
+          fontSize: "2rem",
+        }}
+      >
+        𝑓
+      </Box>
+      <Box
+        as="span"
+        css={{
+          width: "fit-content",
+          gridRow: "3 / 4",
+        }}
+      >
+        𝑖
+      </Box>
+      <Box
+        as="span"
+        css={{
+          width: "fit-content",
+          gridRow: "2 / 4",
+          fontSize: "2rem",
+        }}
+      >
+        =
+      </Box>
+      <Box
+        as="span"
+        css={{
+          width: "fit-content",
+          gridRow: "2 / 4",
+          fontSize: "2rem",
+        }}
+      >
+        𝑓
+      </Box>
+      <Box
+        as="span"
+        css={{
+          width: "fit-content",
+          gridRow: "3 / 4",
+        }}
+      >
+        0
+      </Box>
+      <Box
+        as="span"
+        css={{
+          width: "fit-content",
+          gridRow: "2 / 4",
+          fontSize: "2rem",
+        }}
+      >
+        r
+      </Box>
+      <Box
+        as="span"
+        css={{
+          width: "fit-content",
+          gridRow: "2 / 4",
+
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "-0.2em",
+          lineHeight: "0.8em",
+        }}
+      >
+        <Box
+          css={{
+            borderBottom: "1px solid currentColor",
+            paddingBottom: "0.2em",
+          }}
+        >
+          𝑖
+        </Box>
+        <Box>𝑛</Box>
+      </Box>
+    </Box>
+  );
+};
 
 export default Scales;
 
