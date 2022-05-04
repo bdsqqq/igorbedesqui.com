@@ -2,6 +2,7 @@ interface BandPropsBasic {
   dark?: boolean;
   padless?: boolean;
   smolPadding?: boolean;
+  fullBleed?: boolean;
 }
 
 interface BandWithGrid extends BandPropsBasic {
@@ -25,6 +26,7 @@ const Band: React.FC<BandProps> = ({
   dark,
   gridless,
   padless,
+  fullBleed,
   smolPadding,
   id,
   headline,
@@ -41,7 +43,7 @@ const Band: React.FC<BandProps> = ({
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
       className={dark ? darkTheme : ""}
     >
-      <BandContent padless={padless} gridless={gridless}>
+      <BandContent fullBleed={fullBleed} padless={padless} gridless={gridless}>
         {!gridless ? (
           <>
             <Title>
@@ -109,6 +111,11 @@ const BandContent = styled("div", {
     gridless: {
       true: {
         display: "block",
+      },
+    },
+    fullBleed: {
+      true: {
+        maxWidth: "unset",
       },
     },
   },
