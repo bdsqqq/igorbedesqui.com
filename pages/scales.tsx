@@ -64,7 +64,7 @@ const Scales = () => {
   };
 
   const getFi = (i: number, ratio: number, scaleLength: number, f0: number) => {
-    return f0 * Math.pow(ratio, i / scaleLength);
+    return f0 * Math.pow(ratio * 10, i / scaleLength);
   };
 
   const numberInputIsValid = (value: string) => {
