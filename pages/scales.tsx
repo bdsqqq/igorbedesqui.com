@@ -205,7 +205,7 @@ const Scales = () => {
           </label>
         </form>
       </Band>
-      <Band gridless smolPadding id="results">
+      <Band gridless padless fullBleed id="results">
         {inputsSetAsDefault.length > 0 && (
           <ul>
             {inputsSetAsDefault.map((input) => (
@@ -220,53 +220,64 @@ const Scales = () => {
             ))}
           </ul>
         )}
-        <div
-          style={{
-            position: "relative",
+        <Box
+          css={{
+            overflowX: "scroll",
           }}
         >
-          {[...Array(scaleLength + 2)].map((_, i) => {
-            let f = getFi(i - 1, ratio, scaleLength, f0);
-            return (
-              <span
-                key={`${i}_Scale`}
-                style={{
-                  position: "relative",
-                  lineHeight: `.4em`,
-                  fontSize: `${f}px`,
-                  height: `.6em`,
-                  width: `.48em`,
-                  minWidth: `1.5rem`,
-                  textAlign: "center",
-                  overflow: "visible",
-                  display: "inline-block",
-                }}
-              >
-                <span>a</span>
-
-                <sub
+          <Box
+            css={{
+              position: "relative",
+              overflowX: "visible",
+              whiteSpace: "nowrap",
+              width: "fit-content",
+              marginX: "auto",
+              paddingBottom: "2rem",
+            }}
+          >
+            {[...Array(scaleLength + 2)].map((_, i) => {
+              let f = getFi(i - 1, ratio, scaleLength, f0);
+              return (
+                <span
+                  key={`${i}_Scale`}
                   style={{
-                    display: "flex",
-                    alignContent: "center",
-                    justifyContent: "center",
-
-                    position: "absolute",
-                    top: "calc(100% + 0.2rem)",
-
-                    width: "100%",
-                    height: "1rem",
-                    lineHeight: "1rem",
+                    position: "relative",
+                    lineHeight: `.4em`,
+                    fontSize: `${f}px`,
+                    height: `.6em`,
+                    width: `.48em`,
+                    minWidth: `1.5rem`,
                     textAlign: "center",
-
-                    fontSize: ".7937rem",
+                    overflow: "visible",
+                    display: "inline-block",
                   }}
                 >
-                  {f.toFixed(0)}
-                </sub>
-              </span>
-            );
-          })}
-        </div>
+                  <span>a</span>
+
+                  <sub
+                    style={{
+                      display: "flex",
+                      alignContent: "center",
+                      justifyContent: "center",
+
+                      position: "absolute",
+                      top: "calc(100% + 0.2rem)",
+
+                      width: "100%",
+                      height: "1rem",
+                      lineHeight: "1rem",
+                      textAlign: "center",
+
+                      fontSize: ".7937rem",
+                    }}
+                  >
+                    {f.toFixed(0)}
+                  </sub>
+                </span>
+              );
+            })}
+          </Box>
+        </Box>
       </Band>
     </Container>
   );
@@ -375,7 +386,8 @@ import {
   useComboboxState,
 } from "ariakit/combobox";
 import { styled } from "stitches.config";
-import { scaleIn, scaleOut, slideDown, slideUp } from "@/animations";
 
-import Band from "@/components/Band";
+import { scaleIn, scaleOut, slideDown, slideUp } from "@/animations";
 import Container from "@/components/Container";
+import Band from "@/components/Band";
+import { Box } from "@/components/ui/primitives";
