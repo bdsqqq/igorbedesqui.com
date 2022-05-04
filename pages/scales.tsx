@@ -220,24 +220,53 @@ const Scales = () => {
             ))}
           </ul>
         )}
-        <ul>
+        <div
+          style={{
+            position: "relative",
+          }}
+        >
           {[...Array(scaleLength + 2)].map((_, i) => {
             let f = getFi(i - 1, ratio, scaleLength, f0);
             return (
-              <ol key={`${i}_Scale`}>
-                <sub>{i + 1}</sub>
-                <span
+              <span
+                key={`${i}_Scale`}
+                style={{
+                  position: "relative",
+                  lineHeight: `.4em`,
+                  fontSize: `${f}px`,
+                  height: `.6em`,
+                  width: `.48em`,
+                  minWidth: `1.5rem`,
+                  textAlign: "center",
+                  overflow: "visible",
+                  display: "inline-block",
+                }}
+              >
+                <span>a</span>
+
+                <sub
                   style={{
-                    fontSize: `${f}rem`,
+                    display: "flex",
+                    alignContent: "center",
+                    justifyContent: "center",
+
+                    position: "absolute",
+                    top: "calc(100% + 0.2rem)",
+
+                    width: "100%",
+                    height: "1rem",
+                    lineHeight: "1rem",
+                    textAlign: "center",
+
+                    fontSize: ".7937rem",
                   }}
                 >
-                  a
-                </span>
-                <sub>{`${f.toFixed(2)}rem`}</sub>
-              </ol>
+                  {f.toFixed(0)}
+                </sub>
+              </span>
             );
           })}
-        </ul>
+        </div>
       </Band>
     </Container>
   );
