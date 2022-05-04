@@ -310,6 +310,7 @@ const StyledComboboxPopover = styled(ComboboxPopover, {
   width: "max-content",
   padding: "$spacing-02",
   borderRadius: "$sm",
+  zIndex: "1",
 
   border: "1px solid $mauve7",
 
