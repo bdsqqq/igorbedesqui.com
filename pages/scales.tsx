@@ -92,6 +92,8 @@ const Scales = () => {
     gutter: 8,
     sameWidth: false,
     animated: true,
+    fitViewport: true,
+    focusLoop: true,
   });
 
   const [filteredPreDefinedScales, setFilteredPreDefinedScales] =
