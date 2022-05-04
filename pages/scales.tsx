@@ -135,12 +135,11 @@ const Scales = () => {
   // - implement tests for the scale properties
   // - - if f is a size in the scale, then rf must also be a size in the scale, where r is the ratio of the scale.
   // - display the formula for scales with the current values.
-  // - display the current values of the scale.
-  // - allow the user to select from pre-defined values.
-  // - allow the user to enter a custom value.
-  // - fallback to a default value if the user enters an invalid value.
+  // + allow the user to select from pre-defined values.
+  // + allow the user to enter a custom value.
+  // + fallback to a default value if the user enters an invalid value.
   // - - display a hint if the user enters an invalid value.
-  // - display the results of the scale and preview them using a letter, see: https://spencermortensen.com/articles/typographic-scale/.
+  // + display the results of the scale and preview them using a letter, see: https://spencermortensen.com/articles/typographic-scale/.
 
   return (
     <Container>
