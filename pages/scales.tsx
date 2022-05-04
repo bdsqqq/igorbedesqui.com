@@ -242,7 +242,7 @@ const Scales = () => {
                   style={{
                     position: "relative",
                     lineHeight: `.4em`,
-                    fontSize: `${f}px`,
+                    fontSize: `${f}rem`,
                     height: `.6em`,
                     width: `.48em`,
                     minWidth: `1.5rem`,
@@ -270,7 +270,7 @@ const Scales = () => {
                       fontSize: ".7937rem",
                     }}
                   >
-                    {f.toFixed(0)}
+                    {(f * 16).toFixed(0)}
                   </sub>
                 </span>
               );
