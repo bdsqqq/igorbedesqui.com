@@ -147,14 +147,6 @@ const Scales = () => {
   return (
     <Container>
       <Band smolPadding headline={{ bold: "01", thin: "Title" }}>
-        <Box
-          css={{
-            fontSize: "3rem",
-          }}
-        >
-          𝑓<sub>𝑖</sub>＝ 𝑓<sub>0</sub>r<sup>𝑖/𝑛</sup>
-        </Box>
-
         <Formula />
         <form style={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor={Object.keys(defaultValues)[0]}>
