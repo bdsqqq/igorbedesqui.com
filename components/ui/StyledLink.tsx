@@ -51,6 +51,9 @@ const StyledLinkWithIcon: React.FC<StyledLinkProps> = ({
     github: <GitHubLogoIcon />,
   };
 
+  // TODO: make this into a switch statement?
+  //TODO: make a function to get the domainName from the href
+
   const isInternalLink: boolean =
     (href && href.startsWith("/")) || href.startsWith("#");
 
