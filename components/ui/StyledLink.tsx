@@ -54,17 +54,21 @@ const StyledLinkWithIcon: React.FC<StyledLinkProps> = ({
   const isInternalLink: boolean =
     (href && href.startsWith("/")) || href.startsWith("#");
 
-  // Sets the icon automatically if icon isn't set in props.
-  // Only runs this logic if this link isn't iconless
-  !iconless && icon == null && isInternalLink
-    ? (icon = null)
-    : href.startsWith("https://www.github.com") ||
-      href.startsWith("https://github.com")
-    ? (icon = ICONS_ENUM["github"])
-    : href.startsWith("https://www.twitter.com") ||
+  if (!iconless && icon === null && !isInternalLink) {
+    if (
+      href.startsWith("https://www.twitter.com") ||
       href.startsWith("https://twitter.com")
-    ? (icon = ICONS_ENUM["twitter"])
-    : (icon = ICONS_ENUM["external"]);
+    ) {
+      icon = ICONS_ENUM.twitter;
+    } else if (
+      href.startsWith("https://www.github.com") ||
+      href.startsWith("https://github.com")
+    ) {
+      icon = ICONS_ENUM.github;
+    } else {
+      icon = ICONS_ENUM.external;
+    }
+  }
 
   return (
     <StyledLink {...rest} href={href} bold={bold}>
