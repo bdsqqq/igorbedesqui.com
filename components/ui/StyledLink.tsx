@@ -50,7 +50,9 @@ const StyledLinkWithIcon: React.FC<StyledLinkProps> = ({
     twitter: <TwitterLogoIcon />,
     github: <GitHubLogoIcon />,
   };
-  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
+
+  const isInternalLink: boolean =
+    (href && href.startsWith("/")) || href.startsWith("#");
 
   // Sets the icon automatically if icon isn't set in props.
   // Only runs this logic if this link isn't iconless
