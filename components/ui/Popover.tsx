@@ -5,6 +5,11 @@ interface PopOver {
   dark?: boolean;
   questionMark?: boolean;
   icon?: React.ReactNode;
+  options?: {
+    side?: "bottom" | "left" | "right" | "top" | undefined;
+    condensed?: boolean;
+    noMaxWidth?: boolean;
+  };
 }
 
 const PopOver: React.FC<PopOver> = ({
@@ -13,13 +18,19 @@ const PopOver: React.FC<PopOver> = ({
   dark,
   questionMark = true,
   icon,
+  options,
 }) => (
   <PopoverPrimitive.Root>
     <PopOverTrigger>
       {children}
       {icon ? icon : questionMark && <QuestionMarkCircledIcon />}
     </PopOverTrigger>
-    <PopOverContent className={dark ? darkTheme : ""} side="top">
+    <PopOverContent
+      className={dark ? darkTheme : ""}
+      condensed={options?.condensed}
+      noMaxWidth={options?.noMaxWidth}
+      side={options?.side || "top"}
+    >
       {content}
       <PopOverArrow />
     </PopOverContent>
@@ -53,7 +64,7 @@ const PopOverContent = styled(PopoverPrimitive.Content, {
   position: "relative",
 
   padding: "1rem",
-  width: "16rem",
+  maxWidth: "16rem",
 
   background: "$mauve3",
   color: "$mauve12",
@@ -78,6 +89,19 @@ const PopOverContent = styled(PopoverPrimitive.Content, {
   animationTimingFunction: "cubic-bezier(0, 0, 0.38, 0.9)",
 
   transformOrigin: "var(--radix-hover-card-content-transform-origin)",
+
+  variants: {
+    condensed: {
+      true: {
+        padding: "0.5rem",
+      },
+    },
+    noMaxWidth: {
+      true: {
+        maxWidth: "none",
+      },
+    },
+  },
 });
 
 const PopOverArrow = styled(PopoverPrimitive.Arrow, {
