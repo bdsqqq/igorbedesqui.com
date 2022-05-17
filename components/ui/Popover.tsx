@@ -4,6 +4,7 @@ interface PopOver {
   content: React.ReactNode;
   dark?: boolean;
   questionMark?: boolean;
+  icon?: React.ReactNode;
 }
 
 const PopOver: React.FC<PopOver> = ({
@@ -11,11 +12,12 @@ const PopOver: React.FC<PopOver> = ({
   content,
   dark,
   questionMark = true,
+  icon,
 }) => (
   <PopoverPrimitive.Root>
     <PopOverTrigger>
       {children}
-      {questionMark && <QuestionMarkCircledIcon />}
+      {icon ? icon : questionMark && <QuestionMarkCircledIcon />}
     </PopOverTrigger>
     <PopOverContent className={dark ? darkTheme : ""} side="top">
       {content}
