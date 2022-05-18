@@ -31,6 +31,23 @@ const buttonCss: Stitches.CSS<typeof config> = {
   },
 
   variants: {
+    size: {
+      sm: {
+        fontSize: "$sm",
+        lineHeight: "$sm",
+        px: "0.25rem",
+      },
+      md: {
+        fontSize: "$md",
+        lineHeight: "$md",
+        px: "0.5rem",
+      },
+      lg: {
+        fontSize: "$lg",
+        lineHeight: "$lg",
+        px: "0.5rem",
+      },
+    },
     color: {
       mauve: {
         color: "$mauve12",
@@ -64,6 +81,7 @@ const buttonCss: Stitches.CSS<typeof config> = {
 
   defaultVariants: {
     color: "mauve",
+    size: "lg",
   },
 };
 
