@@ -101,7 +101,7 @@ const PopOverContent = styled(PopoverPrimitive.Content, {
     },
     noMaxWidth: {
       true: {
-        maxWidth: "none",
+        maxWidth: "100%",
       },
     },
   },
