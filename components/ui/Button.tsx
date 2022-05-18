@@ -26,6 +26,10 @@ const buttonCss: Stitches.CSS<typeof config> = {
     transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
   },
 
+  "&:hover, &:focus-within": {
+    outline: "none",
+  },
+
   variants: {
     color: {
       mauve: {
