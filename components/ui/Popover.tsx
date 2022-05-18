@@ -84,8 +84,8 @@ const PopOverContent = styled(PopoverPrimitive.Content, {
     outline: "none",
   },
 
-  '&[data-side="top"]': { animationName: `${slideUp}, ${scaleIn}` },
-  '&[data-side="bottom"]': { animationName: `${slideDown}, ${scaleIn}` },
+  '&[data-side="top"]': { animationName: `${scaleIn}, ${slideUp}` },
+  '&[data-side="bottom"]': { animationName: `${scaleIn}, ${slideDown}` },
 
   '&[data-state="closed"]': {
     animationName: scaleOut,
