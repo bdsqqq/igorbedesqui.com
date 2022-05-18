@@ -7,7 +7,7 @@ interface PopOver {
   icon?: React.ReactNode;
   options?: {
     side?: "bottom" | "left" | "right" | "top" | undefined;
-    condensed?: boolean;
+    padding?: "none" | "sm" | "md" | undefined;
     noMaxWidth?: boolean;
   };
 }
@@ -26,7 +26,7 @@ const PopOver: React.FC<PopOver> = ({
     </PopOverTrigger>
     <PopOverContent
       className={dark ? darkTheme : ""}
-      condensed={options?.condensed}
+      padding={options?.padding}
       noMaxWidth={options?.noMaxWidth}
       side={options?.side || "top"}
     >
@@ -66,7 +66,6 @@ const PopOverTrigger = styled(PopoverPrimitive.Trigger, {
 const PopOverContent = styled(PopoverPrimitive.Content, {
   position: "relative",
 
-  padding: "1rem",
   maxWidth: "16rem",
 
   background: "$mauve3",
@@ -94,16 +93,21 @@ const PopOverContent = styled(PopoverPrimitive.Content, {
   transformOrigin: "var(--radix-hover-card-content-transform-origin)",
 
   variants: {
-    condensed: {
-      true: {
-        padding: "0.5rem",
-      },
+    padding: {
+      none: { padding: "0" },
+      sm: { padding: "0.5rem" },
+      md: { padding: "1rem" },
     },
     noMaxWidth: {
       true: {
         maxWidth: "100%",
       },
     },
+  },
+
+  defaultVariants: {
+    padding: "md",
+    noMaxWidth: false,
   },
 });
 
