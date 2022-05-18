@@ -35,17 +35,14 @@ const buttonCss = {
       sm: {
         fontSize: "$sm",
         lineHeight: "$sm",
-        px: "0.25rem",
       },
       md: {
         fontSize: "$md",
         lineHeight: "$md",
-        px: "0.5rem",
       },
       lg: {
         fontSize: "$lg",
         lineHeight: "$lg",
-        px: "0.5rem",
       },
     },
     color: {
