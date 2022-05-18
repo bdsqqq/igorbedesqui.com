@@ -94,7 +94,7 @@ const PopOverContent = styled(PopoverPrimitive.Content, {
 
   variants: {
     padding: {
-      none: { padding: "0" },
+      none: { padding: "0", borderWidth: "0px" },
       sm: { padding: "0.5rem" },
       md: { padding: "1rem" },
     },
