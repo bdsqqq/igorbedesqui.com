@@ -53,11 +53,12 @@ const buttonCss = {
 
         "&:hover, &:focus-within": {
           backgroundColor: "$mauve5",
-          borderColor: "$mauve8",
+          borderColor: "$mauve9",
         },
 
         "&:active": {
-          backgroundColor: "$mauve6",
+          backgroundColor: "$mauve7",
+          borderColor: "$mauve10",
         },
       },
       crimson: {
@@ -67,10 +68,11 @@ const buttonCss = {
 
         "&:hover, &:focus-within": {
           backgroundColor: "$crimson4",
-          borderColor: "$crimson8",
+          borderColor: "$crimson9",
         },
         "&:active": {
-          backgroundColor: "$crimson5",
+          backgroundColor: "$crimson6",
+          borderColor: "$crimson10",
         },
       },
     },
