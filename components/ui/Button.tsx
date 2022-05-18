@@ -1,4 +1,4 @@
-const buttonCss: Stitches.CSS<typeof config> = {
+const buttonCss = {
   // mini reset
   cursor: "pointer",
   userSelect: "none",
@@ -86,11 +86,9 @@ const buttonCss: Stitches.CSS<typeof config> = {
 };
 
 const Button = styled("button", buttonCss);
-
 const LinkButton = styled(UnstyledLink, buttonCss);
 
 export { Button, LinkButton };
 
-import { styled, config } from "stitches.config";
+import { styled } from "stitches.config";
 import { UnstyledLink } from "./primitives";
-import type * as Stitches from "@stitches/react";
