@@ -13,12 +13,77 @@
 
 const EmailLink = ({
   email = "igorbedesqui@gmail.com",
-  label,
+  children,
 }: {
   email: string;
-  label: string;
+  children: React.ReactNode;
 }) => {
-  return "email";
+  return (
+    <Popover
+      icon={<EnvelopeClosedIcon />}
+      content={<PopoverContent email={email} />}
+      options={{
+        padding: "none",
+        noMaxWidth: true,
+        softBg: true,
+      }}
+    >
+      <Text
+        css={{
+          textDecoration: "underline",
+        }}
+      >
+        {children}{" "}
+      </Text>
+    </Popover>
+  );
+};
+
+const PopoverContent = ({ email }: { email: string }) => {
+  return (
+    <Box css={{ display: "flex" }}>
+      <Button
+        size="sm"
+        css={{
+          borderRadius: "$md 0 0 $md",
+        }}
+        onClick={() => {
+          navigator.clipboard.writeText(email);
+        }}
+      >
+        <CopyIcon />
+      </Button>
+      <Text
+        css={{
+          backgroundColor: "$mauve3",
+          padding: "0.25rem",
+          border: "1px solid $mauve7",
+          borderRight: "none",
+          borderLeft: "none",
+        }}
+      >
+        {email}
+      </Text>
+      <LinkButton
+        css={{
+          borderRadius: "0 $md $md 0",
+        }}
+        href={`mailto:${email}`}
+      >
+        <PaperPlaneIcon />
+      </LinkButton>
+    </Box>
+  );
 };
 
 export default EmailLink;
+
+import Popover from "@/components/ui/Popover";
+import {
+  CopyIcon,
+  EnvelopeClosedIcon,
+  PaperPlaneIcon,
+} from "@radix-ui/react-icons";
+import { Box } from "@/components/ui/primitives";
+import Text from "@/components/ui/Text";
+import { Button, LinkButton } from "@/components/ui/Button";

@@ -45,7 +45,7 @@ export default function Home() {
                   <StyledLink href="https://github.com/bdsqqq"></StyledLink>
                 ),
                 email: (
-                  <StyledLink href="mailto:igorbedesqui@gmail.com"></StyledLink>
+                  <EmailLink email="igorbedesqui@gmail.com">{""}</EmailLink>
                 ),
               }}
             />
@@ -75,3 +75,4 @@ import Text from "@/components/ui/Text";
 
 import type { Leaves } from "@/lib/nestedKeyOfTypes";
 import homeNamespace from "@/locales/en/home.json";
+import EmailLink from "@/components/ui/EmailLink";
