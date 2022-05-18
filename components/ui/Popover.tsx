@@ -2,10 +2,10 @@ import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 interface PopOver {
   content: React.ReactNode;
-  dark?: boolean;
   questionMark?: boolean;
   icon?: React.ReactNode;
   options?: {
+    dark?: boolean;
     side?: "bottom" | "left" | "right" | "top" | undefined;
     padding?: "none" | "sm" | "md" | undefined;
     noMaxWidth?: boolean;
@@ -15,7 +15,6 @@ interface PopOver {
 const PopOver: React.FC<PopOver> = ({
   children,
   content,
-  dark,
   questionMark = true,
   icon,
   options,
@@ -25,7 +24,7 @@ const PopOver: React.FC<PopOver> = ({
       {children} {icon ? icon : questionMark && <QuestionMarkCircledIcon />}
     </PopOverTrigger>
     <PopOverContent
-      className={dark ? darkTheme : ""}
+      className={options?.dark ? darkTheme : ""}
       padding={options?.padding}
       noMaxWidth={options?.noMaxWidth}
       side={options?.side || "top"}
