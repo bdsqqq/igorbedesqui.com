@@ -6,6 +6,7 @@ interface PopOver {
   icon?: React.ReactNode;
   options?: {
     dark?: boolean;
+    softBg?: boolean;
     side?: "bottom" | "left" | "right" | "top" | undefined;
     padding?: "none" | "sm" | "md" | undefined;
     noMaxWidth?: boolean;
@@ -27,6 +28,7 @@ const PopOver: React.FC<PopOver> = ({
       className={options?.dark ? darkTheme : ""}
       padding={options?.padding}
       noMaxWidth={options?.noMaxWidth}
+      softBg={options?.softBg}
       side={options?.side || "top"}
     >
       {content}
@@ -106,11 +108,17 @@ const PopOverContent = styled(PopoverPrimitive.Content, {
         maxWidth: "100%",
       },
     },
+    softBg: {
+      true: {
+        background: "$mauve1",
+      },
+    },
   },
 
   defaultVariants: {
     padding: "md",
     noMaxWidth: false,
+    softBg: false,
   },
 });
 
