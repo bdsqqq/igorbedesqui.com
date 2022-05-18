@@ -22,8 +22,7 @@ const PopOver: React.FC<PopOver> = ({
 }) => (
   <PopoverPrimitive.Root>
     <PopOverTrigger>
-      {children}
-      {icon ? icon : questionMark && <QuestionMarkCircledIcon />}
+      {children} {icon ? icon : questionMark && <QuestionMarkCircledIcon />}
     </PopOverTrigger>
     <PopOverContent
       className={dark ? darkTheme : ""}
@@ -43,13 +42,17 @@ const PopOverTrigger = styled(PopoverPrimitive.Trigger, {
   all: "unset",
   cursor: "pointer",
 
-  display: "inline-flex",
+  display: "inline",
   userSelect: "text",
 
   fontWeight: "bold",
 
   transitionDuration: "150ms",
   transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+
+  "& > svg": {
+    display: "inline",
+  },
 
   "&:hover, &:focus-within": {
     color: "$crimson11",
