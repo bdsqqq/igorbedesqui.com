@@ -52,7 +52,7 @@ const StyledLinkWithIcon: React.FC<StyledLinkProps> = ({
   };
 
   // TODO: make this into a switch statement?
-  //TODO: make a function to get the domainName from the href
+  //TODO: make a function to get the domainName from the href withouth the subdomain and TLD
 
   const isInternalLink: boolean =
     (href && href.startsWith("/")) || href.startsWith("#");
