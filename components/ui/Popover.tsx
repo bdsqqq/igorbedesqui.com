@@ -78,6 +78,10 @@ const PopOverContent = styled(PopoverPrimitive.Content, {
   borderColor: "$mauve7",
   borderRadius: "2px",
 
+  "&:focus-within": {
+    outline: "none",
+  },
+
   '&[data-side="top"]': { animationName: `${slideUp}, ${scaleIn}` },
   '&[data-side="bottom"]': { animationName: `${slideDown}, ${scaleIn}` },
 
