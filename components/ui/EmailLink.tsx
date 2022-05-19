@@ -42,17 +42,21 @@ const EmailLink = ({
 const PopoverContent = ({ email }: { email: string }) => {
   return (
     <Box css={{ display: "flex" }}>
-      <Button
-        size="sm"
-        css={{
-          borderRadius: "$md 0 0 $md",
-        }}
-        onClick={() => {
-          navigator.clipboard.writeText(email);
-        }}
+      <Tooltip
+        content={<Text presetStyle={"caption"}>Copy</Text>}
+        options={{ dark: true, padding: "sm" }}
       >
-        <CopyIcon />
-      </Button>
+        <Button
+          css={{
+            borderRadius: "$md 0 0 $md",
+          }}
+          onClick={() => {
+            navigator.clipboard.writeText(email);
+          }}
+        >
+          <CopyIcon />
+        </Button>
+      </Tooltip>
       <Text
         css={{
           backgroundColor: "$mauve3",
@@ -87,3 +91,4 @@ import {
 import { Box } from "@/components/ui/primitives";
 import Text from "@/components/ui/Text";
 import { Button, LinkButton } from "@/components/ui/Button";
+import Tooltip from "@/components/ui/Tooltip";
