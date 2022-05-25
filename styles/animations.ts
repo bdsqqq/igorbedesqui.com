@@ -23,4 +23,26 @@ export const slideUp = keyframes({
   "100%": { opacity: 1, transform: "translateY(0)" },
 });
 
+export const scaleInSlideDown = keyframes({
+  "0%": { opacity: 0, transform: "scale(0) translateY(-5px)" },
+  "100%": { opacity: 1, transform: "scale(1) translateY(0)" },
+});
+
+export const scaleInSlideUp = keyframes({
+  "0%": { opacity: 0, transform: "scale(0) translateY(5px)" },
+  "100%": { opacity: 1, transform: "scale(1) translateY(0)" },
+});
+
+export const scaleOutSlideDown = keyframes({
+  "0%": { opacity: 1, transform: "scale(1) translateY(0)" },
+  "100%": { opacity: 0, transform: "scale(0) translateY(-5px)" },
+});
+
+export const scaleOutSlideUp = keyframes({
+  "0%": { opacity: 1, transform: "scale(1) translateY(0)" },
+  "100%": { opacity: 0, transform: "scale(0) translateY(5px)" },
+});
+
+
+
 import { keyframes } from "stitches.config";
