@@ -43,7 +43,7 @@ const PopoverContent = ({ email }: { email: string }) => {
   return (
     <Box css={{ display: "flex" }}>
       <Tooltip
-        content={<Text presetStyle={"caption"}>Copy</Text>}
+        content={<Text presetStyle={"caption"}>Copy to clipboard</Text>}
         options={{ dark: true, padding: "sm" }}
       >
         <Button
@@ -68,14 +68,19 @@ const PopoverContent = ({ email }: { email: string }) => {
       >
         {email}
       </Text>
-      <LinkButton
-        css={{
-          borderRadius: "0 $md $md 0",
-        }}
-        href={`mailto:${email}`}
+      <Tooltip
+        content={<Text presetStyle={"caption"}>Send an email</Text>}
+        options={{ dark: true, padding: "sm" }}
       >
-        <PaperPlaneIcon />
-      </LinkButton>
+        <LinkButton
+          css={{
+            borderRadius: "0 $md $md 0",
+          }}
+          href={`mailto:${email}`}
+        >
+          <PaperPlaneIcon />
+        </LinkButton>
+      </Tooltip>
     </Box>
   );
 };
