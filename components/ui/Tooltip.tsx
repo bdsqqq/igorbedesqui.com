@@ -11,7 +11,11 @@ interface TooltipProps {
 }
 
 const Tooltip = ({ children, content, options }: TooltipProps) => {
-  const tooltipState = useTooltipState();
+  const tooltipState = useTooltipState({
+    animated: true,
+    placement: options?.side ?? "top",
+    gutter: 0,
+  });
 
   return (
     <>
