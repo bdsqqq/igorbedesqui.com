@@ -1,4 +1,4 @@
-interface TooltipProps {
+interface Tooltip {
   children: React.ReactElement;
   content: React.ReactNode;
   options?: {
@@ -10,7 +10,7 @@ interface TooltipProps {
   };
 }
 
-const Tooltip = ({ children, content, options }: TooltipProps) => {
+const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
   const tooltipState = useTooltipState({
     animated: true,
     placement: options?.side ?? "top",
