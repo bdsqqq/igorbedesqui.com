@@ -55,7 +55,7 @@ const TooltipContent = styled(AriaKitTooltip, {
   borderWidth: "1px",
   borderStyle: "solid",
   borderColor: "$mauve7",
-  borderRadius: "2px",
+  borderRadius: "$sm",
 
   "&:focus-within": {
     outline: "none",
