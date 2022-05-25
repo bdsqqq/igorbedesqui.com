@@ -32,7 +32,7 @@ const Tooltip = ({ children, content, options }: TooltipProps) => {
         padding={options?.padding}
         noMaxWidth={options?.noMaxWidth}
         softBg={options?.softBg}
-        dir={options?.side || "top"}
+        data-dir={options?.side || "top"}
       >
         {content}
         <TooltipArrow />
@@ -61,26 +61,43 @@ const TooltipContent = styled(AriaKitTooltip, {
     outline: "none",
   },
 
-  '&[data-side="top"]': { animationName: `${scaleIn()}, ${slideUp()}` },
-  '&[data-side="bottom"]': { animationName: `${scaleIn()}, ${slideDown()}` },
+  "@motionOk": {
+    opacity: 0,
 
-  '&[data-state="closed"]': {
-    animationName: scaleOut(),
-    animationDuration: "0.15s",
-    animationTimingFunction: "cubic-bezier(0.2, 0, 1, 0.9)",
+    '&[data-dir="top"]': {
+      transformOrigin: "bottom center",
+
+      "&[data-enter]": {
+        opacity: 1,
+        animationDuration: duration.moderate01,
+        animationTimingFunction: timingFunction.productive.entrance,
+        animationName: scaleInSlideUp,
+      },
+
+      "&[data-leave]": {
+        animationDuration: duration.moderate01,
+        animationTimingFunction: timingFunction.productive.exit,
+        animationName: scaleOutSlideDown,
+      },
+    },
+
+    '&[data-dir="bottom"]': {
+      transformOrigin: "top center",
+
+      "&[data-enter]": {
+        opacity: 1,
+        animationDuration: duration.moderate01,
+        animationTimingFunction: timingFunction.productive.entrance,
+        animationName: scaleInSlideDown,
+      },
+
+      "&[data-leave]": {
+        animationDuration: duration.moderate01,
+        animationTimingFunction: timingFunction.productive.exit,
+        animationName: scaleOutSlideUp,
+      },
+    },
   },
-
-  '&[data-state="delayed-open"]': {
-    animationDuration: "0.15s",
-  },
-
-  '&[data-state="instant-open"]': {
-    animationDuration: "0.15s",
-  },
-
-  animationTimingFunction: "cubic-bezier(0, 0, 0.38, 0.9)",
-
-  transformOrigin: "var(--radix-tooltip-content-transform-origin)",
 
   variants: {
     padding: {
@@ -118,7 +135,14 @@ const TooltipArrow = styled(AriaKitTooltipArrow, {
 });
 
 import { styled, darkTheme } from "stitches.config";
-import { scaleIn, scaleOut, slideDown, slideUp } from "@/animations";
+import {
+  scaleInSlideDown,
+  scaleInSlideUp,
+  scaleOutSlideDown,
+  scaleOutSlideUp,
+  timingFunction,
+  duration,
+} from "@/animations";
 
 export default Tooltip;
 
