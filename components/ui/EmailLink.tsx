@@ -4,12 +4,14 @@
 // This component should allow the user to choose the behavior.
 
 // I want this component to:
-// - render inline so I can use it anywhere.
+// ✓ render inline so I can use it anywhere.
 // - onClick, open a popover with:
-// - - The email address as text
-// - - A button to copy the email address
-// - - A button to open the email in an email client
-// - - - ? Does this mean I should expose props so I can use specific subjects/sample messages?
+// ✓ - The email address as text
+// ✓ - A button to copy the email address
+// - - - Provide feedback
+// ✓ - A button to open the email in an email client
+// - - - custom subject and sample body to allow i18n (better UX for PT users)
+// - - - - ? Does this mean I should expose props so I can use specific subjects/sample messages?
 
 const EmailLink = ({
   email = "igorbedesqui@gmail.com",
