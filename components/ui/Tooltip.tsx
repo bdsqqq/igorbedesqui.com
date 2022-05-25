@@ -1,4 +1,5 @@
-interface Tooltip {
+interface TooltipProps {
+  children: React.ReactElement;
   content: React.ReactNode;
   options?: {
     dark?: boolean;
@@ -9,27 +10,34 @@ interface Tooltip {
   };
 }
 
-const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
+const Tooltip = ({ children, content, options }: TooltipProps) => {
+  const tooltipState = useTooltipState();
+
   return (
-    <RadixTooltip.Provider>
-      <RadixTooltip.Root delayDuration={150}>
-        <RadixTooltip.Trigger asChild>{children}</RadixTooltip.Trigger>
-        <TooltipContent
-          className={options?.dark ? darkTheme : ""}
-          padding={options?.padding}
-          noMaxWidth={options?.noMaxWidth}
-          softBg={options?.softBg}
-          side={options?.side || "top"}
-        >
-          {content}
-          <TooltipArrow />
-        </TooltipContent>
-      </RadixTooltip.Root>
-    </RadixTooltip.Provider>
+    <>
+      <TooltipAnchor
+        {...tooltipState}
+        {...children?.props}
+        state={tooltipState}
+      >
+        {(referenceProps: any) => cloneElement(children, referenceProps)}
+      </TooltipAnchor>
+      <TooltipContent
+        state={tooltipState}
+        className={options?.dark ? darkTheme : ""}
+        padding={options?.padding}
+        noMaxWidth={options?.noMaxWidth}
+        softBg={options?.softBg}
+        dir={options?.side || "top"}
+      >
+        {content}
+        <TooltipArrow />
+      </TooltipContent>
+    </>
   );
 };
 
-const TooltipContent = styled(RadixTooltip.Content, {
+const TooltipContent = styled(AriaKitTooltip, {
   position: "relative",
 
   maxWidth: "16rem",
@@ -95,7 +103,7 @@ const TooltipContent = styled(RadixTooltip.Content, {
   },
 });
 
-const TooltipArrow = styled(RadixTooltip.Arrow, {
+const TooltipArrow = styled(AriaKitTooltipArrow, {
   fill: "$mauve3",
 
   strokeWidth: "1px",
@@ -110,5 +118,10 @@ import { scaleIn, scaleOut, slideDown, slideUp } from "@/animations";
 
 export default Tooltip;
 
-import * as RadixTooltip from "@radix-ui/react-tooltip";
-import { useState } from "react";
+import { cloneElement } from "react";
+import {
+  Tooltip as AriaKitTooltip,
+  TooltipAnchor,
+  useTooltipState,
+  TooltipArrow as AriaKitTooltipArrow,
+} from "ariakit/tooltip";
