@@ -4,6 +4,7 @@
 const Text = styled("span", {
   // Reset
   fontVariantNumeric: "tabular-nums",
+  color: "$mauve12",
 
   variants: {
     bold: {
