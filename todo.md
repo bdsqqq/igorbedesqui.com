@@ -2,3 +2,4 @@
     - [ ] On click, open a small popup with the email, 
         - [ ] a "copy" icon that copies the email to the clipboard, 
         - [ ] a "send" icon that opens it in a mail:to href
+- [ ] Update 404 styling
