@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { HistoryProvider } from "@/contexts/History";
 import { Box } from "@/ui/primitives";
-import { darkTheme, globalCss, styled } from "stitches.config";
+import { globalCss, styled } from "stitches.config";
 
 const globalStyles = globalCss({
   "@font-face": {
@@ -108,7 +108,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   globalStyles();
   return (
     <HistoryProvider>
-      <Box className={darkTheme} css={{ position: "relative" }}>
+      <Box css={{ position: "relative" }}>
         <Overlay />
         <Component {...pageProps} />
       </Box>
