@@ -11,6 +11,10 @@
     "readMore": "Leia mais",
 
     "footer": {
+        "email": {
+            "copy": "Copiar para a área de transferência",
+            "send": "Enviar um email"
+        },
         "connect": "Social"
     }
 }
