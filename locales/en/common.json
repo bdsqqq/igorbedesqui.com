@@ -11,6 +11,10 @@
     "readMore": "Read more",
 
     "footer": {
+        "email": {
+            "copy": "Copy to clipboard",
+            "send": "Send an email"
+        },
         "connect": "Connect"
     }
 }

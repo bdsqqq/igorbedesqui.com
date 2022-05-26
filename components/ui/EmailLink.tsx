@@ -42,10 +42,15 @@ const EmailLink = ({
 };
 
 const PopoverContent = ({ email }: { email: string }) => {
+  const commonTranslation = useTranslation("common");
+  const t = (translationKey: Leaves<typeof commonNamespace>) => {
+    return commonTranslation.t(translationKey);
+  };
+
   return (
     <Box css={{ display: "flex" }}>
       <Tooltip
-        content={<Text presetStyle={"caption"}>Copy to clipboard</Text>}
+        content={<Text presetStyle={"caption"}>{t("footer.email.copy")}</Text>}
         options={{ dark: true, padding: "sm" }}
       >
         <Button
@@ -71,7 +76,7 @@ const PopoverContent = ({ email }: { email: string }) => {
         {email}
       </Text>
       <Tooltip
-        content={<Text presetStyle={"caption"}>Send an email</Text>}
+        content={<Text presetStyle={"caption"}>{t("footer.email.send")}</Text>}
         options={{ dark: true, padding: "sm" }}
       >
         <LinkButton
@@ -89,13 +94,18 @@ const PopoverContent = ({ email }: { email: string }) => {
 
 export default EmailLink;
 
-import Popover from "@/components/ui/Popover";
+import useTranslation from "next-translate/useTranslation";
 import {
   CopyIcon,
   EnvelopeClosedIcon,
   PaperPlaneIcon,
 } from "@radix-ui/react-icons";
+
+import Popover from "@/components/ui/Popover";
 import { Box } from "@/components/ui/primitives";
 import Text from "@/components/ui/Text";
 import { Button, LinkButton } from "@/components/ui/Button";
 import Tooltip from "@/components/ui/Tooltip";
+
+import commonNamespace from "@/locales/en/common.json";
+import { Leaves } from "@/lib/nestedKeyOfTypes";
