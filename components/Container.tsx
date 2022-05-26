@@ -25,50 +25,56 @@ const Container: React.FC<ContainerProps> = ({
   return (
     <Box
       css={{
-        position: "relative",
-        minHeight: "100vh",
         backgroundColor: "$mauve1",
-
-        "@motionOk": {
-          animation: `${fade}`,
-          animationDuration: "550ms",
-          animationTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
-        },
       }}
     >
-      {!backable ? (
-        <MainNav />
-      ) : (
-        <MainNav
-          backable={backable}
-          backMessage={backMessage}
-          backAnchor={backAnchor}
-        />
-      )}
-      <Flex
+      <Box
         css={{
           position: "relative",
+          minHeight: "100vh",
+          backgroundColor: "$mauve1",
 
-          marginTop: "-0.5rem",
-          minHeight: "calc(100vh - 104px)",
-          width: "100%",
-          backgroundCOlor: "$mauve1",
-
-          flexDirection: "column",
-          justifyContent: "space-between",
+          "@motionOk": {
+            animation: `${fade}`,
+            animationDuration: "550ms",
+            animationTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
+          },
         }}
       >
+        {!backable ? (
+          <MainNav />
+        ) : (
+          <MainNav
+            backable={backable}
+            backMessage={backMessage}
+            backAnchor={backAnchor}
+          />
+        )}
         <Flex
-          as="main"
           css={{
+            position: "relative",
+
+            marginTop: "-0.5rem",
+            minHeight: "calc(100vh - 104px)",
+            width: "100%",
+            backgroundCOlor: "$mauve1",
+
             flexDirection: "column",
-            justifyContent: "center",
+            justifyContent: "space-between",
           }}
         >
-          {children}
+          <Flex
+            as="main"
+            css={{
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            {children}
+          </Flex>
+          <Footer dark={dark} />
         </Flex>
-        <Footer dark={dark} />
-      </Flex>
+      </Box>
     </Box>
   );
 };
