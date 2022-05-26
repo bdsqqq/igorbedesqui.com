@@ -8,7 +8,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
   children,
   aClassList,
 }) => {
-  const { t } = useTranslation("common");
+  const { t } = useTypeSafeTranslation("common");
   return (
     <a
       className={aClassList}
@@ -24,4 +24,4 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
 
 export default ExternalLink;
 
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";

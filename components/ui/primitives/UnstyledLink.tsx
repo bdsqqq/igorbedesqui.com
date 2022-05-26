@@ -8,7 +8,7 @@ const UnstyledLink: React.FC<LinkProps> = ({
 }) => {
   const isInternalLink =
     typeof href == "string" && (href.startsWith("/") || href.startsWith("#"));
-  const { t } = useTranslation("common");
+  const { t } = useTypeSafeTranslation("common");
 
   if (isInternalLink) {
     return (
@@ -36,5 +36,5 @@ export default UnstyledLink;
 import { styled } from "stitches.config";
 
 import Link from "next/link";
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import { SrOnly } from "@/ui/primitives";

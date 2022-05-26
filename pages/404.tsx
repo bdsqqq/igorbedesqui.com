@@ -1,5 +1,5 @@
 export default function Custom404() {
-  const { t } = useTranslation();
+  const { t } = useTypeSafeTranslation("common");
 
   return (
     <Container backable>
@@ -10,11 +10,11 @@ export default function Custom404() {
         style={{ minHeight: "77vh" }}
       >
         <h1 className="text-2xl pr-6 border-r border-mauveDark-mauve6">404</h1>
-        <h2 className="pl-6">{t("common:404")}</h2>
+        <h2 className="pl-6">{t("404")}</h2>
       </div>
     </Container>
   );
 }
 
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import Container from "@/components/Container";

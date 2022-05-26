@@ -2,7 +2,7 @@ type ProjectsProps = {
   projectsMeta: Meta[];
 };
 const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
-  const { t } = useTranslation("common");
+  const { t } = useTypeSafeTranslation("common");
 
   return (
     <ProjsList>
@@ -103,4 +103,4 @@ export default Projects;
 import { styled } from "stitches.config";
 import { Box, Span, UnstyledLink } from "@/ui/primitives";
 import { Meta } from "@/hooks/useMeta";
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";

@@ -2,7 +2,7 @@ const { locales } = i18nConfig;
 
 const ChangeLang = () => {
   const router = useRouter();
-  const { t, lang } = useTranslation();
+  const { lang } = useTypeSafeTranslation("common");
 
   let count = 0;
   return (
@@ -15,7 +15,7 @@ const ChangeLang = () => {
             <React.Fragment key={`${lng}-fragment`}>
               <InlineSpan key={lng}>
                 <span className={ChangeLangLink({ state: "active" })}>
-                  {t(`${lng}`)}
+                  {lng}
                 </span>
               </InlineSpan>
               {count < locales.length && (
@@ -48,7 +48,7 @@ const ChangeLang = () => {
                   aria-label={switchMessage}
                   className={ChangeLangLink({ state: "inactive" })}
                 >
-                  {t(`${lng}`)}
+                  {lng}
                 </a>
               </Link>
             </InlineSpan>
@@ -112,7 +112,7 @@ import { Span } from "@/ui/primitives";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import i18nConfig from "../../i18n.json";
 
 import en from "@/locales/en/common.json";

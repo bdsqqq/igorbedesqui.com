@@ -2,7 +2,7 @@ export const ProjectLayout: React.FC<{
   projMeta: Meta;
   nextProjMeta?: Meta;
 }> = ({ children, projMeta, nextProjMeta }) => {
-  const { t } = useTranslation("detail");
+  const { t } = useTypeSafeTranslation("detail");
 
   return (
     <Box css={{ maxWidth: "1345px", marginX: "auto" }}>
@@ -36,7 +36,7 @@ export const ProjectLayout: React.FC<{
             <Box>
               <Box css={{ marginBottom: "$spacing-06" }}>
                 <Text presetStyle="paragraph" bold>
-                  {t("detail:role")}
+                  {t("role")}
                 </Text>
                 <Text as="ul" presetStyle="paragraph">
                   {projMeta.roles.map((role, i) => {
@@ -55,7 +55,7 @@ export const ProjectLayout: React.FC<{
 
               <Box css={{ marginBottom: "$spacing-06" }}>
                 <Text presetStyle="paragraph" bold>
-                  {t("detail:tools")}
+                  {t("tools")}
                 </Text>
                 <Text as="ul" presetStyle="paragraph">
                   {projMeta.tools.map((tool, i) => {
@@ -71,7 +71,7 @@ export const ProjectLayout: React.FC<{
 
               <Box css={{ marginBottom: "$spacing-07" }}>
                 <Text presetStyle="paragraph" bold>
-                  {t("detail:date")}
+                  {t("date")}
                 </Text>
                 <Text as="p" presetStyle="paragraph">
                   {projMeta.date}
@@ -80,7 +80,7 @@ export const ProjectLayout: React.FC<{
 
               <Box css={{ marginBottom: "$spacing-06" }}>
                 <Text presetStyle="paragraph" bold>
-                  {t("detail:type")}
+                  {t("type")}
                 </Text>
                 <Text as="p" presetStyle="paragraph">
                   {projMeta.type}
@@ -98,7 +98,7 @@ export const ProjectLayout: React.FC<{
 
                   <Box css={{ marginBottom: "$spacing-06" }}>
                     <Text presetStyle="paragraph" bold>
-                      {t("detail:next")}
+                      {t("next")}
                     </Text>
                     <Text
                       presetStyle="paragraph"
@@ -131,4 +131,4 @@ import Text from "@/components/ui/Text";
 import StyledLink from "@/ui/StyledLink";
 
 import { Meta } from "@/hooks/useMeta";
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";

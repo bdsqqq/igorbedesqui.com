@@ -1,12 +1,12 @@
 export default function Home() {
-  const { t, lang } = useTranslation("now");
+  const { t, lang } = useTypeSafeTranslation("now");
   const thingsImDoing = t(
     "doingArray",
     {},
     {
       returnObjects: true,
     }
-  ) as string[];
+  ) as unknown as string[];
 
   return (
     <>
@@ -82,8 +82,7 @@ export default function Home() {
   );
 }
 
-import useTranslation from "next-translate/useTranslation";
-
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import Container from "@/components/Container";

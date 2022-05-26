@@ -1,5 +1,5 @@
 const BackToTop = () => {
-  const { t, lang } = useTranslation("common");
+  const { t, lang } = useTypeSafeTranslation("common");
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -94,4 +94,4 @@ export default BackToTop;
 
 import { styled, darkTheme } from "stitches.config";
 import { useState, useEffect } from "react";
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";

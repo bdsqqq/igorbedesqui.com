@@ -1,5 +1,5 @@
 export default function Bebop() {
-  const { t, lang } = useTranslation("projs/bebop");
+  const { t, lang } = useTypeSafeTranslation("projs/bebop");
   const bebopMeta = useMeta("bebop", "projs");
   const wasmGifMeta = useMeta("wasmGif", "projs");
 
@@ -111,7 +111,7 @@ export default function Bebop() {
   );
 }
 
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";

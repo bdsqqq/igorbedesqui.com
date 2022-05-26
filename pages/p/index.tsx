@@ -2,7 +2,7 @@ export default function ProjectsPage() {
   const wasmGifMeta = useMeta("wasmGif", "projs");
   const projsMeta = [wasmGifMeta];
 
-  const { t, lang } = useTranslation("common");
+  const { t, lang } = useTypeSafeTranslation("common");
 
   return (
     <>
@@ -16,8 +16,7 @@ export default function ProjectsPage() {
   );
 }
 
-import useTranslation from "next-translate/useTranslation";
-
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import useMeta from "@/hooks/useMeta";
 
 import Seo from "@/components/Seo";

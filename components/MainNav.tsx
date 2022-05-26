@@ -15,7 +15,7 @@ const MainNav: React.FC<MainNavProps> = ({
   backMessage,
   backAnchor,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTypeSafeTranslation("common");
   const { history } = useHistory();
   const [anchor, setAnchor] = useState("/");
   useEffect(() => {
@@ -40,13 +40,13 @@ const MainNav: React.FC<MainNavProps> = ({
           <BackLink>
             <Span css={{ fontWeight: "bold" }}>⟵</Span>
             <span id="backMessage">
-              {backMessage ? backMessage : t("common:back")}
+              {backMessage ? backMessage : t("back")}
             </span>
           </BackLink>
         </Link>
       )}
       <SrOnly as="a" href="#skip">
-        {t("common:skip")}
+        {t("skip")}
       </SrOnly>
       <ChangeLang />
     </Nav>
@@ -124,7 +124,7 @@ export default MainNav;
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import { useHistory } from "@/contexts/History";
 import ChangeLang from "@/components/i18nStuff/ChangeLang";
 

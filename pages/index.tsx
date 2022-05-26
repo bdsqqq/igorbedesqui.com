@@ -1,8 +1,5 @@
 export default function Home() {
-  const homeTranslation = useTranslation("home");
-  const t = (translationKey: Leaves<typeof homeNamespace>) => {
-    return homeTranslation.t(translationKey);
-  };
+  const { t, lang } = useTypeSafeTranslation("home");
 
   const wasmGifMeta = useMeta("wasmGif", "projs");
   const bebopMeta = useMeta("bebop", "projs");
@@ -10,7 +7,7 @@ export default function Home() {
 
   return (
     <>
-      <Seo t={homeTranslation.t} lang={homeTranslation.lang} />
+      <Seo t={t} lang={lang} />
 
       <Container key="index">
         <HeroBand>
@@ -59,7 +56,7 @@ export default function Home() {
   );
 }
 
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import useMeta from "@/hooks/useMeta";
 
 import Seo from "@/components/Seo";

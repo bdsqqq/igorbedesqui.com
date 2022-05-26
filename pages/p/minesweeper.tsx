@@ -1,5 +1,5 @@
 export default function Minesweeper() {
-  const { t, lang } = useTranslation("projs/minesweeper");
+  const { t, lang } = useTypeSafeTranslation("projs/minesweeper");
   const minesweeperMeta = useMeta("minesweeper", "projs");
 
   return (
@@ -9,7 +9,7 @@ export default function Minesweeper() {
         <HeroBand>
           <TransWithComps text={t("heroTitle")} />
           <p aria-hidden="true" className="text-transparent">
-            {t("projs/minesweeper:heroSubHead")}
+            {t("heroSubHead")}
           </p>
           <div className="mt-6">
             <CodeAndDemoButtons
@@ -18,18 +18,12 @@ export default function Minesweeper() {
             />
           </div>
         </HeroBand>
-
-        <DetailsBand
-          id={minesweeperMeta.name}
-          projMeta={minesweeperMeta}
-          t={t}
-        />
       </ProjectContainer>
     </>
   );
 }
 
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
 import Seo from "@/components/Seo";

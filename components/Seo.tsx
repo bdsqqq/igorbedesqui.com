@@ -1,12 +1,12 @@
 type withoutImage = {
-  t: Translate;
+  t: any;
   url?: string;
   lang?: string;
   imglang?: never;
   image?: never;
 };
 type withImage = {
-  t: Translate;
+  t: any;
   url?: string;
   lang?: string;
   imglang?: string;
@@ -89,4 +89,3 @@ export default Seo;
 
 import { NextSeo } from "next-seo";
 import { OpenGraph } from "next-seo/lib/types";
-import { Translate } from "next-translate";

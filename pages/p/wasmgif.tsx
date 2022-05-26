@@ -1,5 +1,5 @@
 export default function WasmGif() {
-  const { t, lang } = useTranslation("projs/wasmGif");
+  const { t, lang } = useTypeSafeTranslation("projs/wasmGif");
   const wasmGifMeta = useMeta("wasmGif", "projs");
   return (
     <>
@@ -43,7 +43,7 @@ export default function WasmGif() {
   );
 }
 
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";

@@ -1,10 +1,6 @@
 export default function Knows() {
-  const { t, lang } = useTranslation("knows");
-
   return (
     <>
-      <Seo t={t} lang={lang} />
-
       <Container backable key="index">
         <Band gridless id="searchBand">
           <Search />
@@ -17,8 +13,7 @@ export default function Knows() {
 
 const Hr = styled("hr", {});
 
-import useTranslation from "next-translate/useTranslation";
-
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import Container from "@/components/Container";

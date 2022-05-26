@@ -1,5 +1,5 @@
 export default function Iss() {
-  const { t, lang } = useTranslation("projs/iss");
+  const { t, lang } = useTypeSafeTranslation("projs/iss");
   const issMeta = useMeta("iss", "projs");
   return (
     <>
@@ -8,7 +8,7 @@ export default function Iss() {
         <HeroBand heroVideo="/videos/iss/space">
           <TransWithComps text={t("heroTitle")} />
           <Text as="p" css={{ color: "transparent" }} aria-hidden="true">
-            {t("projs/iss:heroSubHead")}
+            {t("heroSubHead")}
           </Text>
           <div className="mt-6">
             <CodeAndDemoButtons
@@ -201,7 +201,7 @@ export default function Iss() {
   );
 }
 
-import useTranslation from "next-translate/useTranslation";
+import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
 import Seo from "@/components/Seo";
