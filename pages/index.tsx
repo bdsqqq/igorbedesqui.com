@@ -33,7 +33,7 @@ export default function Home() {
             <TransWithComps text={t("01.copy")} />
           </Text>
         </Band>
-        <Band dark headline={{ bold: "02", thin: t("02.title") }}>
+        <Band headline={{ bold: "02", thin: t("02.title") }}>
           <Projects projectsMeta={projsMeta} />
         </Band>
         <Band headline={{ bold: t("hey.greet"), thin: t("hey.title") }}>
