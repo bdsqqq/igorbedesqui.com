@@ -1,6 +1,8 @@
 const StyledLink = styled(UnstyledLink, {
   fontSize: "inherit",
   cursor: "pointer",
+  display: "inline-flex",
+  alignItems: "center",
 
   textDecoration: "underline",
   textUnderlineOffset: "2px",
@@ -10,10 +12,15 @@ const StyledLink = styled(UnstyledLink, {
 
   "&:hover, &:focus-within": {
     color: "$crimson11",
+
+    "& > svg": {
+      color: "$crimson11",
+    },
   },
 
   "& > svg": {
     display: "inline",
+    color: "$mauve11",
   },
 
   variants: {
