@@ -1,9 +1,6 @@
 const StyledLink = styled(UnstyledLink, {
   fontSize: "inherit",
   cursor: "pointer",
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "$spacing-02",
 
   textDecoration: "underline",
   textUnderlineOffset: "2px",
