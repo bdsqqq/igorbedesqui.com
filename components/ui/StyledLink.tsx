@@ -47,30 +47,13 @@ const StyledLinkWithIcon: React.FC<StyledLinkProps> = ({
 }) => {
   const ICONS_ENUM = {
     external: <ArrowTopRightIcon />,
-    twitter: <TwitterLogoIcon />,
-    github: <GitHubLogoIcon />,
   };
-
-  // TODO: make this into a switch statement?
-  //TODO: make a function to get the domainName from the href withouth the subdomain and TLD
 
   const isInternalLink: boolean =
     (href && href.startsWith("/")) || href.startsWith("#");
 
   if (!iconless && icon === null && !isInternalLink) {
-    if (
-      href.startsWith("https://www.twitter.com") ||
-      href.startsWith("https://twitter.com")
-    ) {
-      icon = ICONS_ENUM.twitter;
-    } else if (
-      href.startsWith("https://www.github.com") ||
-      href.startsWith("https://github.com")
-    ) {
-      icon = ICONS_ENUM.github;
-    } else {
-      icon = ICONS_ENUM.external;
-    }
+    icon = ICONS_ENUM.external;
   }
 
   return (
@@ -85,8 +68,4 @@ export default StyledLinkWithIcon;
 import { styled } from "stitches.config";
 import { UnstyledLink } from "@/ui/primitives";
 
-import {
-  ArrowTopRightIcon,
-  TwitterLogoIcon,
-  GitHubLogoIcon,
-} from "@radix-ui/react-icons";
+import { ArrowTopRightIcon } from "@radix-ui/react-icons";
