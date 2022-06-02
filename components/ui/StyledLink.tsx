@@ -7,8 +7,10 @@ const StyledLink = styled(UnstyledLink, {
   textDecoration: "underline",
   textUnderlineOffset: "2px",
 
-  transitionDuration: "150ms",
-  transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+  "@motionOk": {
+    transitionDuration: "150ms",
+    transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+  },
 
   "&:hover, &:focus-within": {
     color: "$crimson11",
