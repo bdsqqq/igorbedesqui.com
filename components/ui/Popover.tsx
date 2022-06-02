@@ -48,19 +48,35 @@ const PopOverTrigger = styled(PopoverPrimitive.Trigger, {
 
   fontWeight: "bold",
 
-  transitionDuration: "150ms",
-  transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+  "@motionOk": {
+    transitionDuration: "150ms",
+    transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
 
-  "& > svg": {
-    display: "inline",
+    "& > svg": {
+      transitionDuration: "150ms",
+      transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+    },
   },
 
   "&:hover, &:focus-within": {
     color: "$crimson11",
+
+    "& > svg": {
+      color: "$crimson11",
+    },
+  },
+
+  "& > svg": {
+    display: "inline",
+    color: "$mauve11",
   },
 
   '&[data-state="open"]': {
     color: "$crimson11",
+
+    "& > svg": {
+      color: "$crimson11",
+    },
   },
 });
 
