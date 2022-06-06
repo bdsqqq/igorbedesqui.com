@@ -17,7 +17,7 @@ const EmailLink = ({
   email = "igorbedesqui@gmail.com",
   children,
 }: {
-  email: string;
+  email?: string;
   children: React.ReactNode;
 }) => {
   return (
