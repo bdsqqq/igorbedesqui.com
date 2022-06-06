@@ -65,20 +65,21 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
               </StyledLink>
             </Box>
 
-            {/* <LinkList>
-            <Title as="h6">Me</Title>
+            {/*
+            <Title as="h6">Me</Title> 
+            <LinkList>
             <li>About</li>
             <li>Now</li>
           </LinkList>
 
+          <Title as="h6">Work</Title>
           <LinkList>
-            <Title as="h6">Work</Title>
             <li>Projects</li>
             <li>Resume</li>
           </LinkList> */}
 
+            <Title as="h6">{t("footer.connect")}</Title>
             <LinkList>
-              <Title as="h6">{t("footer.connect")}</Title>
               <li>
                 <StyledLink bold={false} href="https://github.com/bdsqqq/">
                   Github
