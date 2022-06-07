@@ -206,11 +206,9 @@ const Scales = () => {
               type="number"
               defaultValue={defaultValues.scaleLength}
               onChange={(event) => {
-                handleInputChange(
-                  event,
-                  defaultValues.scaleLength,
-                  setScaleLength
-                );
+                handleInputChange(event, defaultValues.scaleLength, (value) => {
+                  setScaleLength(Math.floor(value));
+                });
               }}
             />
           </label>
