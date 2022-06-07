@@ -49,6 +49,16 @@ const Scales = () => {
     { label: string; name: string }[]
   >([]);
 
+  const ratioRef = useRef<HTMLInputElement>(null);
+  const scaleLengthRef = useRef<HTMLInputElement>(null);
+  const f0Ref = useRef<HTMLInputElement>(null);
+
+  const refs = {
+    ratio: ratioRef,
+    scaleLength: scaleLengthRef,
+    f0: f0Ref,
+  };
+
   // add name to inputsSetAsDefault if it's not already there
   const addToInputsSetAsDefault = (label: string, name: string) => {
     if (inputsSetAsDefault.findIndex((i) => i.name === name) === -1) {
@@ -168,8 +178,11 @@ const Scales = () => {
             Ratio:
             <StyledComboBox
               css={{
-                width: `calc(${ratio.toString().length}ch + 0.5rem)`,
+                width: `calc(${
+                  refs.ratio?.current?.value.toString().length || 1
+                }ch + 0.5rem)`,
               }}
+              ref={refs.ratio}
               id={Object.keys(defaultValues)[0]}
               name="Ratio"
               autoComplete="list"
@@ -199,8 +212,11 @@ const Scales = () => {
             Scale Length:
             <StyledInput
               css={{
-                width: `calc(${scaleLength.toString().length}ch + 0.5rem)`,
+                width: `calc(${
+                  refs.scaleLength?.current?.value.length || 1
+                }ch + 0.5rem)`,
               }}
+              ref={refs.scaleLength}
               id={Object.keys(defaultValues)[1]}
               name="Scale Length"
               type="number"
@@ -217,8 +233,11 @@ const Scales = () => {
             Fundamental frequency (f0):
             <StyledInput
               css={{
-                width: `calc(${f0.toString().length}ch + 0.5rem)`,
+                width: `calc(${
+                  refs.f0?.current?.value.length || 1
+                }ch + 0.5rem)`,
               }}
+              ref={refs.f0}
               id={Object.keys(defaultValues)[2]}
               name="Fundamental frequency (f0)"
               type="number"
@@ -503,7 +522,7 @@ const Formula = () => {
 
 export default Scales;
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Combobox,
   ComboboxItem,
