@@ -291,6 +291,8 @@ const StyledComboBox = styled(Combobox, {
   width: "16ch",
   backgroundColor: "transparent",
 
+  color: "$mauve12",
+
   border: "none",
   borderRadius: "$sm",
   outlineRing: "",
@@ -371,6 +373,7 @@ const StyledComboBoxItem = styled(ComboboxItem, {
 const StyledInput = styled("input", {
   appearance: "textfield",
   backgroundColor: "transparent",
+  color: "$mauve12",
 
   padding: "$spacing-02",
   width: "8ch",
