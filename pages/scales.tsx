@@ -185,7 +185,6 @@ const Scales = () => {
             <Box
               as="span"
               css={{
-                width: "fit-content",
                 gridRow: "2 / 4",
                 fontSize: "2rem",
               }}
@@ -214,10 +213,10 @@ const Scales = () => {
             <Box
               as="span"
               css={{
-                width: "fit-content",
                 marginX: "$spacing-01",
                 gridRow: "2 / 4",
-                fontSize: "2rem",
+                placeSelf: "center",
+                fontSize: "1.5rem",
               }}
             >
               <StyledInput
@@ -258,8 +257,8 @@ const Scales = () => {
               as="span"
               css={{
                 marginX: "$spacing-01",
-                width: "fit-content",
                 gridRow: "2 / 4",
+                placeSelf: "center",
               }}
             >
               <StyledComboBox
@@ -267,7 +266,7 @@ const Scales = () => {
                   width: `calc(${
                     refs.ratio?.current?.value.toString().length || 1
                   }ch + 0.5rem)`,
-                  fontSize: "2rem",
+                  fontSize: "1.5rem",
                 }}
                 ref={refs.ratio}
                 id={Object.keys(defaultValues)[0]}
