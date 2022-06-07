@@ -219,7 +219,8 @@ const Scales = () => {
               ref={refs.scaleLength}
               id={Object.keys(defaultValues)[1]}
               name="Scale Length"
-              type="number"
+              inputMode="numeric"
+              pattern="[0-9]*"
               defaultValue={defaultValues.scaleLength}
               onChange={(event) => {
                 handleInputChange(event, defaultValues.scaleLength, (value) => {
@@ -240,7 +241,8 @@ const Scales = () => {
               ref={refs.f0}
               id={Object.keys(defaultValues)[2]}
               name="Fundamental frequency (f0)"
-              type="number"
+              inputMode="numeric"
+              pattern="[0-9]*"
               defaultValue={defaultValues.f0}
               onChange={(event) => {
                 handleInputChange(event, defaultValues.f0, setF0);
