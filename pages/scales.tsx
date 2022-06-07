@@ -331,7 +331,7 @@ const Scales = () => {
 
 const StyledComboBox = styled(Combobox, {
   padding: "$spacing-02",
-  backgroundColor: "transparent",
+  backgroundColor: "$mauve3",
 
   color: "$mauve12",
 
@@ -342,8 +342,16 @@ const StyledComboBox = styled(Combobox, {
   outlineRing: "",
   outlineColor: "transparent",
 
+  "&:hover": {
+    backgroundColor: "$mauve4",
+  },
+
+  "&:focus": {
+    backgroundColor: "$mauve5",
+  },
+
   "@motionOk": {
-    transitionProperty: "outline-color",
+    transitionProperty: "outline-color, background-color",
     transitionDuration: duration.fast01,
     transitionTimingFunction: timingFunction.productive.standard,
   },
@@ -412,7 +420,7 @@ const StyledComboBoxItem = styled(ComboboxItem, {
 
 const StyledInput = styled("input", {
   appearance: "textfield",
-  backgroundColor: "transparent",
+  backgroundColor: "$mauve3",
   color: "$mauve12",
 
   textAlign: "center",
@@ -423,8 +431,16 @@ const StyledInput = styled("input", {
   outlineRing: "",
   outlineColor: "transparent",
 
+  "&:hover": {
+    backgroundColor: "$mauve4",
+  },
+
+  "&:focus": {
+    backgroundColor: "$mauve5",
+  },
+
   "@motionOk": {
-    transitionProperty: "outline-color",
+    transitionProperty: "outline-color, background-color",
     transitionDuration: duration.fast01,
     transitionTimingFunction: timingFunction.productive.standard,
   },
