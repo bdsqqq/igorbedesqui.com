@@ -346,14 +346,25 @@ const StyledComboboxPopover = styled(ComboboxPopover, {
 });
 
 const StyledComboBoxItem = styled(ComboboxItem, {
+  cursor: "pointer",
   padding: "$spacing-02 $spacing-04",
 
   border: "none",
   borderRadius: "$sm",
   outlineRing: "none",
 
+  "&:hover": {
+    backgroundColor: "$mauve4",
+  },
+
   "&[aria-selected=true]": {
-    backgroundColor: "$mauve8",
+    backgroundColor: "$mauve5",
+  },
+
+  "@motionOk": {
+    transitionProperty: "background-color",
+    transitionDuration: duration.fast01,
+    transitionTimingFunction: timingFunction.productive.standard,
   },
 });
 
@@ -486,7 +497,14 @@ import {
 } from "ariakit/combobox";
 import { styled } from "stitches.config";
 
-import { scaleIn, scaleOut, slideDown, slideUp } from "@/animations";
+import {
+  duration,
+  scaleIn,
+  scaleOut,
+  slideDown,
+  slideUp,
+  timingFunction,
+} from "@/animations";
 import Container from "@/components/Container";
 import Band from "@/components/Band";
 import { Box } from "@/components/ui/primitives";
