@@ -3,18 +3,15 @@ export default function Custom404() {
 
   return (
     <Container backable>
-      <div
-        id="skip"
-        tabIndex={-1}
-        className="flex items-center justify-center"
-        style={{ minHeight: "77vh" }}
-      >
-        <h1 className="text-2xl pr-6 border-r border-mauveDark-mauve6">404</h1>
-        <h2 className="pl-6">{t("404")}</h2>
-      </div>
+      <HeroBand heroVideo={"/videos/404/zoro-lost"}>
+        <Trans text={t("404")} />
+      </HeroBand>
     </Container>
   );
 }
 
 import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
+
+import Trans from "@/components/i18nStuff/TransWithComps";
 import Container from "@/components/Container";
+import HeroBand from "@/components/HeroBand";
