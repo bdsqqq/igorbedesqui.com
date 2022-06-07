@@ -373,8 +373,8 @@ const Scales = () => {
               overflowX: "visible",
               overflowY: "hidden",
               whiteSpace: "nowrap",
-              width: "fit-content",
-              marginX: "auto",
+              width: "100%",
+              textAlign: "center",
               paddingBottom: "2rem",
             }}
           >
