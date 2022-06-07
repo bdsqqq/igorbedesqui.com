@@ -173,7 +173,10 @@ const Scales = () => {
       </Band>
       <Band smolPadding headline={{ bold: "01", thin: "Title" }}>
         <Formula />
-        <form style={{ display: "flex", flexDirection: "column" }}>
+        <form
+          style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}
+          // TODO: Stitch this to use variables
+        >
           <label htmlFor={Object.keys(defaultValues)[0]}>
             Ratio:
             <StyledComboBox
@@ -224,6 +227,7 @@ const Scales = () => {
               defaultValue={defaultValues.scaleLength}
               onChange={(event) => {
                 handleInputChange(event, defaultValues.scaleLength, (value) => {
+                  // TODO: add specific error message for if this is not an integer.
                   setScaleLength(Math.floor(value));
                 });
               }}
