@@ -66,39 +66,45 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
             </Box>
 
             {/*
+            <Box>
             <Title as="h6">Me</Title> 
             <LinkList>
             <li>About</li>
             <li>Now</li>
           </LinkList>
+          </Box>
 
+          <Box>
           <Title as="h6">Work</Title>
           <LinkList>
             <li>Projects</li>
             <li>Resume</li>
-          </LinkList> */}
+          </LinkList>
+          </Box> */}
 
-            <Title as="h6">{t("footer.connect")}</Title>
-            <LinkList>
-              <li>
-                <StyledLink bold={false} href="https://github.com/bdsqqq/">
-                  Github
-                </StyledLink>
-              </li>
-              <li>
-                <StyledLink bold={false} href="https://twitter.com/bedesqui">
-                  Twitter
-                </StyledLink>
-              </li>
-              <li>
-                <StyledLink
-                  bold={false}
-                  href="https://www.linkedin.com/in/igor-bedesqui/"
-                >
-                  Linkedin
-                </StyledLink>
-              </li>
-            </LinkList>
+            <Box>
+              <Title as="h6">{t("footer.connect")}</Title>
+              <LinkList>
+                <li>
+                  <StyledLink bold={false} href="https://github.com/bdsqqq/">
+                    Github
+                  </StyledLink>
+                </li>
+                <li>
+                  <StyledLink bold={false} href="https://twitter.com/bedesqui">
+                    Twitter
+                  </StyledLink>
+                </li>
+                <li>
+                  <StyledLink
+                    bold={false}
+                    href="https://www.linkedin.com/in/igor-bedesqui/"
+                  >
+                    Linkedin
+                  </StyledLink>
+                </li>
+              </LinkList>
+            </Box>
           </Grid>
         </Box>
       </Box>
