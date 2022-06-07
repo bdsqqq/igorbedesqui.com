@@ -173,87 +173,178 @@ const Scales = () => {
       </Band>
       <Band smolPadding headline={{ bold: "01", thin: "Title" }}>
         <Formula />
-        <form
-          style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}
-          // TODO: Stitch this to use variables
-        >
-          <label htmlFor={Object.keys(defaultValues)[0]}>
-            Ratio:
-            <StyledComboBox
+        <>
+          <Box
+            css={{
+              display: "grid",
+              gridTemplateRows: "repeat(3, 1fr)",
+              gridAutoColumns: "min-content",
+              width: "min-content",
+            }}
+          >
+            <Box
+              as="span"
               css={{
-                width: `calc(${
-                  refs.ratio?.current?.value.toString().length || 1
-                }ch + 0.5rem)`,
+                width: "fit-content",
+                gridRow: "2 / 4",
+                fontSize: "2rem",
               }}
-              ref={refs.ratio}
-              id={Object.keys(defaultValues)[0]}
-              name="Ratio"
-              autoComplete="list"
-              autoSelect
-              state={comboboxState}
-              placeholder="e.g., Golden ratio"
-            />
-          </label>
-          {filteredPreDefinedScales.length > 0 && (
-            <StyledComboboxPopover
-              data-placement={comboboxState.currentPlacement}
-              state={comboboxState}
             >
-              {filteredPreDefinedScales.map((scale) => (
-                <StyledComboBoxItem
-                  key={`${scale.name}_ComboboxItem`}
-                  className="combobox-item"
-                  value={scale.value}
+              𝑓
+            </Box>
+            <Box
+              as="span"
+              css={{
+                width: "fit-content",
+                gridRow: "3 / 4",
+              }}
+            >
+              𝑖
+            </Box>
+            <Box
+              as="span"
+              css={{
+                width: "fit-content",
+                gridRow: "2 / 4",
+                fontSize: "2rem",
+              }}
+            >
+              =
+            </Box>
+            <Box
+              as="span"
+              css={{
+                width: "fit-content",
+                marginX: "$spacing-01",
+                gridRow: "2 / 4",
+                fontSize: "2rem",
+              }}
+            >
+              <StyledInput
+                css={{
+                  width: `calc(${
+                    refs.f0?.current?.value.length || 1
+                  }ch + 0.5rem)`,
+                }}
+                ref={refs.f0}
+                id={Object.keys(defaultValues)[2]}
+                name="Fundamental frequency (f0)"
+                inputMode="numeric"
+                defaultValue={defaultValues.f0}
+                onChange={(event) => {
+                  handleInputChange(event, defaultValues.f0, setF0);
+                }}
+              />
+            </Box>
+            <Box
+              as="div"
+              css={{
+                gridRow: "2 / 4",
+                display: "flex",
+                alignContent: "center",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Box
+                css={{
+                  width: "15px",
+                }}
+              >
+                <Cross2Icon />
+              </Box>
+            </Box>
+            <Box
+              as="span"
+              css={{
+                marginX: "$spacing-01",
+                width: "fit-content",
+                gridRow: "2 / 4",
+              }}
+            >
+              <StyledComboBox
+                css={{
+                  width: `calc(${
+                    refs.ratio?.current?.value.toString().length || 1
+                  }ch + 0.5rem)`,
+                  fontSize: "2rem",
+                }}
+                ref={refs.ratio}
+                id={Object.keys(defaultValues)[0]}
+                name="Ratio"
+                autoComplete="list"
+                autoSelect
+                state={comboboxState}
+                placeholder="e.g., Golden ratio"
+              />
+              {filteredPreDefinedScales.length > 0 && (
+                <StyledComboboxPopover
+                  data-placement={comboboxState.currentPlacement}
+                  state={comboboxState}
                 >
-                  {scale.name}
-                </StyledComboBoxItem>
-              ))}
-            </StyledComboboxPopover>
-          )}
-
-          <label htmlFor={Object.keys(defaultValues)[1]}>
-            Scale Length:
-            <StyledInput
+                  {filteredPreDefinedScales.map((scale) => (
+                    <StyledComboBoxItem
+                      key={`${scale.name}_ComboboxItem`}
+                      className="combobox-item"
+                      value={scale.value}
+                    >
+                      {scale.name}
+                    </StyledComboBoxItem>
+                  ))}
+                </StyledComboboxPopover>
+              )}
+            </Box>
+            <Box
+              as="div"
               css={{
-                width: `calc(${
-                  refs.scaleLength?.current?.value.length || 1
-                }ch + 0.5rem)`,
-              }}
-              ref={refs.scaleLength}
-              id={Object.keys(defaultValues)[1]}
-              name="Scale Length"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              defaultValue={defaultValues.scaleLength}
-              onChange={(event) => {
-                handleInputChange(event, defaultValues.scaleLength, (value) => {
-                  // TODO: add specific error message for if this is not an integer.
-                  setScaleLength(Math.floor(value));
-                });
-              }}
-            />
-          </label>
+                width: "fit-content",
+                gridRow: "1 / 3",
+                gridColumn: "99",
 
-          <label htmlFor={Object.keys(defaultValues)[2]}>
-            Fundamental frequency (f0):
-            <StyledInput
-              css={{
-                width: `calc(${
-                  refs.f0?.current?.value.length || 1
-                }ch + 0.5rem)`,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "-0.2em",
+                lineHeight: "0.8em",
               }}
-              ref={refs.f0}
-              id={Object.keys(defaultValues)[2]}
-              name="Fundamental frequency (f0)"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              defaultValue={defaultValues.f0}
-              onChange={(event) => {
-                handleInputChange(event, defaultValues.f0, setF0);
-              }}
-            />
-          </label>
-        </form>
+            >
+              <Box>𝑖</Box>
+              <Box
+                css={{
+                  width: "50%",
+                  borderBottom: "1px solid currentColor",
+                  marginY: "$spacing-01",
+                }}
+              />
+              <Box>
+                <StyledInput
+                  css={{
+                    width: `calc(${
+                      refs.scaleLength?.current?.value.length || 1
+                    }ch + 0.5rem)`,
+                  }}
+                  ref={refs.scaleLength}
+                  id={Object.keys(defaultValues)[1]}
+                  name="Scale Length"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  defaultValue={defaultValues.scaleLength}
+                  onChange={(event) => {
+                    handleInputChange(
+                      event,
+                      defaultValues.scaleLength,
+                      (value) => {
+                        // TODO: add specific error message for if this is not an integer.
+                        setScaleLength(Math.floor(value));
+                      }
+                    );
+                  }}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </>
       </Band>
       <Band gridless padless fullBleed id="results">
         {inputsSetAsDefault.length > 0 && (
@@ -568,3 +659,4 @@ import Container from "@/components/Container";
 import Band from "@/components/Band";
 import { Box } from "@/components/ui/primitives";
 import Text from "@/components/ui/Text";
+import { Cross2Icon } from "@radix-ui/react-icons";
