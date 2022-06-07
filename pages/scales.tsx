@@ -335,6 +335,8 @@ const StyledComboBox = styled(Combobox, {
 
   color: "$mauve12",
 
+  textAlign: "center",
+
   border: "none",
   borderRadius: "$sm",
   outlineRing: "",
@@ -413,6 +415,7 @@ const StyledInput = styled("input", {
   backgroundColor: "transparent",
   color: "$mauve12",
 
+  textAlign: "center",
   padding: "$spacing-02",
 
   border: "none",
