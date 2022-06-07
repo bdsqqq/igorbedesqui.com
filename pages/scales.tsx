@@ -320,13 +320,9 @@ const StyledComboBox = styled(Combobox, {
   outlineColor: "transparent",
 
   "@motionOk": {
-    transitionProperty: "outline-color width",
-    transitionDuration: "110ms",
-    transitionTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
-
-    "&:focus-visible": {
-      transitionTimingFunction: "cubic-bezier(0.4, 0.14, 1, 1)",
-    },
+    transitionProperty: "outline-color",
+    transitionDuration: duration.fast01,
+    transitionTimingFunction: timingFunction.productive.standard,
   },
 });
 
@@ -404,13 +400,9 @@ const StyledInput = styled("input", {
   outlineColor: "transparent",
 
   "@motionOk": {
-    transitionProperty: "outline-color width",
-    transitionDuration: "110ms",
-    transitionTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
-
-    "&:focus-visible": {
-      transitionTimingFunction: "cubic-bezier(0.4, 0.14, 1, 1)",
-    },
+    transitionProperty: "outline-color",
+    transitionDuration: duration.fast01,
+    transitionTimingFunction: timingFunction.productive.standard,
   },
 });
 
