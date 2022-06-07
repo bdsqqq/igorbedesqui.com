@@ -230,6 +230,7 @@ const Scales = () => {
                 name="Fundamental frequency (f0)"
                 inputMode="numeric"
                 defaultValue={defaultValues.f0}
+                placeholder="1"
                 onChange={(event) => {
                   handleInputChange(event, defaultValues.f0, setF0);
                 }}
@@ -274,7 +275,7 @@ const Scales = () => {
                 autoComplete="list"
                 autoSelect
                 state={comboboxState}
-                placeholder="e.g., Golden ratio"
+                placeholder="1"
               />
               {filteredPreDefinedScales.length > 0 && (
                 <StyledComboboxPopover
@@ -327,8 +328,9 @@ const Scales = () => {
                   id={Object.keys(defaultValues)[1]}
                   name="Scale Length"
                   inputMode="numeric"
-                  pattern="[0-9]*"
                   defaultValue={defaultValues.scaleLength}
+                  placeholder="14"
+                  maxLength={2}
                   onChange={(event) => {
                     handleInputChange(
                       event,
