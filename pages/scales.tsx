@@ -146,6 +146,21 @@ const Scales = () => {
 
   return (
     <Container>
+      <Band headline={{ bold: "01", thin: "what's this?" }}>
+        <Text
+          as="p"
+          css={{
+            "@lg": {
+              maxWidth: "50ch",
+            },
+          }}
+        >
+          {`Recently I've been curious about Design and its relation to website development. During one of my usual rabbit hole deep dives, I stumbled upon a blog post by spencer Mortensen. It was a fascinating read that went into detail about the history of the typographic scale. But more importantly to me, it presented a mathematical formula that can generate harmonic scales.`}
+          <br />
+          <br />
+          {`Spencer Mortensen himself made a tool to calculate type scales, but after the subject lingered in my head for a while, I decided to implement my version of it.`}
+        </Text>
+      </Band>
       <Band smolPadding headline={{ bold: "01", thin: "Title" }}>
         <Formula />
         <form style={{ display: "flex", flexDirection: "column" }}>
@@ -511,3 +526,4 @@ import {
 import Container from "@/components/Container";
 import Band from "@/components/Band";
 import { Box } from "@/components/ui/primitives";
+import Text from "@/components/ui/Text";
