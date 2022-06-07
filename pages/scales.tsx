@@ -167,6 +167,9 @@ const Scales = () => {
           <label htmlFor={Object.keys(defaultValues)[0]}>
             Ratio:
             <StyledComboBox
+              css={{
+                width: `calc(${ratio.toString().length}ch + 0.5rem)`,
+              }}
               id={Object.keys(defaultValues)[0]}
               name="Ratio"
               autoComplete="list"
@@ -195,6 +198,9 @@ const Scales = () => {
           <label htmlFor={Object.keys(defaultValues)[1]}>
             Scale Length:
             <StyledInput
+              css={{
+                width: `calc(${scaleLength.toString().length}ch + 0.5rem)`,
+              }}
               id={Object.keys(defaultValues)[1]}
               name="Scale Length"
               type="number"
@@ -212,6 +218,9 @@ const Scales = () => {
           <label htmlFor={Object.keys(defaultValues)[2]}>
             Fundamental frequency (f0):
             <StyledInput
+              css={{
+                width: `calc(${f0.toString().length}ch + 0.5rem)`,
+              }}
               id={Object.keys(defaultValues)[2]}
               name="Fundamental frequency (f0)"
               type="number"
@@ -303,7 +312,6 @@ const Scales = () => {
 
 const StyledComboBox = styled(Combobox, {
   padding: "$spacing-02",
-  width: "16ch",
   backgroundColor: "transparent",
 
   color: "$mauve12",
@@ -314,7 +322,7 @@ const StyledComboBox = styled(Combobox, {
   outlineColor: "transparent",
 
   "@motionOk": {
-    transitionProperty: "outline-color",
+    transitionProperty: "outline-color width",
     transitionDuration: "110ms",
     transitionTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
 
@@ -391,7 +399,6 @@ const StyledInput = styled("input", {
   color: "$mauve12",
 
   padding: "$spacing-02",
-  width: "8ch",
 
   border: "none",
   borderRadius: "$sm",
@@ -399,7 +406,7 @@ const StyledInput = styled("input", {
   outlineColor: "transparent",
 
   "@motionOk": {
-    transitionProperty: "outline-color",
+    transitionProperty: "outline-color width",
     transitionDuration: "110ms",
     transitionTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
 
