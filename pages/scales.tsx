@@ -369,6 +369,7 @@ const Scales = () => {
             css={{
               position: "relative",
               overflowX: "visible",
+              overflowY: "hidden",
               whiteSpace: "nowrap",
               width: "fit-content",
               marginX: "auto",
