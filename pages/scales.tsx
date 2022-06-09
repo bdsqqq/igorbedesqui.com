@@ -172,96 +172,44 @@ const Scales = () => {
         </Text>
       </Band>
       <Band smolPadding headline={{ bold: "01", thin: "Title" }}>
-        <Formula />
-        <>
-          <Box
-            css={{
-              display: "grid",
-              gridTemplateRows: "repeat(3, 1fr)",
-              gridAutoColumns: "min-content",
-              width: "min-content",
-            }}
-          >
+        <Formula
+          ratio={
             <Box
               as="span"
               css={{
+                width: "fit-content",
+                gridRow: "2 / 4",
+                fontSize: "2rem",
+              }}
+            >
+              r
+            </Box>
+          }
+          f0={
+            <Box
+              as="span"
+              css={{
+                width: "fit-content",
                 gridRow: "2 / 4",
                 fontSize: "2rem",
               }}
             >
               𝑓
-            </Box>
-            <Box
-              as="span"
-              css={{
-                width: "fit-content",
-                gridRow: "3 / 4",
-              }}
-            >
-              𝑖
-            </Box>
-            <Box
-              as="span"
-              css={{
-                width: "fit-content",
-                gridRow: "2 / 4",
-                fontSize: "2rem",
-              }}
-            >
-              =
-            </Box>
-            <Box
-              as="span"
-              css={{
-                marginX: "$spacing-01",
-                gridRow: "2 / 4",
-                placeSelf: "center",
-                fontSize: "1.5rem",
-              }}
-            >
-              <StyledInput
-                css={{
-                  width: `calc(${
-                    refs.f0?.current?.value.length || 1
-                  }ch + 0.5rem)`,
-                }}
-                ref={refs.f0}
-                id={Object.keys(defaultValues)[2]}
-                name="Fundamental frequency (f0)"
-                inputMode="numeric"
-                defaultValue={defaultValues.f0}
-                placeholder="1"
-                onChange={(event) => {
-                  handleInputChange(event, defaultValues.f0, setF0);
-                }}
-              />
-            </Box>
-            <Box
-              as="div"
-              css={{
-                gridRow: "2 / 4",
-                display: "flex",
-                alignContent: "center",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
               <Box
+                as="span"
                 css={{
-                  width: "15px",
+                  fontSize: "1rem",
                 }}
               >
-                <Cross2Icon />
+                0
               </Box>
             </Box>
-            <Box
-              as="span"
-              css={{
-                marginX: "$spacing-01",
-                gridRow: "2 / 4",
-                placeSelf: "center",
-              }}
-            >
+          }
+          scaleLength={<Box>𝑛</Box>}
+        />
+        <Formula
+          ratio={
+            <>
               <StyledComboBox
                 css={{
                   width: `calc(${
@@ -293,59 +241,49 @@ const Scales = () => {
                   ))}
                 </StyledComboboxPopover>
               )}
-            </Box>
-            <Box
-              as="div"
+            </>
+          }
+          f0={
+            <StyledInput
               css={{
-                width: "fit-content",
-                gridRow: "1 / 3",
-                gridColumn: "99",
-
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "-0.2em",
-                lineHeight: "0.8em",
+                width: `calc(${
+                  refs.f0?.current?.value.length || 1
+                }ch + 0.5rem)`,
               }}
-            >
-              <Box>𝑖</Box>
-              <Box
-                css={{
-                  width: "50%",
-                  borderBottom: "1px solid currentColor",
-                  marginY: "$spacing-01",
-                }}
-              />
-              <Box>
-                <StyledInput
-                  css={{
-                    width: `calc(${
-                      refs.scaleLength?.current?.value.length || 1
-                    }ch + 0.5rem)`,
-                  }}
-                  ref={refs.scaleLength}
-                  id={Object.keys(defaultValues)[1]}
-                  name="Scale Length"
-                  inputMode="numeric"
-                  defaultValue={defaultValues.scaleLength}
-                  placeholder="14"
-                  maxLength={2}
-                  onChange={(event) => {
-                    handleInputChange(
-                      event,
-                      defaultValues.scaleLength,
-                      (value) => {
-                        // TODO: add specific error message for if this is not an integer.
-                        setScaleLength(Math.floor(value));
-                      }
-                    );
-                  }}
-                />
-              </Box>
-            </Box>
-          </Box>
-        </>
+              ref={refs.f0}
+              id={Object.keys(defaultValues)[2]}
+              name="Fundamental frequency (f0)"
+              inputMode="numeric"
+              defaultValue={defaultValues.f0}
+              placeholder="1"
+              onChange={(event) => {
+                handleInputChange(event, defaultValues.f0, setF0);
+              }}
+            />
+          }
+          scaleLength={
+            <StyledInput
+              css={{
+                width: `calc(${
+                  refs.scaleLength?.current?.value.length || 1
+                }ch + 0.5rem)`,
+              }}
+              ref={refs.scaleLength}
+              id={Object.keys(defaultValues)[1]}
+              name="Scale Length"
+              inputMode="numeric"
+              defaultValue={defaultValues.scaleLength}
+              placeholder="14"
+              maxLength={2}
+              onChange={(event) => {
+                handleInputChange(event, defaultValues.scaleLength, (value) => {
+                  // TODO: add specific error message for if this is not an integer.
+                  setScaleLength(Math.floor(value));
+                });
+              }}
+            />
+          }
+        />
       </Band>
       <Band gridless padless fullBleed id="results">
         {inputsSetAsDefault.length > 0 && (
@@ -543,7 +481,11 @@ const StyledInput = styled("input", {
   },
 });
 
-const Formula = () => {
+const Formula: React.FC<{
+  ratio: ReactNode;
+  f0: ReactNode;
+  scaleLength: ReactNode;
+}> = ({ ratio, f0, scaleLength }) => {
   return (
     <Box
       css={{
@@ -556,7 +498,6 @@ const Formula = () => {
       <Box
         as="span"
         css={{
-          width: "fit-content",
           gridRow: "2 / 4",
           fontSize: "2rem",
         }}
@@ -585,53 +526,66 @@ const Formula = () => {
       <Box
         as="span"
         css={{
-          width: "fit-content",
+          marginX: "$spacing-01",
           gridRow: "2 / 4",
-          fontSize: "2rem",
+          placeSelf: "center",
+          fontSize: "1.5rem",
         }}
       >
-        𝑓
+        {f0}
+      </Box>
+      <Box
+        as="div"
+        css={{
+          gridRow: "2 / 4",
+          display: "flex",
+          alignContent: "center",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
         <Box
-          as="span"
           css={{
-            fontSize: "1rem",
+            width: "15px",
           }}
         >
-          0
+          <Cross2Icon />
         </Box>
       </Box>
       <Box
         as="span"
         css={{
-          width: "fit-content",
+          marginX: "$spacing-01",
           gridRow: "2 / 4",
-          fontSize: "2rem",
+          placeSelf: "center",
         }}
       >
-        r
+        {ratio}
       </Box>
       <Box
-        as="span"
+        as="div"
         css={{
           width: "fit-content",
-          gridRow: "2 / 4",
+          gridRow: "1 / 3",
+          gridColumn: "99",
 
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
           gap: "-0.2em",
           lineHeight: "0.8em",
         }}
       >
+        <Box>𝑖</Box>
         <Box
           css={{
+            width: "50%",
             borderBottom: "1px solid currentColor",
-            paddingBottom: "0.2em",
+            marginY: "$spacing-01",
           }}
-        >
-          𝑖
-        </Box>
-        <Box>𝑛</Box>
+        />
+        <Box>{scaleLength}</Box>
       </Box>
     </Box>
   );
@@ -639,7 +593,7 @@ const Formula = () => {
 
 export default Scales;
 
-import { useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import {
   Combobox,
   ComboboxItem,
