@@ -591,15 +591,14 @@ const Formula = () => {
         }}
       >
         𝑓
-      </Box>
-      <Box
-        as="span"
-        css={{
-          width: "fit-content",
-          gridRow: "3 / 4",
-        }}
-      >
-        0
+        <Box
+          as="span"
+          css={{
+            fontSize: "1rem",
+          }}
+        >
+          0
+        </Box>
       </Box>
       <Box
         as="span"
