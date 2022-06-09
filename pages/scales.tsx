@@ -153,6 +153,8 @@ const Scales = () => {
   // + fallback to a default value if the user enters an invalid value.
   // - - display a hint if the user enters an invalid value.
   // + display the results of the scale and preview them using a letter, see: https://spencermortensen.com/articles/typographic-scale/.
+  // - - Allow the user to somehow export the font-sizes generated?
+  // - - - This is low priority as I think of this page more as a playground than as a tool. But having the functionality could definitelly open the possibility to make this into a standalone thing.
 
   return (
     <Container>
