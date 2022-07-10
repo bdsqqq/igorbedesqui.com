@@ -392,6 +392,7 @@ const StyledComboBox = styled(Combobox, {
     transitionDuration: duration.fast01,
     transitionTimingFunction: timingFunction.productive.standard,
   },
+  length: 0,
 });
 
 const StyledComboboxPopover = styled(ComboboxPopover, {
@@ -430,6 +431,7 @@ const StyledComboboxPopover = styled(ComboboxPopover, {
       },
     },
   },
+  length: 0,
 });
 
 const StyledComboBoxItem = styled(ComboboxItem, {
@@ -453,6 +455,7 @@ const StyledComboBoxItem = styled(ComboboxItem, {
     transitionDuration: duration.fast01,
     transitionTimingFunction: timingFunction.productive.standard,
   },
+  length: 0,
 });
 
 const StyledInput = styled("input", {
@@ -481,6 +484,8 @@ const StyledInput = styled("input", {
     transitionDuration: duration.fast01,
     transitionTimingFunction: timingFunction.productive.standard,
   },
+
+  length: 0,
 });
 
 const Formula: React.FC<{
