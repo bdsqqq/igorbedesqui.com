@@ -2,32 +2,25 @@ type ProjectsProps = {
   projectsMeta: Meta[];
 };
 const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
-  const { t } = useTypeSafeTranslation("common");
-
   return (
     <ProjsList>
       {projectsMeta.map((project, i) => {
         return (
-          <ProjLi key={`p-${i}`}>
-            <Proj>
-              <Box>
-                <Title>{project.name}</Title>
-
-                <SubTitle>{project.roles[0]}</SubTitle>
-                <p>{project.description}</p>
+          <Link href={`/p/${project.urlSlug}`} key={project.name}>
+            <li>
+              <Box
+                as="h3"
+                css={{
+                  fontSize: "$lg",
+                  fontWeight: "600",
+                  letterSpacing: "$tighter",
+                }}
+              >
+                {project.name}
               </Box>
-
-              <Box css={{ display: "flex", justifyContent: "space-between" }}>
-                <Span css={{ userSelect: "none" }}> — </Span>
-                <AnimatedLink
-                  href={`/p/${project.shortName.toLowerCase()}`}
-                  key={`li-${i}`}
-                >
-                  {project.readMore ? project.readMore : t("readMore")} ⟶
-                </AnimatedLink>
-              </Box>
-            </Proj>
-          </ProjLi>
+              <p>{project.description}</p>
+            </li>
+          </Link>
         );
       })}
     </ProjsList>
@@ -40,67 +33,78 @@ const ProjsList = styled("ul", {
   display: "flex",
   flexWrap: "wrap",
   flexDirection: "column",
-  alignItems: "center",
+  alignItems: "start",
   justifyContent: "start",
-  gap: "2rem",
+
+  pointerEvents: "none",
+  "&:hover": {
+    color: "$mauve11",
+
+    "& > a": {
+      opacity: "0.4",
+    },
+  },
 
   "@md": {
     display: "grid",
     gridTemplateColumns: "repeat(2, 1fr)",
-    gap: "4rem",
+    columnGap: "$spacing-06",
   },
 });
 
-const ProjLi = styled("li", {
+const Link = styled(UnstyledLink, {
   width: "100%",
-  height: "100%",
-});
+  py: "$spacing-07",
 
-const Proj = styled("article", {
-  width: "100%",
-  height: "100%",
+  // this pointer event will bubble up and activate the hover style of the parent
+  pointerEvents: "auto",
 
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-});
+  "&:first-child": {
+    paddingTop: 0,
+  },
+  "&:last-child": {
+    paddingBottom: 0,
+  },
 
-const Title = styled("h3", {
-  fontWeight: "bold",
-  fontSize: "1.5rem",
-  lineHeight: "2rem",
-});
+  "@md": {
+    py: "$spacing-06",
 
-const SubTitle = styled("div", {
-  fontWeight: "300",
-  color: "$mauve11",
-  marginBottom: "1rem",
-});
+    "&:nth-child(2)": {
+      paddingTop: 0,
+    },
 
-const AnimatedLink = styled(UnstyledLink, {
-  cursor: "pointer",
-  userSelect: "none",
+    // remove padding bottom of second last child only if it is in the last line eg:
+    /* 
+      | 1 | 2 |
+      | 3 |
+      > 2 is the second last but it still keeps the padding bottom
 
-  display: "inline-block",
-  padding: "0.25rem",
-  paddingBottom: "0",
-  marginRight: "0.5rem",
+      | 1 | 2 |
+      | 3 | 4 |
+      > 3 is the second last and in the last row so it loses it's padding bottom
 
-  color: "$mauve11",
+      btw, this 2 is tied to the gridTemplateColumns repeat(2, 1fr) of the parent. If I change that, then I'll have to update this part but it definetely isn't worth abstracting it rn
+    */
+    "&:nth-last-child(2):nth-child(odd)": {
+      paddingBottom: 0,
+    },
+  },
 
-  transform: "translate(0)",
-  transitionDuration: "150ms",
-  transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
-
-  "&:hover, &:focus-within": {
+  "&:hover": {
     color: "$mauve12",
-    transform: "translate(1rem)",
+    opacity: "1 !important",
+  },
+
+  "@motionOk": {
+    transitionProperty: "color opacity",
+    transitionDuration: duration.moderate01,
+    transitionTimingFunction: timingFunction.productive.standard,
   },
 });
 
 export default Projects;
 
 import { styled } from "stitches.config";
-import { Box, Span, UnstyledLink } from "@/ui/primitives";
+import { Box, UnstyledLink } from "@/ui/primitives";
 import { Meta } from "@/hooks/useMeta";
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
+import { duration, timingFunction } from "@/animations";
