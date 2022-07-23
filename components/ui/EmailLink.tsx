@@ -61,7 +61,7 @@ const PopoverContent = ({ email }: { email: string }) => {
             navigator.clipboard.writeText(email);
           }}
         >
-          <CopyIcon />
+          <ClipboardCopyIcon />
         </Button>
       </Tooltip>
       <Text
@@ -96,7 +96,7 @@ export default EmailLink;
 
 import useTranslation from "next-translate/useTranslation";
 import {
-  CopyIcon,
+  ClipboardCopyIcon,
   EnvelopeClosedIcon,
   PaperPlaneIcon,
 } from "@radix-ui/react-icons";
