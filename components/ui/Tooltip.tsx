@@ -15,6 +15,7 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
     animated: true,
     placement: options?.side ?? "top",
     gutter: 0,
+    timeout: 200,
   });
 
   return (
@@ -69,13 +70,13 @@ const TooltipContent = styled(AriaKitTooltip, {
 
       "&[data-enter]": {
         opacity: 1,
-        animationDuration: duration.moderate01,
+        animationDuration: duration.fast02,
         animationTimingFunction: timingFunction.productive.entrance,
         animationName: scaleInSlideUp,
       },
 
       "&[data-leave]": {
-        animationDuration: duration.moderate01,
+        animationDuration: duration.fast02,
         animationTimingFunction: timingFunction.productive.exit,
         animationName: scaleOutSlideDown,
       },
@@ -86,13 +87,13 @@ const TooltipContent = styled(AriaKitTooltip, {
 
       "&[data-enter]": {
         opacity: 1,
-        animationDuration: duration.moderate01,
+        animationDuration: duration.fast02,
         animationTimingFunction: timingFunction.productive.entrance,
         animationName: scaleInSlideDown,
       },
 
       "&[data-leave]": {
-        animationDuration: duration.moderate01,
+        animationDuration: duration.fast02,
         animationTimingFunction: timingFunction.productive.exit,
         animationName: scaleOutSlideUp,
       },
