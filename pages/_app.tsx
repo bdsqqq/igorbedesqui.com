@@ -101,7 +101,7 @@ const Overlay = styled("div", {
   backgroundImage: `url("/images/grain.png")`,
   backgroundPosition: "0px 0px",
   backgroundSize: "250px",
-  opacity: 0.4,
+  opacity: 0.3,
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
