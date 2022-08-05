@@ -103,6 +103,17 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
                     Linkedin
                   </StyledLink>
                 </li>
+                <li>
+                  <EmailLink>
+                    <span
+                      style={{
+                        fontWeight: 400,
+                      }}
+                    >
+                      Email
+                    </span>
+                  </EmailLink>
+                </li>
               </LinkList>
             </Box>
           </Grid>
@@ -131,3 +142,4 @@ import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import { Box, Separator } from "@/ui/primitives";
 import StyledLink from "@/ui/StyledLink";
 import Text from "@/ui/Text";
+import EmailLink from "./ui/EmailLink";
