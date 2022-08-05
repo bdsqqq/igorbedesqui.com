@@ -5,6 +5,14 @@
 
    "heroTitle" : "O trabalho, que se torna um novo gênero em sí mesmo, será chamado... <b>COWBOY BEBOP</b> ",
 
+   "update": {
+      "title": "Atualização",
+      "copy": {
+         "body": "No dia 2 de novembro de 2021, recebi uma notificação no discord com a incrível notícia de que meu projeto venceu a competição com a maioria dos votos!!",
+         "linkLabel": "Vou deixar um screenshot do anúncio aqui porque fiquei muito orgulhoso disso."
+      }
+   },
+
    "01Thin": "Por que?",
    "01Copy": "Eu criei esse projeto para a segunda edição da <hc><s>WebJam</s></hc>.  <br/><br/>O desafio dessa WebJam foi criar uma website de uma página e não scrollavel para um filme qualquer. O site deve funcionar em qualquer tela e ilustrar o filme escolhido.",
    "webjamHc": "A <b>WebJam</b> é uma hackathon onde os participantes tentam criar um website seguindo um tema e algumas regras.", 

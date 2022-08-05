@@ -6,6 +6,14 @@
 
    "heroTitle" : "The work, which becomes a new genre itself, will be called... <b>COWBOY BEBOP</b> ",
 
+   "update": {
+      "title": "Update",
+      "copy": {
+         "body": "On november 2nd 2021 I got a notification on my discord with the amazing news that this project had won the competition with the majority of votes. Now, I bask in the glory!!",
+         "linkLabel": "I'll leave the screenshot of the announcement here because I'm very proud of this."
+      }
+   },
+
    "01Thin": "Why?",
    "01Copy": "I made this project as an entry for the second installment of the <hc><s>WebJam</s></hc>.  <br/><br/>The challenge for this WebJam was to create a single page/non-scrollable site for a movie of my choosing. The site should work on any screen size and illustrate the movie.",
    "webjamHc": "The <b>WebJam</b> is a hackathon where the participants try to create a website following a prompt and some rules", 

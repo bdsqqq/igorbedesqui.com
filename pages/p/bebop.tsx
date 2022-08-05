@@ -19,6 +19,27 @@ export default function Bebop() {
         </HeroBand>
 
         <ProjectLayout projMeta={bebopMeta} nextProjMeta={wasmGifMeta}>
+          <Band smolPadding gridless id="update">
+            <Text
+              as="h2"
+              css={{
+                fontSize: "$lg",
+                fontWeight: "bold",
+                color: "$mauve11",
+                textTransform: "uppercase",
+                marginBottom: "$spacing-03",
+              }}
+            >
+              {t("update.title")}
+            </Text>
+            <p>
+              {t("update.copy.body")}
+              {"  "}
+              <StyledLink href="https://raw.githubusercontent.com/bdsqqq/bebop-webjam/main/docs/img/winner.jpg">
+                {t("update.copy.linkLabel")}
+              </StyledLink>
+            </p>
+          </Band>
           <Band smolPadding headline={{ bold: "01", thin: t("01Thin") }}>
             <Text presetStyle="paragraph">
               <TransWithComps
