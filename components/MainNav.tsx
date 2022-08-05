@@ -31,7 +31,7 @@ const MainNav: React.FC<MainNavProps> = ({
         found = true;
       }
     }
-  }, []);
+  }, [backAnchor, history]);
 
   return (
     <Nav backable={backable}>
