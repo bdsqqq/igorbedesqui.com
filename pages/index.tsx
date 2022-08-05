@@ -68,6 +68,6 @@ import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 import Text from "@/components/ui/Text";
 
-import type { Leaves } from "@/lib/nestedKeyOfTypes";
+import type { Leaves } from "@/lib/tsWizardry/nestedKeyOfTypes";
 import homeNamespace from "@/locales/en/home.json";
 import EmailLink from "@/components/ui/EmailLink";

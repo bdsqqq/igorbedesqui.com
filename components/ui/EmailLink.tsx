@@ -108,4 +108,4 @@ import { Button, LinkButton } from "@/components/ui/Button";
 import Tooltip from "@/components/ui/Tooltip";
 
 import commonNamespace from "@/locales/en/common.json";
-import { Leaves } from "@/lib/nestedKeyOfTypes";
+import { Leaves } from "@/lib/tsWizardry/nestedKeyOfTypes";
