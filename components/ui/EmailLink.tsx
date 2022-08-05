@@ -8,7 +8,7 @@
 // - onClick, open a popover with:
 // ✓ - The email address as text
 // ✓ - A button to copy the email address
-// - - - Provide feedback
+// ✓ - - Provide feedback
 // ✓ - A button to open the email in an email client
 // - - - custom subject and sample body to allow i18n (better UX for PT users)
 // - - - - ? Does this mean I should expose props so I can use specific subjects/sample messages?
@@ -47,6 +47,23 @@ const PopoverContent = ({ email }: { email: string }) => {
     return commonTranslation.t(translationKey);
   };
 
+  const [success, setSuccess] = useState(0);
+  const incrementSuccess = () => {
+    setSuccess((s) => s + 1);
+  };
+
+  useEffect(() => {
+    if (!success) return;
+
+    const timeout = setTimeout(() => {
+      setSuccess(0);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [success]);
+
   return (
     <Box css={{ display: "flex" }}>
       <Tooltip
@@ -58,10 +75,16 @@ const PopoverContent = ({ email }: { email: string }) => {
             borderRadius: "$md 0 0 $md",
           }}
           onClick={() => {
-            navigator.clipboard.writeText(email);
+            if (!navigator.clipboard) {
+              console.log(
+                "no clipboard! This api requires https on chrome so if you're on localhost I'm sorry"
+              );
+              return;
+            }
+            navigator.clipboard.writeText(email).then(incrementSuccess);
           }}
         >
-          <ClipboardCopyIcon />
+          {success ? <CheckIcon /> : <ClipboardCopyIcon />}
         </Button>
       </Tooltip>
       <Text
@@ -96,6 +119,7 @@ export default EmailLink;
 
 import useTranslation from "next-translate/useTranslation";
 import {
+  CheckIcon,
   ClipboardCopyIcon,
   EnvelopeClosedIcon,
   PaperPlaneIcon,
@@ -109,3 +133,4 @@ import Tooltip from "@/components/ui/Tooltip";
 
 import commonNamespace from "@/locales/en/common.json";
 import { Leaves } from "@/lib/nestedKeyOfTypes";
+import { useEffect, useState } from "react";
