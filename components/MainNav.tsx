@@ -38,7 +38,9 @@ const MainNav: React.FC<MainNavProps> = ({
       {backable && (
         <Link href={anchor ? anchor : "/"} passHref>
           <BackLink>
-            <Span css={{ fontWeight: "bold" }}>⟵</Span>
+            <Span css={{ fontWeight: "bold" }}>
+              {anchor === "/" ? <PinLeftIcon /> : <ArrowLeftIcon />}
+            </Span>
             <span id="backMessage">
               {backMessage ? backMessage : t("back")}
             </span>
@@ -80,6 +82,10 @@ const Nav = styled("nav", {
 const BackLink = styled("a", {
   cursor: "ponter",
   userSelect: "none",
+
+  display: "flex",
+  alignItems: "center",
+  gap: "0.25rem",
 
   px: "1rem",
   paddingBottom: "0",
@@ -130,3 +136,5 @@ import ChangeLang from "@/components/i18nStuff/ChangeLang";
 
 import { styled } from "stitches.config";
 import { Span, SrOnly } from "@/ui/primitives";
+
+import { ArrowLeftIcon, PinLeftIcon } from "@radix-ui/react-icons";
