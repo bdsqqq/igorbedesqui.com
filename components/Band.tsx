@@ -125,33 +125,46 @@ const Title = styled("h2", {
   marginBottom: "3rem",
   height: "max-content",
 
+  display: "grid",
+  alignItems: "end",
+
   "@md": {
+    alignItems: "start",
+
+    height: "min-content",
+
     position: "sticky",
     top: "1rem",
 
     gridColumn: "span 1 / span 1",
-    paddingRight: "1.5rem",
+    paddingRight: "4.5rem",
   },
 });
 
 const HeadlineBold = styled("span", {
   fontWeight: "bold",
+  color: "$mauve3",
+  gridArea: "1/1/1/1",
+  fontSize: "4.5rem",
+  lineHeight: "1",
 
   "@md": {
-    fontSize: "4.5rem",
-    lineHeight: "1",
     writingMode: "vertical-lr",
   },
 });
 
 const HeadlineThin = styled("div", {
-  fontWeight: "light",
-  color: "$mauve11",
+  fontWeight: "bold",
+  color: "$mauve12",
   verticalAlign: "top",
+  gridArea: "1 / 1 / 1 / 1",
+
+  paddingBottom: "1rem",
 
   "@md": {
-    display: "inline-block",
-    width: "auto",
+    width: "min-content",
+    paddingLeft: "0.5rem",
+    paddingBottom: "0rem",
 
     fontSize: "1.125rem",
     lineHeight: "1.75rem",
