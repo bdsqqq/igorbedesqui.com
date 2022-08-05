@@ -38,7 +38,15 @@ const MainNav: React.FC<MainNavProps> = ({
       {backable && (
         <Link href={anchor ? anchor : "/"} passHref>
           <BackLink>
-            <Span css={{ fontWeight: "bold" }}>
+            <Span
+              css={{
+                flexShrink: "0",
+                "& > *": {
+                  height: "20px",
+                  width: "20px",
+                },
+              }}
+            >
               {anchor === "/" ? <PinLeftIcon /> : <ArrowLeftIcon />}
             </Span>
             <span id="backMessage">
@@ -90,7 +98,7 @@ const BackLink = styled("a", {
   px: "1rem",
   paddingBottom: "0",
 
-  fontSize: "1.25rem",
+  fontSize: "$lg",
   lineHeight: "1.75rem",
   color: "$mauve11",
 
