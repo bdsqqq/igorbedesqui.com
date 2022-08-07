@@ -48,14 +48,26 @@ export default function Iss() {
               Request limitations
             </Text>
             <Text>
-              {`By using data from a third party, I had a couple of limitations, the most important of them was that I could only make one request per second to the API across all clients, meaning that if enough people visited the website at the same time, I would quickly exceed my API quota. This called for an interesting solution; creating a serverless cache layer to store fresh data and distribute it or refresh it when apropriate is something I never did before but had fun implementing. Using a blazing fast cache like redis on`}{" "}
-              <StyledLinkWithIcon href="https://upstash.com/">
-                Upstash
-              </StyledLinkWithIcon>
-              {` allowed me to deliver an almost instant experience to users while keeping the amount of requests to an external API in check.`}
+              {`By using data from a third party, I had a couple of limitations, the most important of them was that I could only make one request per second to the API across all clients, meaning that if enough people visited the website at the same time, I would quickly exceed my API quota. This called for an interesting solution;`}{" "}
+              <span
+                style={{
+                  textDecoration: "line-through",
+                }}
+              >
+                {`creating a serverless cache layer to store fresh data and distribute it or refresh it when apropriate is something I never did before but had fun implementing. Using a blazing fast cache like redis on`}{" "}
+                <StyledLinkWithIcon href="https://upstash.com/">
+                  Upstash
+                </StyledLinkWithIcon>
+                {` allowed me to deliver an almost instant experience to users while keeping the amount of requests to an external API in check.`}
+                <br />
+                <br />
+                {`While server-side challenges are something I don't deal with that much, this one proved to be an interesting learning experience and tought me a pattern that I'm sure I'll use on the future. Also, if you're a nerd, here's a diagram of the cache logic. Simple but effective stuff.`}
+              </span>
               <br />
               <br />
-              {`While server-side challenges are something I don't deal with that much, this one proved to be an interesting learning experience and tought me a pattern that I'm sure I'll use on the future. Also, if you're a nerd, here's a diagram of the cache logic. Simple but effective stuff.`}
+              <Text>
+                {`So, about the paragraph above, what the fuck was I thinking??? I spun up a full on redis thing to cache a REQUEST THAT DOESN'T CHANGE BETWEEN USERS. I'm so happy that now I know how overengineered that was. You know what is the solution I came up now? literally just a SMALLER serverless function and as a bonus the new one runs way faster and is cached on the EDGE.`}
+              </Text>
             </Text>
             <Box
               as="figure"
