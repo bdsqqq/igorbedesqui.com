@@ -24,7 +24,7 @@ export const ProjectLayout: React.FC<{
         <Box>
           <Box
             css={{
-              $$spaceFromTop: "$spacing-06", 
+              $$spaceFromTop: "$space$spacing-06",
 
               position: "sticky",
               top: "$$spaceFromTop",
@@ -32,11 +32,11 @@ export const ProjectLayout: React.FC<{
               px: "$spacing-07",
 
               left: 0,
-              "@md": { 
-                  paddingRight: "$spacing-12",
-                  px: 0,
-                  overflow: "auto",
-                  maxHeight: "calc(100vh - $$spaceFromTop))",
+              "@md": {
+                paddingRight: "$spacing-12",
+                px: 0,
+                overflow: "auto",
+                maxHeight: "calc(100vh - $$spaceFromTop)",
               },
             }}
           >
