@@ -66,7 +66,7 @@ export default function Iss() {
               <br />
               <br />
               <Text>
-                {`So, about the paragraph above, what the fuck was I thinking??? I spun up a full on redis thing to cache a REQUEST THAT DOESN'T CHANGE BETWEEN USERS. I'm so happy that now I know how overengineered that was. You know what is the solution I came up now? literally just a SMALLER serverless function and as a bonus the new one runs way faster and is cached on the EDGE.`}
+                {`So, about the paragraphs above, what the fuck was I thinking??? I spun up a full on redis thing to cache a REQUEST THAT DOESN'T CHANGE BETWEEN USERS. I'm so happy that now I know how overengineered that was. You know what is the solution I came up now? literally just a SMALLER serverless function and as a bonus the new one runs way faster and is cached on the EDGE.`}
               </Text>
             </Text>
             <Box
