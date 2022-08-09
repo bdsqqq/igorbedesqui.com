@@ -65,7 +65,8 @@ const StyledLinkWithIcon: React.FC<StyledLinkProps> = ({
 
   return (
     <StyledLink {...rest} href={href} bold={bold}>
-      {children} {!iconless && icon}
+      {children}
+      {!iconless && icon}
     </StyledLink>
   );
 };

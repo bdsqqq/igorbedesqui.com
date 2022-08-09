@@ -35,7 +35,7 @@ const EmailLink = ({
           textDecoration: "underline",
         }}
       >
-        {children}{" "}
+        {children}
       </Text>
     </Popover>
   );
