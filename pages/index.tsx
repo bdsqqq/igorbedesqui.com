@@ -27,7 +27,12 @@ export default function Home() {
         </HeroBand>
         <Band headline={{ bold: "01", thin: t("01.title") }}>
           <Text as="p" presetStyle="lgParagraph">
-            <TransWithComps text={t("01.copy")} />
+            <TransWithComps
+              text={t("01.copy")}
+              extraComponents={{
+                now: <StyledLink href="/now" />,
+              }}
+            />
           </Text>
         </Band>
         <Band headline={{ bold: "02", thin: t("02.title") }}>
