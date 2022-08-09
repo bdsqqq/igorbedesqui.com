@@ -33,8 +33,6 @@ const UnstyledLink: React.FC<LinkProps> = ({
 
 export default UnstyledLink;
 
-import { styled } from "stitches.config";
-
 import Link from "next/link";
 import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import { SrOnly } from "@/ui/primitives";
