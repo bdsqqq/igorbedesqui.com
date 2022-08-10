@@ -37,7 +37,6 @@ export default function Home() {
                 height: "$space$spacing-10",
               }}
             />
-
             <Flex
               as="ul"
               css={{
@@ -63,7 +62,19 @@ export default function Home() {
                 );
               })}
             </Flex>
-            <Text as="p">
+            <Box
+              css={{
+                height: "$space$spacing-13",
+              }}
+            />
+            <Text
+              as="p"
+              css={{
+                color: "$mauve11",
+                fontSize: "$xs",
+                fontWeight: "600",
+              }}
+            >
               <TransWithComps text={t("bottomText")} />
             </Text>
           </Box>
