@@ -31,12 +31,12 @@ const globalStyles = globalCss({
 
   html: {
     minWidth: "360px",
-    scrollBehavior: "smooth",
     fontSmooth: "auto",
     color: "$mauve12",
   },
 
   body: {
+    scrollBehavior: "smooth",
     lineHeight: "1.5",
     fontSmooth: "always",
   },
