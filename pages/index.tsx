@@ -46,7 +46,7 @@ export default function Home() {
                 github: (
                   <StyledLink href="https://github.com/bdsqqq"></StyledLink>
                 ),
-                email: <EmailLink>{""}</EmailLink>,
+                twitter: <StyledLink href="https://twitter.com/bedesqui" />,
               }}
             />
           </Text>
