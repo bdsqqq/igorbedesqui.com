@@ -7,6 +7,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^12.2.5",
     "@radix-ui/react-hover-card": "^0.1.1",
     "@radix-ui/react-icons": "^1.0.3",
     "@radix-ui/react-popover": "^0.1.1",
