@@ -10,12 +10,8 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
 }) => {
   const { t } = useTypeSafeTranslation("common");
   return (
-    <a
-      className={aClassList}
-      target="_blank"
-      rel="noopener noreferrer"
-      href={href}
-    >
+    // eslint-disable-next-line react/jsx-no-target-blank
+    <a className={aClassList} target="_blank" href={href}>
       {children}
       <span className="sr-only">{t("newTab")}</span>
     </a>
