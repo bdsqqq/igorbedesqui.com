@@ -8,7 +8,12 @@ export default function Psykip() {
       <Seo t={t} lang={lang} url="p/psykip" />
 
       <ProjectContainer key="psykipProj" backMessage={t("backMessage")}>
-        <HeroBand heroVideo={"/videos/bebop/noodles"}>
+        <HeroBand
+          heroImg={{
+            src: "/images/projs/psykip/will-smith.gif",
+            alt: "Will Smith thinking really hard",
+          }}
+        >
           <TransWithComps text={t("heroTitle")} />
           <div className="mt-6">
             <CodeAndDemoButtons
