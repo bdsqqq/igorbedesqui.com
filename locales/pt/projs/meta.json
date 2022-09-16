@@ -31,6 +31,16 @@
         "urlSlug": "bebop"
     },
 
+    "psykip": {
+        "name": "The manual" ,
+        "description": "A compilation of the Enchiridion translations",
+        "roles": "Fullstack Developer, UX/UI Designer",
+        "type": "Personal",
+        "tools": "Astro, SolidJS, Typescript, TailwindCSS, Vercel, Partytown, Golang",
+        "date": "Sep 2022",
+        "urlSlug": "psykip"
+    },
+
     "minesweeper": {
         "name": "Minesweeper" ,
         "description": "My implementation of the classic game minesweeper",
