@@ -45,10 +45,17 @@ export default function Psykip() {
               </li>
             </ol>
           </Band>
-          <Band headline={{ bold: "03", thin: "Design" }}></Band>
-          <Band headline={{ bold: "04", thin: "Development" }}>
+          <Band headline={{ bold: "03", thin: "Design" }}>
+            <h3>Goals</h3>
             <h3>Content first</h3>
+          </Band>
+          <Band headline={{ bold: "04", thin: "Development" }}>
             <h3>Becoming blazingly fast(?)</h3>
+            {`
+              Dealing manually with the hundreds of markdown files was out of the table as soon as I defined the project’s scope, but if I’m not cropping, formatting, and naming every file, how would they be ready for the app? Enter **automation**, it’s no secret developers love to automate mundane tasks so I felt this was the perfect opportunity to scratch an itch I had for months and learn a Blazingly fast™ general-purpose language. Of all of the options, one stood out as an easy yet powerful contestant: Golang has an easy typescript-like syntax and would chew through my use case as if it was nothing.
+            `}
+
+            {`With a poorly written first Go script, the Twitter thread that documents this project’s creation was born, and another one followed suit as I needed to bulk edit the files once more during the process. While using a new language was unnecessary and all the tasks could be done with Typescript, the feeling of learning something from scratch to solve problems is unmatched and honestly, a lot of fun!`}
             <h3>Incremental enhancement</h3>
             <h3>Responsive</h3>
           </Band>
