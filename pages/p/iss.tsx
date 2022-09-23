@@ -78,7 +78,11 @@ export default function Iss() {
               Incremental enhacement
             </Text>
             <Text>
-              {`While experimenting with the UI, I came across a problems with browser support, firefox didn't allow me to use some filter features to blur the content behind a div. While I could've just dropped the idea, I took this opportunity to use a pattern called Incremental Enchacement, using the "@supports" query in css, I applied some styles only on browsers that suppored a specific feature. This allowed me to deliver the experience I wanted to users with cutting edge browsers without sacrificing the experience of any user.`}
+              {`A frosted-glass look was a constant during my experiments, though some browsers didn't support the properties needed for it.`}
+              <br />
+              {`To keep the experience I wanted for users with cutting-edge browsers without sacrificing the experience for anyone, I leveraged the "@supports" media query to make the blur effect an incremental enhancement.`}
+              <br />
+              <br />
               <Box
                 css={{
                   display: "grid",
@@ -98,9 +102,9 @@ export default function Iss() {
                     <Image
                       layout="responsive"
                       width="100%"
-                      height="58%"
+                      height="100%"
                       objectFit="contain"
-                      src="/images/projs/iss/chrome_ui.jpg"
+                      src="/images/projs/iss/blur.png"
                       alt=""
                     />
                   </Box>
@@ -133,9 +137,9 @@ export default function Iss() {
                     <Image
                       layout="responsive"
                       width="100%"
-                      height="58%"
+                      height="100%"
                       objectFit="contain"
-                      src="/images/projs/iss/firefox_ui.jpg"
+                      src="/images/projs/iss/no_blur.png"
                       alt=""
                     />
                   </Box>
@@ -155,6 +159,8 @@ export default function Iss() {
                   </figcaption>
                 </Box>
               </Box>
+              <br />
+              {`This feature might be a small detail, but an easy win from an "Oh! that's cool" perspective is always good to have.`}
             </Text>
           </Band>
           <Band headline={{ bold: "03", thin: "Results" }}>
@@ -171,7 +177,7 @@ export default function Iss() {
                 width="100%"
                 height="99.5%"
                 objectFit="contain"
-                src="/images/projs/iss/desktop-screenshot.jpg"
+                src="/images/projs/iss/full_screenshot.png"
                 alt="Website screenshot"
               />
             </Box>
