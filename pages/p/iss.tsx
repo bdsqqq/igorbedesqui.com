@@ -32,11 +32,11 @@ export default function Iss() {
               I created the website that got me my first job interview. This
               project is an update for that website and a lesson on prioritizing
               and focusing on outcome, it started as me trying to replicate the
-              layout of an asset I saw on ibm.com but it quickly transformed
-              into a side project that reflects the quality of the work I do.
-              Instead of adding as many animations, features, and info as
-              possible, I choose to focus on functionality, simplicity and
-              aesthetics.
+              complex layout and features of an asset I helped deploy on ibm.com
+              but it quickly transformed into a side project that reflects the
+              quality of the work I strive to do. In the end, instead of adding
+              as many animations, features, and info as possible, I choose to
+              focus on delivering the content in a simple yet beautiful way.
             </Text>
           </Band>
           <Band headline={{ bold: "02", thin: "challenges" }}>
@@ -48,7 +48,7 @@ export default function Iss() {
               Request limitations
             </Text>
             <Text>
-              {`By using data from a third party, I had a couple of limitations, the most important of them was that I could only make one request per second to the API across all clients, meaning that if enough people visited the website at the same time, I would quickly exceed my API quota. This called for an interesting solution;`}{" "}
+              {`By using data from a third party API, I had a couple of limitations, the most important of them was that I could only make one request per second across all clients, meaning that if enough people visited the website at the same time, I would quickly exceed my quota. This called for an interesting solution;`}{" "}
               <span
                 style={{
                   textDecoration: "line-through",
@@ -69,23 +69,6 @@ export default function Iss() {
                 {`So, about the paragraphs above, what the fuck was I thinking??? I spun up a full on redis thing to cache a REQUEST THAT DOESN'T CHANGE BETWEEN USERS. I'm so happy that now I know how overengineered that was. You know what is the solution I came up now? literally just a SMALLER serverless function and as a bonus the new one runs way faster and is cached on the EDGE.`}
               </Text>
             </Text>
-            <Box
-              as="figure"
-              css={{
-                marginY: "$spacing-05",
-                borderRadius: "$md",
-                overflow: "hidden",
-              }}
-            >
-              <Image
-                layout="responsive"
-                width="100%"
-                height="170%"
-                objectFit="contain"
-                src={`/images/projs/iss/cache_flow-${lang}.jpg`}
-                alt="Flow diagram of caching logic"
-              />
-            </Box>
 
             <Text
               css={{ marginTop: "$spacing-06", marginBottom: "$spacing-04" }}
@@ -193,7 +176,9 @@ export default function Iss() {
               />
             </Box>
             <Text>
-              {`While I still plan to do small updates to this project, I consider it done. I love how this tiny piece of user experience— load page, see location—gave me an opportunity to learn, practice and experiment so much.`}
+              {`Through the literal years of development, this project saw my prefered solutions and approaches changing; Now, much more than a love letter to someone who shapped my early development, this site became a time capsule of my growth`}
+              <br />
+              {`this tiny piece of user experience—load page, see location—was an opportunity to learn, practice, and experiment. And I can't wait to see how I'll rebuild it years from now.`}
               <br />
               <br />
               If you want to see me losing my mind, changing scope and having
