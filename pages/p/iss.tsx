@@ -61,12 +61,19 @@ export default function Iss() {
                 {` allowed me to deliver an almost instant experience to users while keeping the amount of requests to an external API in check.`}
                 <br />
                 <br />
-                {`While server-side challenges are something I don't deal with that much, this one proved to be an interesting learning experience and tought me a pattern that I'm sure I'll use on the future. Also, if you're a nerd, here's a diagram of the cache logic. Simple but effective stuff.`}
+                {`While server-side challenges are something I don't deal with that much, this one proved to be an interesting learning experience and tought me a pattern that I'm sure I'll use on the future.`}
               </span>
               <br />
               <br />
               <Text>
-                {`So, about the paragraphs above, what the fuck was I thinking??? I spun up a full on redis thing to cache a REQUEST THAT DOESN'T CHANGE BETWEEN USERS. I'm so happy that now I know how overengineered that was. You know what is the solution I came up now? literally just a SMALLER serverless function and as a bonus the new one runs way faster and is cached on the EDGE.`}
+                {`
+                  So, about the paragraphs above, what the fuck was I thinking??? I spun up a full-on Redis service to cache a REQUEST THAT DOESN'T CHANGE BETWEEN USERS.
+                `}
+                <br />
+                <br />
+                {`
+                  The current solution is a SMALLER serverless function that runs faster and is cached on Vercel's EDGE. Supported by a smarter fetching logic on the frontend, this site should be able to handle any load and update the ISS location as fast as the API allows.
+                `}
               </Text>
             </Text>
 
@@ -160,7 +167,7 @@ export default function Iss() {
                 </Box>
               </Box>
               <br />
-              {`This feature might be a small detail, but an easy win from an "Oh! that's cool" perspective is always good to have.`}
+              {`This feature might be a small detail, but an easy win from an "Oh! that's cool" perspective is always welcome.`}
             </Text>
           </Band>
           <Band headline={{ bold: "03", thin: "Results" }}>
