@@ -1,6 +1,8 @@
 export default function ProjectsPage() {
   const wasmGifMeta = useMeta("wasmGif", "projs");
-  const projsMeta = [wasmGifMeta];
+  const bebopMeta = useMeta("bebop", "projs");
+  const issMeta = useMeta("iss", "projs");
+  const projsMeta = [bebopMeta, issMeta, wasmGifMeta];
 
   const { t, lang } = useTypeSafeTranslation("common");
 
