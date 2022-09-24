@@ -22,7 +22,7 @@
 
     "bebop": {
         "name": "Cowboy Bebop web poster" ,
-        "description": "Minha entrada, e vencedor, da segunda edição da WebJam.",
+        "description": "Minha entrada para, e vencedor da, segunda edição da WebJam.",
         "roles": "Desenvolvedor FrontEnd, UX/UI Designer",
         "type": "Pessoal",
         "tools": "Javascript, TailwindCSS, CSS, Motion One, Vite, Rollup, HTML, Adobe Illustrator",
