@@ -14,12 +14,8 @@ const UnstyledLink: React.FC<LinkProps> = ({ href, children, ...rest }) => {
   }
 
   return (
-    <a
-      target="_blank"
-      rel="noopener noreferrer"
-      href={href as string}
-      {...rest}
-    >
+    // eslint-disable-next-line react/jsx-no-target-blank
+    <a target="_blank" href={href as string} {...rest}>
       {children}
       <SrOnly>{t("newTab")}</SrOnly>
     </a>
