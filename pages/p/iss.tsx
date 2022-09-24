@@ -26,7 +26,7 @@ export default function Iss() {
               <StyledLinkWithIcon href="https://www.youtube.com/c/TheCodingTrain">
                 {` Daniel Shiffman's youtube channel`}
               </StyledLinkWithIcon>
-              . Following
+              . Following{" "}
               <StyledLinkWithIcon href="https://www.youtube.com/watch?v=DbcLg8nRWEg&list=PLRqwX-V7Uu6YxDKpFzf_2D84p0cyk4T7X">
                 his series about Data and APIs
               </StyledLinkWithIcon>{" "}
