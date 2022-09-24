@@ -1,6 +1,7 @@
 export default function Iss() {
   const { t, lang } = useTypeSafeTranslation("projs/iss");
   const issMeta = useMeta("iss", "projs");
+  const wasmGifMeta = useMeta("wasmGif", "projs");
   return (
     <>
       <Seo t={t} lang={lang} url="p/iss" />
@@ -18,7 +19,7 @@ export default function Iss() {
           </div>
         </HeroBand>
 
-        <ProjectLayout projMeta={issMeta}>
+        <ProjectLayout projMeta={issMeta} nextProjMeta={wasmGifMeta}>
           <Band headline={{ bold: "01", thin: t("01Thin") }}>
             <Text>
               A few years ago, I fell in love with coding by watching

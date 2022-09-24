@@ -1,6 +1,8 @@
 export default function WasmGif() {
   const { t, lang } = useTypeSafeTranslation("projs/wasmGif");
   const wasmGifMeta = useMeta("wasmGif", "projs");
+  const bebopMeta = useMeta("bebop", "projs");
+
   return (
     <>
       <Seo t={t} lang={lang} url="p/wasmgif" />
@@ -16,7 +18,7 @@ export default function WasmGif() {
           </div>
         </HeroBand>
 
-        <ProjectLayout projMeta={wasmGifMeta}>
+        <ProjectLayout projMeta={wasmGifMeta} nextProjMeta={bebopMeta}>
           <Band smolPadding headline={{ bold: "01", thin: t("01Thin") }}>
             <Text presetStyle="paragraph">
               <TransWithComps text={t("01Copy")} />

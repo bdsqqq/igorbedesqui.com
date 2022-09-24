@@ -1,7 +1,7 @@
 export default function Bebop() {
   const { t, lang } = useTypeSafeTranslation("projs/bebop");
   const bebopMeta = useMeta("bebop", "projs");
-  const wasmGifMeta = useMeta("wasmGif", "projs");
+  const issMeta = useMeta("iss", "projs");
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function Bebop() {
           </div>
         </HeroBand>
 
-        <ProjectLayout projMeta={bebopMeta} nextProjMeta={wasmGifMeta}>
+        <ProjectLayout projMeta={bebopMeta} nextProjMeta={issMeta}>
           <Band smolPadding gridless id="update">
             <Text
               as="h2"
