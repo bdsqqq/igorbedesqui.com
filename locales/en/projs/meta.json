@@ -4,8 +4,8 @@
         "description": "Real time tracking of the International Space Station",
         "roles": "Fullstack Developer, UX/UI Designer",
         "type": "Personal",
-        "tools": "NextJS, React, Typescript, Stitches, Radix-ui, SWR, Zustand, Vercel, Redis, Upstash",
-        "date": "Feb 2021",
+        "tools": "NextJS, React, Typescript, tailwindcss, COBE, tanstack-query, jotai, Vercel",
+        "date": "Feb 2021 ~ Sep 2022",
         "urlSlug": "iss"
     },
     

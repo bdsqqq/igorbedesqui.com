@@ -4,8 +4,8 @@
         "description": "Localização em tempo real da Estação Espacial Internacional",
         "roles": "Desenvolvedor Fullstack, UX/UI Designer",
         "type": "Pessoal",
-        "tools": "NextJS, React, Typescript, Stitches, Radix-ui, SWR, Zustand, Vercel, Redis, Upstash",
-        "date": "Fev 2021",
+        "tools": "NextJS, React, Typescript, tailwindcss, COBE, tanstack-query, jotai, Vercel",
+        "date": "Feb 2021 ~ Set 2022",
         "urlSlug": "iss"
     },
     
