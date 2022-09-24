@@ -1,17 +1,17 @@
 {
     "iss": {
         "name": "Where's the iss?" ,
-        "description": "Real time tracking of the International Space Station",
+        "description": "Real time tracking of the International Space Station.",
         "roles": "Fullstack Developer, UX/UI Designer",
         "type": "Personal",
-        "tools": "NextJS, React, Typescript, tailwindcss, COBE, tanstack-query, jotai, Vercel",
+        "tools": "NextJS, React, Typescript, TailwindCSS, COBE, Tanstack-query, Jotai, Vercel",
         "date": "Feb 2021 ~ Sep 2022",
         "urlSlug": "iss"
     },
     
     "wasmGif": {
         "name": "Wasm Gif Converter" ,
-        "description": "This is a website that helps you convert videos into gifs without sending any data anywhere.",
+        "description": "Video to gif conversion without sending any data anywhere.",
         "roles": "FrontEnd Developer, UX/UI Designer",
         "type": "Personal",
         "tools": "ffmpeg, Web Assembly, NextJS, React, Framer Motion, TailwindCSS",
@@ -22,7 +22,7 @@
 
     "bebop": {
         "name": "Cowboy Bebop web poster" ,
-        "description": "My entry for the second installment of the WebJam.",
+        "description": "My entry, and winner of, the second installment of the WebJam.",
         "roles": "FrontEnd Developer, UX/UI Designer",
         "type": "Personal",
         "tools": "Javascript, TailwindCSS, CSS, Motion One, Vite, Rollup, HTML, Adobe Illustrator",
