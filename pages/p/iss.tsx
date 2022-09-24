@@ -181,8 +181,8 @@ export default function Iss() {
             >
               <Image
                 layout="responsive"
-                width="100%"
-                height="99.5%"
+                width="59%"
+                height="100%"
                 objectFit="contain"
                 src="/images/projs/iss/full_screenshot.png"
                 alt="Website screenshot"
