@@ -1,3 +1,4 @@
+import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { HistoryProvider } from "@/contexts/History";
 import { Box } from "@/ui/primitives";
