@@ -1,6 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-
 const { mauveDark, crimsonDark } = require("@radix-ui/colors");
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
