@@ -22,6 +22,8 @@ interface BandGridless extends BandPropsBasic {
 
 type BandProps = BandWithGrid | BandGridless;
 
+// TODO: update this typedef and component API. Instead of a mandatory gridless I could assume it by the absence of heading. Also, I can probably write a typedef that gives me nicer autocomplete .
+
 const Band: React.FC<BandProps> = ({
   dark,
   gridless,
@@ -37,142 +39,42 @@ const Band: React.FC<BandProps> = ({
   headline && (bandId = headline.thin);
 
   return (
-    <BandWrapper
-      smolPadding={smolPadding}
-      padless={padless}
+    <section
+      className={clsx(
+        "w-full bg-mauve1 text-mauve12",
+        smolPadding ? "py-8" : "p-16",
+        padless && "p-0"
+      )}
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
-      className={dark ? darkTheme : ""}
     >
-      <BandContent fullBleed={fullBleed} padless={padless} gridless={gridless}>
+      <div
+        className={clsx(
+          !padless && "px-4 md:px-8",
+          !gridless && "md:grid md:grid-cols-4",
+          !fullBleed && "max-w-6xl m-auto"
+        )}
+      >
         {!gridless ? (
           <>
-            <Title>
-              <HeadlineBold>{headline?.bold}</HeadlineBold>
-              <HeadlineThin>{headline?.thin}</HeadlineThin>
-            </Title>
+            <h2 className="mb-12 h-max grid items-end md:items-start md:h-min sticky top-4 col-span-1 pr-16">
+              <span className="font-bold text-mauve3 [grid-area:1/1/1/1] text-7xl leading-none md:[writing-mode:vertical-lr]">
+                {headline?.bold}
+              </span>
+              <div className="font-bold text-mauve12 align-top [grid-area:1/1/1/1] pb-4 md:w-min md:pl-2 md:pb-2 text-lg [writing-mode:vertical-lr]">
+                {headline?.thin}
+              </div>
+            </h2>
 
-            <Box
-              css={{
-                "@md": {
-                  gridColumn: "span 3 / span 3",
-                },
-              }}
-            >
-              {children}
-            </Box>
+            <div className="md:[grid-column:span_3_/_span_3]">{children}</div>
           </>
         ) : (
           <>{children}</>
         )}
-      </BandContent>
-    </BandWrapper>
+      </div>
+    </section>
   );
 };
 
-const BandWrapper = styled("section", {
-  width: "100%",
-  background: "$mauve1",
-  color: "$mauve12",
-
-  py: "4rem",
-
-  variants: {
-    smolPadding: {
-      true: {
-        py: "2rem",
-      },
-    },
-    padless: {
-      true: {
-        padding: 0,
-      },
-    },
-  },
-});
-
-const BandContent = styled("div", {
-  maxWidth: "72rem",
-  margin: "0 auto",
-  px: "2rem",
-
-  "@md": {
-    px: "4rem",
-
-    display: "grid",
-    gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-  },
-
-  variants: {
-    padless: {
-      true: {
-        px: "0",
-      },
-    },
-    gridless: {
-      true: {
-        display: "block",
-      },
-    },
-    fullBleed: {
-      true: {
-        maxWidth: "unset",
-      },
-    },
-  },
-});
-
-const Title = styled("h2", {
-  marginBottom: "3rem",
-  height: "max-content",
-
-  display: "grid",
-  alignItems: "end",
-
-  "@md": {
-    alignItems: "start",
-
-    height: "min-content",
-
-    position: "sticky",
-    top: "1rem",
-
-    gridColumn: "span 1 / span 1",
-    paddingRight: "4.5rem",
-  },
-});
-
-const HeadlineBold = styled("span", {
-  fontWeight: "bold",
-  color: "$mauve3",
-  gridArea: "1/1/1/1",
-  fontSize: "4.5rem",
-  lineHeight: "1",
-
-  "@md": {
-    writingMode: "vertical-lr",
-  },
-});
-
-const HeadlineThin = styled("div", {
-  fontWeight: "bold",
-  color: "$mauve12",
-  verticalAlign: "top",
-  gridArea: "1 / 1 / 1 / 1",
-
-  paddingBottom: "1rem",
-
-  "@md": {
-    width: "min-content",
-    paddingLeft: "0.5rem",
-    paddingBottom: "0rem",
-
-    fontSize: "1.125rem",
-    lineHeight: "1.75rem",
-    writingMode: "vertical-lr",
-  },
-});
-
 export default Band;
 
-import { styled, darkTheme } from "stitches.config";
-import { Box } from "./ui/primitives";
+import { clsx } from "clsx";
