@@ -8,6 +8,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        fade: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "100%" },
+        },
+      },
+      animation: {
+        fade: "fade 550ms cubic-bezier(0, 0, 0.3, 1)",
+      },
       transitionTimingFunction: {
         /**
          * See: https://carbondesignsystem.com/guidelines/motion/overview/
