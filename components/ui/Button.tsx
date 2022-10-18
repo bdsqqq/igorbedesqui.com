@@ -1,93 +1,32 @@
-const buttonCss = {
-  // mini reset
-  cursor: "pointer",
-  userSelect: "none",
-  appearance: "none",
-
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "0.5rem",
-
-  borderStyle: "solid",
-  borderWidth: "1px",
-  borderColor: "transparent",
-  borderRadius: "$sm",
-
-  fontSize: "$lg",
-  lineHeight: "$lg",
-  letterSpacing: "$normal",
-
-  py: "0.25rem",
-  px: "0.5rem",
-  verticalAlign: "middle",
-
-  "@motionOk": {
-    transitionDuration: "150ms",
-    transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
+const variants = {
+  base: "cursor-pointer select-none appearance-none inline-flex items-center gap-2 border border-transparent rounded-sm tracking-normal py-1 px-2 align-middle motion-safe:duration-moderate-01 motion-safe:ease-productive-standard outline-none focus-within:outline-none",
+  size: {
+    sm: "text-sm",
+    md: "text-base",
+    lg: "text-xl",
   },
-
-  "&:hover, &:focus-within": {
-    outline: "none",
-  },
-
-  variants: {
-    size: {
-      sm: {
-        fontSize: "$sm",
-        lineHeight: "$sm",
-      },
-      md: {
-        fontSize: "$md",
-        lineHeight: "$md",
-      },
-      lg: {
-        fontSize: "$lg",
-        lineHeight: "$lg",
-      },
-    },
-    color: {
-      mauve: {
-        color: "$mauve12",
-        backgroundColor: "$mauve3",
-        borderColor: "$mauve7",
-
-        "&:hover, &:focus-within": {
-          backgroundColor: "$mauve5",
-          borderColor: "$mauve9",
-        },
-
-        "&:active": {
-          backgroundColor: "$mauve7",
-          borderColor: "$mauve10",
-        },
-      },
-      crimson: {
-        color: "$crimson12",
-        backgroundColor: "$crimson3",
-        borderColor: "$crimson7",
-
-        "&:hover, &:focus-within": {
-          backgroundColor: "$crimson4",
-          borderColor: "$crimson9",
-        },
-        "&:active": {
-          backgroundColor: "$crimson6",
-          borderColor: "$crimson10",
-        },
-      },
-    },
-  },
-
-  defaultVariants: {
-    color: "mauve",
-    size: "lg",
+  color: {
+    crimson:
+      "text-crimson12 bg-crimson3 border-crimson7 hover:bg-crimson4 hover:border-crimson9 focus-within:bg-crimson4 focus-within:border-crimson9 active:bg-crimson6 active:border-crimson10",
+    mauve:
+      "text-mauve12 bg-mauve3 border-mauve7 hover:bg-mauve5 hover:border-mauve9 focus-within:bg-mauve5 focus-within:border-mauve9 active:bg-mauve7 active:border-mauve10",
   },
 };
 
-const Button = styled("button", buttonCss);
-const LinkButton = styled(UnstyledLink, buttonCss);
+const Button = <button />;
+const LinkButton: React.FC<
+  LinkProps & { size?: "sm" | "md" | "lg"; color?: "crimson" | "mauve" }
+> = ({ size = "lg", color = "mauve", children, ...rest }) => (
+  <UnstyledLink
+    className={clsx(variants.base, variants.size[size], variants.color[color])}
+    {...rest}
+  >
+    {children}
+  </UnstyledLink>
+);
 
 export { Button, LinkButton };
 
-import { styled } from "stitches.config";
 import { UnstyledLink } from "./primitives";
+import type { LinkProps } from "next/link";
+import clsx from "clsx";
