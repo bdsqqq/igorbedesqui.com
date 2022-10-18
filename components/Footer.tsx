@@ -1,101 +1,49 @@
-interface FooterProps {
-  dark?: boolean;
-}
-
-const Footer: React.FC<FooterProps> = ({ dark }) => {
+const Footer = () => {
   const { t } = useTypeSafeTranslation("common");
 
   return (
-    <Box
-      css={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-
-        backgroundColor: "$mauve1",
-        color: "$mauve12",
-      }}
-      className={dark ? darkTheme : ""}
-    >
-      <Box
-        css={{
-          maxWidth: "72rem",
-          px: "$spacing-08",
-          width: "100%",
-        }}
-      >
-        <Separator
-          css={{
-            width: "45px",
-            marginY: "$spacing-07",
-          }}
-        />
-        <Box as="footer" css={{ paddingBottom: "$spacing-10" }}>
-          <Grid
-            css={{
-              display: "grid",
-              rowGap: "$spacing-07",
-              columnGap: "$spacing-03",
-
-              gridTemplateColumns: "repeat(2, 1fr)",
-
-              "@md": {
-                gridTemplateColumns: "repeat(3, 1fr)",
-              },
-
-              "@lg": {
-                gridTemplateColumns: "repeat(4, 1fr)",
-              },
-            }}
-          >
-            <Box
-              css={{
-                gridColumn: "1 / -1",
-
-                "@lg": {
-                  gridColumn: "auto",
-                },
-              }}
-            >
-              {/*@ts-expect-error Styled link doesn't expose the css prop but it will be passed as ...rest down the component tree */}
-              <StyledLink css={{ textDecoration: "none" }} href="/">
-                <Text css={{ fontWeight: "400", textDecoration: "none" }}>
-                  Igor Bedesqui
-                </Text>
+    <div className="flex justify-center w-full bg-mauve1 text-mauve12">
+      <div className="max-w-6xl px-10 w-full">
+        <Separator className="w-11 my-8" />
+        <footer className="pb-16">
+          <div className="grid gap-y-8 gap-x-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="[grid-column:1_/_-1] lg:[grid-column:auto]">
+              <StyledLink className="no-underline" href="/">
+                Igor Bedesqui
               </StyledLink>
-            </Box>
+            </div>
 
             {/*
-            <Box>
-            <Title as="h6">Me</Title> 
-            <LinkList>
-            <li>About</li>
-            <li>Now</li>
-          </LinkList>
-          </Box>
+            <div>
+            <h6 className="font-semibold">Me</h6> 
+            <ul>
+            <li className="mt-2">About</li>
+            <li className="mt-2">Now</li>
+          </ul>
+          </div>
 
-          <Box>
-          <Title as="h6">Work</Title>
-          <LinkList>
-            <li>Projects</li>
-            <li>Resume</li>
-          </LinkList>
-          </Box> */}
+          <div>
+          <h6 className="font-semibold">Work</h6>
+          <ul>
+            <li className="mt-2">Projects</li>
+            <li className="mt-2">Resume</li>
+          </ul>
+          </div> */}
 
-            <Box>
-              <Title as="h6">{t("footer.connect")}</Title>
-              <LinkList>
-                <li>
+            <div>
+              <h6 className="font-semibold">{t("footer.connect")}</h6>
+              <ul>
+                <li className="mt-2">
                   <StyledLink bold={false} href="https://github.com/bdsqqq/">
                     Github
                   </StyledLink>
                 </li>
-                <li>
+                <li className="mt-2">
                   <StyledLink bold={false} href="https://twitter.com/bedesqui">
                     Twitter
                   </StyledLink>
                 </li>
-                <li>
+                <li className="mt-2">
                   <StyledLink
                     bold={false}
                     href="https://www.linkedin.com/in/igor-bedesqui/"
@@ -103,7 +51,7 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
                     Linkedin
                   </StyledLink>
                 </li>
-                <li>
+                <li className="mt-2">
                   <EmailLink>
                     <span
                       style={{
@@ -114,32 +62,19 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
                     </span>
                   </EmailLink>
                 </li>
-              </LinkList>
-            </Box>
-          </Grid>
-        </Box>
-      </Box>
-    </Box>
+              </ul>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
   );
 };
 
-const Grid = Box;
-
-const LinkList = styled("ul", {
-  "& li": {
-    marginTop: "$spacing-03",
-  },
-});
-const Title = styled("h6", {
-  fontWeight: "bold",
-});
-
 export default Footer;
 
-import { darkTheme, styled } from "stitches.config";
 import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 
 import { Box, Separator } from "@/ui/primitives";
 import StyledLink from "@/ui/StyledLink";
-import Text from "@/ui/Text";
 import EmailLink from "./ui/EmailLink";
