@@ -13,12 +13,41 @@ const variants = {
   },
 };
 
-const Button = <button />;
-const LinkButton: React.FC<
-  LinkProps & { size?: "sm" | "md" | "lg"; color?: "crimson" | "mauve" }
-> = ({ size = "lg", color = "mauve", children, ...rest }) => (
+type variants = { size?: "sm" | "md" | "lg"; color?: "crimson" | "mauve" };
+
+const Button: React.FC<ButtonProps & variants> = ({
+  size = "lg",
+  color = "mauve",
+  children,
+  className,
+  ...rest
+}) => (
+  <button
+    className={clsx(
+      variants.base,
+      variants.size[size],
+      variants.color[color],
+      className
+    )}
+    {...rest}
+  >
+    {children}
+  </button>
+);
+const LinkButton: React.FC<HtmlHTMLAttributes<{}> & LinkProps & variants> = ({
+  size = "lg",
+  color = "mauve",
+  children,
+  className,
+  ...rest
+}) => (
   <UnstyledLink
-    className={clsx(variants.base, variants.size[size], variants.color[color])}
+    className={clsx(
+      variants.base,
+      variants.size[size],
+      variants.color[color],
+      className
+    )}
     {...rest}
   >
     {children}
@@ -30,3 +59,5 @@ export { Button, LinkButton };
 import { UnstyledLink } from "./primitives";
 import type { LinkProps } from "next/link";
 import clsx from "clsx";
+import { ButtonProps } from "ariakit";
+import { HtmlHTMLAttributes } from "react";
