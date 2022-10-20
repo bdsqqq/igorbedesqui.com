@@ -5,136 +5,72 @@ export const ProjectLayout: React.FC<{
   const { t } = useTypeSafeTranslation("detail");
 
   return (
-    <Box css={{ maxWidth: "1345px", marginX: "auto" }}>
-      <Box
-        css={{
-          display: "grid",
-          "@md": {
-            gap: "20px",
-            gridTemplateColumns: "1fr 330px",
-          },
+    <div className="grid md:gap-5 md:[grid-template-columns:1fr_220px] lg:gap-20 lg:[grid-template-columns:1fr_330px]">
+      <div>{children}</div>
 
-          "@lg": {
-            gap: "80px",
-          },
-        }}
-      >
-        <Box>{children}</Box>
+      <div>
+        <div className="sticky top-[1.5rem] pt-8 px-8 md:pr-24 md:px-0 md:right-16 overflow-auto max-h-[calc(100vh_-_1.5rem)]">
+          <div>
+            <div className="mb-6">
+              <p className="font-semibold">{t("role")}</p>
+              <ul>
+                {projMeta.roles.map((role, i) => {
+                  return (
+                    <li key={`role-${i}`}>
+                      {role}
+                      {i < projMeta.roles.length - 1 && ","}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
 
-        <Box>
-          <Box
-            css={{
-              $$spaceFromTop: "$space$spacing-06",
+            <div className="mb-6">
+              <p className="font-semibold">{t("tools")}</p>
+              <ul>
+                {projMeta.tools.map((tool, i) => {
+                  return (
+                    <li className="[display:inline_list-item]" key={i}>
+                      {tool}
+                      {i < projMeta.tools.length - 1 && ","}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
 
-              position: "sticky",
-              top: "$$spaceFromTop",
-              paddingTop: "$spacing-07",
-              px: "$spacing-07",
+            <div className="mb-8">
+              <span className="font-semibold">{t("date")}</span>
+              <p>{projMeta.date}</p>
+            </div>
 
-              left: 0,
-              "@md": {
-                paddingRight: "$spacing-12",
-                px: 0,
-                overflow: "auto",
-                maxHeight: "calc(100vh - $$spaceFromTop)",
-              },
-            }}
-          >
-            <Box>
-              <Box css={{ marginBottom: "$spacing-06" }}>
-                <Text presetStyle="paragraph" bold>
-                  {t("role")}
-                </Text>
-                <Text as="ul" presetStyle="paragraph">
-                  {projMeta.roles.map((role, i) => {
-                    return (
-                      <li
-                        style={{ display: "inline-list-item" }}
-                        key={`role-${i}`}
-                      >
-                        {role}
-                        {i < projMeta.roles.length - 1 && ","}
-                      </li>
-                    );
-                  })}
-                </Text>
-              </Box>
+            <div className="mb-6">
+              <span className="font-semibold">{t("type")}</span>
+              <p>{projMeta.type}</p>
+            </div>
 
-              <Box css={{ marginBottom: "$spacing-06" }}>
-                <Text presetStyle="paragraph" bold>
-                  {t("tools")}
-                </Text>
-                <Text as="ul" presetStyle="paragraph">
-                  {projMeta.tools.map((tool, i) => {
-                    return (
-                      <li style={{ display: "inline-list-item" }} key={i}>
-                        {tool}
-                        {i < projMeta.tools.length - 1 && ","}
-                      </li>
-                    );
-                  })}
-                </Text>
-              </Box>
+            {nextProjMeta && (
+              <>
+                <Separator className="w-11 my-12" />
 
-              <Box css={{ marginBottom: "$spacing-07" }}>
-                <Text presetStyle="paragraph" bold>
-                  {t("date")}
-                </Text>
-                <Text as="p" presetStyle="paragraph">
-                  {projMeta.date}
-                </Text>
-              </Box>
-
-              <Box css={{ marginBottom: "$spacing-06" }}>
-                <Text presetStyle="paragraph" bold>
-                  {t("type")}
-                </Text>
-                <Text as="p" presetStyle="paragraph">
-                  {projMeta.type}
-                </Text>
-              </Box>
-
-              {nextProjMeta && (
-                <>
-                  <Separator
-                    css={{
-                      width: "45px",
-                      marginY: "$spacing-09",
-                    }}
-                  />
-
-                  <Box css={{ marginBottom: "$spacing-06" }}>
-                    <Text presetStyle="paragraph" bold>
-                      {t("next")}
-                    </Text>
-                    <Text
-                      presetStyle="paragraph"
-                      css={{
-                        display: "flex",
-                        gap: "$spacing-01",
-                        alignItems: "center",
-                        color: "$mauve11",
-                        fontWeight: "normal",
-                      }}
-                      as="span"
-                    >
-                      <StyledLink scroll href={`/p/${nextProjMeta.urlSlug}`}>
-                        {nextProjMeta.name}
-                      </StyledLink>
-                    </Text>
-                  </Box>
-                </>
-              )}
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+                <div className="mb-6">
+                  <span className="font-semibold">{t("next")}</span>
+                  <span className="flex gap-0.5 items-center text-mauve11">
+                    <StyledLink scroll href={`/p/${nextProjMeta.urlSlug}`}>
+                      {nextProjMeta.name}
+                    </StyledLink>
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
-import { Box, Separator } from "@/ui/primitives/";
-import Text from "@/components/ui/Text";
+import { Separator } from "@/ui/primitives/";
 import StyledLink from "@/ui/StyledLink";
 
 import { Meta } from "@/hooks/useMeta";
