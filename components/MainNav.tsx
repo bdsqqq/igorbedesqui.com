@@ -34,105 +34,42 @@ const MainNav: React.FC<MainNavProps> = ({
   }, [backAnchor, history]);
 
   return (
-    <Nav backable={backable}>
+    <nav
+      className={cva(
+        "flex justify-end items-start w-full p-8 md:px-16 md:mx-auto",
+        {
+          variants: {
+            backable: {
+              backable: "justify-between",
+            },
+          },
+        }
+      )({
+        backable: backable ? "backable" : undefined,
+      })}
+    >
       {backable && (
         <Link href={anchor ? anchor : "/"} passHref>
-          <BackLink>
-            <Span
-              css={{
-                flexShrink: "0",
-                "& > *": {
-                  height: "20px",
-                  width: "20px",
-                },
-              }}
-            >
+          <a className="group cursor-pointer select-none flex items-center gap-1 px-4 pb-0 text-xl text-mauve11 transform translate-x-0 motion-safe:transition-all ease-productive-standard duration-moderate-01 hover:text-mauve12 hover:-translate-x-2 focus:text-mauve12 focus:-translate-x-2">
+            <span className="flex-shrink-0 translate-y-[1px]">
               {anchor === "/" ? <PinLeftIcon /> : <ArrowLeftIcon />}
-            </Span>
-            <span id="backMessage">
+            </span>
+            <span className="ml-1 opacity-[0.01] motion-safe:transition-opacity ease-productive-standard duration-fast-02 group-hover:opacity-100 group-focus:opacity-100">
               {backMessage ? backMessage : t("back")}
             </span>
-          </BackLink>
+          </a>
         </Link>
       )}
-      <SrOnly as="a" href="#skip">
+      <a
+        className="text-mauve12 outline outline-1 outline-offset-4 outline-mauve-7 rounded-sm sr-only focus:not-sr-only"
+        href="#skip"
+      >
         {t("skip")}
-      </SrOnly>
+      </a>
       <ChangeLang />
-    </Nav>
+    </nav>
   );
 };
-
-const Nav = styled("nav", {
-  display: "flex",
-  justifyContent: "end",
-  alignItems: "flex-start",
-
-  width: "100%",
-  px: "2rem",
-  py: "2rem",
-  marginY: 0,
-
-  "@md": {
-    px: "4rem",
-    marginX: "auto",
-  },
-
-  variants: {
-    backable: {
-      true: {
-        justifyContent: "space-between",
-      },
-    },
-  },
-});
-
-const BackLink = styled("a", {
-  cursor: "ponter",
-  userSelect: "none",
-
-  display: "flex",
-  alignItems: "center",
-  gap: "0.25rem",
-
-  px: "1rem",
-  paddingBottom: "0",
-
-  fontSize: "$lg",
-  lineHeight: "1.75rem",
-  color: "$mauve11",
-
-  transform: "translate(0)",
-
-  "@motionOk": {
-    transitionProperty: "color, transform",
-
-    transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
-    transitionDuration: "150ms",
-  },
-
-  "& #backMessage": {
-    marginLeft: "0.25rem",
-
-    opacity: "0.01",
-
-    "@motionOk": {
-      transitionProperty: "opacity",
-
-      transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
-      transitionDuration: "110ms",
-    },
-  },
-
-  "&:hover, &:focus": {
-    color: "$mauve12",
-    transform: "translate(-8px)",
-
-    "& #backMessage": {
-      opacity: "1",
-    },
-  },
-});
 
 export default MainNav;
 
@@ -142,7 +79,5 @@ import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import { useHistory } from "@/contexts/History";
 import ChangeLang from "@/components/i18nStuff/ChangeLang";
 
-import { styled } from "stitches.config";
-import { Span, SrOnly } from "@/ui/primitives";
-
 import { ArrowLeftIcon, PinLeftIcon } from "@radix-ui/react-icons";
+import { cva } from "class-variance-authority";
