@@ -1,7 +1,7 @@
 interface Tooltip {
   children: React.ReactElement;
   content: React.ReactNode;
-  options?: VariantProps<typeof tooltip> & {
+  options?: VariantProps<typeof tooltipVariants> & {
     side?: "bottom" | "left" | "right" | "top" | undefined;
   };
 }
@@ -21,7 +21,7 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
       </TooltipAnchor>
       <AriaKitTooltip
         state={tooltipState}
-        className={tooltip({
+        className={tooltipVariants({
           bg: options?.bg,
           maxW: options?.maxW,
           size: options?.size,
@@ -35,14 +35,14 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
   );
 };
 
-const tooltip = cva(
+const tooltipVariants = cva(
   [
     "relative text-mauve12 shadow-sm border border-mauve7 rounded-sm",
     "data-[leave]:opacity-0",
     "data-[dir=top]:origin-bottom",
     "data-[dir=bottom]:origin-top",
     "data-[enter]:data-[dir=top]:animate-scaleInSlideUp",
-    // TODO: leat animation was playing on enter for some reason, see: https://twitter.com/bedesqui/status/1584761741053169666/video/1
+    // TODO: leave animation was playing on enter for some reason and I this just isn't prio, see: https://twitter.com/bedesqui/status/1584761741053169666/video/1
     // "data-[leave]:data-[dir=top]:animate-scaleOutSlideDown",
     "data-[enter]:data-[dir=bottom]:animate-scaleInSlideDown",
     // "data-[leave]:data-[dir=bottom]:animate-scaleOutSlideUp",
