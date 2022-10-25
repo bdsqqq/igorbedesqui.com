@@ -11,11 +11,35 @@ module.exports = {
       keyframes: {
         fade: {
           "0%": { opacity: "0" },
-          "100%": { opacity: "100%" },
+          "100%": { opacity: "1" },
+        },
+
+        scaleInSlideDown: {
+          "0%": { opacity: "0", transform: "translateY(-5px) scale(0)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
+        scaleInSlideUp: {
+          "0%": { opacity: "0", transform: "translateY(5px) scale(0)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
+        scaleOutSlideDown: {
+          "0%": { opacity: "1", transform: "translateY(0) scale(1)" },
+          "100%": { opacity: "0", transform: "translateY(-5px) scale(0)" },
+        },
+        scaleOutSlideUp: {
+          "0%": { opacity: "1", transform: "translateY(0) scale(1)" },
+          "100%": { opacity: "0", transform: "translateY(5px) scale(0)" },
         },
       },
       animation: {
         fade: "fade 550ms cubic-bezier(0, 0, 0.3, 1)",
+
+        scaleInSlideDown:
+          "scaleInSlideDown 110ms cubic-bezier(0, 0, 0.38, 0.9)",
+        scaleInSlideUp: "scaleInSlideUp 110ms cubic-bezier(0, 0, 0.38, 0.9)",
+
+        scaleOutSlideDown: "scaleOutSlideDown 110ms linear",
+        scaleOutSlideUp: "scaleOutSlideUp 110ms cubic-bezier(0.2, 0, 1, 0.9)",
       },
       transitionTimingFunction: {
         /**

@@ -1,12 +1,8 @@
 interface Tooltip {
   children: React.ReactElement;
   content: React.ReactNode;
-  options?: {
-    dark?: boolean;
-    softBg?: boolean;
+  options?: VariantProps<typeof tooltip> & {
     side?: "bottom" | "left" | "right" | "top" | undefined;
-    padding?: "none" | "sm" | "md" | undefined;
-    noMaxWidth?: boolean;
   };
 }
 
@@ -20,137 +16,69 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
 
   return (
     <>
-      <TooltipAnchor
-        {...tooltipState}
-        {...children?.props}
-        state={tooltipState}
-      >
+      <TooltipAnchor state={tooltipState}>
         {(referenceProps: any) => cloneElement(children, referenceProps)}
       </TooltipAnchor>
-      <TooltipContent
+      <AriaKitTooltip
         state={tooltipState}
-        className={options?.dark ? darkTheme : ""}
-        padding={options?.padding}
-        noMaxWidth={options?.noMaxWidth}
-        softBg={options?.softBg}
+        className={tooltip({
+          bg: options?.bg,
+          maxW: options?.maxW,
+          size: options?.size,
+        })}
         data-dir={options?.side || "top"}
       >
         {content}
-        <TooltipArrow />
-      </TooltipContent>
+        <TooltipArrow className="fill-mauve3 stroke-mauve7 filter drop-shadow-sm" />
+      </AriaKitTooltip>
     </>
   );
 };
 
-const TooltipContent = styled(AriaKitTooltip, {
-  position: "relative",
-
-  maxWidth: "16rem",
-
-  background: "$mauve3",
-  color: "$mauve12",
-
-  boxShadow:
-    "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "$mauve7",
-  borderRadius: "$sm",
-
-  "&:focus-within": {
-    outline: "none",
-  },
-
-  "@motionOk": {
-    opacity: 0,
-
-    '&[data-dir="top"]': {
-      transformOrigin: "bottom center",
-
-      "&[data-enter]": {
-        opacity: 1,
-        animationDuration: duration.fast02,
-        animationTimingFunction: timingFunction.productive.entrance,
-        animationName: scaleInSlideUp,
+const tooltip = cva(
+  [
+    "relative text-mauve12 shadow-sm border border-mauve7 rounded-sm",
+    "data-[leave]:opacity-0",
+    "data-[dir=top]:origin-bottom",
+    "data-[dir=bottom]:origin-top",
+    "data-[enter]:data-[dir=top]:animate-scaleInSlideUp",
+    // TODO: leat animation was playing on enter for some reason, see: https://twitter.com/bedesqui/status/1584761741053169666/video/1
+    // "data-[leave]:data-[dir=top]:animate-scaleOutSlideDown",
+    "data-[enter]:data-[dir=bottom]:animate-scaleInSlideDown",
+    // "data-[leave]:data-[dir=bottom]:animate-scaleOutSlideUp",
+    "motion-reduce:!animate-none",
+  ],
+  {
+    variants: {
+      bg: {
+        standard: "bg-mauve3",
+        subtle: "bg-mauve2",
       },
-
-      "&[data-leave]": {
-        animationDuration: duration.fast02,
-        animationTimingFunction: timingFunction.productive.exit,
-        animationName: scaleOutSlideDown,
+      size: {
+        sm: ["text-sm", "py-0.5", "px-1"],
+        md: ["text-base", "py-1", "px-2"],
+      },
+      maxW: {
+        full: "max-w-full",
+        md: "max-w-[16rem]",
       },
     },
-
-    '&[data-dir="bottom"]': {
-      transformOrigin: "top center",
-
-      "&[data-enter]": {
-        opacity: 1,
-        animationDuration: duration.fast02,
-        animationTimingFunction: timingFunction.productive.entrance,
-        animationName: scaleInSlideDown,
-      },
-
-      "&[data-leave]": {
-        animationDuration: duration.fast02,
-        animationTimingFunction: timingFunction.productive.exit,
-        animationName: scaleOutSlideUp,
-      },
+    defaultVariants: {
+      bg: "standard",
+      size: "md",
+      maxW: "md",
     },
-  },
+  }
+);
 
-  variants: {
-    padding: {
-      none: { padding: "0", borderWidth: "0px" },
-      sm: { padding: "0.25rem" },
-      md: { padding: "0.5rem" },
-    },
-    noMaxWidth: {
-      true: {
-        maxWidth: "100%",
-      },
-    },
-    softBg: {
-      true: {
-        background: "$mauve1",
-      },
-    },
-  },
-
-  defaultVariants: {
-    padding: "md",
-    noMaxWidth: false,
-    softBg: false,
-  },
-});
-
-const TooltipArrow = styled(AriaKitTooltipArrow, {
-  fill: "$mauve3",
-
-  strokeWidth: "1px",
-  stroke: "$mauve7",
-
-  filter:
-    "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.06))",
-});
-
-import { styled, darkTheme } from "stitches.config";
-import {
-  scaleInSlideDown,
-  scaleInSlideUp,
-  scaleOutSlideDown,
-  scaleOutSlideUp,
-  timingFunction,
-  duration,
-} from "@/animations";
-
-export default Tooltip;
+import type { VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 
 import { cloneElement } from "react";
 import {
   Tooltip as AriaKitTooltip,
   TooltipAnchor,
   useTooltipState,
-  TooltipArrow as AriaKitTooltipArrow,
+  TooltipArrow,
 } from "ariakit/tooltip";
+export default Tooltip;
