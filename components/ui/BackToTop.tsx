@@ -1,10 +1,10 @@
 const buttonVariants = cva(
-  "cursor-pointer w-10 h-10 rounded-sm p-2 text-mauve12 bg-mauve3 border border-b-0 border-mauve7 transform transition-all duration-moderate-01 ease-productive-entrance hover:bg-mauve4 hover:border-mauve8 active:bg-mauve5",
+  "cursor-pointer w-10 h-10 rounded-sm p-2 text-mauve12 bg-mauve3 border border-b-0 border-mauve7 transform transition-all duration-moderate-01  hover:bg-mauve4 hover:border-mauve8 active:bg-mauve5",
   {
     variants: {
       visible: {
-        visible: "block opacity-100 translate-y-0",
-        notVisible: "invisible opacity-0 translate-y-16",
+        visible: "block opacity-100 translate-y-0 ease-productive-entrance",
+        notVisible: "invisible opacity-0 translate-y-16 ease-productive-exit",
       },
     },
   }
