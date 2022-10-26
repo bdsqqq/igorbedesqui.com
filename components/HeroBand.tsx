@@ -52,9 +52,9 @@ const HeroBand: React.FC<HeroBandProps> = ({
             <div className="absolute  w-full h-full bg-mauve1 opacity-75" />
           </div>
         )}
-        <div className="relative min-h-[70vh] flex items-center max-w-6xl p-8  md:p-16">
+        <div className="relative min-h-[70vh] flex items-center md:max-w-7xl">
           <h1
-            className="mb-4 uppercase tracking-tight text-3xl max-w-xl md:w-2/3  md:text-4xl"
+            className="mb-4 uppercase tracking-tight text-3xl max-w-xl md:w-2/3 md:text-4xl"
             id="skip"
           >
             {children}

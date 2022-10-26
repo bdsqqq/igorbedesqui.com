@@ -2,8 +2,8 @@ const Footer = () => {
   const { t } = useTypeSafeTranslation("common");
 
   return (
-    <div className="flex justify-center w-full bg-mauve1 text-mauve12">
-      <div className="max-w-6xl px-10 w-full">
+    <div className="w-full px-8 md:px-16 bg-mauve1 text-mauve12">
+      <div className="md:max-w-7xl mx-auto py-10 w-full">
         <Separator className="w-11 my-8" />
         <footer className="pb-16">
           <div className="grid gap-y-8 gap-x-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

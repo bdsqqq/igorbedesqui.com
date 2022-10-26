@@ -42,25 +42,24 @@ const Band: React.FC<BandProps> = ({
     <section
       className={clsx(
         "w-full bg-mauve1 text-mauve12",
-        smolPadding ? "py-8" : "p-16",
+        smolPadding ? "py-8" : "p-8 md:p-16",
         padless && "p-0"
       )}
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
     >
       <div
         className={clsx(
-          !padless && "px-4 md:px-8",
           !gridless && "md:grid md:grid-cols-4",
-          !fullBleed && "max-w-6xl m-auto"
+          !fullBleed && "md:max-w-7xl m-auto"
         )}
       >
         {!gridless ? (
           <>
-            <h2 className="mb-12 h-max grid items-end md:items-start md:h-min sticky top-4 col-span-1 pr-16">
+            <h2 className="mb-12 h-max grid items-end md:items-start md:h-min md:sticky top-4 col-span-1 pr-16">
               <span className="font-bold text-mauve3 [grid-area:1/1/1/1] text-7xl leading-none md:[writing-mode:vertical-lr]">
                 {headline?.bold}
               </span>
-              <div className="font-bold text-mauve12 align-top [grid-area:1/1/1/1] pb-4 md:w-min md:pl-2 md:pb-2 text-lg [writing-mode:vertical-lr]">
+              <div className="font-bold text-mauve12 align-top [grid-area:1/1/1/1] pb-4 md:w-min md:pl-2 md:pb-2 text-lg md:[writing-mode:vertical-lr]">
                 {headline?.thin}
               </div>
             </h2>
