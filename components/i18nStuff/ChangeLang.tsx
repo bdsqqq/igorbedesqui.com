@@ -7,7 +7,7 @@ const ChangeLang = () => {
   let count = 0;
 
   const changeLangLinkVariants = cva(
-    "lowercase select-none w-8 p-2 transition-colors",
+    "lowercase select-none w-8 transition-colors",
     {
       variants: {
         state: {
@@ -26,15 +26,17 @@ const ChangeLang = () => {
         if (lng === lang)
           return (
             <React.Fragment key={`${lng}-fragment`}>
-              <span className="inline" key={lng}>
+              <span className="inline w-[3ch] text-center" key={lng}>
                 <span className={changeLangLinkVariants({ state: "active" })}>
                   {lng}
                 </span>
               </span>
               {count < locales.length && (
-                <span className="select-none" key={`${count}-separator`}>
-                  |
-                </span>
+                <Separator
+                  className="h-3 translate-y-0.5"
+                  orientation="vertical"
+                  key={`${count}-separator`}
+                />
               )}
             </React.Fragment>
           );
@@ -49,7 +51,7 @@ const ChangeLang = () => {
 
         return (
           <React.Fragment key={`${lng}-fragment`}>
-            <span className="inline" key={lng}>
+            <span className="inline w-[3ch] text-center" key={lng}>
               <Link
                 href={router.pathname}
                 locale={lng}
@@ -66,9 +68,11 @@ const ChangeLang = () => {
               </Link>
             </span>
             {count < locales.length && (
-              <span className="select-none" key={`${count}-separator`}>
-                |
-              </span>
+              <Separator
+                className="h-3 translate-y-0.5"
+                orientation="vertical"
+                key={`${count}-separator`}
+              />
             )}
           </React.Fragment>
         );
@@ -88,3 +92,4 @@ import en from "@/locales/en/common.json";
 import pt from "@/locales/pt/common.json";
 import React from "react";
 import { cva } from "class-variance-authority";
+import { Separator } from "../ui/primitives";
