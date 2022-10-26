@@ -8,7 +8,7 @@ export default function Bebop() {
       <Seo t={t} lang={lang} url="p/ibm" />
 
       <Container key="bebopProj" backable>
-        <HeroBand heroVideo={"/videos/ibm/tapes"}>
+        <HeroBand fullBleed heroVideo={"/videos/ibm/tapes"}>
           <TransWithComps text={""} />
         </HeroBand>
 

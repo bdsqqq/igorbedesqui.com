@@ -6,7 +6,7 @@ export default function Iss() {
     <>
       <Seo t={t} lang={lang} url="p/iss" />
       <ProjectContainer key="issProj" backMessage="Fly back home">
-        <HeroBand heroVideo="/videos/iss/space">
+        <HeroBand fullBleed heroVideo="/videos/iss/space">
           <TransWithComps text={t("heroTitle")} />
           <Text as="p" css={{ color: "transparent" }} aria-hidden="true">
             {t("heroSubHead")}

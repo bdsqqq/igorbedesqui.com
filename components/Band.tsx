@@ -42,7 +42,7 @@ const Band: React.FC<BandProps> = ({
     <section
       className={clsx(
         "w-full bg-mauve1 text-mauve12",
-        smolPadding ? "py-8" : "p-8 md:p-16",
+        smolPadding ? "py-8" : "p-8 md:px-16",
         padless && "p-0"
       )}
       id={bandId.replace(/\s+/g, "-").toLowerCase()}

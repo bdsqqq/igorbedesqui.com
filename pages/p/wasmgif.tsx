@@ -8,7 +8,7 @@ export default function WasmGif() {
       <Seo t={t} lang={lang} url="p/wasmgif" />
 
       <ProjectContainer key="wasmGifProj">
-        <HeroBand heroVideo={"/videos/wasmgif/wow"}>
+        <HeroBand fullBleed heroVideo={"/videos/wasmgif/wow"}>
           <TransWithComps text={t("heroTitle")} />
           <div className="mt-6">
             <CodeAndDemoButtons
