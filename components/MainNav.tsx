@@ -50,7 +50,7 @@ const MainNav: React.FC<MainNavProps> = ({
     >
       {backable && (
         <Link href={anchor ? anchor : "/"} passHref>
-          <a className="group cursor-pointer select-none flex items-center gap-1 px-4 pb-0 text-xl text-mauve11 transform translate-x-0 motion-safe:transition-all ease-productive-standard duration-moderate-01 hover:text-mauve12 hover:-translate-x-2 focus:text-mauve12 focus:-translate-x-2">
+          <a className="group cursor-pointer select-none flex items-center gap-1 px-4 -mx-4 pb-0 text-xl text-mauve11 transform translate-x-0 motion-safe:transition-all ease-productive-standard duration-moderate-01 hover:text-mauve12 hover:-translate-x-2 focus:text-mauve12 focus:-translate-x-2 focus-visible:outline outline-1 outline-offset-4 outline-mauve8 rounded-sm">
             <span className="flex-shrink-0 translate-y-[1px]">
               {anchor === "/" ? <PinLeftIcon /> : <ArrowLeftIcon />}
             </span>
@@ -61,7 +61,7 @@ const MainNav: React.FC<MainNavProps> = ({
         </Link>
       )}
       <a
-        className="text-mauve12 outline outline-1 outline-offset-4 outline-mauve-7 rounded-sm sr-only focus:not-sr-only"
+        className="text-mauve12 outline outline-1 outline-offset-4 outline-mauve8 rounded-sm sr-only focus:not-sr-only"
         href="#skip"
       >
         {t("skip")}

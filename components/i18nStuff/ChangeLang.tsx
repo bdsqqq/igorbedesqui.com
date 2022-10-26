@@ -13,7 +13,7 @@ const ChangeLang = () => {
         state: {
           active: "text-mauve12 font-bold",
           inactive:
-            "text-mauve11 cursor-pointer hover:text-mauve12 focus:text-mauve12 focus-visible:outline outline-1 outline-offset-4 outline-mauve-7 rounded-sm",
+            "text-mauve11 cursor-pointer hover:text-mauve12 focus:text-mauve12 focus-visible:outline outline-1 outline-offset-4 outline-mauve8 rounded-sm",
         },
       },
     }

@@ -5,7 +5,7 @@ export const ProjectLayout: React.FC<{
   const { t } = useTypeSafeTranslation("detail");
 
   return (
-    <div className="grid md:gap-5 md:[grid-template-columns:1fr_220px] lg:gap-20 lg:[grid-template-columns:1fr_330px]">
+    <div className="grid md:gap-5 md:[grid-template-columns:1fr_220px] lg:gap-20 lg:[grid-template-columns:1fr_330px] px-8 md:px-16">
       <div>{children}</div>
 
       <div>
