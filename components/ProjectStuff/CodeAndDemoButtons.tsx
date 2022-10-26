@@ -14,7 +14,7 @@ const CodeAndDemoButtons: React.FC<CodeAndDemoButtonsProps> = ({
       {codeUrl && (
         <LinkButton href={codeUrl}>
           <span>{t("code")}</span>
-          <SrOnly>Github</SrOnly>
+          <span className="sr-only">Github</span>
           <GitHubLogoIcon height="18" width="18" />
         </LinkButton>
       )}
@@ -31,6 +31,5 @@ const CodeAndDemoButtons: React.FC<CodeAndDemoButtonsProps> = ({
 export default CodeAndDemoButtons;
 
 import { LinkButton } from "@/ui/Button";
-import { SrOnly } from "@/ui/primitives";
 import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import { GitHubLogoIcon, ArrowTopRightIcon } from "@radix-ui/react-icons";
