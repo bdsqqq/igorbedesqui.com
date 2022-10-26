@@ -75,6 +75,6 @@ export default Footer;
 
 import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 
-import { Box, Separator } from "@/ui/primitives";
+import { Separator } from "@/ui/primitives";
 import StyledLink from "@/ui/StyledLink";
 import EmailLink from "./ui/EmailLink";
