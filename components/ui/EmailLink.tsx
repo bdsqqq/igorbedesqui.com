@@ -66,7 +66,7 @@ const PopoverContent = ({ email }: { email: string }) => {
             {t("footer.email.copy")}
           </span>
         }
-        options={{ dark: true, padding: "sm" }}
+        options={{ size: "sm" }}
       >
         <Button
           className="rounded-l-sm rounded-r-none"
@@ -92,7 +92,7 @@ const PopoverContent = ({ email }: { email: string }) => {
             {t("footer.email.send")}
           </span>
         }
-        options={{ dark: true, padding: "sm" }}
+        options={{ size: "sm" }}
       >
         <LinkButton
           className="rounded-r-sm rounded-l-none"

@@ -36,7 +36,7 @@ const Container: React.FC<ContainerProps> = ({
         )}
         <div className="relative flex flex-col justify-between -mr-2 min-h-[calc(100_-_104px)] w-full bg-mauve1">
           <main className="flex flex-col justify-center">{children}</main>
-          <Footer dark={dark} />
+          <Footer />
         </div>
       </div>
     </div>

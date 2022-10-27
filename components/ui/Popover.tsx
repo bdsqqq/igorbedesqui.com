@@ -25,7 +25,6 @@ const PopOver: React.FC<PopOver> = ({
       {children} {icon ? icon : questionMark && <QuestionMarkCircledIcon />}
     </PopOverTrigger>
     <PopOverContent
-      className={options?.dark ? darkTheme : ""}
       padding={options?.padding}
       noMaxWidth={options?.noMaxWidth}
       softBg={options?.softBg}
@@ -148,5 +147,5 @@ const PopOverArrow = styled(PopoverPrimitive.Arrow, {
     "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.06))",
 });
 
-import { styled, darkTheme } from "stitches.config";
+import { styled } from "stitches.config";
 import { scaleIn, scaleOut, slideDown, slideUp } from "@/animations";
