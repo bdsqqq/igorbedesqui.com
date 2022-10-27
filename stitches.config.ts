@@ -1,4 +1,4 @@
-import { mauve, mauveDark, crimson, crimsonDark } from "@radix-ui/colors";
+import { mauveDark, crimsonDark } from "@radix-ui/colors";
 import { createStitches } from "@stitches/react";
 import type * as Stitches from "@stitches/react";
 
@@ -14,8 +14,8 @@ export const {
 } = createStitches({
   theme: {
     colors: {
-      ...mauve,
-      ...crimson,
+      ...mauveDark,
+      ...crimsonDark,
     },
     fontSizes: {
       xs: "0.75rem", // 12px
@@ -110,12 +110,5 @@ export const {
         outlineWidth: "2px",
       },
     }),
-  },
-});
-
-export const darkTheme = createTheme({
-  colors: {
-    ...mauveDark,
-    ...crimsonDark,
   },
 });
