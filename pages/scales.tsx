@@ -99,7 +99,7 @@ const Scales = () => {
 
   const comboboxState = useComboboxState({
     defaultValue: "1", // default value 1 allows the user to see all the others options in the combobox while being a good starting point too
-    gutter: 8,
+    gutter: 4,
     sameWidth: false,
     animated: true,
     fitViewport: true,
@@ -159,65 +159,37 @@ const Scales = () => {
   return (
     <Container>
       <Band headline={{ bold: "01", thin: "what's this?" }}>
-        <Text
-          as="p"
-          css={{
-            "@lg": {
-              maxWidth: "50ch",
-            },
-          }}
-        >
+        <p className="lg:max-w-prose">
           {`Recently I've been curious about Design and its relation to website development. During one of my usual rabbit hole deep dives, I stumbled upon a blog post by spencer Mortensen. It was a fascinating read that went into detail about the history of the typographic scale. But more importantly to me, it presented a mathematical formula that can generate harmonic scales.`}
           <br />
           <br />
           {`Spencer Mortensen himself made a tool to calculate type scales, but after the subject lingered in my head for a while, I decided to implement my version of it.`}
-        </Text>
+        </p>
       </Band>
       <Band smolPadding headline={{ bold: "01", thin: "Title" }}>
         <Formula
           ratio={
-            <Box
-              as="span"
-              css={{
-                width: "fit-content",
-                gridRow: "2 / 4",
-                fontSize: "2rem",
-              }}
-            >
+            <span className="w-fit row-start-2 row-end-4 text-3xl leading-none">
               r
-            </Box>
+            </span>
           }
           f0={
-            <Box
-              as="span"
-              css={{
-                width: "fit-content",
-                gridRow: "2 / 4",
-                fontSize: "2rem",
-              }}
-            >
+            <span className="w-fit row-start-2 row-end-4 text-3xl leading-none">
               𝑓
-              <Box
-                as="span"
-                css={{
-                  fontSize: "1rem",
-                }}
-              >
-                0
-              </Box>
-            </Box>
+              <span className="text-base">0</span>
+            </span>
           }
-          scaleLength={<Box>𝑛</Box>}
+          scaleLength={<div>𝑛</div>}
         />
         <Formula
           ratio={
             <>
-              <StyledComboBox
-                css={{
+              <Combobox
+                className={inputVariants()}
+                style={{
                   width: `calc(${
                     refs.ratio?.current?.value.toString().length || 1
                   }ch + 0.5rem)`,
-                  fontSize: "1.5rem",
                 }}
                 ref={refs.ratio}
                 id={Object.keys(defaultValues)[0]}
@@ -228,26 +200,37 @@ const Scales = () => {
                 placeholder="1"
               />
               {filteredPreDefinedScales.length > 0 && (
-                <StyledComboboxPopover
+                <ComboboxPopover
                   data-placement={comboboxState.currentPlacement}
                   state={comboboxState}
+                  className={clsx(
+                    "text-mauve12 shadow-sm border border-mauve7 rounded-sm bg-mauve2 z-10 transform transition-all duration-fast-02",
+                    "data-[placement=bottom-start]:origin-top-left",
+                    "data-[placement=top-start]:origin-bottom",
+                    "data-[enter]:opacity-100 data-[enter]:ease-productive-enter",
+                    "data-[leave]:opacity-0 data-[leave]:ease-productive-exit",
+                    "data-[enter]:translate-y-0",
+                    "data-[placement=bottom-start]:data-[leave]:-translate-y-2",
+                    "data-[placement=top-start]:data-[leave]:translate-y-2"
+                  )}
                 >
                   {filteredPreDefinedScales.map((scale) => (
-                    <StyledComboBoxItem
+                    <ComboboxItem
                       key={`${scale.name}_ComboboxItem`}
-                      className="combobox-item"
+                      className="cursor-pointer px-3 py-1 border-none rounded-sm hover:bg-mauve4 focus:bg-mauve4 aria-selected:bg-mauve5 motion-safe:transition-colors duration-fast-01 ease-productive-standard"
                       value={scale.value}
                     >
                       {scale.name}
-                    </StyledComboBoxItem>
+                    </ComboboxItem>
                   ))}
-                </StyledComboboxPopover>
+                </ComboboxPopover>
               )}
             </>
           }
           f0={
-            <StyledInput
-              css={{
+            <input
+              className={inputVariants()}
+              style={{
                 width: `calc(${
                   refs.f0?.current?.value.length || 1
                 }ch + 0.5rem)`,
@@ -264,8 +247,9 @@ const Scales = () => {
             />
           }
           scaleLength={
-            <StyledInput
-              css={{
+            <input
+              className={inputVariants({ size: "sm" })}
+              style={{
                 width: `calc(${
                   refs.scaleLength?.current?.value.length || 1
                 }ch + 0.5rem)`,
@@ -302,28 +286,15 @@ const Scales = () => {
             ))}
           </ul>
         )}
-        <Box
-          css={{
-            overflowX: "scroll",
-          }}
-        >
-          <Box
-            css={{
-              position: "relative",
-              overflowX: "visible",
-              overflowY: "hidden",
-              whiteSpace: "nowrap",
-              width: "100%",
-              textAlign: "center",
-              paddingBottom: "2rem",
-            }}
-          >
+        <div className="overflow-x-scroll">
+          <div className="relative overflow-x-visible overflow-y-hidden whitespace-nowrap w-full text-center pb-8">
             {[...Array(scaleLength + 2)].map((_, i) => {
               let f = getFi(i - 1, ratio, scaleLength, f0);
               return (
                 <span
                   key={`${i}_Scale`}
                   style={{
+                    userSelect: "none",
                     position: "relative",
                     lineHeight: `.4em`,
                     fontSize: `${f}rem`,
@@ -339,6 +310,7 @@ const Scales = () => {
 
                   <sub
                     style={{
+                      userSelect: "all",
                       display: "flex",
                       alignContent: "center",
                       justifyContent: "center",
@@ -359,242 +331,56 @@ const Scales = () => {
                 </span>
               );
             })}
-          </Box>
-        </Box>
+          </div>
+        </div>
       </Band>
     </Container>
   );
 };
 
-const StyledComboBox = styled(Combobox, {
-  padding: "$spacing-02",
-  backgroundColor: "$mauve3",
-
-  color: "$mauve12",
-
-  textAlign: "center",
-
-  border: "none",
-  borderRadius: "$sm",
-  outlineRing: "",
-  outlineColor: "transparent",
-
-  "&:hover": {
-    backgroundColor: "$mauve4",
-  },
-
-  "&:focus": {
-    backgroundColor: "$mauve5",
-  },
-
-  "@motionOk": {
-    transitionProperty: "outline-color, background-color",
-    transitionDuration: duration.fast01,
-    transitionTimingFunction: timingFunction.productive.standard,
-  },
-  length: 0,
-});
-
-const StyledComboboxPopover = styled(ComboboxPopover, {
-  backgroundColor: "$mauve2",
-  width: "max-content",
-  padding: "$spacing-02",
-  borderRadius: "$sm",
-  zIndex: "1",
-
-  border: "1px solid $mauve7",
-
-  "@motionOk": {
-    "&[data-placement='top-start']": {
-      transformOrigin: "bottom",
-      animationName: `${scaleIn}, ${slideUp}`,
-      animationDuration: "150ms",
-      animationTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
-
-      "&[data-leave]": {
-        animationName: `${slideDown}, ${scaleOut}`,
-        animationDuration: "150ms",
-        animationTimingFunction: "cubic-bezier(0.4, 0.14, 1, 1)",
+const inputVariants = cva(
+  "p-1 bg-mauve3 text-mauve12 text-center border-none rounded-sm outline outline-1 outline-transparent hover:bg-mauve4 focus:mauve5 focus:outline-mauve8 motion-safe:transition-colors duration-fast-01 ease-productive-standard",
+  {
+    variants: {
+      size: {
+        sm: "text-sm",
+        md: "text-2xl",
       },
     },
-
-    "&[data-placement='bottom-start']": {
-      transformOrigin: "top",
-      animationName: `${scaleIn}, ${slideDown}`,
-      animationDuration: "150ms",
-      animationTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
-
-      "&[data-leave]": {
-        animationName: `${slideUp}, ${scaleOut}`,
-        animationDuration: "150ms",
-        animationTimingFunction: "cubic-bezier(0.4, 0.14, 1, 1)",
-      },
+    defaultVariants: {
+      size: "md",
     },
-  },
-  length: 0,
-});
-
-const StyledComboBoxItem = styled(ComboboxItem, {
-  cursor: "pointer",
-  padding: "$spacing-02 $spacing-04",
-
-  border: "none",
-  borderRadius: "$sm",
-  outlineRing: "none",
-
-  "&:hover": {
-    backgroundColor: "$mauve4",
-  },
-
-  "&[aria-selected=true]": {
-    backgroundColor: "$mauve5",
-  },
-
-  "@motionOk": {
-    transitionProperty: "background-color",
-    transitionDuration: duration.fast01,
-    transitionTimingFunction: timingFunction.productive.standard,
-  },
-  length: 0,
-});
-
-const StyledInput = styled("input", {
-  appearance: "textfield",
-  backgroundColor: "$mauve3",
-  color: "$mauve12",
-
-  textAlign: "center",
-  padding: "$spacing-02",
-
-  border: "none",
-  borderRadius: "$sm",
-  outlineRing: "",
-  outlineColor: "transparent",
-
-  "&:hover": {
-    backgroundColor: "$mauve4",
-  },
-
-  "&:focus": {
-    backgroundColor: "$mauve5",
-  },
-
-  "@motionOk": {
-    transitionProperty: "outline-color, background-color",
-    transitionDuration: duration.fast01,
-    transitionTimingFunction: timingFunction.productive.standard,
-  },
-
-  length: 0,
-});
-
+  }
+);
 const Formula: React.FC<{
   ratio: ReactNode;
   f0: ReactNode;
   scaleLength: ReactNode;
 }> = ({ ratio, f0, scaleLength }) => {
   return (
-    <Box
-      css={{
-        display: "grid",
-        gridTemplateRows: "repeat(3, 1fr)",
-        gridAutoColumns: "min-content",
-        width: "min-content",
-      }}
-    >
-      <Box
-        as="span"
-        css={{
-          gridRow: "2 / 4",
-          fontSize: "2rem",
-        }}
-      >
-        𝑓
-      </Box>
-      <Box
-        as="span"
-        css={{
-          width: "fit-content",
-          gridRow: "3 / 4",
-        }}
-      >
-        𝑖
-      </Box>
-      <Box
-        as="span"
-        css={{
-          width: "fit-content",
-          gridRow: "2 / 4",
-          fontSize: "2rem",
-        }}
-      >
-        =
-      </Box>
-      <Box
-        as="span"
-        css={{
-          marginX: "$spacing-01",
-          gridRow: "2 / 4",
-          placeSelf: "center",
-          fontSize: "1.5rem",
-        }}
-      >
+    <div className="grid grid-rows-3 w-min">
+      <span className="row-start-2 row-end-4 text-3xl leading-none">𝑓</span>
+      <span className="w-fit row-start-3 row-end-4">𝑖</span>
+      <span className="flex items-center w-fit row-start-2 row-end-4 text-3xl">
+        <span>=</span>
+      </span>
+      <span className="mx-0.5 row-start-2 row-end-4 place-self-center text-2xl leading-none">
         {f0}
-      </Box>
-      <Box
-        as="div"
-        css={{
-          gridRow: "2 / 4",
-          display: "flex",
-          alignContent: "center",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <Box
-          css={{
-            width: "15px",
-          }}
-        >
+      </span>
+      <div className="row-start-2 row-end-4 flex content-center flex-col justify-center">
+        <div className="w-4">
           <Cross2Icon />
-        </Box>
-      </Box>
-      <Box
-        as="span"
-        css={{
-          marginX: "$spacing-01",
-          gridRow: "2 / 4",
-          placeSelf: "center",
-        }}
-      >
+        </div>
+      </div>
+      <span className="mx-0.5 row-start-2 row-end-4 place-self-center">
         {ratio}
-      </Box>
-      <Box
-        as="div"
-        css={{
-          width: "fit-content",
-          gridRow: "1 / 3",
-          gridColumn: "99",
-
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "-0.2em",
-          lineHeight: "0.8em",
-        }}
-      >
-        <Box>𝑖</Box>
-        <Box
-          css={{
-            width: "50%",
-            borderBottom: "1px solid currentColor",
-            marginY: "$spacing-01",
-          }}
-        />
-        <Box>{scaleLength}</Box>
-      </Box>
-    </Box>
+      </span>
+      <div className="w-fit row-start-1 row-end-3 col-start-[99] flex flex-col items-center justify-end leading-[0.8em]">
+        <div className="pb-1 min-w-[2.5ch] text-center">𝑖</div>
+        <div className="w-1/2 border-b border-current my-0.5" />
+        <div>{scaleLength}</div>
+      </div>
+    </div>
   );
 };
 
@@ -607,18 +393,9 @@ import {
   ComboboxPopover,
   useComboboxState,
 } from "ariakit/combobox";
-import { styled } from "stitches.config";
 
-import {
-  duration,
-  scaleIn,
-  scaleOut,
-  slideDown,
-  slideUp,
-  timingFunction,
-} from "@/animations";
 import Container from "@/components/Container";
 import Band from "@/components/Band";
-import { Box } from "@/components/ui/primitives";
-import Text from "@/components/ui/Text";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { cva } from "class-variance-authority";
+import clsx from "clsx";
