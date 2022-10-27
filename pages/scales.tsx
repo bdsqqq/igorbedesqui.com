@@ -166,7 +166,7 @@ const Scales = () => {
           {`Spencer Mortensen himself made a tool to calculate type scales, but after the subject lingered in my head for a while, I decided to implement my version of it.`}
         </p>
       </Band>
-      <Band smolPadding headline={{ bold: "01", thin: "Title" }}>
+      <Band headline={{ bold: "01", thin: "Title" }}>
         <Formula
           ratio={
             <span className="w-fit row-start-2 row-end-4 text-3xl leading-none">
