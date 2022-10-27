@@ -1,16 +1,10 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { darkTheme, getCssText } from "stitches.config";
 
 class MyDocument extends Document {
   render() {
     return (
-      <Html className={darkTheme}>
+      <Html>
         <Head>
-          <style
-            id="stitches"
-            dangerouslySetInnerHTML={{ __html: getCssText() }}
-          />
-
           <link
             rel="preload"
             href="/fonts/Mplus.woff2"
