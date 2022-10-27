@@ -1,18 +1,17 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+// import { M_PLUS_1 } from "@next/font/google";
+
+// const mPlus = M_PLUS_1({
+//   weight: "400",
+//   subsets: ["latin"],
+// });
 
 class MyDocument extends Document {
   render() {
     return (
+      //className={mPlus.className}
       <Html>
         <Head>
-          <link
-            rel="preload"
-            href="/fonts/Mplus.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-
           <link
             rel="apple-touch-icon"
             sizes="180x180"
