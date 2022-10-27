@@ -4,7 +4,7 @@
 
 
 body {
-  @apply min-w-[360px] scroll-smooth leading-normal text-red-500 bg-mauve1 h-full antialiased;
+  @apply min-w-[360px] scroll-smooth leading-normal text-mauve12 bg-mauve1 h-full antialiased;
   font-family: sans-serif;
 },
 
