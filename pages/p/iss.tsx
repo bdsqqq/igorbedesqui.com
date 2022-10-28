@@ -8,9 +8,9 @@ export default function Iss() {
       <ProjectContainer key="issProj" backMessage="Fly back home">
         <HeroBand fullBleed heroVideo="/videos/iss/space">
           <TransWithComps text={t("heroTitle")} />
-          <Text as="p" css={{ color: "transparent" }} aria-hidden="true">
+          <p className="text-transparent" aria-hidden="true">
             {t("heroSubHead")}
-          </Text>
+          </p>
           <div className="mt-6">
             <CodeAndDemoButtons
               codeUrl="https://github.com/bdsqqq/iss-asset"
@@ -21,7 +21,7 @@ export default function Iss() {
 
         <ProjectLayout projMeta={issMeta} nextProjMeta={wasmGifMeta}>
           <Band headline={{ bold: "01", thin: t("01Thin") }}>
-            <Text>
+            <p>
               A few years ago, I fell in love with coding by watching
               <StyledLinkWithIcon href="https://www.youtube.com/c/TheCodingTrain">
                 {` Daniel Shiffman's youtube channel`}
@@ -38,17 +38,11 @@ export default function Iss() {
               of the work I strive to do. Instead of adding as many animations,
               features, and info as possible, I focused on delivering the
               content in a simple and beautiful way.
-            </Text>
+            </p>
           </Band>
           <Band headline={{ bold: "02", thin: "challenges" }}>
-            <Text
-              css={{ marginBottom: "$spacing-04" }}
-              presetStyle="semiHeading"
-              as="h4"
-            >
-              Request limitations
-            </Text>
-            <Text>
+            <h4 className="text-xl mb-4 font-bold">Request limitations</h4>
+            <p>
               {`
                 Using data from a third-party API, I had a couple of limitations; especifically, I could only make one request per second across all clients. Without a caching layer of some sort, a few concurrent users, would quickly exceed my quota. This called for an interesting solution;
               `}{" "}
@@ -68,7 +62,7 @@ export default function Iss() {
               </span>
               <br />
               <br />
-              <Text>
+              <p>
                 {`
                   So, about the paragraphs above, what the fuck was I thinking??? I spun up a full-on Redis service to cache a REQUEST THAT DOESN'T CHANGE BETWEEN USERS.
                 `}
@@ -77,38 +71,19 @@ export default function Iss() {
                 {`
                   The current solution is a SMALLER serverless function that runs faster and is cached on Vercel's EDGE. Supported by a better fetching logic on the frontend, this site should be able to handle any load and update the ISS location as fast as the API allows.
                 `}
-              </Text>
-            </Text>
+              </p>
+            </p>
 
-            <Text
-              css={{ marginTop: "$spacing-06", marginBottom: "$spacing-04" }}
-              presetStyle="semiHeading"
-              as="h4"
-            >
-              Incremental enhacement
-            </Text>
-            <Text>
+            <h4 className="text-xl mb-4 font-bold">Incremental enhacement</h4>
+            <p>
               {`A frosted-glass look was a constant during my experiments, though some browsers didn't support the properties needed for it.`}
               <br />
               {`To keep the experience I wanted for users with cutting-edge browsers without sacrificing the experience for anyone, I leveraged the "@supports" media query to make the blur effect an incremental enhancement.`}
               <br />
               <br />
-              <Box
-                css={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                  gap: "0.5rem",
-                  marginY: "$spacing-02",
-                }}
-                className="grid grid-cols-2 gap-1 my-2"
-              >
-                <Box as="figure" css={{ gridColumnStart: 1 }}>
-                  <Box
-                    css={{
-                      borderRadius: "$md",
-                      overflow: "hidden",
-                    }}
-                  >
+              <div className="grid grid-cols-2 gap-1 my-2">
+                <figure className="col-start-1">
+                  <div className="rounded-sm overflow-hidden">
                     <Image
                       layout="responsive"
                       width="100%"
@@ -117,32 +92,15 @@ export default function Iss() {
                       src="/images/projs/iss/blur.png"
                       alt=""
                     />
-                  </Box>
+                  </div>
                   <figcaption>
-                    <Text
-                      presetStyle="caption"
-                      css={{
-                        display: "inline-block",
-                        textAlign: "center",
-                        marginTop: "0.25rem",
-                      }}
-                    >
+                    <span className="text-sm italic tracking-wide text-mauve11 inline-block text-center mt-1">
                       {`The UI in browsers that support filter properties blurs elements behind it.`}
-                    </Text>
+                    </span>
                   </figcaption>
-                </Box>
-                <Box
-                  as="figure"
-                  css={{
-                    gridColumnStart: 2,
-                  }}
-                >
-                  <Box
-                    css={{
-                      borderRadius: "$md",
-                      overflow: "hidden",
-                    }}
-                  >
+                </figure>
+                <figure className="col-start-2">
+                  <div className="rounded-sm overflow-hidden">
                     <Image
                       layout="responsive"
                       width="100%"
@@ -151,35 +109,21 @@ export default function Iss() {
                       src="/images/projs/iss/no_blur.png"
                       alt=""
                     />
-                  </Box>
+                  </div>
 
                   <figcaption>
-                    <Text
-                      presetStyle="caption"
-                      css={{
-                        display: "inline-block",
-                        textAlign: "center",
-                        marginTop: "0.25rem",
-                      }}
-                    >
+                    <span className="text-sm italic tracking-wide text-mauve11 inline-block text-center mt-1">
                       {`While the UI in browsers that don't support filters, fallbacks into a solid color.`}
-                    </Text>
+                    </span>
                   </figcaption>
-                </Box>
-              </Box>
+                </figure>
+              </div>
               <br />
               {`This feature might be a small detail, but an easy win from an "Oh! that's cool" perspective is always welcome.`}
-            </Text>
+            </p>
           </Band>
           <Band headline={{ bold: "03", thin: "Results" }}>
-            <Box
-              as="figure"
-              css={{
-                borderRadius: "$md",
-                overflow: "hidden",
-                marginBottom: "$spacing-05",
-              }}
-            >
+            <figure className="rounded-sm overflow-hidden mb-4">
               <Image
                 layout="responsive"
                 width="59%"
@@ -188,8 +132,8 @@ export default function Iss() {
                 src="/images/projs/iss/full_screenshot.png"
                 alt="Website screenshot"
               />
-            </Box>
-            <Text>
+            </figure>
+            <p>
               {`Through the literal years of development, this project saw my preferred solutions and approaches changing; Now, much more than a love letter to someone who shaped my early development, this site became a time capsule of my growth.`}
               <br />
               {`This tiny piece of user experience—load page, see location—was an opportunity to learn, practice, and experiment. And I can't wait to see how I'll rebuild it years from now.`}
@@ -204,7 +148,7 @@ export default function Iss() {
               <StyledLinkWithIcon href="https://iss.igorbedesqui.com/">
                 iss.igorbedesqui.com
               </StyledLinkWithIcon>
-            </Text>
+            </p>
           </Band>
         </ProjectLayout>
       </ProjectContainer>
@@ -220,9 +164,7 @@ import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Band from "@/components/Band";
-import Text from "@/components/ui/Text";
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
-import { Box } from "@/components/ui/primitives";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
 
 import useMeta from "@/hooks/useMeta";
