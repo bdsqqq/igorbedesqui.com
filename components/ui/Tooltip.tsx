@@ -37,16 +37,13 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
 
 const tooltipVariants = cva(
   [
-    "relative text-mauve12 shadow-sm border border-mauve7 rounded-sm",
-    "data-[leave]:opacity-0",
+    "text-mauve12 shadow-sm border border-mauve7 rounded-sm transform motion-safe:transition-all duration-fast-02",
     "data-[dir=top]:origin-bottom",
     "data-[dir=bottom]:origin-top",
-    "data-[enter]:data-[dir=top]:animate-scaleInSlideUp",
-    // TODO: leave animation was playing on enter for some reason and I this just isn't prio, see: https://twitter.com/bedesqui/status/1584761741053169666/video/1
-    // "data-[leave]:data-[dir=top]:animate-scaleOutSlideDown",
-    "data-[enter]:data-[dir=bottom]:animate-scaleInSlideDown",
-    // "data-[leave]:data-[dir=bottom]:animate-scaleOutSlideUp",
-    "motion-reduce:!animate-none",
+    "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-enter",
+    "data-[leave]:opacity-0 data-[leave]:scale-0 data-[leave]:ease-productive-exit",
+    "data-[dir=top]:data-[leave]:translate-y-1",
+    "data-[dir=bottom]:data-[leave]:-translate-y-1",
   ],
   {
     variants: {
