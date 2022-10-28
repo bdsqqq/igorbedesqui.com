@@ -20,12 +20,12 @@ export default function WasmGif() {
 
         <ProjectLayout projMeta={wasmGifMeta} nextProjMeta={bebopMeta}>
           <Band smolPadding headline={{ bold: "01", thin: t("01Thin") }}>
-            <Text presetStyle="paragraph">
+            <p>
               <TransWithComps text={t("01Copy")} />
-            </Text>
+            </p>
           </Band>
           <Band smolPadding headline={{ bold: "02", thin: t("02Thin") }}>
-            <Text presetStyle="paragraph">
+            <p>
               <TransWithComps
                 text={t("02Copy")}
                 extraComponents={{
@@ -34,7 +34,7 @@ export default function WasmGif() {
                   ),
                 }}
               />
-            </Text>
+            </p>
           </Band>
         </ProjectLayout>
       </ProjectContainer>
@@ -58,5 +58,4 @@ import BackToTop from "@/components/ui/BackToTop";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
 
 import useMeta from "@/hooks/useMeta";
-import Text from "@/components/ui/Text";
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
