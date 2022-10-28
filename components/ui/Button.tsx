@@ -1,5 +1,5 @@
 const variants = {
-  base: "cursor-pointer select-none appearance-none inline-flex items-center gap-2 border border-transparent rounded-sm tracking-normal py-1 px-2 align-middle motion-safe:duration-moderate-01 motion-safe:ease-productive-standard outline-none focus-within:outline-none",
+  base: "cursor-pointer select-none appearance-none inline-flex items-center gap-2 border  rounded-sm tracking-normal py-1 px-2 align-middle motion-safe:duration-moderate-01 motion-safe:ease-productive-standard outline-none focus-within:outline-none",
   size: {
     sm: "text-sm",
     md: "text-base",
