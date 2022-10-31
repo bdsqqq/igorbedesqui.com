@@ -22,12 +22,12 @@ const EmailLink = ({
 }) => {
   return (
     <Popover
-      icon={<EnvelopeClosedIcon />}
+      Icon={EnvelopeClosedIcon}
       content={<PopoverContent email={email} />}
       options={{
         padding: "none",
-        noMaxWidth: true,
-        softBg: true,
+        maxW: "full",
+        bg: "subtle",
       }}
     >
       <span className="underline">{children}</span>
@@ -69,7 +69,7 @@ const PopoverContent = ({ email }: { email: string }) => {
         options={{ size: "sm" }}
       >
         <Button
-          className="rounded-l-sm rounded-r-none"
+          className="rounded-l-sm rounded-r-none -ml-[1px] -my-[1px]"
           onClick={() => {
             if (!navigator.clipboard) {
               console.log(
@@ -83,9 +83,7 @@ const PopoverContent = ({ email }: { email: string }) => {
           {success ? <CheckIcon /> : <ClipboardCopyIcon />}
         </Button>
       </Tooltip>
-      <span className="bg-mauve3 p-1 border border-mauve7 border-x-0">
-        {email}
-      </span>
+      <span className="p-1 ">{email}</span>
       <Tooltip
         content={
           <span className="text-sm italic tracking-[0.2px] text-mauve11">
@@ -95,7 +93,7 @@ const PopoverContent = ({ email }: { email: string }) => {
         options={{ size: "sm" }}
       >
         <LinkButton
-          className="rounded-r-sm rounded-l-none"
+          className="rounded-r-sm rounded-l-none -mr-[1px] -my-[1px]"
           href={`mailto:${email}`}
         >
           <PaperPlaneIcon />
