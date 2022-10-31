@@ -19,7 +19,7 @@ export default function Bebop() {
         </HeroBand>
 
         <ProjectLayout projMeta={bebopMeta} nextProjMeta={issMeta}>
-          <Band smolPadding gridless id="update">
+          <Band options={{ padding: "smol" }} gridless id="update">
             <h2 className="text-xl font-bold text-mauve11 uppercase mb-2">
               {t("update.title")}
             </h2>
@@ -31,7 +31,10 @@ export default function Bebop() {
               </StyledLink>
             </p>
           </Band>
-          <Band smolPadding headline={{ bold: "01", thin: t("01Thin") }}>
+          <Band
+            options={{ padding: "smol" }}
+            headline={{ bold: "01", thin: t("01Thin") }}
+          >
             <p>
               <TransWithComps
                 text={t("01Copy")}
@@ -47,19 +50,28 @@ export default function Bebop() {
             </p>
           </Band>
 
-          <Band smolPadding headline={{ bold: "02", thin: t("02Thin") }}>
+          <Band
+            options={{ padding: "smol" }}
+            headline={{ bold: "02", thin: t("02Thin") }}
+          >
             <p>
               <TransWithComps text={t("02Copy")} />
             </p>
           </Band>
 
-          <Band smolPadding headline={{ bold: "03", thin: t("03Thin") }}>
+          <Band
+            options={{ padding: "smol" }}
+            headline={{ bold: "03", thin: t("03Thin") }}
+          >
             <p>
               <TransWithComps text={t("03Copy")} />
             </p>
           </Band>
 
-          <Band smolPadding headline={{ bold: "04", thin: t("04Thin") }}>
+          <Band
+            options={{ padding: "smol" }}
+            headline={{ bold: "04", thin: t("04Thin") }}
+          >
             <p>
               <TransWithComps
                 text={t("04IntroCopy")}

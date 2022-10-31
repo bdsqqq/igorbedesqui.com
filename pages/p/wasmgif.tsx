@@ -19,12 +19,18 @@ export default function WasmGif() {
         </HeroBand>
 
         <ProjectLayout projMeta={wasmGifMeta} nextProjMeta={bebopMeta}>
-          <Band smolPadding headline={{ bold: "01", thin: t("01Thin") }}>
+          <Band
+            options={{ padding: "smol" }}
+            headline={{ bold: "01", thin: t("01Thin") }}
+          >
             <p>
               <TransWithComps text={t("01Copy")} />
             </p>
           </Band>
-          <Band smolPadding headline={{ bold: "02", thin: t("02Thin") }}>
+          <Band
+            options={{ padding: "smol" }}
+            headline={{ bold: "02", thin: t("02Thin") }}
+          >
             <p>
               <TransWithComps
                 text={t("02Copy")}

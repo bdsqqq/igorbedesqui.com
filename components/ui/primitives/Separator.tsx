@@ -10,7 +10,7 @@ const Separator: React.FC<SeparatorPrimitive.SeparatorProps> = ({
 }) => {
   return (
     <SeparatorPrimitive.Root
-      className={clsx(
+      className={cx(
         "bg-mauve6 radix-orientation-horizontal:h-[1px] radix-orientation-vertical:w-[1px]",
         className
       )}
@@ -22,5 +22,5 @@ const Separator: React.FC<SeparatorPrimitive.SeparatorProps> = ({
 export default Separator;
 
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-import clsx from "clsx";
+import { cx } from "class-variance-authority";
 import React from "react";

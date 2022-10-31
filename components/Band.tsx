@@ -1,8 +1,6 @@
 interface BandPropsBasic {
-  dark?: boolean;
-  padless?: boolean;
-  smolPadding?: boolean;
   fullBleed?: boolean;
+  options?: VariantProps<typeof sectionStyles>;
 }
 
 interface BandWithGrid extends BandPropsBasic {
@@ -24,12 +22,23 @@ type BandProps = BandWithGrid | BandGridless;
 
 // TODO: update this typedef and component API. Instead of a mandatory gridless I could assume it by the absence of heading. Also, I can probably write a typedef that gives me nicer autocomplete .
 
+const sectionStyles = cva("w-full bg-mauve1 text-mauve12", {
+  variants: {
+    padding: {
+      none: "p-0",
+      smol: "py-8",
+      default: "p-8 md:px-16",
+    },
+  },
+  defaultVariants: {
+    padding: "default",
+  },
+});
+
 const Band: React.FC<BandProps> = ({
-  dark,
   gridless,
-  padless,
   fullBleed,
-  smolPadding,
+  options,
   id,
   headline,
   children,
@@ -40,18 +49,21 @@ const Band: React.FC<BandProps> = ({
 
   return (
     <section
-      className={clsx(
-        "w-full bg-mauve1 text-mauve12",
-        smolPadding ? "py-8" : "p-8 md:px-16",
-        padless && "p-0"
-      )}
+      className={sectionStyles({ padding: options?.padding })}
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
     >
       <div
-        className={clsx(
-          !gridless && "md:grid md:grid-cols-4",
-          !fullBleed && "md:max-w-7xl m-auto"
-        )}
+        className={cva("", {
+          variants: {
+            gridless: {
+              false: "md:grid md:grid-cols-4",
+            },
+            fullBleed: {
+              false: "md:max-w-7xl m-auto",
+            },
+          },
+          defaultVariants: { gridless: false, fullBleed: false },
+        })({ gridless: gridless, fullBleed: fullBleed })}
       >
         {!gridless ? (
           <>
@@ -76,4 +88,4 @@ const Band: React.FC<BandProps> = ({
 
 export default Band;
 
-import { clsx } from "clsx";
+import { cva, cx, type VariantProps } from "class-variance-authority";
