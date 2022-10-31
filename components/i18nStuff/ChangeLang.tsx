@@ -52,13 +52,7 @@ const ChangeLang = () => {
         return (
           <React.Fragment key={`${lng}-fragment`}>
             <span className="inline w-[3ch] text-center" key={lng}>
-              <Link
-                href={router.pathname}
-                locale={lng}
-                key={lng}
-                passHref
-                scroll={false}
-              >
+              <Link href={router.pathname} locale={lng} key={lng} passHref>
                 <a
                   aria-label={switchMessage}
                   className={changeLangLinkVariants({ state: "inactive" })}
