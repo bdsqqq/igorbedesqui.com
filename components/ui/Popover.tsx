@@ -1,15 +1,9 @@
-import * as PopoverPrimitive from "@radix-ui/react-popover";
-import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 interface PopOver {
   content: React.ReactNode;
   questionMark?: boolean;
-  icon?: React.ReactNode;
-  options?: {
-    dark?: boolean;
-    softBg?: boolean;
+  Icon?: React.ForwardRefExoticComponent<any>; // TODO: I don't know if this is the right type, I got it from Radix Icons and it works 👺
+  options?: VariantProps<typeof tooltipVariants> & {
     side?: "bottom" | "left" | "right" | "top" | undefined;
-    padding?: "none" | "sm" | "md" | undefined;
-    noMaxWidth?: boolean;
   };
 }
 
@@ -17,135 +11,87 @@ const PopOver: React.FC<PopOver> = ({
   children,
   content,
   questionMark = true,
-  icon,
+  Icon = QuestionMarkCircledIcon,
   options,
-}) => (
-  <PopoverPrimitive.Root>
-    <PopOverTrigger>
-      {children} {icon ? icon : questionMark && <QuestionMarkCircledIcon />}
-    </PopOverTrigger>
-    <PopOverContent
-      padding={options?.padding}
-      noMaxWidth={options?.noMaxWidth}
-      softBg={options?.softBg}
-      side={options?.side || "top"}
-    >
-      {content}
-      <PopOverArrow />
-    </PopOverContent>
-  </PopoverPrimitive.Root>
-);
+}) => {
+  const popoverState = usePopoverState({
+    animated: true,
+    placement: options?.side ?? "top",
+    gutter: -8,
+  });
+
+  return (
+    <>
+      <PopoverDisclosure
+        state={popoverState}
+        className={cx([
+          "group cursor-pointer inline select-text font-semibold motion-safe:transition-all duration-fast-02 ease-productive-standard hover:text-crimson11 focus-within:text-crimson11 aria-expanded:text-crimson11",
+          ,
+        ])}
+      >
+        {children}
+        {(Icon || questionMark) && (
+          <Icon className="inline text-mauve11 group-focus-within:text-crimson11 group-hover:text-crimson11 motion-safe:transition-all duration-fast-02 ease-productive-standard group-aria-expanded:text-crimson11" />
+        )}
+      </PopoverDisclosure>
+      <Popover
+        state={popoverState}
+        className={tooltipVariants({
+          bg: options?.bg,
+          maxW: options?.maxW,
+          size: options?.size,
+        })}
+        data-dir={popoverState?.currentPlacement || "top"}
+      >
+        {content}
+        <PopoverArrow className="fill-mauve3 stroke-mauve7 filter drop-shadow-sm" />
+      </Popover>
+    </>
+  );
+};
 
 export default PopOver;
 
-const PopOverTrigger = styled(PopoverPrimitive.Trigger, {
-  all: "unset",
-  cursor: "pointer",
-
-  display: "inline",
-  userSelect: "text",
-
-  fontWeight: "bold",
-
-  "@motionOk": {
-    transitionDuration: "150ms",
-    transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
-
-    "& > svg": {
-      transitionDuration: "150ms",
-      transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
-    },
-  },
-
-  "&:hover, &:focus-within": {
-    color: "$crimson11",
-
-    "& > svg": {
-      color: "$crimson11",
-    },
-  },
-
-  "& > svg": {
-    display: "inline",
-    color: "$mauve11",
-  },
-
-  '&[data-state="open"]': {
-    color: "$crimson11",
-
-    "& > svg": {
-      color: "$crimson11",
-    },
-  },
-});
-
-const PopOverContent = styled(PopoverPrimitive.Content, {
-  position: "relative",
-
-  maxWidth: "16rem",
-
-  background: "$mauve3",
-  color: "$mauve12",
-
-  boxShadow:
-    "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "$mauve7",
-  borderRadius: "2px",
-
-  "&:focus-within": {
-    outline: "none",
-  },
-
-  '&[data-side="top"]': { animationName: `${scaleIn}, ${slideUp}` },
-  '&[data-side="bottom"]': { animationName: `${scaleIn}, ${slideDown}` },
-
-  '&[data-state="closed"]': {
-    animationName: scaleOut,
-    animationTimingFunction: "cubic-bezier(0.2, 0, 1, 0.9)",
-  },
-
-  animationDuration: "0.15s",
-  animationTimingFunction: "cubic-bezier(0, 0, 0.38, 0.9)",
-
-  transformOrigin: "var(--radix-hover-card-content-transform-origin)",
-
-  variants: {
-    padding: {
-      none: { padding: "0", borderWidth: "0px" },
-      sm: { padding: "0.5rem" },
-      md: { padding: "1rem" },
-    },
-    noMaxWidth: {
-      true: {
-        maxWidth: "100%",
+// TODO: these are the same styles as tooltip, extract these into a Disclosure generic style for reuse in both
+const tooltipVariants = cva(
+  [
+    "text-mauve12 shadow-sm border border-mauve7 rounded-sm transform motion-safe:transition-all duration-fast-02",
+    "data-[dir=top]:origin-bottom",
+    "data-[dir=bottom]:origin-top",
+    "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-enter",
+    "data-[leave]:opacity-0 data-[leave]:scale-0 data-[leave]:ease-productive-exit",
+    "data-[dir=top]:data-[leave]:translate-y-1",
+    "data-[dir=bottom]:data-[leave]:-translate-y-1",
+  ],
+  {
+    variants: {
+      bg: {
+        standard: "bg-mauve3",
+        subtle: "bg-mauve2",
+      },
+      size: {
+        sm: ["text-sm", "py-0.5", "px-1"],
+        md: ["text-base", "py-1", "px-2"],
+        lg: ["text-base", "p-4"],
+      },
+      maxW: {
+        full: "max-w-full",
+        md: "max-w-[16rem]",
       },
     },
-    softBg: {
-      true: {
-        background: "$mauve1",
-      },
+    defaultVariants: {
+      bg: "standard",
+      size: "lg",
+      maxW: "md",
     },
-  },
+  }
+);
 
-  defaultVariants: {
-    padding: "md",
-    noMaxWidth: false,
-    softBg: false,
-  },
-});
-
-const PopOverArrow = styled(PopoverPrimitive.Arrow, {
-  fill: "$mauve3",
-
-  strokeWidth: "1px",
-  stroke: "$mauve7",
-
-  filter:
-    "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.06))",
-});
-
-import { styled } from "stitches.config";
-import { scaleIn, scaleOut, slideDown, slideUp } from "@/animations";
+import {
+  Popover,
+  PopoverArrow,
+  PopoverDisclosure,
+  usePopoverState,
+} from "ariakit/popover";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
+import { cva, cx, type VariantProps } from "class-variance-authority";
