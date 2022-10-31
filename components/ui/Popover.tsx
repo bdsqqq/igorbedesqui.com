@@ -29,7 +29,7 @@ const PopOver: React.FC<PopOver> = ({
           ,
         ])}
       >
-        {children}
+        {children}{" "}
         {(Icon || questionMark) && (
           <Icon className="inline text-mauve11 group-focus-within:text-crimson11 group-hover:text-crimson11 motion-safe:transition-all duration-fast-02 ease-productive-standard group-aria-expanded:text-crimson11" />
         )}
@@ -39,7 +39,7 @@ const PopOver: React.FC<PopOver> = ({
         className={tooltipVariants({
           bg: options?.bg,
           maxW: options?.maxW,
-          size: options?.size,
+          padding: options?.padding,
         })}
         data-dir={popoverState?.currentPlacement || "top"}
       >
@@ -69,10 +69,11 @@ const tooltipVariants = cva(
         standard: "bg-mauve3",
         subtle: "bg-mauve2",
       },
-      size: {
-        sm: ["text-sm", "py-0.5", "px-1"],
-        md: ["text-base", "py-1", "px-2"],
-        lg: ["text-base", "p-4"],
+      padding: {
+        none: "p-0",
+        sm: "py-0.5 px-1",
+        md: "py-1 px-2",
+        lg: "p-4",
       },
       maxW: {
         full: "max-w-full",
@@ -81,8 +82,8 @@ const tooltipVariants = cva(
     },
     defaultVariants: {
       bg: "standard",
-      size: "lg",
       maxW: "md",
+      padding: "lg",
     },
   }
 );
