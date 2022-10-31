@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps & variants> = ({
   ...rest
 }) => (
   <button
-    className={clsx(
+    className={cx(
       variants.base,
       variants.size[size],
       variants.color[color],
@@ -42,7 +42,7 @@ const LinkButton: React.FC<HtmlHTMLAttributes<{}> & LinkProps & variants> = ({
   ...rest
 }) => (
   <UnstyledLink
-    className={clsx(
+    className={cx(
       variants.base,
       variants.size[size],
       variants.color[color],
@@ -58,6 +58,6 @@ export { Button, LinkButton };
 
 import { UnstyledLink } from "./primitives";
 import type { LinkProps } from "next/link";
-import clsx from "clsx";
+import { cx } from "class-variance-authority";
 import { ButtonProps } from "ariakit";
 import { HtmlHTMLAttributes } from "react";

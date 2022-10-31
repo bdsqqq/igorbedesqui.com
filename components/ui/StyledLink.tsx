@@ -28,9 +28,17 @@ const StyledLinkWithIcon: FC<StyledLinkProps & HtmlHTMLAttributes<{}>> = ({
 
   return (
     <UnstyledLink
-      className={clsx(
-        bold && "font-bold",
-        "cursor-pointer underline underline-offset-2 motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard hover:text-crimson11 focus-within:text-crimson11 [&>svg]:inline",
+      className={cx(
+        cva(
+          "cursor-pointer underline underline-offset-2 motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard hover:text-crimson11 focus-within:text-crimson11 [&>svg]:inline",
+          {
+            variants: {
+              bold: {
+                true: "font-bold",
+              },
+            },
+          }
+        )({ bold: bold }),
         className
       )}
       href={href}
@@ -47,5 +55,5 @@ export default StyledLinkWithIcon;
 import { UnstyledLink } from "@/ui/primitives";
 
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
-import clsx from "clsx";
+import { cx, cva } from "class-variance-authority";
 import type { FC, HtmlHTMLAttributes, ReactNode } from "react";

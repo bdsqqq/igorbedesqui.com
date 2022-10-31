@@ -203,7 +203,7 @@ const Scales = () => {
                 <ComboboxPopover
                   data-placement={comboboxState.currentPlacement}
                   state={comboboxState}
-                  className={clsx(
+                  className={cx(
                     "text-mauve12 shadow-sm border border-mauve7 rounded-sm bg-mauve2 z-10 transform transition-all duration-fast-02",
                     "data-[placement=bottom-start]:origin-top-left",
                     "data-[placement=top-start]:origin-bottom",
@@ -271,7 +271,7 @@ const Scales = () => {
           }
         />
       </Band>
-      <Band gridless padless fullBleed id="results">
+      <Band gridless options={{ padding: "none" }} fullBleed id="results">
         {inputsSetAsDefault.length > 0 && (
           <ul>
             {inputsSetAsDefault.map((input) => (
@@ -397,5 +397,4 @@ import {
 import Container from "@/components/Container";
 import Band from "@/components/Band";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { cva } from "class-variance-authority";
-import clsx from "clsx";
+import { cva, cx } from "class-variance-authority";
