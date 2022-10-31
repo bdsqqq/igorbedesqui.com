@@ -22,7 +22,7 @@ const HeroBand: React.FC<HeroBandProps> = ({
   fullBleed,
 }) => {
   return (
-    <Band gridless id="hero" padless fullBleed={fullBleed}>
+    <Band gridless id="hero" fullBleed={fullBleed}>
       <div className="relative w-full min-h-[40vh]">
         {(heroImg || heroVideo) && (
           <div className="absolute w-full h-full my-0 mx-auto">
