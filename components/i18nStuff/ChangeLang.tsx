@@ -5,23 +5,38 @@ const ChangeLang = () => {
   const { lang } = useTypeSafeTranslation("common");
 
   let count = 0;
+
+  const changeLangLinkVariants = cva(
+    "lowercase select-none w-8 transition-colors",
+    {
+      variants: {
+        state: {
+          active: "text-mauve12 font-bold",
+          inactive:
+            "text-mauve11 cursor-pointer hover:text-mauve12 focus:text-mauve12 focus-visible:outline outline-1 outline-offset-4 outline-mauve8 rounded-sm",
+        },
+      },
+    }
+  );
   return (
-    <LangChangeContainer>
+    <div className="flex gap-2 justify-between items-center text-mauve11">
       {locales.map((lng: string) => {
         count++;
 
         if (lng === lang)
           return (
             <React.Fragment key={`${lng}-fragment`}>
-              <InlineSpan key={lng}>
-                <span className={ChangeLangLink({ state: "active" })}>
+              <span className="inline w-[3ch] text-center" key={lng}>
+                <span className={changeLangLinkVariants({ state: "active" })}>
                   {lng}
                 </span>
-              </InlineSpan>
+              </span>
               {count < locales.length && (
-                <Span key={`${count}-separator`} css={{ userSelect: "none" }}>
-                  |
-                </Span>
+                <Separator
+                  className="h-3 translate-y-0.5"
+                  orientation="vertical"
+                  key={`${count}-separator`}
+                />
               )}
             </React.Fragment>
           );
@@ -36,79 +51,31 @@ const ChangeLang = () => {
 
         return (
           <React.Fragment key={`${lng}-fragment`}>
-            <InlineSpan key={lng}>
-              <Link
-                href={router.pathname}
-                locale={lng}
-                key={lng}
-                passHref
-                scroll={false}
-              >
+            <span className="inline w-[3ch] text-center" key={lng}>
+              <Link href={router.pathname} locale={lng} key={lng} passHref>
                 <a
                   aria-label={switchMessage}
-                  className={ChangeLangLink({ state: "inactive" })}
+                  className={changeLangLinkVariants({ state: "inactive" })}
                 >
                   {lng}
                 </a>
               </Link>
-            </InlineSpan>
+            </span>
             {count < locales.length && (
-              <Span key={`${count}-separator`} css={{ userSelect: "none" }}>
-                |
-              </Span>
+              <Separator
+                className="h-3 translate-y-0.5"
+                orientation="vertical"
+                key={`${count}-separator`}
+              />
             )}
           </React.Fragment>
         );
       })}
-    </LangChangeContainer>
+    </div>
   );
 };
 
-const LangChangeContainer = styled("div", {
-  display: "flex",
-  gap: "0.5rem",
-  justifyContent: "space-between",
-  alignItems: "center",
-
-  color: "$mauve11",
-});
-
-const InlineSpan = styled("span", {
-  display: "inline",
-});
-
-const ChangeLangLink = css({
-  color: "$mauve12",
-  textTransform: "lowercase",
-  userSelect: "none",
-  width: "2rem",
-  padding: "0.5rem",
-
-  variants: {
-    state: {
-      active: {
-        fontWeight: "bold",
-      },
-      inactive: {
-        color: "$mauve11",
-        cursor: "pointer",
-
-        "&:hover": {
-          color: "$mauve12",
-        },
-
-        "&:focus": {
-          color: "$mauve12",
-        },
-      },
-    },
-  },
-});
-
 export default ChangeLang;
-
-import { styled, css } from "stitches.config";
-import { Span } from "@/ui/primitives";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -118,3 +85,5 @@ import i18nConfig from "../../i18n.json";
 import en from "@/locales/en/common.json";
 import pt from "@/locales/pt/common.json";
 import React from "react";
+import { cva } from "class-variance-authority";
+import { Separator } from "../ui/primitives";

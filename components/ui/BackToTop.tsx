@@ -1,5 +1,16 @@
+const buttonVariants = cva(
+  "cursor-pointer w-10 h-10 rounded-sm p-2 text-mauve12 bg-mauve3 border border-b-0 border-mauve7 transform transition-all duration-moderate-01  hover:bg-mauve4 hover:border-mauve8 active:bg-mauve5",
+  {
+    variants: {
+      visible: {
+        visible: "block opacity-100 translate-y-0 ease-productive-entrance",
+        notVisible: "invisible opacity-0 translate-y-16 ease-productive-exit",
+      },
+    },
+  }
+);
 const BackToTop = () => {
-  const { t, lang } = useTypeSafeTranslation("common");
+  const { t } = useTypeSafeTranslation("common");
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -22,9 +33,10 @@ const BackToTop = () => {
   }, []);
 
   return (
-    <Button
-      className={darkTheme}
-      visible={isVisible}
+    <button
+      className={buttonVariants({
+        visible: isVisible ? "visible" : "notVisible",
+      })}
       tabIndex={isVisible ? 0 : -1}
       onClick={scrollToTop}
       aria-label={t("backToTop")}
@@ -43,55 +55,12 @@ const BackToTop = () => {
           clipRule="evenodd"
         ></path>
       </svg>
-    </Button>
+    </button>
   );
 };
 
-const Button = styled("button", {
-  cursor: "pointer",
-
-  width: "3rem",
-  height: "3rem",
-  borderRadius: 9999,
-  padding: "0.75rem",
-
-  color: "$mauve12",
-  backgroundColor: "$mauve3",
-  borderStyle: "solid",
-  borderWidth: "1px",
-  borderColor: "$mauve7",
-
-  display: "hidden",
-  opacity: "0",
-  transform: "scale(0) translate(0, 5rem)",
-
-  transitionDuration: "150ms",
-  transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
-
-  variants: {
-    visible: {
-      true: {
-        display: "block",
-        opacity: "1",
-        transform: "scale(1) translate(0, 0)",
-        transitionTimingFunction: "cubic-bezier(0, 0, 0.3, 1)",
-      },
-    },
-  },
-
-  "&:hover": {
-    backgroundColor: "$mauve4",
-    borderColor: "$mauve8",
-  },
-
-  "&:active, &:focus-visible, &:focus": {
-    backgroundColor: "$mauve5",
-    borderColor: "$mauve8",
-  },
-});
-
 export default BackToTop;
 
-import { styled, darkTheme } from "stitches.config";
 import { useState, useEffect } from "react";
 import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
+import { cva } from "class-variance-authority";

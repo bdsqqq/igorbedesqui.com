@@ -15,32 +15,25 @@ export default function Home() {
           <TransWithComps
             text={t("hero")}
             extraComponents={{
-              intro: (
-                <Text
-                  presetStyle="lgParagraph"
-                  css={{
-                    fontWeight: "300",
-                  }}
-                />
-              ),
+              intro: <span className="font-light text-xl md:text-2xl" />,
             }}
           />
         </HeroBand>
         <Band headline={{ bold: "01", thin: t("01.title") }}>
-          <Text as="p" presetStyle="lgParagraph">
+          <p className="text-xl md:text-2xl">
             <TransWithComps
               text={t("01.copy")}
               extraComponents={{
                 now: <StyledLink href="/now" />,
               }}
             />
-          </Text>
+          </p>
         </Band>
         <Band headline={{ bold: "02", thin: t("02.title") }}>
           <Projects projectsMeta={projsMeta} />
         </Band>
         <Band headline={{ bold: t("hey.greet"), thin: t("hey.title") }}>
-          <Text as="p" presetStyle="lgParagraph">
+          <p className="text-xl md:text-2xl">
             <TransWithComps
               text={t("hey.copy")}
               extraComponents={{
@@ -50,7 +43,7 @@ export default function Home() {
                 twitter: <StyledLink href="https://twitter.com/bedesqui" />,
               }}
             />
-          </Text>
+          </p>
         </Band>
       </Container>
       <FABContainer>
@@ -72,5 +65,3 @@ import Projects from "@/components/ProjectStuff/Projects";
 import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
-import Text from "@/components/ui/Text";
-import EmailLink from "@/components/ui/EmailLink";

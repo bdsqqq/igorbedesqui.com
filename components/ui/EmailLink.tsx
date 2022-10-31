@@ -22,21 +22,15 @@ const EmailLink = ({
 }) => {
   return (
     <Popover
-      icon={<EnvelopeClosedIcon />}
+      Icon={EnvelopeClosedIcon}
       content={<PopoverContent email={email} />}
       options={{
         padding: "none",
-        noMaxWidth: true,
-        softBg: true,
+        maxW: "full",
+        bg: "subtle",
       }}
     >
-      <Text
-        css={{
-          textDecoration: "underline",
-        }}
-      >
-        {children}
-      </Text>
+      <span className="underline">{children}</span>
     </Popover>
   );
 };
@@ -65,15 +59,17 @@ const PopoverContent = ({ email }: { email: string }) => {
   }, [success]);
 
   return (
-    <Box css={{ display: "flex" }}>
+    <div className="flex">
       <Tooltip
-        content={<Text presetStyle={"caption"}>{t("footer.email.copy")}</Text>}
-        options={{ dark: true, padding: "sm" }}
+        content={
+          <span className="text-sm italic tracking-[0.2px] text-mauve11">
+            {t("footer.email.copy")}
+          </span>
+        }
+        options={{ size: "sm" }}
       >
         <Button
-          css={{
-            borderRadius: "$md 0 0 $md",
-          }}
+          className="rounded-l-sm rounded-r-none -ml-[1px] -my-[1px]"
           onClick={() => {
             if (!navigator.clipboard) {
               console.log(
@@ -87,31 +83,23 @@ const PopoverContent = ({ email }: { email: string }) => {
           {success ? <CheckIcon /> : <ClipboardCopyIcon />}
         </Button>
       </Tooltip>
-      <Text
-        css={{
-          backgroundColor: "$mauve3",
-          padding: "0.25rem",
-          border: "1px solid $mauve7",
-          borderRight: "none",
-          borderLeft: "none",
-        }}
-      >
-        {email}
-      </Text>
+      <span className="p-1 ">{email}</span>
       <Tooltip
-        content={<Text presetStyle={"caption"}>{t("footer.email.send")}</Text>}
-        options={{ dark: true, padding: "sm" }}
+        content={
+          <span className="text-sm italic tracking-[0.2px] text-mauve11">
+            {t("footer.email.send")}
+          </span>
+        }
+        options={{ size: "sm" }}
       >
         <LinkButton
-          css={{
-            borderRadius: "0 $md $md 0",
-          }}
+          className="rounded-r-sm rounded-l-none -mr-[1px] -my-[1px]"
           href={`mailto:${email}`}
         >
           <PaperPlaneIcon />
         </LinkButton>
       </Tooltip>
-    </Box>
+    </div>
   );
 };
 
@@ -126,8 +114,6 @@ import {
 } from "@radix-ui/react-icons";
 
 import Popover from "@/components/ui/Popover";
-import { Box } from "@/components/ui/primitives";
-import Text from "@/components/ui/Text";
 import { Button, LinkButton } from "@/components/ui/Button";
 import Tooltip from "@/components/ui/Tooltip";
 

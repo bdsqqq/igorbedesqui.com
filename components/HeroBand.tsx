@@ -11,153 +11,65 @@ type HeroBandVideo = {
   heroImg?: never;
 };
 
-type HeroBandProps = HeroBandVideo | HeroBandImg;
-
-const StyledImage = styled(Image);
+type HeroBandProps = {
+  fullBleed?: boolean;
+} & (HeroBandVideo | HeroBandImg);
 
 const HeroBand: React.FC<HeroBandProps> = ({
   heroImg,
   heroVideo,
   children,
+  fullBleed,
 }) => {
   return (
-    <Band gridless id="hero" padless>
-      <Box
-        css={{
-          position: "relative",
-          width: "100%",
-          minHeight: "70vh",
-        }}
-      >
+    <Band gridless id="hero" fullBleed={fullBleed}>
+      <div className="relative w-full min-h-[40vh]">
         {(heroImg || heroVideo) && (
-          <Box
-            css={{
-              position: "absolute",
-              height: "100%",
-              width: "100%",
-              marginY: 0,
-              marginX: "auto",
-            }}
-          >
-            {heroImg && (
-              <StyledImage
-                priority
-                css={{
-                  padding: "4rem !important",
+          <div className="absolute w-full h-full my-0 mx-auto">
+            <div className="overflow-hidden w-full h-full absolute pl-16 md:p-0 md:pl-72">
+              {heroImg && !!!heroVideo && (
+                <Image
+                  priority
+                  src={heroImg.src}
+                  alt={heroImg.alt}
+                  layout="fill"
+                  objectFit="cover"
+                  objectPosition="center"
+                />
+              )}
 
-                  "@md": {
-                    paddingRight: "6rem !important",
-                    paddingLeft: "18rem !important",
-                    paddingTop: "4rem !important",
-                    paddingBottom: "4rem !important",
-                  },
-                }}
-                src={heroImg.src}
-                alt={heroImg.alt}
-                layout="fill"
-                objectFit="cover"
-                objectPosition="center"
-              />
-            )}
-            {heroVideo && (
-              <Box
-                css={{
-                  overflow: "hidden",
-                  width: "100%",
-                  height: "100%",
-                  position: "absolute",
-                }}
-              >
-                <Box
-                  as={"video"}
+              {heroVideo && (
+                <video
                   preload="none"
                   playsInline
                   autoPlay
                   muted
                   loop
-                  css={{
-                    position: "absolute",
-                    visibility: "visible",
-                    width: "100%",
-                    height: "100%",
-                    objectPosition: "center",
-                    objectFit: "cover",
-
-                    padding: "4rem !important",
-
-                    "@md": {
-                      paddingRight: "6rem !important",
-                      paddingLeft: "18rem !important",
-                      paddingTop: "4rem !important",
-                      paddingBottom: "4rem !important",
-                    },
-                  }}
+                  className="visible w-full h-full object-center object-cover "
                 >
                   <source src={`${heroVideo}.webm`} type="video/webm" />
                   <source src={`${heroVideo}.mp4`} type="video/mp4" />
-                </Box>
-              </Box>
-            )}
-            <Box
-              css={{
-                position: "absolute",
-                height: "100%",
-                width: "100%",
-                background: "$mauve1",
-                opacity: "75%",
-              }}
-            />
-          </Box>
+                </video>
+              )}
+              <div className="absolute w-full h-full top-0 bg-mauve1 opacity-75" />
+            </div>
+          </div>
         )}
-        <Box
-          css={{
-            position: "relative",
-            minHeight: "70vh",
-            display: "flex",
-            alignItems: "center",
-            maxWidth: "72rem",
-            padding: "$spacing-07",
-            marginX: "auto",
-
-            "@md": {
-              padding: "$spacing-10 ",
-            },
-          }}
-        >
-          <Text
-            as="h1"
-            css={{
-              marginBottom: "$spacing-05",
-              letterSpacing: "$tight",
-              lineHeight: "$xl",
-              fontSize: "$xl",
-
-              "@md": {
-                maxWidth: "42rem",
-                width: "66.6%",
-                marginLeft: "$spacing-07",
-                marginRight: "$spacing-10",
-
-                lineHeight: "$2xl",
-                fontSize: "$2xl",
-                textTransform: "uppercase",
-              },
-            }}
+        <div className="relative min-h-[40vh] flex items-center md:max-w-7xl">
+          <h1
+            className="mb-4 uppercase tracking-tight text-3xl max-w-xl md:w-2/3 md:text-4xl"
             id="skip"
           >
             {children}
-          </Text>
-        </Box>
-      </Box>
+          </h1>
+        </div>
+      </div>
     </Band>
   );
 };
 
 export default HeroBand;
 
-import Image from "next/image";
-import { styled } from "stitches.config";
-
 import Band from "@/components/Band";
-import { Box } from "./ui/primitives";
-import Text from "./ui/Text";
+
+import Image from "next/image";

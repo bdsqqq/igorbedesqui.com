@@ -1,18 +1,7 @@
 const FABContainer = ({ children }: { children: ReactNode }) => {
-  return (
-    <Box
-      css={{
-        position: "fixed",
-        right: "1.5rem",
-        bottom: "1.5rem",
-      }}
-    >
-      {children}
-    </Box>
-  );
+  return <div className="fixed right-8 md:right-16 bottom-0">{children}</div>;
 };
 
 export default FABContainer;
 
-import { Box } from "@/ui/primitives";
 import { ReactNode } from "react";

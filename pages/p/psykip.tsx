@@ -100,9 +100,7 @@ import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
 import Popover from "@/components/ui/Popover";
-import Text from "@/components/ui/Text";
-import Image from "next/image";
-import { FABContainer, Box } from "@/ui/primitives/";
+import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 

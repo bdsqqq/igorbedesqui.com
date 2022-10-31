@@ -1,6 +1,11 @@
 import type { LinkProps } from "next/link";
 
-const UnstyledLink: React.FC<LinkProps> = ({ href, children, ...rest }) => {
+const UnstyledLink: React.FC<LinkProps & React.HtmlHTMLAttributes<{}>> = ({
+  className,
+  href,
+  children,
+  ...rest
+}) => {
   const isInternalLink =
     typeof href == "string" && (href.startsWith("/") || href.startsWith("#"));
   const { t } = useTypeSafeTranslation("common");
@@ -8,16 +13,18 @@ const UnstyledLink: React.FC<LinkProps> = ({ href, children, ...rest }) => {
   if (isInternalLink) {
     return (
       <Link href={href} passHref {...rest}>
-        <a {...rest}>{children}</a>
+        <a className={className} {...rest}>
+          {children}
+        </a>
       </Link>
     );
   }
 
   return (
     // eslint-disable-next-line react/jsx-no-target-blank
-    <a target="_blank" href={href as string} {...rest}>
+    <a className={className} target="_blank" href={href as string} {...rest}>
       {children}
-      <SrOnly>{t("newTab")}</SrOnly>
+      <span className="sr-only">{t("newTab")}</span>
     </a>
   );
 };
@@ -26,4 +33,4 @@ export default UnstyledLink;
 
 import Link from "next/link";
 import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
-import { SrOnly } from "@/ui/primitives";
+import React from "react";

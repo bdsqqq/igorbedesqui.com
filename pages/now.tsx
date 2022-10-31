@@ -14,70 +14,30 @@ export default function Home() {
 
       <Container backable key="index">
         <Band gridless id="main">
-          <Box css={{ marginX: "auto" }}>
-            <Text as="h1" presetStyle="heading">
-              {t("doingTitle")}
-            </Text>
-            <Text
-              as="p"
-              css={{
-                color: "$mauve11",
-                fontSize: "$sm",
-                fontWeight: "600",
-              }}
-            >
+          <div className="mx-auto">
+            <h1 className="text-4xl">{t("doingTitle")}</h1>
+            <p className="text-mauve11 text-sm font-semibold">
               <TransWithComps
                 text={t("lastUpdated")}
                 extraComponents={{ date: <span /> }}
               />
-            </Text>
+            </p>
 
-            <Box
-              css={{
-                height: "$space$spacing-10",
-              }}
-            />
-            <Flex
-              as="ul"
-              css={{
-                flexDirection: "column",
-                gap: "$spacing-03",
-
-                listStyleType: "circle",
-                listStylePosition: "inside",
-              }}
-            >
+            <div className="h-16" />
+            <ul className="flex flex-col gap-2 [list-style-type:circle] list-inside">
               {thingsImDoing.map((thing) => {
                 return (
-                  <Text
-                    as="li"
-                    css={{
-                      fontSize: "$md",
-                      lineHeight: "$lg",
-                    }}
-                    key={thing}
-                  >
+                  <li className="text-base leading-relaxed" key={thing}>
                     {thing}
-                  </Text>
+                  </li>
                 );
               })}
-            </Flex>
-            <Box
-              css={{
-                height: "$space$spacing-13",
-              }}
-            />
-            <Text
-              as="p"
-              css={{
-                color: "$mauve11",
-                fontSize: "$xs",
-                fontWeight: "600",
-              }}
-            >
+            </ul>
+            <div className="h-40" />
+            <p className="text-mauve11 text-xs font-semibold">
               <TransWithComps text={t("bottomText")} />
-            </Text>
-          </Box>
+            </p>
+          </div>
         </Band>
       </Container>
     </>
@@ -89,5 +49,3 @@ import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import Container from "@/components/Container";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
-import { Box, Flex } from "@/ui/primitives/";
-import Text from "@/components/ui/Text";

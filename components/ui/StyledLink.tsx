@@ -1,50 +1,13 @@
-const StyledLink = styled(UnstyledLink, {
-  fontSize: "inherit",
-  cursor: "pointer",
-
-  textDecoration: "underline",
-  textUnderlineOffset: "2px",
-
-  "@motionOk": {
-    transitionDuration: "150ms",
-    transitionTimingFunction: "cubic-bezier(0.4, 0.14, 0.3, 1)",
-  },
-
-  "&:hover, &:focus-within": {
-    color: "$crimson11",
-
-    "& > svg": {
-      color: "$crimson11",
-    },
-  },
-
-  "& > svg": {
-    display: "inline",
-    color: "$mauve11",
-  },
-
-  variants: {
-    bold: {
-      true: {
-        fontWeight: "bold",
-      },
-    },
-  },
-
-  defaultVariants: {
-    bold: true,
-  },
-});
-
 import type { LinkProps } from "next/link";
 interface StyledLinkProps extends LinkProps {
   href: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   iconless?: boolean;
   bold?: boolean;
 }
 
-const StyledLinkWithIcon: React.FC<StyledLinkProps> = ({
+const StyledLinkWithIcon: FC<StyledLinkProps & HtmlHTMLAttributes<{}>> = ({
+  className,
   href,
   children,
   icon = null,
@@ -64,16 +27,25 @@ const StyledLinkWithIcon: React.FC<StyledLinkProps> = ({
   }
 
   return (
-    <StyledLink href={href} bold={bold} {...rest}>
+    <UnstyledLink
+      className={clsx(
+        bold && "font-bold",
+        "cursor-pointer underline underline-offset-2 motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard hover:text-crimson11 focus-within:text-crimson11 [&>svg]:inline",
+        className
+      )}
+      href={href}
+      {...rest}
+    >
       {children}
       {!iconless && icon}
-    </StyledLink>
+    </UnstyledLink>
   );
 };
 
 export default StyledLinkWithIcon;
 
-import { styled } from "stitches.config";
 import { UnstyledLink } from "@/ui/primitives";
 
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
+import clsx from "clsx";
+import type { FC, HtmlHTMLAttributes, ReactNode } from "react";

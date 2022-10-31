@@ -10,28 +10,26 @@ const CodeAndDemoButtons: React.FC<CodeAndDemoButtonsProps> = ({
   const { t } = useTypeSafeTranslation("common");
 
   return (
-    <Box css={{ display: "flex", gap: "1rem" }} className={darkTheme}>
+    <div className="flex gap-4">
       {codeUrl && (
         <LinkButton href={codeUrl}>
           <span>{t("code")}</span>
-          <SrOnly>Github</SrOnly>
-          <GitHubLogoIcon height="23" width="23" />
+          <span className="sr-only">Github</span>
+          <GitHubLogoIcon height="18" width="18" />
         </LinkButton>
       )}
       {demoUrl && (
         <LinkButton href={demoUrl}>
           <span>{t("live")}</span>
-          <ArrowTopRightIcon height="23" width="23" />
+          <ArrowTopRightIcon height="18" width="18" />
         </LinkButton>
       )}
-    </Box>
+    </div>
   );
 };
 
 export default CodeAndDemoButtons;
 
-import { darkTheme } from "stitches.config";
 import { LinkButton } from "@/ui/Button";
-import { Box, SrOnly } from "@/ui/primitives";
 import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import { GitHubLogoIcon, ArrowTopRightIcon } from "@radix-ui/react-icons";

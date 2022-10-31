@@ -8,7 +8,7 @@ export default function Bebop() {
       <Seo t={t} lang={lang} url="p/bebop" />
 
       <ProjectContainer key="bebopProj" backMessage={t("backMessage")}>
-        <HeroBand heroVideo={"/videos/bebop/noodles"}>
+        <HeroBand fullBleed heroVideo={"/videos/bebop/noodles"}>
           <TransWithComps text={t("heroTitle")} />
           <div className="mt-6">
             <CodeAndDemoButtons
@@ -20,18 +20,9 @@ export default function Bebop() {
 
         <ProjectLayout projMeta={bebopMeta} nextProjMeta={issMeta}>
           <Band smolPadding gridless id="update">
-            <Text
-              as="h2"
-              css={{
-                fontSize: "$lg",
-                fontWeight: "bold",
-                color: "$mauve11",
-                textTransform: "uppercase",
-                marginBottom: "$spacing-03",
-              }}
-            >
+            <h2 className="text-xl font-bold text-mauve11 uppercase mb-2">
               {t("update.title")}
-            </Text>
+            </h2>
             <p>
               {t("update.copy.body")}
               {"  "}
@@ -41,7 +32,7 @@ export default function Bebop() {
             </p>
           </Band>
           <Band smolPadding headline={{ bold: "01", thin: t("01Thin") }}>
-            <Text presetStyle="paragraph">
+            <p>
               <TransWithComps
                 text={t("01Copy")}
                 extraComponents={{
@@ -53,23 +44,23 @@ export default function Bebop() {
                   s: <span className="cursor-pointer font-bold"></span>,
                 }}
               />
-            </Text>
+            </p>
           </Band>
 
           <Band smolPadding headline={{ bold: "02", thin: t("02Thin") }}>
-            <Text presetStyle="paragraph">
+            <p>
               <TransWithComps text={t("02Copy")} />
-            </Text>
+            </p>
           </Band>
 
           <Band smolPadding headline={{ bold: "03", thin: t("03Thin") }}>
-            <Text presetStyle="paragraph">
+            <p>
               <TransWithComps text={t("03Copy")} />
-            </Text>
+            </p>
           </Band>
 
           <Band smolPadding headline={{ bold: "04", thin: t("04Thin") }}>
-            <Text presetStyle="paragraph">
+            <p>
               <TransWithComps
                 text={t("04IntroCopy")}
                 extraComponents={{
@@ -78,23 +69,10 @@ export default function Bebop() {
                   ),
                 }}
               />
-            </Text>
+            </p>
 
-            <Box
-              css={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                alignItems: "center",
-                minHeight: "0",
-                gap: "$spacing-02",
-                marginY: "$spacing-02",
-              }}
-            >
-              <Box
-                css={{
-                  gridColumn: "1 / 2",
-                }}
-              >
+            <div className="grid grid-cols-4 items-center min-h-0 gap-1 my-1">
+              <div className="col-start-1 col-end-2">
                 <Image
                   src={smartphoneScreenshot}
                   layout="responsive"
@@ -103,12 +81,8 @@ export default function Bebop() {
                   objectFit="contain"
                   alt=""
                 />
-              </Box>
-              <Box
-                css={{
-                  gridColumn: "2 / 5",
-                }}
-              >
+              </div>
+              <div className="col-start-2 col-end-5">
                 <Image
                   src={desktopScreenshot}
                   layout="responsive"
@@ -117,11 +91,11 @@ export default function Bebop() {
                   objectFit="contain"
                   alt=""
                 />
-              </Box>
-            </Box>
-            <Text presetStyle="paragraph">
+              </div>
+            </div>
+            <p>
               <TransWithComps text={t("04Copy")} />
-            </Text>
+            </p>
           </Band>
         </ProjectLayout>
       </ProjectContainer>
@@ -141,9 +115,8 @@ import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
 import Popover from "@/components/ui/Popover";
-import Text from "@/components/ui/Text";
 import Image from "next/image";
-import { FABContainer, Box } from "@/ui/primitives/";
+import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 
