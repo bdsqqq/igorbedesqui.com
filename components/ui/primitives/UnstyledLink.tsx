@@ -1,6 +1,4 @@
-import type { LinkProps } from "next/link";
-
-const UnstyledLink: React.FC<LinkProps & React.HtmlHTMLAttributes<{}>> = ({
+const UnstyledLink: FC<LinkProps & HtmlHTMLAttributes<{}>> = ({
   className,
   href,
   children,
@@ -8,8 +6,6 @@ const UnstyledLink: React.FC<LinkProps & React.HtmlHTMLAttributes<{}>> = ({
 }) => {
   const isInternalLink =
     typeof href == "string" && (href.startsWith("/") || href.startsWith("#"));
-  const { t } = useTypeSafeTranslation("common");
-
   if (isInternalLink) {
     return (
       <Link href={href} passHref {...rest}>
@@ -24,7 +20,7 @@ const UnstyledLink: React.FC<LinkProps & React.HtmlHTMLAttributes<{}>> = ({
     // eslint-disable-next-line react/jsx-no-target-blank
     <a className={className} target="_blank" href={href as string} {...rest}>
       {children}
-      <span className="sr-only">{t("newTab")}</span>
+      <span className="sr-only">Opens in a new tab</span>
     </a>
   );
 };
@@ -32,5 +28,5 @@ const UnstyledLink: React.FC<LinkProps & React.HtmlHTMLAttributes<{}>> = ({
 export default UnstyledLink;
 
 import Link from "next/link";
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
-import React from "react";
+import type { LinkProps } from "next/link";
+import type { FC, HtmlHTMLAttributes } from "react";
