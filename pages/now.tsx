@@ -1,12 +1,10 @@
 export default function Home() {
-  const { t, lang } = useTypeSafeTranslation("now");
-  const thingsImDoing = t(
-    "doingArray",
-    {},
-    {
-      returnObjects: true,
-    }
-  ) as unknown as string[];
+  const thingsImDoing = [
+    "Playing with Astro.build on a few new projects instead of finishing old ones",
+    "Shitposting a bit too much on theo's stream",
+    "Over-engineering my personal website",
+    "Still trying(and failing) to take cute photos with my girlfriend",
+  ];
 
   return (
     <>
@@ -19,12 +17,9 @@ export default function Home() {
       <Container backable key="index">
         <Band gridless id="main">
           <div className="mx-auto">
-            <h1 className="text-4xl">{t("doingTitle")}</h1>
+            <h1 className="text-4xl">What I'm doing now</h1>
             <p className="text-mauve11 text-sm font-semibold">
-              <TransWithComps
-                text={t("lastUpdated")}
-                extraComponents={{ date: <span /> }}
-              />
+              Last updated on <span>August 8th, 2022</span>
             </p>
 
             <div className="h-16" />
@@ -39,7 +34,7 @@ export default function Home() {
             </ul>
             <div className="h-40" />
             <p className="text-mauve11 text-xs font-semibold">
-              <TransWithComps text={t("bottomText")} />
+              slowly surpassing my yesterday self.
             </p>
           </div>
         </Band>
@@ -48,8 +43,6 @@ export default function Home() {
   );
 }
 
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import Container from "@/components/Container";
-import TransWithComps from "@/components/i18nStuff/TransWithComps";
