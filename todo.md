@@ -1,5 +1,6 @@
 # Major updates
-- [ ] Migrate Stitches -> tailwind
+- [x] Migrate Stitches -> tailwind
+- [ ] Ditch i18n in favor of english-only. Too much effort for a small demographic and I already do everything english-first anyways.
 - [ ] Use MDX as the basis for content. ~~Need to experiment with how it integrates with i18n before committing.~~
     - [x] Got MDX working with my components and i18n, see #26
 - [ ] Redesign landing page
@@ -14,4 +15,4 @@
 - [ ] Footer doesn't align with the content in project pages, fix the padding of one of them.
 - [ ] StyledLink should be able to break words if they're too long, links tend to have bigass hashes with no spaces or dashes 
 - [ ] Update favicon
-- [ ] Hero section overlay is bein applied to the entire div instead of just over the image
+- [x] Hero section overlay is bein applied to the entire div instead of just over the image
