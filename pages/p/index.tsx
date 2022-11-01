@@ -4,8 +4,6 @@ export default function ProjectsPage() {
   const issMeta = useMeta("iss", "projs");
   const projsMeta = [bebopMeta, issMeta, wasmGifMeta];
 
-  const { t, lang } = useTypeSafeTranslation("common");
-
   return (
     <>
       <Seo title="Work" description="" url="p" />
@@ -19,7 +17,6 @@ export default function ProjectsPage() {
   );
 }
 
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import useMeta from "@/hooks/useMeta";
 
 import Seo from "@/components/Seo";
