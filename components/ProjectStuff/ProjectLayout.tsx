@@ -54,7 +54,7 @@ export const ProjectLayout: React.FC<{
                 <div className="mb-6">
                   <span className="font-semibold">Next project</span>
                   <span className="flex gap-0.5 items-center text-mauve11">
-                    <StyledLink scroll href={`/p/${nextProjMeta.urlSlug}`}>
+                    <StyledLink href={`/p/${nextProjMeta.urlSlug}`}>
                       {nextProjMeta.name}
                     </StyledLink>
                   </span>
