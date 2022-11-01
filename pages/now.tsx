@@ -10,7 +10,11 @@ export default function Home() {
 
   return (
     <>
-      <Seo t={t} lang={lang} />
+      <Seo
+        title="Now — Igor Bedesqui"
+        description="What I'm doing now"
+        url="now"
+      />
 
       <Container backable key="index">
         <Band gridless id="main">

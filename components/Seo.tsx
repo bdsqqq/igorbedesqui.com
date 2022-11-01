@@ -1,32 +1,17 @@
-type withoutImage = {
-  t: any;
+const Seo: React.FC<{
+  title: string;
+  description: string;
   url?: string;
-  lang?: string;
-  imglang?: never;
-  image?: never;
-};
-type withImage = {
-  t: any;
-  url?: string;
-  lang?: string;
-  imglang?: string;
-  image: string;
-};
-
-const Seo: React.FC<withoutImage | withImage> = ({
-  t,
-  url,
-  lang,
-  image,
-  imglang,
-}) => {
+  image?: {
+    src: string;
+    alt: string;
+  };
+}> = ({ title, description, url, image }) => {
   const og: OpenGraph = {
     type: "website",
-    url: `https://www.igorbedesqui.com${lang != "en" ? "/" + lang : ""}${
-      url ? "/" + url : ""
-    }`,
-    title: t("title"),
-    description: t("description"),
+    url: `https://www.igorbedesqui.com${url ? "/" + url : ""}`,
+    title: title,
+    description: description,
     site_name: "Igor Bedesqui",
   };
 
@@ -34,20 +19,19 @@ const Seo: React.FC<withoutImage | withImage> = ({
     Object.assign(og, {
       images: [
         {
-          url: `https://www.igorbedesqui.com/images/og/${image}${
-            imglang ? imglang : ""
+          url: `https://www.igorbedesqui.com/images/og/${image.src}
           }.jpg`,
           width: 1200,
           height: 630,
-          alt: t("ogAlt"),
+          alt: image.alt,
         },
       ],
     });
   console.table(og);
   return (
     <NextSeo
-      title={t("title")}
-      description={t("description")}
+      title={title}
+      description={description}
       openGraph={og}
       robotsProps={{
         notranslate: true,
@@ -57,20 +41,6 @@ const Seo: React.FC<withoutImage | withImage> = ({
         site: "@site",
         cardType: "summary_large_image",
       }}
-      languageAlternates={[
-        {
-          hrefLang: "pt",
-          href: `https://www.igorbedesqui.com/pt${url ? "/" + url : ""}`,
-        },
-        {
-          hrefLang: "en",
-          href: `https://www.igorbedesqui.com${url ? "/" + url : ""}`,
-        },
-        {
-          hrefLang: "x-default",
-          href: `https://www.igorbedesqui.com${url ? "/" + url : ""}`,
-        },
-      ]}
       additionalMetaTags={[
         {
           property: "viewport",

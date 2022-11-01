@@ -8,7 +8,10 @@ export default function Home() {
 
   return (
     <>
-      <Seo t={t} lang={lang} />
+      <Seo
+        title="Igor Bedesqui — Web Developer"
+        description="front-end Web Developer based in São Paulo"
+      />
 
       <Container key="index">
         <HeroBand>

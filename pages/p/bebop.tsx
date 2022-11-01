@@ -5,7 +5,11 @@ export default function Bebop() {
 
   return (
     <>
-      <Seo t={t} lang={lang} url="p/bebop" />
+      <Seo
+        title="The work, which becomes a new genre itself, will be called... COWBOY BEBOP"
+        description="My entry for, and winner of, the second installment of the WebJam — made by Igor Bedesqui"
+        url="p/bebop"
+      />
 
       <ProjectContainer key="bebopProj" backMessage={t("backMessage")}>
         <HeroBand fullBleed heroVideo={"/videos/bebop/noodles"}>

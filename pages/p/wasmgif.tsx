@@ -5,7 +5,11 @@ export default function WasmGif() {
 
   return (
     <>
-      <Seo t={t} lang={lang} url="p/wasmgif" />
+      <Seo
+        title="WASM Gif maker"
+        description="Fast and secure gif making — made by Igor Bedesqui"
+        url="p/wasmgif"
+      />
 
       <ProjectContainer key="wasmGifProj">
         <HeroBand fullBleed heroVideo={"/videos/wasmgif/wow"}>

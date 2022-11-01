@@ -4,7 +4,12 @@ export default function Iss() {
   const wasmGifMeta = useMeta("wasmGif", "projs");
   return (
     <>
-      <Seo t={t} lang={lang} url="p/iss" />
+      <Seo
+        title="Where's the ISS?"
+        description="A simple webapp that tells you where is the International Space Station — made by Igor Bedesqui"
+        url="p/iss"
+      />
+
       <ProjectContainer key="issProj" backMessage="Fly back home">
         <HeroBand fullBleed heroVideo="/videos/iss/space">
           <TransWithComps text={t("heroTitle")} />

@@ -4,7 +4,11 @@ export default function Minesweeper() {
 
   return (
     <>
-      <Seo t={t} lang={lang} url="p/minesweeper" />
+      <Seo
+        title="Minesweeper"
+        description="A modern implementation of the classic game minesweeper — made by Igor Bedesqui"
+        url="p/minesweeper"
+      />
       <ProjectContainer key="minesweeperProj">
         <HeroBand>
           <TransWithComps text={t("heroTitle")} />

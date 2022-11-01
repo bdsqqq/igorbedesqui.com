@@ -5,7 +5,8 @@ export default function Psykip() {
 
   return (
     <>
-      <Seo t={t} lang={lang} url="p/psykip" />
+      <Seo title="" description="" url="p/psykip" />
+      {/* TODO: actual title and description */}
 
       <ProjectContainer key="psykipProj" backMessage={t("backMessage")}>
         <HeroBand
