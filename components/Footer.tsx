@@ -1,6 +1,4 @@
 const Footer = () => {
-  const { t } = useTypeSafeTranslation("common");
-
   return (
     <div className="w-full px-8 md:px-16 bg-mauve1 text-mauve12">
       <div className="md:max-w-7xl mx-auto py-10 w-full">
@@ -31,7 +29,7 @@ const Footer = () => {
           </div> */}
 
             <div>
-              <h6 className="font-semibold">{t("footer.connect")}</h6>
+              <h6 className="font-semibold">Connect</h6>
               <ul>
                 <li className="mt-2">
                   <StyledLink bold={false} href="https://github.com/bdsqqq/">
@@ -72,8 +70,6 @@ const Footer = () => {
 };
 
 export default Footer;
-
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 
 import { Separator } from "@/ui/primitives";
 import StyledLink from "@/ui/StyledLink";
