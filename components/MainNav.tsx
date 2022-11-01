@@ -15,7 +15,6 @@ const MainNav: React.FC<MainNavProps> = ({
   backMessage,
   backAnchor,
 }) => {
-  const { t } = useTypeSafeTranslation("common");
   const { history } = useHistory();
   const [anchor, setAnchor] = useState("/");
   useEffect(() => {
@@ -55,18 +54,17 @@ const MainNav: React.FC<MainNavProps> = ({
               {anchor === "/" ? <PinLeftIcon /> : <ArrowLeftIcon />}
             </span>
             <span className="ml-1 opacity-[0.01] motion-safe:transition-opacity ease-productive-standard duration-fast-02 group-hover:opacity-100 group-focus:opacity-100">
-              {backMessage ? backMessage : t("back")}
+              {backMessage ? backMessage : "Back"}
             </span>
           </a>
         </Link>
       )}
       <a
-        className="text-mauve12 outline outline-1 outline-offset-4 outline-mauve8 rounded-sm sr-only focus:not-sr-only"
+        className=" text-mauve12 outline outline-1 outline-offset-4 outline-mauve8 rounded-sm sr-only right-16 focus:!absolute focus:not-sr-only"
         href="#skip"
       >
-        {t("skip")}
+        Skip to content
       </a>
-      <ChangeLang />
     </nav>
   );
 };
@@ -75,9 +73,7 @@ export default MainNav;
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import { useHistory } from "@/contexts/History";
-import ChangeLang from "@/components/i18nStuff/ChangeLang";
 
 import { ArrowLeftIcon, PinLeftIcon } from "@radix-ui/react-icons";
 import { cva } from "class-variance-authority";
