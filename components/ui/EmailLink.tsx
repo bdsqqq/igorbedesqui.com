@@ -36,11 +36,6 @@ const EmailLink = ({
 };
 
 const PopoverContent = ({ email }: { email: string }) => {
-  const commonTranslation = useTranslation("common");
-  const t = (translationKey: Leaves<typeof commonNamespace>) => {
-    return commonTranslation.t(translationKey);
-  };
-
   const [success, setSuccess] = useState(0);
   const incrementSuccess = () => {
     setSuccess((s) => s + 1);
@@ -63,7 +58,7 @@ const PopoverContent = ({ email }: { email: string }) => {
       <Tooltip
         content={
           <span className="text-sm italic tracking-[0.2px] text-mauve11">
-            {t("footer.email.copy")}
+            Copy to clipboard
           </span>
         }
         options={{ size: "sm" }}
@@ -87,7 +82,7 @@ const PopoverContent = ({ email }: { email: string }) => {
       <Tooltip
         content={
           <span className="text-sm italic tracking-[0.2px] text-mauve11">
-            {t("footer.email.send")}
+            Send an email
           </span>
         }
         options={{ size: "sm" }}
@@ -105,7 +100,6 @@ const PopoverContent = ({ email }: { email: string }) => {
 
 export default EmailLink;
 
-import useTranslation from "next-translate/useTranslation";
 import {
   CheckIcon,
   ClipboardCopyIcon,

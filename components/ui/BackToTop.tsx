@@ -10,7 +10,6 @@ const buttonVariants = cva(
   }
 );
 const BackToTop = () => {
-  const { t } = useTypeSafeTranslation("common");
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -39,7 +38,7 @@ const BackToTop = () => {
       })}
       tabIndex={isVisible ? 0 : -1}
       onClick={scrollToTop}
-      aria-label={t("backToTop")}
+      aria-label={"Back to Top"}
     >
       <svg
         width="100%"
@@ -62,5 +61,4 @@ const BackToTop = () => {
 export default BackToTop;
 
 import { useState, useEffect } from "react";
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import { cva } from "class-variance-authority";

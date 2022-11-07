@@ -1,15 +1,21 @@
-export default function WasmGif() {
-  const { t, lang } = useTypeSafeTranslation("projs/wasmGif");
-  const wasmGifMeta = useMeta("wasmGif", "projs");
-  const bebopMeta = useMeta("bebop", "projs");
+import { meta, default as MD } from "data/work/iss.mdx";
+import { meta as bebopMeta } from "data/work/wasmgif.mdx";
 
+export default function WasmGif() {
   return (
     <>
-      <Seo t={t} lang={lang} url="p/wasmgif" />
+      <Seo
+        title="WASM Gif maker"
+        description="Fast and secure gif making — made by Igor Bedesqui"
+        url="p/wasmgif"
+      />
 
       <ProjectContainer key="wasmGifProj">
         <HeroBand fullBleed heroVideo={"/videos/wasmgif/wow"}>
-          <TransWithComps text={t("heroTitle")} />
+          <span>
+            <span className="font-bold">Fast</span> and{" "}
+            <span className="font-bold">secure</span> gif making.
+          </span>
           <div className="mt-6">
             <CodeAndDemoButtons
               codeUrl="https://github.com/bdsqqq/next-wasm-gif"
@@ -18,30 +24,8 @@ export default function WasmGif() {
           </div>
         </HeroBand>
 
-        <ProjectLayout projMeta={wasmGifMeta} nextProjMeta={bebopMeta}>
-          <Band
-            options={{ padding: "smol" }}
-            headline={{ bold: "01", thin: t("01Thin") }}
-          >
-            <p>
-              <TransWithComps text={t("01Copy")} />
-            </p>
-          </Band>
-          <Band
-            options={{ padding: "smol" }}
-            headline={{ bold: "02", thin: t("02Thin") }}
-          >
-            <p>
-              <TransWithComps
-                text={t("02Copy")}
-                extraComponents={{
-                  git: (
-                    <StyledLinkWithIcon href="https://github.com/fireship-io/react-wasm-gif-maker" />
-                  ),
-                }}
-              />
-            </p>
-          </Band>
+        <ProjectLayout projMeta={meta} nextProjMeta={bebopMeta}>
+          <MD />
         </ProjectLayout>
       </ProjectContainer>
       <FABContainer>
@@ -51,17 +35,12 @@ export default function WasmGif() {
   );
 }
 
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Seo from "@/components/Seo";
-import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
 import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/components/ui/BackToTop";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
-
-import useMeta from "@/hooks/useMeta";
-import StyledLinkWithIcon from "@/components/ui/StyledLink";

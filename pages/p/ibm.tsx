@@ -3,7 +3,8 @@ export default function IBM() {
 
   return (
     <>
-      <Seo t={t} lang={lang} url="p/ibm" />
+      <Seo title="IBM" description="IBM" url="p/ibm" />
+      {/* TODO: actual title and description */}
 
       <Container key="bebopProj" backable>
         <HeroBand fullBleed heroVideo={"/videos/ibm/tapes"}>

@@ -1,14 +1,14 @@
-export default function ProjectsPage() {
-  const wasmGifMeta = useMeta("wasmGif", "projs");
-  const bebopMeta = useMeta("bebop", "projs");
-  const issMeta = useMeta("iss", "projs");
-  const projsMeta = [bebopMeta, issMeta, wasmGifMeta];
+import { meta as bebopMeta } from "data/work/bebop.mdx";
+import { meta as issMeta } from "data/work/iss.mdx";
+import { meta as wasmGifMeta } from "data/work/wasmgif.mdx";
 
-  const { t, lang } = useTypeSafeTranslation("common");
+export default function ProjectsPage() {
+  const projsMeta = [bebopMeta, issMeta, wasmGifMeta];
 
   return (
     <>
-      <Seo t={t} lang={lang} url="p" />
+      <Seo title="Work" description="" url="p" />
+      {/* TODO: actual title and description */}
       <Container key="projsHome" backable>
         <Band headline={{ bold: "01", thin: "Work" }}>
           <Projects projectsMeta={projsMeta} />
@@ -17,9 +17,6 @@ export default function ProjectsPage() {
     </>
   );
 }
-
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
-import useMeta from "@/hooks/useMeta";
 
 import Seo from "@/components/Seo";
 import Band from "@/components/Band";
