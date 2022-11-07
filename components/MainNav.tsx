@@ -49,15 +49,16 @@ const MainNav: React.FC<MainNavProps> = ({
       })}
     >
       {backable && (
-        <Link href={anchor ? anchor : "/"} passHref>
-          <a className="group cursor-pointer select-none flex items-center gap-1 px-4 -mx-4 pb-0 text-xl text-mauve11 transform translate-x-0 motion-safe:transition-all ease-productive-standard duration-moderate-01 hover:text-mauve12 hover:-translate-x-2 focus:text-mauve12 focus:-translate-x-2 focus-visible:outline outline-1 outline-offset-4 outline-mauve8 rounded-sm">
-            <span className="flex-shrink-0 translate-y-[1px]">
-              {anchor === "/" ? <PinLeftIcon /> : <ArrowLeftIcon />}
-            </span>
-            <span className="ml-1 opacity-[0.01] motion-safe:transition-opacity ease-productive-standard duration-fast-02 group-hover:opacity-100 group-focus:opacity-100">
-              {backMessage ? backMessage : t("back")}
-            </span>
-          </a>
+        <Link
+          href={anchor ? anchor : "/"}
+          className="group cursor-pointer select-none flex items-center gap-1 px-4 -mx-4 pb-0 text-xl text-mauve11 transform translate-x-0 motion-safe:transition-all ease-productive-standard duration-moderate-01 hover:text-mauve12 hover:-translate-x-2 focus:text-mauve12 focus:-translate-x-2 focus-visible:outline outline-1 outline-offset-4 outline-mauve8 rounded-sm"
+        >
+          <span className="flex-shrink-0 translate-y-[1px]">
+            {anchor === "/" ? <PinLeftIcon /> : <ArrowLeftIcon />}
+          </span>
+          <span className="ml-1 opacity-[0.01] motion-safe:transition-opacity ease-productive-standard duration-fast-02 group-hover:opacity-100 group-focus:opacity-100">
+            {backMessage ? backMessage : t("back")}
+          </span>
         </Link>
       )}
       <a

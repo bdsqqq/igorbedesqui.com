@@ -12,10 +12,8 @@ const UnstyledLink: React.FC<LinkProps & React.HtmlHTMLAttributes<{}>> = ({
 
   if (isInternalLink) {
     return (
-      <Link href={href} passHref {...rest}>
-        <a className={className} {...rest}>
-          {children}
-        </a>
+      <Link href={href} passHref className={className} {...rest}>
+        {children}
       </Link>
     );
   }
