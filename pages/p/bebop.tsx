@@ -2,7 +2,6 @@ import { meta, default as MD } from "data/work/bebop.mdx";
 
 export default function Bebop() {
   const { t } = useTypeSafeTranslation("projs/bebop");
-  const bebopMeta = useMeta("bebop", "projs");
   const issMeta = useMeta("iss", "projs");
 
   return (
@@ -24,7 +23,7 @@ export default function Bebop() {
           </div>
         </HeroBand>
 
-        <ProjectLayout projMeta={bebopMeta} nextProjMeta={issMeta}>
+        <ProjectLayout projMeta={meta} nextProjMeta={issMeta}>
           <MD />
         </ProjectLayout>
       </ProjectContainer>
@@ -41,13 +40,9 @@ import TransWithComps from "@/components/i18nStuff/TransWithComps";
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Seo from "@/components/Seo";
-import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
-import Popover from "@/components/ui/Popover";
-import Image from "next/image";
 import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
-import StyledLink from "@/ui/StyledLink";
 
 import useMeta from "@/hooks/useMeta";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
