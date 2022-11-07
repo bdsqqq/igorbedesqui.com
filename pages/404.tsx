@@ -11,7 +11,7 @@ export default function Custom404() {
           <br />
           how did you get here...?
           <br />
-          this place doesn't exist
+          this place doesn’t exist
         </HeroBand>
       </Container>
     </>

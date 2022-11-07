@@ -17,7 +17,7 @@ export default function Home() {
       <Container backable key="index">
         <Band gridless id="main">
           <div className="mx-auto">
-            <h1 className="text-4xl">What I'm doing now</h1>
+            <h1 className="text-4xl">What I’m doing now</h1>
             <p className="text-mauve11 text-sm font-semibold">
               Last updated on <span>August 8th, 2022</span>
             </p>

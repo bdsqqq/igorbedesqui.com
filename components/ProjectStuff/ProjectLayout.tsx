@@ -30,7 +30,7 @@ export const ProjectLayout: React.FC<{
                   return (
                     <li className="[display:inline_list-item]" key={i}>
                       {tool}
-                      {i < projMeta.tools.length - 1 && ","}
+                      {i < projMeta.tools.length - 1 && ", "}
                     </li>
                   );
                 })}

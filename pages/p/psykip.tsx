@@ -1,21 +1,21 @@
+import { meta as bebopMeta } from "data/work/bebop.mdx";
+
 export default function Psykip() {
-  const { t, lang } = useTypeSafeTranslation("projs/bebop");
   const psykipMeta = useMeta("psykip", "projs");
-  const bebopMeta = useMeta("bebop", "projs");
 
   return (
     <>
       <Seo title="" description="" url="p/psykip" />
       {/* TODO: actual title and description */}
 
-      <ProjectContainer key="psykipProj" backMessage={t("backMessage")}>
+      <ProjectContainer key="psykipProj">
         <HeroBand
           heroImg={{
             src: "/images/projs/psykip/will-smith.gif",
             alt: "Will Smith thinking really hard",
           }}
         >
-          <TransWithComps text={t("heroTitle")} />
+          Psykip
           <div className="mt-6">
             <CodeAndDemoButtons
               codeUrl="https://github.com/bdsqqq/bebop-webjam"
@@ -92,7 +92,6 @@ export default function Psykip() {
   );
 }
 
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
@@ -100,7 +99,6 @@ import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
-import Popover from "@/components/ui/Popover";
 import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";

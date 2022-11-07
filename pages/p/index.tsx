@@ -1,7 +1,8 @@
+import { meta as bebopMeta } from "data/work/bebop.mdx";
+import { meta as issMeta } from "data/work/iss.mdx";
+import { meta as wasmGifMeta } from "data/work/wasmgif.mdx";
+
 export default function ProjectsPage() {
-  const wasmGifMeta = useMeta("wasmGif", "projs");
-  const bebopMeta = useMeta("bebop", "projs");
-  const issMeta = useMeta("iss", "projs");
   const projsMeta = [bebopMeta, issMeta, wasmGifMeta];
 
   return (
@@ -16,8 +17,6 @@ export default function ProjectsPage() {
     </>
   );
 }
-
-import useMeta from "@/hooks/useMeta";
 
 import Seo from "@/components/Seo";
 import Band from "@/components/Band";
