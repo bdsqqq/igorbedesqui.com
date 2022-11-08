@@ -6,7 +6,7 @@ export default function IBM() {
 
       <Container key="bebopProj" backable>
         <HeroBand fullBleed heroVideo={"/videos/ibm/tapes"}>
-          <TransWithComps text={""} />
+          Hej do
         </HeroBand>
       </Container>
       <FABContainer>
@@ -15,8 +15,6 @@ export default function IBM() {
     </>
   );
 }
-
-import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
 import Container from "@/components/Container";
 import Seo from "@/components/Seo";

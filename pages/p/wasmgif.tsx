@@ -35,8 +35,6 @@ export default function WasmGif() {
   );
 }
 
-import TransWithComps from "@/components/i18nStuff/TransWithComps";
-
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Seo from "@/components/Seo";

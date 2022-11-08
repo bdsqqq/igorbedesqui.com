@@ -73,5 +73,5 @@ export const ProjectLayout: React.FC<
 import { Separator } from "@/ui/primitives/";
 import StyledLink from "@/ui/StyledLink";
 
-import { Meta } from "@/hooks/useMeta";
+import { Meta } from "*.mdx";
 import React from "react";
