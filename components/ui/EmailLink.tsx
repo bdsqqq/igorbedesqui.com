@@ -111,6 +111,4 @@ import Popover from "@/components/ui/Popover";
 import { Button, LinkButton } from "@/components/ui/Button";
 import Tooltip from "@/components/ui/Tooltip";
 
-import commonNamespace from "@/locales/en/common.json";
-import { Leaves } from "@/lib/nestedKeyOfTypes";
 import { useEffect, useState } from "react";
