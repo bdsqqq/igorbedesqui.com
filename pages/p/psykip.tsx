@@ -100,5 +100,4 @@ import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 
-import useMeta from "@/hooks/useMeta";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
