@@ -1,7 +1,7 @@
 # Major updates
 - [x] Migrate Stitches -> tailwind
-- [ ] Ditch i18n in favor of english-only. Too much effort for a small demographic and I already do everything english-first anyways.
-- [ ] Use MDX as the basis for content. ~~Need to experiment with how it integrates with i18n before committing.~~
+- [x] Ditch i18n in favor of english-only. Too much effort for a small demographic and I already do everything english-first anyways.
+- [x] Use MDX as the basis for content. ~~Need to experiment with how it integrates with i18n before committing.~~
     - [x] Got MDX working with my components and i18n, see #26
 - [ ] Redesign landing page
     - [ ] hero section, there's too little information above the fold. Something like what [patrick](https://www.patrickaltair.com/) does could work.
