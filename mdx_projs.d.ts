@@ -1,5 +1,7 @@
 declare module "*.mdx" {
-  export const meta: {
+  export const meta: Meta;
+
+  export type Meta = {
     shortName: string;
     name: string;
     description: string;
