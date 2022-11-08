@@ -11,19 +11,19 @@ const customFont = M_PLUS_1({ display: "swap" });
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <MDXProvider
-      components={{
-        // @ts-ignore
-        a: StyledLinkWithIcon,
-      }}
-    >
-      <HistoryProvider>
+    <HistoryProvider>
+      <MDXProvider
+        components={{
+          // @ts-ignore
+          a: StyledLinkWithIcon,
+        }}
+      >
         <div className={`${customFont.className} relative`}>
           <div className="pointer-events-none absolute inset-0 z-50 w-full h-full bg-[url('/images/grain.png')] bg-left-top bg-[length:250px] opacity-30" />
           <Component {...pageProps} />
         </div>
-      </HistoryProvider>
-    </MDXProvider>
+      </MDXProvider>
+    </HistoryProvider>
   );
 }
 

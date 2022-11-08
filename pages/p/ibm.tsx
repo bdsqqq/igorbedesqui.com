@@ -1,6 +1,4 @@
 export default function IBM() {
-  const { t, lang } = useTypeSafeTranslation("projs/bebop");
-
   return (
     <>
       <Seo title="IBM" description="IBM" url="p/ibm" />
@@ -18,7 +16,6 @@ export default function IBM() {
   );
 }
 
-import { useTypeSafeTranslation } from "@/hooks/useTypeSafeTranslation";
 import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
 import Container from "@/components/Container";

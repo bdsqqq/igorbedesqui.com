@@ -15,7 +15,7 @@ const variants = {
 
 type variants = { size?: "sm" | "md" | "lg"; color?: "crimson" | "mauve" };
 
-const Button: React.FC<ButtonProps & variants> = ({
+const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
   size = "lg",
   color = "mauve",
   children,
@@ -60,4 +60,4 @@ import { UnstyledLink } from "./primitives";
 import type { LinkProps } from "next/link";
 import { cx } from "class-variance-authority";
 import { ButtonProps } from "ariakit";
-import { HtmlHTMLAttributes } from "react";
+import React, { HtmlHTMLAttributes } from "react";

@@ -1,7 +1,9 @@
-export const ProjectLayout: React.FC<{
-  projMeta: Meta;
-  nextProjMeta?: Meta;
-}> = ({ children, projMeta, nextProjMeta }) => {
+export const ProjectLayout: React.FC<
+  React.PropsWithChildren<{
+    projMeta: Meta;
+    nextProjMeta?: Meta;
+  }>
+> = ({ children, projMeta, nextProjMeta }) => {
   return (
     <div className="grid md:gap-5 md:[grid-template-columns:1fr_220px] lg:gap-20 lg:[grid-template-columns:1fr_330px] px-8 md:px-16">
       <div>{children}</div>
@@ -72,3 +74,4 @@ import { Separator } from "@/ui/primitives/";
 import StyledLink from "@/ui/StyledLink";
 
 import { Meta } from "@/hooks/useMeta";
+import React from "react";

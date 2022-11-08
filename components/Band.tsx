@@ -35,7 +35,7 @@ const sectionStyles = cva("w-full bg-mauve1 text-mauve12", {
   },
 });
 
-const Band: React.FC<BandProps> = ({
+const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
   gridless,
   fullBleed,
   options,
@@ -89,3 +89,4 @@ const Band: React.FC<BandProps> = ({
 export default Band;
 
 import { cva, cx, type VariantProps } from "class-variance-authority";
+import React from "react";

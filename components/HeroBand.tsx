@@ -15,7 +15,7 @@ type HeroBandProps = {
   fullBleed?: boolean;
 } & (HeroBandVideo | HeroBandImg);
 
-const HeroBand: React.FC<HeroBandProps> = ({
+const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
   heroImg,
   heroVideo,
   children,
@@ -73,3 +73,4 @@ export default HeroBand;
 import Band from "@/components/Band";
 
 import Image from "next/image";
+import React from "react";

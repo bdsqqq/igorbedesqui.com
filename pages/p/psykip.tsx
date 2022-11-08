@@ -1,8 +1,7 @@
+import { meta } from "data/work/psykip.mdx";
 import { meta as bebopMeta } from "data/work/bebop.mdx";
 
 export default function Psykip() {
-  const psykipMeta = useMeta("psykip", "projs");
-
   return (
     <>
       <Seo title="" description="" url="p/psykip" />
@@ -24,7 +23,7 @@ export default function Psykip() {
           </div>
         </HeroBand>
 
-        <ProjectLayout projMeta={psykipMeta} nextProjMeta={bebopMeta}>
+        <ProjectLayout projMeta={meta} nextProjMeta={bebopMeta}>
           <Band headline={{ bold: "01", thin: "Why?" }}>
             <p>
               {`The Enchiridion is a fascinating book, an easy read filled with valuable insights. Unfortunately—even with multiple public domain translations—reading it can often be a bad experience.`}
@@ -91,8 +90,6 @@ export default function Psykip() {
     </>
   );
 }
-
-import TransWithComps from "@/components/i18nStuff/TransWithComps";
 
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";

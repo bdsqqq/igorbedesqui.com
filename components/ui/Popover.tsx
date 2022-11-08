@@ -7,7 +7,7 @@ interface PopOver {
   };
 }
 
-const PopOver: React.FC<PopOver> = ({
+const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
   children,
   content,
   questionMark = true,

@@ -10,7 +10,7 @@ type ContainerProps =
       backAnchor?: string;
     };
 
-const Container: React.FC<ContainerProps> = ({
+const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   backable,
   backMessage,
   backAnchor,
@@ -45,7 +45,7 @@ const Container: React.FC<ContainerProps> = ({
 
 export default Container;
 
-import { Children } from "react";
+import React, { Children } from "react";
 
 import MainNav from "@/components/MainNav";
 import Footer from "@/components/Footer";
