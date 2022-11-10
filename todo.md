@@ -3,6 +3,7 @@
 - [x] Ditch i18n in favor of english-only. Too much effort for a small demographic and I already do everything english-first anyways.
 - [x] Use MDX as the basis for content. ~~Need to experiment with how it integrates with i18n before committing.~~
     - [x] Got MDX working with my components and i18n, see #26
+    - [ ] Instead of MD owning metadata, what if metadata owned MD? this way I can have typesafety without defining a module in a .d.ts
 - [ ] Redesign landing page
     - [ ] hero section, there's too little information above the fold. Something like what [patrick](https://www.patrickaltair.com/) does could work.
     - [ ] With the content direction I'm thinking on taking (more misc writting eg: redstone engineering, failure in interviews, component implementations) the landing page—maybe the whole site actually—will need restructuring. I like what [paco](https://paco.me/)'s "writting" session combined with the featured projects in the landing page. What [James](https://jm.sv/) does with his "work" and "~~work~~" is also interesting. Also, the way [Manuel](https://manuelmoreale.com/) puts navigation links in the copy itself is very interesting (and way more achievable if I actually move to MDX).
