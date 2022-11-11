@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply min-w-[360px] scroll-smooth leading-normal text-mauve12 bg-mauve1 h-full antialiased;
+  @apply min-w-[360px] scroll-smooth leading-normal text-mauve11 bg-[#0c0c0c] h-full antialiased;
   font-family: sans-serif;
 },
 
