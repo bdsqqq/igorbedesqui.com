@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         }}
       >
         <div className={`${customFont.className} relative`}>
-          <div className="pointer-events-none absolute inset-0 z-50 w-full h-full bg-[url('/images/grain.png')] bg-left-top bg-[length:250px] opacity-30" />
+          <div className="pointer-events-none absolute inset-0 z-50 w-full h-full bg-[url('/images/grain.png')] bg-left-top bg-[length:250px] opacity-25" />
           <div className="relative z-10">
             <Component {...pageProps} />
           </div>
