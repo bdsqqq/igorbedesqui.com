@@ -5,9 +5,9 @@ import { MDXProvider } from "@mdx-js/react";
 
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
 
-import { M_PLUS_1 } from "@next/font/google";
+import { Lora } from "@next/font/google";
 
-const customFont = M_PLUS_1({ display: "swap" });
+const customFont = Lora({ display: "swap" });
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
