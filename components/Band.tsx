@@ -71,7 +71,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
               <span className="font-bold text-mauve3 [grid-area:1/1/1/1] text-7xl leading-none md:[writing-mode:vertical-lr]">
                 {headline?.bold}
               </span>
-              <div className="font-bold text-mauve12 align-top [grid-area:1/1/1/1] pb-4 md:w-min md:pl-2 md:pb-2 text-lg md:[writing-mode:vertical-lr]">
+              <div className="font-bold align-top [grid-area:1/1/1/1] pb-4 md:w-min md:pl-2 md:pb-2 text-lg md:[writing-mode:vertical-lr]">
                 {headline?.thin}
               </div>
             </h2>
