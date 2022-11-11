@@ -339,7 +339,7 @@ const Scales = () => {
 };
 
 const inputVariants = cva(
-  "p-1 bg-mauve3 text-mauve12 text-center border-none rounded-sm outline outline-1 outline-transparent hover:bg-mauve4 focus:mauve5 focus:outline-mauve8 motion-safe:transition-colors duration-fast-01 ease-productive-standard",
+  "relative focus-within:z-10 p-1 bg-mauve3 text-mauve12 text-center border-none rounded-sm outline outline-1 outline-transparent hover:bg-mauve4 focus:mauve5 focus:outline-mauve8 !ring-0 !ring-offset-0 focus-v motion-safe:transition-colors duration-fast-01 ease-productive-standard",
   {
     variants: {
       size: {
