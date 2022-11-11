@@ -3,7 +3,7 @@ type ProjectsProps = {
 };
 const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
   return (
-    <ul className="flex flex-wrap flex-col items-start justify-start w-full pointer-events-none md:grid md:grid-cols-2 md:gap-x-6 hover:text-mauve11 [&_>_a]:hover:opacity-40">
+    <ul className="flex flex-wrap flex-col items-start justify-start w-full pointer-events-none md:grid md:grid-cols-2 md:gap-x-6 hover:text-mauve10 [&_>_a]:hover:opacity-40">
       {projectsMeta.map((project, i) => {
         return (
           <UnstyledLink
