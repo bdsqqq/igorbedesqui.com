@@ -17,7 +17,7 @@ img, picture, video, canvas, svg {
 },
 
 * {
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mauve9 focus-visible:ring-offset-mauve1 focus-visible:ring-offset-4 focus-visible:rounded-sm focus-visible:z-10
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mauve9 focus-visible:ring-offset-[hsl(0,0%,4%)] focus-visible:ring-offset-4 focus-visible:rounded-sm focus-visible:z-10
 },
 
 input, button, textarea, select {
