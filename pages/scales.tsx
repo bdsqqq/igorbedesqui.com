@@ -286,7 +286,7 @@ const Scales = () => {
             ))}
           </ul>
         )}
-        <div className="overflow-x-scroll">
+        <div className="overflow-x-auto">
           <div className="relative overflow-x-visible overflow-y-hidden whitespace-nowrap w-full text-center pb-8">
             {[...Array(scaleLength + 2)].map((_, i) => {
               let f = getFi(i - 1, ratio, scaleLength, f0);
