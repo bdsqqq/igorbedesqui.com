@@ -22,7 +22,7 @@ type BandProps = BandWithGrid | BandGridless;
 
 // TODO: update this typedef and component API. Instead of a mandatory gridless I could assume it by the absence of heading. Also, I can probably write a typedef that gives me nicer autocomplete .
 
-const sectionStyles = cva("w-full bg-mauve1 text-mauve12", {
+const sectionStyles = cva("w-full text-mauve12", {
   variants: {
     padding: {
       none: "p-0",
