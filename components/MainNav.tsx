@@ -61,7 +61,7 @@ const MainNav: React.FC<MainNavProps> = ({
         </Link>
       )}
       <a
-        className=" text-mauve12 sr-only right-16 focus:!absolute focus:not-sr-only"
+        className="text-mauve12 sr-only right-16 focus:!absolute focus:not-sr-only"
         href="#skip"
       >
         Skip to content
