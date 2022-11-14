@@ -1,5 +1,5 @@
 // const Separator = styled(SeparatorPrimitive.Root, {
-//   backgroundColor: "$mauve6",
+//   backgroundColor: "$gray-6",
 //   "&[data-orientation=horizontal]": { height: 1 },
 //   "&[data-orientation=vertical]": { width: 1 },
 // });
@@ -11,7 +11,7 @@ const Separator: React.FC<SeparatorPrimitive.SeparatorProps> = ({
   return (
     <SeparatorPrimitive.Root
       className={cx(
-        "bg-mauve6 radix-orientation-horizontal:h-[1px] radix-orientation-vertical:w-[1px]",
+        "bg-gray-6 radix-orientation-horizontal:h-[1px] radix-orientation-vertical:w-[1px]",
         className
       )}
       {...rest}

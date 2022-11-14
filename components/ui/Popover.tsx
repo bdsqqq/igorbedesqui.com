@@ -25,13 +25,13 @@ const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
       <PopoverDisclosure
         state={popoverState}
         className={cx([
-          "group cursor-pointer inline select-text font-semibold motion-safe:transition-all duration-fast-02 ease-productive-standard hover:text-crimson11 focus-within:text-crimson11 aria-expanded:text-crimson11",
+          "group cursor-pointer inline select-text font-semibold motion-safe:transition-all duration-fast-02 ease-productive-standard hover:text-gray-12 focus-within:text-gray-12 aria-expanded:text-gray-12",
           ,
         ])}
       >
         {children}{" "}
         {(Icon || questionMark) && (
-          <Icon className="inline text-mauve11 group-focus-within:text-crimson11 group-hover:text-crimson11 motion-safe:transition-all duration-fast-02 ease-productive-standard group-aria-expanded:text-crimson11" />
+          <Icon className="inline text-gray-11 group-focus-within:text-gray-12 group-hover:text-gray-12 motion-safe:transition-all duration-fast-02 ease-productive-standard group-aria-expanded:text-gray-12" />
         )}
       </PopoverDisclosure>
       <Popover
@@ -44,7 +44,11 @@ const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
         data-dir={popoverState?.currentPlacement || "top"}
       >
         {content}
-        <PopoverArrow className="fill-mauve3 stroke-mauve7 filter drop-shadow-sm" />
+        <PopoverArrow
+          className={arrowTooltipVariants({
+            bg: options?.bg,
+          })}
+        />
       </Popover>
     </>
   );
@@ -55,7 +59,7 @@ export default PopOver;
 // TODO: these are the same styles as tooltip, extract these into a Disclosure generic style for reuse in both
 const tooltipVariants = cva(
   [
-    "text-mauve12 shadow-sm border border-mauve7 rounded-sm transform motion-safe:transition-all duration-fast-02",
+    "text-gray-12 shadow-sm border border-gray-7 rounded-sm transform motion-safe:transition-all duration-fast-02",
     "data-[dir=top]:origin-bottom",
     "data-[dir=bottom]:origin-top",
     "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-enter",
@@ -66,8 +70,8 @@ const tooltipVariants = cva(
   {
     variants: {
       bg: {
-        standard: "bg-mauve3",
-        subtle: "bg-mauve2",
+        standard: "bg-gray-1",
+        subtle: "bg-gray-0",
       },
       padding: {
         none: "p-0",
@@ -87,6 +91,15 @@ const tooltipVariants = cva(
     },
   }
 );
+
+const arrowTooltipVariants = cva("stroke-gray-7 filter drop-shadow-sm", {
+  variants: {
+    bg: {
+      standard: "fill-gray-1",
+      subtle: "fill-gray-0",
+    },
+  },
+});
 
 import {
   Popover,

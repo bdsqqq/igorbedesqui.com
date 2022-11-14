@@ -1,5 +1,5 @@
 const buttonVariants = cva(
-  "cursor-pointer w-10 h-10 rounded-sm p-2 text-mauve12 bg-mauve3 border border-b-0 border-mauve7 transform transition-all duration-moderate-01  hover:bg-mauve4 hover:border-mauve8 active:bg-mauve5",
+  "transition-all duration-moderate-01 border-b-0 w-10 h-10",
   {
     variants: {
       visible: {
@@ -11,7 +11,6 @@ const buttonVariants = cva(
 );
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
-
   const toggleVisibility = () => {
     if (window.pageYOffset >= 300) {
       setIsVisible(true);
@@ -19,11 +18,9 @@ const BackToTop = () => {
       setIsVisible(false);
     }
   };
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
   useEffect(() => {
     window.addEventListener("scroll", toggleVisibility);
     return () => {
@@ -32,7 +29,7 @@ const BackToTop = () => {
   }, []);
 
   return (
-    <button
+    <Button
       className={buttonVariants({
         visible: isVisible ? "visible" : "notVisible",
       })}
@@ -54,7 +51,7 @@ const BackToTop = () => {
           clipRule="evenodd"
         ></path>
       </svg>
-    </button>
+    </Button>
   );
 };
 
@@ -62,3 +59,5 @@ export default BackToTop;
 
 import { useState, useEffect } from "react";
 import { cva } from "class-variance-authority";
+
+import { Button } from "./Button";

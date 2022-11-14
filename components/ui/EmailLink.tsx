@@ -27,7 +27,7 @@ const EmailLink = ({
       options={{
         padding: "none",
         maxW: "full",
-        bg: "subtle",
+        bg: "standard",
       }}
     >
       <span className="underline">{children}</span>
@@ -57,7 +57,7 @@ const PopoverContent = ({ email }: { email: string }) => {
     <div className="flex">
       <Tooltip
         content={
-          <span className="text-sm italic tracking-[0.2px] text-mauve11">
+          <span className="text-sm italic tracking-[0.2px] text-gray-11">
             Copy to clipboard
           </span>
         }
@@ -81,7 +81,7 @@ const PopoverContent = ({ email }: { email: string }) => {
       <span className="p-1 ">{email}</span>
       <Tooltip
         content={
-          <span className="text-sm italic tracking-[0.2px] text-mauve11">
+          <span className="text-sm italic tracking-[0.2px] text-gray-11">
             Send an email
           </span>
         }

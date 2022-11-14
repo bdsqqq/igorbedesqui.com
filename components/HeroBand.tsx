@@ -51,13 +51,13 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
                   <source src={`${heroVideo}.mp4`} type="video/mp4" />
                 </video>
               )}
-              <div className="absolute w-full h-full top-0 bg-mauve1 opacity-75" />
+              <div className="absolute w-full h-full top-0 bg-gray-1 opacity-75" />
             </div>
           </div>
         )}
         <div className="relative min-h-[40vh] flex items-center md:max-w-7xl">
           <h1
-            className="mb-4 uppercase tracking-tight text-3xl max-w-xl md:w-2/3 md:text-4xl"
+            className="text-gray-12 mb-4 uppercase tracking-tight text-3xl max-w-xl md:w-2/3 md:text-4xl"
             id="skip"
           >
             {children}

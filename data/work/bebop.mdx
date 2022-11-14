@@ -20,7 +20,7 @@ export const meta = {
 }
 
 <Band options={{ padding: "smol" }} gridless id="update">
-   <h2 className="text-xl font-bold text-mauve11 uppercase mb-2">
+   <h2 className="text-xl font-bold text-gray-11 uppercase mb-2">
       Update
    </h2>
    On november 2nd 2021 I got a notification on my discord with the amazing news that this project had won the competition with the majority of votes. Now, I bask in the glory!! [I'll leave the screenshot of the announcement here because I'm very proud of this](https://raw.githubusercontent.com/bdsqqq/bebop-webjam/main/docs/img/winner.jpg).
@@ -60,9 +60,10 @@ headline={{ bold: "04", thin: "Results" }}
    You can see the website [clicking here](https://bebop-webjam.vercel.app/).
    or looking at some screenshots:
 
-   <div className="grid grid-cols-4 items-center min-h-0 gap-1 my-1">
+   <div className="grid grid-cols-4 items-center min-h-0 gap-2 my-1">
       <div className="col-start-1 col-end-2">
          <Image
+         className="z-40 relative border overflow-hidden border-gray-3 rounded-sm"
          src={smartphoneScreenshot}
          layout="responsive"
          width="100%"
@@ -73,6 +74,7 @@ headline={{ bold: "04", thin: "Results" }}
       </div>
       <div className="col-start-2 col-end-5">
          <Image
+         className="z-40 relative border overflow-hidden border-gray-3 rounded-sm"
          src={desktopScreenshot}
          layout="responsive"
          width="100%"
