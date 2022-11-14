@@ -30,7 +30,7 @@ const StyledLinkWithIcon: FC<StyledLinkProps & HtmlHTMLAttributes<{}>> = ({
     <UnstyledLink
       className={cx(
         cva(
-          "cursor-pointer underline underline-offset-2 motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard hover:text-crimson11 focus-within:text-crimson11 [&>svg]:inline",
+          "cursor-pointer underline underline-offset-2 motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard hover:text-gray-12 focus-within:text-gray-12 [&>svg]:inline",
           {
             variants: {
               bold: {
