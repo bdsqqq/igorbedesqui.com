@@ -57,7 +57,7 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
         )}
         <div className="relative min-h-[40vh] flex items-center md:max-w-7xl">
           <h1
-            className="text-gray-12 mb-4 uppercase tracking-tight text-3xl max-w-xl md:w-2/3 md:text-4xl"
+            className="mb-4 uppercase tracking-tight text-3xl max-w-xl md:w-2/3 md:text-4xl"
             id="skip"
           >
             {children}
