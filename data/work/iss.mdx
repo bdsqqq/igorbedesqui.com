@@ -21,10 +21,15 @@ export const meta = {
    Using data from a third-party API, I had a couple of limitations; especifically, I could only make one request per second across all clients. Without a caching layer of some sort, a few concurrent users, would quickly exceed my quota. This called for an interesting solution;
    <br />
    
+   <span className="text-gray-8">
    ~~creating a serverless cache layer to store fresh data and distribute it or refresh it when appropriate is something I never did before but had fun implementing. Using a blazing fast cache like Redis on [Upstash](https://upstash.com/) allowed me to deliver an almost instant experience to users while keeping the number of requests to an external API in check.~~
+   </span>
    <br />
- 
+   
+   <span className="text-gray-8">
    ~~While server-side challenges are something I don't deal with that much, this one proved to be a valuable learning experience and taught me a pattern that I'm sure I'll use in the future.~~
+   </span>
+
    <br />
  
    So, about the paragraphs above, what the fuck was I thinking??? I spun up a full-on Redis service to cache a REQUEST THAT DOESN'T CHANGE BETWEEN USERS.
