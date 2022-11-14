@@ -1,5 +1,5 @@
-import { meta, default as MD } from "data/work/iss.mdx";
-import { meta as bebopMeta } from "data/work/wasmgif.mdx";
+import { meta, default as MD } from "data/work/wasmgif.mdx";
+import { meta as bebopMeta } from "data/work/bebop.mdx";
 
 export default function WasmGif() {
   return (
