@@ -11,7 +11,7 @@ const Separator: React.FC<SeparatorPrimitive.SeparatorProps> = ({
   return (
     <SeparatorPrimitive.Root
       className={cx(
-        "bg-gray-6 radix-orientation-horizontal:h-[1px] radix-orientation-vertical:w-[1px]",
+        "bg-gray-4 radix-orientation-horizontal:h-[1px] radix-orientation-vertical:w-[1px]",
         className
       )}
       {...rest}
