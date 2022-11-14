@@ -12,7 +12,7 @@ export default function Bebop() {
 
       <ProjectContainer key="bebopProj" backMessage={meta.backMessage}>
         <HeroBand fullBleed heroVideo={"/videos/bebop/noodles"}>
-          <span>
+          <span className="text-gray-12">
             The work, which becomes a new genre itself, will be called... COWBOY
             BEBOP
           </span>
