@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply min-w-[360px] scroll-smooth leading-normal text-mauve12 bg-mauve1 h-full antialiased;
+  @apply min-w-[360px] scroll-smooth leading-normal text-gray-11 bg-gray-0 h-full antialiased;
   font-family: sans-serif;
 },
 
@@ -13,11 +13,11 @@ img, picture, video, canvas, svg {
 },
 
 ::selection {
-  @apply bg-mauve12 text-mauve1
+  @apply bg-gray-12 text-gray-1
 },
 
 * {
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mauve9 focus-visible:ring-offset-mauve1 focus-visible:ring-offset-4 focus-visible:rounded-sm focus-visible:z-10
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-9 focus-visible:ring-offset-gray-0 focus-visible:ring-offset-4 focus-visible:rounded-sm focus-visible:z-10
 },
 
 input, button, textarea, select {

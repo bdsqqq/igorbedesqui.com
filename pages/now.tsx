@@ -18,7 +18,7 @@ export default function Home() {
         <Band gridless id="main">
           <div className="mx-auto">
             <h1 className="text-4xl">What I’m doing now</h1>
-            <p className="text-mauve11 text-sm font-semibold">
+            <p className="text-gray-11 text-sm font-semibold">
               Last updated on <span>August 8th, 2022</span>
             </p>
 
@@ -33,7 +33,7 @@ export default function Home() {
               })}
             </ul>
             <div className="h-40" />
-            <p className="text-mauve11 text-xs font-semibold">
+            <p className="text-gray-11 text-xs font-semibold">
               slowly surpassing my yesterday self.
             </p>
           </div>

@@ -22,7 +22,7 @@ type BandProps = BandWithGrid | BandGridless;
 
 // TODO: update this typedef and component API. Instead of a mandatory gridless I could assume it by the absence of heading. Also, I can probably write a typedef that gives me nicer autocomplete .
 
-const sectionStyles = cva("w-full bg-mauve1 text-mauve12", {
+const sectionStyles = cva("w-full", {
   variants: {
     padding: {
       none: "p-0",
@@ -68,10 +68,10 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
         {!gridless ? (
           <>
             <h2 className="mb-12 h-max grid items-end md:items-start md:h-min md:sticky top-4 col-span-1 pr-16">
-              <span className="font-bold text-mauve3 [grid-area:1/1/1/1] text-7xl leading-none md:[writing-mode:vertical-lr]">
+              <span className="font-bold text-gray-1 [grid-area:1/1/1/1] text-7xl leading-none md:[writing-mode:vertical-lr]">
                 {headline?.bold}
               </span>
-              <div className="font-bold text-mauve12 align-top [grid-area:1/1/1/1] pb-4 md:w-min md:pl-2 md:pb-2 text-lg md:[writing-mode:vertical-lr]">
+              <div className="font-bold align-top [grid-area:1/1/1/1] pb-4 md:w-min md:pl-2 md:pb-2 text-lg md:[writing-mode:vertical-lr]">
                 {headline?.thin}
               </div>
             </h2>

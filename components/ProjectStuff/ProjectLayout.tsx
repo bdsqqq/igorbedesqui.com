@@ -5,14 +5,16 @@ export const ProjectLayout: React.FC<
   }>
 > = ({ children, projMeta, nextProjMeta }) => {
   return (
-    <div className="grid md:gap-5 md:[grid-template-columns:1fr_220px] lg:gap-20 lg:[grid-template-columns:1fr_330px] px-8 md:px-16">
+    <div className="grid md:gap-5 md:[grid-template-columns:1fr_220px] lg:gap-20 lg:[grid-template-columns:1fr_330px]">
       <div>{children}</div>
 
       <div>
         <div className="sticky top-[1.5rem] pt-8 px-8 md:pr-24 md:px-0 md:right-16 overflow-auto max-h-[calc(100vh_-_1.5rem)]">
-          <div>
-            <div className="mb-6">
-              <p className="font-semibold">Type of work</p>
+          <Separator className="md:hidden w-11 mb-12" />
+
+          <div className="grid grid-cols-2 gap-4 md:flex md:flex-col md:gap-6">
+            <div className="col-span-2">
+              <p className="font-bold text-gray-9">Type of work</p>
               <ul>
                 {projMeta.roles.map((role, i) => {
                   return (
@@ -25,8 +27,8 @@ export const ProjectLayout: React.FC<
               </ul>
             </div>
 
-            <div className="mb-6">
-              <p className="font-semibold">Tools</p>
+            <div>
+              <p className="font-bold text-gray-9">Tools</p>
               <ul>
                 {projMeta.tools.map((tool, i) => {
                   return (
@@ -39,23 +41,25 @@ export const ProjectLayout: React.FC<
               </ul>
             </div>
 
-            <div className="mb-8">
-              <span className="font-semibold">Date</span>
-              <p>{projMeta.date}</p>
-            </div>
+            <div className="flex flex-col gap-4 md:gap-6">
+              <div>
+                <span className="font-bold text-gray-9">Project type</span>
+                <p>{projMeta.type}</p>
+              </div>
 
-            <div className="mb-6">
-              <span className="font-semibold">Project type</span>
-              <p>{projMeta.type}</p>
+              <div>
+                <span className="font-bold text-gray-9">Date</span>
+                <p>{projMeta.date}</p>
+              </div>
             </div>
 
             {nextProjMeta && (
               <>
-                <Separator className="w-11 my-12" />
+                <Separator className="max-sm:hidden w-11 my-12" />
 
-                <div className="mb-6">
-                  <span className="font-semibold">Next project</span>
-                  <span className="flex gap-0.5 items-center text-mauve11">
+                <div className="col-span-2">
+                  <span className="font-bold text-gray-9">Next project</span>
+                  <span className="flex gap-0.5 items-center text-gray-11">
                     <StyledLink href={`/p/${nextProjMeta.urlSlug}`}>
                       {nextProjMeta.name}
                     </StyledLink>

@@ -13,8 +13,10 @@ export default function Bebop() {
       <ProjectContainer key="bebopProj" backMessage={meta.backMessage}>
         <HeroBand fullBleed heroVideo={"/videos/bebop/noodles"}>
           <span>
-            The work, which becomes a new genre itself, will be called... COWBOY
-            BEBOP
+            <strong className="text-gray-12">The work</strong>, which{" "}
+            <strong className="text-gray-12">becomes a new genre itself</strong>
+            , will be called...{" "}
+            <strong className="text-gray-12">COWBOY BEBOP</strong>
           </span>
           <div className="mt-6">
             <CodeAndDemoButtons

@@ -51,7 +51,7 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
                   <source src={`${heroVideo}.mp4`} type="video/mp4" />
                 </video>
               )}
-              <div className="absolute w-full h-full top-0 bg-mauve1 opacity-75" />
+              <div className="absolute w-full h-full top-0 bg-gray-1 opacity-75" />
             </div>
           </div>
         )}

@@ -29,7 +29,7 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
         data-dir={options?.side || "top"}
       >
         {content}
-        <TooltipArrow className="fill-mauve3 stroke-mauve7 filter drop-shadow-sm" />
+        <TooltipArrow className=" stroke-gray-7 filter drop-shadow-sm" />
       </AriaKitTooltip>
     </>
   );
@@ -37,7 +37,7 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
 
 const tooltipVariants = cva(
   [
-    "text-mauve12 shadow-sm border border-mauve7 rounded-sm transform motion-safe:transition-all duration-fast-02",
+    "shadow-sm border border-gray-7 rounded-sm transform motion-safe:transition-all duration-fast-02",
     "data-[dir=top]:origin-bottom",
     "data-[dir=bottom]:origin-top",
     "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-enter",
@@ -48,8 +48,8 @@ const tooltipVariants = cva(
   {
     variants: {
       bg: {
-        standard: "bg-mauve3",
-        subtle: "bg-mauve2",
+        standard: "bg-gray-1",
+        subtle: "bg-gray-0",
       },
       size: {
         sm: ["text-sm", "py-0.5", "px-1"],

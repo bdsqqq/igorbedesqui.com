@@ -1,5 +1,5 @@
-import { meta, default as MD } from "data/work/iss.mdx";
-import { meta as bebopMeta } from "data/work/wasmgif.mdx";
+import { meta, default as MD } from "data/work/wasmgif.mdx";
+import { meta as bebopMeta } from "data/work/bebop.mdx";
 
 export default function WasmGif() {
   return (
@@ -13,8 +13,8 @@ export default function WasmGif() {
       <ProjectContainer key="wasmGifProj">
         <HeroBand fullBleed heroVideo={"/videos/wasmgif/wow"}>
           <span>
-            <span className="font-bold">Fast</span> and{" "}
-            <span className="font-bold">secure</span> gif making.
+            <span className="font-bold text-gray-12">Fast</span> and{" "}
+            <span className="font-bold text-gray-12">secure</span> gif making.
           </span>
           <div className="mt-6">
             <CodeAndDemoButtons

@@ -13,7 +13,11 @@ export default function Iss() {
       <ProjectContainer key="issProj" backMessage="Fly back home">
         <HeroBand fullBleed heroVideo="/videos/iss/space">
           <span>
-            Where’s the <strong>ISS</strong>?
+            Where’s the{" "}
+            <Tooltip content="International Space Station">
+              <strong className="text-gray-12">ISS</strong>
+            </Tooltip>
+            ?
           </span>
           <p className="text-transparent" aria-hidden="true">
             (In space, probably, don’t tell anyone)
@@ -39,3 +43,4 @@ import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
+import Tooltip from "@/components/ui/Tooltip";

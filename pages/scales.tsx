@@ -204,7 +204,7 @@ const Scales = () => {
                   data-placement={comboboxState.currentPlacement}
                   state={comboboxState}
                   className={cx(
-                    "text-mauve12 shadow-sm border border-mauve7 rounded-sm bg-mauve2 z-10 transform transition-all duration-fast-02",
+                    "text-gray-12 shadow-sm border border-gray-7 rounded-sm bg-gray-2 z-10 transform transition-all duration-fast-02",
                     "data-[placement=bottom-start]:origin-top-left",
                     "data-[placement=top-start]:origin-bottom",
                     "data-[enter]:opacity-100 data-[enter]:ease-productive-enter",
@@ -217,7 +217,7 @@ const Scales = () => {
                   {filteredPreDefinedScales.map((scale) => (
                     <ComboboxItem
                       key={`${scale.name}_ComboboxItem`}
-                      className="cursor-pointer px-3 py-1 border-none rounded-sm hover:bg-mauve4 focus:bg-mauve4 aria-selected:bg-mauve5 motion-safe:transition-colors duration-fast-01 ease-productive-standard"
+                      className="cursor-pointer px-3 py-1 border-none rounded-sm hover:bg-gray-4 focus:bg-gray-4 aria-selected:bg-gray-5 motion-safe:transition-colors duration-fast-01 ease-productive-standard"
                       value={scale.value}
                     >
                       {scale.name}
@@ -286,7 +286,7 @@ const Scales = () => {
             ))}
           </ul>
         )}
-        <div className="overflow-x-scroll">
+        <div className="overflow-x-auto">
           <div className="relative overflow-x-visible overflow-y-hidden whitespace-nowrap w-full text-center pb-8">
             {[...Array(scaleLength + 2)].map((_, i) => {
               let f = getFi(i - 1, ratio, scaleLength, f0);
@@ -339,7 +339,7 @@ const Scales = () => {
 };
 
 const inputVariants = cva(
-  "p-1 bg-mauve3 text-mauve12 text-center border-none rounded-sm outline outline-1 outline-transparent hover:bg-mauve4 focus:mauve5 focus:outline-mauve8 motion-safe:transition-colors duration-fast-01 ease-productive-standard",
+  "relative focus-within:z-10 p-1 bg-gray-3 text-gray-12 text-center border-none rounded-sm outline outline-1 outline-transparent hover:bg-gray-4 focus:gray-5 focus:outline-gray-8 !ring-0 !ring-offset-0 focus-v motion-safe:transition-colors duration-fast-01 ease-productive-standard",
   {
     variants: {
       size: {
