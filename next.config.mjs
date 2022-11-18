@@ -22,10 +22,6 @@ export default withBundleAnalyzer({
   ...withMDX({
     swcMinify: true,
     reactStrictMode: true,
-    i18n: {
-      locales: ["en", "pt"],
-      defaultLocale: "en",
-    },
     pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   }),
 });
