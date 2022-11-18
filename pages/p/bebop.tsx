@@ -3,6 +3,7 @@ import { meta as issMeta } from "data/work/iss.mdx";
 
 export default function Bebop({
   meta,
+  mdx,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
@@ -29,7 +30,9 @@ export default function Bebop({
         </HeroBand>
 
         <ProjectLayout projMeta={meta} nextProjMeta={issMeta}>
-          <MD />
+          <Band gridless id="update">
+            <MDXRemote {...mdx.update} />
+          </Band>
         </ProjectLayout>
       </ProjectContainer>
       <FABContainer>
@@ -51,6 +54,7 @@ import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import Band from "@/components/Band";
 
 export const meta = {
   shortName: "bebop",
@@ -75,12 +79,10 @@ export const meta = {
 };
 const MDs = {
   update: `
-    <Band gridless id="update">
     <h2 className="text-xl font-bold text-gray-11 uppercase mb-2">
         Update
     </h2>
     On november 2nd 2021 I got a notification on my discord with the amazing news that this project had won the competition with the majority of votes. Now, I bask in the glory!! [I'll leave the screenshot of the announcement here because I'm very proud of this](https://raw.githubusercontent.com/bdsqqq/bebop-webjam/main/docs/img/winner.jpg).
-    </Band>
   `,
   why: `
     <Band headline={{ bold: "01", thin: "Why?" }}>
@@ -120,18 +122,41 @@ const MDs = {
   },
 };
 
-const recurse = (item: Object | string) => {
-  if (typeof item !== "string") {
-    const keys = Object.keys(item);
-    keys.forEach((key) => recurse(item[key]));
-    // I don't know how I should loop through the items in a way that would allow me to return the key and value correctly here 😭
-  } else {
-    // I don't know how to return the result to the right key here 😭
-    return serialize(item);
-  }
-};
+async function clone<T>(obj: T) {
+  var copy: { [key in keyof T]: idk man } };
 
+  // Handle the 3 simple types, and null or undefined
+  if (null == obj || "object" != typeof obj) return await serialize(obj);
+
+  // Handle Date
+  if (obj instanceof Date) {
+    throw new Error("Unable to copy obj! Its date isn't supported.");
+  }
+
+  // Handle Array
+  if (obj instanceof Array) {
+    copy = [];
+    for (var i = 0, len = obj.length; i < len; i++) {
+      copy[i] = await clone(obj[i]);
+    }
+    return copy;
+  }
+
+  // Handle Object
+  if (obj instanceof Object) {
+    copy = {};
+    for (var attr in obj) {
+      // @ts-ignore
+      if (obj.hasOwnProperty(attr)) copy[attr] = await clone(obj[attr]);
+    }
+    return copy;
+  }
+
+  throw new Error("Unable to copy obj! Its type isn't supported.");
+}
 export const getStaticProps = async () => {
-  const mdx = await serialize(MDs);
+  const mdx = await clone(MDs);
+  console.log(mdx);
+
   return { props: { meta, mdx } };
 };
