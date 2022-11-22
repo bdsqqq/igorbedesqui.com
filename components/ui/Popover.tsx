@@ -59,7 +59,7 @@ export default PopOver;
 // TODO: these are the same styles as tooltip, extract these into a Disclosure generic style for reuse in both
 const tooltipVariants = cva(
   [
-    "text-gray-12 shadow-sm border border-gray-7 rounded-sm transform motion-safe:transition-all duration-fast-02",
+    "shadow-sm border border-gray-7 rounded-sm transform motion-safe:transition-all duration-fast-02",
     "data-[dir=top]:origin-bottom",
     "data-[dir=bottom]:origin-top",
     "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-enter",
