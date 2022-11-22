@@ -2,7 +2,6 @@ import { default as MD } from "data/work/bebop.mdx";
 import { meta as issMeta } from "data/work/iss.mdx";
 
 export default function Bebop({
-  meta,
   mdx,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -33,6 +32,23 @@ export default function Bebop({
           <Band gridless id="update">
             <MDXRemote {...mdx.update} />
           </Band>
+          <Band headline={{ bold: "01", thin: "Why?" }}>
+            <MDXRemote
+              {...mdx.why}
+              components={{
+                Popover: ({ children }) => (
+                  <PopOver
+                    options={{
+                      bg: "subtle",
+                    }}
+                    content={<MDXRemote {...mdx.update} />}
+                  >
+                    {children}
+                  </PopOver>
+                ),
+              }}
+            />
+          </Band>
         </ProjectLayout>
       </ProjectContainer>
       <FABContainer>
@@ -55,6 +71,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import Band from "@/components/Band";
+import PopOver from "@/components/ui/Popover";
 
 export const meta = {
   shortName: "bebop",
@@ -85,11 +102,9 @@ const MDs = {
     On november 2nd 2021 I got a notification on my discord with the amazing news that this project had won the competition with the majority of votes. Now, I bask in the glory!! [I'll leave the screenshot of the announcement here because I'm very proud of this](https://raw.githubusercontent.com/bdsqqq/bebop-webjam/main/docs/img/winner.jpg).
   `,
   why: `
-    <Band headline={{ bold: "01", thin: "Why?" }}>
-    I made this project as an entry for the second installment of the <Popover content={<BebopPopoverContent/>}>WebJam</Popover>.
+    I made this project as an entry for the second installment of the <Popover>WebJam</Popover>.
     <br/>
     The challenge for this WebJam was to create a single page/non-scrollable site for a movie of my choosing. The site should work on any screen size and illustrate the movie.
-    </Band>
   `,
   design: `
     <Band headline={{ bold: "02", thin: "Design" }}>
@@ -122,41 +137,40 @@ const MDs = {
   },
 };
 
-async function clone<T>(obj: T) {
-  var copy: { [key in keyof T]: idk man } };
+type SerializeResult = Awaited<MDXRemoteSerializeResult>;
 
-  // Handle the 3 simple types, and null or undefined
-  if (null == obj || "object" != typeof obj) return await serialize(obj);
+type RecursiveSerialize<T> = {
+  [P in keyof T]: T[P] extends string
+    ? SerializeResult
+    : RecursiveSerialize<T[P]>;
+};
 
-  // Handle Date
-  if (obj instanceof Date) {
-    throw new Error("Unable to copy obj! Its date isn't supported.");
-  }
+/**
+ * @see {@link https://stackoverflow.com/questions/73835176/replace-all-the-nested-object-properties-to-particular-value}
+ */
+async function mutateSerializeMdx<
+  T extends object,
+  R extends RecursiveSerialize<T>
+>(obj: T): Promise<R> {
+  const keys = Object.keys(obj) as Array<keyof typeof obj>;
 
-  // Handle Array
-  if (obj instanceof Array) {
-    copy = [];
-    for (var i = 0, len = obj.length; i < len; i++) {
-      copy[i] = await clone(obj[i]);
+  for (const key of keys) {
+    const value = obj[key];
+
+    // @ts-ignore
+    if (typeof value === "string") obj[key] = await serialize(value);
+    if (typeof value === "object" && value !== null) {
+      mutateSerializeMdx(value);
     }
-    return copy;
   }
 
-  // Handle Object
-  if (obj instanceof Object) {
-    copy = {};
-    for (var attr in obj) {
-      // @ts-ignore
-      if (obj.hasOwnProperty(attr)) copy[attr] = await clone(obj[attr]);
-    }
-    return copy;
-  }
-
-  throw new Error("Unable to copy obj! Its type isn't supported.");
+  // @ts-ignore
+  return obj;
 }
-export const getStaticProps = async () => {
-  const mdx = await clone(MDs);
-  console.log(mdx);
 
-  return { props: { meta, mdx } };
+export const getStaticProps: GetStaticProps<{
+  mdx: RecursiveSerialize<typeof MDs>;
+}> = async () => {
+  const mdx = await mutateSerializeMdx(MDs);
+  return { props: { mdx } };
 };
