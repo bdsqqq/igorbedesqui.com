@@ -7,7 +7,7 @@ import StyledLinkWithIcon from "@/components/ui/StyledLink";
 
 import { Lora } from "@next/font/google";
 
-const customFont = Lora({ display: "swap" });
+const customFont = Lora({ display: "swap", subsets: ["latin"] });
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
