@@ -102,11 +102,15 @@ import Band from "@/components/Band";
 import PopOver from "@/components/ui/Popover";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
 
+import {
+  mutateSerializeMdx,
+  RecursiveSerialize,
+} from "@/lib/mutateSerializeMdx";
+
 import desktopScreenshot from "@/public/images/projs/bebop/desktop-screenshot.png";
 import smartphoneScreenshot from "@/public/images/projs/bebop/smartphone-screenshot.png";
 
-import { serialize } from "next-mdx-remote/serialize";
-import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
+import { MDXRemote } from "next-mdx-remote";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import Image from "next/image";
 
@@ -172,37 +176,6 @@ const MDs = {
   `,
   },
 };
-
-type SerializeResult = Awaited<MDXRemoteSerializeResult>;
-
-type RecursiveSerialize<T> = {
-  [P in keyof T]: T[P] extends string
-    ? SerializeResult
-    : RecursiveSerialize<T[P]>;
-};
-
-/**
- * @see {@link https://stackoverflow.com/questions/73835176/replace-all-the-nested-object-properties-to-particular-value}
- */
-async function mutateSerializeMdx<
-  T extends object,
-  R extends RecursiveSerialize<T>
->(obj: T): Promise<R> {
-  const keys = Object.keys(obj) as Array<keyof typeof obj>;
-
-  for (const key of keys) {
-    const value = obj[key];
-
-    // @ts-ignore
-    if (typeof value === "string") obj[key] = await serialize(value);
-    if (typeof value === "object" && value !== null) {
-      mutateSerializeMdx(value);
-    }
-  }
-
-  // @ts-ignore
-  return obj;
-}
 
 export const getStaticProps: GetStaticProps<{
   mdx: RecursiveSerialize<typeof MDs>;
