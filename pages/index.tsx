@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <Seo
         title="Igor Bedesqui — Web Developer"
-        description="front-end Web Developer based in São Paulo"
+        description="front-end Web Developer based in Lisbon"
       />
 
       <Container key="index">
@@ -18,7 +18,7 @@ export default function Home() {
           <br />
           <br />
           My name is <strong>Igor Bedesqui</strong>, I’m a web developer based
-          in São Paulo
+          in Lisbon
         </HeroBand>
         <Band headline={{ bold: "01", thin: "Who am I?" }}>
           <p className="text-xl md:text-2xl">

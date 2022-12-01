@@ -40,6 +40,7 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
 
               {heroVideo && (
                 <video
+                  tabIndex={-1}
                   preload="none"
                   playsInline
                   autoPlay
