@@ -5,9 +5,13 @@ import { MDXProvider } from "@mdx-js/react";
 
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
 
-import { Lora } from "@next/font/google";
+import { IBM_Plex_Serif } from "@next/font/google";
 
-const customFont = Lora({ display: "swap", subsets: ["latin"] });
+const customFont = IBM_Plex_Serif({
+  display: "swap",
+  subsets: ["latin"],
+  weight: ["200", "400", "700"],
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
