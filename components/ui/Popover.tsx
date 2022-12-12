@@ -23,6 +23,10 @@ const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
   return (
     <>
       <PopoverDisclosure
+        as={"span"}
+        role="button"
+        tabIndex={0}
+        // tabIndex and role because this has to be a span otherwise it will cause a hydration mismatch when rendered inside a <p> and a span needs tabIndex and role, see: https://techservicesillinois.github.io/accessibility/examples/popover.html
         state={popoverState}
         className={cx([
           "group cursor-pointer inline select-text font-semibold motion-safe:transition-all duration-fast-02 ease-productive-standard hover:text-gray-12 focus-within:text-gray-12 aria-expanded:text-gray-12",
@@ -59,7 +63,7 @@ export default PopOver;
 // TODO: these are the same styles as tooltip, extract these into a Disclosure generic style for reuse in both
 const tooltipVariants = cva(
   [
-    "text-gray-12 shadow-sm border border-gray-7 rounded-sm transform motion-safe:transition-all duration-fast-02",
+    "shadow-sm border border-gray-7 rounded-sm transform motion-safe:transition-all duration-fast-02",
     "data-[dir=top]:origin-bottom",
     "data-[dir=bottom]:origin-top",
     "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-enter",
