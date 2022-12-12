@@ -16,6 +16,19 @@ function MyApp({ Component, pageProps }: AppProps) {
         components={{
           // @ts-ignore
           a: StyledLinkWithIcon,
+          h1: (props) => (
+            <h1 className="text-2xl text-gray-11 mb-8" {...props} />
+          ),
+          h2: (props) => <h1 className="text-lg font-bold my-2" {...props} />,
+          strong: (props) => (
+            <strong className="font-bold text-gray-12" {...props} />
+          ),
+          pre: (props) => (
+            <pre
+              className="bg-gray-2 rounded p-4 my-2 overflow-x-auto text-sm"
+              {...props}
+            />
+          ),
         }}
       >
         <div className={`${customFont.className} relative`}>
