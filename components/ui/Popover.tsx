@@ -23,6 +23,10 @@ const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
   return (
     <>
       <PopoverDisclosure
+        as={"span"}
+        role="button"
+        tabIndex={0}
+        // tabIndex and role because this has to be a span otherwise it will cause a hydration mismatch when rendered inside a <p> and a span needs tabIndex and role, see: https://techservicesillinois.github.io/accessibility/examples/popover.html
         state={popoverState}
         className={cx([
           "group cursor-pointer inline select-text font-semibold motion-safe:transition-all duration-fast-02 ease-productive-standard hover:text-gray-12 focus-within:text-gray-12 aria-expanded:text-gray-12",

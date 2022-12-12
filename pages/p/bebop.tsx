@@ -1,4 +1,3 @@
-import { default as MD } from "data/work/bebop.mdx";
 import { meta as issMeta } from "data/work/iss.mdx";
 
 export default function Bebop({
@@ -62,10 +61,9 @@ export default function Bebop({
                 <Image
                   className="z-[31] relative border overflow-hidden border-gray-3 rounded-sm"
                   src={smartphoneScreenshot}
-                  layout="responsive"
                   width="1440"
                   height="3040"
-                  objectFit="contain"
+                  // fill
                   alt=""
                 />
               </div>
@@ -73,15 +71,14 @@ export default function Bebop({
                 <Image
                   className="z-[31] relative border overflow-hidden border-gray-3 rounded-sm"
                   src={desktopScreenshot}
-                  layout="responsive"
                   width="1200"
                   height="800"
-                  objectFit="contain"
+                  // fill
                   alt=""
                 />
               </div>
             </div>
-            <MDXRemote {...mdx.results.conclusion} />
+            <MDXRemote {...mdx.conclusion} />
           </Band>
         </ProjectLayout>
       </ProjectContainer>
@@ -169,12 +166,12 @@ const MDs = {
       You can see the website [clicking here](https://bebop-webjam.vercel.app/).
       or looking at some screenshots:
     `,
-    conclusion: `
+  },
+  conclusion: `
       After working on this project I'm more confident in my ability to create a cool design and translate it to code. As well as working with design tools such as Adobe Illustrator and Photoshop when needed. I also had a chance to learn a new animation library called motion one and enjoyed every second of it.
       <br/>
       I liked the WebJam experience and will be looking forward to its future installments.
-  `,
-  },
+    `,
 };
 
 export const getStaticProps: GetStaticProps<{
