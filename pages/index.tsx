@@ -13,13 +13,18 @@ export default function Home() {
       />
 
       <Container key="index">
-        <HeroBand>
-          <span className="font-light text-xl md:text-2xl">Hello — </span>
-          <br />
-          <br />
-          My name is <strong>Igor Bedesqui</strong>, I’m a web developer based
-          in Lisbon
-        </HeroBand>
+        <Band gridless id="hero">
+          <div className="grid grid-cols-4 gap-2">
+            <h1>Igor Bedesqui</h1>
+            <div className="col-span-2">
+              <p>
+                Crafting solutions. Building web experiences with care.
+                Exploring design, UX, and interactivity.
+              </p>
+              <p>Previously at IBM</p>
+            </div>
+          </div>
+        </Band>
         <Band headline={{ bold: "01", thin: "Who am I?" }}>
           <p className="text-xl md:text-2xl">
             In a few words:
