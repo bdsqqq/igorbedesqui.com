@@ -15,7 +15,7 @@ export default function Page({
 export const meta = {
   shortName: "on-writing",
   name: "On writing",
-  description: "",
+  description: "Lorem ipsum sit dolor amet",
   date: "12/12/2022",
   urlSlug: "on-writing",
   backMessage: "",
