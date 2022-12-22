@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <MDXProvider
         components={{
           // @ts-ignore
-          a: StyledLinkWithIcon,
+          a: (props) => <StyledLinkWithIcon {...props} />,
           h1: (props) => (
             <h1 className="text-2xl text-gray-11 mb-8" {...props} />
           ),

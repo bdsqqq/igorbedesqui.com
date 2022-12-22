@@ -21,3 +21,4 @@
 - [ ] StyledLink should be able to break words if they're too long, links tend to have bigass hashes with no spaces or dashes 
 - [ ] Update favicon
 - [x] Hero section overlay is bein applied to the entire div instead of just over the image
+- [ ] [Pedro Duarte](https://ped.ro) has a grainy overlay like mine but his is made with an SVG instead of a repeating image, meaning it's easier to customize and scales infinitely by default. Should probably yoink it
