@@ -56,7 +56,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
         className={cva("", {
           variants: {
             gridless: {
-              false: "md:grid md:grid-cols-4",
+              false: "md:grid md:grid-cols-8",
             },
             fullBleed: {
               false: "md:max-w-7xl m-auto",
@@ -76,7 +76,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
               </div>
             </h2>
 
-            <div className="md:[grid-column:span_3_/_span_3]">{children}</div>
+            <div className="md:col-span-7">{children}</div>
           </>
         ) : (
           <>{children}</>
