@@ -39,6 +39,7 @@ module.exports = {
         A11: "hsl(0 0% 100% / 0.592)",
         A12: "hsl(0 0% 100% / 0.923)",
       },
+      white: "hsl(0 0% 100%)",
     },
     extend: {
       keyframes: {
