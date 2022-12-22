@@ -18,7 +18,11 @@ export default function Page() {
             <em className="text-gray-12">
               {`this is about the often undervalued simple approach`}
             </em>
-            {`. Despite the popularity of minimalism and the general idea that "perfection is achieved when there is nothing left to take away", `}
+            {`. Despite the popularity of minimalism and the general idea that "`}
+            <StyledLink href="https://www.goodreads.com/quotes/19905-perfection-is-achieved-not-when-there-is-nothing-more-to">
+              {`perfection is achieved when there is nothing left to take away`}
+            </StyledLink>
+            {`", `}
             <em className="text-gray-12">{`we often downplay the value of the basics in various disciplines by using the word "just"`}</em>
             {`.`}
           </p>
@@ -76,3 +80,4 @@ export const meta = {
 
 import Band from "@/components/Band";
 import Container from "@/components/Container";
+import StyledLink from "@/components/ui/StyledLink";
