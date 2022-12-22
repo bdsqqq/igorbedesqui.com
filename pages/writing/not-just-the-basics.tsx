@@ -9,39 +9,39 @@ export default function Page() {
           </p>
           <p>
             {`Both require focusing on basic principles to avoid stupid mistakes.`}{" "}
-            <em className="text-gray-12">
+            <span className="text-gray-12">
               {`Being smart, creative, and innovative is important, but ignoring the risks that come with it is irresponsible; Allowing yourself to make big mistakes is an inherent part of the creative process.`}
-            </em>
+            </span>
           </p>
           <p>
             {`But I digress, I’m not here to talk about innovation,`}{" "}
-            <em className="text-gray-12">
+            <span className="text-gray-12">
               {`this is about the often undervalued simple approach`}
-            </em>
+            </span>
             {`. Despite the popularity of minimalism and the general idea that "`}
             <StyledLink href="https://www.goodreads.com/quotes/19905-perfection-is-achieved-not-when-there-is-nothing-more-to">
               {`perfection is achieved when there is nothing left to take away`}
             </StyledLink>
             {`", `}
-            <em className="text-gray-12">{`we often downplay the value of the basics in various disciplines by using the word "just"`}</em>
+            <span className="text-gray-12">{`we often downplay the value of the basics in various disciplines by using the word "just"`}</span>
             {`.`}
           </p>
           <p>
             {`In one of my favorite books, "Zen and the Art of Motorcycle Maintenance", the author discusses this concept, arguing that`}{" "}
-            <em className="text-gray-12">{`by removing “just” from our language, we can better understand and accept the true meaning of sentences`}</em>{" "}
+            <span className="text-gray-12">{`by removing “just” from our language, we can better understand and accept the true meaning of sentences`}</span>
             {`; “Just the basics” becomes “the fundamentals”.`}{" "}
           </p>
           <p>
-            <em className="text-gray-12">
+            <span className="text-gray-12">
               {`The consistent execution of fundamentals builds the foundation that serves as a safety net to allow innovation in the long term.`}
-            </em>
+            </span>
           </p>
 
           <p className="pt-4">
             {`Now, `}
-            <em className="text-gray-12">
+            <span className="text-gray-12">
               {`I'm focusing on the basics of my craft. The fine and detailed polish I strive for will come as I build “Just” the basics with care.`}{" "}
-            </em>
+            </span>
             <span aria-hidden="true" className="text-transparent">
               I hope...
             </span>
