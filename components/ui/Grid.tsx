@@ -1,26 +1,23 @@
-const Overlay = () => {
-  const gridVariants = cva(
-    "grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16 w-full px-8 md:px-16",
-    {
-      variants: {
-        mode: {
-          // wide: "gap-x-8",
-          // narrow: "gap-x-4",
-          // condensed: "gap-x-[1px]",
-          wide: "[&>*]:px-8",
-          narrow: "[&>*]:px-4",
-          condensed: "[&>*]:px-[1px]",
-        },
-      },
-    }
-  );
+const grid = cva("grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16", {
+  variants: {
+    mode: {
+      // wide: "gap-x-8",
+      // narrow: "gap-x-4",
+      // condensed: "gap-x-[1px]",
+      wide: "[&>*]:px-8",
+      narrow: "[&>*]:px-4",
+      condensed: "[&>*]:px-[1px]",
+    },
+  },
+});
 
+const Overlay = () => {
   const [mode, setMode] = useState<"wide" | "narrow" | "condensed">("wide");
   const [visible, setVisible] = useState<boolean>(false);
 
   return (
     <>
-      <div className="absolute top-4 right-4 z-50 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-fast-02 ease-productive-standard">
+      <div className="fixed top-4 right-4 z-50 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-fast-02 ease-productive-standard">
         <PopOver
           Icon={Fragment}
           content={
@@ -66,7 +63,9 @@ const Overlay = () => {
       </div>
       {visible && (
         <div className="z-50 absolute inset-0 pointer-events-none bg-gray-A4">
-          <div className={cx(gridVariants({ mode: mode }), "h-full")}>
+          <div
+            className={cx(grid({ mode: mode }), "h-full w-full px-8 md:px-16")}
+          >
             {[...Array(16)].map((_, i) => {
               return (
                 <div key={i} className="bg-gray-A4 border-x border-gray-A6">
@@ -81,7 +80,19 @@ const Overlay = () => {
   );
 };
 
-export { Overlay };
+const subGrid = ({ lg, md, sm }: { lg: number; md: number; sm: number }) => {
+  return cva(`grid grid-cols-${sm} md:grid-cols-${md} lg:grid-cols-${lg}`, {
+    variants: {
+      mode: {
+        wide: "[&>*]:px-8 -mx-8",
+        narrow: "[&>*]:px-4 -mx-4",
+        condensed: "[&>*]:px-[1px] -mx-[1px]",
+      },
+    },
+  });
+};
+
+export { Overlay, grid, subGrid };
 
 import { useState, Fragment } from "react";
 

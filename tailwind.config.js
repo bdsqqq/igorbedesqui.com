@@ -43,6 +43,9 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
+        13: "repeat(13, minmax(0, 1fr))",
+        14: "repeat(14, minmax(0, 1fr))",
+        15: "repeat(15, minmax(0, 1fr))",
         16: "repeat(16, minmax(0, 1fr))",
       },
       gridColumn: {
@@ -139,5 +142,11 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    {
+      pattern: /grid-cols-(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16)/,
+      variants: ["lg", "md"],
+    },
+  ],
   plugins: [require("tailwindcss-radix")()],
 };

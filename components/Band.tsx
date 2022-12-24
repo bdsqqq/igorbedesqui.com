@@ -56,7 +56,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
         className={cva("", {
           variants: {
             gridless: {
-              false: "md:grid md:grid-cols-4",
+              false: grid({ mode: "narrow" }),
             },
             fullBleed: {
               false: "md:max-w-7xl m-auto",
@@ -67,7 +67,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
       >
         {!gridless ? (
           <>
-            <h2 className="mb-12 h-max grid items-end md:items-start md:h-min md:sticky top-4 col-span-1 pr-16">
+            <h2 className="mb-12 h-max grid items-end md:items-start md:h-min md:sticky top-4 col-span-2 pr-16">
               <span className="font-bold text-gray-1 [grid-area:1/1/1/1] text-7xl leading-none md:[writing-mode:vertical-lr]">
                 {headline?.bold}
               </span>
@@ -76,7 +76,9 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
               </div>
             </h2>
 
-            <div className="md:[grid-column:span_3_/_span_3]">{children}</div>
+            <div className="col-span-2 md:col-span-6 lg:col-span-14">
+              {children}
+            </div>
           </>
         ) : (
           <>{children}</>
@@ -88,5 +90,6 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
 
 export default Band;
 
-import { cva, cx, type VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
+import { grid } from "@/ui/Grid";

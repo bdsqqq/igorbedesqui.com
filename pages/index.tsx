@@ -118,6 +118,25 @@ export default function Home() {
             </div>
           </div>
         </Band>
+        <Band headline={{ bold: "!!!", thin: "Grid" }}>
+          <div
+            className={cx(
+              subGrid({ lg: 14, md: 6, sm: 2 })({ mode: "narrow" }),
+              "h-full"
+            )}
+          >
+            {[...Array(14)].map((_, i) => {
+              return (
+                <div
+                  key={i}
+                  className="bg-crimson9 bg-opacity-20 border-x border-gray-A6"
+                >
+                  <div className="bg-crimson9 bg-opacity-20 h-full w-full" />
+                </div>
+              );
+            })}
+          </div>
+        </Band>
         <Band headline={{ bold: "Hey!", thin: "Let's connect" }}>
           {`Get in touch via `}
           <StyledLink href="twitter.com/bedesqui">{`Twitter`}</StyledLink>
@@ -145,3 +164,5 @@ import { FABContainer, UnstyledLink } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 import EmailLink from "@/components/ui/EmailLink";
+import { subGrid } from "@/components/ui/Grid";
+import { cx } from "class-variance-authority";
