@@ -38,21 +38,19 @@ export default function Home() {
           </div>
         </Band>
         <Band headline={{ bold: "01", thin: "Work" }}>
-          <div
-            className={subGrid({ lg: 14, md: 7, sm: 4 })({ mode: "narrow" })}
-          >
+          <div className={subGrid()({ mode: "narrow" })}>
             <ul className="col-span-full md:col-span-5 lg:col-span-8 flex flex-col -mt-4 hover:text-gray-10 pointer-events-none">
               {projsMeta.map((projMeta) => {
                 return (
                   <li key={projMeta.shortName}>
                     <UnstyledLink
                       className="block py-4 pointer-events-auto hover:text-gray-12 transition-colors duration-fast-02 ease-productive-standard group"
-                      href={`/work/${projMeta.urlSlug}`}
+                      href={`/p/${projMeta.urlSlug}`}
                     >
                       <div className="flex flex-col gap-0.5">
                         <div className="flex gap-2 items-baseline">
                           <h3 className="inline text-2xl">{projMeta.name}</h3>
-                          <span className="text-xs text-bold text-gray-11 md:opacity-0 group-hover:opacity-100 transform md:-translate-x-4 group-hover:translate-x-0 transition-all duration-moderate-01">
+                          <span className="text-xs text-bold text-gray-11 text-end md:opacity-0 group-hover:opacity-100 transform md:-translate-x-4 group-hover:translate-x-0 transition-all duration-moderate-01">
                             {projMeta.date}
                           </span>
                         </div>
@@ -90,13 +88,13 @@ export default function Home() {
           </div>
         </Band>
         <Band headline={{ bold: "02", thin: "Now" }}>
-          <div className="flex flex-col gap-2 md:grid grid-cols-3 md:gap-8">
-            <div className="col-start-3 col-end-4">
-              <span className="text-xs font-bold">
+          <div className={subGrid()({ mode: "narrow" })}>
+            <div className="lg:col-start-12 col-span-3">
+              <span className="text-xs font-bold tracking-tighter">
                 Last updated in <time>22 Dec 2022</time>
               </span>
             </div>
-            <div className="col-start-1 col-end-3 row-start-1 flex flex-col gap-y-4">
+            <div className="col-span-10 lg:row-start-1 flex flex-col gap-y-4">
               <p>
                 {`Now, `}
                 <span className="text-gray-12">
@@ -123,12 +121,7 @@ export default function Home() {
           </div>
         </Band>
         <Band headline={{ bold: "!!!", thin: "Grid" }}>
-          <div
-            className={cx(
-              subGrid({ lg: 14, md: 7, sm: 4 })({ mode: "narrow" }),
-              "h-full"
-            )}
-          >
+          <div className={cx(subGrid()({ mode: "narrow" }), "h-full")}>
             {[...Array(14)].map((_, i) => {
               return (
                 <div

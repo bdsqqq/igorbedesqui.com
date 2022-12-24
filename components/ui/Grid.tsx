@@ -9,57 +9,27 @@ const grid = cva("grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16", {
       condensed: "[&>*]:px-[1px]",
     },
   },
+  defaultVariants: {
+    mode: "narrow",
+  },
 });
 
 const Overlay = () => {
-  const [mode, setMode] = useState<"wide" | "narrow" | "condensed">("wide");
+  const [mode, setMode] = useState<"wide" | "narrow" | "condensed">("narrow");
   const [visible, setVisible] = useState<boolean>(false);
 
   return (
     <>
       <div className="fixed top-4 right-4 z-50 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-fast-02 ease-productive-standard">
-        <PopOver
-          Icon={Fragment}
-          content={
-            <div>
-              <div className="flex items-center">
-                <Button
-                  className="border-none"
-                  onClick={() => setVisible((visible) => !visible)}
-                >
-                  {visible ? <EyeOpenIcon /> : <EyeClosedIcon />}
-                </Button>
-              </div>
-              <div>
-                <Button
-                  size="sm"
-                  className="border-none"
-                  onClick={() => setMode("wide")}
-                >
-                  Wide
-                </Button>
-                <Button
-                  size="sm"
-                  className="border-none"
-                  onClick={() => setMode("narrow")}
-                >
-                  Narrow
-                </Button>
-                <Button
-                  size="sm"
-                  className="border-none"
-                  onClick={() => setMode("condensed")}
-                >
-                  Condensed
-                </Button>
-              </div>
-            </div>
-          }
+        <Button
+          onClick={() => {
+            setVisible((v) => !v);
+          }}
+          className="h-8"
+          size="sm"
         >
-          <Button className="h-8" size="sm">
-            <LayoutIcon />
-          </Button>
-        </PopOver>
+          {visible ? <EyeOpenIcon /> : <EyeClosedIcon />}
+        </Button>
       </div>
       {visible && (
         <div className="z-50 absolute inset-0 pointer-events-none bg-gray-A4">
@@ -80,7 +50,14 @@ const Overlay = () => {
   );
 };
 
-const subGrid = ({ lg, md, sm }: { lg: number; md: number; sm: number }) => {
+// all arguments are optional
+const subGrid = (
+  { lg = 14, md = 7, sm = 4 }: { lg?: number; md?: number; sm?: number } = {
+    lg: 14,
+    md: 7,
+    sm: 4,
+  }
+) => {
   return cva(`grid grid-cols-${sm} md:grid-cols-${md} lg:grid-cols-${lg}`, {
     variants: {
       mode: {
@@ -88,6 +65,9 @@ const subGrid = ({ lg, md, sm }: { lg: number; md: number; sm: number }) => {
         narrow: "[&>*]:px-4 -mx-4",
         condensed: "[&>*]:px-[1px] -mx-[1px]",
       },
+    },
+    defaultVariants: {
+      mode: "narrow",
     },
   });
 };
