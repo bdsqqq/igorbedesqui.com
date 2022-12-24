@@ -22,9 +22,13 @@ export default function Home() {
 
       <Container key="index">
         <Band gridless id="hero">
-          <div className="sm:grid grid-cols-4 flex flex-col gap-2 md:gap-8">
-            <h1>Igor Bedesqui</h1>
-            <div className="md:col-span-2 col-span-3">
+          <div className={grid({ mode: "narrow" })}>
+            <h1 className="col-span-4 md:col-span-3 lg:col-span-4">
+              Igor Bedesqui
+            </h1>
+
+            <div className="col-span-1 md:col-span-full md:hidden"></div>
+            <div className="col-span-3 md:col-span-4 lg:col-span-8">
               <p>
                 Crafting solutions. Building web experiences with care.
                 Exploring design, UX, and interactivity.
@@ -34,32 +38,32 @@ export default function Home() {
           </div>
         </Band>
         <Band headline={{ bold: "01", thin: "Work" }}>
-          <div className="flex flex-col gap-2 md:grid grid-cols-3 md:gap-8">
-            <div className="col-start-1 col-end-3">
-              <ul className="flex flex-col -mt-4 hover:text-gray-10 pointer-events-none">
-                {projsMeta.map((projMeta) => {
-                  return (
-                    <li key={projMeta.shortName}>
-                      <UnstyledLink
-                        className="block py-4 pointer-events-auto hover:text-gray-12 transition-colors duration-fast-02 ease-productive-standard group"
-                        href={`/work/${projMeta.urlSlug}`}
-                      >
-                        <div className="flex flex-col gap-0.5">
-                          <div className="flex gap-2 items-baseline">
-                            <h3 className="inline text-2xl">{projMeta.name}</h3>
-                            <span className="text-xs text-bold text-gray-11 md:opacity-0 group-hover:opacity-100 transform md:-translate-x-4 group-hover:translate-x-0 transition-all duration-moderate-01">
-                              {projMeta.date}
-                            </span>
-                          </div>
-                          <p>{projMeta.description}</p>
+          <div
+            className={subGrid({ lg: 14, md: 7, sm: 4 })({ mode: "narrow" })}
+          >
+            <ul className="col-span-full md:col-span-5 lg:col-span-8 flex flex-col -mt-4 hover:text-gray-10 pointer-events-none">
+              {projsMeta.map((projMeta) => {
+                return (
+                  <li key={projMeta.shortName}>
+                    <UnstyledLink
+                      className="block py-4 pointer-events-auto hover:text-gray-12 transition-colors duration-fast-02 ease-productive-standard group"
+                      href={`/work/${projMeta.urlSlug}`}
+                    >
+                      <div className="flex flex-col gap-0.5">
+                        <div className="flex gap-2 items-baseline">
+                          <h3 className="inline text-2xl">{projMeta.name}</h3>
+                          <span className="text-xs text-bold text-gray-11 md:opacity-0 group-hover:opacity-100 transform md:-translate-x-4 group-hover:translate-x-0 transition-all duration-moderate-01">
+                            {projMeta.date}
+                          </span>
                         </div>
-                      </UnstyledLink>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            <div>
+                        <p>{projMeta.description}</p>
+                      </div>
+                    </UnstyledLink>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="col-span-full lg:col-start-10 lg:col-end-15">
               <h2>Writing</h2>
               <div>
                 <ul>
@@ -121,7 +125,7 @@ export default function Home() {
         <Band headline={{ bold: "!!!", thin: "Grid" }}>
           <div
             className={cx(
-              subGrid({ lg: 14, md: 6, sm: 2 })({ mode: "narrow" }),
+              subGrid({ lg: 14, md: 7, sm: 4 })({ mode: "narrow" }),
               "h-full"
             )}
           >
@@ -164,5 +168,5 @@ import { FABContainer, UnstyledLink } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
 import StyledLink from "@/ui/StyledLink";
 import EmailLink from "@/components/ui/EmailLink";
-import { subGrid } from "@/components/ui/Grid";
+import { grid, subGrid } from "@/components/ui/Grid";
 import { cx } from "class-variance-authority";

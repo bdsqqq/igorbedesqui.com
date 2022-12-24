@@ -27,7 +27,7 @@ const sectionStyles = cva("w-full", {
     padding: {
       none: "p-0",
       smol: "py-8",
-      default: "p-8 md:px-16",
+      default: "p-4 md:px-16",
     },
   },
   defaultVariants: {
@@ -67,7 +67,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
       >
         {!gridless ? (
           <>
-            <h2 className="mb-12 h-max grid items-end md:items-start md:h-min md:sticky top-4 col-span-2 pr-16">
+            <h2 className="mb-12 h-max grid items-end md:items-start md:h-min md:sticky top-4 col-span-4 md:col-span-1 lg:col-span-2 pr-16">
               <span className="font-bold text-gray-1 [grid-area:1/1/1/1] text-7xl leading-none md:[writing-mode:vertical-lr]">
                 {headline?.bold}
               </span>
@@ -76,7 +76,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
               </div>
             </h2>
 
-            <div className="col-span-2 md:col-span-6 lg:col-span-14">
+            <div className="col-span-4 md:col-span-7 lg:col-span-14">
               {children}
             </div>
           </>

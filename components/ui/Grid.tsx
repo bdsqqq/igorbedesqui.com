@@ -64,7 +64,7 @@ const Overlay = () => {
       {visible && (
         <div className="z-50 absolute inset-0 pointer-events-none bg-gray-A4">
           <div
-            className={cx(grid({ mode: mode }), "h-full w-full px-8 md:px-16")}
+            className={cx(grid({ mode: mode }), "h-full w-full px-4 md:px-16")}
           >
             {[...Array(16)].map((_, i) => {
               return (
