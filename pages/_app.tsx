@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       >
         <div className={`${customFont.className} relative`}>
           <div className="z-40 pointer-events-none absolute inset-0 w-full h-full bg-[url('/images/grain.png')] bg-left-top bg-[length:250px] opacity-25" />
-          <div className="max-w-7xl mx-auto relative">
+          <div className="max-w-5xl mx-auto relative">
             <Component {...pageProps} />
           </div>
           <div
