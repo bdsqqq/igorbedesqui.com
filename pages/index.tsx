@@ -5,6 +5,8 @@ import { meta as wasmGifMeta } from "data/work/wasmgif.mdx";
 import { meta as onWrittingMeta } from "./writing/on-writing";
 import { meta as justBasicsMeta } from "./writing/not-just-the-basics";
 
+const writingPieces = [onWrittingMeta, justBasicsMeta];
+
 export default function Home() {
   const projsMeta = [bebopMeta, issMeta, wasmGifMeta];
 
@@ -22,18 +24,20 @@ export default function Home() {
 
       <Container key="index">
         <Band gridless id="hero">
-          <div className={grid({ mode: "narrow" })}>
-            <h1 className="col-span-4 md:col-span-3 lg:col-span-4">
-              Igor Bedesqui
-            </h1>
-
-            <div className="col-span-1 md:col-span-full md:hidden"></div>
-            <div className="col-span-3 md:col-span-4 lg:col-span-8">
-              <p>
+          <div className={cx(grid({ mode: "narrow" }), "mt-16")}>
+            <div className="col-span-full md:col-start-2 lg:col-end-13">
+              <h1 className="col-span-full">Igor Bedesqui</h1>
+              <br />
+              <p className="text-2xl">
                 Crafting solutions. Building web experiences with care.
                 Exploring design, UX, and interactivity.
               </p>
-              <p>Previously at IBM</p>
+              {/* <p className="text-2xl group">
+                Previously delivering one of a kind experiences at IBM
+                <span className="inline-block ml-2 text-xs text-gray-9 font-bold tracking-tighter opacity-0 transform -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all">
+                  This goes out when I add IBM to the work section
+                </span>
+              </p> */}
             </div>
           </div>
         </Band>
@@ -44,13 +48,15 @@ export default function Home() {
                 return (
                   <li key={projMeta.shortName}>
                     <UnstyledLink
-                      className="block py-4 pointer-events-auto hover:text-gray-12 transition-colors duration-fast-02 ease-productive-standard group"
+                      className="block py-4 pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard group"
                       href={`/p/${projMeta.urlSlug}`}
                     >
-                      <div className="flex flex-col gap-0.5">
-                        <div className="flex gap-2 items-baseline">
-                          <h3 className="inline text-2xl">{projMeta.name}</h3>
-                          <span className="text-xs text-bold text-gray-11 text-end md:opacity-0 group-hover:opacity-100 transform md:-translate-x-4 group-hover:translate-x-0 transition-all duration-moderate-01">
+                      <div className="flex flex-col ">
+                        <div>
+                          <h3 className="inline-block text-xl font-bold">
+                            {projMeta.name}
+                          </h3>{" "}
+                          <span className="inline-block text-xs text-bold tracking-tighter text-gray-11 text-end md:opacity-0 group-hover:opacity-100 group-focus:opacity-100 transform md:-translate-x-4 group-hover:translate-x-0 group-focus:translate-x-0 transition-all duration-moderate-01 ease-productive-standard">
                             {projMeta.date}
                           </span>
                         </div>
@@ -62,27 +68,30 @@ export default function Home() {
               })}
             </ul>
             <div className="col-span-full lg:col-start-10 lg:col-end-15">
-              <h2>Writing</h2>
-              <div>
-                <ul>
-                  <li>
-                    <UnstyledLink href={`/writing/${onWrittingMeta.urlSlug}`}>
-                      <h3>{onWrittingMeta.name}</h3>
-                      <p>{onWrittingMeta.description}</p>
-                    </UnstyledLink>
-                  </li>
-                  <li>
-                    <UnstyledLink href={`/writing/${justBasicsMeta.urlSlug}`}>
-                      <h3>{justBasicsMeta.name}</h3>
-                      <p>{justBasicsMeta.description}</p>
-                    </UnstyledLink>
-                  </li>
+              <h2 className="text-xl mt-6 md:mt-10 lg:-mt-9 font-bold">
+                Writing
+              </h2>
+              <div className="mt-2">
+                <ul className="flex flex-col gap-4">
+                  {writingPieces.map((piece) => (
+                    <li key={piece.urlSlug}>
+                      <UnstyledLink
+                        className="block pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard leading-none w-fit"
+                        href={`/writing/${piece.urlSlug}`}
+                      >
+                        <h3 className="inline">{piece.name}</h3>
+                        <span>{" — "}</span>
+                        <p className="inline text-xs">{piece.description}</p>
+                      </UnstyledLink>
+                    </li>
+                  ))}
                 </ul>
 
-                <span>
-                  <StyledLink href="/writing">All writing</StyledLink>
-                  {` Infrenquent thoughts on design and code.`}
-                </span>
+                <div className="mt-8 leading-none">
+                  <StyledLink href="/writing">All writing</StyledLink>{" "}
+                  <span>{" — "}</span>
+                  <span className="text-xs">{` Infrenquent thoughts on design and code.`}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -120,7 +129,7 @@ export default function Home() {
             </div>
           </div>
         </Band>
-        <Band headline={{ bold: "!!!", thin: "Grid" }}>
+        {/* <Band headline={{ bold: "!!!", thin: "Grid" }}>
           <div className={cx(subGrid()({ mode: "narrow" }), "h-full")}>
             {[...Array(14)].map((_, i) => {
               return (
@@ -133,7 +142,7 @@ export default function Home() {
               );
             })}
           </div>
-        </Band>
+        </Band> */}
         <Band headline={{ bold: "Hey!", thin: "Let's connect" }}>
           {`Get in touch via `}
           <StyledLink href="twitter.com/bedesqui">{`Twitter`}</StyledLink>
