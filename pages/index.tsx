@@ -44,7 +44,7 @@ export default function Home() {
           </Band>
           <Band headline={{ bold: "01", thin: "Work" }}>
             <div className={subGrid()({ mode: "narrow" })}>
-              <ul className="col-span-full md:col-span-5 lg:col-span-8 flex flex-col -mt-4 hover:text-gray-10 pointer-events-none">
+              <ul className="col-span-full md:col-span-5 lg:col-span-8 flex flex-col -mt-4 hover:text-gray-10 focus-within:text-gray-10 pointer-events-none">
                 {projsMeta.map((projMeta) => {
                   return (
                     <li key={projMeta.shortName}>
@@ -73,7 +73,7 @@ export default function Home() {
                   Writing
                 </h2>
                 <div className="mt-2">
-                  <ul className="flex flex-col gap-4">
+                  <ul className="flex flex-col gap-4 hover:text-gray-10 focus-within:text-gray-10 pointer-events-none">
                     {writingPieces.map((piece) => (
                       <li key={piece.urlSlug}>
                         <UnstyledLink
