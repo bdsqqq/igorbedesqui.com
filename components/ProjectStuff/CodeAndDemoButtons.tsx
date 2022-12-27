@@ -3,6 +3,8 @@ interface CodeAndDemoButtonsProps {
   demoUrl?: string;
 }
 
+// TODO: move this to HeroBand, it's the only place that will use it
+// TODO: define prop types in the function itself, no need to be this verbose
 const CodeAndDemoButtons: React.FC<CodeAndDemoButtonsProps> = ({
   codeUrl,
   demoUrl,
