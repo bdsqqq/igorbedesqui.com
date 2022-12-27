@@ -24,7 +24,6 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
 
   return (
     <div className="">
-      <GridOverlay />
       <div className="relative min-h-screen motion-safe:animate-fade">
         {!backable ? (
           <MainNav />
@@ -35,6 +34,7 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
             backAnchor={backAnchor}
           />
         )}
+        <GridOverlay />
         <div className="relative flex flex-col justify-between -mr-2 min-h-[calc(100_-_104px)] w-full">
           <main className="flex flex-col justify-center">{children}</main>
           {/* <Footer /> */}
