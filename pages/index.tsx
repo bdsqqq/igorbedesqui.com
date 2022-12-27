@@ -98,8 +98,8 @@ export default function Home() {
         </Band>
         <Band headline={{ bold: "02", thin: "Now" }}>
           <div className={subGrid()({ mode: "narrow" })}>
-            <div className="lg:col-start-12 col-span-3">
-              <span className="text-xs font-bold tracking-tighter">
+            <div className="lg:col-start-11 col-span-4 -mt-6">
+              <span className="text-xs font-bold tracking-tighter text-gray-8">
                 Last updated in <time>22 Dec 2022</time>
               </span>
             </div>
@@ -144,17 +144,21 @@ export default function Home() {
           </div>
         </Band> */}
         <Band headline={{ bold: "Hey!", thin: "Let's connect" }}>
-          {`Get in touch via `}
-          <StyledLink href="twitter.com/bedesqui">{`Twitter`}</StyledLink>
-          {` or `}
-          <EmailLink>{`email`}</EmailLink>
-          {`, see my code on `}
-          <StyledLink href="github.com/bdsqqq/">{`Github`}</StyledLink>
-          {`, or find me on `}
-          <StyledLink href="https://www.linkedin.com/in/igor-bedesqui/">
-            {`platforms I don’t like using`}
-          </StyledLink>
-          {`.`}
+          <div className={subGrid()({ mode: "narrow" })}>
+            <p className="col-span-full md:col-end-6 lg:col-end-8">
+              {`Get in touch via `}
+              <StyledLink href="twitter.com/bedesqui">{`Twitter`}</StyledLink>
+              {` or `}
+              <EmailLink>{`email`}</EmailLink>
+              {`, see my code on `}
+              <StyledLink href="github.com/bdsqqq/">{`Github`}</StyledLink>
+              {`, or find me on `}
+              <StyledLink href="https://www.linkedin.com/in/igor-bedesqui/">
+                {`platforms I don’t like using`}
+              </StyledLink>
+              {`.`}
+            </p>
+          </div>
         </Band>
       </Container>
     </>
