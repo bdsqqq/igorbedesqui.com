@@ -19,10 +19,9 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
   heroImg,
   heroVideo,
   children,
-  fullBleed,
 }) => {
   return (
-    <Band gridless id="hero" fullBleed={fullBleed}>
+    <Band gridless id="hero">
       <div
         className={cx(grid({ mode: "narrow" }), "relative w-full min-h-[40vh]")}
       >
