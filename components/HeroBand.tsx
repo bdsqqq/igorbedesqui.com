@@ -23,18 +23,19 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
 }) => {
   return (
     <Band gridless id="hero" fullBleed={fullBleed}>
-      <div className="relative w-full min-h-[40vh]">
+      <div
+        className={cx(grid({ mode: "narrow" }), "relative w-full min-h-[40vh]")}
+      >
         {(heroImg || heroVideo) && (
-          <div className="absolute w-full h-full my-0 mx-auto">
-            <div className="overflow-hidden w-full h-full absolute pl-16 md:p-0 md:pl-72">
+          <div className="absolute w-full h-full my-0 -ml-4 col-start-2 md:col-start-3 lg:col-start-5 row-start-1 col-span-full">
+            <div className="overflow-hidden w-full h-full absolute">
               {heroImg && !!!heroVideo && (
                 <Image
                   priority
                   src={heroImg.src}
                   alt={heroImg.alt}
-                  layout="fill"
-                  objectFit="cover"
-                  objectPosition="center"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center" }}
                 />
               )}
 
@@ -56,11 +57,8 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
             </div>
           </div>
         )}
-        <div className="relative min-h-[40vh] flex items-center md:max-w-7xl">
-          <h1
-            className="mb-4 uppercase tracking-tight text-3xl max-w-xl md:w-2/3 md:text-4xl"
-            id="skip"
-          >
+        <div className="relative min-h-[40vh] col-span-full md:col-end-7 lg:col-end-13 row-start-1 flex items-center ">
+          <h1 className="mb-4 uppercase tracking-tight text-3xl md:text-4xl">
             {children}
           </h1>
         </div>
@@ -72,6 +70,8 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
 export default HeroBand;
 
 import Band from "@/components/Band";
+import { cx } from "class-variance-authority";
 
 import Image from "next/image";
 import React from "react";
+import { grid } from "./ui/Grid";
