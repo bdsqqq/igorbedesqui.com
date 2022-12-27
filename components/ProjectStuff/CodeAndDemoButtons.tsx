@@ -8,7 +8,8 @@ const CodeAndDemoButtons: React.FC<CodeAndDemoButtonsProps> = ({
   demoUrl,
 }) => {
   return (
-    <div className="flex gap-4">
+    // -ml-2 align text to the grid instead of the button container
+    <div className="flex gap-4 -ml-2">
       {codeUrl && (
         <LinkButton href={codeUrl}>
           <span>code</span>
