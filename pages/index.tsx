@@ -98,7 +98,7 @@ export default function Home() {
         </Band>
         <Band headline={{ bold: "02", thin: "Now" }}>
           <div className={subGrid()({ mode: "narrow" })}>
-            <div className="lg:col-start-11 col-span-4 -mt-6">
+            <div className="lg:col-start-11 col-span-4 -mt-6 lg:mt-0">
               <span className="text-xs font-bold tracking-tighter text-gray-8">
                 Last updated in <time>22 Dec 2022</time>
               </span>
