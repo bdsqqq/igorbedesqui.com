@@ -83,9 +83,6 @@ export default function Bebop({
           </ProjectBand>
         </ProjectLayout>
       </ProjectContainer>
-      <FABContainer>
-        <BackToTop />
-      </FABContainer>
     </>
   );
 }
@@ -94,8 +91,6 @@ import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Seo from "@/components/Seo";
 import HeroBand from "@/components/HeroBand";
-import { FABContainer } from "@/ui/primitives/";
-import BackToTop from "@/ui/BackToTop";
 import PopOver from "@/components/ui/Popover";
 import {
   ProjectLayout,

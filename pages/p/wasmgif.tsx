@@ -29,9 +29,6 @@ export default function WasmGif() {
           <MD />
         </ProjectLayout>
       </ProjectContainer>
-      <FABContainer>
-        <BackToTop />
-      </FABContainer>
     </>
   );
 }
@@ -40,6 +37,4 @@ import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Seo from "@/components/Seo";
 import HeroBand from "@/components/HeroBand";
-import { FABContainer } from "@/ui/primitives/";
-import BackToTop from "@/components/ui/BackToTop";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
