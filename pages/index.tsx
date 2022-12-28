@@ -24,15 +24,15 @@ export default function Home() {
 
       <Container key="index">
         <div className="flex flex-col gap-20">
-          <Band gridless id="hero">
+          <Band gridless id="">
             <div className={cx(grid({ mode: "narrow" }), "mt-32")}>
               <div className="col-span-full md:col-start-2 lg:col-end-13">
-                <h1 className="col-span-full">Igor Bedesqui</h1>
+                <span className="col-span-full text-base">Igor Bedesqui</span>
                 <br />
-                <p className="text-2xl text-gray-12">
+                <h1 className="text-2xl text-gray-12">
                   Crafting solutions. Building web experiences with care.
                   Exploring design, UX, and interactivity.
-                </p>
+                </h1>
                 {/* <p className="text-2xl group">
                 Previously delivering one of a kind experiences at IBM
                 <span className="inline-block ml-2 text-xs text-gray-9 font-bold tracking-tighter opacity-0 transform -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all">
@@ -42,7 +42,42 @@ export default function Home() {
               </div>
             </div>
           </Band>
-          <Band headline={{ bold: "01", thin: "Work" }}>
+
+          <Band headline={{ bold: "01", thin: "Now" }}>
+            <div className={subGrid()({ mode: "narrow" })}>
+              <div className="col-start-1 row-start-1 col-span-4 -mt-6">
+                <span className="text-xs font-bold tracking-tighter text-gray-8">
+                  Last updated in <time>22 Dec 2022</time>
+                </span>
+              </div>
+              <div className="col-start-1 col-span-9 row-start-1 flex flex-col gap-y-4">
+                <p>
+                  {`Now, `}
+                  <span className="text-gray-12">
+                    {`I'm focusing on the basics of my craft. The fine and detailed polish I strive for will come as I build `}
+                    <StyledLink
+                      href={`/writing/${justBasicsMeta.urlSlug}`}
+                    >{`“Just” the basics`}</StyledLink>{" "}
+                    {`with care.`}{" "}
+                  </span>
+                  <span aria-hidden="true" className="text-gray-A2">
+                    I hope…
+                  </span>
+                </p>
+                <p>
+                  {`Getting used to life in a new contient, missing my partner, and
+                trying to find a new home.`}
+                </p>
+                <p>
+                  {`Going through my past notes, `}
+                  <span className="text-gray-12">{`giving a new life to old projects`}</span>
+                  {`.`}
+                </p>
+              </div>
+            </div>
+          </Band>
+
+          <Band headline={{ bold: "02", thin: "Work" }}>
             <div className={subGrid()({ mode: "narrow" })}>
               <ul className="col-span-full md:col-span-5 lg:col-span-8 flex flex-col -mt-4 hover:text-gray-10 focus-within:text-gray-10 pointer-events-none">
                 {projsMeta.map((projMeta) => {
@@ -81,8 +116,14 @@ export default function Home() {
                           href={`/writing/${piece.urlSlug}`}
                         >
                           <h3 className="inline">{piece.name}</h3>
-                          <span>{" — "}</span>
-                          <p className="inline text-xs">{piece.description}</p>
+                          {piece.description.length > 0 && (
+                            <>
+                              <span>{" — "}</span>
+                              <p className="inline text-xs">
+                                {piece.description}
+                              </p>
+                            </>
+                          )}
                         </UnstyledLink>
                       </li>
                     ))}
@@ -94,39 +135,6 @@ export default function Home() {
                     <span className="text-xs">{` Infrenquent thoughts on design and code.`}</span>
                   </div>
                 </div>
-              </div>
-            </div>
-          </Band>
-          <Band headline={{ bold: "02", thin: "Now" }}>
-            <div className={subGrid()({ mode: "narrow" })}>
-              <div className="lg:col-start-11 col-span-4 -mt-6 lg:mt-0">
-                <span className="text-xs font-bold tracking-tighter text-gray-8">
-                  Last updated in <time>22 Dec 2022</time>
-                </span>
-              </div>
-              <div className="col-span-10 lg:row-start-1 flex flex-col gap-y-4">
-                <p>
-                  {`Now, `}
-                  <span className="text-gray-12">
-                    {`I'm focusing on the basics of my craft. The fine and detailed polish I strive for will come as I build `}
-                    <StyledLink
-                      href={`/writing/${justBasicsMeta.urlSlug}`}
-                    >{`“Just” the basics`}</StyledLink>{" "}
-                    {`with care.`}{" "}
-                  </span>
-                  <span aria-hidden="true" className="text-transparent">
-                    I hope...
-                  </span>
-                </p>
-                <p>
-                  {`Getting used to life in a new contient, missing my partner, and
-                trying to find a new home.`}
-                </p>
-                <p>
-                  {`Going through my past notes, `}
-                  <span className="text-gray-12">{`giving a new life to old projects`}</span>
-                  {`.`}
-                </p>
               </div>
             </div>
           </Band>
@@ -146,7 +154,7 @@ export default function Home() {
         </Band> */}
           <Band headline={{ bold: "Hey!", thin: "Let's connect" }}>
             <div className={subGrid()({ mode: "narrow" })}>
-              <p className="col-span-full md:col-end-6 lg:col-end-8">
+              <p className="col-span-full md:col-end-6 lg:col-end-10">
                 {`Get in touch via `}
                 <StyledLink href="twitter.com/bedesqui">{`Twitter`}</StyledLink>
                 {` or `}
