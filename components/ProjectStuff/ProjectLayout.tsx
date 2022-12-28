@@ -12,7 +12,7 @@ export const ProjectLayout: React.FC<
         {children}
       </div>
 
-      <div className="col-span-full md:col-start-7 lg:col-start-13 sticky top-[1.5rem] overflow-auto max-h-[calc(100vh_-_1.5rem)]">
+      <div className="col-span-full md:col-start-7 lg:col-start-13 sticky top-[1.5rem] overflow-auto max-h-[calc(100vh_-_4.5rem)]">
         <Separator className="md:hidden w-11 mb-12 mt-20" />
 
         <div className="grid grid-cols-2 gap-4 md:flex md:flex-col md:gap-6">
