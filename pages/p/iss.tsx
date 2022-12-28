@@ -11,7 +11,7 @@ export default function Iss() {
       />
 
       <ProjectContainer key="issProj" backMessage="Fly back home">
-        <HeroBand fullBleed heroVideo="/videos/iss/space">
+        <HeroBand heroVideo="/videos/iss/space">
           <span>
             Where’s the{" "}
             <Tooltip content="International Space Station">

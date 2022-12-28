@@ -5,9 +5,7 @@ export default function IBM() {
       {/* TODO: actual title and description */}
 
       <Container key="bebopProj" backable>
-        <HeroBand fullBleed heroVideo={"/videos/ibm/tapes"}>
-          Hej do
-        </HeroBand>
+        <HeroBand heroVideo={"/videos/ibm/tapes"}>Hej do</HeroBand>
       </Container>
       <FABContainer>
         <BackToTop />

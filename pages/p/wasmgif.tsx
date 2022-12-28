@@ -11,7 +11,7 @@ export default function WasmGif() {
       />
 
       <ProjectContainer key="wasmGifProj">
-        <HeroBand fullBleed heroVideo={"/videos/wasmgif/wow"}>
+        <HeroBand heroVideo={"/videos/wasmgif/wow"}>
           <span>
             <span className="font-bold text-gray-12">Fast</span> and{" "}
             <span className="font-bold text-gray-12">secure</span> gif making.

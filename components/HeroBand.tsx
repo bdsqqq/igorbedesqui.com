@@ -11,9 +11,7 @@ type HeroBandVideo = {
   heroImg?: never;
 };
 
-type HeroBandProps = {
-  fullBleed?: boolean;
-} & (HeroBandVideo | HeroBandImg);
+type HeroBandProps = HeroBandVideo | HeroBandImg;
 
 const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
   heroImg,
