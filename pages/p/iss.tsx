@@ -19,7 +19,7 @@ export default function Iss() {
             </Tooltip>
             ?
           </span>
-          <p className="text-transparent" aria-hidden="true">
+          <p className="text-gray-A1" aria-hidden="true">
             (In space, probably, don’t tell anyone)
           </p>
           <div className="mt-6">
@@ -29,6 +29,7 @@ export default function Iss() {
             />
           </div>
         </HeroBand>
+        <div className="mb-16" />
 
         <ProjectLayout projMeta={meta} nextProjMeta={wasmGifMeta}>
           <MD />

@@ -23,6 +23,7 @@ export default function WasmGif() {
             />
           </div>
         </HeroBand>
+        <div className="mb-16" />
 
         <ProjectLayout projMeta={meta} nextProjMeta={bebopMeta}>
           <MD />
