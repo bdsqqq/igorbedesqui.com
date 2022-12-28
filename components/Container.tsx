@@ -38,6 +38,7 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
         <div className="relative flex flex-col justify-between -mr-2 min-h-[calc(100_-_104px)] w-full">
           <main className="flex flex-col justify-center">{children}</main>
           {/* <Footer /> */}
+          <div className="mt-32" />
         </div>
       </div>
     </div>
