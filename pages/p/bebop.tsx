@@ -26,6 +26,7 @@ export default function Bebop({
             />
           </div>
         </HeroBand>
+        <div className="mb-16" />
 
         <ProjectLayout projMeta={meta} nextProjMeta={issMeta}>
           <ProjectBand options={{ padding: "none" }} gridless id="update">
