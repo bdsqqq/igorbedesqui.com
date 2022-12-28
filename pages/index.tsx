@@ -23,9 +23,9 @@ export default function Home() {
       />
 
       <Container key="index">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-20">
           <Band gridless id="hero">
-            <div className={cx(grid({ mode: "narrow" }), "mt-16")}>
+            <div className={cx(grid({ mode: "narrow" }), "mt-32")}>
               <div className="col-span-full md:col-start-2 lg:col-end-13">
                 <h1 className="col-span-full">Igor Bedesqui</h1>
                 <br />

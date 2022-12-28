@@ -31,8 +31,7 @@ const sectionStyles = cva("w-full", {
   variants: {
     padding: {
       none: "p-0",
-      smol: "py-8",
-      default: "py-8 p-4 md:px-16",
+      default: "px-4 md:px-16",
     },
   },
   defaultVariants: {
