@@ -28,10 +28,10 @@ export default function Bebop({
         </HeroBand>
 
         <ProjectLayout projMeta={meta} nextProjMeta={issMeta}>
-          <Band gridless id="update">
+          <ProjectBand options={{ padding: "none" }} gridless id="update">
             <MDXRemote {...mdx.update} />
-          </Band>
-          <Band headline={{ bold: "01", thin: "Why?" }}>
+          </ProjectBand>
+          <ProjectBand headline={{ bold: "01", thin: "Why?" }}>
             <MDXRemote
               {...mdx.why.paragraph}
               components={{
@@ -47,14 +47,14 @@ export default function Bebop({
                 ),
               }}
             />
-          </Band>
-          <Band headline={{ bold: "02", thin: "Design" }}>
+          </ProjectBand>
+          <ProjectBand headline={{ bold: "02", thin: "Design" }}>
             <MDXRemote {...mdx.design} />
-          </Band>
-          <Band headline={{ bold: "03", thin: "Development" }}>
+          </ProjectBand>
+          <ProjectBand headline={{ bold: "03", thin: "Development" }}>
             <MDXRemote {...mdx.development} />
-          </Band>
-          <Band headline={{ bold: "04", thin: "Results" }}>
+          </ProjectBand>
+          <ProjectBand headline={{ bold: "04", thin: "Results" }}>
             <MDXRemote {...mdx.results.intro} />
             <div className="grid grid-cols-4 items-center min-h-0 gap-2 my-1">
               <div className="col-start-1 col-end-2">
@@ -79,7 +79,7 @@ export default function Bebop({
               </div>
             </div>
             <MDXRemote {...mdx.conclusion} />
-          </Band>
+          </ProjectBand>
         </ProjectLayout>
       </ProjectContainer>
       <FABContainer>
@@ -95,9 +95,11 @@ import Seo from "@/components/Seo";
 import HeroBand from "@/components/HeroBand";
 import { FABContainer } from "@/ui/primitives/";
 import BackToTop from "@/ui/BackToTop";
-import Band from "@/components/Band";
 import PopOver from "@/components/ui/Popover";
-import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";
+import {
+  ProjectLayout,
+  ProjectBand,
+} from "@/components/ProjectStuff/ProjectLayout";
 
 import {
   mutateSerializeMdx,
