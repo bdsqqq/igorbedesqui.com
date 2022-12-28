@@ -8,7 +8,9 @@ export const ProjectLayout: React.FC<
 > = ({ children, projMeta, nextProjMeta }) => {
   return (
     <div className={cx("px-4 md:px-16", grid({ mode: "narrow" }))}>
-      <div className="col-span-full md:col-end-7 lg:col-end-13">{children}</div>
+      <div className="col-span-full md:col-end-7 lg:col-end-13 flex flex-col gap-16">
+        {children}
+      </div>
 
       <div className="col-span-full md:col-start-7 lg:col-start-13 sticky top-[1.5rem] pt-8 overflow-auto max-h-[calc(100vh_-_1.5rem)]">
         <Separator className="md:hidden w-11 mb-12" />
