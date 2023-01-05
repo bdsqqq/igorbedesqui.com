@@ -60,7 +60,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
         sectionStyles({
           padding: options?.padding,
         }),
-        !gridless && !options?.subGrid ? "px-4 md:px-8" : ""
+        !gridless && !options?.subGrid ? "px-4 md:px-16" : ""
       )}
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
     >
