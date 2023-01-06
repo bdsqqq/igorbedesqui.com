@@ -36,8 +36,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         }}
       >
         <div className={`${customFont.className} relative`}>
-          {/* <div className="z-40 pointer-events-none absolute inset-0 w-full h-full bg-[url('/images/grain.png')] bg-left-top bg-[length:250px] opacity-25" /> */}
-          <svg
+          <div className="z-40 pointer-events-none absolute inset-0 w-full h-full bg-[url('/images/grain.png')] bg-left-top bg-[length:250px] opacity-25" />
+          {/* <svg
             id="texture"
             className="filter contrast-[30%] brightness-[70%] z-40 pointer-events-none absolute inset-0 w-full h-full opacity-25 overflow-clip"
           >
@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <feColorMatrix type="saturate" values="0"></feColorMatrix>
             </filter>
             <rect width="100%" height="100%" filter="url(#noise)"></rect>
-          </svg>
+          </svg> */}
           <div className="max-w-4xl mx-auto relative">
             <Component {...pageProps} />
           </div>
