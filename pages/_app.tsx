@@ -6,6 +6,7 @@ import { MDXProvider } from "@mdx-js/react";
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
 
 import { IBM_Plex_Serif } from "@next/font/google";
+import { useEffect, useRef } from "react";
 
 const customFont = IBM_Plex_Serif({
   display: "swap",
@@ -35,8 +36,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           ),
         }}
       >
-        <div className={`${customFont.className} relative overflow-x-hidden`}>
-          <div className="z-40 pointer-events-none absolute overflow-hidden inset-0 -left-[200%] -r-[200%] w-[400%] h-full bg-[url('/images/framernoise.png')] bg-left-top bg-[length:250px] opacity-5" />
+        <div className={`${customFont.className} relative`}>
+          <Grain />
           {/* <svg
             id="texture"
             className="filter contrast-[30%] brightness-[70%] z-40 pointer-events-none absolute inset-0 w-full h-full opacity-25 overflow-clip"
@@ -67,5 +68,49 @@ function MyApp({ Component, pageProps }: AppProps) {
     </HistoryProvider>
   );
 }
+
+const Grain = () => {
+  const grainRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const grain = grainRef.current;
+    if (!grain) return;
+
+    const offSets = ["-3", "-2", "-1", "0", "1", "2", "3"];
+    let x = 3;
+    let xUp = true;
+    let y = 7;
+    let yUp = true;
+
+    const interval = setInterval(() => {
+      grain.style.transform = `translateX(${offSets[x]}%) translateY(${offSets[y]}%)`;
+      if (xUp) {
+        x += Math.floor(Math.random() * 4);
+        if (x >= offSets.length - 1) xUp = false;
+      } else {
+        x -= Math.floor(Math.random() * 4);
+        if (x <= 0) xUp = true;
+      }
+      if (yUp) {
+        y += Math.floor(Math.random() * 2);
+        if (y >= offSets.length - 1) yUp = false;
+      } else {
+        y -= Math.floor(Math.random() * 2);
+        if (y <= 0) yUp = true;
+      }
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="pointer-events-none z-40 absolute w-full h-full inset-0 overflow-hidden">
+      <div
+        ref={grainRef}
+        className="absolute inset-[-200%] w-[400%] h-[400%] bg-[url('/images/framernoise.png')] bg-left-top bg-[length:256px] opacity-[3%]"
+      />
+    </div>
+  );
+};
 
 export default MyApp;
