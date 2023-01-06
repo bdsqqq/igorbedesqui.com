@@ -76,28 +76,38 @@ const Grain = () => {
     const grain = grainRef.current;
     if (!grain) return;
 
-    const offSets = ["-3", "-2", "-1", "0", "1", "2", "3"];
-    let x = 3;
-    let xUp = true;
-    let y = 7;
-    let yUp = true;
+    const keyframesX = [
+      "0%",
+      "-5%",
+      "-15%",
+      "7%",
+      "-5%",
+      "-15%",
+      "15%",
+      "0%",
+      "3%",
+      "-10%",
+    ];
+    const keyframesY = [
+      "0%",
+      "-10%",
+      "5%",
+      "-25%",
+      "25%",
+      "10%",
+      "0%",
+      "15%",
+      "35%",
+      "10%",
+    ];
+    let i = 0;
 
     const interval = setInterval(() => {
-      grain.style.transform = `translateX(${offSets[x]}%) translateY(${offSets[y]}%)`;
-      if (xUp) {
-        x += Math.floor(Math.random() * 4);
-        if (x >= offSets.length - 1) xUp = false;
-      } else {
-        x -= Math.floor(Math.random() * 4);
-        if (x <= 0) xUp = true;
-      }
-      if (yUp) {
-        y += Math.floor(Math.random() * 2);
-        if (y >= offSets.length - 1) yUp = false;
-      } else {
-        y -= Math.floor(Math.random() * 2);
-        if (y <= 0) yUp = true;
-      }
+      grain.style.transform = `translateX(${
+        keyframesX[i % keyframesX.length]
+      }) translateY(${keyframesY[i % keyframesY.length]})`;
+
+      i++;
     }, 50);
 
     return () => clearInterval(interval);
