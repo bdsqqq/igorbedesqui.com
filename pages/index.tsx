@@ -69,7 +69,7 @@ export default function Home() {
                       >
                         <div className="flex flex-col ">
                           <div>
-                            <h3 className="inline-block text-xl font-bold">
+                            <h3 className="inline-block font-bold">
                               {projMeta.name}
                             </h3>{" "}
                             <span className="inline-block text-xs text-bold tracking-tighter text-gray-11 text-end md:opacity-0 group-hover:opacity-100 group-focus:opacity-100 transform md:-translate-x-4 group-hover:translate-x-0 group-focus:translate-x-0 transition-all duration-moderate-01 ease-productive-standard">
@@ -84,9 +84,7 @@ export default function Home() {
                 })}
               </ul>
               <div className="col-span-full lg:col-start-10 lg:col-end-15">
-                <h2 className="text-xl mt-6 md:mt-10 lg:-mt-9 font-bold">
-                  Writing
-                </h2>
+                <h2 className="mt-6 md:mt-10 lg:mt-0 font-bold">Writing</h2>
                 <div className="mt-2">
                   <ul className="flex flex-col gap-4 hover:text-gray-10 focus-within:text-gray-10 pointer-events-none">
                     {writingPieces.map((piece) => (
