@@ -2,13 +2,20 @@ export default function Page({
   mdx,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Container backable backAnchor="/writing">
-      <Band id="01" gridless>
-        <div className="max-w-prose mx-auto">
-          <MDXRemote {...mdx.content} />
-        </div>
-      </Band>
-    </Container>
+    <>
+      <Seo
+        title={meta.name + " — Igor Bedesqui"}
+        description={meta.description}
+        url={`writing/${meta.urlSlug}`}
+      />
+      <Container backable backAnchor="/writing">
+        <Band id="01" gridless>
+          <div className="max-w-prose mx-auto">
+            <MDXRemote {...mdx.content} />
+          </div>
+        </Band>
+      </Container>
+    </>
   );
 }
 
@@ -82,6 +89,7 @@ export const getStaticProps: GetStaticProps<{
 
 import Band from "@/components/Band";
 import Container from "@/components/Container";
+import Seo from "@/components/Seo";
 import PopOver from "@/components/ui/Popover";
 import {
   mutateSerializeMdx,
