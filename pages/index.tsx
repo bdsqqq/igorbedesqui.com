@@ -26,7 +26,7 @@ export default function Home() {
         <div className="flex flex-col gap-20">
           <Band gridless id="">
             <div className={cx(grid({ mode: "narrow" }), "mt-32")}>
-              <div className="col-span-full md:col-start-2 lg:col-end-13">
+              <div className="col-span-full md:col-end-8 lg:col-start-2 lg:col-end-13">
                 <br />
                 <h1 className="text-2xl text-gray-12">
                   <span className="col-span-full text-base text-gray-11">
@@ -124,7 +124,7 @@ export default function Home() {
                   Last updated in <time>22 Dec 2022</time>
                 </span>
               </div>
-              <div className="col-start-1 col-span-9 row-start-1 flex flex-col gap-y-4">
+              <div className="col-start-1 col-span-6 lg:col-end-13 row-start-1 flex flex-col gap-y-4">
                 <p>
                   {`Now, `}
                   <span className="text-gray-12">
