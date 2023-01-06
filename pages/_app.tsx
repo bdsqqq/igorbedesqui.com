@@ -35,8 +35,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           ),
         }}
       >
-        <div className={`${customFont.className} relative`}>
-          <div className="z-40 pointer-events-none absolute inset-0 w-full h-full bg-[url('/images/grain.png')] bg-left-top bg-[length:250px] opacity-25" />
+        <div className={`${customFont.className} relative overflow-x-hidden`}>
+          <div className="z-40 pointer-events-none absolute overflow-hidden inset-0 -left-[200%] -r-[200%] w-[400%] h-full bg-[url('/images/framernoise.png')] bg-left-top bg-[length:250px] opacity-5" />
           {/* <svg
             id="texture"
             className="filter contrast-[30%] brightness-[70%] z-40 pointer-events-none absolute inset-0 w-full h-full opacity-25 overflow-clip"
