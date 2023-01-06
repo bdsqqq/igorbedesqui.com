@@ -72,7 +72,7 @@ export default function Page() {
 export const meta = {
   shortName: "not “just” the basics",
   name: "Not “just” the basics",
-  description: "What climbing the ranks of a game taught me about design",
+  description: "What climbing the ranks of a game taught me about design.",
   date: "21/12/2022",
   urlSlug: "not-just-the-basics",
   backMessage: "",
