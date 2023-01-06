@@ -109,11 +109,11 @@ export default function Home() {
                     ))}
                   </ul>
 
-                  <div className="mt-8 leading-none">
+                  {/* <div className="mt-8 leading-none">
                     <StyledLink href="/writing">All writing</StyledLink>{" "}
                     <span>{" — "}</span>
                     <span className="text-xs">{` Infrenquent thoughts on design and code.`}</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
