@@ -40,11 +40,11 @@ export default function Home() {
 
                 <p>
                   {`Get in touch via `}
-                  <StyledLink href="twitter.com/bedesqui">{`Twitter`}</StyledLink>
+                  <StyledLink href="https://www.twitter.com/bedesqui">{`Twitter`}</StyledLink>
                   {` or `}
                   <EmailLink>{`email`}</EmailLink>
                   {`, see my code on `}
-                  <StyledLink href="github.com/bdsqqq/">{`Github`}</StyledLink>
+                  <StyledLink href="https://www.github.com/bdsqqq/">{`Github`}</StyledLink>
                   <span className="text-gray-7">
                     {`, or find me on `}
                     <StyledLink href="https://www.linkedin.com/in/igor-bedesqui/">
