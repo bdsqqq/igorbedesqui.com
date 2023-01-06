@@ -271,7 +271,7 @@ const Scales = () => {
           }
         />
       </Band>
-      <Band gridless options={{ padding: "none" }} fullBleed id="results">
+      <Band gridless options={{ padding: "none" }} id="results">
         {inputsSetAsDefault.length > 0 && (
           <ul>
             {inputsSetAsDefault.map((input) => (

@@ -34,9 +34,11 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
             backAnchor={backAnchor}
           />
         )}
+        <GridOverlay />
         <div className="relative flex flex-col justify-between -mr-2 min-h-[calc(100_-_104px)] w-full">
           <main className="flex flex-col justify-center">{children}</main>
-          <Footer />
+          {/* <Footer /> */}
+          <div className="mt-32" />
         </div>
       </div>
     </div>
@@ -47,5 +49,6 @@ export default Container;
 
 import React, { Children } from "react";
 
+import { Overlay as GridOverlay } from "@/ui/Grid";
 import MainNav from "@/components/MainNav";
 import Footer from "@/components/Footer";

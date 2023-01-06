@@ -11,7 +11,7 @@ export default function WasmGif() {
       />
 
       <ProjectContainer key="wasmGifProj">
-        <HeroBand fullBleed heroVideo={"/videos/wasmgif/wow"}>
+        <HeroBand heroVideo={"/videos/wasmgif/wow"}>
           <span>
             <span className="font-bold text-gray-12">Fast</span> and{" "}
             <span className="font-bold text-gray-12">secure</span> gif making.
@@ -23,14 +23,12 @@ export default function WasmGif() {
             />
           </div>
         </HeroBand>
+        <div className="mb-16" />
 
         <ProjectLayout projMeta={meta} nextProjMeta={bebopMeta}>
           <MD />
         </ProjectLayout>
       </ProjectContainer>
-      <FABContainer>
-        <BackToTop />
-      </FABContainer>
     </>
   );
 }
@@ -39,6 +37,4 @@ import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Seo from "@/components/Seo";
 import HeroBand from "@/components/HeroBand";
-import { FABContainer } from "@/ui/primitives/";
-import BackToTop from "@/components/ui/BackToTop";
 import { ProjectLayout } from "@/components/ProjectStuff/ProjectLayout";

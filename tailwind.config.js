@@ -39,8 +39,35 @@ module.exports = {
         A11: "hsl(0 0% 100% / 0.592)",
         A12: "hsl(0 0% 100% / 0.923)",
       },
+      white: "hsl(0 0% 100%)",
     },
     extend: {
+      gridTemplateColumns: {
+        13: "repeat(13, minmax(0, 1fr))",
+        14: "repeat(14, minmax(0, 1fr))",
+        15: "repeat(15, minmax(0, 1fr))",
+        16: "repeat(16, minmax(0, 1fr))",
+      },
+      gridColumn: {
+        "span-13": "span 13 / span 13",
+        "span-14": "span 14 / span 14",
+        "span-15": "span 15 / span 15",
+        "span-16": "span 16 / span 16",
+      },
+      gridColumnStart: {
+        13: "13",
+        14: "14",
+        15: "15",
+        16: "16",
+        17: "17",
+      },
+      gridColumnEnd: {
+        13: "13",
+        14: "14",
+        15: "15",
+        16: "16",
+        17: "17",
+      },
       keyframes: {
         fade: {
           "0%": { opacity: "0" },
@@ -115,5 +142,11 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    {
+      pattern: /grid-cols-(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16)/,
+      variants: ["lg", "md"],
+    },
+  ],
   plugins: [require("tailwindcss-radix")()],
 };

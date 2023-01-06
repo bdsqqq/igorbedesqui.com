@@ -60,12 +60,6 @@ const MainNav: React.FC<MainNavProps> = ({
           </span>
         </Link>
       )}
-      <a
-        className="text-gray-12 sr-only right-16 focus:!absolute focus:not-sr-only"
-        href="#skip"
-      >
-        Skip to content
-      </a>
     </nav>
   );
 };

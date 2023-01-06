@@ -3,12 +3,15 @@ interface CodeAndDemoButtonsProps {
   demoUrl?: string;
 }
 
+// TODO: move this to HeroBand, it's the only place that will use it
+// TODO: define prop types in the function itself, no need to be this verbose
 const CodeAndDemoButtons: React.FC<CodeAndDemoButtonsProps> = ({
   codeUrl,
   demoUrl,
 }) => {
   return (
-    <div className="flex gap-4">
+    // -ml-2 align text to the grid instead of the button container
+    <div className="flex gap-4 -ml-2">
       {codeUrl && (
         <LinkButton href={codeUrl}>
           <span>code</span>
