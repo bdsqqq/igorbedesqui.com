@@ -39,6 +39,7 @@ const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
         )}
       </PopoverDisclosure>
       <Popover
+        as="span"
         state={popoverState}
         className={tooltipVariants({
           bg: options?.bg,
@@ -63,6 +64,7 @@ export default PopOver;
 // TODO: these are the same styles as tooltip, extract these into a Disclosure generic style for reuse in both
 const tooltipVariants = cva(
   [
+    "inline-block",
     "shadow-sm border border-gray-7 rounded-sm transform motion-safe:transition-all duration-fast-02",
     "data-[dir=top]:origin-bottom",
     "data-[dir=bottom]:origin-top",
