@@ -104,7 +104,7 @@ const Grain = () => {
   }, []);
 
   return (
-    <div className="pointer-events-none z-40 absolute w-full h-full inset-0 overflow-hidden">
+    <div className="pointer-events-none z-40 fixed w-full h-full inset-0 overflow-hidden">
       <div
         ref={grainRef}
         className="absolute inset-[-200%] w-[400%] h-[400%] bg-[url('/images/framernoise.png')] bg-left-top bg-[length:256px] opacity-[3%]"
