@@ -17,10 +17,12 @@ export default async function handler(req: NextRequest) {
     const { searchParams } = new URL(req.url);
 
     // ?title=<title>
-    const hasTitle = searchParams.has("title");
-    const title = hasTitle
-      ? searchParams.get("title")?.slice(0, 100)
-      : "My default title";
+    const hasText = searchParams.has("text");
+    const text = hasText
+      ? searchParams.get("text")?.slice(0, 100).split("/n")
+      : ["My default title"];
+
+    console.log(`text: ${text}`);
 
     return new ImageResponse(
       (
@@ -50,20 +52,23 @@ export default async function handler(req: NextRequest) {
           >
             <h2
               style={{
-                fontSize: 18,
+                fontSize: 24,
               }}
             >
-              {title}
+              Igor Bedesqui
             </h2>
             <h1
               style={{
                 maxWidth: "66%",
                 color: "hsl(0 0% 93.0%)",
-                fontSize: 42,
+                fontSize: 56,
+                display: "flex",
+                flexDirection: "column",
               }}
             >
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Consequuntur minus quasi velit.
+              {text?.map((t, i) => (
+                <div key={i}>{t}</div>
+              ))}
             </h1>
           </div>
           <div
