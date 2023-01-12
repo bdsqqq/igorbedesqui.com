@@ -20,7 +20,7 @@ export default function Home() {
       <Seo
         title="Igor Bedesqui — Web Developer"
         description="front-end Web Developer based in Lisbon"
-        ogText="Crafting solutions./nBuilding web experiences with care. Exploring design, UX, and interactivity."
+        ogText="*Crafting solutions*./n*Building web experiences*/n*with care*. *Exploring design*,/n*UX*, and *interactivity*."
       />
 
       <Container key="index">
