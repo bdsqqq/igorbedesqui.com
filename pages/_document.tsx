@@ -33,10 +33,10 @@ class MyDocument extends Document {
           <link
             rel="mask-icon"
             href="/favicon/safari-pinned-tab.svg"
-            color="#5bbad5"
+            color="#0A0A0A"
           />
-          <meta name="msapplication-TileColor" content="#fffcf5" />
-          <meta name="theme-color" content="#473539" />
+          <meta name="msapplication-TileColor" content="#0A0A0A" />
+          <meta name="theme-color" content="#0A0A0A" />
 
           <script
             async
