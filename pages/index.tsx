@@ -18,8 +18,8 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="Igor Bedesqui — Web Developer"
-        description="front-end Web Developer based in Lisbon"
+        title="Igor Bedesqui"
+        description="Developer Based in Lisbon. Crafting solutions Building web experiences with care. Exploring design, UX, and interactivity."
         ogText="*Crafting solutions*./n*Building web experiences*/n*with care*. *Exploring design*,/n*UX*, and *interactivity*."
       />
 
