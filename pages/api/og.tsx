@@ -24,7 +24,7 @@ export default async function handler(req: NextRequest) {
     // ?title=<title>
     const hasText = searchParams.has("text");
     const text = hasText
-      ? searchParams.get("text")?.slice(0, 100).split("/n")
+      ? searchParams.get("text")?.slice(0, 125).split("/n")
       : ["My default title"];
 
     return new ImageResponse(
