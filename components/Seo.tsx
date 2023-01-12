@@ -9,7 +9,7 @@ const Seo: React.FC<{
     url: `https://www.igorbedesqui.com${url ? "/" + url : ""}`,
     title: title,
     description: description,
-    site_name: "Igor Bedesqui",
+    site_name: "Igor Bedesqui | Code & Design",
   };
 
   Object.assign(og, {
@@ -18,7 +18,7 @@ const Seo: React.FC<{
         url: new URL(`https://www.igorbedesqui.com/api/og?text=${ogText}`),
         width: 1200,
         height: 630,
-        alt: ogText,
+        alt: ogText.split("/n").join(" ").split("*").join(""),
       },
     ],
   });
@@ -33,8 +33,7 @@ const Seo: React.FC<{
         notranslate: true,
       }}
       twitter={{
-        handle: "@igorbdsq",
-        site: "@site",
+        handle: "@bedesqui",
         cardType: "summary_large_image",
       }}
       additionalMetaTags={[
