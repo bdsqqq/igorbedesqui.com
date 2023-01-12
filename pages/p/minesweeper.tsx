@@ -4,6 +4,7 @@ export default function Minesweeper() {
       <Seo
         title="Minesweeper"
         description="A modern implementation of the classic game minesweeper — made by Igor Bedesqui"
+        ogText="The classic minesweeper game, made modern."
         url="p/minesweeper"
       />
       <ProjectContainer key="minesweeperProj">

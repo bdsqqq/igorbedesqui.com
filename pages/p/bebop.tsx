@@ -9,6 +9,7 @@ export default function Bebop({
         title="The work, which becomes a new genre itself, will be called... COWBOY BEBOP"
         description="My entry for, and winner of, the second installment of the WebJam — made by Igor Bedesqui"
         url="p/bebop"
+        ogText="*The work*, which *becomes a new genre itself*, will be called... *COWBOY BEBOP*"
       />
 
       <ProjectContainer key="bebopProj" backMessage={meta.backMessage}>

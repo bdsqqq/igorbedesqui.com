@@ -3,7 +3,7 @@ const metas = [onWritingMeta, onWritingMeta, onWritingMeta, onWritingMeta];
 export default function Writing() {
   return (
     <>
-      <Seo title="Writing" description="" url="writing" />
+      <Seo title="Writing" description="" url="writing" ogText="*Writing*" />
 
       <Container backable key="index">
         <Band gridless id="main">

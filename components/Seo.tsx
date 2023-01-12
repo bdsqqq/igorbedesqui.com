@@ -2,11 +2,8 @@ const Seo: React.FC<{
   title: string;
   description: string;
   url?: string;
-  image?: {
-    src: string;
-    alt: string;
-  };
-}> = ({ title, description, url, image }) => {
+  ogText: string;
+}> = ({ title, description, url, ogText }) => {
   const og: OpenGraph = {
     type: "website",
     url: `https://www.igorbedesqui.com${url ? "/" + url : ""}`,
@@ -15,18 +12,17 @@ const Seo: React.FC<{
     site_name: "Igor Bedesqui",
   };
 
-  image &&
-    Object.assign(og, {
-      images: [
-        {
-          url: `https://www.igorbedesqui.com/images/og/${image.src}
-          }.jpg`,
-          width: 1200,
-          height: 630,
-          alt: image.alt,
-        },
-      ],
-    });
+  Object.assign(og, {
+    images: [
+      {
+        url: new URL(`https://www.igorbedesqui.com/api/og?text=${ogText}`),
+        width: 1200,
+        height: 630,
+        alt: ogText,
+      },
+    ],
+  });
+
   console.table(og);
   return (
     <NextSeo

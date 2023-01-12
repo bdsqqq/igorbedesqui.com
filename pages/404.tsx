@@ -4,6 +4,7 @@ export default function Custom404() {
       <Seo
         title="404 - Page not found"
         description="This page couldn't be found... How did you end up here?"
+        ogText="This page couldn't be found.../n*How did you end up here?*"
       />
       <Container backable>
         <HeroBand heroVideo={"/videos/404/zoro-lost"}>

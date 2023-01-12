@@ -12,6 +12,7 @@ export default function Home() {
         title="Now — Igor Bedesqui"
         description="What I'm doing now"
         url="now"
+        ogText="What I'm doing now"
       />
 
       <Container backable key="index">

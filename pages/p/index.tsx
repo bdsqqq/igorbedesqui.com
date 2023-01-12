@@ -7,7 +7,7 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <Seo title="Work" description="" url="p" />
+      <Seo title="Work" description="" url="p" ogText="" />
       {/* TODO: actual title and description */}
       <Container key="projsHome" backable>
         <Band headline={{ bold: "01", thin: "Work" }}>

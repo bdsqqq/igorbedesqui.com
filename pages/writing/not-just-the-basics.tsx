@@ -5,6 +5,7 @@ export default function Page() {
         title={meta.name + " — Igor Bedesqui"}
         description={meta.description}
         url={`writing/${meta.urlSlug}`}
+        ogText={meta.description}
       />
       <Container backable backAnchor="/writing">
         <Band id="01" gridless>

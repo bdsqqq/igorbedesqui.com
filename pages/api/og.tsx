@@ -9,9 +9,14 @@ export const config = {
 const font = fetch(
   new URL("../../public/fonts/IBMPlexSerif-Regular.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
+const fontBold = fetch(
+  new URL("../../public/fonts/IBMPlexSerif-SemiBold.ttf", import.meta.url)
+).then((res) => res.arrayBuffer());
 
 export default async function handler(req: NextRequest) {
   const fontData = await font;
+  const fontDataBold = await fontBold;
+  //TODO: font-weight isn't working. Why?
 
   try {
     const { searchParams } = new URL(req.url);
@@ -21,8 +26,6 @@ export default async function handler(req: NextRequest) {
     const text = hasText
       ? searchParams.get("text")?.slice(0, 100).split("/n")
       : ["My default title"];
-
-    console.log(`text: ${text}`);
 
     return new ImageResponse(
       (
@@ -60,15 +63,48 @@ export default async function handler(req: NextRequest) {
             <h1
               style={{
                 maxWidth: "66%",
-                color: "hsl(0 0% 93.0%)",
+                color: "hsl(0 0% 62.8%)",
                 fontSize: 56,
                 display: "flex",
                 flexDirection: "column",
+                flexWrap: "wrap",
               }}
             >
-              {text?.map((t, i) => (
-                <div key={i}>{t}</div>
-              ))}
+              {text?.map((line, i) => {
+                const styledText = line.split("*").map((text, i) => {
+                  if (text == "") return null;
+                  return (
+                    <span
+                      key={i}
+                      style={{
+                        fontFamily: i % 2 === 1 ? "Bold" : "inherit",
+                        fontWeight: i % 2 === 1 ? 600 : 400,
+                        color:
+                          i % 2 === 1 ? "hsl(0 0% 93.0%)" : "hsl(0 0% 62.8%)",
+                        marginLeft:
+                          text.startsWith(".") || text.startsWith(",")
+                            ? "-1rem"
+                            : "0",
+                        // doesn't scale, should probably include a pattern to match all poctuation
+                      }}
+                    >
+                      {text}
+                    </span>
+                  );
+                });
+
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "1rem",
+                    }}
+                    key={i}
+                  >
+                    {styledText}
+                  </div>
+                );
+              })}
             </h1>
           </div>
           <div
@@ -93,6 +129,13 @@ export default async function handler(req: NextRequest) {
             name: "Plex",
             data: fontData,
             style: "normal",
+            weight: 400,
+          },
+          {
+            name: "Bold",
+            data: fontDataBold,
+            style: "normal",
+            weight: 600,
           },
         ],
       }

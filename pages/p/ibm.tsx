@@ -1,7 +1,7 @@
 export default function IBM() {
   return (
     <>
-      <Seo title="IBM" description="IBM" url="p/ibm" />
+      <Seo title="IBM" description="IBM" url="p/ibm" ogText="" />
       {/* TODO: actual title and description */}
 
       <Container key="bebopProj" backable>
