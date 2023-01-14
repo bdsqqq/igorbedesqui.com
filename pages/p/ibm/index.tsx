@@ -21,10 +21,8 @@ export default function IBM() {
         <div className="mt-16 flex flex-col gap-20">
           <Band gridless id="context">
             <div className={cx(grid({ mode: "narrow" }))}>
-              <p className="text-xl md:col-start-2 lg:col-start-2 col-span-5 lg:col-span-9">
-                {`From updating content in product pages to leading the development of an
-              online event with 121k attendees, I've had the opportunity to work on a
-              wide range of projects at IBM, collaborate with amazing folks, and lead impactful initiatives.`}
+              <p className="text-xl col-span-5 lg:col-span-9">
+                {`From updating content in product pages to leading the development of an online event with 121k attendees, I've had the opportunity to work on a wide range of projects at IBM, collaborate with amazing folks, and lead impactful initiatives.`}
               </p>
             </div>
           </Band>
@@ -105,14 +103,20 @@ export default function IBM() {
             <div className={cx(grid({ mode: "narrow" }), "gap-y-20")}>
               <div className="col-span-6 lg:col-start-1 lg:col-span-8 space-y-4">
                 <p>
-                  {`I'm thankful to have met people who changed how I approach work and life to some extent.`}
+                  {`Dozens of individuals are responsible for my growth, and I'm thankful to have met people who changed how I approach my work. Two that hold a special place in my development are Rafael Merz and Sebastian Huynh;`}
                 </p>
-                <p>
-                  {`Rafael's management style allowed me to pursue quality work, and tought me the joy of ownership; My best work happened under his leadership and together we delivered experiences that set a new standard for our organization.`}
-                </p>
-                <p>
-                  {`Sebastian's mentorship taught me how to speak, how to think about design, and from observing him, how to be a better person. I feel lucky to have the opportunity to work with him, and even luckier to call him a friend.`}
-                </p>
+                <ul className="list-decimal list-outside marker:text-gray-8 space-y-2">
+                  <li>
+                    <p>
+                      {`Rafael's management style allowed me to pursue quality work and taught me the joy of ownership; My best work happened under his leadership. Together we delivered experiences that set a new standard for our organization.`}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      {`Sebastian's mentorship taught me how to speak, how to think about design, and from observing him, how to be a better person. I'm lucky to have worked with Sebastian and even luckier to call him a friend.`}
+                    </p>
+                  </li>
+                </ul>
               </div>
               <div className="md:col-end-9 lg:col-start-5 col-span-5 lg:col-span-12 space-y-4">
                 <p>
