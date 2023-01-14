@@ -41,7 +41,7 @@ export default function IBM() {
                   <h2 className="font-semibold underline underline-offset-2">
                     Think 2022
                   </h2>
-                  <p>{`Creating the digital experience for IBM's biggest event with bleeding edge tech.`}</p>
+                  <p>{`Creating the digital experience for IBM's flagship event with bleeding-edge tech.`}</p>
                 </UnstyledLink>
               </li>
               <li className="col-span-4 lg:col-span-8 ">
@@ -75,17 +75,14 @@ export default function IBM() {
                   Open Source Exploration initiative
                 </h2>
                 <p>
-                  Nerding about cool tech to the point it became an actual job
-                  activity when our studio decided to focus on unique web
-                  experiences.
+                  {`Nerding about cool tech to the point it became an actual job activity when our studio decided to focus on unique experiences.`}
                 </p>
               </li>
               <li className="pointer-events-none col-span-6 lg:col-span-12 lg:col-end-14">
                 <h2 className="font-semibold">Other contributions</h2>
                 <ul className="list-decimal list-outside marker:text-gray-8 space-y-2">
                   <li>
-                    Trained colleagues in React, Typescript, and NextJS through
-                    presentations, one on one sessions, and collaborative work.
+                    {`Trained colleagues in React, Typescript, and NextJS through presentations, one on one sessions, and collaborative work.`}
                   </li>
 
                   <li>
