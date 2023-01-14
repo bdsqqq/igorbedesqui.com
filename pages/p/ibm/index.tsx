@@ -100,7 +100,15 @@ export default function IBM() {
             <div className={cx(grid({ mode: "narrow" }), "gap-y-20")}>
               <div className="col-span-6 lg:col-start-1 lg:col-span-8 space-y-4">
                 <p>
-                  {`Dozens of individuals are responsible for my growth, and I'm thankful to have met people who changed how I approach my work. Two that hold a special place in my development are Rafael Merz and Sebastian Huynh;`}
+                  {`Dozens of individuals are responsible for my growth, and I'm thankful to have met people who changed how I approach my work. Two that hold a special place in my development are `}
+                  <StyledLink href="https://www.linkedin.com/in/rafael-merz/">
+                    Rafael Merz
+                  </StyledLink>
+                  {` and `}
+                  <StyledLink href="https://www.linkedin.com/in/sebastian-huynh/">
+                    Sebastian Huynh
+                  </StyledLink>
+                  {`;`}
                 </p>
                 <ul className="list-decimal list-outside marker:text-gray-8 space-y-2">
                   <li>
@@ -120,12 +128,13 @@ export default function IBM() {
                   {`Leaving was a hard decision, but after two years of aquiring new responsibilities and skills, with no change in pay, I decided to move on. A job at a company this big is transactional relationship after all.`}
                 </p>
                 <p
-                  aria-hidden
-                  className="text-gray-1 hover:text-gray-11 transition-colors duration-fast-02 ease-productive-standard group"
+                  tabIndex={0}
+                  className="text-gray-2 hover:text-gray-11 focus:text-gray-11 transition-colors duration-fast-02 ease-productive-standard group"
                 >
-                  {`…And it freaked me out that I was paid `}
-                  <span className="group-hover:text-gray-12 transition-colors duration-fast-02 ease-productive-standard">{`7K USD a year being a major contributor to high-impact projects in a multi-billion company`}</span>
-                  {`. Being a cost savings measure as a third-party offshore contractor in Brazil isn't the best for self worth.`}
+                  {`…And getting paid `}
+                  <span className="group-hover:text-gray-12 group-focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard">{`7K USD a year as a major contributor to high-impact projects in a multi-billion company`}</span>
+                  {` freaked me out. Feeling like a cost savings measure as a third-party offshore contractor in Brazil isn't the best for self worth.`}{" "}
+                  <span className="group-hover:text-gray-12 group-focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard">{`But don't tell anyone, this is a secret!`}</span>
                 </p>
               </div>
             </div>
