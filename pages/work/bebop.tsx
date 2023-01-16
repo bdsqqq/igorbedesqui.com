@@ -8,7 +8,7 @@ export default function Bebop({
       <Seo
         title="The work, which becomes a new genre itself, will be called... COWBOY BEBOP"
         description="My entry for, and winner of, the second installment of the WebJam — made by Igor Bedesqui"
-        url="p/bebop"
+        url=work/bebop"
         ogText="*The work*, which *becomes a new genre itself*, will be called... *COWBOY BEBOP*"
       />
 

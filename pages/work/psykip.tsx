@@ -4,7 +4,7 @@ import { meta as bebopMeta } from "data/work/bebop.mdx";
 export default function Psykip() {
   return (
     <>
-      <Seo title="" description="" url="p/psykip" ogText="" />
+      <Seo title="" description="" url=work/psykip" ogText="" />
       {/* TODO: actual title and description */}
 
       <ProjectContainer key="psykipProj">

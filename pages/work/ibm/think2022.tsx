@@ -1,7 +1,7 @@
 export default function Think() {
   return (
     <>
-      <Seo title="IBM" description="IBM" url="p/ibm" ogText="" />
+      <Seo title="IBM" description="IBM" url=work/ibm" ogText="" />
       {/* TODO: actual title and description */}
 
       <Container key="bebopProj" backable>

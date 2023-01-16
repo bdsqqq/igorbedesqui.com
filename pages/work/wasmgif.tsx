@@ -8,7 +8,7 @@ export default function WasmGif() {
         title="WASM Gif maker"
         description="Fast and secure gif making — made by Igor Bedesqui"
         ogText="*Fast* and *secure* gif making."
-        url="p/wasmgif"
+        url=work/wasmgif"
       />
 
       <ProjectContainer key="wasmGifProj">
