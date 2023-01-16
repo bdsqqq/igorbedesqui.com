@@ -10,12 +10,16 @@ export default function IBM() {
 
   return (
     <>
-      <Seo title="IBM" description="IBM" url="p/ibm" ogText="" />
-      {/* TODO: actual title and description */}
+      <Seo
+        title="IBM"
+        description={`Igor Bedesqui lead impactful initiatives and collaborated with top talent to deliver Think 2022 and other web experiences for IBM.`}
+        url="p/ibm"
+        ogText="Creating web experiences/nfor the enterprise of/nenterprises."
+      />
 
       <Container key="bebopProj" backable>
         <HeroBand heroVideo={"/videos/ibm/tapes"}>
-          Creating web experiences in the corporate of corporates.
+          Creating web experiences for the enterprise of enterprises.
         </HeroBand>
 
         <div className="mt-16 flex flex-col gap-20">
