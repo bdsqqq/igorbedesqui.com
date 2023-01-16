@@ -90,7 +90,7 @@ export default function IBM() {
                   </li>
 
                   <li>
-                    {`Created pages and maintained one of a kind assets for ibm.com /industries and /services.`}
+                    {`Created pages and maintained one of a kind assets made in collaboration with external agencies for ibm.com /industries, /consulting and /services.`}
                   </li>
                 </ul>
               </li>
