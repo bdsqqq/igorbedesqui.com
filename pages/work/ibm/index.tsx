@@ -56,7 +56,7 @@ export default function IBM() {
             >
               <li className="col-span-4 lg:col-span-8 cursor-text">
                 {/* <UnstyledLink
-                  href="/p/ibm/think2022"
+                  href="/work/ibm/think2022"
                   className="block pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard"
                 > */}
                 <h2 className="font-semibold">
@@ -68,7 +68,7 @@ export default function IBM() {
               </li>
               <li className="col-span-4 lg:col-span-8 ">
                 {/* <UnstyledLink
-                  href="/p/ibm/think2022"
+                  href="/work/ibm/think2022"
                   className="block pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard"
                 > */}
                 <h2 className="font-semibold">
@@ -82,7 +82,7 @@ export default function IBM() {
               </li>
               <li className="col-span-4 lg:col-span-8">
                 {/* <UnstyledLink
-                  href="/p/ibm/think2022"
+                  href="/work/ibm/think2022"
                   className="block pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard"
                 > */}
                 <h2 className="font-semibold">

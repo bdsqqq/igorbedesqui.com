@@ -8,7 +8,7 @@ const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
         return (
           <UnstyledLink
             className="w-full py-8 pointer-events-auto first:pt-0 last:pb-0 md:py-6 md:[&:nth-child(2)]:pt-0 md:[&:nth-last-child(2)_:nth-child(odd)]:pb-0 hover:!text-gray-12 hover:!opacity-100 motion-safe:transition-all duration-moderate-01 ease-productive-standard"
-            href={`/p/${project.urlSlug}`}
+            href={`/work/${project.urlSlug}`}
             key={project.name}
           >
             <li>

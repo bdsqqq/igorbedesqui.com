@@ -63,7 +63,7 @@ export const ProjectLayout: React.FC<
               <div className="col-span-2">
                 <span className="font-bold text-gray-9">Next project</span>
                 <span className="flex gap-0.5 items-center text-gray-11">
-                  <StyledLink href={`/p/${nextProjMeta.urlSlug}`}>
+                  <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
                     {nextProjMeta.name}
                   </StyledLink>
                 </span>

@@ -1,7 +1,7 @@
 import { meta as bebopMeta } from "data/work/bebop.mdx";
 import { meta as issMeta } from "data/work/iss.mdx";
 import { meta as wasmGifMeta } from "data/work/wasmgif.mdx";
-import { meta as ibmMeta } from "./p/ibm";
+import { meta as ibmMeta } from "./work/ibm";
 
 import { meta as onWrittingMeta } from "./writing/on-writing";
 import { meta as justBasicsMeta } from "./writing/not-just-the-basics";
@@ -66,7 +66,7 @@ export default function Home() {
                     <li key={projMeta.shortName}>
                       <UnstyledLink
                         className="block py-4 pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard group"
-                        href={`/p/${projMeta.urlSlug}`}
+                        href={`/work/${projMeta.urlSlug}`}
                       >
                         <div className="flex flex-col ">
                           <div>

@@ -2,7 +2,7 @@ const ProjectContainer: React.FC<
   React.PropsWithChildren<{ backMessage?: string }>
 > = ({ children, backMessage }) => {
   return (
-    <Container backable backAnchor="/p" backMessage={backMessage}>
+    <Container backable backAnchor="/work" backMessage={backMessage}>
       {children}
     </Container>
   );
