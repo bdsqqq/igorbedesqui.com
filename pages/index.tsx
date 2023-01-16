@@ -1,15 +1,15 @@
 import { meta as bebopMeta } from "data/work/bebop.mdx";
 import { meta as issMeta } from "data/work/iss.mdx";
 import { meta as wasmGifMeta } from "data/work/wasmgif.mdx";
+import { meta as ibmMeta } from "./p/ibm";
 
 import { meta as onWrittingMeta } from "./writing/on-writing";
 import { meta as justBasicsMeta } from "./writing/not-just-the-basics";
 
 const writingPieces = [onWrittingMeta, justBasicsMeta];
+const projsMeta = [ibmMeta, bebopMeta, issMeta, wasmGifMeta];
 
 export default function Home() {
-  const projsMeta = [bebopMeta, issMeta, wasmGifMeta];
-
   // Me, What I've done
   // Work
   // Writing
