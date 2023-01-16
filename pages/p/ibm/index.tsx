@@ -37,7 +37,12 @@ export default function IBM() {
           <Band gridless id="context">
             <div className={cx(grid({ mode: "narrow" }))}>
               <p className="text-xl col-span-5 lg:col-span-9">
-                {`From updating content in product pages to leading the development of an online event with 121k attendees, I've had the opportunity to work on a wide range of projects at IBM, collaborate with amazing folks, and lead impactful initiatives.`}
+                {`From updating content in product pages to `}
+                <span className="text-gray-12">{`developing an`}</span>
+                {` online `}
+                <span className="text-gray-12">{`event with 121k attendees, I worked`}</span>
+                {` on a wide range of projects at IBM, collaborated `}
+                <span className="text-gray-12">{`with amazing folks, and led impactful initiatives.`}</span>
               </p>
             </div>
           </Band>
@@ -45,10 +50,11 @@ export default function IBM() {
             <ul
               className={cx(
                 grid({ mode: "narrow" }),
-                "gap-y-8 hover:text-gray-10 focus-within:text-gray-10 pointer-events-none"
+                "gap-y-8 "
+                //"hover:text-gray-10 focus-within:text-gray-10"
               )}
             >
-              <li className="col-span-4 lg:col-span-8 ">
+              <li className="col-span-4 lg:col-span-8 cursor-text">
                 {/* <UnstyledLink
                   href="/p/ibm/think2022"
                   className="block pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard"
@@ -88,7 +94,8 @@ export default function IBM() {
                 </p>
                 {/* </UnstyledLink> */}
               </li>
-              <li className="pointer-events-none col-span-4 lg:col-span-8">
+              <li className="col-span-4 lg:col-span-8">
+                {/* pointer-events-none */}
                 <h2 className="font-semibold">
                   Open Source Exploration initiative
                 </h2>
@@ -96,7 +103,8 @@ export default function IBM() {
                   {`Nerding about cool tech to the point it became an actual job activity when our studio decided to focus on unique experiences.`}
                 </p>
               </li>
-              <li className="pointer-events-none col-span-6 lg:col-span-12 lg:col-end-14">
+              <li className="col-span-6 lg:col-span-12 lg:col-end-14">
+                {/* pointer-events-none */}
                 <h2 className="font-semibold">Other contributions</h2>
                 <ul className="list-decimal list-outside marker:text-gray-8 space-y-2">
                   <li>
@@ -131,12 +139,28 @@ export default function IBM() {
                 <ul className="list-decimal list-outside marker:text-gray-8 space-y-2">
                   <li>
                     <p>
-                      {`Rafael's management style allowed me to pursue quality work and taught me the joy of ownership; My best work happened under his leadership. Together we delivered experiences that set a new standard for our organization.`}
+                      <span className="text-gray-12">{`Rafael`}</span>
+                      {`'s management style `}
+                      <span className="text-gray-12">{`allowed me to pursue quality work and taught me the joy of ownership;`}</span>
+                      {` My best work happened under his leadership. `}
+                      <span className="text-gray-12">{`Together we`}</span>
+                      {` delivered experiences that `}
+                      <span className="text-gray-12">{`set a new standard for our organization.`}</span>
                     </p>
                   </li>
                   <li>
                     <p>
-                      {`Sebastian's mentorship taught me how to speak, how to think about design, and from observing him, how to be a better person. I'm lucky to have worked with Sebastian and even luckier to call him a friend.`}
+                      <span className="text-gray-12">{`Sebastian`}</span>
+                      {`'s mentorship `}
+                      <span className="text-gray-12">{`taught me`}</span>
+                      {` how to speak, how to think about design, and from observing him, `}
+                      <span className="text-gray-12">{`how to be`}</span>
+                      {` a `}
+                      <span className="text-gray-12">{`better`}</span>
+                      {` person`}
+                      <span className="text-gray-12">{`. I'm lucky`}</span>
+                      {` to have worked with Sebastian and even luckier  `}
+                      <span className="text-gray-12">{`to call him a friend.`}</span>
                     </p>
                   </li>
                 </ul>
