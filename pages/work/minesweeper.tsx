@@ -5,7 +5,7 @@ export default function Minesweeper() {
         title="Minesweeper"
         description="A modern implementation of the classic game minesweeper — made by Igor Bedesqui"
         ogText="The classic minesweeper game, made modern."
-        url=work/minesweeper"
+        url="work/minesweeper"
       />
       <ProjectContainer key="minesweeperProj">
         <HeroBand>

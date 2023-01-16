@@ -7,7 +7,7 @@ export default function Iss() {
       <Seo
         title="Where's the ISS?"
         description="A simple webapp that tells you where is the International Space Station — made by Igor Bedesqui"
-        url=work/iss"
+        url="work/iss"
         ogText="A webapp to keep track of/nthe *International Space Station*"
       />
 

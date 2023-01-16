@@ -24,7 +24,7 @@ export default function IBM() {
       <Seo
         title="IBM"
         description={`Igor Bedesqui lead impactful initiatives and collaborated with top talent to deliver Think 2022 and other web experiences for IBM.`}
-        url=work/ibm"
+        url="work/ibm"
         ogText="Creating web experiences/nfor the enterprise of/nenterprises."
       />
 
