@@ -1,3 +1,14 @@
+export const meta = {
+  shortName: "IBM",
+  name: "IBM",
+  description: "Creating web experiences for the enterprise of enterprises.",
+  roles: ["FullStack Developer"],
+  type: "Full time",
+  tools: [""],
+  date: "2020 ~ 2022",
+  urlSlug: "ibm",
+};
+
 export default function IBM() {
   // context
   // projects
@@ -38,41 +49,44 @@ export default function IBM() {
               )}
             >
               <li className="col-span-4 lg:col-span-8 ">
-                <UnstyledLink
+                {/* <UnstyledLink
                   href="/p/ibm/think2022"
                   className="block pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard"
-                >
-                  <h2 className="font-semibold underline underline-offset-2">
-                    Think 2022
-                  </h2>
-                  <p>{`Creating the digital experience for IBM's flagship event with bleeding-edge tech.`}</p>
-                </UnstyledLink>
+                > */}
+                <h2 className="font-semibold">
+                  {/* underline underline-offset-2 when this becomes a link */}
+                  Think 2022
+                </h2>
+                <p>{`Creating the digital experience for IBM's flagship event with bleeding-edge tech.`}</p>
+                {/* </UnstyledLink> */}
               </li>
               <li className="col-span-4 lg:col-span-8 ">
-                <UnstyledLink
+                {/* <UnstyledLink
                   href="/p/ibm/think2022"
                   className="block pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard"
-                >
-                  <h2 className="font-semibold underline underline-offset-2">
-                    Interactive event app
-                  </h2>
-                  <p>
-                    {`Highlighting key offerings to convert interested attendees into blown away clients.`}
-                  </p>
-                </UnstyledLink>
+                > */}
+                <h2 className="font-semibold">
+                  {/* underline underline-offset-2 when this becomes a link */}
+                  Interactive event app
+                </h2>
+                <p>
+                  {`Highlighting key offerings to convert interested attendees into blown away clients.`}
+                </p>
+                {/* </UnstyledLink> */}
               </li>
               <li className="col-span-4 lg:col-span-8">
-                <UnstyledLink
+                {/* <UnstyledLink
                   href="/p/ibm/think2022"
                   className="block pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard"
-                >
-                  <h2 className="font-semibold underline underline-offset-2">
-                    QA Helper
-                  </h2>
-                  <p>
-                    {`Automating QA tasks in browser to help engineers focus on what matters. Typesafelly, of course.`}
-                  </p>
-                </UnstyledLink>
+                > */}
+                <h2 className="font-semibold">
+                  {/* underline underline-offset-2 when this becomes a link */}
+                  QA Helper
+                </h2>
+                <p>
+                  {`Automating QA tasks in browser to help engineers focus on what matters. Typesafelly, of course.`}
+                </p>
+                {/* </UnstyledLink> */}
               </li>
               <li className="pointer-events-none col-span-4 lg:col-span-8">
                 <h2 className="font-semibold">
