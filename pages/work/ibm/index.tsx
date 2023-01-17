@@ -171,12 +171,12 @@ export default function IBM() {
                 </p>
                 <p
                   tabIndex={0}
-                  className="text-gray-2 hover:text-gray-11 focus:text-gray-11 transition-colors duration-fast-02 ease-productive-standard group"
+                  className="text-gray-3 hover:text-gray-11 focus:text-gray-11 filter blur-sm  hover:blur-none focus:blur-none duration-moderate-02 transition-all ease-productive-standard group"
                 >
                   {`…And getting paid `}
-                  <span className="group-hover:text-gray-12 group-focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard">{`7K USD a year as a major contributor to high-impact projects in a multi-billion company`}</span>
+                  <span className="group-hover:text-gray-12 group-focus:text-gray-12 transition-colors duration-moderate-02 ease-productive-standard">{`7K USD a year as a major contributor to high-impact projects in a multi-billion company`}</span>
                   {` freaked me out. Feeling like a cost savings measure as a third-party offshore contractor in Brazil isn't the best for self worth.`}{" "}
-                  <span className="group-hover:text-gray-12 group-focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard">{`But don't tell anyone, this is a secret!`}</span>
+                  <span className="group-hover:text-gray-12 group-focus:text-gray-12 transition-colors duration-moderate-02 ease-productive-standard">{`But don't tell anyone, this is a secret!`}</span>
                 </p>
               </div>
             </div>
