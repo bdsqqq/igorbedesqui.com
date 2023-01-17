@@ -28,7 +28,7 @@ export default function IBM() {
         ogText="Creating web experiences/nfor the enterprise of/nenterprises."
       />
 
-      <Container key="bebopProj" backable>
+      <Container key="ibm" backable>
         <HeroBand heroVideo={"/videos/ibm/tapes"}>
           Creating web experiences for the enterprise of enterprises.
         </HeroBand>
