@@ -50,10 +50,6 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
   id && (bandId = id);
   headline && (bandId = headline.thin);
 
-  {
-    console.log(options?.subGrid);
-  }
-
   return (
     <section
       className={cx(
