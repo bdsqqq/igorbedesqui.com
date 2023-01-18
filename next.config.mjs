@@ -18,6 +18,16 @@ const withMDX = mdx({
   },
 });
 
+export async function redirects() {
+  return [
+    {
+      source: "/p/:slug",
+      destination: "/work/:slug",
+      permanent: true,
+    },
+  ];
+}
+
 export default withBundleAnalyzer({
   ...withMDX({
     swcMinify: true,
