@@ -5,17 +5,13 @@ export default function Page() {
         title={meta.name + " — Igor Bedesqui"}
         description={meta.description}
         url={`writing/${meta.urlSlug}`}
-        ogText={meta.description}
+        ogText={"*" + meta.name + "*;/n" + meta.description}
       />
       <Container backable backAnchor="/writing">
         <Band id="01" gridless>
           <div className="max-w-prose mx-auto space-y-4">
             <h1 className="text-2xl text-gray-12 mb-8">{meta.name}</h1>
             <p>
-              {`What good design and getting you and your friends to gold in league in a week have in common?`}
-            </p>
-            <p>
-              {`Both require focusing on basic principles to avoid stupid mistakes.`}{" "}
               <span className="text-gray-12">
                 {`Being smart, creative, and innovative is important, but ignoring the risks that come with it is irresponsible; Allowing yourself to make big mistakes is an inherent part of the creative process.`}
               </span>
@@ -80,7 +76,7 @@ export default function Page() {
 export const meta = {
   shortName: "not “just” the basics",
   name: "Not “just” the basics",
-  description: "What climbing the ranks of a game taught me about design.",
+  description: "Changing our language to find value in mundane work.",
   date: "21/12/2022",
   urlSlug: "not-just-the-basics",
   backMessage: "",
