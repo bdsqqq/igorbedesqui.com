@@ -82,7 +82,7 @@ export default async function handler(req: NextRequest) {
                         color:
                           i % 2 === 1 ? "hsl(0 0% 93.0%)" : "hsl(0 0% 62.8%)",
                         marginLeft:
-                          text.startsWith(".") || text.startsWith(",")
+                          text.startsWith(".") || text.startsWith(",") || text.startsWith(";")
                             ? "-1rem"
                             : "0",
                         // doesn't scale, should probably include a pattern to match all poctuation
