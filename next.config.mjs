@@ -18,20 +18,19 @@ const withMDX = mdx({
   },
 });
 
-export async function redirects() {
-  return [
-    {
-      source: "/p/:slug",
-      destination: "/work/:slug",
-      permanent: true,
-    },
-  ];
-}
-
 export default withBundleAnalyzer({
   ...withMDX({
     swcMinify: true,
     reactStrictMode: true,
     pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+    redirects: async () => {
+      return [
+        {
+          source: "/p/:slug",
+          destination: "/work/:slug",
+          permanent: true,
+        },
+      ];
+    },
   }),
 });
