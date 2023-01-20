@@ -110,12 +110,9 @@ import {
   RecursiveSerialize,
 } from "@/lib/mutateSerializeMdx";
 
-import desktopScreenshot from "@/public/images/projs/bebop/desktop-screenshot.png";
-import smartphoneScreenshot from "@/public/images/projs/bebop/smartphone-screenshot.png";
 
 import { MDXRemote } from "next-mdx-remote";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
-import Image from "next/image";
 import StyledLink from "@/components/ui/StyledLink";
 
 export const meta = {
