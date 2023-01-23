@@ -143,28 +143,14 @@ export default function IBM() {
                 <ul className="list-decimal list-outside marker:text-gray-8 space-y-2">
                   <li>
                     <p>
-                      <span className="text-gray-12">{`Rafael`}</span>
-                      {`'s management style `}
-                      <span className="text-gray-12">{`allowed me to pursue quality work and taught me the joy of ownership;`}</span>
+                      <span className="text-gray-12">{`Rafael's management style allowed me to pursue quality work and taught me the joy of ownership;`}</span>
                       {` My best work happened under his leadership. `}
-                      <span className="text-gray-12">{`Together we`}</span>
-                      {` delivered experiences that `}
-                      <span className="text-gray-12">{`set a new standard for our organization.`}</span>
+                      <span className="text-gray-12">{`Together we delivered experiences that set a new standard for our organization.`}</span>
                     </p>
                   </li>
                   <li>
                     <p>
-                      <span className="text-gray-12">{`Sebastian`}</span>
-                      {`'s mentorship `}
-                      <span className="text-gray-12">{`taught me`}</span>
-                      {` how to speak, how to think about design, and from observing him, `}
-                      <span className="text-gray-12">{`how to be`}</span>
-                      {` a `}
-                      <span className="text-gray-12">{`better`}</span>
-                      {` person`}
-                      <span className="text-gray-12">{`. I'm lucky`}</span>
-                      {` to have worked with Sebastian and even luckier  `}
-                      <span className="text-gray-12">{`to call him a friend.`}</span>
+                      <span className="text-gray-12">{`Sebastian's mentorship taught mehow to speak, how to think about design, and from observing him, how to be a better person. I'm lucky to have worked with Sebastian and even luckier to call him a friend.`}</span>
                     </p>
                   </li>
                 </ul>
