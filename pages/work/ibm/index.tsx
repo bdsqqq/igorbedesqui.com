@@ -108,7 +108,7 @@ export default function IBM() {
                 <h2 className="font-semibold">Other contributions</h2>
                 <ul className="list-decimal list-outside marker:text-gray-8 space-y-2">
                   <li>
-                    {`Was responsible for the development and technical decisions for ibm.com/events, one of the highest traffic segments of the company's website.`}
+                    {`Was responsible for the development and technical decisions for ibm.com/events.`}
                   </li>
 
                   <li>
