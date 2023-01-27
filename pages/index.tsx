@@ -140,7 +140,7 @@ export default function Home() {
                   </span>
                 </p>
                 <p>
-                  {`Getting used to life in a new contient, missing my partner, and
+                  {`Getting used to life in a new continent, missing my partner, and
                 trying to find a new home.`}
                 </p>
                 <p>
