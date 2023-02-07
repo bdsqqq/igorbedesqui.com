@@ -23,10 +23,6 @@ const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
   return (
     <>
       <PopoverDisclosure
-        as={"span"}
-        role="button"
-        tabIndex={0}
-        // tabIndex and role because this has to be a span otherwise it will cause a hydration mismatch when rendered inside a <p> and a span needs tabIndex and role, see: https://techservicesillinois.github.io/accessibility/examples/popover.html
         state={popoverState}
         className={cx([
           "group cursor-pointer inline select-text font-semibold motion-safe:transition-all duration-fast-02 ease-productive-standard hover:text-gray-12 focus-within:text-gray-12 aria-expanded:text-gray-12",
@@ -38,23 +34,26 @@ const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
           <Icon className="inline text-gray-11 group-focus-within:text-gray-12 group-hover:text-gray-12 motion-safe:transition-all duration-fast-02 ease-productive-standard group-aria-expanded:text-gray-12" />
         )}
       </PopoverDisclosure>
-      <Popover
-        as="span"
-        state={popoverState}
-        className={tooltipVariants({
-          bg: options?.bg,
-          maxW: options?.maxW,
-          padding: options?.padding,
-        })}
-        data-dir={popoverState?.currentPlacement || "top"}
+      <Portal
+      // <div>s will cause a hydration mismatch when rendered inside a <p>, see: https://nextjs.org/docs/messages/react-hydration-error. Putting the Popover in a Portal prevents the issue.
       >
-        {content}
-        <PopoverArrow
-          className={arrowTooltipVariants({
+        <Popover
+          state={popoverState}
+          className={tooltipVariants({
             bg: options?.bg,
+            maxW: options?.maxW,
+            padding: options?.padding,
           })}
-        />
-      </Popover>
+          data-dir={popoverState?.currentPlacement || "top"}
+        >
+          {content}
+          <PopoverArrow
+            className={arrowTooltipVariants({
+              bg: options?.bg,
+            })}
+          />
+        </Popover>
+      </Portal>
     </>
   );
 };
@@ -115,3 +114,4 @@ import {
 } from "ariakit/popover";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 import { cva, cx, type VariantProps } from "class-variance-authority";
+import { Portal } from "ariakit/portal";
