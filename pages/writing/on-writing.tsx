@@ -1,5 +1,6 @@
 export default function Page({
   mdx,
+  bonusMDX,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
@@ -14,6 +15,7 @@ export default function Page({
           <div className="max-w-prose mx-auto">
             <MDXRemote {...mdx.content} />
           </div>
+          <MDXRemote {...bonusMDX} />
         </Band>
       </Container>
     </>
@@ -83,9 +85,13 @@ const MDs = {
 
 export const getStaticProps: GetStaticProps<{
   mdx: RecursiveSerialize<typeof MDs>;
+  bonusMDX: MDXRemoteSerializeResult;
 }> = async () => {
   const mdx = await mutateSerializeMdx(MDs);
-  return { props: { mdx } };
+  const bonusMDX = await serialize(
+    "like Redis on [Upstash](https://upstash.com/)"
+  );
+  return { props: { mdx, bonusMDX } };
 };
 
 import Band from "@/components/Band";
@@ -97,4 +103,5 @@ import {
   RecursiveSerialize,
 } from "@/lib/mutateSerializeMdx";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { MDXRemote } from "next-mdx-remote";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
