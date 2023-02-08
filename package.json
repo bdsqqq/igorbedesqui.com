@@ -13,7 +13,7 @@
     "@mdx-js/react": "^2.2.1",
     "@next/bundle-analyzer": "^12.2.5",
     "@next/font": "^13.0.0",
-    "@next/mdx": "^12.3.1",
+    "@next/mdx": "^13.1.6",
     "@radix-ui/react-icons": "^1.0.3",
     "@radix-ui/react-separator": "^1.0.1",
     "@vercel/og": "^0.0.24",

@@ -5,7 +5,7 @@ specifiers:
   '@mdx-js/react': ^2.2.1
   '@next/bundle-analyzer': ^12.2.5
   '@next/font': ^13.0.0
-  '@next/mdx': ^12.3.1
+  '@next/mdx': ^13.1.6
   '@radix-ui/colors': ^0.1.7
   '@radix-ui/react-icons': ^1.0.3
   '@radix-ui/react-separator': ^1.0.1
@@ -36,7 +36,7 @@ dependencies:
   '@mdx-js/react': 2.2.1_react@18.2.0
   '@next/bundle-analyzer': 12.3.4
   '@next/font': 13.0.7
-  '@next/mdx': 12.3.4_vvg67iglxhejglpl7nsv3pjzui
+  '@next/mdx': 13.1.6_vvg67iglxhejglpl7nsv3pjzui
   '@radix-ui/react-icons': 1.1.1_react@18.2.0
   '@radix-ui/react-separator': 1.0.1_biqbaboplfbrettd7655fr4n2y
   '@vercel/og': 0.0.24
@@ -216,14 +216,15 @@ packages:
     resolution: {integrity: sha512-39SzuoMI6jbrIzPs3KtXdKX03OrVp6Y7kRHcoVmOg69spiBzruPJ5x5DQSfN+OXqznbvVBNZBXnmdnSqs3qXiA==}
     dev: false
 
-  /@next/mdx/12.3.4_vvg67iglxhejglpl7nsv3pjzui:
-    resolution: {integrity: sha512-YTF/ph9NMKjmrNsr8O+y3IiZee9TaxSd6051qI0Fj/du75pKRRZ1DnOX6ZS7mMgswH7VMERVV7fBZxmJr9sN7Q==}
+  /@next/mdx/13.1.6_vvg67iglxhejglpl7nsv3pjzui:
+    resolution: {integrity: sha512-ZLhXXDJeHbudFpSZT68eYQRzOaNwkaw+NuO7Zvnm5XKB6P7hKSj2dS47ZtitrY0JaL3KxR4FoxUSYeLvdoRwtQ==}
     peerDependencies:
       '@mdx-js/loader': '>=0.15.0'
       '@mdx-js/react': '*'
     dependencies:
       '@mdx-js/loader': 2.2.1
       '@mdx-js/react': 2.2.1_react@18.2.0
+      source-map: 0.7.4
     dev: false
 
   /@next/swc-android-arm-eabi/13.1.6:
