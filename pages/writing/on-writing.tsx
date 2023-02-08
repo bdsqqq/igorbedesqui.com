@@ -91,7 +91,6 @@ export const getStaticProps: GetStaticProps<{
 import Band from "@/components/Band";
 import Container from "@/components/Container";
 import Seo from "@/components/Seo";
-import PopOver from "@/components/ui/Popover";
 import {
   mutateSerializeMdx,
   RecursiveSerialize,
