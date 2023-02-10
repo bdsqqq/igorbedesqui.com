@@ -19,21 +19,14 @@ export default function Writing() {
         >
           <div className="flex gap-8">
             <Button>hej do</Button>
-            <div
-              className="h-fit border"
-              style={{
-                borderColor: "rgba(255, 0, 0, 0.2)",
-              }}
-            >
             <button
               style={{ backgroundClip: "padding-box" }}
               className={cx(
-                  "rounded-sm select-none shadow-input shadow-gray-A4 border border-gray-A4 bg-gray-1 py-2 px-4 text-gray-11 hover:text-gray-12 transition-all hover:bg-gray-2 active:bg-gray-1 active:shadow-gray-A4"
-                )}
-              >
-                Meatballs
-              </button>
-            </div>
+                "rounded-sm select-none shadow-input shadow-gray-A5 border border-gray-A5 bg-gray-1 py-2 px-4 text-gray-11 hover:text-gray-12 transition-all hover:bg-gray-2 active:shadow-gray-A4 active:scale-95 origin-center duration-fast-02 ease-expressive-standard bg-gradient-to-t from-gray-1 to-gray-3 hover:from-gray-2 hover:to-gray-4 active:from-gray-1 active:to-gray-3  disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:active:scale-100 disabled:text-gray-10 "
+              )}
+            >
+              Meatballs
+            </button>
           </div>
         </Band>
         <Band
