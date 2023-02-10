@@ -25,9 +25,9 @@ export default function Writing() {
                 borderColor: "rgba(255, 0, 0, 0.2)",
               }}
             >
-              <button
-                style={{ backgroundClip: "padding-box" }}
-                className={cx(
+            <button
+              style={{ backgroundClip: "padding-box" }}
+              className={cx(
                   "rounded-sm select-none shadow-input shadow-gray-A4 border border-gray-A4 bg-gray-1 py-2 px-4 text-gray-11 hover:text-gray-12 transition-all hover:bg-gray-2 active:bg-gray-1 active:shadow-gray-A4"
                 )}
               >
