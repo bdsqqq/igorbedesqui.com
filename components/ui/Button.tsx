@@ -6,8 +6,6 @@ const variants = {
     lg: "text-xl",
   },
   color: {
-    crimson:
-      "text-crimson12 bg-crimson3 border-crimson7 hover:bg-crimson4 hover:border-crimson9 focus-within:bg-crimson4 focus-within:border-crimson9 active:bg-crimson6 active:border-crimson10",
     gray: "text-gray-11 bg-gray-1 border-gray-7 hover:text-gray-12 hover:bg-gray-2 hover:border-gray-9 focus-within:text-gray-12 focus-within:bg-gray-2 focus-within:border-gray-9 active:bg-gray-3 active:border-gray-10",
   },
 };
