@@ -10,7 +10,7 @@ const variants = {
   },
 };
 
-type variants = { size?: "sm" | "md" | "lg"; color?: "crimson" | "gray" };
+type variants = { size?: "sm" | "md" | "lg"; color?: "gray" };
 
 const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
   size = "lg",
