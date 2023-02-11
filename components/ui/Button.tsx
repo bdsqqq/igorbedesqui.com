@@ -29,7 +29,7 @@ const variants = cva(
   }
 );
 
-type variants = { size?: "sm" | "md" | "lg"; color?: "gray" };
+type variants = VariantProps<typeof variants>;
 
 const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
   size = "lg",
@@ -71,6 +71,6 @@ export { Button, LinkButton };
 
 import { UnstyledLink } from "./primitives";
 import type { LinkProps } from "next/link";
-import { cva, cx } from "class-variance-authority";
+import { cva, cx, type VariantProps } from "class-variance-authority";
 import { ButtonProps } from "ariakit";
 import React, { HtmlHTMLAttributes } from "react";
