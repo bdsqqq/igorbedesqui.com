@@ -32,7 +32,7 @@ export const ProjectLayout: React.FC<
         {children}
       </div>
 
-      <div className="col-span-full md:col-start-7 lg:col-start-13 sticky top-[1.5rem] overflow-auto max-h-[calc(100vh_-_4.5rem)] h-fit">
+      <div className="col-span-full md:col-start-7 lg:col-start-13 sticky top-[1.5rem] overflow-auto max-h-[calc(100vh_-_4.5rem)] h-fit py-2 -my-2">
         <Separator className="md:hidden w-11 mb-12 mt-20" />
 
         {/* Mobile */}
@@ -62,11 +62,11 @@ export const ProjectLayout: React.FC<
               isFaded ? "opacity-40" : "opacity-100"
             )}
           >
-            <Accordion title="Details">
-              <div className={"flex md:flex-col md:gap-6"}>
-                <SidebarContent projMeta={projMeta} />
-              </div>
-            </Accordion>
+            {/* <Accordion title="Details"> */}
+            <div tabIndex={0} className={"flex md:flex-col md:gap-6"}>
+              <SidebarContent projMeta={projMeta} />
+            </div>
+            {/* </Accordion> */}
           </aside>
           {nextProjMeta && (
             <>
