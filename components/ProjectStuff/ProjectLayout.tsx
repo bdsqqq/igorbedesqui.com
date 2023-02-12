@@ -62,11 +62,9 @@ export const ProjectLayout: React.FC<
               isFaded ? "opacity-40" : "opacity-100"
             )}
           >
-            {/* <Accordion title="Details"> */}
             <div tabIndex={0} className={"flex md:flex-col md:gap-6"}>
               <SidebarContent projMeta={projMeta} />
             </div>
-            {/* </Accordion> */}
           </aside>
           {nextProjMeta && (
             <>
@@ -131,45 +129,6 @@ const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
   );
 };
 
-const Accordion = ({ children, title }: { children: any; title: string }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  return (
-    <div className="flex flex-col gap-4">
-      <button
-        className="select-none flex items-center justify-between gap-2 text-gray-9"
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        <span className="font-bold">{title}</span>
-        <span
-          className={cx(
-            " transform transition-transform duration-fast-02 ease-productive-standard",
-            isOpen ? "rotate-180" : "rotate-0"
-          )}
-        >
-          <ChevronDownIcon />
-        </span>
-      </button>
-      <div
-        className="grid overflow-hidden transition-all duration-moderate-02 ease-expressive-standard"
-        style={{
-          gridTemplateRows: isOpen ? "1fr" : "0fr",
-        }}
-      >
-        <div
-          aria-hidden={!isOpen}
-          className={cx(
-            "min-h-0 transition-all duration-moderate-02 ease-expressive-standard",
-            isOpen ? "visible opacity-100" : "invisible opacity-0"
-          )}
-        >
-          {children}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 export const ProjectBand: FC<PropsWithChildren<BandProps>> = ({
   options,
   ...props
@@ -196,4 +155,3 @@ import { Meta } from "*.mdx";
 import React, { FC, PropsWithChildren } from "react";
 import { grid, subGrid } from "../ui/Grid";
 import { cx } from "class-variance-authority";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
