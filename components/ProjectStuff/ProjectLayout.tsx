@@ -7,13 +7,19 @@ export const ProjectLayout: React.FC<
   }>
 > = ({ children, projMeta, nextProjMeta }) => {
   // reduce opacity after user scrolls
-  const [isScrolled, setIsScrolled] = React.useState(false);
+  const [isFaded, setIsFaded] = React.useState(false);
   React.useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setIsScrolled(true);
+      // Should probably hook into useMeasure or something like that for now this is fine
+      const bottomOfWindow =
+        document.documentElement.scrollTop + window.innerHeight ===
+        document.documentElement.offsetHeight;
+
+      console.log(bottomOfWindow);
+      if (window.scrollY > 400 && bottomOfWindow === false) {
+        setIsFaded(true);
       } else {
-        setIsScrolled(false);
+        setIsFaded(false);
       }
     };
     window.addEventListener("scroll", handleScroll);
@@ -52,8 +58,8 @@ export const ProjectLayout: React.FC<
         <div className={cx(subGrid()(), "hidden md:flex md:flex-col md:gap-6")}>
           <aside
             className={cx(
-              "transition-opacity hover:opacity-100 focus-within:opacity-100",
-              isScrolled ? "opacity-30" : "opacity-100"
+              "transition-opacity duration-fast-02 ease-expressive-standard hover:opacity-100 focus-within:opacity-100",
+              isFaded ? "opacity-40" : "opacity-100"
             )}
           >
             <Accordion title="Details">
@@ -190,3 +196,4 @@ import { Meta } from "*.mdx";
 import React, { FC, PropsWithChildren } from "react";
 import { grid, subGrid } from "../ui/Grid";
 import { cx } from "class-variance-authority";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
