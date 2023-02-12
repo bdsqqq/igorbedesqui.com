@@ -6,17 +6,24 @@ export const ProjectLayout: React.FC<
     nextProjMeta?: Meta;
   }>
 > = ({ children, projMeta, nextProjMeta }) => {
-  // reduce opacity after user scrolls
   const [isFaded, setIsFaded] = React.useState(false);
+  const asideRef = React.useRef<HTMLDivElement>(null);
+
   React.useEffect(() => {
     const handleScroll = () => {
-      // Should probably hook into useMeasure or something like that for now this is fine
+      if (!asideRef.current) return;
+      const asidePxFromTopWhenSticky = 32;
+      const asidePxFromTop = asideRef.current.getBoundingClientRect().top;
+
+      // TODO: Should probably hook into useMeasure or something like that for now this is fine
       const bottomOfWindow =
         document.documentElement.scrollTop + window.innerHeight ===
         document.documentElement.offsetHeight;
 
-      console.log(bottomOfWindow);
-      if (window.scrollY > 400 && bottomOfWindow === false) {
+      if (
+        asidePxFromTop == asidePxFromTopWhenSticky &&
+        bottomOfWindow === false
+      ) {
         setIsFaded(true);
       } else {
         setIsFaded(false);
@@ -55,7 +62,10 @@ export const ProjectLayout: React.FC<
         </div>
 
         {/* Desktop */}
-        <div className={cx(subGrid()(), "hidden md:flex md:flex-col md:gap-6")}>
+        <div
+          ref={asideRef}
+          className={cx(subGrid()(), "hidden md:flex md:flex-col md:gap-6")}
+        >
           <aside
             className={cx(
               "transition-opacity duration-fast-02 ease-expressive-standard hover:opacity-100 focus-within:opacity-100",
