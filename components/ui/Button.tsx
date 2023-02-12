@@ -1,18 +1,35 @@
-const variants = {
-  base: "cursor-pointer select-none appearance-none inline-flex items-center gap-2 border  rounded-sm tracking-normal py-1 px-2 align-middle motion-safe:duration-moderate-01 motion-safe:ease-productive-standard outline-none focus-within:outline-none",
-  size: {
-    sm: "text-sm",
-    md: "text-base",
-    lg: "text-xl",
-  },
-  color: {
-    crimson:
-      "text-crimson12 bg-crimson3 border-crimson7 hover:bg-crimson4 hover:border-crimson9 focus-within:bg-crimson4 focus-within:border-crimson9 active:bg-crimson6 active:border-crimson10",
-    gray: "text-gray-11 bg-gray-1 border-gray-7 hover:text-gray-12 hover:bg-gray-2 hover:border-gray-9 focus-within:text-gray-12 focus-within:bg-gray-2 focus-within:border-gray-9 active:bg-gray-3 active:border-gray-10",
-  },
-};
+const variants = cva(
+  cx(
+    "select-none appearance-none",
+    "relative rounded-sm px-2 py-1 inline-flex items-center gap-2 align-middle outline-none focus-within:outline-none",
+    "motion-safe:duration-fast-01 motion-safe:ease-expressive-standard transition-all",
+    "border",
+    "shadow-input ",
+    "bg-gradient-to-tr",
+    "active:scale-95",
+    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-0/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard"
+  ),
+  {
+    variants: {
+      size: {
+        sm: "text-sm",
+        md: "text-base",
+        lg: "text-xl",
+      },
+      color: {
+        gray: cx(
+          "border-gray-A4",
+          "shadow-gray-A3",
+          "from-gray-A2 to-gray-A4",
+          "hover:border-gray-A8",
+          "focus-visible:border-gray-A8"
+        ),
+      },
+    },
+  }
+);
 
-type variants = { size?: "sm" | "md" | "lg"; color?: "crimson" | "gray" };
+type variants = VariantProps<typeof variants>;
 
 const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
   size = "lg",
@@ -22,12 +39,10 @@ const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
   ...rest
 }) => (
   <button
-    className={cx(
-      variants.base,
-      variants.size[size],
-      variants.color[color],
-      className
-    )}
+    className={variants({
+      size,
+      color,
+    })}
     {...rest}
   >
     {children}
@@ -42,12 +57,10 @@ const LinkButton: React.FC<HtmlHTMLAttributes<{}> & LinkProps & variants> = ({
   ...rest
 }) => (
   <UnstyledLink
-    className={cx(
-      variants.base,
-      variants.size[size],
-      variants.color[color],
-      className
-    )}
+    className={variants({
+      size,
+      color,
+    })}
     {...rest}
   >
     {children}
@@ -58,6 +71,6 @@ export { Button, LinkButton };
 
 import { UnstyledLink } from "./primitives";
 import type { LinkProps } from "next/link";
-import { cx } from "class-variance-authority";
+import { cva, cx, type VariantProps } from "class-variance-authority";
 import { ButtonProps } from "ariakit";
 import React, { HtmlHTMLAttributes } from "react";
