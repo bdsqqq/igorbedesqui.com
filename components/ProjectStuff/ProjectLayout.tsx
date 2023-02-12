@@ -131,11 +131,18 @@ const Accordion = ({ children, title }: { children: any; title: string }) => {
   return (
     <div className="flex flex-col gap-4">
       <button
-        className="select-none flex items-center justify-between gap-2"
+        className="select-none flex items-center justify-between gap-2 text-gray-9"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <span className="font-bold text-gray-9">{title}</span>
-        <span className="text-gray-11">{isOpen ? "-" : "+"}</span>
+        <span className="font-bold">{title}</span>
+        <span
+          className={cx(
+            " transform transition-transform duration-fast-02 ease-productive-standard",
+            isOpen ? "rotate-180" : "rotate-0"
+          )}
+        >
+          <ChevronDownIcon />
+        </span>
       </button>
       <div
         className="grid overflow-hidden transition-all duration-moderate-02 ease-expressive-standard"
