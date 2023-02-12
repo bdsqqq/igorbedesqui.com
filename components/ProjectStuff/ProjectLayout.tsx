@@ -6,6 +6,20 @@ export const ProjectLayout: React.FC<
     nextProjMeta?: Meta;
   }>
 > = ({ children, projMeta, nextProjMeta }) => {
+  // reduce opacity after user scrolls
+  const [isScrolled, setIsScrolled] = React.useState(false);
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className={cx("px-4 md:px-16", grid({ mode: "narrow" }))}>
       <div className="col-span-full md:col-end-7 lg:col-end-13 flex flex-col gap-16">
@@ -36,7 +50,12 @@ export const ProjectLayout: React.FC<
 
         {/* Desktop */}
         <div className={cx(subGrid()(), "hidden md:flex md:flex-col md:gap-6")}>
-          <aside>
+          <aside
+            className={cx(
+              "transition-opacity hover:opacity-100 focus-within:opacity-100",
+              isScrolled ? "opacity-30" : "opacity-100"
+            )}
+          >
             <Accordion title="hej">
               <div className={"flex md:flex-col md:gap-6"}>
                 <SidebarContent projMeta={projMeta} />
