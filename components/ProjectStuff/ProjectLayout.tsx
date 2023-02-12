@@ -56,7 +56,7 @@ export const ProjectLayout: React.FC<
               isScrolled ? "opacity-30" : "opacity-100"
             )}
           >
-            <Accordion title="hej">
+            <Accordion title="Details">
               <div className={"flex md:flex-col md:gap-6"}>
                 <SidebarContent projMeta={projMeta} />
               </div>
