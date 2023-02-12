@@ -15,7 +15,9 @@ export const ProjectLayout: React.FC<
       <div className="col-span-full md:col-start-7 lg:col-start-13 sticky top-[1.5rem] overflow-auto max-h-[calc(100vh_-_4.5rem)]">
         <Separator className="md:hidden w-11 mb-12 mt-20" />
 
-        <div className="grid grid-cols-2 gap-4 md:flex md:flex-col md:gap-6">
+        <div
+          className={cx(subGrid()(), "gap-y-4 md:flex md:flex-col md:gap-6")}
+        >
           <div className="col-span-2">
             <p className="font-bold text-gray-9">Type of work</p>
             <ul>
@@ -30,7 +32,12 @@ export const ProjectLayout: React.FC<
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-2">
+            <span className="font-bold text-gray-9">Project type</span>
+            <p>{projMeta.type}</p>
+          </div>
+
+          <div className="col-span-2">
             <p className="font-bold text-gray-9">Tools</p>
             <ul>
               {projMeta.tools.map((tool, i) => {
@@ -44,23 +51,16 @@ export const ProjectLayout: React.FC<
             </ul>
           </div>
 
-          <div className="flex flex-col gap-4 md:gap-6">
-            <div>
-              <span className="font-bold text-gray-9">Project type</span>
-              <p>{projMeta.type}</p>
-            </div>
-
-            <div>
-              <span className="font-bold text-gray-9">Date</span>
-              <p>{projMeta.date}</p>
-            </div>
+          <div className="col-span-2">
+            <span className="font-bold text-gray-9">Date</span>
+            <p>{projMeta.date}</p>
           </div>
 
           {nextProjMeta && (
             <>
-              <Separator className="max-sm:hidden w-11 my-12" />
+              <div className="col-span-4">
+                <Separator className="w-11 my-12" />
 
-              <div className="col-span-2">
                 <span className="font-bold text-gray-9">Next project</span>
                 <span className="flex gap-0.5 items-center text-gray-11">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
@@ -100,5 +100,5 @@ import StyledLink from "@/ui/StyledLink";
 
 import { Meta } from "*.mdx";
 import React, { FC, PropsWithChildren } from "react";
-import { grid } from "../ui/Grid";
+import { grid, subGrid } from "../ui/Grid";
 import { cx } from "class-variance-authority";
