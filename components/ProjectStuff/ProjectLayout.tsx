@@ -12,7 +12,7 @@ export const ProjectLayout: React.FC<
         {children}
       </div>
 
-      <div className="col-span-full md:col-start-7 lg:col-start-13 sticky top-[1.5rem] overflow-auto max-h-[calc(100vh_-_4.5rem)]">
+      <div className="col-span-full md:col-start-7 lg:col-start-13 sticky top-[1.5rem] overflow-auto max-h-[calc(100vh_-_4.5rem)] h-fit">
         <Separator className="md:hidden w-11 mb-12 mt-20" />
 
         {/* Mobile */}
@@ -36,11 +36,15 @@ export const ProjectLayout: React.FC<
 
         {/* Desktop */}
         <div className={cx(subGrid()(), "hidden md:flex md:flex-col md:gap-6")}>
-          <SidebarContent projMeta={projMeta} />
+          <Accordion title="hej">
+            <div className={"flex md:flex-col md:gap-6"}>
+              <SidebarContent projMeta={projMeta} />
+            </div>
+          </Accordion>
           {nextProjMeta && (
             <>
               <div className="col-span-4">
-                <Separator className="w-11 my-12" />
+                <Separator className="w-11 mb-12" />
 
                 <span className="font-bold text-gray-9">Next project</span>
                 <span className="flex gap-0.5 items-center text-gray-11">
@@ -97,6 +101,38 @@ const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
         <p>{projMeta.date}</p>
       </div>
     </>
+  );
+};
+
+const Accordion = ({ children, title }: { children: any; title: string }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div
+        className="flex items-center justify-between gap-2"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        <span className="font-bold text-gray-9">{title}</span>
+        <span className="text-gray-11">{isOpen ? "-" : "+"}</span>
+      </div>
+      <div
+        className="grid overflow-hidden transition-all duration-moderate-02 ease-expressive-standard"
+        style={{
+          gridTemplateRows: isOpen ? "1fr" : "0fr",
+        }}
+      >
+        <div
+          aria-hidden={!isOpen}
+          className={cx(
+            "min-h-0 transition-all duration-moderate-02 ease-expressive-standard",
+            isOpen ? "visible opacity-100" : "invisible opacity-0"
+          )}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
   );
 };
 
