@@ -39,10 +39,13 @@ const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
   ...rest
 }) => (
   <button
-    className={variants({
-      size,
-      color,
-    })}
+    className={cx(
+      variants({
+        size,
+        color,
+      }),
+      className
+    )}
     {...rest}
   >
     {children}
@@ -57,10 +60,13 @@ const LinkButton: React.FC<HtmlHTMLAttributes<{}> & LinkProps & variants> = ({
   ...rest
 }) => (
   <UnstyledLink
-    className={variants({
-      size,
-      color,
-    })}
+    className={cx(
+      variants({
+        size,
+        color,
+      }),
+      className
+    )}
     {...rest}
   >
     {children}
