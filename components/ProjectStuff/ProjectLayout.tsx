@@ -36,11 +36,13 @@ export const ProjectLayout: React.FC<
 
         {/* Desktop */}
         <div className={cx(subGrid()(), "hidden md:flex md:flex-col md:gap-6")}>
-          <Accordion title="hej">
-            <div className={"flex md:flex-col md:gap-6"}>
-              <SidebarContent projMeta={projMeta} />
-            </div>
-          </Accordion>
+          <aside>
+            <Accordion title="hej">
+              <div className={"flex md:flex-col md:gap-6"}>
+                <SidebarContent projMeta={projMeta} />
+              </div>
+            </Accordion>
+          </aside>
           {nextProjMeta && (
             <>
               <div className="col-span-4">
@@ -109,13 +111,13 @@ const Accordion = ({ children, title }: { children: any; title: string }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div
-        className="flex items-center justify-between gap-2"
+      <button
+        className="select-none flex items-center justify-between gap-2"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <span className="font-bold text-gray-9">{title}</span>
         <span className="text-gray-11">{isOpen ? "-" : "+"}</span>
-      </div>
+      </button>
       <div
         className="grid overflow-hidden transition-all duration-moderate-02 ease-expressive-standard"
         style={{
