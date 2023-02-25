@@ -3,6 +3,7 @@
 
 import { serialize } from "next-mdx-remote/serialize";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
+import remarkGfm from "remark-gfm";
 
 export type SerializeResult = Awaited<MDXRemoteSerializeResult>;
 
@@ -24,8 +25,14 @@ export async function mutateSerializeMdx<
   for (const key of keys) {
     const value = obj[key];
 
-    // @ts-ignore
-    if (typeof value === "string") obj[key] = await serialize(value);
+    if (typeof value === "string")
+      // @ts-ignore
+      obj[key] = await serialize(value, {
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+          rehypePlugins: [],
+        },
+      });
     if (typeof value === "object" && value !== null) {
       mutateSerializeMdx(value);
     }
