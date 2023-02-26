@@ -27,4 +27,15 @@ const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
 export default Projects;
 
 import { UnstyledLink } from "@/ui/primitives";
-import { Meta } from "*.mdx";
+
+export type Meta = {
+  shortName: string;
+  name: string;
+  description: string;
+  roles: string[];
+  type: string;
+  tools: string[];
+  date: string;
+  urlSlug: string;
+  backMessage: string;
+};
