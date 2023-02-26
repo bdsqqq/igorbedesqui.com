@@ -21,6 +21,7 @@ export async function mutateSerializeMdx<
 >(obj: T): Promise<R> {
   const entries = Object.entries(obj);
 
+  // TODO: rename variables
   const temp = entries.flatMap(async ([key, value]) => {
     if (typeof value == "string") {
       return [
