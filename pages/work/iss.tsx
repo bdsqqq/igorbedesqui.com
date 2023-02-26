@@ -1,4 +1,4 @@
-import { meta as wasmGifMeta } from "data/work/wasmgif.mdx";
+import { meta as wasmGifMeta } from "./wasmgif";
 
 export default function Iss({
   mdx,

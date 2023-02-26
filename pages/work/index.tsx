@@ -1,6 +1,6 @@
-import { meta as bebopMeta } from "data/work/bebop.mdx";
+import { meta as bebopMeta } from "./bebop";
 import { meta as issMeta } from "./iss";
-import { meta as wasmGifMeta } from "data/work/wasmgif.mdx";
+import { meta as wasmGifMeta } from "./wasmgif";
 
 export default function ProjectsPage() {
   const projsMeta = [bebopMeta, issMeta, wasmGifMeta];
