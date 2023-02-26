@@ -150,15 +150,20 @@ const MDs = {
       #### Request limitations
 
       Using data from a third-party API, I had a couple of limitations; especifically, I could only make one request per second across all clients. Without a caching layer of some sort, a few concurrent users, would quickly exceed my quota. This called for an interesting solution;
+      <br />
       
       ~~creating a serverless cache layer to store fresh data and distribute it or refresh it when appropriate is something I never did before but had fun implementing. Using a blazing fast cache like Redis on [Upstash](https://upstash.com/) allowed me to deliver an almost instant experience to users while keeping the number of requests to an external API in check.~~
-      
+      <br />
+
       ~~While server-side challenges are something I don't deal with that much, this one proved to be a valuable learning experience and taught me a pattern that I'm sure I'll use in the future.~~
-      
+      <br />
+
       So, about the paragraphs above, what the fuck was I thinking??? I spun up a full-on
       Redis service to cache a REQUEST THAT DOESN'T CHANGE BETWEEN USERS.
-      
+      <br />
+
       The current solution is a SMALLER serverless function that runs faster and is cached on Vercel's EDGE. Supported by a better fetching logic on the frontend, this site should be able to handle any load and update the ISS location as fast as the API allows.
+      <br />
     `,
 
     incrementalEnhancement: {
@@ -166,7 +171,8 @@ const MDs = {
         #### Incremental enhacement
       
         A frosted-glass look was a constant during my experiments, though some browsers didn't support the properties needed for it.
-        
+        <br />
+
         To keep the experience I wanted for users with cutting-edge browsers without sacrificing the experience for anyone, I leveraged the "@supports" media query to make the blur effect an incremental enhancement.
       `,
 
@@ -182,8 +188,10 @@ const MDs = {
   },
   results: `
     Through the literal years of development, this project saw my preferred solutions and approaches changing; Now, much more than a love letter to someone who shaped my early development, this site became a time capsule of my growth.
-    
+    <br />
+
     This tiny piece of user experience—load page, see location—was an opportunity to learn, practice, and experiment. And I can't wait to see how I'll rebuild it years from now.
+    <br />
     
     If you want to see me losing my mind, changing scope, and having
     fun, look at the [project's commit history](https://github.com/bdsqqq/iss-asset/commits/main) And to see the actual site, visit [iss.igorbedesqui.com](https://iss.igorbedesqui.com/)
