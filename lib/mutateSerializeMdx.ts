@@ -13,31 +13,34 @@ export type RecursiveSerialize<T> = {
     : RecursiveSerialize<T[P]>;
 };
 
-/**
- * @see {@link https://stackoverflow.com/questions/73835176/replace-all-the-nested-object-properties-to-particular-value}
- */
 export async function mutateSerializeMdx<
   T extends object,
   R extends RecursiveSerialize<T>
 >(obj: T): Promise<R> {
-  const keys = Object.keys(obj) as Array<keyof typeof obj>;
+  const entries = Object.entries(obj);
 
-  for (const key of keys) {
-    const value = obj[key];
-
-    if (typeof value === "string")
-      // @ts-ignore
-      obj[key] = await serialize(value, {
-        mdxOptions: {
-          remarkPlugins: [remarkGfm],
-          rehypePlugins: [],
-        },
-      });
-    if (typeof value === "object" && value !== null) {
-      mutateSerializeMdx(value);
+  const temp = entries.flatMap(async ([key, value]) => {
+    if (typeof value == "string") {
+      return [
+        key,
+        await serialize(value, {
+          mdxOptions: {
+            remarkPlugins: [remarkGfm],
+            rehypePlugins: [],
+          },
+        }),
+      ];
     }
-  }
 
-  // @ts-ignore
-  return obj;
+    if (typeof value === "object" && value !== null) {
+      return [key, await mutateSerializeMdx(value)];
+    }
+
+    console.error("Not a string or object", key, value);
+    return [];
+  });
+
+  const result = Object.fromEntries(await Promise.all(temp));
+
+  return result;
 }
