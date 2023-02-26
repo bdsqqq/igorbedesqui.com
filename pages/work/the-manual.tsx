@@ -110,7 +110,6 @@ import {
   RecursiveSerialize,
 } from "@/lib/mutateSerializeMdx";
 
-
 import { MDXRemote } from "next-mdx-remote";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import StyledLink from "@/components/ui/StyledLink";
@@ -127,12 +126,14 @@ export const meta = {
     "SolidJS",
     "TailwindCSS",
     "Partytown",
+    "Golang",
     "Vercel",
   ],
   date: "2022",
   urlSlug: "the-manual",
   backMessage: "Back",
 };
+
 const MDs = {
   update: `
     <h2 className="text-xl font-bold text-gray-11 uppercase mb-2">
