@@ -1,4 +1,4 @@
-import { meta as issMeta } from "data/work/iss.mdx";
+import { meta as issMeta } from "./iss";
 
 export default function Bebop({
   mdx,
@@ -80,7 +80,7 @@ export default function Bebop({
                 />
               </div>
             </div>
-            <MDXRemote {...mdx.conclusion} />
+            <MDXRemote {...mdx.results.conclusion} />
           </ProjectBand>
         </ProjectLayout>
       </ProjectContainer>
@@ -165,12 +165,12 @@ const MDs = {
       You can see the website [clicking here](https://bebop-webjam.vercel.app/).
       or looking at some screenshots:
     `,
-  },
-  conclusion: `
+    conclusion: `
       After working on this project I'm more confident in my ability to create a cool design and translate it to code. As well as working with design tools such as Adobe Illustrator and Photoshop when needed. I also had a chance to learn a new animation library called motion one and enjoyed every second of it.
       <br/>
       I liked the WebJam experience and will be looking forward to its future installments.
     `,
+  },
 };
 
 export const getStaticProps: GetStaticProps<{

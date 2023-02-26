@@ -161,7 +161,7 @@ export const ProjectBand: FC<PropsWithChildren<BandProps>> = ({
 import { Separator } from "@/ui/primitives/";
 import StyledLink from "@/ui/StyledLink";
 
-import { Meta } from "*.mdx";
+import { Meta } from "@/components/ProjectStuff/Projects";
 import React, { FC, PropsWithChildren } from "react";
 import { grid, subGrid } from "../ui/Grid";
 import { cx } from "class-variance-authority";

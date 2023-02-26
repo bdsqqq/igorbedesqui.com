@@ -21,6 +21,19 @@ export default function Minesweeper() {
     </>
   );
 }
+
+export const meta = {
+  shortName: "minesweeper",
+  name: "Minesweeper!",
+  description: "A modern implementation of the classic game minesweeper",
+  roles: ["FrontEnd Developer", "UX/UI Designer"],
+  type: "Personal",
+  tools: [],
+  date: "Oct 2021",
+  urlSlug: "minesweeper",
+  backMessage: "",
+};
+
 import Seo from "@/components/Seo";
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
 import HeroBand from "@/components/HeroBand";
