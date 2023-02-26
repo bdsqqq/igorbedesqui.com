@@ -27,6 +27,9 @@ export default withBundleAnalyzer({
       locales: ["en"],
       defaultLocale: "en",
     },
+    experimental: {
+      appDir: true,
+    },
     redirects: async () => {
       return [
         {
