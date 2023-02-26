@@ -1,6 +1,8 @@
 // Shamelessly stolen (with permission this time) from
 // https://twitter.com/guilherme_rodz/status/1593733505954914304?s=20&t=SHDo264Bq_1KA7sg11ex9Q
 
+// And updated with the help of https://github.com/MarcosNASA
+
 import { serialize } from "next-mdx-remote/serialize";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 import remarkGfm from "remark-gfm";
