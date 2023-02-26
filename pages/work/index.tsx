@@ -1,5 +1,5 @@
 import { meta as bebopMeta } from "data/work/bebop.mdx";
-import { meta as issMeta } from "data/work/iss.mdx";
+import { meta as issMeta } from "./iss";
 import { meta as wasmGifMeta } from "data/work/wasmgif.mdx";
 
 export default function ProjectsPage() {

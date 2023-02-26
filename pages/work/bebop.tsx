@@ -1,4 +1,4 @@
-import { meta as issMeta } from "data/work/iss.mdx";
+import { meta as issMeta } from "./iss";
 
 export default function Bebop({
   mdx,
