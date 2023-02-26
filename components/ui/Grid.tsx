@@ -1,3 +1,5 @@
+"use client";
+
 const grid = cva("grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16", {
   variants: {
     mode: {

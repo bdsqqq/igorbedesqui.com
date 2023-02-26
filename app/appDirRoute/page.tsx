@@ -1,3 +1,5 @@
+import Container from "@/components/Container";
+
 export default async function Page() {
-  return <div> Hej from appdir</div>;
+  return <Container> Hej from appdir</Container>;
 }
