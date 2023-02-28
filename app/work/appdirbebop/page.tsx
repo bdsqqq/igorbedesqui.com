@@ -31,7 +31,7 @@ const makeSeo = ({
 }) => {
   const ogImageUrl = new URL(
     `https://www.igorbedesqui.com/api/og?text=${ogText}`
-  );
+  ).href;
 
   const ogStuff = {
     "twitter:card": "summary_large_image",
@@ -40,7 +40,7 @@ const makeSeo = ({
     "twitter:title": title,
     "twitter:description": description,
     "twitter:image": ogImageUrl,
-    "og:url": new URL(`https://www.igorbedesqui.com${url}`),
+    "og:url": new URL(`https://www.igorbedesqui.com${url}`).href,
     "og:title": title,
     "og:description": description,
     "og:image": ogImageUrl,
