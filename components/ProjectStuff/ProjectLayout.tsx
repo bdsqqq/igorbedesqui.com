@@ -1,3 +1,5 @@
+"use client";
+
 import Band, { BandProps } from "../Band";
 
 export const ProjectLayout: React.FC<

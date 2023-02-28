@@ -3,6 +3,7 @@
 import { HistoryProvider } from "@/contexts/AppDirHistory";
 import { MDXProvider } from "@mdx-js/react";
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
+import Popover from "@/components/ui/Popover";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -24,6 +25,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
               {...props}
             />
           ),
+          Popover: (props) => <Popover {...props} />,
         }}
       >
         {children}

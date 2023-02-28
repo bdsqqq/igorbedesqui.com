@@ -58,9 +58,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
+      {/* <head>
         <DocumentStuff />
-      </head>
+      </head> */}
       <body>
         <div className={`${customFont.className} relative`}>
           <Grain />

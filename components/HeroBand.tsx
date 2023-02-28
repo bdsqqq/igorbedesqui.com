@@ -1,3 +1,5 @@
+"use client";
+
 type HeroBandImg = {
   heroImg?: {
     src: string;
