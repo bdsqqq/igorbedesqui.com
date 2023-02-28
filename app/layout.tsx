@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import { Providers } from "./Providers";
 import { Grain } from "./Grain";
 
-import { IBM_Plex_Serif } from "@next/font/google";
+import { IBM_Plex_Serif } from "next/font/google";
 
 const customFont = IBM_Plex_Serif({
   display: "swap",
