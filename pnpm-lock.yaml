@@ -7,7 +7,7 @@ specifiers:
   '@next/font': ^13.0.0
   '@next/mdx': ^13.1.6
   '@radix-ui/colors': ^0.1.7
-  '@radix-ui/react-icons': ^1.0.3
+  '@radix-ui/react-icons': ^1.2.0
   '@radix-ui/react-separator': ^1.0.1
   '@types/mdx': ^2.0.3
   '@types/node': ^14.14.20
@@ -37,7 +37,7 @@ dependencies:
   '@next/bundle-analyzer': 12.3.4
   '@next/font': 13.1.6
   '@next/mdx': 13.1.6_vvg67iglxhejglpl7nsv3pjzui
-  '@radix-ui/react-icons': 1.1.1_react@18.2.0
+  '@radix-ui/react-icons': 1.2.0_react@18.2.0
   '@radix-ui/react-separator': 1.0.1_biqbaboplfbrettd7655fr4n2y
   '@vercel/og': 0.0.24
   ariakit: 2.0.0-next.43_5ndqzdd6t4rivxsukjv3i3ak2q
@@ -386,8 +386,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@radix-ui/react-icons/1.1.1_react@18.2.0:
-    resolution: {integrity: sha512-xc3wQC59rsFylVbSusQCrrM+6695ppF730Q6yqzhRdqDcRNWIm2R6ngpzBoSOQMcwnq4p805F+Gr7xo4fmtN1A==}
+  /@radix-ui/react-icons/1.2.0_react@18.2.0:
+    resolution: {integrity: sha512-NqrZxn+Ig6c6MypUt84/Nab9WBFXH75T1mhEhFjPlIYaNkp113pqlo6QdK5r7zb3b7RckDAPgUQACes0aKwcFA==}
     peerDependencies:
       react: ^16.x || ^17.x || ^18.x
     dependencies:
