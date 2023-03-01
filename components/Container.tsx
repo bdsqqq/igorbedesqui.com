@@ -49,6 +49,6 @@ export default Container;
 
 import React, { Children } from "react";
 
-import { Overlay as GridOverlay } from "@/ui/Grid";
+import { Overlay as GridOverlay } from "@/components/ui/Grid/Overlay";
 import MainNav from "@/components/MainNav";
 import Footer from "@/components/Footer";

@@ -1,22 +1,6 @@
 "use client";
 
-const grid = cva("grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16", {
-  variants: {
-    mode: {
-      // wide: "gap-x-8",
-      // narrow: "gap-x-4",
-      // condensed: "gap-x-[1px]",
-      wide: "[&>*]:px-8",
-      narrow: "[&>*]:px-4",
-      condensed: "[&>*]:px-[1px]",
-    },
-  },
-  defaultVariants: {
-    mode: "narrow",
-  },
-});
-
-const Overlay = () => {
+export const Overlay = () => {
   const [mode, setMode] = useState<"wide" | "narrow" | "condensed">("narrow");
   const [visible, setVisible] = useState<boolean>(false);
 
@@ -52,33 +36,9 @@ const Overlay = () => {
   );
 };
 
-// all arguments are optional
-const subGrid = (
-  { lg = 14, md = 7, sm = 4 }: { lg?: number; md?: number; sm?: number } = {
-    lg: 14,
-    md: 7,
-    sm: 4,
-  }
-) => {
-  return cva(`grid grid-cols-${sm} md:grid-cols-${md} lg:grid-cols-${lg}`, {
-    variants: {
-      mode: {
-        wide: "[&>*]:px-8 -mx-8",
-        narrow: "[&>*]:px-4 -mx-4",
-        condensed: "[&>*]:px-[1px] -mx-[1px]",
-      },
-    },
-    defaultVariants: {
-      mode: "narrow",
-    },
-  });
-};
+import { grid } from "@/components/ui/Grid";
 
-export { Overlay, grid, subGrid };
-
+import { cx } from "class-variance-authority";
 import { useState, Fragment } from "react";
-
-import { cva, cx } from "class-variance-authority";
-import PopOver from "@/ui/Popover";
 import { Button } from "@/ui/Button";
 import { EyeClosedIcon, EyeOpenIcon, LayoutIcon } from "@radix-ui/react-icons";
