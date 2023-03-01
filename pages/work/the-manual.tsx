@@ -1,4 +1,4 @@
-import { meta as bebopMeta } from "./bebop";
+import { bebopMeta } from "app/work/poor_mans_cms";
 
 export default function TheManual({
   mdx,
