@@ -1,5 +1,4 @@
-import { bebopMeta, issMeta } from "app/work/poor_mans_cms";
-import { meta as wasmGifMeta } from "./work/wasmgif";
+import { bebopMeta, issMeta, wasmGifMeta } from "app/work/poor_mans_cms";
 import { meta as ibmMeta } from "./work/ibm";
 
 import { meta as onWrittingMeta } from "./writing/on-writing";

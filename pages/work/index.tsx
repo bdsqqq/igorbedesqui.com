@@ -1,5 +1,4 @@
-import { bebopMeta, issMeta } from "app/work/poor_mans_cms";
-import { meta as wasmGifMeta } from "./wasmgif";
+import { bebopMeta, issMeta, wasmGifMeta } from "app/work/poor_mans_cms";
 
 export default function ProjectsPage() {
   const projsMeta = [bebopMeta, issMeta, wasmGifMeta];
