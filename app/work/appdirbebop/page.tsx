@@ -19,6 +19,8 @@ import Image from "next/image";
 import desktopScreenshot from "@/public/images/projs/bebop/desktop-screenshot.png";
 import smartphoneScreenshot from "@/public/images/projs/bebop/smartphone-screenshot.png";
 import remarkGfm from "remark-gfm";
+import { SerializeOptions } from "next-mdx-remote/dist/types";
+import { MDXProvider } from "@mdx-js/react";
 
 // import { meta as issMeta } from "./iss";
 
@@ -122,7 +124,7 @@ const MDs = {
 
 const issMeta = bebopMeta;
 
-const components = {
+const defaultComponents = {
   // @ts-ignore
   a: (props) => <StyledLinkWithIcon {...props} />,
   h1: (props: HTMLProps<HTMLHeadingElement>) => (
@@ -154,7 +156,32 @@ const MDX = (props: MDXRemoteProps) => {
           rehypePlugins: [],
         },
       }}
-      components={{ ...components, ...(props.components || {}) }}
+      components={{ ...defaultComponents, ...(props.components || {}) }}
+    />
+  );
+};
+
+const MDXFromChild = ({
+  children,
+  components,
+  ...rest
+}: { children: string } & {
+  options?: SerializeOptions | undefined;
+  components?: React.ComponentProps<typeof MDXProvider>["components"];
+}) => {
+  return (
+    // workaround https://beta.nextjs.org/docs/data-fetching/fetching#asyncawait-in-server-components
+    /* @ts-expect-error Server Component */
+    <MDXRemote
+      {...rest}
+      source={children}
+      options={{
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+          rehypePlugins: [],
+        },
+      }}
+      components={{ ...defaultComponents, ...(components || {}) }}
     />
   );
 };
@@ -203,7 +230,16 @@ export default async function Bebop() {
             />
           </ProjectBand>
           <ProjectBand headline={{ bold: "02", thin: "Design" }}>
-            <MDX source={MDs.design} />
+            {/* <MDX source={MDs.design} /> */}
+            <MDXFromChild>
+              {`
+                My choice of movie was **Cowboy Bebop**, it's one of my favorites and screams personality with its artwork. The mix between Jazz, Noir, Western, and Space is unique and serves as a great source of inspiration for a website. 
+                <br/>
+                The main constraint for this exercise was space. I took inspiration from types of media with the same limitation such as posters, cover arts, and the TV show itself. After spending an uncomfortable amount of time rewatching the opening of Cowboy Bebop, I figured that I needed to include the iconic shots of silhouettes against bright-colored backgrounds. I even found one of the pieces that inspired the show's artists: the cover art for the film "Tokyo Drifter".
+                <br/>
+                At this point, I knew that I wanted something that could be mistaken for a poster when showing it to someone. I made a quick sketch on a piece of paper from my desk and started working.
+              `}
+            </MDXFromChild>
           </ProjectBand>
           <ProjectBand headline={{ bold: "03", thin: "Development" }}>
             <MDX source={MDs.development} />
