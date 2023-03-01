@@ -59,3 +59,14 @@ export const wasmGifMeta = {
   urlSlug: "wasmgif",
   backMessage: "",
 };
+
+export const ibmMeta = {
+  shortName: "IBM",
+  name: "IBM",
+  description: "Creating web experiences for the enterprise of enterprises.",
+  roles: ["FullStack Developer"],
+  type: "Full time",
+  tools: [""],
+  date: "2020 ~ 2022",
+  urlSlug: "ibm",
+};
