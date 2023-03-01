@@ -1,4 +1,3 @@
-import Container from "@/components/Container";
 import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
@@ -7,15 +6,19 @@ import {
   ProjectLayout,
 } from "@/components/ProjectStuff/ProjectLayout";
 import PopOver from "@/components/ui/Popover";
+import type { Metadata } from "next";
 
-import {
-  mutateSerializeMdx,
-  type RecursiveSerialize,
-} from "@/lib/mutateSerializeMdx";
-
-import { MDXRemoteWrapper as MDXRemote } from "./MDXRemoteWrapper";
+import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 
 import { bebopMeta } from "../poor_mans_cms";
+import { HTMLProps, Suspense } from "react";
+import Popover from "@/components/ui/Popover";
+import StyledLinkWithIcon from "@/components/ui/StyledLink";
+import Image from "next/image";
+
+import desktopScreenshot from "@/public/images/projs/bebop/desktop-screenshot.png";
+import smartphoneScreenshot from "@/public/images/projs/bebop/smartphone-screenshot.png";
+
 // import { meta as issMeta } from "./iss";
 
 const makeSeo = ({
@@ -28,45 +31,50 @@ const makeSeo = ({
   description: string;
   url: string;
   ogText: string;
-}) => {
+}): Metadata => {
   const ogImageUrl = new URL(
     `https://www.igorbedesqui.com/api/og?text=${ogText}`
   ).href;
 
-  const ogStuff = {
-    "twitter:card": "summary_large_image",
-    "twitter:site": "@bdsqqq",
-    "twitter:creator": "@bdsqqq",
-    "twitter:title": title,
-    "twitter:description": description,
-    "twitter:image": ogImageUrl,
-    "og:url": new URL(`https://www.igorbedesqui.com${url}`).href,
-    "og:title": title,
-    "og:description": description,
-    "og:image": ogImageUrl,
-    "og:type": "website",
-    "og:image:width": "1200",
-    "og:image:height": "630",
-    "og:image:alt": ogText,
-  };
+  const ogStuff = {};
 
-  const thingy = {
-    title,
-    description,
-    canonical: url,
-    ...ogStuff,
-  };
+  const thingy = {};
 
   return thingy;
 };
 
-export const metadata = makeSeo({
-  title:
-    "The work, which becomes a new genre itself, will be called... COWBOY BEBOP",
-  description: `${bebopMeta.description} — made by Igor Bedesqui`,
-  url: "/work/bebop",
-  ogText: `*The work*, which *becomes a new genre itself*, will be called... *COWBOY BEBOP*`,
-});
+export const metadata: Metadata = {
+  title: "Cowboy Bebop web poster",
+  description:
+    "My entry for, and winner of, the second installment of the WebJam.",
+  twitter: {
+    site: "@bdsqqq",
+    creator: "@bdsqqq",
+    card: "summary_large_image",
+    title: "Cowboy Bebop web poster",
+    description:
+      "My entry for, and winner of, the second installment of the WebJam.",
+    image:
+      "https://www.igorbedesqui.com/api/og?text=My%20entry%20for%2C%20and%20winner%20of%2C%20the%20second%20installment%20of%20the%20WebJam.",
+    imageAlt:
+      "My entry for, and winner of, the second installment of the WebJam.",
+  },
+  openGraph: {
+    title: "Cowboy Bebop web poster",
+    description:
+      "My entry for, and winner of, the second installment of the WebJam.",
+    url: "https://www.igorbedesqui.com/work/bebop",
+    type: "website",
+    images: [
+      {
+        url: "https://www.igorbedesqui.com/api/og?text=My%20entry%20for%2C%20and%20winner%20of%2C%20the%20second%20installment%20of%20the%20WebJam.",
+        width: 1200,
+        height: 630,
+        alt: "My entry for, and winner of, the second installment of the WebJam.",
+      },
+    ],
+  },
+};
 
 const MDs = {
   update: `
@@ -77,7 +85,7 @@ const MDs = {
    `,
   why: {
     paragraph: `
-     I made this project as an entry for the second installment of the <Popover content={popoverContent}>WebJam</Popover>.
+     I made this project as an entry for the second installment of the <Popover>WebJam</Popover>.
      <br/>
      The challenge for this WebJam was to create a single page/non-scrollable site for a movie of my choosing. The site should work on any screen size and illustrate the movie.
    `,
@@ -112,9 +120,38 @@ const MDs = {
 
 const issMeta = bebopMeta;
 
-export default async function Bebop() {
-  const mdx = await mutateSerializeMdx(MDs);
+const components = {
+  // @ts-ignore
+  a: (props) => <StyledLinkWithIcon {...props} />,
+  h1: (props: HTMLProps<HTMLHeadingElement>) => (
+    <h1 className="text-2xl text-gray-11 mb-8" {...props} />
+  ),
+  h2: (props: HTMLProps<HTMLHeadingElement>) => (
+    <h1 className="text-lg font-bold my-2" {...props} />
+  ),
+  strong: (props: HTMLProps<HTMLElement>) => (
+    <strong className="font-bold text-gray-12" {...props} />
+  ),
+  pre: (props: HTMLProps<HTMLPreElement>) => (
+    <pre
+      className="bg-gray-2 rounded p-4 my-2 overflow-x-auto text-sm"
+      {...props}
+    />
+  ),
+};
 
+const MDX = (props: MDXRemoteProps) => {
+  return (
+    // workaround https://beta.nextjs.org/docs/data-fetching/fetching#asyncawait-in-server-components
+    /* @ts-expect-error Server Component */
+    <MDXRemote
+      {...props}
+      components={{ ...components, ...(props.components || {}) }}
+    />
+  );
+};
+
+export default async function Bebop() {
   return (
     <>
       {/* <Seo
@@ -143,24 +180,51 @@ export default async function Bebop() {
 
         <ProjectLayout projMeta={bebopMeta} nextProjMeta={issMeta}>
           <ProjectBand options={{ padding: "none" }} gridless id="update">
-            <MDXRemote {...mdx.update} />
+            <MDX source={MDs.update} />
           </ProjectBand>
           <ProjectBand headline={{ bold: "01", thin: "Why?" }}>
-            <MDXRemote
-              {...mdx.why.paragraph}
-              scope={{ popoverContent: <MDXRemote {...mdx.why.popover} /> }}
+            <MDX
+              source={MDs.why.paragraph}
+              components={{
+                Popover: (props) => (
+                  <PopOver content={<MDX source={MDs.why.popover} />}>
+                    {props.children}
+                  </PopOver>
+                ),
+              }}
             />
           </ProjectBand>
           <ProjectBand headline={{ bold: "02", thin: "Design" }}>
-            <MDXRemote {...mdx.design} />
+            <MDX source={MDs.design} />
           </ProjectBand>
           <ProjectBand headline={{ bold: "03", thin: "Development" }}>
-            <MDXRemote {...mdx.development} />
+            <MDX source={MDs.development} />
           </ProjectBand>
           <ProjectBand headline={{ bold: "04", thin: "Results" }}>
-            <MDXRemote {...mdx.results.intro} />
-
-            <MDXRemote {...mdx.results.conclusion} />
+            <MDX source={MDs.results.intro} />
+            <div className="grid grid-cols-4 items-center min-h-0 gap-2 my-1">
+              <div className="col-start-1 col-end-2">
+                <Image
+                  className="z-[31] relative border overflow-hidden border-gray-3 rounded-sm"
+                  src={smartphoneScreenshot}
+                  width="1440"
+                  height="3040"
+                  // fill
+                  alt=""
+                />
+              </div>
+              <div className="col-start-2 col-end-5">
+                <Image
+                  className="z-[31] relative border overflow-hidden border-gray-3 rounded-sm"
+                  src={desktopScreenshot}
+                  width="1200"
+                  height="800"
+                  // fill
+                  alt=""
+                />
+              </div>
+            </div>
+            <MDX source={MDs.results.conclusion} />
           </ProjectBand>
         </ProjectLayout>
       </ProjectContainer>
