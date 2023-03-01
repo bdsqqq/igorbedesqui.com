@@ -1,3 +1,5 @@
+"use client";
+
 // Having email links in the UI is a bit of a pain, I never know what is the expected behavior.
 // - The label should be "arbitraty" or the email address itself?
 // - Should I assume the user wants to copy the email address or open it in an email client?
