@@ -10,7 +10,7 @@ import type { Metadata } from "next";
 
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 
-import { bebopMeta } from "../poor_mans_cms";
+import { bebopMeta, issMeta } from "../poor_mans_cms";
 import { HTMLProps, Suspense } from "react";
 import Popover from "@/components/ui/Popover";
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
@@ -21,8 +21,6 @@ import smartphoneScreenshot from "@/public/images/projs/bebop/smartphone-screens
 import remarkGfm from "remark-gfm";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { MDXProvider } from "@mdx-js/react";
-
-// import { meta as issMeta } from "./iss";
 
 const makeSeo = ({
   title,
@@ -79,8 +77,6 @@ export const metadata: Metadata = {
     ],
   },
 };
-
-const issMeta = bebopMeta;
 
 const defaultComponents = {
   // @ts-ignore
