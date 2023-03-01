@@ -54,7 +54,7 @@ const makeSeo = ({
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: ogText.replace("*", ""),
+          alt: ogText.replace("*", "").replace("/n", ""),
         },
       ],
     },
@@ -67,7 +67,7 @@ export const metadata: Metadata = makeSeo({
     "My entry for, and winner of, the second installment of the WebJam.",
   slug: "/work/bebop",
   ogText:
-    "*The work*, which *becomes a new genre itself*, will be called... *COWBOY BEBOP*",
+    "*The work*, which *becomes* /n*a new genre itself*, will be /ncalled... *COWBOY BEBOP*",
 });
 
 export default async function Bebop() {
