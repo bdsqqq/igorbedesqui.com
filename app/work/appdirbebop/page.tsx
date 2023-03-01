@@ -50,6 +50,7 @@ export const metadata: Metadata = {
   twitter: {
     site: "@bdsqqq",
     creator: "@bdsqqq",
+    // @ts-ignore
     card: "summary_large_image",
     title: "Cowboy Bebop web poster",
     description:
