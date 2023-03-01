@@ -74,12 +74,11 @@ export default async function Bebop() {
   return (
     <ProjectContainer key="bebopProj" backMessage={bebopMeta.backMessage}>
       <HeroBand heroVideo={"/videos/bebop/noodles"}>
-        <span>
-          <strong className="text-gray-12">The work</strong>, which{" "}
-          <strong className="text-gray-12">becomes a new genre itself</strong>,
-          will be called...{" "}
-          <strong className="text-gray-12">COWBOY BEBOP</strong>
-        </span>
+        <MDX>
+          {`
+            **The work** which **becomes a new genre itself** will be called... **COWBOY BEBOP**
+          `}
+        </MDX>
         <div className="mt-6">
           <CodeAndDemoButtons
             codeUrl="https://github.com/bdsqqq/bebop-webjam"
