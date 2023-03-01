@@ -18,6 +18,7 @@ import Image from "next/image";
 
 import desktopScreenshot from "@/public/images/projs/bebop/desktop-screenshot.png";
 import smartphoneScreenshot from "@/public/images/projs/bebop/smartphone-screenshot.png";
+import remarkGfm from "remark-gfm";
 
 // import { meta as issMeta } from "./iss";
 
@@ -147,6 +148,12 @@ const MDX = (props: MDXRemoteProps) => {
     /* @ts-expect-error Server Component */
     <MDXRemote
       {...props}
+      options={{
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+          rehypePlugins: [],
+        },
+      }}
       components={{ ...components, ...(props.components || {}) }}
     />
   );
