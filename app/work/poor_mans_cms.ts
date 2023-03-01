@@ -40,3 +40,22 @@ export const issMeta = {
   urlSlug: "iss",
   backMessage: "Back into orbit",
 };
+
+export const wasmGifMeta = {
+  shortName: "wasmGif",
+  name: "Wasm Gif Converter",
+  description: "Video to gif conversion without sending any data anywhere.",
+  roles: ["FrontEnd Developer", "UX/UI Designer"],
+  type: "Personal",
+  tools: [
+    "NextJS",
+    "React",
+    "Typescript",
+    "Framer Motion",
+    "ffmpeg",
+    "Web Assembly",
+  ],
+  date: "Mar 2021",
+  urlSlug: "wasmgif",
+  backMessage: "",
+};
