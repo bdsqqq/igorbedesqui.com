@@ -8,7 +8,7 @@ import {
 import PopOver from "@/components/ui/Popover";
 import type { Metadata } from "next";
 
-import { bebopMeta, issMeta } from "../poor_mans_cms";
+import { bebopMeta, issMeta } from "../metas";
 import Popover from "@/components/ui/Popover";
 import { MDX } from "@/components/MDX";
 import Image from "next/image";

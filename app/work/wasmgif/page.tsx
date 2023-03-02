@@ -8,7 +8,7 @@ import {
 import Tooltip from "@/components/ui/Tooltip";
 import type { Metadata } from "next";
 
-import { wasmGifMeta, bebopMeta } from "../poor_mans_cms";
+import { wasmGifMeta, bebopMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 
 const makeSeo = ({

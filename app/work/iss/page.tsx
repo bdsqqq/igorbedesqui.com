@@ -8,7 +8,7 @@ import {
 import Tooltip from "@/components/ui/Tooltip";
 import type { Metadata } from "next";
 
-import { issMeta, wasmGifMeta } from "../poor_mans_cms";
+import { issMeta, wasmGifMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 import Image from "next/image";
 

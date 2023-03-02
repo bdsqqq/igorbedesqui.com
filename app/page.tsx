@@ -5,12 +5,7 @@ import EmailLink from "@/components/ui/EmailLink";
 import { grid, subGrid } from "@/components/ui/Grid";
 import { cx } from "class-variance-authority";
 
-import {
-  bebopMeta,
-  issMeta,
-  wasmGifMeta,
-  ibmMeta,
-} from "app/work/poor_mans_cms";
+import { bebopMeta, issMeta, wasmGifMeta, ibmMeta } from "app/work/metas";
 
 import { meta as onWrittingMeta } from "pages/writing/on-writing";
 import { meta as justBasicsMeta } from "pages/writing/not-just-the-basics";
