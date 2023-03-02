@@ -6,14 +6,13 @@ import { grid, subGrid } from "@/components/ui/Grid";
 import { cx } from "class-variance-authority";
 
 import { bebopMeta, issMeta, wasmGifMeta, ibmMeta } from "app/work/metas";
-import { basicsMeta } from "app/writing/metas";
+import { basicsMeta, onWritingMeta } from "app/writing/metas";
 
-import { meta as onWrittingMeta } from "pages/writing/on-writing";
 import { MDX } from "@/components/MDX";
 import { Blur } from "@/components/ui/Blur";
 import type { Metadata } from "next";
 
-const writingPieces = [onWrittingMeta, basicsMeta];
+const writingPieces = [onWritingMeta, basicsMeta];
 const projsMeta = [ibmMeta, bebopMeta, issMeta, wasmGifMeta];
 
 const makeSeo = ({
