@@ -70,3 +70,23 @@ export const ibmMeta = {
   date: "2020 ~ 2022",
   urlSlug: "ibm",
 };
+
+export const psykipMeta = {
+  shortName: "the-manual",
+  name: "The manual",
+  description: "The best way to read The Enchiridion from Epictetus",
+  roles: ["FrontEnd Developer", "UX/UI Designer"],
+  type: "Personal",
+  tools: [
+    "Typescript",
+    "Astro",
+    "SolidJS",
+    "TailwindCSS",
+    "Partytown",
+    "Golang",
+    "Vercel",
+  ],
+  date: "2022",
+  urlSlug: "the-manual",
+  backMessage: "Back",
+};
