@@ -6,14 +6,14 @@ import { grid, subGrid } from "@/components/ui/Grid";
 import { cx } from "class-variance-authority";
 
 import { bebopMeta, issMeta, wasmGifMeta, ibmMeta } from "app/work/metas";
+import { basicsMeta } from "app/writing/metas";
 
 import { meta as onWrittingMeta } from "pages/writing/on-writing";
-import { meta as justBasicsMeta } from "pages/writing/not-just-the-basics";
 import { MDX } from "@/components/MDX";
 import { Blur } from "@/components/ui/Blur";
 import type { Metadata } from "next";
 
-const writingPieces = [onWrittingMeta, justBasicsMeta];
+const writingPieces = [onWrittingMeta, basicsMeta];
 const projsMeta = [ibmMeta, bebopMeta, issMeta, wasmGifMeta];
 
 const makeSeo = ({
@@ -185,7 +185,7 @@ export default async function Home() {
                 }}
               >
                 {`
-                  Now, **I'm focusing on the basics of my craft. The fine and detailed polish I strive for will come as I build [“Just” the basics](/writing/${justBasicsMeta.urlSlug}) with care**. <Blur>I hope…</Blur>
+                  Now, **I'm focusing on the basics of my craft. The fine and detailed polish I strive for will come as I build [“Just” the basics](/writing/${basicsMeta.urlSlug}) with care**. <Blur>I hope…</Blur>
 
                   Getting used to life in a new continent, missing my partner, and trying to find a new home.
                   
