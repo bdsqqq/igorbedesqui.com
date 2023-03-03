@@ -171,7 +171,7 @@ export default async function Home() {
           <div className={subGrid()({ mode: "narrow" })}>
             <div className="col-start-1 row-start-1 col-span-4 -mt-6">
               <span className="text-xs font-bold tracking-tighter text-gray-8">
-                Last updated in <time>22 Dec 2022</time>
+                Last updated in <time>03 Mar 2023</time>
               </span>
             </div>
             <div className="col-start-1 col-span-6 lg:col-end-13 row-start-1 flex flex-col gap-y-4">
@@ -186,9 +186,22 @@ export default async function Home() {
                 {`
                   Now, **I'm focusing on the basics of my craft. The fine and detailed polish I strive for will come as I build [“Just” the basics](/writing/${basicsMeta.urlSlug}) with care**. <Blur>I hope…</Blur>
 
-                  Getting used to life in a new continent, missing my partner, and trying to find a new home.
-                  
-                  Going through my past notes, **giving a new life to old projects**.
+                  Collaborating with amazing people, convincing myself I belong among them.
+                `}
+              </MDX>
+              <MDX
+                components={{
+                  Blur,
+                  strong: (props) => (
+                    <span
+                      className="text-gray-8 group-hover/blur:text-gray-12 group-focus/blur:text-gray-12 transition-colors duration-moderate-02 ease-productive-standard"
+                      {...props}
+                    />
+                  ),
+                }}
+              >
+                {`
+                  Going insane over immigration stuff, missing my partner a lot. <Blur>Trying my hardest to heal my declining mental health, **one** ~~small~~ **win at a time**, **every single day**.</Blur>
                 `}
               </MDX>
             </div>
