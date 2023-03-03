@@ -1,6 +1,4 @@
-import { meta as bebopMeta } from "./bebop";
-import { meta as issMeta } from "./iss";
-import { meta as wasmGifMeta } from "./wasmgif";
+import { bebopMeta, issMeta, wasmGifMeta } from "app/work/metas";
 
 export default function ProjectsPage() {
   const projsMeta = [bebopMeta, issMeta, wasmGifMeta];

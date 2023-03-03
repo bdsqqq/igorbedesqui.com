@@ -1,3 +1,5 @@
+"use client";
+
 type MainNavProps =
   | {
       backable?: boolean;
@@ -18,6 +20,7 @@ const MainNav: React.FC<MainNavProps> = ({
   const { history } = useHistory();
   const [anchor, setAnchor] = useState("/");
   useEffect(() => {
+    if (!history) return;
     let found = false;
     //loop trought history backwards until you get to 0 or until you get to the first match, matches can be the backAnchor or "/". Then feed this to the nextLink bellow and be happy
     //this can be expanded making the backanchor into an array and looping through it to find a match, in the current implementation a page can only have one anchor.

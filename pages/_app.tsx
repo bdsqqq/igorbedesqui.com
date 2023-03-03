@@ -5,7 +5,7 @@ import { MDXProvider } from "@mdx-js/react";
 
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
 
-import { IBM_Plex_Serif } from "@next/font/google";
+import { IBM_Plex_Serif } from "next/font/google";
 import { useEffect, useRef } from "react";
 
 const customFont = IBM_Plex_Serif({

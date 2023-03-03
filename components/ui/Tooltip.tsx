@@ -1,3 +1,5 @@
+"use client";
+
 interface Tooltip {
   children: React.ReactElement;
   content: React.ReactNode;

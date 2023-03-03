@@ -23,9 +23,8 @@ export default withBundleAnalyzer({
     swcMinify: true,
     reactStrictMode: true,
     pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-    i18n: {
-      locales: ["en"],
-      defaultLocale: "en",
+    experimental: {
+      appDir: true,
     },
     redirects: async () => {
       return [

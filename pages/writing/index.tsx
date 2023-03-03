@@ -36,5 +36,5 @@ import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import Container from "@/components/Container";
 
-import { meta as onWritingMeta } from "./on-writing";
+import { onWritingMeta } from "app/writing/metas";
 import { UnstyledLink } from "@/components/ui/primitives";

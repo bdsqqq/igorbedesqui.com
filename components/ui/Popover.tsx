@@ -1,3 +1,5 @@
+"use client";
+
 interface PopOver {
   content: React.ReactNode;
   questionMark?: boolean;
