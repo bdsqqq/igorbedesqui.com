@@ -63,10 +63,10 @@ const makeSeo = ({
 export const metadata: Metadata = makeSeo({
   title: "Igor Bedesqui",
   description:
-    "Developer Based in Lisbon. Crafting solutions. Building web experiences with care. Exploring design, UX, and interactivity.",
+    "Crafting web experiences with care. Exploring design, UX, and interactivity.",
   slug: "/",
   ogText:
-    "*Crafting solutions*./n*Building web experiences*/n*with care*. *Exploring design*,/n*UX*, and *interactivity*.",
+    "*Crafting web experiences*/n*with care*. *Exploring design*,/n*UX*, and *interactivity*.",
 });
 
 export default async function Home() {
@@ -82,8 +82,8 @@ export default async function Home() {
                   Igor Bedesqui
                 </span>
                 <p>
-                  Crafting solutions. Building web experiences with care.
-                  Exploring design, UX, and interactivity.
+                  Crafting web experiences with care. Exploring design, UX, and
+                  interactivity.
                 </p>
               </h1>
 
