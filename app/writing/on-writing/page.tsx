@@ -4,6 +4,7 @@ import Band from "@/components/Band";
 import { onWritingMeta } from "app/writing/metas";
 
 import { MDX } from "@/components/MDX";
+import PopOver from "@/components/ui/Popover";
 import type { Metadata } from "next";
 
 const makeSeo = ({
@@ -109,7 +110,59 @@ export default async function Basics() {
 
                <br/>
                first off, I did content in JSON because I needed it for i18n, but why am I using MDX now? markdown is an easier way to write HTML, and MDX is the same but with support for React stuff. I’m conflicted about this approach, it’s simple enough but it still takes the content away from where it belongs. It does allow me to write MDX so for the time being I’ll be using it in some places and ignoring it in others.
+               <br/>
             `}
+          </MDX>
+          <MDX
+            components={{
+              Update1: () => (
+                <time className="text-xs font-bold text-gray-9">
+                  March 14th 2023
+                </time>
+              ),
+              Popover: (props) => (
+                <PopOver
+                  content={
+                    <MDX>
+                      {`Especially in cases where your content heavily uses links, bolds, italics, and all the other things that would require a whole tag with props to express in JSX.`}
+                    </MDX>
+                  }
+                >
+                  {props.children}
+                </PopOver>
+              ),
+            }}
+          >
+            {`
+              ## Update <Update1 />
+
+              After dogfooding this approach to markdown in this very website, I can confidently say <Popover>it helps</Popover>. As much as you can format your content in plain JSX, the intent of markdown is making it easier not only to write, but to *read*. And I prefer reading some *'s and _'s over a \`<span>\` soup every time.
+              <br/>
+
+              Preparing to migrate to Next.js 13's [App directory](https://beta.nextjs.org/docs/routing/fundamentals#the-app-directory), I ran into enough bugs with my MDX solution that the absolute GOAT, [Marcos S.](https://twitter.com/MarcosNASAG), helped me [rewrite it into a much safer approach with no mutations](https://github.com/bdsqqq/igorbedesqui.com/commit/e32f8ab38d323105ce8f99e68387d91b34e1bbdf). While at it, he planted the seed of a simpler API in my head, what if \`<MDX>**Content**</MDX>\` just worked™? Knowing that content needed to be serialized in the server meant that this approach would be hacky at beast, straight up impossible at worst... that is, without server components.
+              <br/>
+
+              Fast forwarding to my migration to Next.js 13, the notion of "server code in getStaticProps, then prop drill to components" was made obsolete, in the App directory you can await server code in the component itself. With the only barrier between me and Marcos' API shattered, I implemented it in what felt like seconds thanks to the efforts of the Next.js team and the [Remote-MDX maintainers](https://github.com/hashicorp/next-mdx-remote/pull/331). 
+              <br/>
+
+              Now, my concerns of MDX adding too many steps flipped upside down, NOT writting MDX has more overhead at this point.
+              \`\`\`jsx
+              import MDX from 'components/MDX';
+
+              export default function Page(){
+                return(
+                  <MDX>
+                    {\`
+                      # Oh wow,
+                      This just **works**.
+                    \`}
+                  </MDX>
+                )
+              }
+              \`\`\`
+              <br/>
+
+          `}
           </MDX>
         </div>
       </Band>
