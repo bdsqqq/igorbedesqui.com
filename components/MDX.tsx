@@ -23,6 +23,9 @@ const defaultComponents = {
       {...props}
     />
   ),
+  code: (props: HTMLProps<HTMLElement>) => (
+    <code className="bg-gray-2 rounded py-0.5 px-1" {...props} />
+  ),
 };
 
 export const MDX = ({
