@@ -77,7 +77,7 @@ export default async function Basics() {
 
                ## Escaping resistance
 
-               To make writing as simple as possible, I dropped internationalization, cutting the effort needed in about half. To tackle the biggest barrier in the JSON files I switched to MDX, allowing me to write as if I was jotting down something on Notion but with the full power of React. Guilherme Rodz(GOAT) even [helped me with colocating the content in the same file it was used](https://twitter.com/guilherme_rodz/status/1593733413751734280?s=20&t=LrNxkFVt0nfuQcN429FgNQ). Look at this perfect solution
+               To make writing as simple as possible, I dropped internationalization, cutting the effort needed in about half. To tackle the biggest barrier in the JSON files I switched to MDX, allowing me to write as if I was jotting down something on Notion but with the full power of React. Guilherme Rodz(GOAT) even [helped me with colocating the content in the same file it was used](https://twitter.com/guilherme_rodz/status/1593733413751734280?s=20&t=LrNxkFVt0nfuQcN429FgNQ). Look at this ~~perfect~~ solution
 
                \`\`\`jsx
                const MDs = {
@@ -145,7 +145,7 @@ export default async function Basics() {
               Fast forwarding to my migration to Next.js 13, the notion of "server code in getStaticProps, then prop drill to components" became obsolete. In the App directory, you can await server code on the component itself. With the only barrier between me and Marcos’ API shattered, I implemented it in what felt like seconds, thanks to the efforts of the Next.js team and the [Remote-MDX maintainers](https://github.com/hashicorp/next-mdx-remote/pull/331).
               <br/>
 
-              Now, my concerns of MDX adding too many steps flipped upside down, NOT writing it has more overhead.
+              Now, my concerns of MDX adding too many steps flipped upside down, NOT writing it has more overhead. The current API looks like the following:
 
               \`\`\`jsx
               import MDX from 'components/MDX';
@@ -163,6 +163,7 @@ export default async function Basics() {
               \`\`\`
               <br/>
 
+              Finally, the editor is getting out of my way as I write. And if this approach sounds interesting to you, it's completely [open source](https://github.com/bdsqqq/igorbedesqui.com/commit/ca21b5310a46507ffced1cee661ffa841fc6e40c#diff-d74a4ce4a0768fddc7c86e5e492dbe087d78e9eb05a8e40f8d82c54392766437) and easy to incrementally adopt.
           `}
           </MDX>
         </div>
