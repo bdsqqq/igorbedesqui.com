@@ -38,6 +38,7 @@ import { create } from "zustand";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
+// TODO: maybe move this to nav since it's the only thing that uses it?? then this whole file can be deleted yay. Just not sure if it will work since Nav remounts on navigation
 type BreadcrumbsState = {
   breadcrumbs: string[];
   add: (segment: string) => void;
