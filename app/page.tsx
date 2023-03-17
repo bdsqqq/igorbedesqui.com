@@ -5,7 +5,7 @@ import EmailLink from "@/components/ui/EmailLink";
 import { grid, subGrid } from "@/components/ui/Grid";
 import { cx } from "class-variance-authority";
 
-import { bebopMeta, issMeta, wasmGifMeta, ibmMeta } from "app/work/metas";
+import { bebopMeta, psykipMeta, ibmMeta } from "app/work/metas";
 import { basicsMeta, onWritingMeta } from "app/writing/metas";
 
 import { MDX } from "@/components/MDX";
@@ -14,7 +14,7 @@ import type { Metadata } from "next";
 import StyledLink from "@/components/ui/StyledLink";
 
 const writingPieces = [onWritingMeta, basicsMeta];
-const projsMeta = [ibmMeta, bebopMeta, issMeta, wasmGifMeta];
+const projsMeta = [ibmMeta, psykipMeta, bebopMeta];
 
 const makeSeo = ({
   title,
