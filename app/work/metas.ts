@@ -61,7 +61,6 @@ export const wasmGifMeta: Meta = {
   ],
   date: "2021",
   urlSlug: "wasmgif",
-  backMessage: "",
   draft: false,
 };
 
@@ -94,6 +93,5 @@ export const psykipMeta: Meta = {
   ],
   date: "2022",
   urlSlug: "the-manual",
-  backMessage: "Back",
   draft: false,
 };
