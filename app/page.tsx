@@ -11,6 +11,7 @@ import { basicsMeta, onWritingMeta } from "app/writing/metas";
 import { MDX } from "@/components/MDX";
 import { Blur } from "@/components/ui/Blur";
 import type { Metadata } from "next";
+import StyledLink from "@/components/ui/StyledLink";
 
 const writingPieces = [onWritingMeta, basicsMeta];
 const projsMeta = [ibmMeta, bebopMeta, issMeta, wasmGifMeta];
@@ -109,30 +110,34 @@ export default async function Home() {
 
         <Band headline={{ bold: "01", thin: "Work" }}>
           <div className={subGrid()({ mode: "narrow" })}>
-            <ul className="col-span-full md:col-span-5 lg:col-span-8 flex flex-col -mt-4 hover:text-gray-10 focus-within:text-gray-10 pointer-events-none">
-              {projsMeta.map((projMeta) => {
-                return (
-                  <li key={projMeta.shortName}>
-                    <UnstyledLink
-                      className="block py-4 pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard group"
-                      href={`/work/${projMeta.urlSlug}`}
-                    >
-                      <div className="flex flex-col ">
-                        <div>
-                          <h3 className="inline-block font-bold">
-                            {projMeta.name}
-                          </h3>{" "}
-                          <span className="inline-block text-xs text-bold tracking-tighter text-gray-11 text-end md:opacity-0 group-hover:opacity-100 group-focus:opacity-100 transform md:-translate-x-4 group-hover:translate-x-0 group-focus:translate-x-0 transition-all duration-moderate-01 ease-productive-standard">
-                            {projMeta.date}
-                          </span>
+            <div className="col-span-full md:col-span-5 lg:col-span-8">
+              <ul className=" flex flex-col -mt-4 hover:text-gray-10 focus-within:text-gray-10 pointer-events-none">
+                {projsMeta.map((projMeta) => {
+                  return (
+                    <li key={projMeta.shortName}>
+                      <UnstyledLink
+                        className="block py-4 pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard group"
+                        href={`/work/${projMeta.urlSlug}`}
+                      >
+                        <div className="flex flex-col ">
+                          <div>
+                            <h3 className="inline-block font-bold">
+                              {projMeta.name}
+                            </h3>{" "}
+                            <span className="inline-block text-xs text-bold tracking-tighter text-gray-11 text-end md:opacity-0 group-hover:opacity-100 group-focus:opacity-100 transform md:-translate-x-4 group-hover:translate-x-0 group-focus:translate-x-0 transition-all duration-moderate-01 ease-productive-standard">
+                              {projMeta.date}
+                            </span>
+                          </div>
+                          <p>{projMeta.description}</p>
                         </div>
-                        <p>{projMeta.description}</p>
-                      </div>
-                    </UnstyledLink>
-                  </li>
-                );
-              })}
-            </ul>
+                      </UnstyledLink>
+                    </li>
+                  );
+                })}
+              </ul>
+              <StyledLink href="/work">More work</StyledLink>
+            </div>
+
             <div className="col-span-full lg:col-start-10 lg:col-end-15">
               <h2 className="mt-6 md:mt-10 lg:mt-0 font-bold">Writing</h2>
               <div className="mt-2">
