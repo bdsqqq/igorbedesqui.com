@@ -17,23 +17,23 @@ const MainNav: React.FC<MainNavProps> = ({
   backMessage,
   backAnchor,
 }) => {
-  const { history } = useHistory();
+  const { breadcrumbs } = useBreadcrumbsStore();
   const [anchor, setAnchor] = useState("/");
   useEffect(() => {
-    if (!history) return;
+    if (!breadcrumbs) return;
     let found = false;
     //loop trought history backwards until you get to 0 or until you get to the first match, matches can be the backAnchor or "/". Then feed this to the nextLink bellow and be happy
     //this can be expanded making the backanchor into an array and looping through it to find a match, in the current implementation a page can only have one anchor.
-    for (let i = history.length - 1; i >= 0 && found == false; i--) {
-      if (history[i] == backAnchor) {
-        setAnchor(history[i]);
+    for (let i = breadcrumbs.length - 1; i >= 0 && found == false; i--) {
+      if (breadcrumbs[i] == backAnchor) {
+        setAnchor(breadcrumbs[i]);
         found = true;
       }
-      if (history[i] == "/") {
+      if (breadcrumbs[i] == "/") {
         found = true;
       }
     }
-  }, [backAnchor, history]);
+  }, [backAnchor, breadcrumbs]);
 
   return (
     <nav
@@ -69,9 +69,9 @@ const MainNav: React.FC<MainNavProps> = ({
 
 export default MainNav;
 
+import { useBreadcrumbsStore } from "app/Providers";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useHistory } from "@/contexts/History";
-
 import { ArrowLeftIcon, PinLeftIcon } from "@radix-ui/react-icons";
 import { cva } from "class-variance-authority";

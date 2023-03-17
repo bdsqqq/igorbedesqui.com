@@ -37,5 +37,6 @@ export type Meta = {
   tools: string[];
   date: string;
   urlSlug: string;
-  backMessage: string;
+  backMessage?: string;
+  draft: boolean;
 };

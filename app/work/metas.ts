@@ -1,4 +1,6 @@
-export const bebopMeta = {
+import { Meta } from "@/components/ProjectStuff/Projects";
+
+export const bebopMeta: Meta = {
   shortName: "bebop",
   name: "Cowboy Bebop web poster",
   description:
@@ -15,12 +17,13 @@ export const bebopMeta = {
     "HTML",
     "Adobe Illustrator",
   ],
-  date: "Oct 2021",
+  date: "2021",
   urlSlug: "bebop",
   backMessage: "See you space cowboy...",
+  draft: false,
 };
 
-export const issMeta = {
+export const issMeta: Meta = {
   shortName: "iss",
   name: "Where's the iss?",
   description: "Real time tracking of the International Space Station.",
@@ -36,12 +39,13 @@ export const issMeta = {
     "Jotai",
     "Vercel",
   ],
-  date: "Feb 2021 ~ Sep 2022",
+  date: "2021 ~ 2022",
   urlSlug: "iss",
   backMessage: "Back into orbit",
+  draft: false,
 };
 
-export const wasmGifMeta = {
+export const wasmGifMeta: Meta = {
   shortName: "wasmGif",
   name: "Wasm Gif Converter",
   description: "Video to gif conversion without sending any data anywhere.",
@@ -55,12 +59,12 @@ export const wasmGifMeta = {
     "ffmpeg",
     "Web Assembly",
   ],
-  date: "Mar 2021",
+  date: "2021",
   urlSlug: "wasmgif",
-  backMessage: "",
+  draft: false,
 };
 
-export const ibmMeta = {
+export const ibmMeta: Meta = {
   shortName: "IBM",
   name: "IBM",
   description: "Creating web experiences for the enterprise of enterprises.",
@@ -69,12 +73,13 @@ export const ibmMeta = {
   tools: [""],
   date: "2020 ~ 2022",
   urlSlug: "ibm",
+  draft: false,
 };
 
-export const psykipMeta = {
+export const psykipMeta: Meta = {
   shortName: "the-manual",
   name: "The manual",
-  description: "The best way to read The Enchiridion from Epictetus",
+  description: "The best way to read The Enchiridion from Epictetus.",
   roles: ["FrontEnd Developer", "UX/UI Designer"],
   type: "Personal",
   tools: [
@@ -88,5 +93,5 @@ export const psykipMeta = {
   ],
   date: "2022",
   urlSlug: "the-manual",
-  backMessage: "Back",
+  draft: false,
 };
