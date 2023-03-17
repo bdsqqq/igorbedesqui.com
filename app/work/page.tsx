@@ -14,7 +14,7 @@ export default function Page() {
       <Band gridless id="01">
         <div className={cx(grid(), "flex flex-col gap-y-6")}>
           <div className="col-span-6">
-            <h1 className="font-semibold text-3xl">Projects</h1>
+            <h1 className="font-semibold text-3xl">Work</h1>
           </div>
           <div className="col-start-1 md:col-start-2 lg:col-start-3 col-span-full">
             <ul className="group hover:text-gray-8 focus-within:text-gray-8">
