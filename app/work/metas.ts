@@ -80,7 +80,7 @@ export const ibmMeta: Meta = {
 export const psykipMeta: Meta = {
   shortName: "the-manual",
   name: "The manual",
-  description: "The best way to read The Enchiridion from Epictetus",
+  description: "The best way to read The Enchiridion from Epictetus.",
   roles: ["FrontEnd Developer", "UX/UI Designer"],
   type: "Personal",
   tools: [
