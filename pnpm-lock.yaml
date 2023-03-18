@@ -4,7 +4,6 @@ specifiers:
   '@mdx-js/loader': ^2.3.0
   '@mdx-js/react': ^2.3.0
   '@next/bundle-analyzer': ^12.3.4
-  '@next/mdx': ^13.2.3
   '@radix-ui/colors': ^0.1.8
   '@radix-ui/react-icons': ^1.2.0
   '@radix-ui/react-separator': ^1.0.1
@@ -35,7 +34,6 @@ dependencies:
   '@mdx-js/loader': 2.3.0
   '@mdx-js/react': 2.3.0_react@18.2.0
   '@next/bundle-analyzer': 12.3.4
-  '@next/mdx': 13.2.3_msthxdjvrhmdkfpqqalumiidgq
   '@radix-ui/react-icons': 1.2.0_react@18.2.0
   '@radix-ui/react-separator': 1.0.1_biqbaboplfbrettd7655fr4n2y
   '@vercel/og': 0.0.24
@@ -208,22 +206,6 @@ packages:
     dependencies:
       glob: 7.1.7
     dev: true
-
-  /@next/mdx/13.2.3_msthxdjvrhmdkfpqqalumiidgq:
-    resolution: {integrity: sha512-4xo0wF6FMrtQI7587Z6pbXd6crtGJI3axZ2kxbxCNC0osjlLUSeCNg2lahi8JTEpyc0+KH6B0e0bhsymTMkw7Q==}
-    peerDependencies:
-      '@mdx-js/loader': '>=0.15.0'
-      '@mdx-js/react': '>=0.15.0'
-    peerDependenciesMeta:
-      '@mdx-js/loader':
-        optional: true
-      '@mdx-js/react':
-        optional: true
-    dependencies:
-      '@mdx-js/loader': 2.3.0
-      '@mdx-js/react': 2.3.0_react@18.2.0
-      source-map: 0.7.4
-    dev: false
 
   /@next/swc-android-arm-eabi/13.2.3:
     resolution: {integrity: sha512-mykdVaAXX/gm+eFO2kPeVjnOCKwanJ9mV2U0lsUGLrEdMUifPUjiXKc6qFAIs08PvmTMOLMNnUxqhGsJlWGKSw==}
