@@ -47,10 +47,10 @@ export const Grain = () => {
   }, []);
 
   return (
-    <div className="pointer-events-none z-40 fixed w-full h-full inset-0 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 z-40 h-full w-full overflow-hidden">
       <div
         ref={grainRef}
-        className="absolute inset-[-200%] w-[400%] h-[400%] bg-[url('/images/framernoise.png')] bg-left-top bg-[length:256px] opacity-[3%]"
+        className="absolute inset-[-200%] h-[400%] w-[400%] bg-[url('/images/framernoise.png')] bg-[length:256px] bg-left-top opacity-[3%]"
       />
     </div>
   );

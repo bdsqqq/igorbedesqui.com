@@ -1,10 +1,10 @@
 const Footer = () => {
   return (
     <div className="w-full px-8 md:px-16">
-      <div className="md:max-w-7xl mx-auto py-10 w-full">
-        <Separator className="w-11 my-8" />
+      <div className="mx-auto w-full py-10 md:max-w-7xl">
+        <Separator className="my-8 w-11" />
         <footer className="pb-16">
-          <div className="grid gap-y-8 gap-x-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-y-8 gap-x-2 md:grid-cols-3 lg:grid-cols-4">
             <div className="[grid-column:1_/_-1] lg:[grid-column:auto]">
               <StyledLink className="no-underline" href="/">
                 Igor Bedesqui

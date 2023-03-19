@@ -3,41 +3,69 @@
 @tailwind utilities;
 
 body {
-  @apply min-w-[360px] scroll-smooth leading-normal text-gray-11 bg-gray-0 h-full antialiased;
+  @apply h-full min-w-[360px] scroll-smooth bg-gray-0 leading-normal text-gray-11 antialiased;
   font-family: sans-serif;
-},
+}
 
-img, picture, video, canvas, svg {
+,
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
-},
+}
 
+,
 ::selection {
-  @apply bg-gray-12 text-gray-1
-},
+  @apply bg-gray-12 text-gray-1;
+}
 
+,
 * {
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-9 focus-visible:ring-offset-gray-0 focus-visible:ring-offset-4 focus-visible:rounded-sm focus-visible:z-10
-},
+  @apply focus-visible:z-10 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-9 focus-visible:ring-offset-4 focus-visible:ring-offset-gray-0;
+}
 
-input, button, textarea, select {
+,
+input,
+button,
+textarea,
+select {
   font: inherit;
-},
+}
 
-p, h1, h2, h3, h4, h5, h6 {
+,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
-},
+}
 
-h1, h2, h3, h4, h5, h6 {
+,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: inherit;
   font-weight: inherit;
-},
+}
 
-ol, ul {
+,
+ol,
+ul {
   list-style: none;
   margin: 0;
   padding: 0;
-},
+}
+
+,
 
 /* Remove Safari input shadow on mobile */
 'input[type="text"]' {

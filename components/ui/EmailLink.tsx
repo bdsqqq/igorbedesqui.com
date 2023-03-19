@@ -66,7 +66,7 @@ const PopoverContent = ({ email }: { email: string }) => {
         options={{ size: "sm" }}
       >
         <Button
-          className="rounded-l-sm rounded-r-none -ml-[1px] -my-[1px]"
+          className="-my-[1px] -ml-[1px] rounded-l-sm rounded-r-none"
           onClick={() => {
             if (!navigator.clipboard) {
               console.log(
@@ -90,7 +90,7 @@ const PopoverContent = ({ email }: { email: string }) => {
         options={{ size: "sm" }}
       >
         <LinkButton
-          className="rounded-r-sm rounded-l-none -mr-[1px] -my-[1px]"
+          className="-my-[1px] -mr-[1px] rounded-r-sm rounded-l-none"
           href={`mailto:${email}`}
         >
           <PaperPlaneIcon />

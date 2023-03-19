@@ -63,13 +63,13 @@ export default async function Basics() {
   return (
     <Container key="basics" backable backAnchor="/writing">
       <Band id="01" gridless>
-        <div className="max-w-prose mx-auto space-y-4">
+        <div className="mx-auto max-w-prose space-y-4">
           <MDX
             components={{
               Blur,
               strong: (props) => <span className="text-gray-12" {...props} />,
               h1: (props) => (
-                <h1 className="text-2xl text-gray-12 mb-8" {...props} />
+                <h1 className="mb-8 text-2xl text-gray-12" {...props} />
               ),
               del: (props) => (
                 <span aria-hidden className="hidden" {...props} />

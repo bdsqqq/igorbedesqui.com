@@ -19,14 +19,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       components={{
         // @ts-ignore
         a: (props) => <StyledLinkWithIcon {...props} />,
-        h1: (props) => <h1 className="text-2xl text-gray-11 mb-8" {...props} />,
-        h2: (props) => <h1 className="text-lg font-bold my-2" {...props} />,
+        h1: (props) => <h1 className="mb-8 text-2xl text-gray-11" {...props} />,
+        h2: (props) => <h1 className="my-2 text-lg font-bold" {...props} />,
         strong: (props) => (
           <strong className="font-bold text-gray-12" {...props} />
         ),
         pre: (props) => (
           <pre
-            className="bg-gray-2 rounded p-4 my-2 overflow-x-auto text-sm"
+            className="my-2 overflow-x-auto rounded bg-gray-2 p-4 text-sm"
             {...props}
           />
         ),
@@ -49,11 +49,11 @@ function MyApp({ Component, pageProps }: AppProps) {
             </filter>
             <rect width="100%" height="100%" filter="url(#noise)"></rect>
           </svg> */}
-        <div className="max-w-4xl mx-auto relative">
+        <div className="relative mx-auto max-w-4xl">
           <Component {...pageProps} />
         </div>
         <div
-          className="pointer-events-none w-full h-full top-0 absolute opacity-[3%] filter blur-[100px] saturate-150"
+          className="pointer-events-none absolute top-0 h-full w-full opacity-[3%] blur-[100px] saturate-150 filter"
           style={{
             backgroundImage:
               "radial-gradient(at 27% 37%,#3a8bfd 0,transparent 0),radial-gradient(at 97% 21%,#72fe7d 0,transparent 50%),radial-gradient(at 52% 99%,#fd3a4e 0,transparent 50%),radial-gradient(at 10% 29%,#855afc 0,transparent 50%),radial-gradient(at 97% 96%,#e4c795 0,transparent 50%),radial-gradient(at 33% 50%,#8ca8e8 0,transparent 50%),radial-gradient(at 79% 53%,#eea5ba 0,transparent 50%)",
@@ -109,10 +109,10 @@ const Grain = () => {
   }, []);
 
   return (
-    <div className="pointer-events-none z-40 fixed w-full h-full inset-0 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 z-40 h-full w-full overflow-hidden">
       <div
         ref={grainRef}
-        className="absolute inset-[-200%] w-[400%] h-[400%] bg-[url('/images/framernoise.png')] bg-left-top bg-[length:256px] opacity-[3%]"
+        className="absolute inset-[-200%] h-[400%] w-[400%] bg-[url('/images/framernoise.png')] bg-[length:256px] bg-left-top opacity-[3%]"
       />
     </div>
   );

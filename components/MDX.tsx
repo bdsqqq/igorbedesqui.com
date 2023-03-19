@@ -9,22 +9,22 @@ const defaultComponents = {
   // @ts-ignore
   a: (props) => <StyledLinkWithIcon {...props} />,
   h1: (props: HTMLProps<HTMLHeadingElement>) => (
-    <h1 className="text-2xl text-gray-11 mb-8" {...props} />
+    <h1 className="mb-8 text-2xl text-gray-11" {...props} />
   ),
   h2: (props: HTMLProps<HTMLHeadingElement>) => (
-    <h1 className="text-lg font-bold my-2" {...props} />
+    <h1 className="my-2 text-lg font-bold" {...props} />
   ),
   strong: (props: HTMLProps<HTMLElement>) => (
     <strong className="font-bold text-gray-12" {...props} />
   ),
   pre: (props: HTMLProps<HTMLPreElement>) => (
     <pre
-      className="bg-gray-2 rounded p-4 my-2 overflow-x-auto text-sm"
+      className="my-2 overflow-x-auto rounded bg-gray-2 p-4 text-sm"
       {...props}
     />
   ),
   code: (props: HTMLProps<HTMLElement>) => (
-    <code className="bg-gray-2 rounded py-0.5 px-1" {...props} />
+    <code className="rounded bg-gray-2 py-0.5 px-1" {...props} />
   ),
 };
 

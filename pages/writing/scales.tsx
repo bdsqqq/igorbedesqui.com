@@ -169,12 +169,12 @@ const Scales = () => {
       <Band headline={{ bold: "01", thin: "Title" }}>
         <Formula
           ratio={
-            <span className="w-fit row-start-2 row-end-4 text-3xl leading-none">
+            <span className="row-start-2 row-end-4 w-fit text-3xl leading-none">
               r
             </span>
           }
           f0={
-            <span className="w-fit row-start-2 row-end-4 text-3xl leading-none">
+            <span className="row-start-2 row-end-4 w-fit text-3xl leading-none">
               𝑓
               <span className="text-base">0</span>
             </span>
@@ -204,10 +204,10 @@ const Scales = () => {
                   data-placement={comboboxState.currentPlacement}
                   state={comboboxState}
                   className={cx(
-                    "text-gray-12 shadow-sm border border-gray-7 rounded-sm bg-gray-2 z-10 transform transition-all duration-fast-02",
+                    "z-10 transform rounded-sm border border-gray-7 bg-gray-2 text-gray-12 shadow-sm transition-all duration-fast-02",
                     "data-[placement=bottom-start]:origin-top-left",
                     "data-[placement=top-start]:origin-bottom",
-                    "data-[enter]:opacity-100 data-[enter]:ease-productive-enter",
+                    "data-[enter]:ease-productive-enter data-[enter]:opacity-100",
                     "data-[leave]:opacity-0 data-[leave]:ease-productive-exit",
                     "data-[enter]:translate-y-0",
                     "data-[placement=bottom-start]:data-[leave]:-translate-y-2",
@@ -217,7 +217,7 @@ const Scales = () => {
                   {filteredPreDefinedScales.map((scale) => (
                     <ComboboxItem
                       key={`${scale.name}_ComboboxItem`}
-                      className="cursor-pointer px-3 py-1 border-none rounded-sm hover:bg-gray-4 focus:bg-gray-4 aria-selected:bg-gray-5 motion-safe:transition-colors duration-fast-01 ease-productive-standard"
+                      className="cursor-pointer rounded-sm border-none px-3 py-1 duration-fast-01 ease-productive-standard hover:bg-gray-4 focus:bg-gray-4 aria-selected:bg-gray-5 motion-safe:transition-colors"
                       value={scale.value}
                     >
                       {scale.name}
@@ -287,7 +287,7 @@ const Scales = () => {
           </ul>
         )}
         <div className="overflow-x-auto">
-          <div className="relative overflow-x-visible overflow-y-hidden whitespace-nowrap w-full text-center pb-8">
+          <div className="relative w-full overflow-y-hidden overflow-x-visible whitespace-nowrap pb-8 text-center">
             {[...Array(scaleLength + 2)].map((_, i) => {
               let f = getFi(i - 1, ratio, scaleLength, f0);
               return (
@@ -358,26 +358,26 @@ const Formula: React.FC<{
   scaleLength: ReactNode;
 }> = ({ ratio, f0, scaleLength }) => {
   return (
-    <div className="grid grid-rows-3 w-min">
+    <div className="grid w-min grid-rows-3">
       <span className="row-start-2 row-end-4 text-3xl leading-none">𝑓</span>
-      <span className="w-fit row-start-3 row-end-4">𝑖</span>
-      <span className="flex items-center w-fit row-start-2 row-end-4 text-3xl">
+      <span className="row-start-3 row-end-4 w-fit">𝑖</span>
+      <span className="row-start-2 row-end-4 flex w-fit items-center text-3xl">
         <span>=</span>
       </span>
-      <span className="mx-0.5 row-start-2 row-end-4 place-self-center text-2xl leading-none">
+      <span className="row-start-2 row-end-4 mx-0.5 place-self-center text-2xl leading-none">
         {f0}
       </span>
-      <div className="row-start-2 row-end-4 flex content-center flex-col justify-center">
+      <div className="row-start-2 row-end-4 flex flex-col content-center justify-center">
         <div className="w-4">
           <Cross2Icon />
         </div>
       </div>
-      <span className="mx-0.5 row-start-2 row-end-4 place-self-center">
+      <span className="row-start-2 row-end-4 mx-0.5 place-self-center">
         {ratio}
       </span>
-      <div className="w-fit row-start-1 row-end-3 col-start-[99] flex flex-col items-center justify-end leading-[0.8em]">
-        <div className="pb-1 min-w-[2.5ch] text-center">𝑖</div>
-        <div className="w-1/2 border-b border-current my-0.5" />
+      <div className="col-start-[99] row-start-1 row-end-3 flex w-fit flex-col items-center justify-end leading-[0.8em]">
+        <div className="min-w-[2.5ch] pb-1 text-center">𝑖</div>
+        <div className="my-0.5 w-1/2 border-b border-current" />
         <div>{scaleLength}</div>
       </div>
     </div>

@@ -63,7 +63,7 @@ export default async function Basics() {
   return (
     <Container backable backAnchor="/writing">
       <Band id="01" gridless>
-        <div className="max-w-prose mx-auto">
+        <div className="mx-auto max-w-prose">
           <MDX>
             {`
                # On ways to write

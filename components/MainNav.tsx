@@ -38,7 +38,7 @@ const MainNav: React.FC<MainNavProps> = ({
   return (
     <nav
       className={cva(
-        "flex justify-end items-start w-full p-8 md:px-16 md:mx-auto",
+        "flex w-full items-start justify-end p-8 md:mx-auto md:px-16",
         {
           variants: {
             backable: {
@@ -53,12 +53,12 @@ const MainNav: React.FC<MainNavProps> = ({
       {backable && (
         <Link
           href={anchor ? anchor : "/"}
-          className="group cursor-pointer select-none flex items-center gap-1 px-4 -mx-4 pb-0 text-xl text-gray-11 transform translate-x-0 motion-safe:transition-all ease-productive-standard duration-moderate-01 hover:text-gray-12 hover:-translate-x-2 focus:text-gray-12 focus:-translate-x-2"
+          className="group -mx-4 flex translate-x-0 transform cursor-pointer select-none items-center gap-1 px-4 pb-0 text-xl text-gray-11 duration-moderate-01 ease-productive-standard hover:-translate-x-2 hover:text-gray-12 focus:-translate-x-2 focus:text-gray-12 motion-safe:transition-all"
         >
           <span className="flex-shrink-0 translate-y-[1px]">
             {anchor === "/" ? <PinLeftIcon /> : <ArrowLeftIcon />}
           </span>
-          <span className="ml-1 opacity-[0.01] motion-safe:transition-opacity ease-productive-standard duration-fast-02 group-hover:opacity-100 group-focus:opacity-100">
+          <span className="ml-1 opacity-[0.01] duration-fast-02 ease-productive-standard group-hover:opacity-100 group-focus:opacity-100 motion-safe:transition-opacity">
             {backMessage ? backMessage : "Back"}
           </span>
         </Link>

@@ -11,7 +11,7 @@ export const Blur = ({
     tabIndex={tabIndex ?? (focusable ? 0 : -1)}
     className={cx(
       className,
-      "text-gray-3 hover:text-gray-11 focus-within:text-gray-11 filter blur-sm  hover:blur-none focus:blur-none focus:text-gray-11 focus-within:blur-none duration-moderate-02 transition-all ease-productive-standard group/blur"
+      "group/blur text-gray-3 blur-sm filter transition-all  duration-moderate-02 ease-productive-standard focus-within:text-gray-11 focus-within:blur-none hover:text-gray-11 hover:blur-none focus:text-gray-11 focus:blur-none"
     )}
     {...rest}
   />

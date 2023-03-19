@@ -27,13 +27,13 @@ const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
       <PopoverDisclosure
         state={popoverState}
         className={cx([
-          "group cursor-pointer inline select-text font-semibold motion-safe:transition-all duration-fast-02 ease-productive-standard hover:text-gray-12 focus-within:text-gray-12 aria-expanded:text-gray-12",
+          "group inline cursor-pointer select-text font-semibold duration-fast-02 ease-productive-standard focus-within:text-gray-12 hover:text-gray-12 aria-expanded:text-gray-12 motion-safe:transition-all",
           ,
         ])}
       >
         {children}{" "}
         {(Icon || questionMark) && (
-          <Icon className="inline text-gray-11 group-focus-within:text-gray-12 group-hover:text-gray-12 motion-safe:transition-all duration-fast-02 ease-productive-standard group-aria-expanded:text-gray-12" />
+          <Icon className="inline text-gray-11 duration-fast-02 ease-productive-standard group-focus-within:text-gray-12 group-hover:text-gray-12 group-aria-expanded:text-gray-12 motion-safe:transition-all" />
         )}
       </PopoverDisclosure>
       <Portal
