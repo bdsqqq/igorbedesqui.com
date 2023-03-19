@@ -82,7 +82,7 @@ export default async function IBM() {
       <div className="flex flex-col gap-20">
         <Band gridless id="context">
           <div className={cx(grid({ mode: "narrow" }))}>
-            <div className="text-xl col-span-5 lg:col-span-9">
+            <div className="col-span-5 text-xl lg:col-span-9">
               <MDX
                 components={{
                   strong: ({ children }) => (
@@ -105,7 +105,7 @@ export default async function IBM() {
               //"hover:text-gray-10 focus-within:text-gray-10"
             )}
           >
-            <li className="col-span-4 lg:col-span-8 cursor-text">
+            <li className="col-span-4 cursor-text lg:col-span-8">
               {/* <UnstyledLink
                   href="/work/ibm/think2022"
                   className="block pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard"
@@ -162,7 +162,7 @@ export default async function IBM() {
                     <h2 className="font-semibold">{children}</h2>
                   ),
                   ol: ({ children }) => (
-                    <ol className="list-decimal list-outside marker:text-gray-8 space-y-2">
+                    <ol className="list-outside list-decimal space-y-2 marker:text-gray-8">
                       {children}
                     </ol>
                   ),
@@ -182,11 +182,11 @@ export default async function IBM() {
         </Band>
         <Band gridless id="people">
           <div className={cx(grid({ mode: "narrow" }), "gap-y-20")}>
-            <div className="col-span-6 lg:col-start-1 lg:col-span-8 space-y-4">
+            <div className="col-span-6 space-y-4 lg:col-span-8 lg:col-start-1">
               <MDX
                 components={{
                   ol: ({ children }) => (
-                    <ol className="list-decimal list-outside marker:text-gray-8 space-y-2">
+                    <ol className="list-outside list-decimal space-y-2 marker:text-gray-8">
                       {children}
                     </ol>
                   ),
@@ -203,12 +203,12 @@ export default async function IBM() {
                 `}
               </MDX>
             </div>
-            <div className="md:col-end-9 lg:col-start-5 col-span-5 lg:col-span-12 space-y-4">
+            <div className="col-span-5 space-y-4 md:col-end-9 lg:col-span-12 lg:col-start-5">
               <MDX
                 components={{
                   Blur: Blur,
                   strong: ({ children }) => (
-                    <span className="text-gray-8 group-hover/blur:text-gray-12 group-focus/blur:text-gray-12 transition-colors duration-moderate-02 ease-productive-standard">
+                    <span className="text-gray-8 transition-colors duration-moderate-02 ease-productive-standard group-hover/blur:text-gray-12 group-focus/blur:text-gray-12">
                       {children}
                     </span>
                   ),

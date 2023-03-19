@@ -37,12 +37,12 @@ export const ProjectLayout: React.FC<
 
   return (
     <div className={cx("px-4 md:px-16", grid({ mode: "narrow" }))}>
-      <div className="col-span-full md:col-end-7 lg:col-end-13 flex flex-col gap-16">
+      <div className="col-span-full flex flex-col gap-16 md:col-end-7 lg:col-end-13">
         {children}
       </div>
 
-      <div className="col-span-full md:col-start-7 lg:col-start-13 sticky top-[1.5rem] overflow-auto max-h-[calc(100vh_-_4.5rem)] h-fit py-2 -my-2">
-        <Separator className="md:hidden w-11 mb-12 mt-20" />
+      <div className="sticky top-[1.5rem] col-span-full -my-2 h-fit max-h-[calc(100vh_-_4.5rem)] overflow-auto py-2 md:col-start-7 lg:col-start-13">
+        <Separator className="mb-12 mt-20 w-11 md:hidden" />
 
         {/* Mobile */}
         <div className={cx(subGrid()(), "gap-y-4 md:hidden")}>
@@ -50,10 +50,10 @@ export const ProjectLayout: React.FC<
           {nextProjMeta && (
             <>
               <div className="col-span-4">
-                <Separator className="w-11 my-12" />
+                <Separator className="my-12 w-11" />
 
                 <span className="font-bold text-gray-9">Next project</span>
-                <span className="flex gap-0.5 items-center text-gray-11">
+                <span className="flex items-center gap-0.5 text-gray-11">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
                     {nextProjMeta.name}
                   </StyledLink>
@@ -70,7 +70,7 @@ export const ProjectLayout: React.FC<
         >
           <aside
             className={cx(
-              "transition-opacity duration-fast-02 ease-expressive-standard hover:opacity-100 focus-within:opacity-100",
+              "transition-opacity duration-fast-02 ease-expressive-standard focus-within:opacity-100 hover:opacity-100",
               isFaded ? "opacity-40" : "opacity-100"
             )}
           >
@@ -81,10 +81,10 @@ export const ProjectLayout: React.FC<
           {nextProjMeta && (
             <>
               <div className="col-span-4">
-                <Separator className="w-11 mb-12" />
+                <Separator className="mb-12 w-11" />
 
                 <span className="font-bold text-gray-9">Next project</span>
-                <span className="flex gap-0.5 items-center text-gray-11">
+                <span className="flex items-center gap-0.5 text-gray-11">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
                     {nextProjMeta.name}
                   </StyledLink>

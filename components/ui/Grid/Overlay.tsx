@@ -6,7 +6,7 @@ export const Overlay = () => {
 
   return (
     <>
-      <div className="fixed top-4 right-4 z-50 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-fast-02 ease-productive-standard">
+      <div className="fixed top-4 right-4 z-50 opacity-0 transition-opacity duration-fast-02 ease-productive-standard focus-within:opacity-100 hover:opacity-100">
         <Button
           onClick={() => {
             setVisible((v) => !v);
@@ -18,14 +18,14 @@ export const Overlay = () => {
         </Button>
       </div>
       {visible && (
-        <div className="z-50 absolute inset-0 pointer-events-none bg-gray-A4">
+        <div className="pointer-events-none absolute inset-0 z-50 bg-gray-A4">
           <div
             className={cx(grid({ mode: mode }), "h-full w-full px-4 md:px-16")}
           >
             {[...Array(16)].map((_, i) => {
               return (
-                <div key={i} className="bg-gray-A4 border-x border-gray-A6">
-                  <div className="bg-gray-A4 h-full w-full" />
+                <div key={i} className="border-x border-gray-A6 bg-gray-A4">
+                  <div className="h-full w-full bg-gray-A4" />
                 </div>
               );
             })}

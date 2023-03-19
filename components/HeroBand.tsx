@@ -23,11 +23,11 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
   return (
     <Band gridless id="hero">
       <div
-        className={cx(grid({ mode: "narrow" }), "relative w-full min-h-[40vh]")}
+        className={cx(grid({ mode: "narrow" }), "relative min-h-[40vh] w-full")}
       >
         {(heroImg || heroVideo) && (
-          <div className="absolute w-full h-full my-0 -ml-4 col-start-2 md:col-start-3 lg:col-start-5 row-start-1 col-span-full">
-            <div className="overflow-hidden w-full h-full absolute">
+          <div className="absolute col-span-full col-start-2 row-start-1 my-0 -ml-4 h-full w-full md:col-start-3 lg:col-start-5">
+            <div className="absolute h-full w-full overflow-hidden">
               {heroImg && !!!heroVideo && (
                 <Image
                   priority
@@ -46,18 +46,18 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
                   autoPlay
                   muted
                   loop
-                  className="visible w-full h-full object-center object-cover "
+                  className="visible h-full w-full object-cover object-center "
                 >
                   <source src={`${heroVideo}.webm`} type="video/webm" />
                   <source src={`${heroVideo}.mp4`} type="video/mp4" />
                 </video>
               )}
-              <div className="absolute w-full h-full top-0 bg-gray-1 opacity-75" />
+              <div className="absolute top-0 h-full w-full bg-gray-1 opacity-75" />
             </div>
           </div>
         )}
-        <div className="relative min-h-[40vh] col-span-full md:col-end-7 lg:col-end-13 row-start-1 flex items-center ">
-          <h1 className="mb-4 uppercase tracking-tight text-3xl md:text-4xl">
+        <div className="relative col-span-full row-start-1 flex min-h-[40vh] items-center md:col-end-7 lg:col-end-13 ">
+          <h1 className="mb-4 text-3xl uppercase tracking-tight md:text-4xl">
             {children}
           </h1>
         </div>

@@ -94,7 +94,7 @@ export default async function WasmGif() {
             components={{
               ol: (props) => (
                 <ol
-                  className="list-decimal list-outside marker:text-gray-8 space-y-2"
+                  className="list-outside list-decimal space-y-2 marker:text-gray-8"
                   {...props}
                 />
               ),
@@ -160,7 +160,7 @@ export default async function WasmGif() {
             components={{
               ul: (props) => (
                 <ul
-                  className="list-disc list-outside marker:text-gray-8"
+                  className="list-outside list-disc marker:text-gray-8"
                   {...props}
                 />
               ),

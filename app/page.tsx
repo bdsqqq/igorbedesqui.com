@@ -111,12 +111,12 @@ export default async function Home() {
         <Band headline={{ bold: "01", thin: "Work" }}>
           <div className={subGrid()({ mode: "narrow" })}>
             <div className="col-span-full md:col-span-5 lg:col-span-8">
-              <ul className=" flex flex-col -mt-4 hover:text-gray-10 focus-within:text-gray-10 pointer-events-none">
+              <ul className=" pointer-events-none -mt-4 flex flex-col focus-within:text-gray-10 hover:text-gray-10">
                 {projsMeta.map((projMeta) => {
                   return (
                     <li key={projMeta.shortName}>
                       <UnstyledLink
-                        className="block py-4 pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard group"
+                        className="group pointer-events-auto block py-4 transition-colors duration-fast-02 ease-productive-standard hover:text-gray-12 focus:text-gray-12"
                         href={`/work/${projMeta.urlSlug}`}
                       >
                         <div className="flex flex-col ">
@@ -124,7 +124,7 @@ export default async function Home() {
                             <h3 className="inline-block font-bold">
                               {projMeta.name}
                             </h3>{" "}
-                            <span className="inline-block text-xs text-bold tracking-tighter text-gray-11 text-end md:opacity-0 group-hover:opacity-100 group-focus:opacity-100 transform md:-translate-x-4 group-hover:translate-x-0 group-focus:translate-x-0 transition-all duration-moderate-01 ease-productive-standard">
+                            <span className="text-bold inline-block transform text-end text-xs tracking-tighter text-gray-11 transition-all duration-moderate-01 ease-productive-standard group-hover:translate-x-0 group-hover:opacity-100 group-focus:translate-x-0 group-focus:opacity-100 md:-translate-x-4 md:opacity-0">
                               {projMeta.date}
                             </span>
                           </div>
@@ -139,13 +139,13 @@ export default async function Home() {
             </div>
 
             <div className="col-span-full lg:col-start-10 lg:col-end-15">
-              <h2 className="mt-6 md:mt-10 lg:mt-0 font-bold">Writing</h2>
+              <h2 className="mt-6 font-bold md:mt-10 lg:mt-0">Writing</h2>
               <div className="mt-2">
-                <ul className="flex flex-col gap-4 hover:text-gray-10 focus-within:text-gray-10 pointer-events-none">
+                <ul className="pointer-events-none flex flex-col gap-4 focus-within:text-gray-10 hover:text-gray-10">
                   {writingPieces.map((piece) => (
                     <li key={piece.urlSlug}>
                       <UnstyledLink
-                        className="block pointer-events-auto hover:text-gray-12 focus:text-gray-12 transition-colors duration-fast-02 ease-productive-standard leading-none w-fit"
+                        className="pointer-events-auto block w-fit leading-none transition-colors duration-fast-02 ease-productive-standard hover:text-gray-12 focus:text-gray-12"
                         href={`/writing/${piece.urlSlug}`}
                       >
                         <h3 className="inline">{piece.name}</h3>
@@ -174,12 +174,12 @@ export default async function Home() {
 
         <Band headline={{ bold: "02", thin: "Now" }}>
           <div className={subGrid()({ mode: "narrow" })}>
-            <div className="col-start-1 row-start-1 col-span-4 -mt-6">
+            <div className="col-span-4 col-start-1 row-start-1 -mt-6">
               <span className="text-xs font-bold tracking-tighter text-gray-8">
                 Last updated on <time>03 Mar 2023</time>
               </span>
             </div>
-            <div className="col-start-1 col-span-6 lg:col-end-13 row-start-1 flex flex-col gap-y-4">
+            <div className="col-span-6 col-start-1 row-start-1 flex flex-col gap-y-4 lg:col-end-13">
               <MDX
                 components={{
                   Blur,
@@ -199,7 +199,7 @@ export default async function Home() {
                   Blur,
                   strong: (props) => (
                     <span
-                      className="text-gray-8 group-hover/blur:text-gray-12 group-focus/blur:text-gray-12 transition-colors duration-moderate-02 ease-productive-standard"
+                      className="text-gray-8 transition-colors duration-moderate-02 ease-productive-standard group-hover/blur:text-gray-12 group-focus/blur:text-gray-12"
                       {...props}
                     />
                   ),

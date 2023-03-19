@@ -3,11 +3,11 @@ type ProjectsProps = {
 };
 const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
   return (
-    <ul className="flex flex-wrap flex-col items-start justify-start w-full pointer-events-none md:grid md:grid-cols-2 md:gap-x-6 hover:text-gray-10 [&_>_a]:hover:opacity-40">
+    <ul className="pointer-events-none flex w-full flex-col flex-wrap items-start justify-start hover:text-gray-10 md:grid md:grid-cols-2 md:gap-x-6 [&_>_a]:hover:opacity-40">
       {projectsMeta.map((project, i) => {
         return (
           <UnstyledLink
-            className="w-full py-8 pointer-events-auto first:pt-0 last:pb-0 md:py-6 md:[&:nth-child(2)]:pt-0 md:[&:nth-last-child(2)_:nth-child(odd)]:pb-0 hover:!text-gray-12 hover:!opacity-100 motion-safe:transition-all duration-moderate-01 ease-productive-standard"
+            className="pointer-events-auto w-full py-8 duration-moderate-01 ease-productive-standard first:pt-0 last:pb-0 hover:!text-gray-12 hover:!opacity-100 motion-safe:transition-all md:py-6 md:[&:nth-child(2)]:pt-0 md:[&:nth-last-child(2)_:nth-child(odd)]:pb-0"
             href={`/work/${project.urlSlug}`}
             key={project.name}
           >

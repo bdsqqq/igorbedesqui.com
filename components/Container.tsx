@@ -35,7 +35,7 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
           />
         )}
         <GridOverlay />
-        <div className="relative flex flex-col justify-between -mr-2 min-h-[calc(100_-_104px)] w-full">
+        <div className="relative -mr-2 flex min-h-[calc(100_-_104px)] w-full flex-col justify-between">
           <main className="flex flex-col justify-center">{children}</main>
           {/* <Footer /> */}
           <div className="mt-32" />

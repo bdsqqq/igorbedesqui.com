@@ -23,13 +23,13 @@ export default function Writing() {
                 OLD<span className="text-gray-6">...?</span>
               </p>
               <div className="flex gap-8">
-                <div className="bg-gray-0 p-4 h-fit rounded-sm">
+                <div className="h-fit rounded-sm bg-gray-0 p-4">
                   <Button>Huh</Button>
                 </div>
-                <div className="bg-gray-1 p-4 h-fit rounded-sm">
+                <div className="h-fit rounded-sm bg-gray-1 p-4">
                   <Button>Huh</Button>
                 </div>
-                <div className="bg-gray-2 p-4 h-fit rounded-sm">
+                <div className="h-fit rounded-sm bg-gray-2 p-4">
                   <Button>Huh</Button>
                 </div>
                 {/* <div className="bg-gray-1 p-4 h-fit rounded-sm">
@@ -49,7 +49,7 @@ export default function Writing() {
                 NEW<span className="text-gray-6">...?</span>
               </p>
               <div className="flex gap-8">
-                <div className="flex gap-8 bg-gray-0 p-4 h-fit rounded-sm">
+                <div className="flex h-fit gap-8 rounded-sm bg-gray-0 p-4">
                   <button
                     className={cx(
                       "relative select-none rounded-sm px-2 py-1",
@@ -58,7 +58,7 @@ export default function Writing() {
                       "shadow-input shadow-gray-A3",
                       "bg-gradient-to-tr from-gray-A3 to-gray-A5",
                       "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-0/50 ",
-                      "hover:border-gray-A8 focus-visible:border-gray-A8 before:transition-all before:duration-fast-02 before:ease-expressive-standard",
+                      "before:transition-all before:duration-fast-02 before:ease-expressive-standard hover:border-gray-A8 focus-visible:border-gray-A8",
                       "active:scale-95"
                     )}
                   >
@@ -66,7 +66,7 @@ export default function Writing() {
                   </button>
                   <div
                     className={cx(
-                      "after:absolute after:inset-0 after:rounded after:shadow-lg after:shadow-gray-0/50 after:pointer-events-none",
+                      "after:pointer-events-none after:absolute after:inset-0 after:rounded after:shadow-lg after:shadow-gray-0/50",
                       "relative"
                     )}
                   >
@@ -77,13 +77,13 @@ export default function Writing() {
                         "border border-gray-A4",
                         "shadow-input shadow-gray-A3",
                         "bg-gray-0 bg-gradient-to-t from-gray-A3 to-gray-A5",
-                        "hover:border-gray-A8 focus-visible:border-gray-A8 before:transition-all before:duration-fast-02 before:ease-expressive-standard"
+                        "before:transition-all before:duration-fast-02 before:ease-expressive-standard hover:border-gray-A8 focus-visible:border-gray-A8"
                       )}
                       type="text"
                     ></input>
                   </div>
                 </div>
-                <div className="bg-gray-1 p-4 h-fit rounded-sm">
+                <div className="h-fit rounded-sm bg-gray-1 p-4">
                   <button
                     className={cx(
                       "relative select-none rounded-sm px-2 py-1",
@@ -91,7 +91,7 @@ export default function Writing() {
                       "border border-gray-A5",
                       "shadow-input shadow-gray-A3",
                       "bg-gradient-to-tr from-gray-A2 to-gray-A4",
-                      "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-[hsl(0 0% 100% / 1)]",
+                      "before:shadow-[hsl(0 0% 100% / 1)] before:absolute before:inset-0 before:rounded before:shadow-lg",
                       "hover:border-gray-A7 focus-visible:border-gray-A7",
                       "active:scale-95"
                     )}
@@ -99,7 +99,7 @@ export default function Writing() {
                     Huh
                   </button>
                 </div>
-                <div className="bg-gray-2 p-4 h-fit rounded-sm">
+                <div className="h-fit rounded-sm bg-gray-2 p-4">
                   <button
                     className={cx(
                       "relative select-none rounded-sm px-2 py-1",
@@ -107,7 +107,7 @@ export default function Writing() {
                       "border border-gray-A5",
                       "shadow-input shadow-gray-A3",
                       "bg-gradient-to-tr from-gray-A2 to-gray-A4",
-                      "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-[hsl(0 0% 100% / 1)]",
+                      "before:shadow-[hsl(0 0% 100% / 1)] before:absolute before:inset-0 before:rounded before:shadow-lg",
                       "hover:border-gray-A7 focus-visible:border-gray-A7",
                       "active:scale-95"
                     )}
@@ -125,7 +125,7 @@ export default function Writing() {
             thin: "popover",
           }}
         >
-          <div className="flex gap-8 items-center">
+          <div className="flex items-center gap-8">
             <PopOver content="Hej do">Hej</PopOver>
             <PopOver content="Hej do">Hej</PopOver>
           </div>

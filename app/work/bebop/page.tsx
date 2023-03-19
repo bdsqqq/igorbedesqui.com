@@ -90,7 +90,7 @@ export default async function Bebop() {
 
       <ProjectLayout projMeta={bebopMeta} nextProjMeta={issMeta}>
         <ProjectBand options={{ padding: "none" }} gridless id="update">
-          <h2 className="text-xl font-bold text-gray-11 uppercase mb-2">
+          <h2 className="mb-2 text-xl font-bold uppercase text-gray-11">
             Update
           </h2>
           <MDX>
@@ -150,10 +150,10 @@ export default async function Bebop() {
               [Visit the website](https://bebop-webjam.vercel.app/). or take a peek with some screenshots:
             `}
           </MDX>
-          <div className="grid grid-cols-4 items-center min-h-0 gap-2 my-1">
+          <div className="my-1 grid min-h-0 grid-cols-4 items-center gap-2">
             <div className="col-start-1 col-end-2">
               <Image
-                className="z-[31] relative border overflow-hidden border-gray-3 rounded-sm"
+                className="relative z-[31] overflow-hidden rounded-sm border border-gray-3"
                 src={smartphoneScreenshot}
                 width="1440"
                 height="3040"
@@ -163,7 +163,7 @@ export default async function Bebop() {
             </div>
             <div className="col-start-2 col-end-5">
               <Image
-                className="z-[31] relative border overflow-hidden border-gray-3 rounded-sm"
+                className="relative z-[31] overflow-hidden rounded-sm border border-gray-3"
                 src={desktopScreenshot}
                 width="1200"
                 height="800"

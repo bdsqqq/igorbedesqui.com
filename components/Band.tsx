@@ -79,7 +79,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
               <Headline bold={headline.bold} thin={headline.thin} />
             </div>
 
-            <div className="md:col-start-2 lg:col-start-3 col-span-full">
+            <div className="col-span-full md:col-start-2 lg:col-start-3">
               {children}
             </div>
           </>
@@ -93,11 +93,11 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
 
 const Headline = ({ bold, thin }: { bold: string; thin: string }) => {
   return (
-    <h2 className="mb-12 h-max grid items-end md:items-start md:h-min md:sticky top-4 pr-16">
-      <span className="font-bold text-gray-1 [grid-area:1/1/1/1] text-7xl leading-none md:[writing-mode:vertical-lr]">
+    <h2 className="top-4 mb-12 grid h-max items-end pr-16 md:sticky md:h-min md:items-start">
+      <span className="text-7xl font-bold leading-none text-gray-1 [grid-area:1/1/1/1] md:[writing-mode:vertical-lr]">
         {bold}
       </span>
-      <div className="font-bold align-top [grid-area:1/1/1/1] pb-4 md:w-min md:pl-2 md:pb-2 text-lg md:[writing-mode:vertical-lr]">
+      <div className="pb-4 align-top text-lg font-bold [grid-area:1/1/1/1] md:w-min md:pl-2 md:pb-2 md:[writing-mode:vertical-lr]">
         {thin}
       </div>
     </h2>

@@ -31,7 +31,7 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
         data-dir={options?.side || "top"}
       >
         {content}
-        <TooltipArrow className=" stroke-gray-7 filter drop-shadow-sm" />
+        <TooltipArrow className=" stroke-gray-7 drop-shadow-sm filter" />
       </AriaKitTooltip>
     </>
   );

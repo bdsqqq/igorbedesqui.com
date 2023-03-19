@@ -100,7 +100,7 @@ export default async function Bebop() {
           <MDX
             components={{
               h4: ({ children }) => (
-                <h4 className="text-xl mb-4 font-bold">{children}</h4>
+                <h4 className="mb-4 text-xl font-bold">{children}</h4>
               ),
               del: ({ children }) => (
                 <del className="text-gray-8">{children}</del>
@@ -134,10 +134,10 @@ export default async function Bebop() {
               To keep the experience I wanted for users with cutting-edge browsers without sacrificing the experience for anyone, I leveraged the "@supports" media query to make the blur effect an incremental enhancement.
             `}
           </MDX>
-          <div className="grid grid-cols-2 gap-2 my-2">
+          <div className="my-2 grid grid-cols-2 gap-2">
             <figure className="col-start-1">
               <Image
-                className="z-[31] relative border overflow-hidden border-gray-3 rounded-sm"
+                className="relative z-[31] overflow-hidden rounded-sm border border-gray-3"
                 layout="responsive"
                 width="310"
                 height="310"
@@ -146,7 +146,7 @@ export default async function Bebop() {
                 alt=""
               />
               <figcaption>
-                <span className="text-sm italic tracking-wide text-gray-10 inline-block text-center mt-1">
+                <span className="mt-1 inline-block text-center text-sm italic tracking-wide text-gray-10">
                   <MDX>
                     {`The UI in browsers that support filter properties blurs elements behind it.`}
                   </MDX>
@@ -155,7 +155,7 @@ export default async function Bebop() {
             </figure>
             <figure className="col-start-2">
               <Image
-                className="z-[31] relative border overflow-hidden border-gray-3 rounded-sm"
+                className="relative z-[31] overflow-hidden rounded-sm border border-gray-3"
                 layout="responsive"
                 width="310"
                 height="310"
@@ -165,7 +165,7 @@ export default async function Bebop() {
               />
 
               <figcaption>
-                <span className="text-sm italic tracking-wide text-gray-10 inline-block text-center mt-1">
+                <span className="mt-1 inline-block text-center text-sm italic tracking-wide text-gray-10">
                   <MDX>
                     {`While the UI in browsers that don’t support filters, fallbacks into a solid color.`}
                   </MDX>
@@ -180,7 +180,7 @@ export default async function Bebop() {
         <ProjectBand headline={{ bold: "03", thin: "Result" }}>
           <figure className="mb-4">
             <Image
-              className="z-[31] relative border overflow-hidden border-gray-3 rounded-sm"
+              className="relative z-[31] overflow-hidden rounded-sm border border-gray-3"
               layout="responsive"
               width="500"
               height="851"
