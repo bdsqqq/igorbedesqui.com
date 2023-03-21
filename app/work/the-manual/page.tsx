@@ -83,9 +83,9 @@ export default async function WasmGif() {
         <ProjectBand headline={{ bold: "01", thin: "Why?" }}>
           <MDX>
             {`
-               The Enchiridion is a fascinating book, an easy read filled with valuable insights. Unfortunately—even with multiple public domain translations—reading it can often be a bad experience.
+               The Enchiridion is a fascinating, easy read filled with valuable insights. Unfortunately—even with multiple public domain translations—reading it is often a bad experience.
 
-               Between old and sometimes confusing terms, hard to find and even harder to download files, and outdated websites, the barriers between an interested reader and this content are monumental. So, why not make a website that solves these problems?
+               Between old and sometimes confusing language, hard to find and even harder to download files, and outdated websites, there are too many barriers between an interested reader and the book.            
             `}
           </MDX>
         </ProjectBand>
