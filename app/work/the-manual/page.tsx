@@ -204,18 +204,11 @@ export default async function WasmGif() {
             </figure>
           </div>
         </ProjectBand>
-        <div className="hidden">
-          <ProjectBand headline={{ bold: "03", thin: "Design" }}>
-            <MDX>
-              {`
-              ### Goals
-              ### Content first
-            `}
-            </MDX>
-          </ProjectBand>
-          <ProjectBand headline={{ bold: "04", thin: "Development" }}>
-            <MDX>
-              {`
+        <ProjectBand headline={{ bold: "04", thin: "Development" }}>
+          <MDX>
+            {`
+              **Design and development being 2 separate things feels weird, this is more of a "technical details for nerds" section, move it up**
+
               ### Becoming glazingly fast
 
               Dealing manually with the hundreds of markdown files was out of the table as soon as I defined the project’s scope, but if I’m not cropping, formatting, and naming every file, how would they be ready for the app? Enter **automation**, it’s no secret developers love to automate mundane tasks so I felt this was the perfect opportunity to scratch an itch I had for months and learn a Blazingly fast™ general-purpose language. Of all of the options, one stood out as an easy yet powerful contestant: Golang has an easy typescript-like syntax and would chew through my use case as if it was nothing.
@@ -226,11 +219,11 @@ export default async function WasmGif() {
 
               ### Responsive
               `}
-            </MDX>
-          </ProjectBand>
-          <ProjectBand headline={{ bold: "05", thin: "Results" }}>
-            <MDX>
-              {`
+          </MDX>
+        </ProjectBand>
+        <ProjectBand headline={{ bold: "05", thin: "Results" }}>
+          <MDX>
+            {`
                424 chapters,
 
                8 translations,
@@ -249,9 +242,8 @@ export default async function WasmGif() {
 
                https://clips.twitch.tv/PuzzledCredulousWerewolfDoubleRainbow-MMiwIWFES531KU-u
               `}
-            </MDX>
-          </ProjectBand>
-        </div>
+          </MDX>
+        </ProjectBand>
         <ProjectBand headline={{ bold: "03", thin: "Attributions" }}>
           <MDX
             components={{
