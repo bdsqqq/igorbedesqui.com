@@ -97,7 +97,7 @@ export default async function WasmGif() {
               While the content is the focal point of the site, its presentation is how we solved the problems listed above. Balancing the tension between the simplicity of “just text on a page” and the limitless possibilities of the web, I choose to take inspiration from print and offer an *almost* “Just text” experience, where interactive elements fade in as you reach for them but don’t disturb your reading.
               <br />
 
-              The “Reading progress” flow best exemplifies these interactive elements; Nothing is said as the user reads a translation, but when they visit the homepage again, a subtle text indicates their reading progress. If they choose to read the same translation, an option to continue from where they left off appears. My goal was to make this a “wow moment” inspired by video games that sets the tone of the site.
+              The “Reading progress” flow best exemplifies these interactive elements; Nothing is said as the user reads a translation, but when they visit the homepage again, a subtle text indicates their reading progress. If they choose to read the same translation, an option to continue from where they left off appears. My goal was to make this a “wow moment” inspired by video games that sets the tone of the site, “things will work without getting in your way”.
               <br />
             `}
           </MDX>
