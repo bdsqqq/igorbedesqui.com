@@ -11,6 +11,7 @@ import type { Metadata } from "next";
 import { psykipMeta, bebopMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 import Image from "next/image";
+import PopOver from "@/components/ui/Popover";
 
 const makeSeo = ({
   title,
@@ -205,20 +206,46 @@ export default async function WasmGif() {
           </div>
         </ProjectBand>
         <ProjectBand headline={{ bold: "04", thin: "Development" }}>
-          <MDX>
+          <MDX
+            components={{
+              h3: (props) => <h3 className="text-2xl font-bold" {...props} />,
+              Popover: (props) => (
+                <PopOver
+                  options={{
+                    padding: "none",
+                  }}
+                  content={
+                    <figure className="space-y-1 pb-2">
+                      <Image
+                        alt=""
+                        src={"/images/projs/the-manual/kindle.jpg"}
+                        width={540}
+                        height={720}
+                      />
+                      <figcaption className="text-center">
+                        <MDX>{`[More pics on Twitter](https://twitter.com/bedesqui/status/1579608624514871296?s=20)`}</MDX>
+                      </figcaption>
+                    </figure>
+                  }
+                  {...props}
+                />
+              ),
+            }}
+          >
             {`
-              **Design and development being 2 separate things feels weird, this is more of a "technical details for nerds" section, move it up**
+              ### Technical details for nerds
 
-              ### Becoming glazingly fast
+              Before writing any user-facing code, I spent some time [playing with golang to transform 8 translations into 424 markdown files](https://twitter.com/bedesqui/status/1557388112032137218?s=20). Then, [wrote other scripts to bulk-edit these files and their metadata as needed](https://twitter.com/bedesqui/status/1560750830302760965?s=20).
+              <br />
+              
+              I approached development from a static-first angle, the site is usable with javascript disabled and on pretty much any device, <Popover>*it even ran on my kindle*</Popover>. Leveraging [Astro](astro.build/) I generated hundreds of pages for translations, chapters, and comparisons using data from the markdown files to populate a few templates. For the interactive bits, I used islands of [Solid.js](https://www.solidjs.com/) and scripts with no framework. Deploying on [Vercel](vercel.com/) meant sub-minute build times even with 490 pages, including the monstrous [“compare all translations” page](psykip.vercel.app/compare/all) with 13200 DOM elements. Additionally, [tailwindcss](https://tailwindcss.com/) allowed me to colocate styles and markup without sacrificing functionality. Other relevant technical details include:
+              
+              - Prefetching of next pages based on hover, resulting in snappy navigation for an MPA**Multi page application.
+              - Relocation of analytics script to web workers via [Partytown](https://partytown.builder.io/) and Build time image optimization to speed up the site.
+              <br />
 
-              Dealing manually with the hundreds of markdown files was out of the table as soon as I defined the project’s scope, but if I’m not cropping, formatting, and naming every file, how would they be ready for the app? Enter **automation**, it’s no secret developers love to automate mundane tasks so I felt this was the perfect opportunity to scratch an itch I had for months and learn a Blazingly fast™ general-purpose language. Of all of the options, one stood out as an easy yet powerful contestant: Golang has an easy typescript-like syntax and would chew through my use case as if it was nothing.
-
-              With a poorly written first Go script, the Twitter thread that documents this project’s creation was born, and another one followed suit as I needed to bulk edit the files once more during the process. While using a new language was unnecessary and all the tasks could be done with Typescript, the feeling of learning something from scratch to solve problems is unmatched and honestly, a lot of fun!
-
-              ### Incremental enhancement
-
-              ### Responsive
-              `}
+              For further details, refer to [the source code available on GitHub](https://github.com/bdsqqq/psykip/).
+            `}
           </MDX>
         </ProjectBand>
         <ProjectBand headline={{ bold: "05", thin: "Results" }}>
