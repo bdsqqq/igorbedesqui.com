@@ -1,10 +1,6 @@
 import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
-import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
-import {
-  ProjectBand,
-  ProjectLayout,
-} from "@/components/ProjectStuff/ProjectLayout";
+import Container from "@/components/Container";
 import Tooltip from "@/components/ui/Tooltip";
 import type { Metadata } from "next";
 
@@ -13,6 +9,9 @@ import { MDX } from "@/components/MDX";
 import Image from "next/image";
 import PopOver from "@/components/ui/Popover";
 import StyledLink from "@/components/ui/StyledLink";
+import Band from "@/components/Band";
+import { grid } from "@/components/ui/Grid";
+import { cx } from "class-variance-authority";
 
 const makeSeo = ({
   title,
@@ -68,7 +67,7 @@ export const metadata: Metadata = makeSeo({
 
 export default async function WasmGif() {
   return (
-    <ProjectContainer key="wasmGifProj" backMessage={psykipMeta.backMessage}>
+    <Container key="wasmGifProj" backable backMessage={psykipMeta.backMessage}>
       <HeroBand heroVideo="/videos/the-manual/cat">
         <span className="text-gray-12">
           The best way to read the Enchiridion.
@@ -82,43 +81,18 @@ export default async function WasmGif() {
       </HeroBand>
       <div className="mb-16" />
 
-      <ProjectLayout projMeta={psykipMeta} nextProjMeta={bebopMeta}>
-        <figure className="w-fit">
-          <blockquote
-            className="text-2xl"
-            cite="https://clips.twitch.tv/PuzzledCredulousWerewolfDoubleRainbow-MMiwIWFES531KU-u"
-          >
-            <MDX
-              components={{
-                a: ({ href, ...rest }) => (
-                  <StyledLink
-                    href={href as string}
-                    className="no-underline"
-                    {...rest}
-                  />
-                ),
-              }}
-            >
-              {`[“This is what EPUBs should be”](https://clips.twitch.tv/PuzzledCredulousWerewolfDoubleRainbow-MMiwIWFES531KU-u)`}
-            </MDX>
-          </blockquote>
-          <figcaption className="text-center">
-            <MDX>{`Brynn, Co-founder @ [pingdotgg](https://ping.gg/)`}</MDX>
-          </figcaption>
-        </figure>
-
-        <ProjectBand headline={{ bold: "01", thin: "Why?" }}>
-          <MDX>
-            {`
+      <Band gridless id="why">
+        <div className={cx(grid({ mode: "narrow" }))}>
+          <div className="col-span-5 space-y-2 text-xl lg:col-span-9">
+            <MDX>
+              {`
                The Enchiridion is a fascinating, easy read filled with valuable insights. Unfortunately—even with multiple public domain translations—reading it is often a bad experience.
-               <br />
-
+               
                Between old and sometimes confusing language, hard to find and even harder to download files, and outdated websites, there are too many barriers between an interested reader and the book.            
-            `}
-          </MDX>
-        </ProjectBand>
-        <ProjectBand headline={{ bold: "02", thin: "How" }}>
-          <div className="space-y-4">
+               `}
+            </MDX>
+          </div>
+          <div className="col-span-5 space-y-2 md:col-start-2 lg:col-end-14">
             <MDX
               components={{
                 h3: (props) => (
@@ -151,7 +125,12 @@ export default async function WasmGif() {
               `}
               </MDX>
             </div>
-
+          </div>
+        </div>
+      </Band>
+      <Band gridless id="how">
+        <div className={cx(grid(), "space-y-4")}>
+          <div className="col-span-5 lg:col-span-8">
             <MDX
               components={{
                 h3: (props) => (
@@ -178,7 +157,9 @@ export default async function WasmGif() {
               Various forms of print also influenced the layouts of the site:
             `}
             </MDX>
+          </div>
 
+          <div className="col-span-16">
             <div className="flex flex-col">
               <figure>
                 <Image
@@ -280,10 +261,38 @@ export default async function WasmGif() {
               `}
             </MDX>
           </div>
-        </ProjectBand>
-        <ProjectBand headline={{ bold: "05", thin: "Results" }}>
-          <MDX>
-            {`
+        </div>
+      </Band>
+      <Band gridless id="testimonial">
+        <div className="flex justify-center">
+          <figure className="w-fit">
+            <blockquote
+              className="text-2xl"
+              cite="https://clips.twitch.tv/PuzzledCredulousWerewolfDoubleRainbow-MMiwIWFES531KU-u"
+            >
+              <MDX
+                components={{
+                  a: ({ href, ...rest }) => (
+                    <StyledLink
+                      href={href as string}
+                      className="no-underline"
+                      {...rest}
+                    />
+                  ),
+                }}
+              >
+                {`[“This is what EPUBs should be”](https://clips.twitch.tv/PuzzledCredulousWerewolfDoubleRainbow-MMiwIWFES531KU-u)`}
+              </MDX>
+            </blockquote>
+            <figcaption className="text-center">
+              <MDX>{`Brynn, Co-founder @ [pingdotgg](https://ping.gg/)`}</MDX>
+            </figcaption>
+          </figure>
+        </div>
+      </Band>
+      <Band headline={{ bold: "05", thin: "Results" }}>
+        <MDX>
+          {`
                424 chapters,
 
                8 translations,
@@ -302,20 +311,20 @@ export default async function WasmGif() {
 
                https://clips.twitch.tv/PuzzledCredulousWerewolfDoubleRainbow-MMiwIWFES531KU-u
               `}
-          </MDX>
-        </ProjectBand>
-        <ProjectBand headline={{ bold: "03", thin: "Attributions" }}>
-          <MDX
-            components={{
-              ul: (props) => (
-                <ul
-                  className="list-outside list-disc marker:text-gray-8"
-                  {...props}
-                />
-              ),
-            }}
-          >
-            {`
+        </MDX>
+      </Band>
+      <Band headline={{ bold: "03", thin: "Attributions" }}>
+        <MDX
+          components={{
+            ul: (props) => (
+              <ul
+                className="list-outside list-disc marker:text-gray-8"
+                {...props}
+              />
+            ),
+          }}
+        >
+          {`
               - Epictetus Version from [el.wikisource.org](https://el.wikisource.org/wiki/%CE%95%CE%B3%CF%87%CE%B5%CE%B9%CF%81%CE%AF%CE%B4%CE%B9%CE%BF%CE%BD)
               - Elizabeth Carter Translation from [mit.edu](http://classics.mit.edu/Epictetus/epicench.html)
               - George Long Translation from [wikisource.org](http://en.wikisource.org/wiki/Enchiridion)
@@ -327,9 +336,8 @@ export default async function WasmGif() {
               <br/>
               I took eight markdown files from [Tasuki's website](https://enchiridion.tasuki.org/), then updated their metadata and divided them into 424 files for the individual chapters. My versions of the files are available on [Github](https://github.com/bdsqqq/psykip/tree/master/src/data).
             `}
-          </MDX>
-        </ProjectBand>
-      </ProjectLayout>
-    </ProjectContainer>
+        </MDX>
+      </Band>
+    </Container>
   );
 }
