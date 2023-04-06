@@ -12,6 +12,7 @@ import { psykipMeta, bebopMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 import Image from "next/image";
 import PopOver from "@/components/ui/Popover";
+import StyledLink from "@/components/ui/StyledLink";
 
 const makeSeo = ({
   title,
@@ -82,6 +83,30 @@ export default async function WasmGif() {
       <div className="mb-16" />
 
       <ProjectLayout projMeta={psykipMeta} nextProjMeta={bebopMeta}>
+        <figure className="w-fit">
+          <blockquote
+            className="text-2xl"
+            cite="https://clips.twitch.tv/PuzzledCredulousWerewolfDoubleRainbow-MMiwIWFES531KU-u"
+          >
+            <MDX
+              components={{
+                a: ({ href, ...rest }) => (
+                  <StyledLink
+                    href={href as string}
+                    className="no-underline"
+                    {...rest}
+                  />
+                ),
+              }}
+            >
+              {`[“This is what EPUBs should be”](https://clips.twitch.tv/PuzzledCredulousWerewolfDoubleRainbow-MMiwIWFES531KU-u)`}
+            </MDX>
+          </blockquote>
+          <figcaption className="text-center">
+            <MDX>{`Brynn, Co-founder @ [pingdotgg](https://ping.gg/)`}</MDX>
+          </figcaption>
+        </figure>
+
         <ProjectBand headline={{ bold: "01", thin: "Why?" }}>
           <MDX>
             {`
