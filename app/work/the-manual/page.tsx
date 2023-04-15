@@ -66,8 +66,10 @@ export const metadata: Metadata = makeSeo({
 });
 
 const g = grid({ mode: "narrow" });
-const slottedInMiddle =
+const slottedInMiddleWide =
   "col-start-1 col-end-5 md:col-start-2 md:col-end-7 lg:col-start-4 lg:col-end-13";
+const slottedInMiddle =
+  "col-start-1 col-end-5 md:col-start-2 md:col-end-7 lg:col-start-5 lg:col-end-12";
 
 export default async function TheManual() {
   return (
@@ -84,10 +86,10 @@ export default async function TheManual() {
         </div>
       </HeroBand>
 
-      <div className="flex flex-col gap-20">
+      <div className="flex flex-col gap-24">
         <Band gridless id="why">
           <div className={cx(g)}>
-            <div className="col-span-5 space-y-8 text-2xl lg:col-span-12 lg:col-start-2 lg:mb-12 lg:mt-16">
+            <div className="col-span-4 space-y-4 lg:col-span-8 lg:col-start-2 lg:mb-8 lg:mt-16">
               <MDX>
                 {`
                The Enchiridion is a fascinating, easy read filled with valuable insights. Unfortunately—even with multiple public domain translations—reading it is often a bad experience.
@@ -102,11 +104,11 @@ export default async function TheManual() {
         </Band>
         <Band gridless id="direction">
           <div className={cx(g, "space-y-4")}>
-            <div className="col-span-5 space-y-2 md:col-start-2 lg:col-start-5 lg:col-end-14">
+            <div className={cx(slottedInMiddle, "space-y-2")}>
               <MDX
                 components={{
                   h3: (props) => (
-                    <h3 className="mb-4 text-2xl font-bold" {...props} />
+                    <h3 className="mb-4 block text-2xl font-bold" {...props} />
                   ),
                 }}
               >
@@ -119,7 +121,7 @@ export default async function TheManual() {
               `}
               </MDX>
             </div>
-            <div className="col-span-6 md:col-start-1 lg:col-start-1 lg:col-end-14">
+            <div className="col-start-1 col-end-5 md:col-start-1 md:col-end-8 lg:col-start-1 lg:col-end-14">
               <video autoPlay={false} controls={true}>
                 <source
                   src="/videos/the-manual/reading_progress.webm"
@@ -144,10 +146,15 @@ export default async function TheManual() {
         </Band>
         <Band gridless id="visual">
           <div className={cx(g, "space-y-4")}>
-            <h3 className={cx(slottedInMiddle, "mb-4 text-2xl font-bold")}>
+            <h3
+              className={cx(
+                slottedInMiddleWide,
+                "mb-4 block text-2xl font-bold"
+              )}
+            >
               Visual design
             </h3>
-            <p className={cx(slottedInMiddle, "inline-block")}>
+            <p className={cx(slottedInMiddleWide, "inline-block")}>
               {`The visual design of the site takes the aforementioned inspiration from print further, exaggerating its aesthetic and feel by working within carefully built constraints.`}
             </p>
             <MDX
@@ -176,76 +183,48 @@ export default async function TheManual() {
               1. No pure black or white,  shades of tinted gray feel more real, and with a grainy overlay achieve a paper-like look.
               `}
             </MDX>
-            <p className="col-start-1 col-end-5 inline-block md:col-start-2 md:col-end-4 lg:col-start-5 lg:col-end-13">
+
+            <p className={cx(slottedInMiddleWide, "inline-block")}>
               {`Various forms of print also influenced the layouts of the site:`}
             </p>
 
-            <div
-              className={cx(
-                "col-span-16",
-                subGrid({
-                  lg: 16,
-                  md: 8,
-                  sm: 4,
-                })()
-              )}
-            >
-              <figure
-                className={cx(
-                  "col-span-12 col-start-4",
-                  subGrid({
-                    lg: 12,
-                    md: 8,
-                    sm: 4,
-                  })()
-                )}
-              >
+            <div className={cx("col-span-8 flex flex-col gap-y-8")}>
+              <figure className={"space-y-2"}>
+                <figcaption className="italic">
+                  The landing page mimics a book cover.
+                </figcaption>
                 <Image
-                  className="col-span-8"
+                  className="w-full"
                   alt=""
                   src={"/images/projs/the-manual/1.jpg"}
                   width={685}
                   height={993}
                 />
-                <figcaption className="col-span-4">
-                  The landing page mimics a book cover.
-                </figcaption>
               </figure>
 
-              <figure
-                className={cx(
-                  "col-span-12 col-start-2",
-                  subGrid({
-                    lg: 12,
-                    md: 8,
-                    sm: 4,
-                  })()
-                )}
-              >
+              <figure className={"space-y-2"}>
+                <figcaption className="italic">
+                  The chapters borrow from actual books with generous line
+                  heights, chapter numbers and drop caps.
+                </figcaption>
                 <Image
-                  className="col-span-8"
+                  className="w-full"
                   alt=""
                   src={"/images/projs/the-manual/2.jpg"}
                   width={685}
                   height={993}
                 />
-                <figcaption className="col-span-4">
-                  The chapters borrow from actual books with generous line
-                  heights, chapter numbers and drop caps
-                </figcaption>
               </figure>
+            </div>
 
-              <figure
-                className={cx(
-                  "col-span-12 col-start-4",
-                  subGrid({
-                    lg: 12,
-                    md: 8,
-                    sm: 4,
-                  })()
-                )}
-              >
-                <div className="col-span-8">
+            <div className={cx("col-span-8 flex flex-col gap-y-8")}>
+              <figure className={"space-y-2"}>
+                <figcaption className="italic">
+                  The About and Sources pages use layouts inspired by magazines
+                  with their horizontal spread and use of whitespace.
+                </figcaption>
+
+                <div className="space-y-2">
                   <Image
                     alt=""
                     src={"/images/projs/the-manual/3.jpg"}
@@ -259,38 +238,28 @@ export default async function TheManual() {
                     height={993}
                   />
                 </div>
-                <figcaption className="col-span-4">
-                  The About and Sources pages use layouts inspired by magazines
-                  with their horizontal spread and use of whitespace.
-                </figcaption>
               </figure>
 
-              <figure
-                className={cx(
-                  "col-span-12 col-start-4",
-                  subGrid({
-                    lg: 12,
-                    md: 8,
-                    sm: 4,
-                  })()
-                )}
-              >
-                <Image
-                  className="col-span-8"
-                  alt=""
-                  src={"/images/projs/the-manual/5.jpg"}
-                  width={1505}
-                  height={993}
-                />
-                <figcaption className="col-span-4">
+              <figure className={"space-y-2"}>
+                <figcaption className="italic">
                   The “compare” pages were inspired by newspapers’s approach to
                   dense information in using columns, adapted to the infinite
                   scrollable canvas of the web to include more whitespace and
                   wider columns.
                 </figcaption>
+                <Image
+                  className="w-full"
+                  alt=""
+                  src={"/images/projs/the-manual/5.jpg"}
+                  width={1505}
+                  height={993}
+                />
               </figure>
             </div>
-
+          </div>
+        </Band>
+        <Band gridless id="nerds">
+          <div className={cx(g, "space-y-4")}>
             <div className={cx(slottedInMiddle, "space-y-4")}>
               <MDX
                 components={{
@@ -331,13 +300,14 @@ export default async function TheManual() {
                 
                 Other relevant technical details include: Prefetching of next pages based on user interaction, resulting in snappy navigation for an Multi Page Application,  relocation of analytics script to web workers via [Partytown](https://partytown.builder.io/), and build time image optimization to speed up the site.
 
+                <br />
                 For further details, refer to [the source code available on GitHub](https://github.com/bdsqqq/psykip/).
-              `}
+                `}
               </MDX>
             </div>
           </div>
         </Band>
-        <Band gridless id="results">
+        {/* <Band gridless id="results">
           <div className="flex justify-center">
             <figure className="w-fit">
               <blockquote
@@ -366,7 +336,7 @@ export default async function TheManual() {
           <div className={cx(grid())}>
             <ul></ul>
           </div>
-        </Band>
+        </Band> */}
 
         {/* <Band headline={{ bold: "05", thin: "Results" }}>
           <MDX>
