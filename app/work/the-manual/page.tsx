@@ -108,7 +108,7 @@ export default async function TheManual() {
           </div>
         </Band>
         <Band gridless id="direction">
-          <div className={cx(g, "space-y-4")}>
+          <div className={cx(g, "gap-y-8")}>
             <div className={cx(slottedInMiddle, "space-y-2")}>
               <MDX
                 components={{
@@ -150,13 +150,8 @@ export default async function TheManual() {
           </div>
         </Band>
         <Band gridless id="visual">
-          <div className={cx(g, "space-y-4")}>
-            <h3
-              className={cx(
-                slottedInMiddleWide,
-                "mb-4 block text-2xl font-bold"
-              )}
-            >
+          <div className={cx(g, "gap-y-6")}>
+            <h3 className={cx(slottedInMiddleWide, "block text-2xl font-bold")}>
               Visual design
             </h3>
             <p className={cx(slottedInMiddleWide, "inline-block")}>
@@ -195,9 +190,6 @@ export default async function TheManual() {
 
             <div className={cx("col-span-8 flex flex-col gap-y-8")}>
               <figure className={"space-y-2"}>
-                <figcaption className="italic">
-                  The landing page mimics a book cover.
-                </figcaption>
                 <Image
                   className="w-full"
                   alt=""
@@ -205,13 +197,12 @@ export default async function TheManual() {
                   width={685}
                   height={993}
                 />
+                <figcaption className="text-sm italic tracking-wide text-gray-10">
+                  The landing page mimics a book cover.
+                </figcaption>
               </figure>
 
               <figure className={"space-y-2"}>
-                <figcaption className="italic">
-                  The chapters borrow from actual books with generous line
-                  heights, chapter numbers and drop caps.
-                </figcaption>
                 <Image
                   className="w-full"
                   alt=""
@@ -219,16 +210,15 @@ export default async function TheManual() {
                   width={685}
                   height={993}
                 />
+                <figcaption className="text-sm italic tracking-wide text-gray-10">
+                  The chapters borrow from actual books with generous line
+                  heights, chapter numbers and drop caps.
+                </figcaption>
               </figure>
             </div>
 
             <div className={cx("col-span-8 flex flex-col gap-y-8")}>
               <figure className={"space-y-2"}>
-                <figcaption className="italic">
-                  The About and Sources pages use layouts inspired by magazines
-                  with their horizontal spread and use of whitespace.
-                </figcaption>
-
                 <div className="space-y-2">
                   <Image
                     alt=""
@@ -243,15 +233,13 @@ export default async function TheManual() {
                     height={993}
                   />
                 </div>
+                <figcaption className="text-sm italic tracking-wide text-gray-10">
+                  The About and Sources pages use layouts inspired by magazines
+                  with their horizontal spread and use of whitespace.
+                </figcaption>
               </figure>
 
               <figure className={"space-y-2"}>
-                <figcaption className="italic">
-                  The “compare” pages were inspired by newspapers’s approach to
-                  dense information in using columns, adapted to the infinite
-                  scrollable canvas of the web to include more whitespace and
-                  wider columns.
-                </figcaption>
                 <Image
                   className="w-full"
                   alt=""
@@ -259,6 +247,12 @@ export default async function TheManual() {
                   width={1505}
                   height={993}
                 />
+                <figcaption className="text-sm italic tracking-wide text-gray-10">
+                  The “compare” pages were inspired by newspapers’s approach to
+                  dense information in using columns, adapted to the infinite
+                  scrollable canvas of the web to include more whitespace and
+                  wider columns.
+                </figcaption>
               </figure>
             </div>
           </div>
