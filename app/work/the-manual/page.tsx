@@ -73,7 +73,12 @@ const slottedInMiddle =
 
 export default async function TheManual() {
   return (
-    <Container key="the-manual" backable backMessage={psykipMeta.backMessage}>
+    <Container
+      backAnchor="/work"
+      key="the-manual"
+      backable
+      backMessage={psykipMeta.backMessage}
+    >
       <HeroBand heroVideo="/videos/the-manual/cat">
         <span className="text-gray-12">
           The best way to read the Enchiridion.
