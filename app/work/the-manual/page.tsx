@@ -94,7 +94,7 @@ export default async function TheManual() {
       <div className="flex flex-col gap-24">
         <Band gridless id="why">
           <div className={cx(g)}>
-            <div className="col-span-4 space-y-4 lg:col-span-8 lg:col-start-2 lg:mb-8 lg:mt-16">
+            <div className="col-span-4 mb-8 mt-16 space-y-4 lg:col-span-8 lg:col-start-2">
               <MDX>
                 {`
                The Enchiridion is a fascinating, easy read filled with valuable insights. Unfortunately—even with multiple public domain translations—reading it is often a bad experience.
