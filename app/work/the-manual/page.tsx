@@ -67,9 +67,9 @@ export const metadata: Metadata = makeSeo({
 
 const g = grid({ mode: "narrow" });
 const slottedInMiddleWide =
-  "col-start-1 col-end-5 md:col-start-2 md:col-end-7 lg:col-start-4 lg:col-end-13";
+  "col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-4 lg:col-end-14";
 const slottedInMiddle =
-  "col-start-1 col-end-5 md:col-start-2 md:col-end-7 lg:col-start-5 lg:col-end-12";
+  "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-5 lg:col-end-13";
 
 export default async function TheManual() {
   return (
@@ -126,7 +126,7 @@ export default async function TheManual() {
               `}
               </MDX>
             </div>
-            <div className="col-start-1 col-end-5 md:col-start-1 md:col-end-8 lg:col-start-1 lg:col-end-14">
+            <div className="col-span-full -mx-4 lg:col-start-1 lg:col-end-14 lg:-mx-0">
               <video autoPlay={false} controls={true}>
                 <source
                   src="/videos/the-manual/reading_progress.webm"
@@ -138,8 +138,8 @@ export default async function TheManual() {
                 />
               </video>
             </div>
-            <div className="col-start-14 col-end-17 flex items-end">
-              <div className="-mx-2 h-fit rounded border border-gray-A2 bg-gradient-to-b from-gray-A3 to-gray-A2 p-2 text-gray-9">
+            <div className="col-span-3 col-end-[-1] flex items-end md:col-end-9 lg:col-start-14 lg:col-end-17">
+              <div className="-mx-4 h-fit rounded border border-gray-A2 bg-gradient-to-b from-gray-A3 to-gray-A2 p-4 text-gray-9">
                 <MDX>
                   {`
                       *The recent dark theme update follows the same “show, don’t tell” pattern by choosing a theme based purely on system preferences, and a “highlights” feature is planned in the [public roadmap](https://psykip-git-next-bdsq.vercel.app/roadmap).*
@@ -151,10 +151,10 @@ export default async function TheManual() {
         </Band>
         <Band gridless id="visual">
           <div className={cx(g, "gap-y-6")}>
-            <h3 className={cx(slottedInMiddleWide, "block text-2xl font-bold")}>
+            <h3 className={cx(slottedInMiddle, "block text-2xl font-bold")}>
               Visual design
             </h3>
-            <p className={cx(slottedInMiddleWide, "inline-block")}>
+            <p className={cx(slottedInMiddle, "inline-block")}>
               {`The visual design of the site takes the aforementioned inspiration from print further, exaggerating its aesthetic and feel by working within carefully built constraints.`}
             </p>
             <MDX
@@ -162,17 +162,15 @@ export default async function TheManual() {
                 ol: (props) => (
                   <ol
                     className={cx(
-                      subGrid({ lg: 14, md: 6, sm: 4 })(),
-                      "col-span-4 list-inside list-decimal gap-y-4 marker:text-gray-8 md:col-start-2 md:col-end-8 lg:col-start-4 lg:col-end-14"
+                      subGrid({ lg: 8, md: 8, sm: 4 })(),
+                      slottedInMiddleWide,
+                      "list-inside list-decimal gap-y-4 marker:text-gray-8"
                     )}
                     {...props}
                   />
                 ),
                 li: (props) => (
-                  <li
-                    className="col-span-4 md:col-span-3 lg:col-span-7"
-                    {...props}
-                  />
+                  <li className="col-span-4 md:col-span-4" {...props} />
                 ),
               }}
             >
@@ -184,11 +182,13 @@ export default async function TheManual() {
               `}
             </MDX>
 
-            <p className={cx(slottedInMiddleWide, "inline-block")}>
+            <p className={cx(slottedInMiddle, "inline-block")}>
               {`Various forms of print also influenced the layouts of the site:`}
             </p>
 
-            <div className={cx("col-span-8 flex flex-col gap-y-8")}>
+            <div
+              className={cx("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
+            >
               <figure className={"space-y-2"}>
                 <Image
                   className="w-full"
@@ -217,7 +217,9 @@ export default async function TheManual() {
               </figure>
             </div>
 
-            <div className={cx("col-span-8 flex flex-col gap-y-8")}>
+            <div
+              className={cx("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
+            >
               <figure className={"space-y-2"}>
                 <div className="space-y-2">
                   <Image
