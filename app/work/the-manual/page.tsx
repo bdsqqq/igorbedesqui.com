@@ -98,13 +98,19 @@ export default async function TheManual() {
         <Band gridless id="why">
           <div className={cn(g)}>
             <div className="col-span-4 mb-8 mt-16 space-y-4 lg:col-span-8 lg:col-start-2">
-              <MDX>
+              <MDX
+                components={{
+                  strong: (props) => (
+                    <span className="text-gray-12" {...props} />
+                  ),
+                }}
+              >
                 {`
                The Enchiridion is a fascinating, easy read filled with valuable insights. Unfortunately—even with multiple public domain translations—reading it is often a bad experience.
                
                Between old and sometimes confusing language, hard to find and even harder to download files, and outdated websites, there are too many barriers between an interested reader and the book.         
                
-               [**The Manual**](https://psykip.vercel.app) addresses these issues trough a carefully crafted web experience, enabling frictionless reading of a variety of translations.
+               [**The Manual**](https://psykip.vercel.app) addresses these issues trough a **carefully crafted** web experience, enabling frictionless reading of a variety of translations.
                `}
               </MDX>
             </div>
@@ -118,14 +124,17 @@ export default async function TheManual() {
                   h2: (props) => (
                     <h2 className="mb-4 block text-2xl font-bold" {...props} />
                   ),
+                  strong: (props) => (
+                    <span className="text-gray-12" {...props} />
+                  ),
                 }}
               >
                 {`
                 ## Design direction
 
-                While the content is the focal point of the site, its presentation is how we solved the problems listed above. Balancing the tension between the simplicity of “just text on a page” and the limitless possibilities of the web, I choose to take inspiration from print and offer an *almost* “Just text” experience, where interactive elements fade in as you reach for them but don’t disturb your reading.
+                While the content is the focal point of the site, its presentation is how we solved the problems listed above. **Balancing the tension between the simplicity of “just text on a page” and the limitless possibilities of the web, I choose to take inspiration from print and offer an *almost* “Just text” experience**, where **interactive elements fade in as you reach for them but don’t disturb your reading**.
 
-                The “Reading progress” flow best exemplifies these interactive elements; Nothing is said as the user reads a translation, but when they visit the homepage again, a subtle text indicates their reading progress. If they choose to read the same translation, an option to continue from where they left off appears. My goal was to make this a “wow moment” inspired by video games that sets the tone of the site, “things will work without getting in your way”.
+                The “Reading progress” flow best exemplifies these interactive elements; Nothing is said as the user reads a translation, but when they visit the homepage again, a subtle text indicates their reading progress. If they choose to read the same translation, an option to continue from where they left off appears. **My goal was to make this a “wow moment” inspired by video games that sets the tone of the site, “things will work without getting in your way”**.
               `}
               </MDX>
             </div>
@@ -157,9 +166,17 @@ export default async function TheManual() {
             <h2 className={cn(slottedInMiddle, "block text-2xl font-bold")}>
               Visual design
             </h2>
-            <p className={cn(slottedInMiddle, "inline-block")}>
-              {`The visual design of the site takes the aforementioned inspiration from print further, exaggerating its aesthetic and feel by heavily borrowing defining characteristics and working within carefully built constraints:`}
-            </p>
+            <div className={cn(slottedInMiddle)}>
+              <MDX
+                components={{
+                  strong: (props) => (
+                    <span className="text-gray-12" {...props} />
+                  ),
+                }}
+              >
+                {`**The visual design of the site exaggerates the print aesthetic and feel by heavily borrowing defining characteristics and working within carefully built constraints**:`}
+              </MDX>
+            </div>
             <MDX
               components={{
                 ol: (props) => (
@@ -173,13 +190,14 @@ export default async function TheManual() {
                   />
                 ),
                 li: (props) => <li className="col-span-4" {...props} />,
+                strong: (props) => <span className="text-gray-12" {...props} />,
               }}
             >
               {`
-              1. Links have directional arrows, going to translations is represented by pointing to the right, and going towards the landing page is represented by pointing to the left, mimicking the turn of pages in a book, forward to the content, and back to the index.
-              1. No HUD-like menu, the site needs navigation but it felt right to put links along the body of the document, not in a bar or buttons that follow the user. I can see the user for an always reachable “back” button, but the browser already provides one.
-              1. No “button-y” buttons, clickable elements with clearly defined borders and backgrounds felt out of place in a book, instead, I made deliberate use of underlined text for links and icons for various interactions.
-              1. No pure black or white,  shades of tinted gray feel more real, and with a grainy overlay achieve a paper-like look.
+              1. **Links have directional arrows**, going to translations is represented by pointing to the right, and going towards the landing page is represented by pointing to the left, **mimicking the turn of pages in a book, forward to the content, and back to the index**.
+              1. **No “HUD-y” menu**, the site needs navigation but it felt right to put links along the body of the document, contextualizing them and **allowing users to explore “paths” through the book**.
+              1. **No “button-y” buttons**, clickable elements with clearly defined borders and backgrounds felt out of place in a book. Instead, I made deliberate use of **underlined text for links** and **icons for various interactions**.
+              1. **No pure black or white**, shades of tinted gray feel more real, and with a grainy overlay **achieve a paper-like look**.
               `}
             </MDX>
 
@@ -218,6 +236,22 @@ export default async function TheManual() {
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
+                <Image
+                  className="w-full"
+                  alt=""
+                  src={"/images/projs/the-manual/5.jpg"}
+                  width={1505}
+                  height={993}
+                />
+                <figcaption className="text-sm italic tracking-wide text-gray-10">
+                  The “compare” pages were inspired by newspapers’s approach to
+                  dense information in using columns, adapted to the infinite
+                  scrollable canvas of the web to include more whitespace and
+                  wider columns.
+                </figcaption>
+              </figure>
+
+              <figure className={"space-y-2"}>
                 <div className="space-y-2">
                   <Image
                     alt=""
@@ -235,22 +269,6 @@ export default async function TheManual() {
                 <figcaption className="text-sm italic tracking-wide text-gray-10">
                   The About and Sources pages use layouts inspired by magazines
                   with their horizontal spread and use of whitespace.
-                </figcaption>
-              </figure>
-
-              <figure className={"space-y-2"}>
-                <Image
-                  className="w-full"
-                  alt=""
-                  src={"/images/projs/the-manual/5.jpg"}
-                  width={1505}
-                  height={993}
-                />
-                <figcaption className="text-sm italic tracking-wide text-gray-10">
-                  The “compare” pages were inspired by newspapers’s approach to
-                  dense information in using columns, adapted to the infinite
-                  scrollable canvas of the web to include more whitespace and
-                  wider columns.
                 </figcaption>
               </figure>
             </div>
@@ -285,6 +303,9 @@ export default async function TheManual() {
                       {...props}
                     />
                   ),
+                  strong: (props) => (
+                    <span className="text-gray-12" {...props} />
+                  ),
                 }}
               >
                 {`
@@ -292,11 +313,11 @@ export default async function TheManual() {
 
                 Before writing any user-facing code, I spent some time [playing with golang to transform 8 translations into 424 markdown files](https://twitter.com/bedesqui/status/1557388112032137218?s=20). Then, [wrote other scripts to bulk-edit these files and their metadata as needed](https://twitter.com/bedesqui/status/1560750830302760965?s=20).
                 
-                I approached development from a static-first angle, the site is usable with javascript disabled and on pretty much any device, <Popover>*it even ran on my kindle*</Popover>. Leveraging [Astro](astro.build/) I generated hundreds of pages for translations, chapters, and comparisons using data from the markdown files to populate a few templates. 
+                **I approached development from a static-first angle**, the site is usable with javascript disabled and on pretty much any device, *it even* <Popover>*ran on my kindle*</Popover>. Leveraging [Astro](astro.build/) I **generated hundreds of pages for translations, chapters, and comparisons using data from the markdown files** to populate a few templates. 
                 
-                For the interactive bits, I used islands of [Solid.js](https://www.solidjs.com/) and scripts with no framework. Deploying on [Vercel](vercel.com/) meant sub-minute build times even with 490 pages, including the monstrous [“compare all translations” page](psykip.vercel.app/compare/all) with 13200 DOM elements. Additionally, [tailwindcss](https://tailwindcss.com/) allowed me to colocate styles and markup without sacrificing functionality. 
+                For the interactive bits, I used islands of [Solid.js](https://www.solidjs.com/) and scripts with no framework. Deploying on [Vercel](vercel.com/) meant **sub-minute build times even with 490 pages, including the monstrous [“compare all translations” page](psykip.vercel.app/compare/all) with 13200 DOM elements**. Additionally, **[tailwindcss](https://tailwindcss.com/) allowed me to colocate styles and markup without sacrificing functionality**. 
                 
-                Other relevant technical details include: Prefetching of next pages based on user interaction, resulting in snappy navigation for an Multi Page Application,  relocation of analytics script to web workers via [Partytown](https://partytown.builder.io/), and build time image optimization to speed up the site.
+                Other relevant technical details include: Prefetching of next pages based on user interaction, resulting in snappy navigation for an Multi Page Application, relocation of analytics script to web workers via [Partytown](https://partytown.builder.io/), and build time image optimization to speed up the site.
 
                 <br />
                 For further details, refer to [the source code available on GitHub](https://github.com/bdsqqq/psykip/).
