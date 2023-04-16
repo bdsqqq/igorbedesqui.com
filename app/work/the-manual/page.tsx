@@ -12,6 +12,8 @@ import StyledLink from "@/components/ui/StyledLink";
 import Band from "@/components/Band";
 import { grid, subGrid } from "@/components/ui/Grid";
 import { cx } from "class-variance-authority";
+import { SidebarContent } from "@/components/ProjectStuff/ProjectLayout";
+import { Separator } from "@/ui/Separator";
 
 const makeSeo = ({
   title,
@@ -300,6 +302,33 @@ export default async function TheManual() {
                 For further details, refer to [the source code available on GitHub](https://github.com/bdsqqq/psykip/).
                 `}
               </MDX>
+            </div>
+          </div>
+        </Band>
+        <Band gridless id="meta">
+          <div className={cx(g)}>
+            <div
+              className={cx(
+                slottedInMiddle,
+                subGrid({
+                  lg: 8,
+                  md: 8,
+                  sm: 4,
+                })(),
+                "gap-y-4"
+              )}
+            >
+              {/* <Separator className="col-span-full mb-12 mt-20 w-11" /> */}
+
+              <SidebarContent projMeta={psykipMeta} />
+
+              <div className="col-span-full">
+                {/* <Separator className="my-12 w-11" /> */}
+                <h3 className="font-bold text-gray-9">Next project</h3>
+                <StyledLink href={`/work/${bebopMeta.urlSlug}`}>
+                  {bebopMeta.name}
+                </StyledLink>
+              </div>
             </div>
           </div>
         </Band>
