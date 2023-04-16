@@ -169,9 +169,7 @@ export default async function TheManual() {
                     {...props}
                   />
                 ),
-                li: (props) => (
-                  <li className="col-span-4 md:col-span-4" {...props} />
-                ),
+                li: (props) => <li className="col-span-4" {...props} />,
               }}
             >
               {`
