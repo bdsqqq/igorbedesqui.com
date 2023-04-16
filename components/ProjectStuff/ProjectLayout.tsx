@@ -98,7 +98,7 @@ export const ProjectLayout: React.FC<
   );
 };
 
-const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
+export const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
   return (
     <>
       <div className="col-span-2">
@@ -160,7 +160,7 @@ export const ProjectBand: FC<PropsWithChildren<BandProps>> = ({
   );
 };
 
-import { Separator } from "@/ui/primitives/";
+import { Separator } from "@/ui/Separator";
 import StyledLink from "@/ui/StyledLink";
 
 import { Meta } from "@/components/ProjectStuff/Projects";
