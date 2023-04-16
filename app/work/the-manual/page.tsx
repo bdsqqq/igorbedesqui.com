@@ -60,9 +60,10 @@ const makeSeo = ({
 
 export const metadata: Metadata = makeSeo({
   title: "The Manual",
-  description: "",
+  description:
+    "A carefully crafted web experience, enabling frictionless reading of a variety of translations of the Enchiridion from Epictetus",
   slug: "/work/the-manual",
-  ogText: "",
+  ogText: "The best way to read the enchiridion",
 });
 
 const g = grid({ mode: "narrow" });
