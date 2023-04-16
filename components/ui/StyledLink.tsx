@@ -30,7 +30,7 @@ const StyledLinkWithIcon: FC<StyledLinkProps & HtmlHTMLAttributes<{}>> = ({
     <UnstyledLink
       className={cn(
         cva(
-          "cursor-pointer underline underline-offset-2 focus-within:text-white hover:text-white motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard [&>svg]:inline",
+          "cursor-pointer underline underline-offset-2 focus-within:text-white hover:text-white motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard",
           {
             variants: {
               bold: {
@@ -45,7 +45,13 @@ const StyledLinkWithIcon: FC<StyledLinkProps & HtmlHTMLAttributes<{}>> = ({
       {...rest}
     >
       {children}
-      {!iconless && icon}
+      {!iconless && (
+        <span className="whitespace-nowrap [&>svg]:inline">
+          {/* don't allow for line breaks between copy and icon */}
+          {"\u00a0"}
+          {icon}
+        </span>
+      )}
     </UnstyledLink>
   );
 };
