@@ -12,7 +12,7 @@
     "@mdx-js/react": "^2.3.0",
     "@next/bundle-analyzer": "^12.3.4",
     "@radix-ui/react-icons": "^1.2.0",
-    "@radix-ui/react-separator": "^1.0.1",
+    "@radix-ui/react-separator": "^1.0.2",
     "@vercel/og": "^0.0.24",
     "ariakit": "2.0.0-next.43",
     "class-variance-authority": "^0.4.0",
