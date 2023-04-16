@@ -112,13 +112,13 @@ export default async function TheManual() {
             <div className={cx(slottedInMiddle, "space-y-2")}>
               <MDX
                 components={{
-                  h3: (props) => (
-                    <h3 className="mb-4 block text-2xl font-bold" {...props} />
+                  h2: (props) => (
+                    <h2 className="mb-4 block text-2xl font-bold" {...props} />
                   ),
                 }}
               >
                 {`
-                ### Design direction
+                ## Design direction
 
                 While the content is the focal point of the site, its presentation is how we solved the problems listed above. Balancing the tension between the simplicity of “just text on a page” and the limitless possibilities of the web, I choose to take inspiration from print and offer an *almost* “Just text” experience, where interactive elements fade in as you reach for them but don’t disturb your reading.
 
@@ -151,11 +151,11 @@ export default async function TheManual() {
         </Band>
         <Band gridless id="visual">
           <div className={cx(g, "gap-y-6")}>
-            <h3 className={cx(slottedInMiddle, "block text-2xl font-bold")}>
+            <h2 className={cx(slottedInMiddle, "block text-2xl font-bold")}>
               Visual design
-            </h3>
+            </h2>
             <p className={cx(slottedInMiddle, "inline-block")}>
-              {`The visual design of the site takes the aforementioned inspiration from print further, exaggerating its aesthetic and feel by working within carefully built constraints.`}
+              {`The visual design of the site takes the aforementioned inspiration from print further, exaggerating its aesthetic and feel by heavily borrowing defining characteristics and working within carefully built constraints:`}
             </p>
             <MDX
               components={{
@@ -179,10 +179,6 @@ export default async function TheManual() {
               1. No pure black or white,  shades of tinted gray feel more real, and with a grainy overlay achieve a paper-like look.
               `}
             </MDX>
-
-            <p className={cx(slottedInMiddle, "inline-block")}>
-              {`Various forms of print also influenced the layouts of the site:`}
-            </p>
 
             <div
               className={cx("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
@@ -262,8 +258,8 @@ export default async function TheManual() {
             <div className={cx(slottedInMiddle, "space-y-4")}>
               <MDX
                 components={{
-                  h3: (props) => (
-                    <h3 className="mb-4 text-2xl font-bold" {...props} />
+                  h2: (props) => (
+                    <h2 className="mb-4 text-2xl font-bold" {...props} />
                   ),
                   Popover: (props) => (
                     <PopOver
@@ -289,7 +285,7 @@ export default async function TheManual() {
                 }}
               >
                 {`
-                ### Technical details for nerds
+                ## Technical details for nerds
 
                 Before writing any user-facing code, I spent some time [playing with golang to transform 8 translations into 424 markdown files](https://twitter.com/bedesqui/status/1557388112032137218?s=20). Then, [wrote other scripts to bulk-edit these files and their metadata as needed](https://twitter.com/bedesqui/status/1560750830302760965?s=20).
                 
@@ -352,9 +348,9 @@ export default async function TheManual() {
                
                build times on vercel?
 
-               ### Screenshots
+               ## Screenshots
 
-               ### Testimonials
+               ## Testimonials
 
                https://clips.twitch.tv/PuzzledCredulousWerewolfDoubleRainbow-MMiwIWFES531KU-u
               `}
