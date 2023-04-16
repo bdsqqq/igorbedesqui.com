@@ -85,8 +85,8 @@ export default async function IBM() {
             <div className="col-span-5 text-xl lg:col-span-9">
               <MDX
                 components={{
-                  strong: ({ children }) => (
-                    <span className="text-gray-12">{children}</span>
+                  strong: (props) => (
+                    <span className="text-gray-12" {...props} />
                   ),
                 }}
               >
@@ -190,8 +190,8 @@ export default async function IBM() {
                       {children}
                     </ol>
                   ),
-                  strong: ({ children }) => (
-                    <span className="text-gray-12">{children}</span>
+                  strong: (props) => (
+                    <span className="text-gray-12" {...props} />
                   ),
                 }}
               >
