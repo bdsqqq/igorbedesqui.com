@@ -52,7 +52,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
 
   return (
     <section
-      className={cx(
+      className={cn(
         sectionStyles({
           padding: options?.padding,
         }),
@@ -106,6 +106,7 @@ const Headline = ({ bold, thin }: { bold: string; thin: string }) => {
 
 export default Band;
 
-import { cva, cx, type VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/styling";
 import React from "react";
 import { grid, subGrid } from "@/ui/Grid";

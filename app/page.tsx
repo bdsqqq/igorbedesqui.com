@@ -3,7 +3,6 @@ import Band from "@/components/Band";
 import { UnstyledLink } from "@/ui/primitives/";
 import EmailLink from "@/components/ui/EmailLink";
 import { grid, subGrid } from "@/components/ui/Grid";
-import { cx } from "class-variance-authority";
 
 import { bebopMeta, psykipMeta, ibmMeta } from "app/work/metas";
 import { basicsMeta, onWritingMeta } from "app/writing/metas";
@@ -12,6 +11,7 @@ import { MDX } from "@/components/MDX";
 import { Blur } from "@/components/ui/Blur";
 import type { Metadata } from "next";
 import StyledLink from "@/components/ui/StyledLink";
+import { cn } from "@/lib/styling";
 
 const writingPieces = [onWritingMeta, basicsMeta];
 const projsMeta = [ibmMeta, psykipMeta, bebopMeta];
@@ -75,7 +75,7 @@ export default async function Home() {
     <Container key="index">
       <div className="flex flex-col gap-20">
         <Band gridless id="">
-          <div className={cx(grid({ mode: "narrow" }), "mt-32")}>
+          <div className={cn(grid({ mode: "narrow" }), "mt-32")}>
             <div className="col-span-full md:col-end-8 lg:col-start-2 lg:col-end-13">
               <br />
               <h1 className="text-2xl text-gray-12">

@@ -28,7 +28,7 @@ const StyledLinkWithIcon: FC<StyledLinkProps & HtmlHTMLAttributes<{}>> = ({
 
   return (
     <UnstyledLink
-      className={cx(
+      className={cn(
         cva(
           "cursor-pointer underline underline-offset-2 focus-within:text-white hover:text-white motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard [&>svg]:inline",
           {
@@ -55,5 +55,6 @@ export default StyledLinkWithIcon;
 import { UnstyledLink } from "@/ui/primitives";
 
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
-import { cx, cva } from "class-variance-authority";
+import { cva } from "class-variance-authority";
+import { cn } from "@/lib/styling";
 import type { FC, HtmlHTMLAttributes, ReactNode } from "react";

@@ -3,9 +3,9 @@ import { bebopMeta, ibmMeta, issMeta, psykipMeta, wasmGifMeta } from "./metas";
 import Container from "@/components/Container";
 import { grid } from "@/components/ui/Grid";
 import Band from "@/components/Band";
-import { cx } from "class-variance-authority";
 import { UnstyledLink } from "@/components/ui/primitives";
 import HeroBand from "@/components/HeroBand";
+import { cn } from "@/lib/styling";
 
 const projects = [ibmMeta, psykipMeta, bebopMeta, issMeta, wasmGifMeta];
 
@@ -17,7 +17,7 @@ export default function Page() {
       </HeroBand>
       <Band gridless id="01">
         <ul
-          className={cx(
+          className={cn(
             grid(),
             "pointer-events-none focus-within:text-gray-10 hover:text-gray-10"
           )}

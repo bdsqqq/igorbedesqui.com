@@ -203,7 +203,7 @@ const Scales = () => {
                 <ComboboxPopover
                   data-placement={comboboxState.currentPlacement}
                   state={comboboxState}
-                  className={cx(
+                  className={cn(
                     "z-10 transform rounded-sm border border-gray-7 bg-gray-2 text-gray-12 shadow-sm transition-all duration-fast-02",
                     "data-[placement=bottom-start]:origin-top-left",
                     "data-[placement=top-start]:origin-bottom",
@@ -397,4 +397,5 @@ import {
 import Container from "@/components/Container";
 import Band from "@/components/Band";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { cva, cx } from "class-variance-authority";
+import { cva } from "class-variance-authority";
+import { cn } from "@/lib/styling";

@@ -3,7 +3,7 @@ import Container from "@/components/Container";
 import Seo from "@/components/Seo";
 import { Button } from "@/components/ui/Button";
 import PopOver from "@/components/ui/Popover";
-import { cx } from "class-variance-authority";
+import { cn } from "@/lib/styling";
 
 export default function Writing() {
   return (
@@ -35,7 +35,7 @@ export default function Writing() {
                 {/* <div className="bg-gray-1 p-4 h-fit rounded-sm">
               <button
                 style={{ backgroundClip: "padding-box" }}
-                className={cx(
+                className={cn(
                   "rounded-sm select-none shadow-input shadow-gray-A5 border border-gray-A5 bg-gray-1 py-2 px-4 text-gray-11 hover:text-gray-12 transition-all hover:bg-gray-2 active:shadow-gray-A4 active:scale-95 origin-center duration-fast-02 ease-expressive-standard bg-gradient-to-t from-gray-1 to-gray-3 hover:from-gray-2 hover:to-gray-4 active:from-gray-1 active:to-gray-3  disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:active:scale-100 disabled:text-gray-10 "
                 )}
               >
@@ -51,7 +51,7 @@ export default function Writing() {
               <div className="flex gap-8">
                 <div className="flex h-fit gap-8 rounded-sm bg-gray-0 p-4">
                   <button
-                    className={cx(
+                    className={cn(
                       "relative select-none rounded-sm px-2 py-1",
                       "transition-all duration-fast-02 ease-expressive-standard",
                       "border border-gray-A4",
@@ -65,13 +65,13 @@ export default function Writing() {
                     Huh
                   </button>
                   <div
-                    className={cx(
+                    className={cn(
                       "after:pointer-events-none after:absolute after:inset-0 after:rounded after:shadow-lg after:shadow-gray-0/50",
                       "relative"
                     )}
                   >
                     <input
-                      className={cx(
+                      className={cn(
                         "relative select-none rounded-sm px-2 py-1",
                         "transition-all duration-fast-02 ease-expressive-standard",
                         "border border-gray-A4",
@@ -85,7 +85,7 @@ export default function Writing() {
                 </div>
                 <div className="h-fit rounded-sm bg-gray-1 p-4">
                   <button
-                    className={cx(
+                    className={cn(
                       "relative select-none rounded-sm px-2 py-1",
                       "transition-all duration-fast-02 ease-expressive-standard",
                       "border border-gray-A5",
@@ -101,7 +101,7 @@ export default function Writing() {
                 </div>
                 <div className="h-fit rounded-sm bg-gray-2 p-4">
                   <button
-                    className={cx(
+                    className={cn(
                       "relative select-none rounded-sm px-2 py-1",
                       "transition-all duration-fast-02 ease-expressive-standard",
                       "border border-gray-A5",

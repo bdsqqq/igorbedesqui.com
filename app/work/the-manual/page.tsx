@@ -11,9 +11,9 @@ import PopOver from "@/components/ui/Popover";
 import StyledLink from "@/components/ui/StyledLink";
 import Band from "@/components/Band";
 import { grid, subGrid } from "@/components/ui/Grid";
-import { cx } from "class-variance-authority";
 import { SidebarContent } from "@/components/ProjectStuff/ProjectLayout";
 import { Separator } from "@/ui/Separator";
+import { cn } from "@/lib/styling";
 
 const makeSeo = ({
   title,
@@ -96,7 +96,7 @@ export default async function TheManual() {
 
       <div className="flex flex-col gap-24">
         <Band gridless id="why">
-          <div className={cx(g)}>
+          <div className={cn(g)}>
             <div className="col-span-4 mb-8 mt-16 space-y-4 lg:col-span-8 lg:col-start-2">
               <MDX>
                 {`
@@ -111,8 +111,8 @@ export default async function TheManual() {
           </div>
         </Band>
         <Band gridless id="direction">
-          <div className={cx(g, "gap-y-8")}>
-            <div className={cx(slottedInMiddle, "space-y-2")}>
+          <div className={cn(g, "gap-y-8")}>
+            <div className={cn(slottedInMiddle, "space-y-2")}>
               <MDX
                 components={{
                   h2: (props) => (
@@ -153,18 +153,18 @@ export default async function TheManual() {
           </div>
         </Band>
         <Band gridless id="visual">
-          <div className={cx(g, "gap-y-6")}>
-            <h2 className={cx(slottedInMiddle, "block text-2xl font-bold")}>
+          <div className={cn(g, "gap-y-6")}>
+            <h2 className={cn(slottedInMiddle, "block text-2xl font-bold")}>
               Visual design
             </h2>
-            <p className={cx(slottedInMiddle, "inline-block")}>
+            <p className={cn(slottedInMiddle, "inline-block")}>
               {`The visual design of the site takes the aforementioned inspiration from print further, exaggerating its aesthetic and feel by heavily borrowing defining characteristics and working within carefully built constraints:`}
             </p>
             <MDX
               components={{
                 ol: (props) => (
                   <ol
-                    className={cx(
+                    className={cn(
                       subGrid({ lg: 8, md: 8, sm: 4 })(),
                       slottedInMiddleWide,
                       "list-inside list-decimal gap-y-4 marker:text-gray-8"
@@ -184,7 +184,7 @@ export default async function TheManual() {
             </MDX>
 
             <div
-              className={cx("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
+              className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
                 <Image
@@ -215,7 +215,7 @@ export default async function TheManual() {
             </div>
 
             <div
-              className={cx("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
+              className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
                 <div className="space-y-2">
@@ -257,8 +257,8 @@ export default async function TheManual() {
           </div>
         </Band>
         <Band gridless id="nerds">
-          <div className={cx(g, "space-y-4")}>
-            <div className={cx(slottedInMiddle, "space-y-4")}>
+          <div className={cn(g, "space-y-4")}>
+            <div className={cn(slottedInMiddle, "space-y-4")}>
               <MDX
                 components={{
                   h2: (props) => (
@@ -306,9 +306,9 @@ export default async function TheManual() {
           </div>
         </Band>
         <Band gridless id="meta">
-          <div className={cx(g)}>
+          <div className={cn(g)}>
             <div
-              className={cx(
+              className={cn(
                 slottedInMiddle,
                 subGrid({
                   lg: 8,
@@ -358,7 +358,7 @@ export default async function TheManual() {
               </figcaption>
             </figure>
           </div>
-          <div className={cx(grid())}>
+          <div className={cn(grid())}>
             <ul></ul>
           </div>
         </Band> */}

@@ -1,5 +1,5 @@
 const variants = cva(
-  cx(
+  cn(
     "select-none appearance-none",
     "relative rounded-sm px-2 py-1 inline-flex items-center gap-2 align-middle outline-none focus-within:outline-none",
     "motion-safe:duration-fast-01 motion-safe:ease-expressive-standard transition-all",
@@ -17,7 +17,7 @@ const variants = cva(
         lg: "text-xl",
       },
       color: {
-        gray: cx(
+        gray: cn(
           "border-gray-A4",
           "shadow-gray-A3",
           "from-gray-A2 to-gray-A4",
@@ -39,7 +39,7 @@ const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
   ...rest
 }) => (
   <button
-    className={cx(
+    className={cn(
       variants({
         size,
         color,
@@ -60,7 +60,7 @@ const LinkButton: React.FC<HtmlHTMLAttributes<{}> & LinkProps & variants> = ({
   ...rest
 }) => (
   <UnstyledLink
-    className={cx(
+    className={cn(
       variants({
         size,
         color,
@@ -77,6 +77,7 @@ export { Button, LinkButton };
 
 import { UnstyledLink } from "./primitives";
 import type { LinkProps } from "next/link";
-import { cva, cx, type VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/styling";
 import { ButtonProps } from "ariakit";
 import React, { HtmlHTMLAttributes } from "react";

@@ -36,7 +36,7 @@ export const ProjectLayout: React.FC<
   }, []);
 
   return (
-    <div className={cx("px-4 md:px-16", grid({ mode: "narrow" }))}>
+    <div className={cn("px-4 md:px-16", grid({ mode: "narrow" }))}>
       <div className="col-span-full flex flex-col gap-16 md:col-end-7 lg:col-end-13">
         {children}
       </div>
@@ -45,7 +45,7 @@ export const ProjectLayout: React.FC<
         <Separator className="mb-12 mt-20 w-11 md:hidden" />
 
         {/* Mobile */}
-        <div className={cx(subGrid()(), "gap-y-4 md:hidden")}>
+        <div className={cn(subGrid()(), "gap-y-4 md:hidden")}>
           <SidebarContent projMeta={projMeta} />
           {nextProjMeta && (
             <>
@@ -66,10 +66,10 @@ export const ProjectLayout: React.FC<
         {/* Desktop */}
         <div
           ref={asideRef}
-          className={cx(subGrid()(), "hidden md:flex md:flex-col md:gap-6")}
+          className={cn(subGrid()(), "hidden md:flex md:flex-col md:gap-6")}
         >
           <aside
-            className={cx(
+            className={cn(
               "transition-opacity duration-fast-02 ease-expressive-standard focus-within:opacity-100 hover:opacity-100",
               isFaded ? "opacity-40" : "opacity-100"
             )}
@@ -166,4 +166,4 @@ import StyledLink from "@/ui/StyledLink";
 import { Meta } from "@/components/ProjectStuff/Projects";
 import React, { FC, PropsWithChildren } from "react";
 import { grid, subGrid } from "../ui/Grid";
-import { cx } from "class-variance-authority";
+import { cn } from "@/lib/styling";
