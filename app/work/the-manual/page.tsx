@@ -197,7 +197,7 @@ export default async function TheManual() {
               1. **Links have directional arrows**, going to translations is represented by pointing to the right, and going towards the landing page is represented by pointing to the left, **mimicking the turn of pages in a book, forward to the content, and back to the index**.
               1. **No “HUD-y” menu**, the site needs navigation but it felt right to put links along the body of the document, contextualizing them and **allowing users to explore “paths” through the book**.
               1. **No “button-y” buttons**, clickable elements with clearly defined borders and backgrounds felt out of place in a book. Instead, I made deliberate use of **underlined text for links** and **icons for various interactions**.
-              1. **No pure black or white**, shades of tinted gray feel more real, and with a grainy overlay **achieve a paper-like look**.
+              1. **No pure black or white**, **shades of tinted gray feel more real**, and **with a grainy overlay achieve a paper-like look**.
               `}
             </MDX>
 
