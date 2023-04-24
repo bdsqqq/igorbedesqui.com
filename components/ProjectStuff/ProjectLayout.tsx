@@ -42,16 +42,12 @@ export const ProjectLayout: React.FC<
       </div>
 
       <div className="sticky top-[1.5rem] col-span-full -my-2 h-fit max-h-[calc(100vh_-_4.5rem)] overflow-auto py-2 md:col-start-7 lg:col-start-13">
-        <Separator className="mb-12 mt-20 w-11 md:hidden" />
-
         {/* Mobile */}
-        <div className={cn(subGrid()(), "gap-y-4 md:hidden")}>
+        <div className={cn(subGrid()(), "mt-20 gap-y-4 md:hidden")}>
           <SidebarContent projMeta={projMeta} />
           {nextProjMeta && (
             <>
-              <div className="col-span-4">
-                <Separator className="my-12 w-11" />
-
+              <div className="col-span-4 mt-12">
                 <span className="font-bold text-gray-9">Next project</span>
                 <span className="flex items-center gap-0.5 text-gray-11">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>

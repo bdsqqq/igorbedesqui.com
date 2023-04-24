@@ -94,7 +94,7 @@ export default async function TheManual() {
         </div>
       </HeroBand>
 
-      <div className="flex flex-col gap-24">
+      <div className="flex flex-col gap-20">
         <Band gridless id="why">
           <div className={cn(g)}>
             <div className="col-span-4 mb-8 mt-16 space-y-4 lg:col-span-8 lg:col-start-2">
@@ -339,12 +339,8 @@ export default async function TheManual() {
                 "gap-y-4"
               )}
             >
-              {/* <Separator className="col-span-full mb-12 mt-20 w-11" /> */}
-
               <SidebarContent projMeta={psykipMeta} />
-
-              <div className="col-span-full">
-                {/* <Separator className="my-12 w-11" /> */}
+              <div className="col-span-full mt-12">
                 <h3 className="font-bold text-gray-9">Next project</h3>
                 <StyledLink href={`/work/${bebopMeta.urlSlug}`}>
                   {bebopMeta.name}
