@@ -36,22 +36,18 @@ export const ProjectLayout: React.FC<
   }, []);
 
   return (
-    <div className={cx("px-4 md:px-16", grid({ mode: "narrow" }))}>
+    <div className={cn("px-4 md:px-16", grid({ mode: "narrow" }))}>
       <div className="col-span-full flex flex-col gap-16 md:col-end-7 lg:col-end-13">
         {children}
       </div>
 
       <div className="sticky top-[1.5rem] col-span-full -my-2 h-fit max-h-[calc(100vh_-_4.5rem)] overflow-auto py-2 md:col-start-7 lg:col-start-13">
-        <Separator className="mb-12 mt-20 w-11 md:hidden" />
-
         {/* Mobile */}
-        <div className={cx(subGrid()(), "gap-y-4 md:hidden")}>
+        <div className={cn(subGrid()(), "mt-20 gap-y-4 md:hidden")}>
           <SidebarContent projMeta={projMeta} />
           {nextProjMeta && (
             <>
-              <div className="col-span-4">
-                <Separator className="my-12 w-11" />
-
+              <div className="col-span-4 mt-12">
                 <span className="font-bold text-gray-9">Next project</span>
                 <span className="flex items-center gap-0.5 text-gray-11">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
@@ -66,10 +62,10 @@ export const ProjectLayout: React.FC<
         {/* Desktop */}
         <div
           ref={asideRef}
-          className={cx(subGrid()(), "hidden md:flex md:flex-col md:gap-6")}
+          className={cn(subGrid()(), "hidden md:flex md:flex-col md:gap-6")}
         >
           <aside
-            className={cx(
+            className={cn(
               "transition-opacity duration-fast-02 ease-expressive-standard focus-within:opacity-100 hover:opacity-100",
               isFaded ? "opacity-40" : "opacity-100"
             )}
@@ -98,7 +94,7 @@ export const ProjectLayout: React.FC<
   );
 };
 
-const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
+export const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
   return (
     <>
       <div className="col-span-2">
@@ -160,10 +156,10 @@ export const ProjectBand: FC<PropsWithChildren<BandProps>> = ({
   );
 };
 
-import { Separator } from "@/ui/primitives/";
+import { Separator } from "@/ui/Separator";
 import StyledLink from "@/ui/StyledLink";
 
 import { Meta } from "@/components/ProjectStuff/Projects";
 import React, { FC, PropsWithChildren } from "react";
 import { grid, subGrid } from "../ui/Grid";
-import { cx } from "class-variance-authority";
+import { cn } from "@/lib/styling";

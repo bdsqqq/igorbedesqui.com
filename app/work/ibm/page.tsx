@@ -5,9 +5,9 @@ import { MDX } from "@/components/MDX";
 
 import Container from "@/components/Container";
 import Band from "@/components/Band";
-import { cx } from "class-variance-authority";
 import { grid } from "@/components/ui/Grid";
 import { Blur } from "@/components/ui/Blur";
+import { cn } from "@/lib/styling";
 
 const makeSeo = ({
   title,
@@ -81,12 +81,12 @@ export default async function IBM() {
 
       <div className="flex flex-col gap-20">
         <Band gridless id="context">
-          <div className={cx(grid({ mode: "narrow" }))}>
+          <div className={cn(grid({ mode: "narrow" }))}>
             <div className="col-span-5 text-xl lg:col-span-9">
               <MDX
                 components={{
-                  strong: ({ children }) => (
-                    <span className="text-gray-12">{children}</span>
+                  strong: (props) => (
+                    <span className="text-gray-12" {...props} />
                   ),
                 }}
               >
@@ -99,7 +99,7 @@ export default async function IBM() {
         </Band>
         <Band gridless id="work">
           <ul
-            className={cx(
+            className={cn(
               grid({ mode: "narrow" }),
               "gap-y-8 "
               //"hover:text-gray-10 focus-within:text-gray-10"
@@ -181,7 +181,7 @@ export default async function IBM() {
           </ul>
         </Band>
         <Band gridless id="people">
-          <div className={cx(grid({ mode: "narrow" }), "gap-y-20")}>
+          <div className={cn(grid({ mode: "narrow" }), "gap-y-20")}>
             <div className="col-span-6 space-y-4 lg:col-span-8 lg:col-start-1">
               <MDX
                 components={{
@@ -190,8 +190,8 @@ export default async function IBM() {
                       {children}
                     </ol>
                   ),
-                  strong: ({ children }) => (
-                    <span className="text-gray-12">{children}</span>
+                  strong: (props) => (
+                    <span className="text-gray-12" {...props} />
                   ),
                 }}
               >

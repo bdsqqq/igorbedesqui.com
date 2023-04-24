@@ -64,7 +64,7 @@ export default function RootLayout({
       <body>
         <div className={`${customFont.className} relative`}>
           <Grain />
-          <div className="relative mx-auto max-w-4xl">
+          <div className="relative mx-auto max-w-7xl">
             <Providers>{children}</Providers>
           </div>
           <div

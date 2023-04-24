@@ -10,7 +10,7 @@ export default function Think() {
         </HeroBand>
 
         <Band gridless id="01">
-          <div className={cx(grid({ mode: "narrow" }), "")}>
+          <div className={cn(grid({ mode: "narrow" }), "")}>
             <div>Hej do</div>
           </div>
         </Band>
@@ -24,5 +24,5 @@ import Seo from "@/components/Seo";
 import Band from "@/components/Band";
 import HeroBand from "@/components/HeroBand";
 import StyledLink from "@/ui/StyledLink";
-import { cx } from "class-variance-authority";
 import { grid } from "@/components/ui/Grid";
+import { cn } from "@/lib/styling";

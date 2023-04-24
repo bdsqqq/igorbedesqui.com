@@ -20,7 +20,7 @@ export const Overlay = () => {
       {visible && (
         <div className="pointer-events-none absolute inset-0 z-50 bg-gray-A4">
           <div
-            className={cx(grid({ mode: mode }), "h-full w-full px-4 md:px-16")}
+            className={cn(grid({ mode: mode }), "h-full w-full px-4 md:px-16")}
           >
             {[...Array(16)].map((_, i) => {
               return (
@@ -38,7 +38,7 @@ export const Overlay = () => {
 
 import { grid } from "@/components/ui/Grid";
 
-import { cx } from "class-variance-authority";
 import { useState, Fragment } from "react";
 import { Button } from "@/ui/Button";
 import { EyeClosedIcon, EyeOpenIcon, LayoutIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/styling";

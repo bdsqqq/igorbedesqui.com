@@ -26,9 +26,8 @@ const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
     <>
       <PopoverDisclosure
         state={popoverState}
-        className={cx([
+        className={cn([
           "group inline cursor-pointer select-text font-semibold duration-fast-02 ease-productive-standard focus-within:text-gray-12 hover:text-gray-12 aria-expanded:text-gray-12 motion-safe:transition-all",
-          ,
         ])}
       >
         {children}{" "}
@@ -115,5 +114,6 @@ import {
   usePopoverState,
 } from "ariakit/popover";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
-import { cva, cx, type VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import { Portal } from "ariakit/portal";
+import { cn } from "@/lib/styling";

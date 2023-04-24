@@ -1,5 +1,3 @@
-"use client";
-
 type HeroBandImg = {
   heroImg?: {
     src: string;
@@ -23,10 +21,10 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
   return (
     <Band gridless id="hero">
       <div
-        className={cx(grid({ mode: "narrow" }), "relative min-h-[40vh] w-full")}
+        className={cn(grid({ mode: "narrow" }), "relative min-h-[40vh] w-full")}
       >
         {(heroImg || heroVideo) && (
-          <div className="absolute col-span-full col-start-2 row-start-1 my-0 -ml-4 h-full w-full md:col-start-3 lg:col-start-5">
+          <div className="absolute col-span-full col-start-2 row-start-1 my-0 -ml-4 h-full w-full md:col-start-3 lg:col-start-5 lg:col-end-16">
             <div className="absolute h-full w-full overflow-hidden">
               {heroImg && !!!heroVideo && (
                 <Image
@@ -56,7 +54,7 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
             </div>
           </div>
         )}
-        <div className="relative col-span-full row-start-1 flex min-h-[40vh] items-center md:col-end-7 lg:col-end-13 ">
+        <div className="relative col-span-full row-start-1 flex min-h-[40vh] items-center md:col-end-7 lg:col-start-2 lg:col-end-13">
           <h1 className="mb-4 text-3xl uppercase tracking-tight md:text-4xl">
             {children}
           </h1>
@@ -69,7 +67,7 @@ const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
 export default HeroBand;
 
 import Band from "@/components/Band";
-import { cx } from "class-variance-authority";
+import { cn } from "@/lib/styling";
 
 import Image from "next/image";
 import React from "react";

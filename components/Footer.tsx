@@ -71,6 +71,6 @@ const Footer = () => {
 
 export default Footer;
 
-import { Separator } from "@/ui/primitives";
+import { Separator } from "@/ui/Separator";
 import StyledLink from "@/ui/StyledLink";
 import EmailLink from "./ui/EmailLink";
