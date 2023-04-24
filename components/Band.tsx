@@ -5,6 +5,7 @@ interface BandPropsBasic {
       md: number;
       sm: number;
     };
+    narrow?: boolean;
   };
 }
 
@@ -75,11 +76,21 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
       >
         {headline ? (
           <>
-            <div className="col-span-4 md:col-span-1 lg:col-span-2">
+            <div
+              className={cn(
+                "col-span-4 md:col-span-1 md:-mx-4",
+                options?.narrow ? "md:col-start-1 lg:col-start-4" : ""
+              )}
+            >
               <Headline bold={headline.bold} thin={headline.thin} />
             </div>
 
-            <div className="col-span-full md:col-start-2 lg:col-start-3">
+            <div
+              className={cn(
+                "col-span-full md:col-start-2 lg:col-start-2",
+                options?.narrow ? "md:col-start-2 lg:col-start-5" : ""
+              )}
+            >
               {children}
             </div>
           </>
@@ -97,7 +108,7 @@ const Headline = ({ bold, thin }: { bold: string; thin: string }) => {
       <span className="text-7xl font-bold leading-none text-gray-1 [grid-area:1/1/1/1] md:[writing-mode:vertical-lr]">
         {bold}
       </span>
-      <div className="pb-4 align-top text-lg font-bold [grid-area:1/1/1/1] md:w-min md:pl-2 md:pb-2 md:[writing-mode:vertical-lr]">
+      <div className="pb-4 align-top text-lg font-bold [grid-area:1/1/1/1] md:w-min md:pl-3 md:pb-3 md:[writing-mode:vertical-lr]">
         {thin}
       </div>
     </h2>

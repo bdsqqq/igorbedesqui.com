@@ -76,7 +76,7 @@ export default async function Home() {
       <div className="flex flex-col gap-20">
         <Band gridless id="">
           <div className={cn(grid({ mode: "narrow" }), "mt-32")}>
-            <div className="col-span-full md:col-end-8 lg:col-start-2 lg:col-end-13">
+            <div className="col-span-full md:col-start-2 md:col-end-7 lg:col-start-5 lg:col-end-12">
               <br />
               <h1 className="text-2xl text-gray-12">
                 <span className="col-span-full text-base text-gray-11">
@@ -108,9 +108,14 @@ export default async function Home() {
           </div>
         </Band>
 
-        <Band headline={{ bold: "01", thin: "Work" }}>
+        <Band
+          headline={{ bold: "01", thin: "Work" }}
+          options={{
+            narrow: true,
+          }}
+        >
           <div className={subGrid()({ mode: "narrow" })}>
-            <div className="col-span-full md:col-span-5 lg:col-span-8">
+            <div className="col-span-full md:col-span-5 lg:col-span-6">
               <ul className=" pointer-events-none -mt-4 flex flex-col focus-within:text-gray-10 hover:text-gray-10">
                 {projsMeta.map((projMeta) => {
                   return (
@@ -138,7 +143,7 @@ export default async function Home() {
               <StyledLink href="/work">More work</StyledLink>
             </div>
 
-            <div className="col-span-full lg:col-start-10 lg:col-end-15">
+            <div className="col-span-full lg:col-start-8 lg:col-end-12">
               <h2 className="mt-6 font-bold md:mt-10 lg:mt-0">Writing</h2>
               <div className="mt-2">
                 <ul className="pointer-events-none flex flex-col gap-4 focus-within:text-gray-10 hover:text-gray-10">
@@ -172,14 +177,19 @@ export default async function Home() {
           </div>
         </Band>
 
-        <Band headline={{ bold: "02", thin: "Now" }}>
+        <Band
+          headline={{ bold: "02", thin: "Now" }}
+          options={{
+            narrow: true,
+          }}
+        >
           <div className={subGrid()({ mode: "narrow" })}>
             <div className="col-span-4 col-start-1 row-start-1 -mt-6">
               <span className="text-xs font-bold tracking-tighter text-gray-8">
                 Last updated on <time>03 Mar 2023</time>
               </span>
             </div>
-            <div className="col-span-6 col-start-1 row-start-1 flex flex-col gap-y-4 lg:col-end-13">
+            <div className="col-span-6 col-start-1 row-start-1 flex flex-col gap-y-4 lg:col-end-10">
               <MDX
                 components={{
                   Blur,
