@@ -14,6 +14,7 @@ import { grid, subGrid } from "@/components/ui/Grid";
 import { SidebarContent } from "@/components/ProjectStuff/ProjectLayout";
 import { Separator } from "@/ui/Separator";
 import { cn } from "@/lib/styling";
+import { Border } from "@/components/ui/Border";
 
 const makeSeo = ({
   title,
@@ -138,17 +139,25 @@ export default async function TheManual() {
               `}
               </MDX>
             </div>
-            <div className="col-span-full -mx-4 lg:col-start-1 lg:col-end-14 lg:-mx-0">
-              <video autoPlay={false} controls={true}>
-                <source
-                  src="/videos/the-manual/reading_progress.webm"
-                  type="video/webm"
-                />
-                <source
-                  src="/videos/the-manual/reading_progress.mp4"
-                  type="video/mp4"
-                />
-              </video>
+            <div className="relative col-span-full -mx-4 lg:col-start-1 lg:col-end-14 lg:-mx-0">
+              <Border className="rounded">
+                <video
+                  className=""
+                  autoPlay={false}
+                  controls={true}
+                  loop={true}
+                  muted={true}
+                >
+                  <source
+                    src="/videos/the-manual/reading_progress.webm"
+                    type="video/webm"
+                  />
+                  <source
+                    src="/videos/the-manual/reading_progress.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </Border>
             </div>
             <div className="col-span-3 col-end-[-1] flex items-end md:col-end-9 lg:col-start-14 lg:col-end-17">
               <div className="-mx-4 h-fit rounded border border-gray-A2 bg-gradient-to-b from-gray-A3 to-gray-A2 p-4 text-gray-9">
@@ -205,26 +214,30 @@ export default async function TheManual() {
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
-                <Image
-                  className="w-full"
-                  alt=""
-                  src={"/images/projs/the-manual/1.jpg"}
-                  width={685}
-                  height={993}
-                />
+                <Border className="rounded">
+                  <Image
+                    className="w-full"
+                    alt=""
+                    src={"/images/projs/the-manual/1.jpg"}
+                    width={685}
+                    height={993}
+                  />
+                </Border>
                 <figcaption className="text-sm italic tracking-wide text-gray-10">
                   The landing page mimics a book cover.
                 </figcaption>
               </figure>
 
               <figure className={"space-y-2"}>
-                <Image
-                  className="w-full"
-                  alt=""
-                  src={"/images/projs/the-manual/2.jpg"}
-                  width={685}
-                  height={993}
-                />
+                <Border className="rounded">
+                  <Image
+                    className="w-full "
+                    alt=""
+                    src={"/images/projs/the-manual/2.jpg"}
+                    width={685}
+                    height={993}
+                  />
+                </Border>
                 <figcaption className="text-sm italic tracking-wide text-gray-10">
                   The chapters borrow from actual books with generous line
                   heights, chapter numbers and drop caps.
@@ -236,13 +249,15 @@ export default async function TheManual() {
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
-                <Image
-                  className="w-full"
-                  alt=""
-                  src={"/images/projs/the-manual/5.jpg"}
-                  width={1505}
-                  height={993}
-                />
+                <Border className="rounded">
+                  <Image
+                    className="w-full "
+                    alt=""
+                    src={"/images/projs/the-manual/5.jpg"}
+                    width={1505}
+                    height={993}
+                  />
+                </Border>
                 <figcaption className="text-sm italic tracking-wide text-gray-10">
                   The “compare” pages were inspired by newspapers’s approach to
                   dense information in using columns, adapted to the infinite
@@ -253,18 +268,24 @@ export default async function TheManual() {
 
               <figure className={"space-y-2"}>
                 <div className="space-y-2">
-                  <Image
-                    alt=""
-                    src={"/images/projs/the-manual/3.jpg"}
-                    width={1505}
-                    height={993}
-                  />
-                  <Image
-                    alt=""
-                    src={"/images/projs/the-manual/4.jpg"}
-                    width={1505}
-                    height={993}
-                  />
+                  <Border className="rounded">
+                    <Image
+                      className="w-full"
+                      alt=""
+                      src={"/images/projs/the-manual/3.jpg"}
+                      width={1505}
+                      height={993}
+                    />
+                  </Border>
+                  <Border className="rounded">
+                    <Image
+                      className="w-full"
+                      alt=""
+                      src={"/images/projs/the-manual/4.jpg"}
+                      width={1505}
+                      height={993}
+                    />
+                  </Border>
                 </div>
                 <figcaption className="text-sm italic tracking-wide text-gray-10">
                   The About and Sources pages use layouts inspired by magazines
