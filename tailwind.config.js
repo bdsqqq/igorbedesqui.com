@@ -141,6 +141,9 @@ module.exports = {
         ...mauveDark,
         ...crimsonDark,
       },
+      borderRadius: {
+        inherit: "inherit",
+      },
       dropShadow: {
         input: `
         0px 1px 0px -1px var(--tw-shadow-color),
@@ -153,6 +156,9 @@ module.exports = {
         inset 0px 0px 0px 1px var(--tw-shadow-color),
         inset 0px 1px 0px var(--tw-shadow-color)
       `,
+        "faux-border": `
+            inset 0px 0px 0px 1px var(--tw-shadow-color),
+        `,
       },
       boxShadow: {
         input: `
@@ -166,6 +172,9 @@ module.exports = {
             inset 0px 0px 0px 1px var(--tw-shadow-color),
             inset 0px 1px 0px var(--tw-shadow-color)
           `,
+        "faux-border": `
+            inset 0px 0px 0px 1px var(--tw-shadow-color),
+        `,
       },
     },
   },
