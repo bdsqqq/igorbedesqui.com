@@ -15,3 +15,13 @@ export const basicsMeta = {
   urlSlug: "not-just-the-basics",
   backMessage: "",
 };
+
+export const dontBelieveMeta = {
+  shortName: "“Don't believe in yourself”",
+  name: "“Don't believe in yourself”",
+  description:
+    "Shutting up our inner monologue by listening to people we trust.",
+  date: "08/05/2023",
+  urlSlug: "dont-believe-in-yourself",
+  backMessage: "",
+};
