@@ -2,7 +2,6 @@
 
 interface PopOver {
   content: React.ReactNode;
-  questionMark?: boolean;
   Icon?: React.ForwardRefExoticComponent<any>; // TODO: I don't know if this is the right type, I got it from Radix Icons and it works 👺
   options?: VariantProps<typeof tooltipVariants> & {
     side?: "bottom" | "left" | "right" | "top" | undefined;
@@ -12,7 +11,6 @@ interface PopOver {
 const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
   children,
   content,
-  questionMark = true,
   Icon = QuestionMarkCircledIcon,
   options,
 }) => {
@@ -30,10 +28,8 @@ const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
           "group inline cursor-pointer select-text font-semibold duration-fast-02 ease-productive-standard focus-within:text-gray-12 hover:text-gray-12 aria-expanded:text-gray-12 motion-safe:transition-all",
         ])}
       >
-        {children}{" "}
-        {(Icon || questionMark) && (
-          <Icon className="inline text-gray-11 duration-fast-02 ease-productive-standard group-focus-within:text-gray-12 group-hover:text-gray-12 group-aria-expanded:text-gray-12 motion-safe:transition-all" />
-        )}
+        {children}
+        <Icon className="inline text-gray-11 duration-fast-02 ease-productive-standard group-focus-within:text-gray-12 group-hover:text-gray-12 group-aria-expanded:text-gray-12 motion-safe:transition-all" />
       </PopoverDisclosure>
       <Portal
       // <div>s will cause a hydration mismatch when rendered inside a <p>, see: https://nextjs.org/docs/messages/react-hydration-error. Putting the Popover in a Portal prevents the issue.
