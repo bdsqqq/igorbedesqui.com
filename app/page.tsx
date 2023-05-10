@@ -43,6 +43,14 @@ const makeSeo = ({
       description: description,
       image: ogImageUrl,
       imageAlt: ogText.replace("*", ""),
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: ogText.replace("*", "").replace("/n", ""),
+        },
+      ],
     },
     openGraph: {
       title: title,
