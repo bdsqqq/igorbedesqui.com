@@ -1,3 +1,5 @@
+"use client";
+
 // This is based in the article by spencer mortensen at https://spencermortensen.com/articles/typographic-scale/
 
 const preDefinedScales = [
