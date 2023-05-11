@@ -199,7 +199,7 @@ export default async function IBM() {
                   Dozens of individuals are responsible for my growth, and I'm thankful to have met people who changed how I approach my work. Two that hold a special place in my development are [Rafael Merz](https://www.linkedin.com/in/rafael-merz/) and [Sebastian Huynh](https://www.linkedin.com/in/sebastian-huynh/);
 
                   1. **Rafael's management style allowed me to pursue quality work and taught me the joy of ownership;** My best work happened under his leadership. **Together we delivered experiences that set a new standard for our organization.**
-                  1. **Sebastian's mentorship taught mehow to speak, how to think about design, and from observing him, how to be a better person. I'm lucky to have worked with Sebastian and even luckier to call him a friend.**
+                  1. **Sebastian's mentorship taught me how to speak, how to think about design, and from observing him, how to be a better person. I'm lucky to have worked with Sebastian and even luckier to call him a friend.**
                 `}
               </MDX>
             </div>
