@@ -25,7 +25,10 @@ export default async function Basics() {
           <div className="col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-5 lg:col-end-13">
             <MDX
               components={{
-                Blur,
+                Blur: (props) => (
+                  <Blur className="cursor-not-allowed" {...props} />
+                  // https://twitter.com/MarcosNASAG/status/1656626373534916608?s=20
+                ),
                 blockquote: (props) => (
                   <blockquote
                     className="-indent-4 text-3xl text-gray-12 sm:-indent-6 sm:text-5xl"
