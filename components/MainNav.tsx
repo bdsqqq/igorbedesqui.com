@@ -38,7 +38,7 @@ const MainNav: React.FC<MainNavProps> = ({
   return (
     <nav
       className={cva(
-        "flex w-full items-start justify-end p-8 md:mx-auto md:px-16",
+        "relative z-30 flex w-full items-start justify-end p-8 md:mx-auto md:px-16",
         {
           variants: {
             backable: {
