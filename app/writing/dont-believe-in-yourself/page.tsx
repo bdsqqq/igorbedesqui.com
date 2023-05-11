@@ -44,7 +44,7 @@ export default async function Basics() {
                Is a cheesy quote from an over the top animation that had way too much of an impact on me recently. 
                
                <br />
-               Throughout my development, I had the privilege to consider a few people “mentors” and even if we didn’t talk frequently, their sheer existence made me grow. Of course, their direct input played a big role, but something maybe more important is the fact that **I can ignore my own limits by acknowledging that they trust me; Who the f<Blur>uck</Blur> am I to say that I can’t do something if THEY think I can?**
+               Throughout my development, I had the privilege to consider a few people “mentors” and even if we didn’t talk frequently, their sheer existence made me grow. Of course, their direct input played a big role, but something maybe more important is the fact that **I can ignore my own limits by acknowledging that they trust me; Who the f<Blur>**uck**</Blur> am I to say that I can’t do something if THEY think I can?**
                
                Taking this idea further, I often find myself adding my own thoughts on top of things people I admire say or giving my own meaning to their words, somehow this makes me more confident in ideas that were my own to begin with. 
                
