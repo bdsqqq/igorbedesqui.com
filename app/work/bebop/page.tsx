@@ -13,53 +13,10 @@ import Popover from "@/components/ui/Popover";
 import { MDX } from "@/components/MDX";
 import Image from "next/image";
 
+import { makeSeo } from "@/lib/makeSeo";
+
 import desktopScreenshot from "@/public/images/projs/bebop/desktop-screenshot.png";
 import smartphoneScreenshot from "@/public/images/projs/bebop/smartphone-screenshot.png";
-
-const makeSeo = ({
-  title,
-  description,
-  slug,
-  ogText,
-}: {
-  title: string;
-  description: string;
-  slug: string;
-  ogText: string;
-}): Metadata => {
-  const ogImageUrl = new URL(
-    `https://www.igorbedesqui.com/api/og?text=${ogText}`
-  ).href;
-
-  return {
-    title,
-    description,
-    twitter: {
-      site: "@bdsqqq",
-      creator: "@bdsqqq",
-      // @ts-ignore
-      card: "summary_large_image",
-      title: "Cowboy Bebop web poster",
-      description: description,
-      image: ogImageUrl,
-      imageAlt: ogText.replace("*", ""),
-    },
-    openGraph: {
-      title: "Cowboy Bebop web poster",
-      description: description,
-      url: `https://www.igorbedesqui.com${slug}`,
-      type: "website",
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: ogText.replace("*", "").replace("/n", ""),
-        },
-      ],
-    },
-  };
-};
 
 export const metadata: Metadata = makeSeo({
   title: "Cowboy Bebop web poster",
