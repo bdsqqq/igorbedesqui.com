@@ -17,21 +17,25 @@ export const Overlay = () => {
           {visible ? <EyeOpenIcon /> : <EyeClosedIcon />}
         </Button>
       </div>
-      {visible && (
-        <div className="pointer-events-none absolute inset-0 z-50 bg-gray-A4">
-          <div
-            className={cn(grid({ mode: mode }), "h-full w-full px-4 md:px-16")}
-          >
-            {[...Array(16)].map((_, i) => {
-              return (
-                <div key={i} className="border-x border-gray-A6 bg-gray-A4">
-                  <div className="h-full w-full bg-gray-A4" />
-                </div>
-              );
-            })}
-          </div>
+
+      <div
+        className={cn(
+          !visible && "hidden",
+          "pointer-events-none absolute inset-0 z-50 bg-gray-A4"
+        )}
+      >
+        <div
+          className={cn(grid({ mode: mode }), "h-full w-full px-4 md:px-16")}
+        >
+          {[...Array(16)].map((_, i) => {
+            return (
+              <div key={i} className="border-x border-gray-A6 bg-gray-A4">
+                <div className="h-full w-full bg-gray-A4" />
+              </div>
+            );
+          })}
         </div>
-      )}
+      </div>
     </>
   );
 };
