@@ -20,8 +20,8 @@ export const Overlay = () => {
 
       <div
         className={cn(
-          !visible && "hidden",
-          "pointer-events-none absolute inset-0 z-50 bg-gray-A4"
+          !visible ? "opacity-0" : "opacity-100",
+          "pointer-events-none absolute inset-0 z-50 bg-gray-A1 transition-opacity duration-fast-01 ease-productive-standard"
         )}
       >
         <div
@@ -29,8 +29,18 @@ export const Overlay = () => {
         >
           {[...Array(16)].map((_, i) => {
             return (
-              <div key={i} className="border-x border-gray-A6 bg-gray-A4">
-                <div className="h-full w-full bg-gray-A4" />
+              <div
+                key={i}
+                className={cn(
+                  "hidden border-x border-gray-A3 bg-gray-A2",
+                  i < 4 && "block",
+                  i < 8 && "md:block",
+                  i < 16 && "lg:block"
+                )}
+              >
+                <div className="relative h-full w-full bg-gray-A2 text-center text-gray-10">
+                  <div className="sticky top-4 left-0 right-0">{i + 1}</div>
+                </div>
               </div>
             );
           })}
