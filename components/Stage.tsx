@@ -25,18 +25,32 @@ type StageVariants = VariantProps<typeof stageVariants>;
  */
 export const Stage = ({
   options,
+  children,
   className,
+  title,
   ...rest
 }: { options?: {} & StageVariants } & HTMLProps<HTMLDivElement>) => {
   return (
-    <div
-      className={cn(
-        "grid h-full w-full place-items-center p-4",
-        stageVariants({ ...options }),
-        className
-      )}
-      {...rest}
-    />
+    <div className="relative isolate">
+      <div
+        className={cn(
+          "absolute -top-3 left-4 z-10 bg-gray-0 px-0.5 text-center text-gray-9",
+          title ? "block" : "hidden"
+        )}
+      >
+        {title}
+      </div>
+      <div
+        className={cn(
+          "relative grid h-full w-full place-items-center overflow-visible p-4",
+          stageVariants({ ...options }),
+          className
+        )}
+        {...rest}
+      >
+        {children}
+      </div>
+    </div>
   );
 };
 

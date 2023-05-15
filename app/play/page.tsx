@@ -5,13 +5,13 @@ const Page = () => {
   return (
     <div className="grid min-h-screen place-items-center px-6">
       <StagesWrap>
-        <Stage>
+        <Stage title="Hej do">
           <Button>Hej do</Button>
         </Stage>
-        <Stage>
+        <Stage title="Hej do">
           <Button>Hej do</Button>
         </Stage>
-        <Stage>
+        <Stage title="Hej do">
           <Button>Hej do</Button>
         </Stage>
       </StagesWrap>
