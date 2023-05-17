@@ -1,15 +1,29 @@
 import { Stage, StagesWrap } from "@/components/Stage";
 import { Button } from "@/components/ui/Button";
 import {
-  makePermuations,
   mockVariants,
-  CVAWithPermutations
+  CVAWithPerms
 } from "@/lib/CVAPermutations";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 import { variantOutsideCva} from "@/ui/Button"
+import { cva } from "class-variance-authority";
+//        ^?
 
-const [a, b] = CVAWithPermutations(variantOutsideCva);
+
+const [a, b] = CVAWithPerms("", variantOutsideCva);
+//     ^?
+
+const c = cva("", variantOutsideCva);
+//    ^?
+
+if(a) {
+  a()
+}
+
+c({
+
+})
 
 function replaceLeafValuesWithDots(obj: Record<string, any>): Record<string, any> {
   const result: Record<string, any> = {};
@@ -56,11 +70,11 @@ const Page = () => {
           <ArrowRightIcon />
         </div>
         <StagesWrap>
-          {b && b.map((x) => (
+          {/* {b && b.map((x) => (
           <Stage className="" title={`${Object.values(x).join(" ")}`}>
             <Button {...x}>Hej do</Button>
           </Stage>
-          ))}
+          ))} */}
         </StagesWrap>
       </div>
     </div>

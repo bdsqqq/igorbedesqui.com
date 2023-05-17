@@ -1,4 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
+import { variantOutsideCva as config } from "@/ui/Button"
 
 export const mockVariants2 = cva("", {
   variants: {
@@ -15,8 +16,12 @@ export const mockVariants2 = cva("", {
   },
 });
 
-export const mockVariants = {
-  
+// use this to expose permutations without much change to the API surface of CVA.
+// Does this compute too much eagerly? Should I compute permutations on usage instead of on creation?
+// Config isn't exported by CVA but julius was a saint and helped me with getting the types working.
+
+
+export const mockVariants = { 
     variants: {
       size: {
         sm: "...",
@@ -28,71 +33,75 @@ export const mockVariants = {
         secondary: "...",
         danger: "...",
       },
-
       outlined: {
-        true: "...",
-        false: "...",
+        yea: "...",
+        nope: "...",
       }
-
     },
   
   defaultVariants: {
     size: "md",
-    intent: "gray",
-    outlined: "false",
+    intent: "primary",
+    outlined: "yea",
   },
 
   compoundVariants: [
-    {
-      outlined: "true",
-      intent: "primary",
-      class: "...",
-    },
-  ]
+    { outlined: "yea", intent: "primary", css: "..." },
+    { outlined: "yea", intent: "secondary", css: "..." },
+    { outlined: "yea", intent: "danger", css: "..." },
+  ],
 };
 
-type Options<T> = NonNullable<Parameters<typeof cva<T>>[1]>;
+type ClassValue = Parameters<typeof cva>[0];
+type Config<T> = NonNullable<Parameters<typeof cva<T>>[1]>;
+type CVAReturn<T> = ReturnType<typeof cva<T>>;
 
-export const makePermuations = <T>(input: Options<T>) => {
-  const {variants, defaultVariants, compoundVariants} = input;
+export const makePermutations = <T>(config: Config<T>) => {
+const { variants, defaultVariants, compoundVariants } = config;
 
   if (!variants) {
-    // throw new Error("No variants found");
-    console.warn("Can't make permutations without variants", input);
+    console.warn("Can't make permutations without variants", config);
     return [];
   }
-  
+
   const variantKeys = Object.keys(variants);
-  const options = variantKeys.map((key) => {
-    return Object.keys(variants[key])
-  })
+  const options = variantKeys.map(key => Object.keys(variants[key]));
 
-  const optionTuplesWithKeys = variantKeys.map((key, index) => {
-    return options[index].map((option) => {
-      return [key, option]
-    })
-  })
-
-  const keyOptions = optionTuplesWithKeys.map((keyOptions) => {
-    return keyOptions.map(([key, option]) => {
-      return Object.fromEntries([[key, option]])
-    })
-  })
-
-  const permutations = keyOptions.reduce((acc, keyOption) => {
-    return acc.flatMap((accOption) => {
-      return keyOption.map((keyOption) => {
-        return {...accOption, ...keyOption}
-      })
-    })
-  }, [{}])
-
-  return permutations
+  const keyOptions = variantKeys.map((key, index) =>
+  options[index].map(option => ({ [key]: option }))
+  );
+  
+  return keyOptions.reduce(
+    (acc, keyOption) =>
+      acc.flatMap(accOption =>
+        keyOption.map(option => ({ ...accOption, ...option }))
+      ),
+    [{}]
+  );
 };
 
-// use this to expose permutations without much change to the API surface of CVA.
-// Does this compute too much eagerly? Should I compute permutations on usage instead of on creation?
-// Config isn't exported by CVA but julius was a saint and helped me with getting the types working.
-export const CVAWithPermutations = <T extends Options<any>>(input: T) => {
-  return [cva("", input), input ? makePermuations(input) : null];
-};
+// export const CVAWithPerms = <T extends Config<any>>(base: ClassValue, config: T) => {
+
+//   return [cva(base, config) as CVAReturn<T>, config ? makePermutations(config) : null];
+// };
+
+
+
+
+
+
+
+
+export const CVAWithPerms = <T>(base: Parameters<typeof cva<T>>[0], config: Parameters<typeof cva<T>>[1]) => {
+  return [cva(base, config), config ? makePermutations(config): null] as const ;
+}
+
+const [mockCVA, mockPerm] = CVAWithPerms("", config);
+const actualCVA = cva("", config);
+
+mockCVA && mockCVA({
+  
+});
+
+actualCVA();
+// ^?
