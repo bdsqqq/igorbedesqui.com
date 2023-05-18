@@ -1,7 +1,6 @@
 import { Stage, StagesWrap } from "@/components/Stage";
 import { Button } from "@/components/ui/Button";
 import {
-  mockVariants,
   CVAWithPerms
 } from "@/lib/CVAPermutations";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
@@ -70,11 +69,11 @@ const Page = () => {
           <ArrowRightIcon />
         </div>
         <StagesWrap>
-          {/* {b && b.map((x) => (
-          <Stage className="" title={`${Object.values(x).join(" ")}`}>
+          {b && b.map((x) => (
+          <Stage key={`${Object.values(x).join(" ")}`} className="" title={`${Object.values(x).join(" ")}`}>
             <Button {...x}>Hej do</Button>
           </Stage>
-          ))} */}
+          ))}
         </StagesWrap>
       </div>
     </div>

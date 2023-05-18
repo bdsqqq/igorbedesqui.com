@@ -1,61 +1,33 @@
-import { cva, type VariantProps } from "class-variance-authority";
-import { variantOutsideCva as config } from "@/ui/Button"
+import { cva } from "class-variance-authority";
 
-export const mockVariants2 = cva("", {
+export const mockConfig = {
   variants: {
-    border: {
-      true: "border",
+    size: {
+      sm: "sm",
+      md: "md",
+      lg: "lg",
     },
-    rounded: {
-      true: "rounded-md",
+    intent: {
+      primary: [
+        "primary"
+      ],
+      danger: [        
+        "danger"
+      ],
     },
+    outlined: {
+      true: "outlined",
+      false: "not-outlined",
+    }
   },
-  defaultVariants: {
-    border: true,
-    rounded: true,
-  },
-});
+}
 
-// use this to expose permutations without much change to the API surface of CVA.
-// Does this compute too much eagerly? Should I compute permutations on usage instead of on creation?
-// Config isn't exported by CVA but julius was a saint and helped me with getting the types working.
-
-
-export const mockVariants = { 
-    variants: {
-      size: {
-        sm: "...",
-        md: "...",
-        lg: "...",
-      },
-      intent: {
-        primary: "...",
-        secondary: "...",
-        danger: "...",
-      },
-      outlined: {
-        yea: "...",
-        nope: "...",
-      }
-    },
-  
-  defaultVariants: {
-    size: "md",
-    intent: "primary",
-    outlined: "yea",
-  },
-
-  compoundVariants: [
-    { outlined: "yea", intent: "primary", css: "..." },
-    { outlined: "yea", intent: "secondary", css: "..." },
-    { outlined: "yea", intent: "danger", css: "..." },
-  ],
-};
 
 type ClassValue = Parameters<typeof cva>[0];
 type Config<T> = NonNullable<Parameters<typeof cva<T>>[1]>;
-type CVAReturn<T> = ReturnType<typeof cva<T>>;
 
+// Does this compute too much eagerly? Should I compute permutations on usage instead of on creation?
+// Config isn't exported by CVA but julius was a saint and helped me with getting the types working.
 export const makePermutations = <T>(config: Config<T>) => {
 const { variants, defaultVariants, compoundVariants } = config;
 
@@ -80,28 +52,33 @@ const { variants, defaultVariants, compoundVariants } = config;
   );
 };
 
-// export const CVAWithPerms = <T extends Config<any>>(base: ClassValue, config: T) => {
+/**
+ * Wrapper around CVA that exposes all possible variant permutations
+ * 
+ * @param base Base classes added to all variants
+ * @param config Config object from CVA
+ * @returns [return from CVA, Permutations]
+ * 
+ * @example
+ * const [variants, permutations] = CVAWithPerms("...", {
+ * variants: {
+ *  size: {
+ *    sm: "...",
+ *    md: "...",
+ *  },
+ * }});
+ */
+export const CVAWithPerms = <T>(base: ClassValue, config: Config<T>) => {
+  if (!config) {
+    console.warn("Can't make permutations without config, be sure to pass the second argument");
+    return [cva(base, config), null] as const;
+  }
 
-//   return [cva(base, config) as CVAReturn<T>, config ? makePermutations(config) : null];
-// };
-
-
-
-
-
-
-
-
-export const CVAWithPerms = <T>(base: Parameters<typeof cva<T>>[0], config: Parameters<typeof cva<T>>[1]) => {
   return [cva(base, config), config ? makePermutations(config): null] as const ;
 }
 
-const [mockCVA, mockPerm] = CVAWithPerms("", config);
-const actualCVA = cva("", config);
-
-mockCVA && mockCVA({
-  
-});
-
-actualCVA();
-// ^?
+// This is here to test the types, don't worry about it.
+const [Button, ButtonPerms] = CVAWithPerms("button", mockConfig);
+//       ^?
+const Button2 = cva("button", mockConfig);
+//        ^?
