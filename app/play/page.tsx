@@ -1,3 +1,4 @@
+import Container from "@/components/Container";
 import { Stage, StagesWrap } from "@/components/Stage";
 import { Button } from "@/components/ui/Button";
 import {
@@ -58,7 +59,7 @@ const variantsPlaceholder = replaceLeafValuesWithDots(cvaConfig);
 
 const Page = () => {
   return (
-    <div className="grid min-h-screen place-items-center px-6">
+    <div className="grid min-h-screen place-items-center px-6 md:px-12">
       <div className="flex gap-6 items-center">
         <div className="max-w-sm">
           <pre className="">{JSON.stringify(variantsPlaceholder, null, 2)}</pre>
@@ -72,13 +73,13 @@ const Page = () => {
         <div className="w-4 h-4 text-base">
           <ArrowRightIcon />
         </div>
-        <StagesWrap>
+        <div className="flex flex-col lg:flex-row gap-4">
           {permutations && permutations.map((permutation) => (
-          <Stage key={`${Object.values(permutation).join(" ")}`} className="" title={`${Object.values(permutation).join(" ")}`}>
-            <Button {...permutation}>Hej do</Button>
-          </Stage>
+            <Stage key={`${Object.values(permutation).join(" ")}`} className="" title={`${Object.values(permutation).join(" ")}`}>
+              <Button {...permutation}>Hej do</Button>
+            </Stage>
           ))}
-        </StagesWrap>
+        </div>
       </div>
     </div>
   );
