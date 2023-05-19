@@ -113,7 +113,7 @@ export default async function Home() {
                         <h3 className="inline">{piece.name}</h3>
                         {piece.description.length > 0 && (
                           <>
-                            <span>{" — "}</span>
+                            <span>{" — "}</span>
                             <p className="inline text-xs">
                               {piece.description}
                             </p>
