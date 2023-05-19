@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { Providers } from "./Providers";
 import { Grain } from "./Grain";
-import { Fade } from "./Fade";
+import { Vignette } from "./Fade";
 
 import { IBM_Plex_Serif } from "next/font/google";
 
@@ -65,7 +65,7 @@ export default function RootLayout({
       <body>
         <div className={`${customFont.className} relative`}>
           <Grain />
-          <Fade />
+          <Vignette />
           <div className="relative mx-auto max-w-7xl">
             <Providers>{children}</Providers>
           </div>

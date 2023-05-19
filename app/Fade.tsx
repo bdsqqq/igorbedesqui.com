@@ -21,12 +21,12 @@ const orientation = {
 // TODO: This is also defined in tailwind config, when you make it a .ts choose the source of truth
 export const vignetteZIndex = 10;
 
-export const Fade = () => {
+export const Vignette = () => {
   return (
     <div className="pointer-events-none fixed inset-0 z-10 h-full w-full overflow-hidden">
-      <FadeThing className="h-72" pos="top" />
+      <VignetteStrip className="h-72" pos="top" />
       {dirs.map((dir) => (
-        <FadeThing key={dir} pos={dir} />
+        <VignetteStrip key={dir} pos={dir} />
       ))}
     </div>
   );
@@ -39,7 +39,7 @@ const defaultSizes = {
   right: "20vw",
 };
 
-const FadeThing = ({
+const VignetteStrip = ({
   sizing,
   pos,
   className,
