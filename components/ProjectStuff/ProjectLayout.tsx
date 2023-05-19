@@ -41,7 +41,7 @@ export const ProjectLayout: React.FC<
         {children}
       </div>
 
-      <div className="sticky top-[1.5rem] col-span-full -my-2 h-fit max-h-[calc(100vh_-_4.5rem)] overflow-auto py-2 md:col-start-7 lg:col-start-13">
+      <div className="sticky top-[1.5rem] z-aboveVignette col-span-full -my-2 h-fit max-h-[calc(100vh_-_4.5rem)] overflow-auto py-2 md:col-start-7 lg:col-start-13">
         {/* Mobile */}
         <div className={cn(subGrid()(), "mt-20 gap-y-4 md:hidden")}>
           <SidebarContent projMeta={projMeta} />

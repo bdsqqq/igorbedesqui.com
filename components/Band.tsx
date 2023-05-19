@@ -66,10 +66,10 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
           !gridless
             ? !!options?.subGrid
               ? subGrid({
-                  lg: options?.subGrid?.lg,
-                  md: options?.subGrid?.md,
-                  sm: options?.subGrid?.sm,
-                })({ mode: "narrow" })
+                lg: options?.subGrid?.lg,
+                md: options?.subGrid?.md,
+                sm: options?.subGrid?.sm,
+              })({ mode: "narrow" })
               : grid({ mode: "narrow" })
             : ""
         }
@@ -78,7 +78,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
           <>
             <div
               className={cn(
-                "col-span-4 md:col-span-1 md:-mx-4",
+                "col-span-4 md:col-span-1 md:-mx-4 z-aboveVignette",
                 options?.narrow ? "md:col-start-1 lg:col-start-4" : ""
               )}
             >
