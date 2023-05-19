@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { Providers } from "./Providers";
 import { Grain } from "./Grain";
-import { Vignette } from "./Fade";
+import { Vignette } from "./Vignette";
 
 import { IBM_Plex_Serif } from "next/font/google";
 
