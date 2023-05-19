@@ -1,33 +1,3 @@
-export const variantOutsideCva = {
-  variants: {
-    size: {
-      sm: "text-sm",
-      md: "text-base",
-      lg: "text-xl",
-    },
-    intent: {
-      primary: cn(
-        "border-gray-A4",
-        "shadow-gray-A3",
-        "from-gray-A2 to-gray-A4",
-        "hover:border-gray-A8",
-        "focus-visible:border-gray-A8"
-      ),
-      danger: cn(
-        "border-crimson7",
-        "shadow-crimson6",
-        "from-crimson2 to-crimson3",
-        "hover:border-crimson8",
-        "focus-visible:border-crimson8"
-      ),
-    },
-    outlined: {
-      true: "bg-transparent from-transparent to-transparent",
-      false: "border-transparent",
-    }
-  },
-}
-
 const variants = cva(
   cn(
     "select-none appearance-none",
@@ -39,7 +9,24 @@ const variants = cva(
     "active:scale-95",
     "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-0/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard"
   ),
-  variantOutsideCva
+  {
+    variants: {
+      size: {
+        sm: "text-sm",
+        md: "text-base",
+        lg: "text-xl",
+      },
+      intent: {
+        primary: cn(
+          "border-gray-A4",
+          "shadow-gray-A3",
+          "from-gray-A2 to-gray-A4",
+          "hover:border-gray-A8",
+          "focus-visible:border-gray-A8"
+        ),
+      },
+    },
+  }
 );
 
 type variants = VariantProps<typeof variants>;
@@ -47,7 +34,6 @@ type variants = VariantProps<typeof variants>;
 const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
   size = "lg",
   intent = "primary",
-  outlined = false,
   children,
   className,
   ...rest
@@ -57,7 +43,6 @@ const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
       variants({
         size,
         intent,
-        outlined
       }),
       className
     )}
