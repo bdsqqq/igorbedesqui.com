@@ -24,7 +24,7 @@ export const vignetteZIndex = 10;
 export const Vignette = () => {
   return (
     <div className="pointer-events-none fixed inset-0 z-vignette h-full w-full overflow-hidden">
-      <VignetteStrip className="h-72" pos="top" />
+      <VignetteStrip sizing="300px" pos="top" />
       {dirs.map((dir) => (
         <VignetteStrip key={dir} pos={dir} />
       ))}
