@@ -34,7 +34,7 @@ export const Stage = ({
     <div className="relative isolate">
       <div
         className={cn(
-          "absolute -top-3 left-4 z-10 bg-gray-0 px-0.5 text-center text-gray-9",
+          "absolute -top-3 left-4 z-10 bg-gray-0 px-0.5 text-center text-gray-9 whitespace-nowrap text-xs",
           title ? "block" : "hidden"
         )}
       >

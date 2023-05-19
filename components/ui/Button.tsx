@@ -16,8 +16,8 @@ const variants = cva(
         md: "text-base",
         lg: "text-xl",
       },
-      color: {
-        gray: cn(
+      intent: {
+        primary: cn(
           "border-gray-A4",
           "shadow-gray-A3",
           "from-gray-A2 to-gray-A4",
@@ -33,7 +33,7 @@ type variants = VariantProps<typeof variants>;
 
 const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
   size = "lg",
-  color = "gray",
+  intent = "primary",
   children,
   className,
   ...rest
@@ -42,7 +42,7 @@ const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
     className={cn(
       variants({
         size,
-        color,
+        intent,
       }),
       className
     )}
@@ -54,7 +54,7 @@ const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
 // I don't know what type should go here and I'm tired, htmlhtml works
 const LinkButton: React.FC<HtmlHTMLAttributes<{}> & LinkProps & variants> = ({
   size = "lg",
-  color = "gray",
+  intent = "primary",
   children,
   className,
   ...rest
@@ -63,7 +63,7 @@ const LinkButton: React.FC<HtmlHTMLAttributes<{}> & LinkProps & variants> = ({
     className={cn(
       variants({
         size,
-        color,
+        intent,
       }),
       className
     )}
