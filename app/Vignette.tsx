@@ -4,7 +4,7 @@ import { HTMLProps } from "react";
 const dirs = ["top", "bottom", "left", "right"] as const;
 type Dir = (typeof dirs)[number];
 
-const opositeDir = {
+const oppositeDir = {
   top: "bottom",
   bottom: "top",
   left: "right",
@@ -17,9 +17,6 @@ const orientation = {
   left: "horizontal",
   right: "horizontal",
 };
-
-// TODO: This is also defined in tailwind config, when you make it a .ts choose the source of truth
-export const vignetteZIndex = 10;
 
 export const Vignette = () => {
   return (
@@ -61,7 +58,7 @@ const VignetteStrip = ({
       style={{
         [pos === "top" || pos === "bottom" ? "height" : "width"]:
           sizing || defaultSizes[pos],
-        maskImage: `linear-gradient(to ${opositeDir[pos]}, var(--color-gray-1) 25%, transparent)`,
+        maskImage: `linear-gradient(to ${oppositeDir[pos]}, var(--color-gray-1) 25%, transparent)`,
       }}
       {...rest}
     />
