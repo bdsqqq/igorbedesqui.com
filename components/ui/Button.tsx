@@ -1,4 +1,4 @@
-const variants = cva(
+export const buttonVariants = cva(
   cn(
     "select-none appearance-none",
     "relative rounded-sm px-2 py-1 inline-flex items-center gap-2 align-middle outline-none focus-within:outline-none",
@@ -26,58 +26,44 @@ const variants = cva(
         ),
       },
     },
+    defaultVariants: {
+      size: "md",
+      intent: "primary",
+    },
   }
 );
 
-type variants = VariantProps<typeof variants>;
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants> & { asChild?: boolean }
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, intent, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
+    return (
+      <Comp
+        className={cn(buttonVariants({ intent, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Button.displayName = "Button"
 
-const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
-  size = "lg",
-  intent = "primary",
-  children,
-  className,
-  ...rest
-}) => (
-  <button
-    className={cn(
-      variants({
-        size,
-        intent,
-      }),
-      className
-    )}
-    {...rest}
-  >
-    {children}
-  </button>
-);
-// I don't know what type should go here and I'm tired, htmlhtml works
-const LinkButton: React.FC<HtmlHTMLAttributes<{}> & LinkProps & variants> = ({
-  size = "lg",
-  intent = "primary",
-  children,
-  className,
-  ...rest
-}) => (
-  <UnstyledLink
-    className={cn(
-      variants({
-        size,
-        intent,
-      }),
-      className
-    )}
-    {...rest}
-  >
-    {children}
-  </UnstyledLink>
-);
+export type LinkButtonProps = UnstyledLinkProps & VariantProps<typeof buttonVariants>
+export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
+  ({ className, intent, size, ...props }, ref) => {
+    return (
+      <UnstyledLink
+        className={cn(buttonVariants({ intent, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+LinkButton.displayName = "LinkButton"
 
-export { Button, LinkButton };
-
-import { UnstyledLink } from "./primitives";
-import type { LinkProps } from "next/link";
+import React, { HtmlHTMLAttributes } from "react";
+import { UnstyledLink, UnstyledLinkProps } from "@/ui/primitives/UnstyledLink";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/styling";
-import { ButtonProps } from "ariakit";
-import React, { HtmlHTMLAttributes } from "react";
+import { Slot } from "@radix-ui/react-slot";
