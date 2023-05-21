@@ -2,15 +2,15 @@
 
 type MainNavProps =
   | {
-      backable?: boolean;
-      backMessage?: never;
-      backAnchor?: string;
-    }
+    backable?: boolean;
+    backMessage?: never;
+    backAnchor?: string;
+  }
   | {
-      backable: true;
-      backMessage?: string;
-      backAnchor?: string;
-    };
+    backable: true;
+    backMessage?: string;
+    backAnchor?: string;
+  };
 
 const MainNav: React.FC<MainNavProps> = ({
   backable,
@@ -38,7 +38,7 @@ const MainNav: React.FC<MainNavProps> = ({
   return (
     <nav
       className={cva(
-        "relative z-30 flex w-full items-start justify-end p-8 md:mx-auto md:px-16",
+        "relative z-aboveVignette flex w-full items-start justify-end p-8 md:mx-auto md:px-16",
         {
           variants: {
             backable: {

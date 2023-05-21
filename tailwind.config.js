@@ -1,5 +1,7 @@
 const { mauveDark, crimsonDark } = require("@radix-ui/colors");
 
+const vignetteZIndex = 10;
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -176,6 +178,10 @@ module.exports = {
             inset 0px 0px 0px 1px var(--tw-shadow-color),
         `,
       },
+      zIndex: {
+        vignette: `${vignetteZIndex}`,
+        aboveVignette: `${vignetteZIndex + 1}`
+      }
     },
   },
   safelist: [
