@@ -5,6 +5,8 @@ import { Vignette } from "./Vignette";
 
 import { IBM_Plex_Serif } from "next/font/google";
 
+export { reportWebVitals } from "next-axiom";
+
 const customFont = IBM_Plex_Serif({
   display: "swap",
   subsets: ["latin"],
