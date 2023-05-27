@@ -44,9 +44,8 @@ const DocumentStuff = () => {
 
       <script
         async
-        defer
+        src="https://analytics.qui.gg/script.js"
         data-website-id="a0b7ea4d-eb6c-4e04-8450-00228ac796fb"
-        src="https://analytics.igorbedesqui.com/umami.js"
       ></script>
     </>
   );
