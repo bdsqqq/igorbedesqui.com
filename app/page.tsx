@@ -143,37 +143,32 @@ export default async function Home() {
           <div className={subGrid()({ mode: "narrow" })}>
             <div className="col-span-4 col-start-1 row-start-1 -mt-6">
               <span className="text-xs font-bold tracking-tighter text-gray-8">
-                Last updated on <time>03 Mar 2023</time>
+                Last updated on <time>28 May 2023</time>
               </span>
             </div>
             <div className="col-span-6 col-start-1 row-start-1 flex flex-col gap-y-4 lg:col-end-10">
               <MDX
                 components={{
-                  Blur,
-                  strong: (props) => (
-                    <span className="text-gray-12" {...props} />
+                  Blur: (props) => (
+                    <Blur
+                      className="[&_strong]:text-gray-8 [&_strong]:transition-colors [&_strong]:duration-moderate-02 [&_strong]:ease-productive-standard"
+                      {...props}
+                    />
                   ),
-                }}
-              >
-                {`
-                  Now, **I'm focusing on the basics of my craft. The fine and detailed polish I strive for will come as I build [“Just” the basics](/writing/${basicsMeta.urlSlug}) with care**. <Blur>I hope…</Blur>
-
-                  Collaborating with amazing people, convincing myself I belong among them.
-                `}
-              </MDX>
-              <MDX
-                components={{
-                  Blur,
                   strong: (props) => (
-                    <span
-                      className="text-gray-8 transition-colors duration-moderate-02 ease-productive-standard group-hover/blur:text-gray-12 group-focus/blur:text-gray-12"
+                    <strong
+                      className="font-normal text-gray-12 group-hover/blur:text-gray-12 group-focus/blur:text-gray-12"
                       {...props}
                     />
                   ),
                 }}
               >
                 {`
-                  Going insane over immigration stuff, missing my partner a lot. <Blur>Trying my hardest to heal my declining mental health, **one** ~~small~~ **win at a time**, **every single day**.</Blur>
+                  Now, **I'm focusing on the basics of my craft. The fine and detailed polish I strive for will come as I build [“Just” the basics](/writing/${basicsMeta.urlSlug}) with care**. <Blur>I hope…</Blur>
+
+                  Collaborating with amazing people, convincing myself I belong among them. Trying to make something worth stealing at [axiom](https://www.axiom.co/). <Blur>Naively trying to raise the bar for an industry, knowing that I myself am bellow the current one. **I'll get there.**</Blur>
+
+                  Creating a home with my partner in a new continent. <Blur>Trying my hardest to heal my declining mental health, **one** ~~small~~ **win at a time**, **every single day**.</Blur>
                 `}
               </MDX>
             </div>
