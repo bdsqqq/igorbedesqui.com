@@ -76,6 +76,10 @@ module.exports = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        fadeOut: {
+          "0%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
 
         scaleInSlideDown: {
           "0%": { opacity: "0", transform: "translateY(-5px) scale(0)" },
@@ -96,6 +100,7 @@ module.exports = {
       },
       animation: {
         fade: "fade 550ms cubic-bezier(0, 0, 0.3, 1)",
+        fadeOut: "fadeOut 550ms cubic-bezier(0, 0, 0.3, 1)",
 
         scaleInSlideDown:
           "scaleInSlideDown 110ms cubic-bezier(0, 0, 0.38, 0.9)",
@@ -180,8 +185,8 @@ module.exports = {
       },
       zIndex: {
         vignette: `${vignetteZIndex}`,
-        aboveVignette: `${vignetteZIndex + 1}`
-      }
+        aboveVignette: `${vignetteZIndex + 1}`,
+      },
     },
   },
   safelist: [
