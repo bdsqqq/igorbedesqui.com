@@ -4,6 +4,7 @@ import { Grain } from "./Grain";
 import { Vignette } from "./Vignette";
 
 import { IBM_Plex_Serif } from "next/font/google";
+import Script from "next/script";
 
 export { reportWebVitals } from "next-axiom";
 
@@ -42,11 +43,11 @@ const DocumentStuff = () => {
       <meta name="msapplication-TileColor" content="#0A0A0A" />
       <meta name="theme-color" content="#0A0A0A" />
 
-      <script
-        async
+      <Script
+        strategy="afterInteractive"
         src="https://analytics.qui.gg/script.js"
         data-website-id="a0b7ea4d-eb6c-4e04-8450-00228ac796fb"
-      ></script>
+      />
     </>
   );
 };
