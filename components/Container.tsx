@@ -24,7 +24,8 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
 
   return (
     <div className="">
-      <div className="relative min-h-screen motion-safe:animate-fade">
+      <div className="relative min-h-screen">
+        <div className=" pointer-events-none absolute z-30 h-full w-full bg-gray-0 opacity-0 motion-safe:animate-fadeOut" />
         {!backable ? (
           <MainNav />
         ) : (
