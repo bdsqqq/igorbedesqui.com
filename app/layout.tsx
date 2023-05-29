@@ -68,9 +68,7 @@ export default function RootLayout({
         <div className={`${customFont.className} relative`}>
           <Grain />
           <Vignette />
-          <div className="relative mx-auto max-w-7xl">
-            <Providers>{children}</Providers>
-          </div>
+          <Providers>{children}</Providers>
           <div
             className="pointer-events-none absolute top-0 h-full w-full opacity-[3%] blur-[100px] saturate-150 filter"
             style={{

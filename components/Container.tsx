@@ -23,26 +23,29 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   // }
 
   return (
-    <div className="">
-      <div className="relative min-h-screen">
-        <div className=" pointer-events-none absolute z-30 h-full w-full bg-gray-0 opacity-0 motion-safe:animate-fadeOut" />
-        {!backable ? (
-          <MainNav />
-        ) : (
-          <MainNav
-            backable={backable}
-            backMessage={backMessage}
-            backAnchor={backAnchor}
-          />
-        )}
-        <GridOverlay />
-        <div className="relative -mr-2 flex min-h-[calc(100_-_104px)] w-full flex-col justify-between">
-          <main className="flex flex-col justify-center">{children}</main>
-          {/* <Footer /> */}
-          <div className="mt-32" />
+    <>
+      <div className="pointer-events-none absolute inset-0 z-30 bg-gray-0 opacity-0 motion-safe:animate-fadeOut" />
+
+      <div className="relative mx-auto max-w-7xl">
+        <div className="relative min-h-screen">
+          {!backable ? (
+            <MainNav />
+          ) : (
+            <MainNav
+              backable={backable}
+              backMessage={backMessage}
+              backAnchor={backAnchor}
+            />
+          )}
+          <GridOverlay />
+          <div className="relative -mr-2 flex min-h-[calc(100_-_104px)] w-full flex-col justify-between">
+            <main className="flex flex-col justify-center">{children}</main>
+            {/* <Footer /> */}
+            <div className="mt-32" />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
