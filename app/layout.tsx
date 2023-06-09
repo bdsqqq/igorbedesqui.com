@@ -56,8 +56,10 @@ export default function RootLayout({
   // Layouts must accept a children prop.
   // This will be populated with nested layouts or pages
   children,
+  peek,
 }: {
   children: React.ReactNode;
+  peek: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -68,7 +70,10 @@ export default function RootLayout({
         <div className={`${customFont.className} relative`}>
           <Grain />
           <Vignette />
-          <Providers>{children}</Providers>
+          <Providers>
+            {children}
+            {peek}
+          </Providers>
           <div
             className="pointer-events-none absolute top-0 h-full w-full opacity-[3%] blur-[100px] saturate-150 filter"
             style={{

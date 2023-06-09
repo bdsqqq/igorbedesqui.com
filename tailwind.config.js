@@ -82,11 +82,11 @@ module.exports = {
         },
 
         scaleInSlideDown: {
-          "0%": { opacity: "0", transform: "translateY(-5px) scale(0)" },
+          "0%": { opacity: "0", transform: "translateY(-5px) scale(0.8)" },
           "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
         },
         scaleInSlideUp: {
-          "0%": { opacity: "0", transform: "translateY(5px) scale(0)" },
+          "0%": { opacity: "0", transform: "translateY(5px) scale(0.8)" },
           "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
         },
         scaleOutSlideDown: {

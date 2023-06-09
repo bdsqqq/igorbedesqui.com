@@ -24,7 +24,7 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
 
   return (
     <>
-      <div className="pointer-events-none absolute inset-0 z-30 bg-gray-0 opacity-0 motion-safe:animate-fadeOut" />
+      {/* <div className="pointer-events-none absolute inset-0 z-30 bg-gray-0 opacity-0 motion-safe:animate-fadeOut" /> */}
 
       <div className="relative mx-auto max-w-7xl">
         <div className="relative min-h-screen">
