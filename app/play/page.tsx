@@ -1,17 +1,22 @@
 import Container from "@/components/Container";
 import { Stage, StagesWrap } from "@/components/Stage";
 import { Button } from "@/components/ui/Button";
-import {
-  CVAWithPerms
-} from "@/lib/CVAPermutations";
+import { CVAWithPerms } from "@/lib/CVAPermutations";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
+import { Border } from "@/components/ui/Border";
 
-function replaceLeafValuesWithDots(obj: Record<string, any>): Record<string, any> {
+function replaceLeafValuesWithDots(
+  obj: Record<string, any>
+): Record<string, any> {
   const result: Record<string, any> = {};
 
   for (const key in obj) {
-    if (typeof obj[key] === "object" && obj[key] !== null && Array.isArray(obj[key]) === false) {
+    if (
+      typeof obj[key] === "object" &&
+      obj[key] !== null &&
+      Array.isArray(obj[key]) === false
+    ) {
       result[key] = replaceLeafValuesWithDots(obj[key]);
     } else {
       result[key] = "...";
@@ -34,11 +39,11 @@ const cvaConfig = {
         "shadow-gray-A3",
         "from-gray-A2 to-gray-A4",
         "hover:border-gray-A8",
-        "focus-visible:border-gray-A8"
-      ]
+        "focus-visible:border-gray-A8",
+      ],
     },
   },
-}
+};
 
 const [variants, permutations] = CVAWithPerms(
   cn(
@@ -56,32 +61,44 @@ const [variants, permutations] = CVAWithPerms(
 
 const variantsPlaceholder = replaceLeafValuesWithDots(cvaConfig);
 
-
 const Page = () => {
   return (
-    <div className="grid min-h-screen place-items-center px-6 md:px-12">
-      <div className="flex gap-6 items-center">
-        <div className="max-w-sm">
-          <pre className="">{JSON.stringify(variantsPlaceholder, null, 2)}</pre>
-        </div>
-        <div className="w-4 h-4 text-base">
-          <ArrowRightIcon />
-        </div>
-        <div className="">
-          <pre>{JSON.stringify(permutations, null, 2)}</pre>
-        </div>
-        <div className="w-4 h-4 text-base">
-          <ArrowRightIcon />
-        </div>
-        <div className="flex flex-col lg:flex-row gap-4">
-          {permutations && permutations.map((permutation) => (
-            <Stage key={`${Object.values(permutation).join(" ")}`} className="" title={`${Object.values(permutation).join(" ")}`}>
-              <Button {...permutation}>Hej do</Button>
-            </Stage>
-          ))}
-        </div>
+    <Container>
+      <div className="grid min-h-screen place-items-center px-6 md:px-12">
+        <Border>
+          {/* TODO: handle case when this is a string and not a straight up react element */}
+          <div className="h-44 w-44 bg-gradient-to-l from-gray-A7 to-gray-A4" />
+        </Border>
       </div>
-    </div>
+    </Container>
   );
 };
+
+// const Page = () => {
+//   return (
+//     <div className="grid min-h-screen place-items-center px-6 md:px-12">
+//       <div className="flex gap-6 items-center">
+//         <div className="max-w-sm">
+//           <pre className="">{JSON.stringify(variantsPlaceholder, null, 2)}</pre>
+//         </div>
+//         <div className="w-4 h-4 text-base">
+//           <ArrowRightIcon />
+//         </div>
+//         <div className="">
+//           <pre>{JSON.stringify(permutations, null, 2)}</pre>
+//         </div>
+//         <div className="w-4 h-4 text-base">
+//           <ArrowRightIcon />
+//         </div>
+//         <div className="flex flex-col lg:flex-row gap-4">
+//           {permutations && permutations.map((permutation) => (
+//             <Stage key={`${Object.values(permutation).join(" ")}`} className="" title={`${Object.values(permutation).join(" ")}`}>
+//               <Button {...permutation}>Hej do</Button>
+//             </Stage>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 export default Page;
