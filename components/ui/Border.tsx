@@ -1,49 +1,107 @@
 import { cn } from "@/lib/styling";
-import {
-  HTMLProps,
-  PropsWithChildren,
-  ReactNode,
-  cloneElement,
-  useEffect,
-} from "react";
+import { Children, type PropsWithChildren } from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { Children } from "react";
+
+/**
+ * @see https://html.spec.whatwg.org/multipage/syntax.html#void-elements
+ */
+const VOID_ELEMENTS = [
+  "area",
+  "base",
+  "br",
+  "col",
+  "embed",
+  "hr",
+  "img",
+  "input",
+  "link",
+  "meta",
+  "source",
+  "track",
+  "wbr",
+];
+
+const MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID = ["video"];
 
 export const shadowBorderStyles =
   "relative after:pointer-events-none after:absolute after:inset-0 after:block after:rounded-inherit after:shadow-[0px_0px_0px_1px_inset_--tw-shadow-color] after:shadow-gray-A5 overflow-hidden";
 
+/**
+ * Nice gradient borders around elements.
+ *
+ * This relies on the :after pseudo-element
+ * any void element (elements that can't contain children
+ * eg: img, video, inputs, other self-closing elements)
+ * should use the `asWrapper` prop to render a helper div.
+ *
+ * This component will try to automatically detect if the child is a void element,
+ * but it's not perfect, so it's recommended to explicitly set `asWrapper` to true
+ * when needed.
+ */
 export const Border = ({
   children,
-  asChild = true,
+  asWrapper,
   className,
   ...rest
-}: { children: JSX.Element } & (
-  | { className?: string; asChild?: false }
-  | { className: never; asChild: true }
-)) => {
-  if (!asChild)
+}: PropsWithChildren<{ className?: string; asWrapper?: boolean }>) => {
+  if (children === undefined || children === null) {
+    console.error("Border must have a child");
+    throw new Error("Border must have a child");
+    return null;
+  }
+
+  if (
+    typeof children === "string" ||
+    typeof children === "number" ||
+    typeof children === "boolean" ||
+    Array.isArray(children)
+  ) {
+    console.error("Border's child must be a single React element");
+    throw new Error("Border's child must be a single React element");
+    return null;
+  }
+
+  const child = Children.only(children) as React.ReactElement;
+  const shouldWrap =
+    VOID_ELEMENTS.includes(child.type as string) ||
+    MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID.includes(
+      child.type as string
+    );
+  const isNotAnHtmlElement = typeof child.type !== "string";
+
+  if (isNotAnHtmlElement && asWrapper === undefined) {
+    console.warn(
+      "Impossible to automatically handle Border's Polymorphism. Children is not an HTML element, to avoid this warning explicitly set the `asWrapper` prop"
+    );
+  }
+
+  if (!asWrapper && shouldWrap) {
+    console.warn(
+      "Border's child is a void element, you should use the `asWrapper` prop to render a helper div"
+    );
+
+    if (asWrapper === undefined && shouldWrap) {
+      console.warn(
+        "Automatically wrapping void element in a helper div, if you want to avoid this behavior, set the `asWrapper` prop explicitly"
+      );
+      return (
+        <div className={cn(shadowBorderStyles, className)} {...rest}>
+          {children}
+        </div>
+      );
+    }
+  }
+
+  if (asWrapper)
     return (
       <div className={cn(shadowBorderStyles, className)} {...rest}>
         {children}
       </div>
     );
 
-  if (!children) return <>Border component must have children</>;
-  const childrenArray = Children.toArray(children);
-  // TODO: wrap this in try
-  if (childrenArray.length === 0) {
-    console.error("Border component must have children");
-    return <>Border component must have children</>;
-  }
-  if (childrenArray.length > 1) {
-    console.error("Border component must have only one child");
-    return <>Border component must have only one child</>;
-  }
-
-  const safeOnlyChild = childrenArray[0];
-  const ChildrenWithBorderStyles = cloneElement(safeOnlyChild, {
-    className: cn(safeOnlyChild.props.className, shadowBorderStyles),
-  });
-
-  return <Slot>{ChildrenWithBorderStyles}</Slot>;
+  return (
+    <Slot className={cn(shadowBorderStyles, className)} {...rest}>
+      {children}
+    </Slot>
+  );
 };
