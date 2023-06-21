@@ -97,7 +97,7 @@ export default async function TheManual() {
               </MDX>
             </div>
             <div className="relative col-span-full -mx-4 lg:col-start-1 lg:col-end-14 lg:-mx-0">
-              <Border className="rounded">
+              <Border asWrapper className="rounded">
                 <video
                   className=""
                   autoPlay={false}
@@ -171,9 +171,9 @@ export default async function TheManual() {
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
-                <Border className="rounded">
+                <Border asWrapper className="rounded">
                   <Image
-                    className="w-full"
+                    className="w-full rounded"
                     alt=""
                     src={"/images/projs/the-manual/1.jpg"}
                     width={685}
@@ -186,9 +186,9 @@ export default async function TheManual() {
               </figure>
 
               <figure className={"space-y-2"}>
-                <Border className="rounded">
+                <Border asWrapper className="rounded">
                   <Image
-                    className="w-full "
+                    className="w-full rounded"
                     alt=""
                     src={"/images/projs/the-manual/2.jpg"}
                     width={685}
@@ -206,7 +206,7 @@ export default async function TheManual() {
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
-                <Border className="rounded">
+                <Border asWrapper className="rounded">
                   <Image
                     className="w-full "
                     alt=""
@@ -225,7 +225,7 @@ export default async function TheManual() {
 
               <figure className={"space-y-2"}>
                 <div className="space-y-2">
-                  <Border className="rounded">
+                  <Border asWrapper className="rounded">
                     <Image
                       className="w-full"
                       alt=""
@@ -234,7 +234,7 @@ export default async function TheManual() {
                       height={993}
                     />
                   </Border>
-                  <Border className="rounded">
+                  <Border asWrapper className="rounded">
                     <Image
                       className="w-full"
                       alt=""
