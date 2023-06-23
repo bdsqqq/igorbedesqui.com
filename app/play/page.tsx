@@ -9,6 +9,7 @@ import { cn } from "@/lib/styling";
 import { Border } from "@/components/ui/Border";
 import Image from "next/image";
 import Band from "@/components/Band";
+import Link from "@/components/ui/StyledLink";
 
 const Page = () => {
   const [count, setCount] = useState(0);
@@ -36,7 +37,7 @@ const Page = () => {
                 lockedContent={
                   <>
                     You reached the team limit in your license,{" "}
-                    <StyledLinkWithIcon href="/">Upgrade</StyledLinkWithIcon>
+                    <Link href="/">Upgrade</Link>
                     to add more
                   </>
                 }
@@ -109,7 +110,6 @@ const UpsellExample = () => {
 
 import * as React from "react";
 import { composeRefs } from "@radix-ui/react-compose-refs";
-import StyledLinkWithIcon from "@/components/ui/StyledLink";
 
 /* -------------------------------------------------------------------------------------------------
  * Slot
