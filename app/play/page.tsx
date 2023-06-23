@@ -72,7 +72,6 @@ const Upsell = ({
   return (
     <Popover content={lockedContent} Icon={React.Fragment}>
       <Slot
-        childrenhandlersToIgnore={["onClick"]}
         onClick={() => {
           // do nothing
         }}
@@ -118,7 +117,6 @@ import StyledLinkWithIcon from "@/components/ui/StyledLink";
 
 interface SlotProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
-  childrenhandlersToIgnore?: string[];
 }
 
 const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRef) => {
@@ -218,13 +216,10 @@ function mergeProps(slotProps: AnyProps, childProps: AnyProps) {
     const isHandler = /^on[A-Z]/.test(propName);
     if (isHandler) {
       // if the handler exists on both, we compose them
-      if (
-        slotPropValue &&
-        childPropValue &&
-        !slotProps.childrenhandlersToIgnore?.includes(propName)
-      ) {
+      if (slotPropValue && childPropValue) {
         overrideProps[propName] = (...args: unknown[]) => {
           childPropValue(...args);
+          // differs from Radix's implementation, we make Slot override Children, not the other way around
           slotPropValue(...args);
         };
       }
