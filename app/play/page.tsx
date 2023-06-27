@@ -76,6 +76,7 @@ const Upsell = ({
         onClick={() => {
           // do nothing
         }}
+        dangerouslyOverrideInsteadOfCompose={["onClick"]}
       >
         {children}
       </Slot>
@@ -117,6 +118,7 @@ import { composeRefs } from "@radix-ui/react-compose-refs";
 
 interface SlotProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
+  dangerouslyOverrideInsteadOfCompose?: string[];
 }
 
 const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRef) => {
@@ -215,12 +217,15 @@ function mergeProps(slotProps: AnyProps, childProps: AnyProps) {
 
     const isHandler = /^on[A-Z]/.test(propName);
     if (isHandler) {
-      // if the handler exists on both, we compose them
-      if (slotPropValue && childPropValue) {
+      // if the handler exists on both, AND the handler is not marked as "override instead of compose" we compose them
+      if (
+        slotPropValue &&
+        childPropValue &&
+        !slotProps.dangerouslyOverrideInsteadOfCompose.includes(propName)
+      ) {
         overrideProps[propName] = (...args: unknown[]) => {
-          childPropValue(...args);
-          // differs from Radix's implementation, we make Slot override Children, not the other way around
           slotPropValue(...args);
+          childPropValue(...args);
         };
       }
       // but if it exists only on the slot, we use only this one
