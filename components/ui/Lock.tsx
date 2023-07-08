@@ -24,7 +24,11 @@ export const Lock = React.forwardRef<
     );
 
   return (
-    <Popover content={lockedFeedback} Icon={React.Fragment}>
+    <Popover
+      content={lockedFeedback}
+      Icon={React.Fragment}
+      // TODO: react fragment can't receive className, so I can't really have this with NO icon. Make it optional somehow.
+    >
       {React.cloneElement(child, { onClick: () => {} })}
     </Popover>
   );
