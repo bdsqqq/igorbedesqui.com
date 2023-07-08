@@ -1,4 +1,4 @@
-const variants = cva(
+const buttonVariants = cva(
   cn(
     "select-none appearance-none",
     "relative rounded-sm px-2 py-1 inline-flex items-center gap-2 align-middle outline-none focus-within:outline-none",
@@ -26,51 +26,48 @@ const variants = cva(
         ),
       },
     },
+    defaultVariants: {
+      size: "md",
+      intent: "primary",
+    },
   }
 );
 
-type variants = VariantProps<typeof variants>;
+type ButtonVariants = VariantProps<typeof buttonVariants>;
 
-const Button: React.FC<React.PropsWithChildren<ButtonProps & variants>> = ({
-  size = "lg",
-  intent = "primary",
-  children,
-  className,
-  ...rest
-}) => (
-  <button
-    className={cn(
-      variants({
-        size,
-        intent,
-      }),
-      className
-    )}
-    {...rest}
-  >
-    {children}
-  </button>
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  asChild?: boolean;
+  variants?: ButtonVariants;
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variants, asChild, ...rest }, ref) => {
+    const Comp = asChild ? Slot : "button";
+
+    return (
+      <Comp
+        ref={ref}
+        className={cn(
+          buttonVariants({
+            ...variants,
+          }),
+          className
+        )}
+        {...rest}
+      />
+    );
+  }
 );
+Button.displayName = "Button";
+
 // I don't know what type should go here and I'm tired, htmlhtml works
-const LinkButton: React.FC<HtmlHTMLAttributes<{}> & LinkProps & variants> = ({
-  size = "lg",
-  intent = "primary",
-  children,
-  className,
-  ...rest
-}) => (
-  <UnstyledLink
-    className={cn(
-      variants({
-        size,
-        intent,
-      }),
-      className
-    )}
-    {...rest}
-  >
-    {children}
-  </UnstyledLink>
+const LinkButton: React.FC<
+  HtmlHTMLAttributes<{}> & LinkProps & { variants: ButtonVariants }
+> = ({ variants, ...rest }) => (
+  <Button variants={variants} asChild>
+    <UnstyledLink {...rest} />
+  </Button>
 );
 
 export { Button, LinkButton };
@@ -79,5 +76,5 @@ import { UnstyledLink } from "./primitives";
 import type { LinkProps } from "next/link";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/styling";
-import { ButtonProps } from "ariakit";
 import React, { HtmlHTMLAttributes } from "react";
+import { Slot } from "@radix-ui/react-slot";
