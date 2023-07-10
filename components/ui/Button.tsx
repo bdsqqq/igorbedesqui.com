@@ -63,7 +63,7 @@ Button.displayName = "Button";
 
 // I don't know what type should go here and I'm tired, htmlhtml works
 const LinkButton: React.FC<
-  HtmlHTMLAttributes<{}> & LinkProps & { variants: ButtonVariants }
+  HtmlHTMLAttributes<{}> & LinkProps & { variants?: ButtonVariants }
 > = ({ variants, ...rest }) => (
   <Button variants={variants} asChild>
     <UnstyledLink {...rest} />
