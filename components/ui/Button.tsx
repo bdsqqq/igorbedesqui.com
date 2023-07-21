@@ -6,7 +6,6 @@ const buttonVariants = cva(
     "border",
     "shadow-input ",
     "bg-gradient-to-tr",
-    "active:scale-95",
     "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-0/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard"
   ),
   {
@@ -25,10 +24,15 @@ const buttonVariants = cva(
           "focus-visible:border-gray-A8"
         ),
       },
+      activeStyle: {
+        scale: "active:scale-95",
+        none: "",
+      },
     },
     defaultVariants: {
       size: "md",
       intent: "primary",
+      activeStyle: "scale",
     },
   }
 );
