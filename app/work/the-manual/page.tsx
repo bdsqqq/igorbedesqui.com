@@ -7,7 +7,11 @@ import type { Metadata } from "next";
 import { psykipMeta, bebopMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 import Image from "next/image";
-import PopOver from "@/components/ui/Popover";
+import {
+  Popover,
+  PopoverContent,
+  StyledPopoverTrigger,
+} from "@/components/ui/Popover";
 import StyledLink from "@/components/ui/StyledLink";
 import Band from "@/components/Band";
 import { grid, subGrid } from "@/components/ui/Grid";
@@ -17,6 +21,7 @@ import { cn } from "@/lib/styling";
 import { Border } from "@/components/ui/Border";
 
 import { makeSeo } from "@/lib/makeSeo";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 export const metadata: Metadata = makeSeo({
   title: "The Manual",
@@ -261,11 +266,16 @@ export default async function TheManual() {
                     <h2 className="mb-4 text-2xl font-bold" {...props} />
                   ),
                   Popover: (props) => (
-                    <PopOver
-                      options={{
-                        padding: "none",
-                      }}
-                      content={
+                    <Popover {...props}>
+                      <StyledPopoverTrigger>
+                        {props.children}
+                        <QuestionMarkCircledIcon />
+                      </StyledPopoverTrigger>
+                      <PopoverContent
+                        options={{
+                          padding: "none",
+                        }}
+                      >
                         <figure className="space-y-1 pb-2">
                           <Image
                             alt=""
@@ -277,9 +287,8 @@ export default async function TheManual() {
                             <MDX>{`[More pics on Twitter](https://twitter.com/bedesqui/status/1579608624514871296?s=20)`}</MDX>
                           </figcaption>
                         </figure>
-                      }
-                      {...props}
-                    />
+                      </PopoverContent>
+                    </Popover>
                   ),
                   strong: (props) => (
                     <span className="text-gray-12" {...props} />

@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@/components/Container";
 import { Stage, StagesWrap } from "@/components/Stage";
 import { Button } from "@/components/ui/Button";
@@ -7,8 +9,14 @@ import { cn } from "@/lib/styling";
 import { Border } from "@/components/ui/Border";
 import Image from "next/image";
 import Band from "@/components/Band";
+import Link from "@/components/ui/StyledLink";
 
 const Page = () => {
+  const [count, setCount] = useState(0);
+  const [walled, setWalled] = useState(false);
+  const toggleWalled = () => setWalled((prev) => !prev);
+  const increment = () => setCount((prev) => prev + 1);
+
   return (
     <Container>
       <div className="flex flex-col gap-16">
@@ -18,10 +26,39 @@ const Page = () => {
         <Band headline={{ bold: "02", thin: "Border" }}>
           <BorderExamples />
         </Band>
+        <Band headline={{ bold: "03", thin: "Composition" }}>
+          <div className="flex items-center justify-center gap-8">
+            <Stage>
+              <Button onClick={toggleWalled}>Toggle lock</Button>
+            </Stage>
+            <Stage title={`${!walled ? "unlocked" : "locked"}`}>
+              <Lock
+                locked={walled}
+                lockedFeedback={
+                  <>
+                    You reached the team limit in your license,{" "}
+                    <Link href="/">Upgrade</Link>
+                    to add more
+                  </>
+                }
+              >
+                <Button className="font-normal" onClick={increment}>
+                  add +
+                </Button>
+              </Lock>
+            </Stage>
+            <Stage title={"count"}>
+              <span className="block w-12 text-center">{count}</span>
+            </Stage>
+          </div>
+        </Band>
       </div>
     </Container>
   );
 };
+
+import { useState } from "react";
+import { Lock } from "@/components/ui/Lock";
 
 /* =========================================
     PERMUTATION STUFF 

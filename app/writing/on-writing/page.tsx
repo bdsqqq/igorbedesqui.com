@@ -4,11 +4,16 @@ import Band from "@/components/Band";
 import { onWritingMeta } from "app/writing/metas";
 
 import { MDX } from "@/components/MDX";
-import PopOver from "@/components/ui/Popover";
+import {
+  Popover,
+  PopoverContent,
+  StyledPopoverTrigger,
+} from "@/components/ui/Popover";
 import type { Metadata } from "next";
 import { grid } from "@/components/ui/Grid";
 
 import { makeSeo } from "@/lib/makeSeo";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 export const metadata: Metadata = makeSeo({
   title: `${onWritingMeta.name} - Igor Bedesqui`,
@@ -80,15 +85,16 @@ export default async function Basics() {
                   </time>
                 ),
                 Popover: (props) => (
-                  <PopOver
-                    content={
+                  <Popover>
+                    <StyledPopoverTrigger>
+                      {props.children} <QuestionMarkCircledIcon />
+                    </StyledPopoverTrigger>
+                    <PopoverContent>
                       <MDX>
                         {`Especially in cases where your content heavily uses links, bolds, italics, and all the other things that would require a whole tag with props to express in JSX.`}
                       </MDX>
-                    }
-                  >
-                    {props.children}
-                  </PopOver>
+                    </PopoverContent>
+                  </Popover>
                 ),
               }}
             >

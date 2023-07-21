@@ -5,11 +5,14 @@ import {
   ProjectBand,
   ProjectLayout,
 } from "@/components/ProjectStuff/ProjectLayout";
-import PopOver from "@/components/ui/Popover";
+import {
+  Popover,
+  PopoverContent,
+  StyledPopoverTrigger,
+} from "@/components/ui/Popover";
 import type { Metadata } from "next";
 
 import { bebopMeta, issMeta } from "../metas";
-import Popover from "@/components/ui/Popover";
 import { MDX } from "@/components/MDX";
 import Image from "next/image";
 
@@ -17,6 +20,7 @@ import { makeSeo } from "@/lib/makeSeo";
 
 import desktopScreenshot from "@/public/images/projs/bebop/desktop-screenshot.png";
 import smartphoneScreenshot from "@/public/images/projs/bebop/smartphone-screenshot.png";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 export const metadata: Metadata = makeSeo({
   title: "Cowboy Bebop web poster",
@@ -60,15 +64,16 @@ export default async function Bebop() {
           <MDX
             components={{
               Popover: (props) => (
-                <PopOver
-                  content={
+                <Popover>
+                  <StyledPopoverTrigger>
+                    {props.children} <QuestionMarkCircledIcon />
+                  </StyledPopoverTrigger>
+                  <PopoverContent>
                     <MDX>
-                      {`The **WebJam** is a hackathon where the participants try to create a website following a prompt and some rules`}
+                      {`The **WebJam** is a hackathon where the participants try to create a website following a prompt and some rules.`}
                     </MDX>
-                  }
-                >
-                  {props.children}
-                </PopOver>
+                  </PopoverContent>
+                </Popover>
               ),
             }}
           >

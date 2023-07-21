@@ -1,73 +1,73 @@
 "use client";
 
-interface PopOver {
-  content: React.ReactNode;
-  Icon?: React.ForwardRefExoticComponent<any>; // TODO: I don't know if this is the right type, I got it from Radix Icons and it works 👺
-  options?: VariantProps<typeof tooltipVariants> & {
-    side?: "bottom" | "left" | "right" | "top" | undefined;
-  };
-}
+import * as React from "react";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
 
-const PopOver: React.FC<React.PropsWithChildren<PopOver>> = ({
-  children,
-  content,
-  Icon = QuestionMarkCircledIcon,
-  options,
-}) => {
-  const popoverState = usePopoverState({
-    animated: true,
-    placement: options?.side ?? "top",
-    gutter: -8,
-  });
+import { cn } from "@/lib/styling";
+import { VariantProps, cva } from "class-variance-authority";
 
-  return (
-    <>
-      <PopoverDisclosure
-        state={popoverState}
-        className={cn([
-          "group inline cursor-pointer select-text font-semibold duration-fast-02 ease-productive-standard focus-within:text-gray-12 hover:text-gray-12 aria-expanded:text-gray-12 motion-safe:transition-all",
-        ])}
-      >
-        {children}
-        <Icon className="inline text-gray-11 duration-fast-02 ease-productive-standard group-focus-within:text-gray-12 group-hover:text-gray-12 group-aria-expanded:text-gray-12 motion-safe:transition-all" />
-      </PopoverDisclosure>
-      <Portal
-      // <div>s will cause a hydration mismatch when rendered inside a <p>, see: https://nextjs.org/docs/messages/react-hydration-error. Putting the Popover in a Portal prevents the issue.
-      >
-        <Popover
-          state={popoverState}
-          className={tooltipVariants({
-            bg: options?.bg,
-            maxW: options?.maxW,
-            padding: options?.padding,
-          })}
-          data-dir={popoverState?.currentPlacement || "top"}
-        >
-          {content}
-          <PopoverArrow
-            className={arrowTooltipVariants({
-              bg: options?.bg,
-            })}
-          />
-        </Popover>
-      </Portal>
-    </>
-  );
-};
+const Popover = PopoverPrimitive.Root;
 
-export default PopOver;
+const PopoverTrigger = PopoverPrimitive.Trigger;
+const StyledPopoverTrigger = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Trigger>,
+  React.PropsWithoutRef<PopoverPrimitive.PopoverTriggerProps>
+>(({ className, ...rest }, ref) => (
+  <PopoverPrimitive.Trigger
+    ref={ref}
+    className={cn(
+      "inline-flex items-center gap-1 underline underline-offset-2 hover:text-gray-12 focus-visible:text-gray-12 data-[state=open]:text-gray-12",
+      className
+    )}
+    {...rest}
+  />
+));
+StyledPopoverTrigger.displayName = PopoverPrimitive.Trigger.displayName;
 
-// TODO: these are the same styles as tooltip, extract these into a Disclosure generic style for reuse in both
+const PopoverContent = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Content>,
+  React.PropsWithoutRef<
+    PopoverPrimitive.PopoverContentProps & {
+      options?: VariantProps<typeof tooltipVariants>;
+    }
+  >
+>(
+  (
+    {
+      className,
+      align = "center",
+      side = "top",
+      sideOffset = 4,
+      options,
+      ...props
+    },
+    ref
+  ) => (
+    <PopoverPrimitive.Portal>
+      <PopoverPrimitive.Content
+        ref={ref}
+        align={align}
+        sideOffset={sideOffset}
+        side={side}
+        className={cn(tooltipVariants(options), className)}
+        {...props}
+      />
+    </PopoverPrimitive.Portal>
+  )
+);
+PopoverContent.displayName = PopoverPrimitive.Content.displayName;
+
+export { Popover, PopoverTrigger, PopoverContent, StyledPopoverTrigger };
+
 const tooltipVariants = cva(
   [
-    "inline-block",
-    "shadow-sm border border-gray-7 rounded-sm transform motion-safe:transition-all duration-fast-02",
-    "data-[dir=top]:origin-bottom",
-    "data-[dir=bottom]:origin-top",
-    "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-enter",
-    "data-[leave]:opacity-0 data-[leave]:scale-0 data-[leave]:ease-productive-exit",
-    "data-[dir=top]:data-[leave]:translate-y-1",
-    "data-[dir=bottom]:data-[leave]:-translate-y-1",
+    `
+    rounded-sm shadow-md outline-none
+    border border-gray-A4
+    data-[state=open]:animate-in data-[state=closed]:animate-out
+    data-[state=closed]:ease-productive-exit data-[state=open]:ease-productive-enter data-[state=open]:duration-fast-01 data-[state=closed]:duration-fast-01 data-[state=open]:zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95  origin-radix-popover data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-[side=bottom]:slide-out-to-top-1 data-[side=left]:slide-out-to-right-1 data-[side=right]:slide-out-to-left-1 data-[side=top]:slide-out-to-bottom-1
+    z-10
+    `,
   ],
   {
     variants: {
@@ -93,23 +93,3 @@ const tooltipVariants = cva(
     },
   }
 );
-
-const arrowTooltipVariants = cva("stroke-gray-7 filter drop-shadow-sm", {
-  variants: {
-    bg: {
-      standard: "fill-gray-1",
-      subtle: "fill-gray-0",
-    },
-  },
-});
-
-import {
-  Popover,
-  PopoverArrow,
-  PopoverDisclosure,
-  usePopoverState,
-} from "ariakit/popover";
-import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
-import { cva, type VariantProps } from "class-variance-authority";
-import { Portal } from "ariakit/portal";
-import { cn } from "@/lib/styling";
