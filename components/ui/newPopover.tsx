@@ -19,17 +19,16 @@ const PopoverContent = React.forwardRef<
     }
   >
 >(({ className, align = "end", sideOffset = 4, options, ...props }, ref) => (
-  <PopoverPrimitive.Portal>
-    <Border>
-      <PopoverPrimitive.Content
-        ref={ref}
-        align={align}
-        sideOffset={sideOffset}
-        className={cn(tooltipVariants(options), className)}
-        {...props}
-      />
-    </Border>
-  </PopoverPrimitive.Portal>
+  <Border>
+    {/* not using PopoverPrimitive.Portal to wrap everything because it fucks up the exit animation */}
+    <PopoverPrimitive.Content
+      ref={ref}
+      align={align}
+      sideOffset={sideOffset}
+      className={cn(tooltipVariants(options), className)}
+      {...props}
+    />
+  </Border>
 ));
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
@@ -37,7 +36,11 @@ export { Popover, PopoverTrigger, PopoverContent };
 
 const tooltipVariants = cva(
   [
-    "w-72 rounded shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 duration-fast-02 data-[state=closed]:ease-productive-exit data-[state=open]:ease-productive-enter data-[state=closed]:opacity-0 data-[state=open]:opacity-100 transition-opacity",
+    `
+    w-72 rounded shadow-md outline-none
+    data-[state=open]:animate-in data-[state=closed]:animate-out
+    data-[state=closed]:ease-productive-exit data-[state=open]:ease-productive-enter data-[state=open]:duration-fast-01 data-[state=closed]:duration-fast-01 data-[state=open]:zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95  origin-radix-popover data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-[side=bottom]:slide-out-to-top-1 data-[side=left]:slide-out-to-right-1 data-[side=right]:slide-out-to-left-1 data-[side=top]:slide-out-to-bottom-1
+    `,
   ],
   {
     variants: {
