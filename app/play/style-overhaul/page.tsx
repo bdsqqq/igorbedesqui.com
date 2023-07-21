@@ -6,7 +6,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "@/components/ui/newPopover";
+} from "@/components/ui/Popover";
 
 export default function Page() {
   return (
