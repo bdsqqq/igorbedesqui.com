@@ -23,21 +23,26 @@ const EmailLink = ({
   children: React.ReactNode;
 }) => {
   return (
-    <Popover
-      Icon={EnvelopeClosedIcon}
-      content={<PopoverContent email={email} />}
-      options={{
-        padding: "none",
-        maxW: "full",
-        bg: "standard",
-      }}
-    >
-      <span className="underline">{children}</span>
+    <Popover>
+      <PopoverTrigger className="inline-flex items-center gap-1 underline">
+        {children} <EnvelopeClosedIcon />
+      </PopoverTrigger>
+      <PopoverContent
+        className="overflow-visible"
+        sideOffset={0}
+        options={{
+          padding: "none",
+          maxW: "full",
+          bg: "standard",
+        }}
+      >
+        <EmailPopoverContent email={email} />
+      </PopoverContent>
     </Popover>
   );
 };
 
-const PopoverContent = ({ email }: { email: string }) => {
+const EmailPopoverContent = ({ email }: { email: string }) => {
   const [success, setSuccess] = useState(0);
   const incrementSuccess = () => {
     setSuccess((s) => s + 1);
@@ -109,7 +114,11 @@ import {
   PaperPlaneIcon,
 } from "@radix-ui/react-icons";
 
-import Popover from "@/components/ui/Popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/Popover";
 import { Button, LinkButton } from "@/components/ui/Button";
 import Tooltip from "@/components/ui/Tooltip";
 
