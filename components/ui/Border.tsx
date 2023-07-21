@@ -1,5 +1,5 @@
 import { cn } from "@/lib/styling";
-import { Children, type PropsWithChildren } from "react";
+import { Children, isValidElement, type PropsWithChildren } from "react";
 import { Slot } from "@radix-ui/react-slot";
 
 /**
@@ -67,13 +67,11 @@ export const Border = ({
     MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID.includes(
       child.type as string
     );
-  const isNotAnHtmlElement = typeof child.type !== "string";
-
-  if (isNotAnHtmlElement && asWrapper === undefined) {
-    console.warn(
-      "Impossible to automatically handle Border's Polymorphism. Children is not an HTML element, to avoid this warning explicitly set the `asWrapper` prop"
+  const isValid = isValidElement(child);
+  if (!isValid)
+    throw new Error(
+      `Border's child must be a valid react element, got ${typeof child}`
     );
-  }
 
   if (!asWrapper && shouldWrap) {
     console.warn(
