@@ -9,6 +9,20 @@ import { VariantProps, cva } from "class-variance-authority";
 const Popover = PopoverPrimitive.Root;
 
 const PopoverTrigger = PopoverPrimitive.Trigger;
+const StyledPopoverTrigger = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Trigger>,
+  React.PropsWithoutRef<PopoverPrimitive.PopoverTriggerProps>
+>(({ className, ...rest }, ref) => (
+  <PopoverPrimitive.Trigger
+    ref={ref}
+    className={cn(
+      "inline-flex items-center gap-1 underline underline-offset-2 hover:text-gray-12 focus-visible:text-gray-12 data-[state=open]:text-gray-12",
+      className
+    )}
+    {...rest}
+  />
+));
+StyledPopoverTrigger.displayName = PopoverPrimitive.Trigger.displayName;
 
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
@@ -43,7 +57,7 @@ const PopoverContent = React.forwardRef<
 );
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-export { Popover, PopoverTrigger, PopoverContent };
+export { Popover, PopoverTrigger, PopoverContent, StyledPopoverTrigger };
 
 const tooltipVariants = cva(
   [
