@@ -4,7 +4,11 @@ import Band from "@/components/Band";
 import { onWritingMeta } from "app/writing/metas";
 
 import { MDX } from "@/components/MDX";
-import { Popover } from "@/components/ui/Popover";
+import {
+  Popover,
+  PopoverContent,
+  StyledPopoverTrigger,
+} from "@/components/ui/Popover";
 import type { Metadata } from "next";
 import { grid } from "@/components/ui/Grid";
 
@@ -46,7 +50,7 @@ export default async function Basics() {
                   \`,
                   why: {
                      paragraph: \`... <Popover />\`
-                     Popover.Content: \`...\`
+                     popoverContent: \`...\`
                   },
                   ...
                }
@@ -82,14 +86,14 @@ export default async function Basics() {
                 ),
                 Popover: (props) => (
                   <Popover>
-                    <Popover.TriggerStyled>
+                    <StyledPopoverTrigger>
                       {props.children} <QuestionMarkCircledIcon />
-                    </Popover.TriggerStyled>
-                    <Popover.Content>
+                    </StyledPopoverTrigger>
+                    <PopoverContent>
                       <MDX>
                         {`Especially in cases where your content heavily uses links, bolds, italics, and all the other things that would require a whole tag with props to express in JSX.`}
                       </MDX>
-                    </Popover.Content>
+                    </PopoverContent>
                   </Popover>
                 ),
               }}

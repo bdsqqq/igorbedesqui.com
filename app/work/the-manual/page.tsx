@@ -7,7 +7,11 @@ import type { Metadata } from "next";
 import { psykipMeta, bebopMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 import Image from "next/image";
-import { Popover } from "@/components/ui/Popover";
+import {
+  Popover,
+  PopoverContent,
+  StyledPopoverTrigger,
+} from "@/components/ui/Popover";
 import StyledLink from "@/components/ui/StyledLink";
 import Band from "@/components/Band";
 import { grid, subGrid } from "@/components/ui/Grid";
@@ -263,11 +267,11 @@ export default async function TheManual() {
                   ),
                   Popover: (props) => (
                     <Popover {...props}>
-                      <Popover.TriggerStyled>
+                      <StyledPopoverTrigger>
                         {props.children}
                         <QuestionMarkCircledIcon />
-                      </Popover.TriggerStyled>
-                      <Popover.Content
+                      </StyledPopoverTrigger>
+                      <PopoverContent
                         options={{
                           padding: "none",
                         }}
@@ -283,7 +287,7 @@ export default async function TheManual() {
                             <MDX>{`[More pics on Twitter](https://twitter.com/bedesqui/status/1579608624514871296?s=20)`}</MDX>
                           </figcaption>
                         </figure>
-                      </Popover.Content>
+                      </PopoverContent>
                     </Popover>
                   ),
                   strong: (props) => (

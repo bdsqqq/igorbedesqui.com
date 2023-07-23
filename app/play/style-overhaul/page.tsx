@@ -2,7 +2,11 @@
 
 import Container from "@/components/Container";
 import { Button } from "@/components/ui/Button";
-import { Popover } from "@/components/ui/Popover";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/Popover";
 
 export default function Page() {
   return (
@@ -18,7 +22,7 @@ const Content = () => {
   return (
     <>
       <Popover>
-        <Popover.Trigger asChild>
+        <PopoverTrigger asChild>
           <Button
             variants={{
               activeStyle: "none",
@@ -26,8 +30,8 @@ const Content = () => {
           >
             Hej
           </Button>
-        </Popover.Trigger>
-        <Popover.Content
+        </PopoverTrigger>
+        <PopoverContent
           options={{
             maxW: "full",
           }}
@@ -40,7 +44,7 @@ const Content = () => {
           >
             Hej
           </Button>
-        </Popover.Content>
+        </PopoverContent>
       </Popover>
     </>
   );
