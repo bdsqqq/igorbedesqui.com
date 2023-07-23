@@ -5,11 +5,7 @@ import {
   ProjectBand,
   ProjectLayout,
 } from "@/components/ProjectStuff/ProjectLayout";
-import {
-  Popover,
-  PopoverContent,
-  StyledPopoverTrigger,
-} from "@/components/ui/Popover";
+import { Popover } from "@/components/ui/Popover";
 import type { Metadata } from "next";
 
 import { bebopMeta, issMeta } from "../metas";
@@ -65,14 +61,14 @@ export default async function Bebop() {
             components={{
               Popover: (props) => (
                 <Popover>
-                  <StyledPopoverTrigger>
+                  <Popover.TriggerStyled>
                     {props.children} <QuestionMarkCircledIcon />
-                  </StyledPopoverTrigger>
-                  <PopoverContent>
+                  </Popover.TriggerStyled>
+                  <Popover.Content>
                     <MDX>
                       {`The **WebJam** is a hackathon where the participants try to create a website following a prompt and some rules.`}
                     </MDX>
-                  </PopoverContent>
+                  </Popover.Content>
                 </Popover>
               ),
             }}

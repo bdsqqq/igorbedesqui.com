@@ -2,13 +2,18 @@
 
 import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
+import type { PopoverProps } from "@radix-ui/react-popover";
 
 import { cn } from "@/lib/styling";
 import { VariantProps, cva } from "class-variance-authority";
 
-const Popover = PopoverPrimitive.Root;
+function Popover(props: PopoverProps) {
+  return <PopoverPrimitive.Root {...props} />;
+}
 
 const PopoverTrigger = PopoverPrimitive.Trigger;
+Popover.Trigger = PopoverTrigger;
+
 const StyledPopoverTrigger = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Trigger>,
   React.PropsWithoutRef<PopoverPrimitive.PopoverTriggerProps>
@@ -23,6 +28,7 @@ const StyledPopoverTrigger = React.forwardRef<
   />
 ));
 StyledPopoverTrigger.displayName = PopoverPrimitive.Trigger.displayName;
+Popover.TriggerStyled = StyledPopoverTrigger;
 
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
@@ -56,8 +62,9 @@ const PopoverContent = React.forwardRef<
   )
 );
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
+Popover.Content = PopoverContent;
 
-export { Popover, PopoverTrigger, PopoverContent, StyledPopoverTrigger };
+export { Popover };
 
 const tooltipVariants = cva(
   [

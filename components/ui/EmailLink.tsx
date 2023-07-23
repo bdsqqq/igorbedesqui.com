@@ -24,10 +24,10 @@ const EmailLink = ({
 }) => {
   return (
     <Popover>
-      <PopoverTrigger className="inline-flex items-center gap-1 underline">
+      <Popover.Trigger className="inline-flex items-center gap-1 underline">
         {children} <EnvelopeClosedIcon />
-      </PopoverTrigger>
-      <PopoverContent
+      </Popover.Trigger>
+      <Popover.Content
         className="overflow-visible"
         sideOffset={0}
         options={{
@@ -37,7 +37,7 @@ const EmailLink = ({
         }}
       >
         <EmailPopoverContent email={email} />
-      </PopoverContent>
+      </Popover.Content>
     </Popover>
   );
 };
@@ -114,11 +114,7 @@ import {
   PaperPlaneIcon,
 } from "@radix-ui/react-icons";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/Popover";
+import { Popover } from "@/components/ui/Popover";
 import { Button, LinkButton } from "@/components/ui/Button";
 import Tooltip from "@/components/ui/Tooltip";
 

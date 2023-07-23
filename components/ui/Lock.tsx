@@ -1,4 +1,4 @@
-import { Popover, PopoverContent, PopoverTrigger } from "@/ui/Popover";
+import { Popover } from "@/ui/Popover";
 import React, {
   Children,
   cloneElement,
@@ -28,10 +28,10 @@ export const Lock = forwardRef<
 
   return (
     <Popover>
-      <PopoverTrigger asChild {...rest} ref={ref}>
+      <Popover.Trigger asChild {...rest} ref={ref}>
         {cloneElement(child, { onClick: () => {} })}
-      </PopoverTrigger>
-      <PopoverContent align="end">{lockedFeedback}</PopoverContent>
+      </Popover.Trigger>
+      <Popover.Content align="end">{lockedFeedback}</Popover.Content>
     </Popover>
   );
 });
