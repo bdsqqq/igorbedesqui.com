@@ -35,8 +35,8 @@ export const Vignette = () => {
 const defaultSizes = {
   top: "100px",
   bottom: "100px",
-  left: "20vw",
-  right: "20vw",
+  left: "15vw",
+  right: "15vw",
 };
 
 const VignetteStrip = ({
@@ -51,7 +51,7 @@ const VignetteStrip = ({
         "fixed z-vignette select-none from-transparent to-gray-1 blur-[1px] backdrop-filter",
         orientation[pos] === "vertical" && "w-full",
         orientation[pos] === "horizontal" &&
-        "h-full min-w-[120px] max-md:hidden",
+          "h-full min-w-[120px] max-md:hidden",
         pos === "top" && "top-0 bg-gradient-to-t",
         pos === "bottom" && "bottom-0 bg-gradient-to-b",
         pos === "left" && "-left-6 bg-gradient-to-l",
