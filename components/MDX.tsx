@@ -24,7 +24,7 @@ const defaultComponents = {
     />
   ),
   code: (props: HTMLProps<HTMLElement>) => (
-    <code className="rounded bg-gray-2 py-0.5 px-1" {...props} />
+    <code className="rounded bg-gray-2 py-0.5 px-1 font-mono" {...props} />
   ),
 };
 

@@ -3,16 +3,19 @@ import { Providers } from "./Providers";
 import { Grain } from "./Grain";
 import { Vignette } from "./Vignette";
 
+// @ts-expect-error - Geist doesn't have types
+import { GeistSans, GeistMono } from "geist/font";
 import { IBM_Plex_Serif } from "next/font/google";
+
 import Script from "next/script";
 
 export { reportWebVitals } from "next-axiom";
 
-const customFont = IBM_Plex_Serif({
-  display: "swap",
-  subsets: ["latin"],
-  weight: ["200", "400", "700"],
-});
+// const customFont = IBM_Plex_Serif({
+//   display: "swap",
+//   subsets: ["latin"],
+//   weight: ["200", "400", "700"],
+// });
 
 const DocumentStuff = () => {
   return (
@@ -65,7 +68,9 @@ export default function RootLayout({
         <DocumentStuff />
       </head>
       <body>
-        <div className={`${customFont.className} relative`}>
+        <div
+          className={`${GeistSans.variable} ${GeistMono.variable} relative font-sans`}
+        >
           <Grain />
           <Vignette />
           <Providers>{children}</Providers>
