@@ -11,9 +11,7 @@ export const makeSeo = ({
   slug: string;
   ogText: string;
 }): Metadata => {
-  const ogImageUrl = new URL(
-    `https://www.igorbedesqui.com/api/og?text=${ogText}`
-  ).href;
+  const ogImageUrl = new URL(`https://qui.gg/api/og?text=${ogText}`).href;
 
   return {
     title,
@@ -25,8 +23,6 @@ export const makeSeo = ({
       card: "summary_large_image",
       title: title,
       description: description,
-      image: ogImageUrl,
-      imageAlt: ogText.replace("*", ""),
       images: [
         {
           url: ogImageUrl,
