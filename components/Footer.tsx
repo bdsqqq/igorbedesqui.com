@@ -1,17 +1,25 @@
 const Footer = () => {
   return (
     <div className="w-full px-8 md:px-16">
-      <div className="mx-auto w-full py-10 md:max-w-7xl">
-        <Separator className="my-8 w-11" />
-        <footer className="pb-16">
-          <div className="grid grid-cols-2 gap-y-8 gap-x-2 md:grid-cols-3 lg:grid-cols-4">
-            <div className="[grid-column:1_/_-1] lg:[grid-column:auto]">
-              <StyledLink className="no-underline" href="/">
-                Igor Bedesqui
-              </StyledLink>
-            </div>
+      <div className="mx-auto w-full md:max-w-7xl">
+        <div
+          className="col-span-16 h-px w-full"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, var(--color-gray-7) 0%, var(--color-gray-1) 75%, transparent 100%)",
+          }}
+        />
+        <footer className={cn(grid(), " py-8")}>
+          {/* <div className="grid grid-cols-2 gap-y-8 gap-x-2 md:grid-cols-3 lg:grid-cols-4"> */}
+          {/* <Separator className="col-span-16 my-8 w-11" /> */}
 
-            {/*
+          <div className="col-span-4 col-start-1">
+            <StyledLink className="no-underline" href="/">
+              Igor Bedesqui
+            </StyledLink>
+          </div>
+
+          {/*
             <div>
             <h6 className="font-semibold">Me</h6> 
             <ul>
@@ -28,7 +36,7 @@ const Footer = () => {
           </ul>
           </div> */}
 
-            <div>
+          {/* <div>
               <h6 className="font-semibold">Connect</h6>
               <ul>
                 <li className="mt-2">
@@ -61,8 +69,12 @@ const Footer = () => {
                   </EmailLink>
                 </li>
               </ul>
-            </div>
+            </div> */}
+
+          <div className="col-span-4 col-end-17">
+            <FireChicken />
           </div>
+          <div />
         </footer>
       </div>
     </div>
@@ -73,4 +85,6 @@ export default Footer;
 
 import { Separator } from "@/ui/Separator";
 import StyledLink from "@/ui/StyledLink";
-import EmailLink from "./ui/EmailLink";
+import FireChicken from "@/components/firechicken";
+import { grid } from "@/components/ui/Grid";
+import { cn } from "@/lib/styling";
