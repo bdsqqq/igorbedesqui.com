@@ -5,7 +5,12 @@ import EmailLink from "@/components/ui/EmailLink";
 import { grid, subGrid } from "@/components/ui/Grid";
 
 import { bebopMeta, psykipMeta, ibmMeta } from "app/work/metas";
-import { basicsMeta, onWritingMeta, dontBelieveMeta } from "app/writing/metas";
+import {
+  basicsMeta,
+  onWritingMeta,
+  dontBelieveMeta,
+  schrodingerMinimalism,
+} from "app/writing/metas";
 
 import { MDX } from "@/components/MDX";
 import { Blur } from "@/components/ui/Blur";
@@ -13,7 +18,12 @@ import type { Metadata } from "next";
 import StyledLink from "@/components/ui/StyledLink";
 import { cn } from "@/lib/styling";
 
-const writingPieces = [onWritingMeta, basicsMeta, dontBelieveMeta];
+const writingPieces = [
+  // schrodingerMinimalism,
+  onWritingMeta,
+  basicsMeta,
+  dontBelieveMeta,
+];
 const projsMeta = [ibmMeta, psykipMeta, bebopMeta];
 
 import { makeSeo } from "@/lib/makeSeo";
