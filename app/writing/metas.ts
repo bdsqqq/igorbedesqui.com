@@ -29,7 +29,7 @@ export const schrodingerMinimalism = {
   shortName: "Schrodinger's Minimalism",
   name: "Schrodinger's Minimalism",
   description:
-    "Infinite content using superposition (and progressive disclosure).",
+    "Infinite content by superposition (and progressive disclosure).",
   date: "28/12/2023",
   urlSlug: "schrodinger-minimalism",
   backMessage: "Look at the cat on the way back.",
