@@ -19,6 +19,7 @@
     "@vercel/og": "^0.0.24",
     "ariakit": "2.0.0-next.43",
     "class-variance-authority": "^0.6.0",
+    "framer-motion": "^10.16.16",
     "geist": "^0.1.14",
     "next": "^13.4.1",
     "next-axiom": "^0.17.0",
