@@ -19,7 +19,7 @@ import StyledLink from "@/components/ui/StyledLink";
 import { cn } from "@/lib/styling";
 
 const writingPieces = [
-  // schrodingerMinimalism,
+  schrodingerMinimalism,
   onWritingMeta,
   basicsMeta,
   dontBelieveMeta,
