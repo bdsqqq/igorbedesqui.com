@@ -73,7 +73,7 @@ export default async function Basics() {
                 
                While I generally agree with this idea, and use it as guidance when designing, **there’s something that is lost when we omit details**, especially when writing. YES, I can express the same general idea with way less text, but it’s not the same.
 
-               The author of <Tooltip>[**The timeless way of building**](https://a.co/d/htgOE1S)</Tooltip> chooses to both follow and disregard the quote at once. **It’s a book you can read to the end while ignoring the majority of it**. Some paragraphs of the are written in normal text and others in italic, and the general idea the author tries to convey can be understood by reading exclusively the ones in italic. 
+               The author of <Tooltip>[**The timeless way of building**](https://a.co/d/htgOE1S)</Tooltip> chooses to both follow and disregard the quote at once. **It’s a book you can read to the end while ignoring the majority of it**. It’s main concept can be grasped by reading only the paragraphs written in italic; As the author explains: surface understanding of the whole is more valuable than deeper understanding of a fraction.
 
                I LOVED this concept, it is the best of both worlds! BUT it’s not granular enough. **The author doesn’t make an italic sentence in the middle of a paragraph**. **But who’s stopping me from doing it?**
                
