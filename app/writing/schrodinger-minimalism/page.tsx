@@ -81,11 +81,9 @@ export default async function Basics() {
 
                Yet, **it didn't feel finished.** Unlike the book, I can’t explain this system to the reader without disrupting their journey. And sometimes I just find the variation noisy. The reader can understand the general idea by only reading the high contrast bits, but **how do I expect them to ignore all the rest if it’s in front of them?**
 
-               Enter "Hidden" text, as a way of expressing myself more freely, I’ve put some things in blurried bits of text that are revealed on hover. With progressive disclosure the ask goes from "ignore this" to "click this if you want to know more".
+               **Enter "Hidden" text**, as a way of expressing myself more freely, I’ve put some things in blurried bits of text that are revealed on hover. **With progressive disclosure the ask goes from "ignore this" to "click this if you want to know more"**.
 
-               **How do I make the reader know they can interact with something explicitly hidden?**
-
-               Benji and Pedro got it... By starting with the minimum necessary to tell the story, and giving more context based on what interactive parts the reader clicks, both the simplified essential version and the richer more detailed version can exist in the same place at once without overloading the reader.
+               [Benji](https://x.com/benjitaylor) and [Pedro](https://x.com/peduarte) arrived at the same conclusion with slightly different approaches; By starting with the minimum necessary to tell the story, and giving more context based on what interactive parts the reader clicks, both the simplified essential version and the richer more detailed version can exist in the same place at once without overloading the reader.
                
                No better way to see it than to look at their sites:
             `}
