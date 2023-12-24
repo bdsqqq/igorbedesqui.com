@@ -9,6 +9,13 @@ import type { Metadata } from "next";
 import { grid } from "@/components/ui/Grid";
 
 import { makeSeo } from "@/lib/makeSeo";
+import { Border } from "@/components/ui/Border";
+import Tooltip from "@/components/ui/Tooltip";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/Popover";
 
 export const metadata: Metadata = makeSeo({
   title: `${schrodingerMinimalism.name} - Igor Bedesqui`,
@@ -30,9 +37,20 @@ export default async function Basics() {
           <div className="col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-5 lg:col-end-13">
             <MDX
               components={{
-                Blur: (props) => (
-                  <Blur className="cursor-not-allowed" {...props} />
-                  // https://twitter.com/MarcosNASAG/status/1656626373534916608?s=20
+                Blur: (props) => <Blur {...props} />,
+                Popover: (props) => (
+                  <Popover>
+                    <PopoverTrigger {...props} />
+                    <PopoverContent align="end" alignOffset={0}>
+                      <MDX>
+                        [Antoine de Saint-Exupéry: Terre des hommes, Gallimard,
+                        France, 1939](https://amzn.eu/d/3FDtHJw)
+                      </MDX>
+                    </PopoverContent>
+                  </Popover>
+                ),
+                Tooltip: (props) => (
+                  <Tooltip content="great book btw" {...props} />
                 ),
                 blockquote: (props) => (
                   <blockquote
@@ -47,12 +65,15 @@ export default async function Basics() {
               }}
             >
               {`
-               > “Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.” 
+                # **${schrodingerMinimalism.name}** <Blur>**AKA: me yapping about design patterns I like.**</Blur>
+
+               > “Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.”
+               > 
+               > <div className="text-sm before:content-['—'] flex gap-1 justify-end w-full"><Popover><cite>Antoine de Saint-Exupéry Antoine de Saint-Exupéry</cite></Popover></div>
                 
                While I generally agree with this idea, and use it as guidance when designing, **there’s something that is lost when we omit details**, especially when writing. YES, I can express the same general idea with way less text, but it’s not the same.
 
-               _// todo: make this a popover/link to the book_
-               The author of **"The timeless way of building"** (great book btw) chooses to both follow and disregard the quote at once. **It’s a book you can read to the end while ignoring the majority of it**. Some paragraphs of the are written in normal text and others in italic, and the general idea the author tries to convey can be understood by reading exclusively the ones in italic. 
+               The author of <Tooltip>[**The timeless way of building**](https://a.co/d/htgOE1S)</Tooltip> chooses to both follow and disregard the quote at once. **It’s a book you can read to the end while ignoring the majority of it**. Some paragraphs of the are written in normal text and others in italic, and the general idea the author tries to convey can be understood by reading exclusively the ones in italic. 
 
                I LOVED this concept, it is the best of both worlds! BUT it’s not granular enough. **The author doesn’t make an italic sentence in the middle of a paragraph**. **But who’s stopping me from doing it?**
                
@@ -65,13 +86,60 @@ export default async function Basics() {
                **How do I make the reader know they can interact with something explicitly hidden?**
 
                Benji and Pedro got it... By starting with the minimum necessary to tell the story, and giving more context based on what interactive parts the reader clicks, both the simplified essential version and the richer more detailed version can exist in the same place at once without overloading the reader.
+               
+               No better way to see it than to look at their sites:
+            `}
+            </MDX>
 
-               // video of pedro and benji’s website goes here
-               // https://ped.ro/
-               // https://lfe.org/
+            <figure>
+              <Border asWrapper className="rounded">
+                <video
+                  poster="/images/minimalism/pedro.jpg"
+                  autoPlay={true}
+                  controls={false}
+                  loop={true}
+                  muted={true}
+                >
+                  <source
+                    src="/videos/minimalism/pedro.webm"
+                    type="video/webm; codecs=vp9,vorbis"
+                  />
+                  <source src="/videos/minimalism/pedro.mp4" type="video/mp4" />
+                </video>
+              </Border>
+              <figcaption className="text-end">
+                <MDX>{`https://ped.ro/`}</MDX>
+              </figcaption>
+            </figure>
 
-               Anyways, nice site @peduarte, and thanks for taking my obsession with somehow applying progressive disclosure to the main content of something one step further.
-              `}
+            <figure>
+              <Border asWrapper className="rounded">
+                <video
+                  poster="/images/minimalism/los_feliz.jpg"
+                  autoPlay={true}
+                  controls={false}
+                  loop={true}
+                  muted={true}
+                >
+                  <source
+                    src="/videos/minimalism/los_feliz.webm"
+                    type="video/webm; codecs=vp9,vorbis"
+                  />
+                  <source
+                    src="/videos/minimalism/los_feliz.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </Border>
+              <figcaption className="text-end">
+                <MDX>{`https://lfe.org/`}</MDX>
+              </figcaption>
+            </figure>
+
+            <MDX>
+              {`
+               Anyways, nice site [@peduarte](https://x.com/peduarte), and thanks for taking my obsession with somehow applying progressive disclosure to main content one step further.
+               `}
             </MDX>
           </div>
         </div>
