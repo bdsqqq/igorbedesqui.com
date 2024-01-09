@@ -35,8 +35,8 @@ export const Vignette = () => {
 const defaultSizes = {
   top: "100px",
   bottom: "100px",
-  left: "15vw",
-  right: "15vw",
+  left: "10vw",
+  right: "10vw",
 };
 
 const VignetteStrip = ({
@@ -61,7 +61,7 @@ const VignetteStrip = ({
       style={{
         [pos === "top" || pos === "bottom" ? "height" : "width"]:
           sizing || defaultSizes[pos],
-        maskImage: `linear-gradient(to ${opositeDir[pos]}, var(--color-gray-1) 25%, transparent)`,
+        maskImage: `linear-gradient(to ${opositeDir[pos]}, var(--color-gray-1) 20%, transparent)`,
       }}
       {...rest}
     />
