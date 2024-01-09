@@ -46,7 +46,8 @@ export const Overlay = () => {
         </div>
       </div>
 
-      <div className={cn("pointer-events-none absolute inset-0")}>
+      {/* Subtle grid overlay visible at all times */}
+      {/* <div className={cn("pointer-events-none absolute inset-0")}>
         <div
           className={cn(grid({ mode: mode }), "h-full w-full px-4 md:px-16")}
         >
@@ -69,7 +70,7 @@ export const Overlay = () => {
             );
           })}
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
