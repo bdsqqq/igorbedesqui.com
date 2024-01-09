@@ -34,3 +34,12 @@ export const schrodingerMinimalism = {
   urlSlug: "schrodinger-minimalism",
   backMessage: "Look at the cat on the way back.",
 };
+
+export const macosRice = {
+  shortName: "MacOS Ricing",
+  name: "MacOS ricing",
+  description: "Crafting the workspace by me, for me.",
+  date: "09/01/2024",
+  urlSlug: "macos-rice",
+  backMessage: "~/writing/macos-rice cd ..",
+};
