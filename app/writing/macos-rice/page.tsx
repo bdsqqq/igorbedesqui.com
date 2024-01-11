@@ -89,8 +89,10 @@ Aesthetics are cool and do play a role in driving my customizations, but the mos
 # Show me the setup already!
 
 Fine! First off, this is how my setup looks right now:
-![[Pasted image 20240107004532.png]]
-![[Pasted image 20240107015443.png]]
+![Screenshot of customized MacOS Desktop. The colors in VSCode, Obsidian, and the btop system monitor running in a terminal match the Vesper color palette](/images/macos-rice/setup_1.jpg)
+
+![Screenshot of customized MacOS Desktop. The colors in Linear, Spotify, Raycast, Discord, and VSCode match the Vesper color palette](/images/macos-rice/setup_2.jpg)
+
 Most apps have the same custom color scheme, I tile windows through [Raycast's Window Management Extension](https://www.raycast.com/extensions/window-management), and have keybindings for about everything thanks to [Raycast's Hotkeys](https://manual.raycast.com/command-aliases-and-hotkeys).
 
 I shared my progress on applying the custom theme to each app on [Twitter](https://twitter.com/search?q=from:@bedesqui%20vesper&src=typed_query) bit by bit, and this week, [2 posts about my setup](https://twitter.com/search?q=(fine%20%20OR%20twitter%20OR%20weekly%20OR%20reminder)%20(from:bedesqui)%20min_faves:500%20-filter:replies&src=typed_query&f=top) got over 360K impressions combined. With this many eyes on it, a few people asked for a guide on how to do it themselves, and it's surprisingly simpler than it seems.
@@ -101,7 +103,8 @@ I shared my progress on applying the custom theme to each app on [Twitter](https
 The bulk of my setup consists of setting colors, but the most important part for my workflow is actually the window management aspect of it. Luckily it's simply leveraging Raycast's defaults with custom hotkeys for a few commands. If you don't have installed Raycast yet(Why?), you can get it by running \`brew install --cask raycast\`, or follow the instructions in [their site](https://www.raycast.com/).
 
 and you're pretty much done, the Window Management Extension has everything I use, and if you want my exact keybindings (and the _aesthetic_ gap between windows), you can copy the following settings:
-![[Pasted image 20240107033308.png]]
+
+![Screenshot of Raycast settings for Window Manager extension. The hotkeys are as follows: Almost maximize = control + option + command + arrow up; Bottom Left Quarter = control + option + command + h; Bottom Left Sixth = control + option + Shift + command + h; Bottom Right Quarter = control + option + command + j; Bottom Right Sixth = control + option + Shift + command + j; Left Half = control + option + command + arrow left; Make Larger = control + option + Shift + command + arrow up; Make Smaller = control + option + Shift + command + arrow down; Reasonable Size = control + option + command + arrow down; Right Half = control + option + command + arrow right; Top Left Quarter = control + option + command + y; Top Left Sixth = control + option + Shift + command + Y; Top Right Quarter = control + option + command + u; Top Right Sixth = control + option + Shift + command + u. Window Management settings are: Gap = Tiny(8px); Cycling: Cycle ½, ⅔, ⅓; Advanced, Respect Stage Manager: off.](/images/macos-rice/raycast_wm.jpg)
 
 If you fancy a tiling window manager closer to what you'd find on Linux land, give [yabai](https://github.com/koekeishiya/yabai/) a try. And if you like snapping apps to the corners of screens like on Windows try [Rectangle](https://rectangleapp.com/).
 ## Apps
@@ -386,7 +389,7 @@ You can get my overrides by copying the following JSON into the \`Settings > Com
 ### Physical setup??
 Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my keyboard and mouse match the orange(or white sometimes; black and white is too nice to pass).
 
-![[Pasted image 20240109030539.png]]
+![Keyboard and mouse in the dark, both with LED lights shining in an orange color that matches the Vesper theme's orange](/images/macos-rice/keyboard.jpg)
 
 # Afterword
 

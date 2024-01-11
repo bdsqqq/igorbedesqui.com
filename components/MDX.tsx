@@ -4,6 +4,7 @@ import { MDXProvider } from "@mdx-js/react";
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
 import { HTMLProps } from "react";
+import { Border } from "@/components/ui/Border";
 
 const defaultComponents = {
   // @ts-ignore
@@ -25,6 +26,11 @@ const defaultComponents = {
   ),
   code: (props: HTMLProps<HTMLElement>) => (
     <code className="rounded bg-gray-2 py-0.5 px-1 font-mono" {...props} />
+  ),
+  img: (props: HTMLProps<HTMLImageElement>) => (
+    <Border className="-mx-4 rounded-sm">
+      <img className="rounded-inherit" {...props} />
+    </Border>
   ),
 };
 
