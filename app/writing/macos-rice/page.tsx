@@ -14,7 +14,7 @@ import { ComponentProps } from "react";
 import { cn } from "@/lib/styling";
 import { ScrollArea, ScrollBar } from "@/components/ui/ScrollArea";
 import { Border } from "@/components/ui/Border";
-import Image from "next/image";
+import { LightBox } from "@/components/ui/LightboxImage";
 
 export const metadata: Metadata = makeSeo({
   title: `${macosRice.name} - Igor Bedesqui`,
@@ -93,26 +93,26 @@ Aesthetics are cool and do play a role in driving my customizations, but the mos
 Fine! First off, this is how my setup looks right now:
 `}
             </MDX>
-            <div className="flex flex-col gap-4">
-              <Border className="-mx-4 rounded-sm" asWrapper>
-                <Image
-                  className="rounded-inherit bg-gray-1"
-                  alt="Screenshot of customized MacOS Desktop. The colors in VSCode, Obsidian, and the btop system monitor running in a terminal match the Vesper color palette"
-                  src={"/images/macos-rice/setup_1.jpg"}
-                  width={1440}
-                  height={935}
-                />
-              </Border>
-              <Border className="-mx-4 rounded-sm" asWrapper>
-                <Image
-                  className="rounded-inherit bg-gray-1"
-                  alt="Screenshot of customized MacOS Desktop. The colors in Linear, Spotify, Raycast, Discord, and VSCode match the Vesper color palette."
-                  src={"/images/macos-rice/setup_2.jpg"}
-                  width={1440}
-                  height={935}
-                />
-              </Border>
-            </div>
+
+            <Border className="-mx-4 rounded-sm" asWrapper>
+              <LightBox
+                alt="Screenshot of customized MacOS Desktop. The colors in VSCode, Obsidian, and the btop system monitor running in a terminal match the Vesper color palette"
+                src={"/images/macos-rice/setup_1.jpg"}
+                width={1440}
+                height={935}
+              />
+            </Border>
+
+            <Border className="-mx-4 rounded-sm" asWrapper>
+              <LightBox
+                className="rounded-inherit bg-gray-1"
+                alt="Screenshot of customized MacOS Desktop. The colors in Linear, Spotify, Raycast, Discord, and VSCode match the Vesper color palette."
+                src={"/images/macos-rice/setup_2.jpg"}
+                width={1440}
+                height={935}
+              />
+            </Border>
+
             <MDX>
               {`
 Most apps have the same custom color scheme, I tile windows through [Raycast's Window Management Extension](https://www.raycast.com/extensions/window-management) and have keybindings for about everything thanks to [Raycast's Hotkeys](https://manual.raycast.com/command-aliases-and-hotkeys).
@@ -127,7 +127,7 @@ The bulk of my setup consists of setting colors, but the most important part of 
 and you're pretty much done, the Window Management Extension has everything I use, and if you want my exact keybindings (and the _aesthetic_ gap between windows), you can copy the following settings:`}
             </MDX>
             <Border className="-mx-4 rounded-sm" asWrapper>
-              <Image
+              <LightBox
                 className="rounded-inherit bg-gray-1"
                 alt="Screenshot of Raycast settings for Window Manager extension. The hotkeys are as follows: Almost maximize = control + option + command + arrow up; Bottom Left Quarter = control + option + command + h; Bottom Left Sixth = control + option + Shift + command + h; Bottom Right Quarter = control + option + command + j; Bottom Right Sixth = control + option + Shift + command + j; Left Half = control + option + command + arrow left; Make Larger = control + option + Shift + command + arrow up; Make Smaller = control + option + Shift + command + arrow down; Reasonable Size = control + option + command + arrow down; Right Half = control + option + command + arrow right; Top Left Quarter = control + option + command + y; Top Left Sixth = control + option + Shift + command + Y; Top Right Quarter = control + option + command + u; Top Right Sixth = control + option + Shift + command + u. Window Management settings are: Gap = Tiny(8px); Cycling: Cycle ½, ⅔, ⅓; Advanced, Respect Stage Manager: off."
                 src={"/images/macos-rice/raycast_wm.jpg"}
@@ -418,7 +418,7 @@ Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my ke
             </MDX>
 
             <Border className="-mx-4 rounded-sm" asWrapper>
-              <Image
+              <LightBox
                 className="rounded-inherit bg-gray-1"
                 alt="Keyboard and mouse in the dark, both with LED lights shining in an orange color that matches the Vesper theme's orange"
                 src={"/images/macos-rice/keyboard.jpg"}
