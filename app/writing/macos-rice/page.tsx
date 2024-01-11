@@ -305,7 +305,7 @@ I commented each section and left notes on what every config does. Mostly, I'm r
 
 #### Raycast
 
-Raycast Pro gives you themes! To match VSCode I made two versions of vesper for it, [Vesper dark](https://themes.ray.so?version=1&name=Vesper%20dark%20only%20orange&author=Igor%20Bedesqui&authorUsername=bdsqqq&colors=%23101010,%23101010,%23F2F2F2,%23FFFFFF,%23FFFFFF,%23FFC799,%23FFC799,%23FFC799,%23FFC799,%23FFC799,%23FFC799,%23FFC799&appearance=dark&addToRaycast) and [Vesper dark only orange](https://themes.ray.so?version=1&name=Vesper%20dark%20only%20orange&author=Igor%20Bedesqui&authorUsername=bdsqqq&colors=%23101010,%23101010,%23F2F2F2,%23FFFFFF,%23FFFFFF,%23FFC799,%23FFC799,%23FFC799,%23FFC799,%23FFC799,%23FFC799,%23FFC799&appearance=dark&addToRaycast). The only orange version overrides ALL support colors with the accent orange from Vesper, I've been using it with no issues for a while, but hope your favorite extension doesn't rely on color alone to signify things!
+Raycast Pro gives you themes! To match VSCode I made two versions of vesper for it, [Vesper dark](https://themes.ray.so/bdsqqq/vesper-dark) and [Vesper dark only orange](https://themes.ray.so/bdsqqq/vesper-dark-orange-only). The only orange version overrides ALL support colors with the accent orange from Vesper, I've been using it with no issues for a while, but hope your favorite extension doesn't rely on color alone to signify things!
 
 #### Linear
 
