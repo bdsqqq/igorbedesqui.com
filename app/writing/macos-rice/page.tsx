@@ -431,7 +431,7 @@ Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my ke
               {`
 ## Afterword
 
-Putting this all together makes me realize how much work this took, it was spread out through months so I didn't even realize it. I hope this inspires you to make your workspace your own, be it through silly colors or by relentlessly hiding clutter, the most important part is crafting something yourself, for yourself.
+While writting this, I realized how much care went into my setup. It was a gradual process that spanned several months, so I didn't even notice the extent of the work. I hope this inspires you to personalize your workspace. Wether by overfocussing on silly colors or diligently organizing and minimizing clutter. The most important part is crafting something yourself, for yourself.
 
             `}
             </MDX>
