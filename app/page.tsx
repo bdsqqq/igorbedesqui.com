@@ -10,6 +10,7 @@ import {
   onWritingMeta,
   dontBelieveMeta,
   schrodingerMinimalism,
+  macosRice,
 } from "app/writing/metas";
 
 import { MDX } from "@/components/MDX";
@@ -19,6 +20,7 @@ import StyledLink from "@/components/ui/StyledLink";
 import { cn } from "@/lib/styling";
 
 const writingPieces = [
+  macosRice,
   schrodingerMinimalism,
   onWritingMeta,
   basicsMeta,
