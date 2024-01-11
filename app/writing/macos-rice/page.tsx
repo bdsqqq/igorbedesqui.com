@@ -78,13 +78,13 @@ export default async function Rice() {
               {`
 # Ricing MacOS
 ## Why...?
-About a year ago, youtube recommended me a video titled "[Improved AwesomeWM rice (With UI!)](https://www.youtube.com/watch?v=XyPs54eV99g&t=19s)", The minimal aesthetic and exageratted animations got me hooked, in a few hours I got way too deep into the Unix Ricing rabbithole, exploring window managers, aesthetic CLI tools, and color themes. 
+About a year ago, Youtube recommended a video titled "[Improved AwesomeWM rice (With UI!)](https://www.youtube.com/watch?v=XyPs54eV99g&t=19s)", The minimal aesthetic and exaggerated animations got me hooked, and in a few hours, I got way too deep into the Unix Ricing rabbithole, exploring window managers, aesthetic CLI tools, and color themes. 
 
-Having witnessed the greatness of [r/unixporn](https://www.reddit.com/r/unixporn/) I felt empty, how could I experience the greatness of an OS tailor made by me, for me, if I'm trapped in MacOS land? ... The same way one would in any other environment: With google, and a tiny bit of obcession.
+Having witnessed the greatness of [r/unixporn](https://www.reddit.com/r/unixporn/) I felt empty, how could I experience the greatness of an OS tailor-made by me, for me, if I'm trapped in MacOS land? ... The same way one would in any other environment: With Google and a tiny bit of obsession.
 
 ## Ok, but actually, why?
 
-The goal with my setup is to have a digital space that reflects my philosophy on any workpace, physical or digital: Have simple tools, always at a hand's reach, but never in the way. And make it pretty enough that you're happy to come back to it every single day.
+The goal with my setup is to have a digital space that reflects my philosophy on any workspace, physical or digital: Have simple tools, always at a hand's reach, but never in the way. And make it pretty enough that you're happy to come back to it every single day.
 
 Aesthetics are cool and do play a role in driving my customizations, but the most impactful things in my setup are the ones that make using my tools better for me. Most of my favorite edits hide features away; Thanks to command palettes, either in the form of Raycast or one provided by the app itself, and keyboard shortcuts, I can always reach for what I need, when I need it.
 
@@ -115,14 +115,14 @@ Fine! First off, this is how my setup looks right now:
             </div>
             <MDX>
               {`
-Most apps have the same custom color scheme, I tile windows through [Raycast's Window Management Extension](https://www.raycast.com/extensions/window-management), and have keybindings for about everything thanks to [Raycast's Hotkeys](https://manual.raycast.com/command-aliases-and-hotkeys).
+Most apps have the same custom color scheme, I tile windows through [Raycast's Window Management Extension](https://www.raycast.com/extensions/window-management) and have keybindings for about everything thanks to [Raycast's Hotkeys](https://manual.raycast.com/command-aliases-and-hotkeys).
 
 I shared my progress on applying the custom theme to each app on [Twitter](https://twitter.com/search?q=from:@bedesqui%20vesper&src=typed_query) bit by bit, and this week, [2 posts about my setup](https://twitter.com/search?q=(fine%20%20OR%20twitter%20OR%20weekly%20OR%20reminder)%20(from:bedesqui)%20min_faves:500%20-filter:replies&src=typed_query&f=top) got over 360K impressions combined. With this many eyes on it, a few people asked for a guide on how to do it themselves, and it's surprisingly simpler than it seems.
 ## How can I replicate it?
 
 ### Window Management
 
-The bulk of my setup consists of setting colors, but the most important part for my workflow is actually the window management aspect of it. Luckily it's simply leveraging Raycast's defaults with custom hotkeys for a few commands. If you don't have installed Raycast yet(Why?), you can get it by running \`brew install --cask raycast\`, or follow the instructions in [their site](https://www.raycast.com/).
+The bulk of my setup consists of setting colors, but the most important part of my workflow is the window management aspect of it. Luckily it's simply leveraging Raycast's defaults with custom hotkeys for a few commands. If you don't have installed Raycast yet(Why?), you can get it by running \`brew install --cask raycast\`, or following the instructions on [their site](https://www.raycast.com/).
 
 and you're pretty much done, the Window Management Extension has everything I use, and if you want my exact keybindings (and the _aesthetic_ gap between windows), you can copy the following settings:`}
             </MDX>
@@ -140,14 +140,14 @@ and you're pretty much done, the Window Management Extension has everything I us
 If you fancy a tiling window manager closer to what you'd find on Linux land, give [yabai](https://github.com/koekeishiya/yabai/) a try. And if you like snapping apps to the corners of screens like on Windows try [Rectangle](https://rectangleapp.com/).
 ### Apps
 
-Customizing apps is a mixed bag, some like VSCode, and most terminals allow extensive customization by default, others, like spotify or discord require use of third-party modifications, and others, like linear and raycast, allow for a bit of customization that often is just enough for me.
+Customizing apps is a mixed bag, some like VSCode and most terminals allow extensive customization by default, others, like Spotify or Discord require the use of third-party modifications, and others, like Linear and Raycast allow for a bit of customization that often is just enough for me.
 
-In no particular order, lets tackle how to customize each app:
+In no particular order, let's tackle how to customize each app:
 
 #### VSCode
 VSCode enables you to go DEEP with customizations, and this is a common trait of Applications made with Electron as we'll see later.
 
-On the surface, picking a theme, and icon pack will do a lot of heavy lifting; My prefered combination is [Vesper](https://marketplace.visualstudio.com/items?itemName=raunofreiberg.vesper) with [Chalice icons](https://marketplace.visualstudio.com/items?itemName=artlaman.chalice-icon-theme).
+On the surface, picking a theme, and icon pack will do a lot of heavy lifting; My preferred combination is [Vesper](https://marketplace.visualstudio.com/items?itemName=raunofreiberg.vesper) with [Chalice icons](https://marketplace.visualstudio.com/items?itemName=artlaman.chalice-icon-theme).
 You can either install them from the VSCode Extension Marketplace or use the following commands:
 `}
             </MDX>
@@ -156,7 +156,7 @@ You can either install them from the VSCode Extension Marketplace or use the fol
             </ScrollableCodeWithCopy>
             <MDX>
               {`
-Aditionally, the [Apc Customize UI++](https://marketplace.visualstudio.com/items?itemName=drcika.apc-extension) Extension enables you to apply styles to the app as with no limits, if it's something the VSCode devs could do, you can do. I use it to change the App font, making it the same as the editor, but seen others do way crazier things. You can install it from the marketplace or run the following command:
+For even more control, the [Apc Customize UI++](https://marketplace.visualstudio.com/items?itemName=drcika.apc-extension) extension enables you to apply styles to the app with no limits, if it's something the VSCode devs could do, you can do it. I use it to change the App font, making it the same as the editor, but see others do way crazier things. You can install it from the marketplace or run the following command:
 `}
             </MDX>
             <ScrollableCodeWithCopy heightClassname="h-13">
@@ -301,11 +301,11 @@ going deeper, VSCode allows you to do extensive customizations through the \`set
             <MDX>
               {`
 
-I commented each section and left notes on what every config does. Mostly, I'm removing stuff! With the command palette and keybindings I find the most value in the editor by coding with no clutter, then reaching for each tool as I need it.
+I commented on each section and left notes on what every config does. Mostly, I'm removing stuff! With the command palette and keybindings, I find the most value in the editor by coding with no clutter and then reaching for each tool as I need it.
 
 #### Raycast
 
-Raycast Pro gives you themes! To match VSCode I made two versions of vesper for it, [Vesper dark](https://themes.ray.so/bdsqqq/vesper-dark) and [Vesper dark only orange](https://themes.ray.so/bdsqqq/vesper-dark-orange-only). The only orange version overrides ALL support colors with the accent orange from Vesper, I've been using it with no issues for a while, but hope your favorite extension doesn't rely on color alone to signify things!
+Raycast Pro gives you themes! To match VSCode I made two versions of Vesper for it, [Vesper dark](https://themes.ray.so/bdsqqq/vesper-dark) and [Vesper dark only orange](https://themes.ray.so/bdsqqq/vesper-dark-orange-only). The only orange version overrides ALL support colors with the accent orange from Vesper, I've been using it with no issues for a while, but hope your favorite extension doesn't rely on color alone to signify things!
 
 #### Linear
 
@@ -313,7 +313,7 @@ Linear does such a delightful job at enabling color customization, in Settings, 
 
 #### Spotify
 
-Spotify doesn't surface significant customization at all, but the Open Source does! Using [Spicetify](https://github.com/spicetify) you can change anything in the spotify UI. 
+Spotify doesn't surface significant customization at all, but the Open Source does! Using [Spicetify](https://github.com/spicetify) you can change anything in the Spotify UI. 
 You can install it with the following commands:
 
 `}
@@ -325,18 +325,18 @@ You can install it with the following commands:
               {`
 For guidance on installation and usage, see the [Spicetify Docs](https://spicetify.app/docs/getting-started)
 
-Using the Spicetify CLI, you'll be able to apply a "Theme" to your spotify, You can find my theme in the [spicetify-vesper-theme](https://github.com/bdsqqq/spicetify-vesper-theme/tree/main) github repo. To use my theme, clone the repo into a folder in \`spicetify/Themes/\` (mine is in \`~/.config/spicetify/Themes/Vesper\`), and update the \`"current_theme"\` Setting in \`/spicetify/config-xpui.ini\`.
+Using the Spicetify CLI, you'll be able to apply a "Theme" to your Spotify, You can find my theme in the [spicetify-vesper-theme](https://github.com/bdsqqq/spicetify-vesper-theme/tree/main) Github repo. To use my theme, clone the repo into a folder in \`spicetify/Themes/\` (mine is in \`~/.config/spicetify/Themes/Vesper\`), and update the \`"current_theme"\` Setting in \`/spicetify/config-xpui.ini\`.
 
 #### Discord
 
-Similar to Spotify, my Discord setup requires a third party application, [Better Discord](https://betterdiscord.app/) enables extensive customization through CSS, similar to the aforementioned APC extension for VSCode. For instalation guidance, see the [Better Discord documentation](https://docs.betterdiscord.app/users/getting-started/installation). 
+Similar to Spotify, my Discord setup requires a third-party application, [Better Discord](https://betterdiscord.app/) enables extensive customization through CSS, similar to the aforementioned APC extension for VSCode. For installation guidance, see the [Better Discord documentation](https://docs.betterdiscord.app/users/getting-started/installation). 
 
-You can find my theme in the [better-discord-vesper-theme](https://github.com/bdsqqq/better-discord-vesper-theme) github repo. To use my theme, copy the content of the repo into the \`BetterDiscord/themes\` folder, you can open it from the Discord UI in Settings > Better Discord > Themes > "Open Themes Folder" after setting up Better Discord.
+You can find my theme in the [better-discord-vesper-theme](https://github.com/bdsqqq/better-discord-vesper-theme) Github repo. To use my theme, copy the content of the repo into the \`BetterDiscord/themes\` folder, you can open it from the Discord UI in Settings > Better Discord > Themes > "Open Themes Folder" after setting up Better Discord.
 
 #### Terminal
-The cool thing about terminals is that themes are often very portable, I daily drive [HyperTerm](hyper.is) because alacritty didn't let me use different padding from the top and bottom of the window. As you might've learned from previous items, electron based things are great for customization.
+The cool thing about terminals is that themes are often very portable, I daily drive [HyperTerm](hyper.is) because Alacritty didn't let me use different padding from the top and bottom of the window. As you might've learned from previous items, electron-based things are great for customization.
 
-For my colors I use some Vesper colors on top of the [Mellow nvim theme](https://github.com/mellow-theme/mellow.nvim/tree/main) :`}
+For my colors, I use some Vesper colors on top of the [Mellow nvim theme](https://github.com/mellow-theme/mellow.nvim/tree/main) :`}
             </MDX>
             <ScrollableCodeWithCopy heightClassname="h-96">
               {`colors: {
@@ -376,13 +376,13 @@ For my colors I use some Vesper colors on top of the [Mellow nvim theme](https:/
             </ScrollableCodeWithCopy>
             <MDX>
               {`
-If you use the [Warp terminal](https://www.warp.dev/), you can get the theme straight from my [github repo](https://github.com/bdsqqq/warp-term-vesper-theme/tree/main). And if you use the default MacOS terminal the simple version that changes background, text color, and caret color in [this gist](https://gist.github.com/bdsqqq/73e4c30f920fbcfc4502751ff4bd2307) might be enough to the the right look.
+If you use the [Warp terminal](https://www.warp.dev/), you can get the theme straight from my [Github repo](https://github.com/bdsqqq/warp-term-vesper-theme/tree/main). And if you use the default MacOS terminal the simple version that changes the background, text color, and caret color in [this gist](https://gist.github.com/bdsqqq/73e4c30f920fbcfc4502751ff4bd2307) might be enough to the the right look.
 
-I also use [fig](https://fig.io/) for autocomplete in the terminal, the theme for it is available in [my fork of the fig themes repo](https://github.com/bdsqqq/themes/blob/main/themes/vesper-dark.json) (and come on fig maintainers, it has been 5 months since I made the [PR to include vesper in the default themes](https://github.com/withfig/themes/pull/30)).
+I also use [Fig](https://fig.io/) for autocomplete in the terminal, the theme for it is available in [my fork of the Fig themes repo](https://github.com/bdsqqq/themes/blob/main/themes/vesper-dark.json) (and come on Fig maintainers, it has been 5 months since I made the [PR to include Vesper in the default themes](https://github.com/withfig/themes/pull/30)).
 
 #### Obsidian
 
-In Obsidian, I use the [Simple Theme](https://github.com/kepano/obsidian-minimal) with a couple overrides using the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin. 
+In Obsidian, I use the [Simple Theme](https://github.com/kepano/obsidian-minimal) with a couple of overrides using the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin. 
 You can get my overrides by copying the following JSON into the \`Settings > Community Plugins > Style Settings > "Import"\` field.`}
             </MDX>
             <ScrollableCodeWithCopy heightClassname="h-96">
@@ -414,7 +414,7 @@ You can get my overrides by copying the following JSON into the \`Settings > Com
             <MDX>
               {`
 #### Physical setup??
-Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my keyboard and mouse match the orange(or white sometimes; black and white is too nice to pass).`}
+Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my keyboard and mouse match the orange(or white sometimes; black and white are too nice to pass).`}
             </MDX>
 
             <Border className="-mx-4 rounded-sm" asWrapper>
@@ -431,7 +431,7 @@ Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my ke
               {`
 ## Afterword
 
-Putting this all together makes me realise how much work this took, it was spread out through months so I didn't even realise it. I hope this inspires you to make your workspace your own, be it through silly colors or by relentlessly hiding clutter, the most important part is crafting something youself, for yourself.
+Putting this all together makes me realize how much work this took, it was spread out through months so I didn't even realize it. I hope this inspires you to make your workspace your own, be it through silly colors or by relentlessly hiding clutter, the most important part is crafting something yourself, for yourself.
 
             `}
             </MDX>
