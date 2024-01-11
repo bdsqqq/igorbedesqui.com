@@ -38,7 +38,7 @@ export const schrodingerMinimalism = {
 export const macosRice = {
   shortName: "MacOS Ricing",
   name: "MacOS ricing",
-  description: "Crafting the workspace by me, for me.",
+  description: "Crafting a workspace by me, for me.",
   date: "09/01/2024",
   urlSlug: "macos-rice",
   backMessage: "~/writing/macos-rice cd ..",
