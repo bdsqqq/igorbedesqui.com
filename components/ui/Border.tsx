@@ -89,18 +89,21 @@ export const Border = forwardRef<HTMLElement, BorderProps>(
           "Automatically wrapping void element in a helper div, if you want to avoid this behavior, set the `asWrapper` prop explicitly"
         );
         return (
-          <div className={cn(shadowBorderStyles, className)} {...rest}>
+          <span
+            className={cn("block", shadowBorderStyles, className)}
+            {...rest}
+          >
             {children}
-          </div>
+          </span>
         );
       }
     }
 
     if (asWrapper)
       return (
-        <div className={cn(shadowBorderStyles, className)} {...rest}>
+        <span className={cn("block", shadowBorderStyles, className)} {...rest}>
           {children}
-        </div>
+        </span>
       );
 
     return (
