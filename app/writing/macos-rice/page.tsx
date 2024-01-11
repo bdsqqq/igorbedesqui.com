@@ -9,6 +9,11 @@ import type { Metadata } from "next";
 import { grid } from "@/components/ui/Grid";
 
 import { makeSeo } from "@/lib/makeSeo";
+import { CopyButton } from "@/components/ui/CopyButton";
+import { ComponentProps } from "react";
+import { cn } from "@/lib/styling";
+import { ScrollArea, ScrollBar } from "@/components/ui/ScrollArea";
+import { Border } from "@/components/ui/Border";
 
 export const metadata: Metadata = makeSeo({
   title: `${macosRice.name} - Igor Bedesqui`,
@@ -16,6 +21,32 @@ export const metadata: Metadata = makeSeo({
   slug: `/writing/${macosRice.urlSlug}`,
   ogText: `*${macosRice.name}*;/n ${macosRice.description}`,
 });
+
+// TODO: Turn this into the default CODE component for all MDX things.
+// TODO: make this count the lines of it's children and set height accordingly; code will never wrap
+const ScrollableCodeWithCopy = (
+  props: ComponentProps<"code"> & { heightClassname: string }
+) => {
+  return (
+    <Border>
+      <pre className="relative my-2 -mx-4 rounded-sm bg-gray-2 text-sm">
+        <ScrollArea className={cn("p-4", props.heightClassname)}>
+          <code
+            className={cn("rounded bg-gray-2 font-mono", props.className)}
+            {...props}
+          />
+          <ScrollBar orientation="vertical" />
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+
+        <CopyButton
+          className="absolute top-0 right-0"
+          contentToCopy={props.children?.toString() || ""}
+        />
+      </pre>
+    </Border>
+  );
+};
 
 export default async function Rice() {
   return (
@@ -84,20 +115,26 @@ VSCode enables you to go DEEP with customizations, and this is a common trait of
 
 On the surface, picking a theme, and icon pack will do a lot of heavy lifting; My prefered combination is [Vesper](https://marketplace.visualstudio.com/items?itemName=raunofreiberg.vesper) with [Chalice icons](https://marketplace.visualstudio.com/items?itemName=artlaman.chalice-icon-theme).
 You can either install them from the VSCode Extension Marketplace or use the following commands:
-\`\`\`sh
-code --install-extension artlaman.chalice-icon-theme 
-
-code --install-extension raunofreiberg.vesper 
-
-\`\`\`
+`}
+            </MDX>
+            <ScrollableCodeWithCopy heightClassname="h-24">
+              {`code --install-extension artlaman.chalice-icon-theme \n\ncode --install-extension raunofreiberg.vesper `}
+            </ScrollableCodeWithCopy>
+            <MDX>
+              {`
 Aditionally, the [Apc Customize UI++](https://marketplace.visualstudio.com/items?itemName=drcika.apc-extension) Extension enables you to apply styles to the app as with no limits, if it's something the VSCode devs could do, you can do. I use it to change the App font, making it the same as the editor, but seen others do way crazier things. You can install it from the marketplace or run the following command:
-\`\`\`sh
-code --install-extension drcika.apc-extension 
-\`\`\`
+`}
+            </MDX>
+            <ScrollableCodeWithCopy heightClassname="h-13">
+              {`sh code --install-extension drcika.apc-extension`}
+            </ScrollableCodeWithCopy>
+            <MDX>
+              {`
 going deeper, VSCode allows you to do extensive customizations through the \`settings.json\` file, to open it you can type "Open User Settings (JSON)" in your command palette. My current config is the following:
-
-\`\`\`json
-{
+`}
+            </MDX>
+            <ScrollableCodeWithCopy heightClassname="h-96">
+              {`{
     // vscode meta stuff
     "workbench.startupEditor": "none",
     "editor.accessibilitySupport": "off",
@@ -221,12 +258,14 @@ going deeper, VSCode allows you to do extensive customizations through the \`set
     ],
     "tailwindCSS.experimental.classRegex": [
       // enables tailwind autocomplete for specified functions
-      ["cva\\\\(([^)]*)\\\\)", "[\\"'\\\`]([^\\"'\`]*).*?[\\"'\`]"],
+      ["cva\\\\(([^)]*)\\\\)", "[\\"'\`]([^\\"'\`]*).*?[\\"'\`]"],
       ["cn\\\\(([^)]*)\\\\)", "[\\"'\`]([^\\"'\`]*).*?[\\"'\`]"],
       ["cx\\\\(([^)]*)\\\\)", "[\\"'\`]([^\\"'\`]*).*?[\\"'\`]"]
     ],
-  }  
-\`\`\`
+  }`}
+            </ScrollableCodeWithCopy>
+            <MDX>
+              {`
 
 I commented each section and left notes on what every config does. Mostly, I'm removing stuff! With the command palette and keybindings I find the most value in the editor by coding with no clutter, then reaching for each tool as I need it.
 
@@ -242,11 +281,14 @@ Linear does such a delightful job at enabling color customization, in Settings, 
 
 Spotify doesn't surface significant customization at all, but the Open Source does! Using [Spicetify](https://github.com/spicetify) you can change anything in the spotify UI. 
 You can install it with the following commands:
-\`\`\`sh
-curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh
 
-curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh
-\`\`\`
+`}
+            </MDX>
+            <ScrollableCodeWithCopy heightClassname="h-24">
+              {`curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh\n\ncurl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh`}
+            </ScrollableCodeWithCopy>
+            <MDX>
+              {`
 For guidance on installation and usage, see the [Spicetify Docs](https://spicetify.app/docs/getting-started)
 
 Using the Spicetify CLI, you'll be able to apply a "Theme" to your spotify, You can find my theme in the [spicetify-vesper-theme](https://github.com/bdsqqq/spicetify-vesper-theme/tree/main) github repo. To use my theme, clone the repo into a folder in \`spicetify/Themes/\` (mine is in \`~/.config/spicetify/Themes/Vesper\`), and update the \`"current_theme"\` Setting in \`/spicetify/config-xpui.ini\`.
@@ -260,9 +302,11 @@ You can find my theme in the [better-discord-vesper-theme](https://github.com/bd
 ### Terminal
 The cool thing about terminals is that themes are often very portable, I daily drive [HyperTerm](hyper.is) because alacritty didn't let me use different padding from the top and bottom of the window. As you might've learned from previous items, electron based things are great for customization.
 
-For my colors I use some Vesper colors on top of the [Mellow nvim theme](https://github.com/mellow-theme/mellow.nvim/tree/main) :
-\`\`\`json
-colors: {
+For my colors I use some Vesper colors on top of the [Mellow nvim theme](https://github.com/mellow-theme/mellow.nvim/tree/main) :`}
+            </MDX>
+
+            <ScrollableCodeWithCopy heightClassname="h-96">
+              {`colors: {
       // Basic
       bg: "#101010",
       fg: "#ffffff",
@@ -295,9 +339,11 @@ colors: {
       gray07: "#ffffff",
       // Special
       none: "NONE",
-    }
-\`\`\`
+    }`}
+            </ScrollableCodeWithCopy>
 
+            <MDX>
+              {`
 If you use the [Warp terminal](https://www.warp.dev/), you can get the theme straight from my [github repo](https://github.com/bdsqqq/warp-term-vesper-theme/tree/main). And if you use the default MacOS terminal the simple version that changes background, text color, and caret color in [this gist](https://gist.github.com/bdsqqq/73e4c30f920fbcfc4502751ff4bd2307) might be enough to the the right look.
 
 I also use [fig](https://fig.io/) for autocomplete in the terminal, the theme for it is available in [my fork of the fig themes repo](https://github.com/bdsqqq/themes/blob/main/themes/vesper-dark.json) (and come on fig maintainers, it has been 5 months since I made the [PR to include vesper in the default themes](https://github.com/withfig/themes/pull/30)).
@@ -305,9 +351,11 @@ I also use [fig](https://fig.io/) for autocomplete in the terminal, the theme fo
 ### Obsidian
 
 In Obsidian, I use the [Simple Theme](https://github.com/kepano/obsidian-minimal) with a couple overrides using the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin. 
-You can get my overrides by copying the following JSON into the \`Settings > Community Plugins > Style Settings > "Import"\` field.
-\`\`\`json
-{
+You can get my overrides by copying the following JSON into the \`Settings > Community Plugins > Style Settings > "Import"\` field.`}
+            </MDX>
+
+            <ScrollableCodeWithCopy heightClassname="h-96">
+              {`{
   "minimal-advanced@@styled-scrollbars": false,
   "minimal-style@@tag-radius": "4px",
   "minimal-style@@tag-border-width": "0",
@@ -330,9 +378,11 @@ You can get my overrides by copying the following JSON into the \`Settings > Com
   "minimal-style@@titlebar-text-color@@dark": "#101010",
   "minimal-style@@tabs-style": "tabs-underline",
   "minimal-style@@workspace-background-translucent@@dark": "#101010"
-}
-\`\`\`
+}`}
+            </ScrollableCodeWithCopy>
 
+            <MDX>
+              {`
 ### Physical setup??
 Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my keyboard and mouse match the orange(or white sometimes; black and white is too nice to pass).
 
