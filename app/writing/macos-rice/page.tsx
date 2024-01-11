@@ -20,7 +20,7 @@ export const metadata: Metadata = makeSeo({
   title: `${macosRice.name} - Igor Bedesqui`,
   description: macosRice.description,
   slug: `/writing/${macosRice.urlSlug}`,
-  ogText: `*${macosRice.name}*;/n ${macosRice.description}`,
+  ogText: `*${macosRice.name}*;/n/n ${macosRice.description}`,
 });
 
 // TODO: Turn this into the default CODE component for all MDX things.
