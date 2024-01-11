@@ -14,6 +14,7 @@ import { ComponentProps } from "react";
 import { cn } from "@/lib/styling";
 import { ScrollArea, ScrollBar } from "@/components/ui/ScrollArea";
 import { Border } from "@/components/ui/Border";
+import Image from "next/image";
 
 export const metadata: Metadata = makeSeo({
   title: `${macosRice.name} - Igor Bedesqui`,
@@ -89,10 +90,30 @@ Aesthetics are cool and do play a role in driving my customizations, but the mos
 # Show me the setup already!
 
 Fine! First off, this is how my setup looks right now:
-![Screenshot of customized MacOS Desktop. The colors in VSCode, Obsidian, and the btop system monitor running in a terminal match the Vesper color palette](/images/macos-rice/setup_1.jpg)
-
-![Screenshot of customized MacOS Desktop. The colors in Linear, Spotify, Raycast, Discord, and VSCode match the Vesper color palette](/images/macos-rice/setup_2.jpg)
-
+`}
+            </MDX>
+            <div className="flex flex-col gap-4">
+              <Border className="-mx-4 rounded-sm" asWrapper>
+                <Image
+                  className="rounded-inherit bg-gray-1"
+                  alt="Screenshot of customized MacOS Desktop. The colors in VSCode, Obsidian, and the btop system monitor running in a terminal match the Vesper color palette"
+                  src={"/images/macos-rice/setup_1.jpg"}
+                  width={1440}
+                  height={935}
+                />
+              </Border>
+              <Border className="-mx-4 rounded-sm" asWrapper>
+                <Image
+                  className="rounded-inherit bg-gray-1"
+                  alt="Screenshot of customized MacOS Desktop. The colors in Linear, Spotify, Raycast, Discord, and VSCode match the Vesper color palette."
+                  src={"/images/macos-rice/setup_2.jpg"}
+                  width={1440}
+                  height={935}
+                />
+              </Border>
+            </div>
+            <MDX>
+              {`
 Most apps have the same custom color scheme, I tile windows through [Raycast's Window Management Extension](https://www.raycast.com/extensions/window-management), and have keybindings for about everything thanks to [Raycast's Hotkeys](https://manual.raycast.com/command-aliases-and-hotkeys).
 
 I shared my progress on applying the custom theme to each app on [Twitter](https://twitter.com/search?q=from:@bedesqui%20vesper&src=typed_query) bit by bit, and this week, [2 posts about my setup](https://twitter.com/search?q=(fine%20%20OR%20twitter%20OR%20weekly%20OR%20reminder)%20(from:bedesqui)%20min_faves:500%20-filter:replies&src=typed_query&f=top) got over 360K impressions combined. With this many eyes on it, a few people asked for a guide on how to do it themselves, and it's surprisingly simpler than it seems.
@@ -102,10 +123,19 @@ I shared my progress on applying the custom theme to each app on [Twitter](https
 
 The bulk of my setup consists of setting colors, but the most important part for my workflow is actually the window management aspect of it. Luckily it's simply leveraging Raycast's defaults with custom hotkeys for a few commands. If you don't have installed Raycast yet(Why?), you can get it by running \`brew install --cask raycast\`, or follow the instructions in [their site](https://www.raycast.com/).
 
-and you're pretty much done, the Window Management Extension has everything I use, and if you want my exact keybindings (and the _aesthetic_ gap between windows), you can copy the following settings:
-
-![Screenshot of Raycast settings for Window Manager extension. The hotkeys are as follows: Almost maximize = control + option + command + arrow up; Bottom Left Quarter = control + option + command + h; Bottom Left Sixth = control + option + Shift + command + h; Bottom Right Quarter = control + option + command + j; Bottom Right Sixth = control + option + Shift + command + j; Left Half = control + option + command + arrow left; Make Larger = control + option + Shift + command + arrow up; Make Smaller = control + option + Shift + command + arrow down; Reasonable Size = control + option + command + arrow down; Right Half = control + option + command + arrow right; Top Left Quarter = control + option + command + y; Top Left Sixth = control + option + Shift + command + Y; Top Right Quarter = control + option + command + u; Top Right Sixth = control + option + Shift + command + u. Window Management settings are: Gap = Tiny(8px); Cycling: Cycle ½, ⅔, ⅓; Advanced, Respect Stage Manager: off.](/images/macos-rice/raycast_wm.jpg)
-
+and you're pretty much done, the Window Management Extension has everything I use, and if you want my exact keybindings (and the _aesthetic_ gap between windows), you can copy the following settings:`}
+            </MDX>
+            <Border className="-mx-4 rounded-sm" asWrapper>
+              <Image
+                className="rounded-inherit bg-gray-1"
+                alt="Screenshot of Raycast settings for Window Manager extension. The hotkeys are as follows: Almost maximize = control + option + command + arrow up; Bottom Left Quarter = control + option + command + h; Bottom Left Sixth = control + option + Shift + command + h; Bottom Right Quarter = control + option + command + j; Bottom Right Sixth = control + option + Shift + command + j; Left Half = control + option + command + arrow left; Make Larger = control + option + Shift + command + arrow up; Make Smaller = control + option + Shift + command + arrow down; Reasonable Size = control + option + command + arrow down; Right Half = control + option + command + arrow right; Top Left Quarter = control + option + command + y; Top Left Sixth = control + option + Shift + command + Y; Top Right Quarter = control + option + command + u; Top Right Sixth = control + option + Shift + command + u. Window Management settings are: Gap = Tiny(8px); Cycling: Cycle ½, ⅔, ⅓; Advanced, Respect Stage Manager: off."
+                src={"/images/macos-rice/raycast_wm.jpg"}
+                width={1440}
+                height={815}
+              />
+            </Border>
+            <MDX>
+              {`
 If you fancy a tiling window manager closer to what you'd find on Linux land, give [yabai](https://github.com/koekeishiya/yabai/) a try. And if you like snapping apps to the corners of screens like on Windows try [Rectangle](https://rectangleapp.com/).
 ## Apps
 
@@ -307,7 +337,6 @@ The cool thing about terminals is that themes are often very portable, I daily d
 
 For my colors I use some Vesper colors on top of the [Mellow nvim theme](https://github.com/mellow-theme/mellow.nvim/tree/main) :`}
             </MDX>
-
             <ScrollableCodeWithCopy heightClassname="h-96">
               {`colors: {
       // Basic
@@ -344,7 +373,6 @@ For my colors I use some Vesper colors on top of the [Mellow nvim theme](https:/
       none: "NONE",
     }`}
             </ScrollableCodeWithCopy>
-
             <MDX>
               {`
 If you use the [Warp terminal](https://www.warp.dev/), you can get the theme straight from my [github repo](https://github.com/bdsqqq/warp-term-vesper-theme/tree/main). And if you use the default MacOS terminal the simple version that changes background, text color, and caret color in [this gist](https://gist.github.com/bdsqqq/73e4c30f920fbcfc4502751ff4bd2307) might be enough to the the right look.
@@ -356,7 +384,6 @@ I also use [fig](https://fig.io/) for autocomplete in the terminal, the theme fo
 In Obsidian, I use the [Simple Theme](https://github.com/kepano/obsidian-minimal) with a couple overrides using the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin. 
 You can get my overrides by copying the following JSON into the \`Settings > Community Plugins > Style Settings > "Import"\` field.`}
             </MDX>
-
             <ScrollableCodeWithCopy heightClassname="h-96">
               {`{
   "minimal-advanced@@styled-scrollbars": false,
@@ -383,14 +410,24 @@ You can get my overrides by copying the following JSON into the \`Settings > Com
   "minimal-style@@workspace-background-translucent@@dark": "#101010"
 }`}
             </ScrollableCodeWithCopy>
-
             <MDX>
               {`
 ### Physical setup??
-Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my keyboard and mouse match the orange(or white sometimes; black and white is too nice to pass).
+Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my keyboard and mouse match the orange(or white sometimes; black and white is too nice to pass).`}
+            </MDX>
 
-![Keyboard and mouse in the dark, both with LED lights shining in an orange color that matches the Vesper theme's orange](/images/macos-rice/keyboard.jpg)
+            <Border className="-mx-4 rounded-sm" asWrapper>
+              <Image
+                className="rounded-inherit bg-gray-1"
+                alt="Keyboard and mouse in the dark, both with LED lights shining in an orange color that matches the Vesper theme's orange"
+                src={"/images/macos-rice/keyboard.jpg"}
+                width={1440}
+                height={1080}
+              />
+            </Border>
 
+            <MDX>
+              {`
 # Afterword
 
 Putting this all together makes me realise how much work this took, it was spread out through months so I didn't even realise it. I hope this inspires you to make your workspace your own, be it through silly colors or by relentlessly hiding clutter, the most important part is crafting something youself, for yourself.
