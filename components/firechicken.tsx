@@ -3,7 +3,11 @@ import StyledLink from "@/ui/StyledLink";
 export default function FireChicken() {
   return (
     <div className="inline-flex w-full flex-wrap justify-end gap-1 text-right">
-      <StyledLink iconless href="https://firechicken.club">
+      <StyledLink
+        className="whitespace-nowrap"
+        iconless
+        href="https://firechicken.club"
+      >
         Fire Chicken Webring
       </StyledLink>
       <span className="inline-flex justify-end gap-0.5 text-gray-9">
