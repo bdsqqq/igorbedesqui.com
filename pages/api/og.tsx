@@ -32,6 +32,7 @@ export default async function handler(req: NextRequest) {
         <div
           style={{
             display: "flex",
+            flexDirection: "column",
             position: "relative",
             width: "100%",
             height: "100%",
@@ -67,7 +68,6 @@ export default async function handler(req: NextRequest) {
                 fontSize: 56,
                 display: "flex",
                 flexDirection: "column",
-                flexWrap: "wrap",
               }}
             >
               {text?.map((line, i) => {
