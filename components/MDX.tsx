@@ -19,7 +19,7 @@ const defaultComponents = {
   ),
   pre: (props: HTMLProps<HTMLPreElement>) => (
     <pre
-      className="my-2 overflow-x-auto rounded bg-gray-2 p-4 text-sm"
+      className="my-2 -mx-4 overflow-x-auto rounded bg-gray-2 p-4 text-sm"
       {...props}
     />
   ),
