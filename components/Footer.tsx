@@ -9,11 +9,20 @@ const Footer = () => {
               "radial-gradient(ellipse at center, var(--color-gray-7) 0%, var(--color-gray-1) 75%, transparent 100%)",
           }}
         />
-        <footer className={cn(grid(), " py-8")}>
+        <footer
+          className={cn(
+            subGrid({
+              lg: 16,
+              md: 8,
+              sm: 4,
+            })(),
+            "py-8"
+          )}
+        >
           {/* <div className="grid grid-cols-2 gap-y-8 gap-x-2 md:grid-cols-3 lg:grid-cols-4"> */}
           {/* <Separator className="col-span-16 my-8 w-11" /> */}
 
-          <div className="col-span-4 col-start-1">
+          <div className="col-span-2 col-start-1 md:col-span-4">
             <StyledLink className="no-underline" href="/">
               Igor Bedesqui
             </StyledLink>
@@ -71,7 +80,7 @@ const Footer = () => {
               </ul>
             </div> */}
 
-          <div className="col-span-4 col-end-17">
+          <div className="col-span-2 md:col-span-4 md:col-end-9 lg:col-span-8 lg:col-end-17">
             <FireChicken />
           </div>
           <div />
@@ -86,5 +95,5 @@ export default Footer;
 import { Separator } from "@/ui/Separator";
 import StyledLink from "@/ui/StyledLink";
 import FireChicken from "@/components/firechicken";
-import { grid } from "@/components/ui/Grid";
+import { subGrid } from "@/components/ui/Grid";
 import { cn } from "@/lib/styling";
