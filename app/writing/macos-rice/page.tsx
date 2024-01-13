@@ -318,8 +318,8 @@ You can install it with the following commands:
 
 `}
             </MDX>
-            <ScrollableCodeWithCopy heightClassname="h-24">
-              {`curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh\n\ncurl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh`}
+            <ScrollableCodeWithCopy heightClassname="h-13">
+              {`curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | sh`}
             </ScrollableCodeWithCopy>
             <MDX>
               {`
