@@ -180,7 +180,7 @@ export default async function Home() {
 
                   Now, **I'm focusing on the basics of my craft. The fine and detailed polish I strive for will come as I build [“Just” the basics](/writing/${basicsMeta.urlSlug}) with care**. <Blur>I hope…</Blur>
 
-                  Collaborating with amazing people, convincing myself I belong among them. Trying to make something worth stealing at [axiom](https://www.axiom.co/). <Blur>Naively trying to raise the bar for an industry, knowing that I myself am bellow the current one. **I'll get there.**</Blur>
+                  Collaborating with amazing people, convincing myself I belong among them. Trying to make something worth stealing at [axiom](https://www.axiom.co/). <Blur>Naively trying to raise the bar for an industry, knowing that I myself am below the current one. **I'll get there.**</Blur>
                 `}
               </MDX>
             </div>
