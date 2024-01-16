@@ -46,7 +46,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-geist-sans)"],
+        sans: ["var(--font-ibm-plex-serif)"],
         mono: ["var(--font-geist-mono)"],
       },
       gridTemplateColumns: {

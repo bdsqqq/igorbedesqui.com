@@ -11,11 +11,12 @@ import Script from "next/script";
 
 export { reportWebVitals } from "next-axiom";
 
-// const customFont = IBM_Plex_Serif({
-//   display: "swap",
-//   subsets: ["latin"],
-//   weight: ["200", "400", "700"],
-// });
+const PlexSerif = IBM_Plex_Serif({
+  display: "swap",
+  subsets: ["latin"],
+  weight: ["200", "400", "700"],
+  variable: "--font-ibm-plex-serif",
+});
 
 const DocumentStuff = () => {
   return (
@@ -69,7 +70,7 @@ export default function RootLayout({
       </head>
       <body>
         <div
-          className={`${GeistSans.variable} ${GeistMono.variable} relative font-sans`}
+          className={`${PlexSerif.className} ${GeistMono.variable} relative font-sans`}
         >
           <Grain />
           <Vignette />
