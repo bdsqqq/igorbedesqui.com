@@ -11,11 +11,12 @@ import Script from "next/script";
 
 export { reportWebVitals } from "next-axiom";
 
-// const customFont = IBM_Plex_Serif({
-//   display: "swap",
-//   subsets: ["latin"],
-//   weight: ["200", "400", "700"],
-// });
+const PlexSerif = IBM_Plex_Serif({
+  display: "swap",
+  subsets: ["latin"],
+  weight: ["200", "400", "700"],
+  variable: "--font-ibm-plex-serif",
+});
 
 const DocumentStuff = () => {
   return (
@@ -69,13 +70,13 @@ export default function RootLayout({
       </head>
       <body>
         <div
-          className={`${GeistSans.variable} ${GeistMono.variable} relative font-sans`}
+          className={`${PlexSerif.className} ${GeistMono.variable} relative font-sans`}
         >
           <Grain />
           <Vignette />
           <Providers>{children}</Providers>
           <div
-            className="pointer-events-none absolute top-0 h-full w-full opacity-[3%] blur-[100px] saturate-150 filter"
+            className="pointer-events-none absolute top-0 h-full w-full opacity-[2%] blur-[100px] saturate-150 filter"
             style={{
               backgroundImage:
                 "radial-gradient(at 27% 37%,#3a8bfd 0,transparent 0),radial-gradient(at 97% 21%,#72fe7d 0,transparent 50%),radial-gradient(at 52% 99%,#fd3a4e 0,transparent 50%),radial-gradient(at 10% 29%,#855afc 0,transparent 50%),radial-gradient(at 97% 96%,#e4c795 0,transparent 50%),radial-gradient(at 33% 50%,#8ca8e8 0,transparent 50%),radial-gradient(at 79% 53%,#eea5ba 0,transparent 50%)",
