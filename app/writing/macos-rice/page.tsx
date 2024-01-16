@@ -86,9 +86,9 @@ Having witnessed the greatness of [r/unixporn](https://www.reddit.com/r/unixporn
 
 The goal with my setup is to have a digital space that reflects my philosophy on any workspace, physical or digital: Have simple tools, always at a hand's reach, but never in the way. And make it pretty enough that you're happy to come back to it every single day.
 
-Aesthetics are cool and do play a role in driving my customizations, but the most impactful things in my setup are the ones that make using my tools better for me. Most of my favorite edits hide features away; Thanks to command palettes, either in the form of Raycast or one provided by the app itself, and keyboard shortcuts, I can always reach for what I need, when I need it.
+Aesthetics are cool and do play a role in driving my customizations, but the most impactful things in my rice are the ones that make using my tools better for me. Most of my favorite edits hide features away; Thanks to command palettes, either in the form of Raycast or one provided by the app itself, and keyboard shortcuts, I can always reach for what I need, when I need it.
 
-## Show me the setup already!
+## Show me the MacOS Rice already!
 
 Fine! First off, this is how my setup looks right now:
 `}
