@@ -35,8 +35,8 @@ export const Vignette = () => {
 const defaultSizes = {
   top: "100px",
   bottom: "100px",
-  left: "10vw",
-  right: "10vw",
+  left: "0px", //10vw
+  right: "0px", //10vw
 };
 
 const VignetteStrip = ({
@@ -54,8 +54,8 @@ const VignetteStrip = ({
           "h-full min-w-[120px] max-md:hidden",
         pos === "top" && "top-0 bg-gradient-to-t",
         pos === "bottom" && "bottom-0 bg-gradient-to-b",
-        pos === "left" && "-left-6 bg-gradient-to-l",
-        pos === "right" && "-right-6 bg-gradient-to-r",
+        // pos === "left" && "-left-6 bg-gradient-to-l",
+        // pos === "right" && "-right-6 bg-gradient-to-r",
         className
       )}
       style={{
