@@ -334,7 +334,7 @@ Similar to Spotify, my Discord setup requires a third-party application, [Better
 You can find my theme in the [better-discord-vesper-theme](https://github.com/bdsqqq/better-discord-vesper-theme) Github repo. To use my theme, copy the content of the repo into the \`BetterDiscord/themes\` folder, you can open it from the Discord UI in Settings > Better Discord > Themes > "Open Themes Folder" after setting up Better Discord.
 
 #### Terminal
-The cool thing about terminals is that themes are often very portable, I daily drive [HyperTerm](hyper.is) because Alacritty didn't let me use different padding from the top and bottom of the window. As you might've learned from previous items, electron-based things are great for customization.
+The cool thing about terminals is that themes are often very portable, I daily drive [HyperTerm](https://hyper.is/) because Alacritty didn't let me use different padding from the top and bottom of the window. As you might've learned from previous items, electron-based things are great for customization.
 
 For my colors, I use some Vesper colors on top of the [Mellow nvim theme](https://github.com/mellow-theme/mellow.nvim/tree/main) :`}
             </MDX>
