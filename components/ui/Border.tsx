@@ -91,6 +91,7 @@ export const Border = forwardRef<HTMLElement, BorderProps>(
         return (
           <span
             className={cn("block", shadowBorderStyles, className)}
+            ref={ref}
             {...rest}
           >
             {children}
@@ -101,13 +102,17 @@ export const Border = forwardRef<HTMLElement, BorderProps>(
 
     if (asWrapper)
       return (
-        <span className={cn("block", shadowBorderStyles, className)} {...rest}>
+        <span
+          className={cn("block", shadowBorderStyles, className)}
+          ref={ref}
+          {...rest}
+        >
           {children}
         </span>
       );
 
     return (
-      <Slot className={cn(shadowBorderStyles, className)} {...rest}>
+      <Slot className={cn(shadowBorderStyles, className)} ref={ref} {...rest}>
         {children}
       </Slot>
     );
