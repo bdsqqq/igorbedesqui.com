@@ -27,11 +27,7 @@ export const LightBox = ({
       <MotionBorder
         layoutId={props.src as string}
         asWrapper
-        className={cn(
-          "relative -mx-4 rounded-sm",
-          open && "overflow-visible",
-          className
-        )}
+        className={cn("relative", open && "overflow-visible", className)}
       >
         <>
           <MotionImage
