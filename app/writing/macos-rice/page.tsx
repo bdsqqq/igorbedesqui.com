@@ -94,24 +94,21 @@ Fine! First off, this is how my setup looks right now:
 `}
             </MDX>
 
-            <Border className="-mx-4 rounded-sm" asWrapper>
-              <LightBox
-                alt="Screenshot of customized MacOS Desktop. The colors in VSCode, Obsidian, and the btop system monitor running in a terminal match the Vesper color palette"
-                src={"/images/macos-rice/setup_1.jpg"}
-                width={1440}
-                height={935}
-              />
-            </Border>
+            <LightBox
+              className="-mx-4 rounded-sm bg-gray-1"
+              alt="Screenshot of customized MacOS Desktop. The colors in VSCode, Obsidian, and the btop system monitor running in a terminal match the Vesper color palette"
+              src={"/images/macos-rice/setup_1.jpg"}
+              width={1440}
+              height={935}
+            />
 
-            <Border className="-mx-4 rounded-sm" asWrapper>
-              <LightBox
-                className="rounded-inherit bg-gray-1"
-                alt="Screenshot of customized MacOS Desktop. The colors in Linear, Spotify, Raycast, Discord, and VSCode match the Vesper color palette."
-                src={"/images/macos-rice/setup_2.jpg"}
-                width={1440}
-                height={935}
-              />
-            </Border>
+            <LightBox
+              className="-mx-4 rounded-sm bg-gray-1"
+              alt="Screenshot of customized MacOS Desktop. The colors in Linear, Spotify, Raycast, Discord, and VSCode match the Vesper color palette."
+              src={"/images/macos-rice/setup_2.jpg"}
+              width={1440}
+              height={935}
+            />
 
             <MDX>
               {`
@@ -126,15 +123,13 @@ The bulk of my rice consists of setting colors, but the most important part of m
 
 and you're pretty much done, the Window Management Extension has everything I use, and if you want my exact keybindings (and the _aesthetic_ gap between windows), you can copy the following settings:`}
             </MDX>
-            <Border className="-mx-4 rounded-sm" asWrapper>
-              <LightBox
-                className="rounded-inherit bg-gray-1"
-                alt="Screenshot of Raycast settings for Window Manager extension. The hotkeys are as follows: Almost maximize = control + option + command + arrow up; Bottom Left Quarter = control + option + command + h; Bottom Left Sixth = control + option + Shift + command + h; Bottom Right Quarter = control + option + command + j; Bottom Right Sixth = control + option + Shift + command + j; Left Half = control + option + command + arrow left; Make Larger = control + option + Shift + command + arrow up; Make Smaller = control + option + Shift + command + arrow down; Reasonable Size = control + option + command + arrow down; Right Half = control + option + command + arrow right; Top Left Quarter = control + option + command + y; Top Left Sixth = control + option + Shift + command + Y; Top Right Quarter = control + option + command + u; Top Right Sixth = control + option + Shift + command + u. Window Management settings are: Gap = Tiny(8px); Cycling: Cycle ½, ⅔, ⅓; Advanced, Respect Stage Manager: off."
-                src={"/images/macos-rice/raycast_wm.jpg"}
-                width={1440}
-                height={815}
-              />
-            </Border>
+            <LightBox
+              className="-mx-4 rounded-sm bg-gray-1"
+              alt="Screenshot of Raycast settings for Window Manager extension. The hotkeys are as follows: Almost maximize = control + option + command + arrow up; Bottom Left Quarter = control + option + command + h; Bottom Left Sixth = control + option + Shift + command + h; Bottom Right Quarter = control + option + command + j; Bottom Right Sixth = control + option + Shift + command + j; Left Half = control + option + command + arrow left; Make Larger = control + option + Shift + command + arrow up; Make Smaller = control + option + Shift + command + arrow down; Reasonable Size = control + option + command + arrow down; Right Half = control + option + command + arrow right; Top Left Quarter = control + option + command + y; Top Left Sixth = control + option + Shift + command + Y; Top Right Quarter = control + option + command + u; Top Right Sixth = control + option + Shift + command + u. Window Management settings are: Gap = Tiny(8px); Cycling: Cycle ½, ⅔, ⅓; Advanced, Respect Stage Manager: off."
+              src={"/images/macos-rice/raycast_wm.jpg"}
+              width={1440}
+              height={815}
+            />
             <MDX>
               {`
 If you fancy a tiling window manager closer to what you'd find on Linux land, give [yabai](https://github.com/koekeishiya/yabai/) a try. And if you like snapping apps to the corners of screens like on Windows try [Rectangle](https://rectangleapp.com/).
@@ -417,15 +412,13 @@ You can get my overrides by copying the following JSON into the \`Settings > Com
 Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my keyboard and mouse match the orange(or white sometimes; black and white are too nice to pass).`}
             </MDX>
 
-            <Border className="-mx-4 rounded-sm" asWrapper>
-              <LightBox
-                className="rounded-inherit bg-gray-1"
-                alt="Keyboard and mouse in the dark, both with LED lights shining in an orange color that matches the Vesper theme's orange"
-                src={"/images/macos-rice/keyboard.jpg"}
-                width={1440}
-                height={1080}
-              />
-            </Border>
+            <LightBox
+              className="-mx-4 rounded-sm bg-gray-1"
+              alt="Keyboard and mouse in the dark, both with LED lights shining in an orange color that matches the Vesper theme's orange"
+              src={"/images/macos-rice/keyboard.jpg"}
+              width={1440}
+              height={1080}
+            />
 
             <MDX>
               {`

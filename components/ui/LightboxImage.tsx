@@ -1,4 +1,5 @@
 "use client";
+import { Border } from "@/components/ui/Border";
 import { Button } from "@/components/ui/Button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/Dialog";
 import { cn } from "@/lib/styling";
@@ -8,8 +9,12 @@ import Image, { ImageProps } from "next/image";
 import { ComponentProps, useState } from "react";
 
 const MotionImage = motion(Image);
+const MotionBorder = motion(Border);
 
-export const LightBox = (props: ComponentProps<typeof MotionImage>) => {
+export const LightBox = ({
+  className,
+  ...props
+}: ComponentProps<typeof MotionImage> & { className?: string }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -19,11 +24,18 @@ export const LightBox = (props: ComponentProps<typeof MotionImage>) => {
         setOpen(e);
       }}
     >
-      <div className={cn("relative", open && "overflow-visible")}>
+      <MotionBorder
+        layoutId={props.src as string}
+        asWrapper
+        className={cn(
+          "relative -mx-4 rounded-sm",
+          open && "overflow-visible",
+          className
+        )}
+      >
         <>
           <MotionImage
-            layoutId={props.src as string}
-            className="rounded-inherit bg-gray-1"
+            className="w-full rounded-inherit bg-gray-1"
             {...props}
           />
 
@@ -33,10 +45,12 @@ export const LightBox = (props: ComponentProps<typeof MotionImage>) => {
             </Button>
           </DialogTrigger>
         </>
-      </div>
+      </MotionBorder>
 
-      <DialogContent className="!pointer-events-none top-0 left-0 right-0 bottom-0 grid w-full max-w-none translate-x-0 translate-y-0 place-items-center bg-transparent p-0">
-        <MotionImage layoutId={props.src as string} {...props} />
+      <DialogContent className="!pointer-events-none top-px left-0 right-0 bottom-0 grid w-full max-w-none translate-x-0 translate-y-0 place-items-center bg-transparent p-0">
+        <MotionBorder layoutId={props.src as string} asWrapper>
+          <MotionImage {...props} />
+        </MotionBorder>
       </DialogContent>
     </Dialog>
   );
