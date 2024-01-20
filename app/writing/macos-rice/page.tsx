@@ -349,7 +349,7 @@ For my colors, I use some Vesper colors on top of the [Mellow nvim theme](https:
       cyan: "#ea83a5",
       white: "#A0A0A0",
       // Bright
-      lightBlack: "#282828",
+      lightBlack: "#7E7E7E",
       lightRed: "#ff8080",
       lightGreen: "#99FFE4",
       lightYellow: "#FFC799",
