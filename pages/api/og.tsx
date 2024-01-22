@@ -81,6 +81,8 @@ export default async function handler(req: NextRequest) {
                         fontWeight: i % 2 === 1 ? 600 : 400,
                         color:
                           i % 2 === 1 ? "hsl(0 0% 93.0%)" : "hsl(0 0% 62.8%)",
+                        flexShrink: 0,
+                        display: "flex",
                         marginLeft:
                           text.startsWith(".") ||
                           text.startsWith(",") ||
@@ -113,7 +115,7 @@ export default async function handler(req: NextRequest) {
             style={{
               width: "100%",
               height: "100%",
-              zIndex: "40",
+              zIndex: 40,
               position: "absolute",
               inset: "0",
               opacity: "0.03",
