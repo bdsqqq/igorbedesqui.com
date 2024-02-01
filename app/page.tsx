@@ -86,6 +86,30 @@ export default async function Home() {
           <div className={subGrid()({ mode: "narrow" })}>
             <div className="col-span-full md:col-span-5 lg:col-span-6">
               <ul className=" pointer-events-none -mt-4 flex flex-col focus-within:text-gray-10 hover:text-gray-10">
+                <li>
+                  <div className="group pointer-events-auto block py-4 transition-colors duration-fast-02 ease-productive-standard focus-within:text-gray-12 hover:text-gray-12">
+                    <div className="flex flex-col ">
+                      <div>
+                        <h3 className="inline-block font-bold">
+                          <StyledLink href="https://axiom.co">Axiom</StyledLink>
+                        </h3>{" "}
+                        <span className="text-bold inline-block transform text-end text-xs tracking-tighter text-gray-11 transition-all duration-moderate-01 ease-productive-standard group-focus-within:translate-x-0 group-focus-within:opacity-100 group-hover:translate-x-0 group-hover:opacity-100 md:-translate-x-4 md:opacity-0">
+                          2023 ~ now
+                        </span>
+                      </div>
+                      <MDX
+                        components={{
+                          del: (props) => (
+                            <Blur className="text-gray-12" {...props} />
+                          ),
+                        }}
+                      >
+                        {`Raising the bar for observability, security, and analytics.`}
+                      </MDX>
+                    </div>
+                  </div>
+                </li>
+
                 {projsMeta.map((projMeta) => {
                   return (
                     <li key={projMeta.shortName}>
