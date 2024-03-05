@@ -26,12 +26,12 @@ export const metadata: Metadata = makeSeo({
 // TODO: Turn this into the default CODE component for all MDX things.
 // TODO: make this count the lines of it's children and set height accordingly; code will never wrap
 const ScrollableCodeWithCopy = (
-  props: ComponentProps<"code"> & { heightClassname: string }
+  props: ComponentProps<"code"> & { heightclassname: string }
 ) => {
   return (
     <Border>
       <pre className="relative my-2 -mx-4 rounded-sm bg-gray-2 text-sm">
-        <ScrollArea className={cn("p-4", props.heightClassname)}>
+        <ScrollArea className={cn("p-4", props.heightclassname)}>
           <code
             className={cn("rounded bg-gray-2 font-mono", props.className)}
             {...props}
@@ -146,7 +146,7 @@ On the surface, picking a theme, and icon pack will do a lot of heavy lifting; M
 You can either install them from the VSCode Extension Marketplace or use the following commands:
 `}
             </MDX>
-            <ScrollableCodeWithCopy heightClassname="h-24">
+            <ScrollableCodeWithCopy heightclassname="h-24">
               {`code --install-extension artlaman.chalice-icon-theme \n\ncode --install-extension raunofreiberg.vesper `}
             </ScrollableCodeWithCopy>
             <MDX>
@@ -154,7 +154,7 @@ You can either install them from the VSCode Extension Marketplace or use the fol
 For even more control, the [Apc Customize UI++](https://marketplace.visualstudio.com/items?itemName=drcika.apc-extension) extension enables you to apply styles to the app with no limits, if it's something the VSCode devs could do, you can do it. I use it to change the App font, making it the same as the editor, but see others do way crazier things. You can install it from the marketplace or run the following command:
 `}
             </MDX>
-            <ScrollableCodeWithCopy heightClassname="h-13">
+            <ScrollableCodeWithCopy heightclassname="h-13">
               {`sh code --install-extension drcika.apc-extension`}
             </ScrollableCodeWithCopy>
             <MDX>
@@ -162,7 +162,7 @@ For even more control, the [Apc Customize UI++](https://marketplace.visualstudio
 going deeper, VSCode allows you to do extensive customizations through the \`settings.json\` file, to open it you can type "Open User Settings (JSON)" in your command palette. My current config is the following:
 `}
             </MDX>
-            <ScrollableCodeWithCopy heightClassname="h-96">
+            <ScrollableCodeWithCopy heightclassname="h-96">
               {`{
     // vscode meta stuff
     "workbench.startupEditor": "none",
@@ -313,7 +313,7 @@ You can install it with the following commands:
 
 `}
             </MDX>
-            <ScrollableCodeWithCopy heightClassname="h-13">
+            <ScrollableCodeWithCopy heightclassname="h-13">
               {`curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | sh`}
             </ScrollableCodeWithCopy>
             <MDX>
@@ -333,7 +333,7 @@ The cool thing about terminals is that themes are often very portable, I daily d
 
 For my colors, I use some Vesper colors on top of the [Mellow nvim theme](https://github.com/mellow-theme/mellow.nvim/tree/main) :`}
             </MDX>
-            <ScrollableCodeWithCopy heightClassname="h-96">
+            <ScrollableCodeWithCopy heightclassname="h-96">
               {`colors: {
       // Basic
       bg: "#101010",
@@ -380,7 +380,7 @@ I also use [Fig](https://fig.io/) for autocomplete in the terminal, the theme fo
 In Obsidian, I use the [Simple Theme](https://github.com/kepano/obsidian-minimal) with a couple of overrides using the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin. 
 You can get my overrides by copying the following JSON into the \`Settings > Community Plugins > Style Settings > "Import"\` field.`}
             </MDX>
-            <ScrollableCodeWithCopy heightClassname="h-96">
+            <ScrollableCodeWithCopy heightclassname="h-96">
               {`{
   "minimal-advanced@@styled-scrollbars": false,
   "minimal-style@@tag-radius": "4px",
