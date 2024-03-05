@@ -70,7 +70,7 @@ export default function RootLayout({
       </head>
       <body>
         <div
-          className={`${PlexSerif.className} ${GeistMono.variable} relative font-sans`}
+          className={`${PlexSerif.className} ${GeistMono.variable} relative font-serif`}
         >
           <Grain />
           <Vignette />
