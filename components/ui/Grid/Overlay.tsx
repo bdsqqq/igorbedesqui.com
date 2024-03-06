@@ -4,15 +4,14 @@ export const Overlay = () => {
   const [mode, setMode] = useState<"wide" | "narrow" | "condensed">("narrow");
   const [visible, setVisible] = useState<boolean>(false);
 
+  const setVisibleCallback = useCallback(() => {
+    setVisible((v) => !v);
+  }, []);
+
   return (
     <>
       <div className="fixed top-4 right-4 z-50 opacity-0 transition-opacity duration-fast-02 ease-productive-standard focus-within:opacity-100 hover:opacity-100">
-        <Button
-          onClick={() => {
-            setVisible((v) => !v);
-          }}
-          className="h-8"
-        >
+        <Button onClick={setVisibleCallback} className="h-8">
           {visible ? <EyeOpenIcon /> : <EyeClosedIcon />}
         </Button>
       </div>
@@ -77,7 +76,7 @@ export const Overlay = () => {
 
 import { grid } from "@/components/ui/Grid";
 
-import { useState, Fragment } from "react";
+import { useState, Fragment, useCallback } from "react";
 import { Button } from "@/ui/Button";
 import { EyeClosedIcon, EyeOpenIcon, LayoutIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
