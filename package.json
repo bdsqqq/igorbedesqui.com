@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mdx-js/react": "^2.3.0",
+    "@million/lint": "^0.0.66",
     "@next/bundle-analyzer": "^12.3.4",
     "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-compose-refs": "^1.0.1",
