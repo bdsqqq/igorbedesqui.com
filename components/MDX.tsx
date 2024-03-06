@@ -44,8 +44,6 @@ export const MDX = ({
   components?: React.ComponentProps<typeof MDXProvider>["components"];
 }) => {
   return (
-    // workaround https://beta.nextjs.org/docs/data-fetching/fetching#asyncawait-in-server-components
-    /* @ts-expect-error Server Component */
     <MDXRemote
       {...rest}
       source={children}
