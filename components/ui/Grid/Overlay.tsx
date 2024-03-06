@@ -25,23 +25,7 @@ export const Overlay = () => {
         <div
           className={cn(grid({ mode: mode }), "h-full w-full px-4 md:px-16")}
         >
-          {[...Array(16)].map((_, i) => {
-            return (
-              <div
-                key={i}
-                className={cn(
-                  "hidden border-x border-gray-A3 bg-gray-A2",
-                  i < 4 && "block",
-                  i < 8 && "md:block",
-                  i < 16 && "lg:block"
-                )}
-              >
-                <div className="relative h-full w-full bg-gray-A2 text-center text-gray-10">
-                  <div className="sticky top-4 left-0 right-0">{i + 1}</div>
-                </div>
-              </div>
-            );
-          })}
+          <GridColumns />
         </div>
       </div>
 
@@ -70,6 +54,30 @@ export const Overlay = () => {
           })}
         </div>
       </div> */}
+    </>
+  );
+};
+
+const GridColumns = () => {
+  return (
+    <>
+      {[...Array(16)].map((_, i) => {
+        return (
+          <div
+            key={i}
+            className={cn(
+              "hidden border-x border-gray-A3 bg-gray-A2",
+              i < 4 && "block",
+              i < 8 && "md:block",
+              i < 16 && "lg:block"
+            )}
+          >
+            <div className="relative h-full w-full bg-gray-A2 text-center text-gray-10">
+              <div className="sticky top-4 left-0 right-0">{i + 1}</div>
+            </div>
+          </div>
+        );
+      })}
     </>
   );
 };
