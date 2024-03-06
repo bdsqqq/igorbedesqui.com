@@ -24,7 +24,7 @@
     "ariakit": "2.0.0-next.43",
     "class-variance-authority": "^0.6.0",
     "framer-motion": "^10.16.16",
-    "geist": "^0.1.14",
+    "geist": "^1.2.2",
     "next": "^13.4.1",
     "next-axiom": "^0.17.0",
     "next-mdx-remote": "^4.4.1",

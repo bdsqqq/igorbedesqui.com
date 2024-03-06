@@ -51,8 +51,8 @@ dependencies:
     specifier: ^10.16.16
     version: 10.18.0(react-dom@18.2.0)(react@18.2.0)
   geist:
-    specifier: ^0.1.14
-    version: 0.1.37
+    specifier: ^1.2.2
+    version: 1.2.2(next@13.5.6)
   next:
     specifier: ^13.4.1
     version: 13.5.6(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)
@@ -806,10 +806,6 @@ packages:
     dependencies:
       glob: 7.1.7
     dev: true
-
-  /@next/font@13.5.6:
-    resolution: {integrity: sha512-urmUq05uCVJsBqAAJEV+xK5OTTodrSxdiG+351SOSjlWctywdBM6qX+K9pIe3K48RxjfnxlBbXjGyOJAji+pfw==}
-    dev: false
 
   /@next/swc-darwin-arm64@13.5.6:
     resolution: {integrity: sha512-5nvXMzKtZfvcu4BhtV0KH1oGv4XEW+B+jOfmBdpFI3C7FrB/MfujRpWYSBBO64+qbW8pkZiSyQv9eiwnn5VIQA==}
@@ -3468,11 +3464,12 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
 
-  /geist@0.1.37:
-    resolution: {integrity: sha512-GzjZ49sIEHEeq1y2mO7Jgi6BTZy3EvwMwrmDzqjGFpcyE0v3QAkh1wFrkJ0hE5stOHbVqvOL8/S5DmU6xcMX/g==}
-    deprecated: No longer supported
+  /geist@1.2.2(next@13.5.6):
+    resolution: {integrity: sha512-uRDrxhvdnPwWJmh+K5+/5LXSKwvJzaYCl9tDXgiBi4hj7hB4K7+n/WLcvJMFs5btvyn0r9OSwCd1s6CmqAsxEw==}
+    peerDependencies:
+      next: '>=13.2.0 <15'
     dependencies:
-      '@next/font': 13.5.6
+      next: 13.5.6(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /gensync@1.0.0-beta.2:

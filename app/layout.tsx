@@ -3,8 +3,7 @@ import { Providers } from "./Providers";
 import { Grain } from "./Grain";
 import { Vignette } from "./Vignette";
 
-// @ts-expect-error - Geist doesn't have types
-import { GeistSans, GeistMono } from "geist/font";
+import { GeistMono } from "geist/font/mono";
 import { IBM_Plex_Serif } from "next/font/google";
 
 import Script from "next/script";
