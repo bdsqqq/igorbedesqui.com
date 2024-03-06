@@ -67,21 +67,19 @@ export default function RootLayout({
       <head>
         <DocumentStuff />
       </head>
-      <body>
+      <body
+        className={`${PlexSerif.variable} ${GeistMono.variable} relative font-serif`}
+      >
+        <Grain />
+        <Vignette />
+        <Providers>{children}</Providers>
         <div
-          className={`${PlexSerif.className} ${GeistMono.variable} relative font-serif`}
-        >
-          <Grain />
-          <Vignette />
-          <Providers>{children}</Providers>
-          <div
-            className="pointer-events-none absolute top-0 h-full w-full opacity-[2%] blur-[100px] saturate-150 filter"
-            style={{
-              backgroundImage:
-                "radial-gradient(at 27% 37%,#3a8bfd 0,transparent 0),radial-gradient(at 97% 21%,#72fe7d 0,transparent 50%),radial-gradient(at 52% 99%,#fd3a4e 0,transparent 50%),radial-gradient(at 10% 29%,#855afc 0,transparent 50%),radial-gradient(at 97% 96%,#e4c795 0,transparent 50%),radial-gradient(at 33% 50%,#8ca8e8 0,transparent 50%),radial-gradient(at 79% 53%,#eea5ba 0,transparent 50%)",
-            }}
-          />
-        </div>
+          className="pointer-events-none absolute top-0 h-full w-full opacity-[2%] blur-[100px] saturate-150 filter"
+          style={{
+            backgroundImage:
+              "radial-gradient(at 27% 37%,#3a8bfd 0,transparent 0),radial-gradient(at 97% 21%,#72fe7d 0,transparent 50%),radial-gradient(at 52% 99%,#fd3a4e 0,transparent 50%),radial-gradient(at 10% 29%,#855afc 0,transparent 50%),radial-gradient(at 97% 96%,#e4c795 0,transparent 50%),radial-gradient(at 33% 50%,#8ca8e8 0,transparent 50%),radial-gradient(at 79% 53%,#eea5ba 0,transparent 50%)",
+          }}
+        />
       </body>
     </html>
   );
