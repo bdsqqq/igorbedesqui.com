@@ -62,9 +62,6 @@ dependencies:
   next-mdx-remote:
     specifier: ^4.4.1
     version: 4.4.1(react-dom@18.2.0)(react@18.2.0)
-  next-seo:
-    specifier: ^4.29.0
-    version: 4.29.0(next@13.5.6)(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -4684,18 +4681,6 @@ packages:
       vfile-matter: 3.0.1
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /next-seo@4.29.0(next@13.5.6)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-xmwzcz4uHaYJ8glbuhs6FSBQ7z3irmdPYdJJ5saWm72Uy3o+mPKGaPCXQetTCE6/xxVnpoDV4yFtFlEjUcljSg==}
-    peerDependencies:
-      next: ^8.1.1-canary.54 || >=9.0.0
-      react: '>=16.0.0'
-      react-dom: '>=16.0.0'
-    dependencies:
-      next: 13.5.6(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /next@13.5.6(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0):
