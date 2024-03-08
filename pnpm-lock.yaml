@@ -72,8 +72,8 @@ dependencies:
     specifier: ^3.0.1
     version: 3.0.1
   tailwind-merge:
-    specifier: ^1.12.0
-    version: 1.14.0
+    specifier: ^2.2.1
+    version: 2.2.1
   tailwindcss-animate:
     specifier: ^1.0.6
     version: 1.0.7(tailwindcss@3.4.1)
@@ -5578,8 +5578,10 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /tailwind-merge@1.14.0:
-    resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
+  /tailwind-merge@2.2.1:
+    resolution: {integrity: sha512-o+2GTLkthfa5YUt4JxPfzMIpQzZ3adD1vLVkvKE1Twl9UAhGsEbIZhHHZVRttyW177S8PDJI3bTQNaebyofK3Q==}
+    dependencies:
+      '@babel/runtime': 7.24.0
     dev: false
 
   /tailwindcss-animate@1.0.7(tailwindcss@3.4.1):
