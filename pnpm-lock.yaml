@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '   ↳':
-    specifier: // next will use sharp on vercel deploys
-    version: link:../../../../ next will use sharp on vercel deploys
   '@mdx-js/react':
     specifier: ^2.3.0
     version: 2.3.0(react@18.2.0)
@@ -77,6 +74,9 @@ dependencies:
   sharp:
     specifier: ^0.33.2
     version: 0.33.2
+  sharp ↳:
+    specifier: // next will use sharp on vercel deploys
+    version: link:../../../../ next will use sharp on vercel deploys
   tailwind-merge:
     specifier: ^2.2.1
     version: 2.2.1
