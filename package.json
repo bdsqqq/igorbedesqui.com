@@ -5,13 +5,12 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "analyze": "ANALYZE=true yarn build",
+    "analyze": "ANALYZE=true pnpm build",
     "lint": "next lint"
   },
   "dependencies": {
     "@mdx-js/react": "^2.3.0",
     "@million/lint": "^0.0.68",
-    "@next/bundle-analyzer": "^12.3.4",
     "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-compose-refs": "^1.0.1",
     "@radix-ui/react-dialog": "^1.0.5",
