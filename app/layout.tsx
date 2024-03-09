@@ -8,8 +8,6 @@ import { IBM_Plex_Serif } from "next/font/google";
 
 import Script from "next/script";
 
-export { reportWebVitals } from "next-axiom";
-
 const PlexSerif = IBM_Plex_Serif({
   display: "swap",
   subsets: ["latin"],

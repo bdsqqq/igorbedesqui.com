@@ -26,7 +26,6 @@
     "framer-motion": "^10.16.16",
     "geist": "^1.2.2",
     "next": "^14.1.3",
-    "next-axiom": "^0.17.0",
     "next-mdx-remote": "^4.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

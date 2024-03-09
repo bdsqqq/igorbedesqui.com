@@ -1,7 +1,6 @@
 import MillionCompiler from "@million/lint";
 /** @type {import('next').NextConfig} */
 
-import { withAxiom } from "next-axiom";
 import bundleAnalyzer from "@next/bundle-analyzer";
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
@@ -32,6 +31,4 @@ const nextConfig = {
   },
 };
 
-export default MillionCompiler.next()(
-  withAxiom(withBundleAnalyzer(nextConfig))
-);
+export default MillionCompiler.next()(withBundleAnalyzer(nextConfig));
