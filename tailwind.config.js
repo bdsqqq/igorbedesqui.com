@@ -1,5 +1,3 @@
-const { mauveDark, crimsonDark } = require("@radix-ui/colors");
-
 const vignetteZIndex = 10;
 
 /** @type {import('tailwindcss').Config} */
@@ -148,10 +146,6 @@ module.exports = {
         "moderate-02": "240ms",
         "slow-01": "400ms",
         "slow-02": "700ms",
-      },
-      colors: {
-        ...mauveDark,
-        ...crimsonDark,
       },
       borderRadius: {
         inherit: "inherit",
