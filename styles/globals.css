@@ -2,6 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Redaction";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("/fonts/redaction/Redaction-Regular.woff2") format("woff2"),
+    url("/fonts/redaction/Redaction-Regular.otf") format("otf");
+}
+@font-face {
+  font-family: "Redaction";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    url("/fonts/redaction/Redaction-Bold.woff2") format("woff2"),
+    url("/fonts/redaction/Redaction-Bold.otf") format("otf");
+}
+@font-face {
+  font-family: "Redaction";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("/fonts/redaction/Redaction_70-Italic.woff2") format("woff2"),
+    url("/fonts/redaction/Redaction70-Italic.otf") format("otf");
+}
+
 body {
   @apply h-full min-w-[360px] scroll-smooth bg-gray-0 leading-normal text-gray-11 antialiased;
   font-family: sans-serif;

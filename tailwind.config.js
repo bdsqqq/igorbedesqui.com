@@ -44,8 +44,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        serif: ["var(--font-ibm-plex-serif)"],
-        sans: ["var(--font-ibm-plex-serif)"],
+        serif: `Redaction, Georgia, Cambria, "Times New Roman", Times, serif`,
+        sans: `Redaction, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif`,
         mono: ["var(--font-geist-mono)"],
       },
       gridTemplateColumns: {
