@@ -10,16 +10,35 @@ export const Overlay = () => {
 
   return (
     <>
-      <div className="fixed top-4 right-4 z-50 opacity-0 transition-opacity duration-fast-02 ease-productive-standard focus-within:opacity-100 hover:opacity-100">
-        <Button onClick={setVisibleCallback} className="h-8">
-          {visible ? <EyeOpenIcon /> : <EyeClosedIcon />}
-        </Button>
+      <div className="fixed right-4 top-4 z-50">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              className={cn(
+                "h-8",
+                "opacity-0 transition-opacity duration-fast-02 ease-productive-standard focus-within:opacity-100 hover:opacity-100 data-[state=open]:opacity-100",
+              )}
+            >
+              <MixerHorizontalIcon />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent
+            options={{
+              padding: "md",
+            }}
+            align="end"
+          >
+            <Button onClick={setVisibleCallback} className="h-8">
+              <GridIcon />
+            </Button>
+          </PopoverContent>
+        </Popover>
       </div>
 
       <div
         className={cn(
           !visible ? "opacity-0" : "opacity-100",
-          "pointer-events-none absolute inset-0 z-50 bg-gray-A1 transition-opacity duration-fast-01 ease-productive-standard"
+          "pointer-events-none absolute inset-0 z-50 bg-gray-A1 transition-opacity duration-fast-01 ease-productive-standard",
         )}
       >
         <div
@@ -69,11 +88,11 @@ const GridColumns = () => {
               "hidden border-x border-gray-A3 bg-gray-A2",
               i < 4 && "block",
               i < 8 && "md:block",
-              i < 16 && "lg:block"
+              i < 16 && "lg:block",
             )}
           >
             <div className="relative h-full w-full bg-gray-A2 text-center text-gray-10">
-              <div className="sticky top-4 left-0 right-0">{i + 1}</div>
+              <div className="sticky left-0 right-0 top-4">{i + 1}</div>
             </div>
           </div>
         );
@@ -86,5 +105,16 @@ import { grid } from "@/components/ui/Grid";
 
 import { useState, Fragment, useCallback } from "react";
 import { Button } from "@/ui/Button";
-import { EyeClosedIcon, EyeOpenIcon, LayoutIcon } from "@radix-ui/react-icons";
+import {
+  EyeClosedIcon,
+  EyeOpenIcon,
+  GridIcon,
+  LayoutIcon,
+  MixerHorizontalIcon,
+} from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/Popover";
