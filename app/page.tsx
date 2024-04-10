@@ -47,8 +47,8 @@ export default async function Home() {
           <div className={cn(grid({ mode: "narrow" }), "mt-32")}>
             <div className="col-span-full md:col-start-2 md:col-end-7 lg:col-start-5 lg:col-end-12">
               <br />
-              <h1 className="text-2xl text-gray-12">
-                <span className="col-span-full text-base text-gray-11">
+              <h1 className="text-2xl italic text-gray-12">
+                <span className="col-span-full text-base  text-gray-11">
                   Igor Bedesqui
                 </span>
                 <p>
@@ -57,22 +57,24 @@ export default async function Home() {
                 </p>
               </h1>
 
-              <MDX
-                components={{
-                  EmailLink,
-                  del: (props) => (
-                    <Blur
-                      focusable={false}
-                      className="text-gray-9"
-                      {...props}
-                    />
-                  ),
-                }}
-              >
-                {`
+              <div className="invisible">
+                <MDX
+                  components={{
+                    EmailLink,
+                    del: (props) => (
+                      <Blur
+                        focusable={false}
+                        className="text-gray-9"
+                        {...props}
+                      />
+                    ),
+                  }}
+                >
+                  {`
                 Get in touch via [Twitter](https://www.twitter.com/bedesqui) or <EmailLink>email</EmailLink>, see my code on [Github](https://www.github.com/bdsqqq/), ~~or find me on [platforms I don’t like using](https://www.linkedin.com/in/igor-bedesqui/).~~
                 `}
-              </MDX>
+                </MDX>
+              </div>
             </div>
           </div>
         </Band>

@@ -8,12 +8,12 @@ import { IBM_Plex_Serif } from "next/font/google";
 
 import Script from "next/script";
 
-const PlexSerif = IBM_Plex_Serif({
-  display: "swap",
-  subsets: ["latin"],
-  weight: ["200", "400", "700"],
-  variable: "--font-ibm-plex-serif",
-});
+// const PlexSerif = IBM_Plex_Serif({
+//   display: "swap",
+//   subsets: ["latin"],
+//   weight: ["200", "400", "700"],
+//   variable: "--font-ibm-plex-serif",
+// });
 
 const DocumentStuff = () => {
   return (
@@ -65,9 +65,7 @@ export default function RootLayout({
       <head>
         <DocumentStuff />
       </head>
-      <body
-        className={`${PlexSerif.variable} ${GeistMono.variable} relative font-serif`}
-      >
+      <body className={`${GeistMono.variable} relative font-serif`}>
         <Grain />
         <Vignette />
         <Providers>{children}</Providers>
