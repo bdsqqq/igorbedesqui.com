@@ -105,13 +105,7 @@ import { grid } from "@/components/ui/Grid";
 
 import { useState, Fragment, useCallback } from "react";
 import { Button } from "@/ui/Button";
-import {
-  EyeClosedIcon,
-  EyeOpenIcon,
-  GridIcon,
-  LayoutIcon,
-  MixerHorizontalIcon,
-} from "@radix-ui/react-icons";
+import { GridIcon, MixerHorizontalIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
 import {
   Popover,
