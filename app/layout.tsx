@@ -7,6 +7,7 @@ import { GeistMono } from "geist/font/mono";
 import { IBM_Plex_Serif } from "next/font/google";
 
 import Script from "next/script";
+import { Toolbox } from "@/components/toolbox";
 
 const PlexSerif = IBM_Plex_Serif({
   display: "swap",
@@ -71,6 +72,7 @@ export default function RootLayout({
         <Grain />
         <Vignette />
         <Providers>{children}</Providers>
+        <Toolbox />
         <div
           className="pointer-events-none absolute top-0 h-full w-full opacity-[2%] blur-[100px] saturate-150 filter"
           style={{

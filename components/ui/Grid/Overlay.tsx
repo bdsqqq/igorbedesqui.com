@@ -10,30 +10,15 @@ export const Overlay = () => {
 
   return (
     <>
-      <div className="fixed right-4 top-4 z-50">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              className={cn(
-                "h-8",
-                "opacity-0 transition-opacity duration-fast-02 ease-productive-standard focus-within:opacity-100 hover:opacity-100 data-[state=open]:opacity-100",
-              )}
-            >
-              <MixerHorizontalIcon />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent
-            options={{
-              padding: "md",
-            }}
-            align="end"
-          >
-            <Button onClick={setVisibleCallback} className="h-8">
-              <GridIcon />
-            </Button>
-          </PopoverContent>
-        </Popover>
-      </div>
+      <ToolboxSection name="grid-overlay">
+        <Button
+          aria-label="toggle grid overlay"
+          className="h-8"
+          onClick={setVisibleCallback}
+        >
+          <GridIcon />
+        </Button>
+      </ToolboxSection>
 
       <div
         className={cn(
@@ -112,3 +97,5 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
+import { OutPortal } from "@/components/ui/Portal";
+import { ToolboxSection } from "@/components/toolbox";
