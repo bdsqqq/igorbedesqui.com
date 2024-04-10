@@ -26,7 +26,7 @@ export const Toolbox = () => {
   );
 };
 
-export const ToolboxSection = ({
+export const ToolboxItem = ({
   name,
   children,
 }: {

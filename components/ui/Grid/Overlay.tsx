@@ -10,7 +10,7 @@ export const Overlay = () => {
 
   return (
     <>
-      <ToolboxSection name="grid-overlay">
+      <ToolboxItem name="grid-overlay">
         <Button
           aria-label="toggle grid overlay"
           className="h-8"
@@ -18,7 +18,7 @@ export const Overlay = () => {
         >
           <GridIcon />
         </Button>
-      </ToolboxSection>
+      </ToolboxItem>
 
       <div
         className={cn(
@@ -98,4 +98,4 @@ import {
   PopoverTrigger,
 } from "@/components/ui/Popover";
 import { OutPortal } from "@/components/ui/Portal";
-import { ToolboxSection } from "@/components/toolbox";
+import { ToolboxItem } from "@/components/toolbox";
