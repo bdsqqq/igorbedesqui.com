@@ -35,7 +35,7 @@ export const ToolboxSection = ({
 }) => {
   return (
     <InPortal name={name} outPortalName={TOOLBOX_PORTAL_NAME}>
-      <div className="flex gap-2">{children}</div>
+      {children}
     </InPortal>
   );
 };
