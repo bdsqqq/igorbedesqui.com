@@ -105,6 +105,8 @@ const buttonVariants = cva(
           "border-gray-A4",
           "shadow-gray-A3",
           "from-gray-A2 to-gray-A4",
+          "data-[state=on]:from-gray-A3 data-[state=on]:to-gray-A5",
+          "data-[state=open]:from-gray-A3 data-[state=open]:to-gray-A5",
           "hover:border-gray-A8",
           "focus-visible:border-gray-A8",
         ),
@@ -287,11 +289,21 @@ LinkButton.displayName = "ButtonLink";
  * Group of buttons
  * Takes buttons, removes the borders that would get doubled, makes only the outer ones rounded.
  */
-export const ButtonGroup = ({ children }: { children: React.ReactNode }) => {
+export const ButtonGroup = forwardRef<
+  ElementRef<"div">,
+  ComponentPropsWithoutRef<"div"> & {
+    orientation?: "horizontal" | "vertical";
+  }
+>(({ children, className, orientation = "horizontal" }, ref) => {
   const stableId = React.useId();
 
+  const isHorizontal = orientation === "horizontal";
+
   return (
-    <div className="flex">
+    <div
+      ref={ref}
+      className={cn("flex", !isHorizontal ? "flex-col" : "", className)}
+    >
       {React.Children.map(children, (child, index) => {
         const isFirst = index === 0;
         const isLast = index === React.Children.count(children) - 1;
@@ -299,8 +311,12 @@ export const ButtonGroup = ({ children }: { children: React.ReactNode }) => {
         const childWithProps = React.cloneElement(child as React.ReactElement, {
           className: cn(
             (child as React.ReactElement).props.className,
-            !isFirst && "rounded-l-none border-l-0",
-            !isLast && "rounded-r-none border-r-0",
+            !isFirst && isHorizontal
+              ? "rounded-l-none border-l-0"
+              : "rounded-t-none border-t-0",
+            !isLast && isHorizontal
+              ? "rounded-r-none border-r-0"
+              : "rounded-b-none border-b-0",
           ),
           key: `${stableId}-${index}`,
         });
@@ -308,13 +324,21 @@ export const ButtonGroup = ({ children }: { children: React.ReactNode }) => {
         return (
           <>
             {childWithProps}
-            {!isLast && <span className="bg-gray-07 h-auto w-px" />}
+            {!isLast && (
+              <span
+                className={cn(
+                  "bg-gray-07",
+                  isHorizontal ? "h-auto w-px" : "h-px w-full",
+                )}
+              />
+            )}
           </>
         );
       })}
     </div>
   );
-};
+});
+ButtonGroup.displayName = "ButtonGroup";
 
 type loadingStrategy = "minimumDuration" | "delay" | "immediate";
 const useArtificialDelay = (
@@ -373,7 +397,12 @@ const useArtificialDelay = (
 import { UnstyledLink } from "./primitives";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/styling";
-import React, { ComponentPropsWithoutRef, HtmlHTMLAttributes } from "react";
+import React, {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  HtmlHTMLAttributes,
+  forwardRef,
+} from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { UnstyledLinkProps } from "@/components/ui/primitives/UnstyledLink";
 import {
