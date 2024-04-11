@@ -36,14 +36,14 @@ export const LightBox = ({
           />
 
           <DialogTrigger asChild>
-            <Button className="absolute top-0 right-0 h-8 bg-gray-0">
+            <Button className="absolute right-0 top-0 bg-gray-0">
               <EnterFullScreenIcon />
             </Button>
           </DialogTrigger>
         </>
       </MotionBorder>
 
-      <DialogContent className="!pointer-events-none top-px left-0 right-0 bottom-0 grid w-full max-w-none translate-x-0 translate-y-0 place-items-center bg-transparent p-0">
+      <DialogContent className="!pointer-events-none bottom-0 left-0 right-0 top-px grid w-full max-w-none translate-x-0 translate-y-0 place-items-center bg-transparent p-0">
         <MotionBorder layoutId={props.src as string} asWrapper>
           <MotionImage {...props} />
         </MotionBorder>

@@ -9,9 +9,7 @@ import {
 import { InPortal, OutPortal } from "@/components/ui/Portal";
 import { PortalDevtools } from "@/components/ui/Portal/devtools";
 import { cn } from "@/lib/styling";
-import {
-  OpenInNewWindowIcon,
-} from "@radix-ui/react-icons";
+import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import { ReactNode, useCallback, useState } from "react";
 
 const TOOLBOX_PORTAL_NAME = "toolbox";
@@ -27,7 +25,7 @@ export const Toolbox = () => {
       <ToolboxItem name="portal-debugging">
         <Popover>
           <PopoverTrigger asChild>
-            <Button onClick={toggleDebugging} className="h-8">
+            <Button onClick={toggleDebugging}>
               <OpenInNewWindowIcon />
             </Button>
           </PopoverTrigger>

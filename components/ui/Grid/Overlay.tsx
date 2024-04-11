@@ -11,11 +11,7 @@ export const Overlay = () => {
   return (
     <>
       <ToolboxItem name="grid-overlay">
-        <Button
-          aria-label="toggle grid overlay"
-          className="h-8"
-          onClick={setVisibleCallback}
-        >
+        <Button aria-label="toggle grid overlay" onClick={setVisibleCallback}>
           <GridIcon />
         </Button>
       </ToolboxItem>

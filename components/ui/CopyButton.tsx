@@ -44,16 +44,14 @@ export const CopyButton = ({
         onClick={() => {
           if (!navigator.clipboard) {
             console.log(
-              "no clipboard! This api requires https on chrome so if you're on localhost I'm sorry"
+              "no clipboard! This api requires https on chrome so if you're on localhost I'm sorry",
             );
             return;
           }
           navigator.clipboard.writeText(contentToCopy).then(incrementSuccess);
         }}
-        variants={{
-          size: "sm",
-        }}
-        className={cn("h-8", className)}
+        size="sm"
+        className={className}
       >
         {success ? <CheckIcon /> : <ClipboardCopyIcon />}
       </Button>

@@ -23,13 +23,7 @@ const Content = () => {
     <>
       <Popover>
         <PopoverTrigger asChild>
-          <Button
-            variants={{
-              activeStyle: "none",
-            }}
-          >
-            Hej
-          </Button>
+          <Button activeStyle="none">Hej</Button>
         </PopoverTrigger>
         <PopoverContent
           options={{
@@ -37,13 +31,7 @@ const Content = () => {
           }}
         >
           <div>Hej do</div>
-          <Button
-            variants={{
-              size: "sm",
-            }}
-          >
-            Hej
-          </Button>
+          <Button size="sm">Hej</Button>
         </PopoverContent>
       </Popover>
     </>
