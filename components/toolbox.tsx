@@ -1,16 +1,20 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
+import { Button, ButtonGroup } from "@/components/ui/Button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
-import { InPortal, OutPortal } from "@/components/ui/Portal";
+import {
+  InPortal,
+  OutPortal,
+  useRegisterOutPortal,
+} from "@/components/ui/Portal";
 import { PortalDevtools } from "@/components/ui/Portal/devtools";
 import { cn } from "@/lib/styling";
 import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
-import { ReactNode, useCallback, useState } from "react";
+import { ReactNode, useCallback, useRef, useState } from "react";
 
 const TOOLBOX_PORTAL_NAME = "toolbox";
 
@@ -19,6 +23,12 @@ export const Toolbox = () => {
   const toggleDebugging = useCallback(() => {
     setIsDebugging((prev) => !prev);
   }, []);
+
+  const toolboxRef = useRef<HTMLDivElement>(null);
+  useRegisterOutPortal({
+    name: TOOLBOX_PORTAL_NAME,
+    element: toolboxRef.current,
+  });
 
   return (
     <>
@@ -29,7 +39,7 @@ export const Toolbox = () => {
               <OpenInNewWindowIcon />
             </Button>
           </PopoverTrigger>
-          <PopoverContent align="end">
+          <PopoverContent side="left" align="start">
             <PortalDevtools />
           </PopoverContent>
         </Popover>
@@ -41,7 +51,7 @@ export const Toolbox = () => {
           `opacity-0 transition-opacity duration-fast-02 ease-productive-standard focus-within:opacity-100 hover:opacity-100 has-[button[data-state="open"]]:opacity-100`,
         )}
       >
-        <OutPortal name={TOOLBOX_PORTAL_NAME} />
+        <ButtonGroup orientation="vertical" ref={toolboxRef} />
       </div>
     </>
   );
