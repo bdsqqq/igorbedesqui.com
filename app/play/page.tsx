@@ -4,7 +4,7 @@ import Container from "@/components/Container";
 import { Stage, StagesWrap } from "@/components/Stage";
 import { Button } from "@/components/ui/Button";
 import { CVAWithPerms } from "@/lib/CVAPermutations";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { ArrowRightIcon, PlusIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
 import { Border } from "@/components/ui/Border";
 import Image from "next/image";
@@ -42,8 +42,13 @@ const Page = () => {
                   </>
                 }
               >
-                <Button className="font-normal" onClick={increment}>
-                  add +
+                <Button
+                  loading={count % 2 === 0}
+                  className="font-normal"
+                  onClick={increment}
+                  left={<PlusIcon />}
+                >
+                  add
                 </Button>
               </Lock>
             </Stage>
@@ -64,7 +69,7 @@ import { Lock } from "@/components/ui/Lock";
     PERMUTATION STUFF 
 ========================================= */
 function replaceLeafValuesWithDots(
-  obj: Record<string, any>
+  obj: Record<string, any>,
 ): Record<string, any> {
   const result: Record<string, any> = {};
 
@@ -111,9 +116,9 @@ const [variants, permutations] = CVAWithPerms(
     "shadow-input ",
     "bg-gradient-to-tr",
     "active:scale-95",
-    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-0/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard"
+    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-0/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard",
   ),
-  cvaConfig
+  cvaConfig,
 );
 
 const variantsPlaceholder = replaceLeafValuesWithDots(cvaConfig);
