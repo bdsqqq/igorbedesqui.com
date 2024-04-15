@@ -16,7 +16,7 @@ const CodeAndDemoButtons = ({
         </LinkButton>
       )}
       {demoUrl && (
-        <LinkButton left={<ArrowTopRightIcon />} href={demoUrl}>
+        <LinkButton left={<ImageIcon />} href={demoUrl}>
           live
         </LinkButton>
       )}
@@ -27,4 +27,4 @@ const CodeAndDemoButtons = ({
 export default CodeAndDemoButtons;
 
 import { LinkButton } from "@/ui/Button";
-import { GitHubLogoIcon, ArrowTopRightIcon } from "@radix-ui/react-icons";
+import { GitHubLogoIcon, ImageIcon } from "@radix-ui/react-icons";
