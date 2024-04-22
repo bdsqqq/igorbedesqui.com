@@ -26,11 +26,11 @@ export const metadata: Metadata = makeSeo({
 // TODO: Turn this into the default CODE component for all MDX things.
 // TODO: make this count the lines of it's children and set height accordingly; code will never wrap
 const ScrollableCodeWithCopy = (
-  props: ComponentProps<"code"> & { heightclassname: string }
+  props: ComponentProps<"code"> & { heightclassname: string },
 ) => {
   return (
     <Border>
-      <pre className="relative my-2 -mx-4 rounded-sm bg-gray-2 text-sm">
+      <pre className="relative -mx-4 my-2 rounded-sm bg-gray-2 text-sm">
         <ScrollArea className={cn("p-4", props.heightclassname)}>
           <code
             className={cn("rounded bg-gray-2 font-mono", props.className)}
@@ -41,7 +41,7 @@ const ScrollableCodeWithCopy = (
         </ScrollArea>
 
         <CopyButton
-          className="absolute top-0 right-0"
+          className="absolute right-0 top-0"
           contentToCopy={props.children?.toString() || ""}
         />
       </pre>
