@@ -12,7 +12,7 @@ export default async function Page() {
 
   return (
     <Container backable backAnchor="library">
-      <div className={cn(grid({ mode: "narrow" }), "mt-32 gap-y-8")}>
+      <div className={cn(subGrid({ lg: 16, md: 8, sm: 4 })(), "mt-32 gap-y-8")}>
         <div
           className={
             "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-9"
