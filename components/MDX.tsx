@@ -43,7 +43,7 @@ function Code({
 }: Omit<HTMLProps<HTMLElement>, "children"> & {
   children: string;
 }) {
-  let codeHTML = highlight(children);
+  const codeHTML = highlight(children);
   return (
     <code
       dangerouslySetInnerHTML={{ __html: codeHTML }}
