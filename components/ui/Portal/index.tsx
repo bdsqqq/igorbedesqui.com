@@ -1,17 +1,25 @@
 import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
-import { newId } from "@/lib/id";
 import React, { useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 
+/**
+ * Update this dictionary to add new portals.
+ * Used to keep track of portal names and avoid clashes.
+ */
+const PORTAL_DICTIONARY = {
+  in: [""],
+  out: ["intentionallyEmpty"],
+} as const;
+type InPortalName = (typeof PORTAL_DICTIONARY)["in"][number];
+type OutPortalName = (typeof PORTAL_DICTIONARY)["out"][number];
+
 type InPortal = {
-  id: string; // mostly for logging/debugging. Name *should*  be unique, but it's not enforced.
-  name: string;
-  intendedOut: string;
+  name: InPortalName;
+  intendedOut: OutPortalName;
 };
 type OutPortal = {
-  id: string; // mostly for logging/debugging. Name *should*  be unique, but it's not enforced.
-  name: string;
+  name: OutPortalName;
   ref: React.RefObject<HTMLElement> | null;
 };
 interface PortalStore {
@@ -19,10 +27,10 @@ interface PortalStore {
   outPortals: ReadonlyArray<OutPortal>;
 
   addInPortal: (portal: InPortal) => void;
-  removeInPortal: (id: string) => void;
+  removeInPortal: (id: InPortalName) => void;
 
   addOutPortal: (portal: OutPortal) => void;
-  removeOutPortal: (id: string) => void;
+  removeOutPortal: (id: OutPortalName) => void;
 }
 export const PortalStore = createStore<PortalStore>((set) => ({
   inPortals: [],
@@ -30,14 +38,16 @@ export const PortalStore = createStore<PortalStore>((set) => ({
 
   addInPortal: (portal) =>
     set((state) => ({ inPortals: [...state.inPortals, portal] })),
-  removeInPortal: (id) =>
-    set((state) => ({ inPortals: state.inPortals.filter((p) => p.id !== id) })),
+  removeInPortal: (name) =>
+    set((state) => ({
+      inPortals: state.inPortals.filter((p) => p.name !== name),
+    })),
 
   addOutPortal: (portal) =>
     set((state) => ({ outPortals: [...state.outPortals, portal] })),
-  removeOutPortal: (id) =>
+  removeOutPortal: (name) =>
     set((state) => ({
-      outPortals: state.outPortals.filter((p) => p.id !== id),
+      outPortals: state.outPortals.filter((p) => p.name !== name),
     })),
 }));
 
@@ -45,41 +55,34 @@ const useRegisterInPortal = ({
   name,
   intendedOut,
 }: {
-  name: string;
-  intendedOut: string;
+  name: InPortalName;
+  intendedOut: OutPortalName;
 }) => {
   const { addInPortal, removeInPortal } = useStore(PortalStore);
-  const id = React.useMemo(() => newId("portal"), []);
-  const portal = useMemo(
-    () => ({ id, name, intendedOut }),
-    [id, name, intendedOut],
-  );
 
   React.useEffect(() => {
-    addInPortal(portal);
+    addInPortal({ name, intendedOut });
 
     return () => {
-      removeInPortal(portal.id);
+      removeInPortal(name);
     };
-  }, [portal, addInPortal, removeInPortal]);
+  }, [name, intendedOut, addInPortal, removeInPortal]);
 };
 
 /**
  * Returns a ref that will make an element into an `OutPortal`.
  */
-export const useOutPortal = <T extends HTMLElement>(name: string) => {
+export const useOutPortal = <T extends HTMLElement>(name: OutPortalName) => {
   const { addOutPortal, removeOutPortal } = useStore(PortalStore);
-  const id = React.useMemo(() => newId("portal"), []);
-
   const ref = useRef<T>(null);
 
   React.useEffect(() => {
-    addOutPortal({ id, name, ref });
+    addOutPortal({ name, ref });
 
     return () => {
-      removeOutPortal(id);
+      removeOutPortal(name);
     };
-  }, [id, name, ref, addOutPortal, removeOutPortal]);
+  }, [name, ref, addOutPortal, removeOutPortal]);
 
   return ref;
 };
@@ -94,8 +97,8 @@ export function InPortal({
   outPortalName,
 }: {
   children: React.ReactNode;
-  name: string;
-  outPortalName: string;
+  name: InPortalName;
+  outPortalName: OutPortalName;
 }) {
   useRegisterInPortal({ name, intendedOut: outPortalName });
   const { outPortals } = useStore(PortalStore);
@@ -118,14 +121,13 @@ export function InPortal({
   return <>{outPortalNode ? createPortal(children, outPortalNode) : null}</>;
 }
 
-interface OutPortalProps extends React.HTMLAttributes<HTMLDivElement> {
-  name: string;
-}
-
 /**
  * Renders a DOM node that can be targeted by an `InPortal`.
  */
-export function OutPortal({ name, ...rest }: OutPortalProps) {
+export function OutPortal({
+  name,
+  ...rest
+}: { name: OutPortalName } & React.HTMLAttributes<HTMLDivElement>) {
   const ref = useOutPortal<HTMLDivElement>(name);
 
   return <div ref={ref} {...rest} />;
