@@ -27,7 +27,7 @@ export const Toolbox = () => {
   const toolboxRef = useRef<HTMLDivElement>(null);
   useRegisterOutPortal({
     name: TOOLBOX_PORTAL_NAME,
-    element: toolboxRef.current,
+    ref: toolboxRef,
   });
 
   return (

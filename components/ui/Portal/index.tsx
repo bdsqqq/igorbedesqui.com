@@ -5,14 +5,14 @@ import React, { useMemo } from "react";
 import { createPortal } from "react-dom";
 
 type InPortal = {
-  id: string;
+  id: string; // mostly for logging/debugging. Name *should*  be unique, but it's not enforced.
   name: string;
   intendedOut: string;
 };
 type OutPortal = {
   id: string;
   name: string;
-  element: HTMLElement | null;
+  ref: React.RefObject<HTMLElement> | null;
 };
 interface PortalStore {
   inPortals: ReadonlyArray<InPortal>;
@@ -66,22 +66,21 @@ const useRegisterInPortal = ({
 
 export const useRegisterOutPortal = ({
   name,
-  element,
+  ref,
 }: {
   name: string;
-  element: HTMLElement | null;
+  ref: React.RefObject<HTMLElement> | null;
 }) => {
   const { addOutPortal, removeOutPortal } = useStore(PortalStore);
   const id = React.useMemo(() => newId("portal"), []);
-  const portal = useMemo(() => ({ id, name, element }), [id, name, element]);
 
   React.useEffect(() => {
-    addOutPortal(portal);
+    addOutPortal({ id, name, ref });
 
     return () => {
-      removeOutPortal(portal.id);
+      removeOutPortal(id);
     };
-  }, [portal, addOutPortal, removeOutPortal]);
+  }, [id, name, ref, addOutPortal, removeOutPortal]);
 };
 
 /**
@@ -104,10 +103,11 @@ export function InPortal({
   );
 
   const tryToFindOutPortal = React.useCallback(() => {
-    const element =
-      outPortals.find((p) => p.name === outPortalName)?.element || null;
+    const ref =
+      outPortals.find((outPortal) => outPortal.name === outPortalName)?.ref ||
+      null;
 
-    setOutPortalNode(element);
+    setOutPortalNode(ref?.current || null);
   }, [outPortalName, outPortals]);
 
   React.useLayoutEffect(() => {
@@ -125,7 +125,7 @@ interface OutPortalProps extends React.HTMLAttributes<HTMLDivElement> {
  */
 export function OutPortal({ name, ...rest }: OutPortalProps) {
   const ref = React.useRef<HTMLDivElement>(null);
-  useRegisterOutPortal({ name, element: ref.current });
+  useRegisterOutPortal({ name, ref: ref });
 
   return <div ref={ref} {...rest} />;
 }
