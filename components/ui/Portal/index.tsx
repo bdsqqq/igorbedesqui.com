@@ -65,7 +65,7 @@ const useRegisterInPortal = ({
 };
 
 /**
- * Returns a ref to a DOM node that can be targeted by an `InPortal`.
+ * Returns a ref that will make an element into an `OutPortal`.
  */
 export const useOutPortal = <T extends HTMLElement>(name: string) => {
   const { addOutPortal, removeOutPortal } = useStore(PortalStore);
