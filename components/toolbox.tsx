@@ -6,11 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
-import {
-  InPortal,
-  OutPortal,
-  useRegisterOutPortal,
-} from "@/components/ui/Portal";
+import { InPortal, OutPortal, useOutPortal } from "@/components/ui/Portal";
 import { PortalDevtools } from "@/components/ui/Portal/devtools";
 import { cn } from "@/lib/styling";
 import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
@@ -24,11 +20,7 @@ export const Toolbox = () => {
     setIsDebugging((prev) => !prev);
   }, []);
 
-  const toolboxRef = useRef<HTMLDivElement>(null);
-  useRegisterOutPortal({
-    name: TOOLBOX_PORTAL_NAME,
-    ref: toolboxRef,
-  });
+  const toolboxRef = useOutPortal<HTMLDivElement>(TOOLBOX_PORTAL_NAME);
 
   return (
     <>

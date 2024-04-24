@@ -1,7 +1,7 @@
 import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
 import { newId } from "@/lib/id";
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 
 type InPortal = {
@@ -10,7 +10,7 @@ type InPortal = {
   intendedOut: string;
 };
 type OutPortal = {
-  id: string;
+  id: string; // mostly for logging/debugging. Name *should*  be unique, but it's not enforced.
   name: string;
   ref: React.RefObject<HTMLElement> | null;
 };
@@ -64,15 +64,14 @@ const useRegisterInPortal = ({
   }, [portal, addInPortal, removeInPortal]);
 };
 
-export const useRegisterOutPortal = ({
-  name,
-  ref,
-}: {
-  name: string;
-  ref: React.RefObject<HTMLElement> | null;
-}) => {
+/**
+ * Returns a ref to a DOM node that can be targeted by an `InPortal`.
+ */
+export const useOutPortal = <T extends HTMLElement>(name: string) => {
   const { addOutPortal, removeOutPortal } = useStore(PortalStore);
   const id = React.useMemo(() => newId("portal"), []);
+
+  const ref = useRef<T>(null);
 
   React.useEffect(() => {
     addOutPortal({ id, name, ref });
@@ -81,6 +80,8 @@ export const useRegisterOutPortal = ({
       removeOutPortal(id);
     };
   }, [id, name, ref, addOutPortal, removeOutPortal]);
+
+  return ref;
 };
 
 /**
@@ -120,12 +121,12 @@ export function InPortal({
 interface OutPortalProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
 }
+
 /**
  * Renders a DOM node that can be targeted by an `InPortal`.
  */
 export function OutPortal({ name, ...rest }: OutPortalProps) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  useRegisterOutPortal({ name, ref: ref });
+  const ref = useOutPortal<HTMLDivElement>(name);
 
   return <div ref={ref} {...rest} />;
 }
