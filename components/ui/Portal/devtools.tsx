@@ -6,7 +6,11 @@ import { cn } from "@/lib/styling";
  * Keeps track of the name and type of rendered portals.
  */
 export function PortalDevtools() {
-  const { inPortals, outPortals } = useStore(PortalStore);
+  const { inPortals: inPortalsMap, outPortals: outPortalsMap } =
+    useStore(PortalStore);
+
+  const inPortals = Array.from(inPortalsMap.values());
+  const outPortals = Array.from(outPortalsMap.values());
 
   return (
     <div>
@@ -21,7 +25,7 @@ export function PortalDevtools() {
               return (
                 <li
                   className={cn(linked ? "text-gray-12" : "text-gray-11")}
-                  key={p.id}
+                  key={p.name}
                 >
                   {p.name}
                 </li>
@@ -39,7 +43,7 @@ export function PortalDevtools() {
               return (
                 <li
                   className={cn(linked ? "text-gray-12" : "text-gray-11")}
-                  key={p.id}
+                  key={p.name}
                 >
                   {p.name}
                 </li>

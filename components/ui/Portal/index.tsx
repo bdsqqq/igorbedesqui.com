@@ -23,8 +23,8 @@ type OutPortal = {
   ref: React.RefObject<HTMLElement> | null;
 };
 interface PortalStore {
-  inPortals: ReadonlyArray<InPortal>;
-  outPortals: ReadonlyArray<OutPortal>;
+  inPortals: Map<InPortalName, InPortal>;
+  outPortals: Map<OutPortalName, OutPortal>;
 
   addInPortal: (portal: InPortal) => void;
   removeInPortal: (id: InPortalName) => void;
@@ -33,22 +33,26 @@ interface PortalStore {
   removeOutPortal: (id: OutPortalName) => void;
 }
 export const PortalStore = createStore<PortalStore>((set) => ({
-  inPortals: [],
-  outPortals: [],
+  inPortals: new Map(),
+  outPortals: new Map(),
 
   addInPortal: (portal) =>
-    set((state) => ({ inPortals: [...state.inPortals, portal] })),
+    set((prev) => ({ inPortals: prev.inPortals.set(portal.name, portal) })),
   removeInPortal: (name) =>
-    set((state) => ({
-      inPortals: state.inPortals.filter((p) => p.name !== name),
-    })),
+    set((prev) => {
+      const newInPortals = new Map(prev.inPortals);
+      newInPortals.delete(name);
+      return { inPortals: newInPortals };
+    }),
 
   addOutPortal: (portal) =>
-    set((state) => ({ outPortals: [...state.outPortals, portal] })),
+    set((prev) => ({ outPortals: prev.outPortals.set(portal.name, portal) })),
   removeOutPortal: (name) =>
-    set((state) => ({
-      outPortals: state.outPortals.filter((p) => p.name !== name),
-    })),
+    set((prev) => {
+      const newOutPortals = new Map(prev.outPortals);
+      newOutPortals.delete(name);
+      return { outPortals: newOutPortals };
+    }),
 }));
 
 const useRegisterInPortal = ({
@@ -107,9 +111,7 @@ export function InPortal({
   );
 
   const tryToFindOutPortal = React.useCallback(() => {
-    const ref =
-      outPortals.find((outPortal) => outPortal.name === outPortalName)?.ref ||
-      null;
+    const ref = outPortals.get(outPortalName)?.ref || null;
 
     setOutPortalNode(ref?.current || null);
   }, [outPortalName, outPortals]);
