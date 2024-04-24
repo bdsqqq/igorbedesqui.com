@@ -10,7 +10,7 @@ export default function FireChicken() {
       >
         Fire Chicken Webring
       </StyledLink>
-      <span className="inline-flex justify-end gap-0.5 text-gray-9">
+      <span className="text-gray-09 inline-flex justify-end gap-0.5">
         (
         <StyledLink iconless href="https://firechicken.club/igor/prev">
           prev

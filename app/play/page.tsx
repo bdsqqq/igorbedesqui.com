@@ -97,11 +97,11 @@ const cvaConfig = {
     },
     intent: {
       primary: [
-        "border-gray-A4",
-        "shadow-gray-A3",
-        "from-gray-A2 to-gray-A4",
-        "hover:border-gray-A8",
-        "focus-visible:border-gray-A8",
+        "border-gray-A04",
+        "shadow-gray-A03",
+        "from-gray-A02 to-gray-A04",
+        "hover:border-gray-A08",
+        "focus-visible:border-gray-A08",
       ],
     },
   },
@@ -116,7 +116,7 @@ const [variants, permutations] = CVAWithPerms(
     "shadow-input ",
     "bg-gradient-to-tr",
     "active:scale-95",
-    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-0/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard",
+    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-00/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard",
   ),
   cvaConfig,
 );
@@ -160,7 +160,7 @@ const BorderExamples = () => {
   return (
     <div className="flex items-center justify-center gap-6">
       <Border>
-        <div className="h-44 w-44 bg-gradient-to-l from-gray-A7 to-gray-A4" />
+        <div className="from-gray-A07 to-gray-A04 h-44 w-44 bg-gradient-to-l" />
       </Border>
       <Border asWrapper className="max-w-sm rounded">
         <video

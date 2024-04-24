@@ -80,7 +80,7 @@ export default async function Basics() {
             <MDX
               components={{
                 Update1: () => (
-                  <time className="text-xs font-bold text-gray-9">
+                  <time className="text-gray-09 text-xs font-bold">
                     March 14th 2023
                   </time>
                 ),

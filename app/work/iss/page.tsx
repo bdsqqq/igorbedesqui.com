@@ -33,7 +33,7 @@ export default async function Bebop() {
           </Tooltip>
           ?
         </span>
-        <p className="text-gray-A1" aria-hidden="true">
+        <p className="text-gray-A01" aria-hidden="true">
           (In space, probably, don’t tell anyone)
         </p>
         <div className="mt-6">
@@ -60,7 +60,7 @@ export default async function Bebop() {
                 <h4 className="mb-4 text-xl font-bold">{children}</h4>
               ),
               del: ({ children }) => (
-                <del className="text-gray-8">{children}</del>
+                <del className="text-gray-08">{children}</del>
               ),
             }}
           >
@@ -94,7 +94,7 @@ export default async function Bebop() {
           <div className="my-2 grid grid-cols-2 gap-2">
             <figure className="col-start-1">
               <Image
-                className="relative z-[31] overflow-hidden rounded-sm border border-gray-3"
+                className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
                 layout="responsive"
                 width="310"
                 height="310"
@@ -112,7 +112,7 @@ export default async function Bebop() {
             </figure>
             <figure className="col-start-2">
               <Image
-                className="relative z-[31] overflow-hidden rounded-sm border border-gray-3"
+                className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
                 layout="responsive"
                 width="310"
                 height="310"
@@ -137,7 +137,7 @@ export default async function Bebop() {
         <ProjectBand headline={{ bold: "03", thin: "Result" }}>
           <figure className="mb-4">
             <Image
-              className="relative z-[31] overflow-hidden rounded-sm border border-gray-3"
+              className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
               layout="responsive"
               width="500"
               height="851"

@@ -122,7 +122,7 @@ export default async function TheManual() {
               </Border>
             </div>
             <div className="col-span-3 col-end-[-1] flex items-end md:col-end-9 lg:col-start-14 lg:col-end-17">
-              <div className="-mx-4 h-fit rounded border border-gray-A2 bg-gradient-to-b from-gray-A3 to-gray-A2 p-4 text-gray-9">
+              <div className="text-gray-09 from-gray-A03 border-gray-A02 to-gray-A02 -mx-4 h-fit rounded border bg-gradient-to-b p-4">
                 <MDX>
                   {`
                       *The recent dark theme update follows the same “show, don’t tell” pattern by choosing a theme based purely on system preferences, and a “highlights” feature is planned in the [public roadmap](https://psykip-git-next-bdsq.vercel.app/roadmap).*
@@ -155,7 +155,7 @@ export default async function TheManual() {
                     className={cn(
                       subGrid({ lg: 8, md: 8, sm: 4 })(),
                       slottedInMiddleWide,
-                      "list-inside list-decimal gap-y-4 marker:text-gray-8"
+                      "marker:text-gray-08 list-inside list-decimal gap-y-4",
                     )}
                     {...props}
                   />
@@ -323,12 +323,12 @@ export default async function TheManual() {
                   md: 8,
                   sm: 4,
                 })(),
-                "gap-y-4"
+                "gap-y-4",
               )}
             >
               <SidebarContent projMeta={psykipMeta} />
               <div className="col-span-full mt-12">
-                <h3 className="font-bold text-gray-9">Next project</h3>
+                <h3 className="text-gray-09 font-bold">Next project</h3>
                 <StyledLink href={`/work/${bebopMeta.urlSlug}`}>
                   {bebopMeta.name}
                 </StyledLink>
@@ -395,7 +395,7 @@ export default async function TheManual() {
             components={{
               ul: (props) => (
                 <ul
-                  className="list-outside list-disc marker:text-gray-8"
+                  className="list-outside list-disc marker:text-gray-08"
                   {...props}
                 />
               ),

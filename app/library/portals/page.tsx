@@ -40,7 +40,7 @@ export default async function Page() {
         >
           <MDX>
             {`
-\`\`\`
+\`\`\`jsx
 ${PortalsSource}
 \`\`\``.trim()}
           </MDX>

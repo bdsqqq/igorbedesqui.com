@@ -93,7 +93,7 @@ const buttonVariants = cva(
     "border",
     "shadow-input ",
     "bg-gradient-to-tr",
-    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-0/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard",
+    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-00/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard",
   ),
   {
     variants: {
@@ -103,13 +103,13 @@ const buttonVariants = cva(
       },
       variant: {
         primary: cn(
-          "border-gray-A4",
-          "shadow-gray-A3",
-          "from-gray-A2 to-gray-A4",
-          "data-[state=on]:from-gray-A3 data-[state=on]:to-gray-A5",
-          "data-[state=open]:from-gray-A3 data-[state=open]:to-gray-A5",
-          "hover:border-gray-A8",
-          "focus-visible:border-gray-A8",
+          "border-gray-A04",
+          "shadow-gray-A03",
+          "from-gray-A02 to-gray-A04",
+          "data-[state=on]:from-gray-A03 data-[state=on]:to-gray-A05",
+          "data-[state=open]:from-gray-A03 data-[state=open]:to-gray-A05",
+          "hover:border-gray-A08",
+          "focus-visible:border-gray-A08",
         ),
       },
       activeStyle: {

@@ -29,7 +29,7 @@ const VOID_ELEMENTS = [
 const MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID = ["video"];
 
 export const shadowBorderStyles =
-  "relative after:pointer-events-none after:absolute after:inset-0 after:block after:rounded-inherit after:shadow-[0px_0px_0px_1px_inset_--tw-shadow-color] after:shadow-gray-A5 overflow-hidden";
+  "relative after:pointer-events-none after:absolute after:inset-0 after:block after:rounded-inherit after:shadow-[0px_0px_0px_1px_inset_--tw-shadow-color] after:shadow-gray-A05 overflow-hidden";
 
 export type BorderProps = PropsWithChildren<{
   className?: string;
@@ -71,22 +71,22 @@ export const Border = forwardRef<HTMLElement, BorderProps>(
     const shouldWrap =
       VOID_ELEMENTS.includes(child.type as string) ||
       MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID.includes(
-        child.type as string
+        child.type as string,
       );
     const isValid = isValidElement(child);
     if (!isValid)
       throw new Error(
-        `Border's child must be a valid react element, got ${typeof child}`
+        `Border's child must be a valid react element, got ${typeof child}`,
       );
 
     if (!asWrapper && shouldWrap) {
       console.warn(
-        "Border's child is a void element, you should use the `asWrapper` prop to render a helper div"
+        "Border's child is a void element, you should use the `asWrapper` prop to render a helper div",
       );
 
       if (asWrapper === undefined && shouldWrap) {
         console.warn(
-          "Automatically wrapping void element in a helper div, if you want to avoid this behavior, set the `asWrapper` prop explicitly"
+          "Automatically wrapping void element in a helper div, if you want to avoid this behavior, set the `asWrapper` prop explicitly",
         );
         return (
           <span
@@ -116,6 +116,6 @@ export const Border = forwardRef<HTMLElement, BorderProps>(
         {children}
       </Slot>
     );
-  }
+  },
 );
 Border.displayName = "Border";

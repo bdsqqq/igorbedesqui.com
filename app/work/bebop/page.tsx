@@ -115,7 +115,7 @@ export default async function Bebop() {
           <div className="my-1 grid min-h-0 grid-cols-4 items-center gap-2">
             <div className="col-start-1 col-end-2">
               <Image
-                className="relative z-[31] overflow-hidden rounded-sm border border-gray-3"
+                className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
                 src={smartphoneScreenshot}
                 width="1440"
                 height="3040"
@@ -125,7 +125,7 @@ export default async function Bebop() {
             </div>
             <div className="col-start-2 col-end-5">
               <Image
-                className="relative z-[31] overflow-hidden rounded-sm border border-gray-3"
+                className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
                 src={desktopScreenshot}
                 width="1200"
                 height="800"

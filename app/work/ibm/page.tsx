@@ -21,7 +21,7 @@ const makeSeo = ({
   ogText: string;
 }): Metadata => {
   const ogImageUrl = new URL(
-    `https://www.igorbedesqui.com/api/og?text=${ogText}`
+    `https://www.igorbedesqui.com/api/og?text=${ogText}`,
   ).href;
 
   return {
@@ -101,7 +101,7 @@ export default async function IBM() {
           <ul
             className={cn(
               grid({ mode: "narrow" }),
-              "gap-y-8 "
+              "gap-y-8 ",
               //"hover:text-gray-10 focus-within:text-gray-10"
             )}
           >
@@ -162,7 +162,7 @@ export default async function IBM() {
                     <h2 className="font-semibold">{children}</h2>
                   ),
                   ol: ({ children }) => (
-                    <ol className="list-outside list-decimal space-y-2 marker:text-gray-8">
+                    <ol className="marker:text-gray-08 list-outside list-decimal space-y-2">
                       {children}
                     </ol>
                   ),
@@ -186,7 +186,7 @@ export default async function IBM() {
               <MDX
                 components={{
                   ol: ({ children }) => (
-                    <ol className="list-outside list-decimal space-y-2 marker:text-gray-8">
+                    <ol className="marker:text-gray-08 list-outside list-decimal space-y-2">
                       {children}
                     </ol>
                   ),
@@ -208,7 +208,7 @@ export default async function IBM() {
                 components={{
                   Blur: Blur,
                   strong: ({ children }) => (
-                    <span className="text-gray-8 transition-colors duration-moderate-02 ease-productive-standard group-hover/blur:text-gray-12 group-focus/blur:text-gray-12">
+                    <span className="text-gray-08 transition-colors duration-moderate-02 ease-productive-standard group-hover/blur:text-gray-12 group-focus/blur:text-gray-12">
                       {children}
                     </span>
                   ),

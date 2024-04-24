@@ -31,12 +31,12 @@ export const LightBox = ({
       >
         <>
           <MotionImage
-            className="w-full rounded-inherit bg-gray-1"
+            className="bg-gray-01 w-full rounded-inherit"
             {...props}
           />
 
           <DialogTrigger asChild>
-            <Button className="absolute right-0 top-0 bg-gray-0">
+            <Button className="bg-gray-00 absolute right-0 top-0">
               <EnterFullScreenIcon />
             </Button>
           </DialogTrigger>

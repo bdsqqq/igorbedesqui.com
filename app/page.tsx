@@ -63,7 +63,7 @@ export default async function Home() {
                   del: (props) => (
                     <Blur
                       focusable={false}
-                      className="text-gray-9"
+                      className="text-gray-09"
                       {...props}
                     />
                   ),
@@ -178,7 +178,7 @@ export default async function Home() {
         >
           <div className={subGrid()({ mode: "narrow" })}>
             <div className="col-span-4 col-start-1 row-start-1 -mt-6">
-              <span className="text-xs font-bold tracking-tighter text-gray-8">
+              <span className="text-gray-08 text-xs font-bold tracking-tighter">
                 Last updated on <time>06 Oct 2023</time>
               </span>
             </div>
@@ -187,7 +187,7 @@ export default async function Home() {
                 components={{
                   Blur: (props) => (
                     <Blur
-                      className="[&_strong]:text-gray-8 [&_strong]:transition-colors [&_strong]:duration-moderate-02 [&_strong]:ease-productive-standard"
+                      className="[&_strong]:text-gray-08 [&_strong]:transition-colors [&_strong]:duration-moderate-02 [&_strong]:ease-productive-standard"
                       {...props}
                     />
                   ),

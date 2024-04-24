@@ -34,8 +34,8 @@ export const Stage = ({
     <div className="relative isolate">
       <div
         className={cn(
-          "absolute -top-3 left-4 z-10 bg-gray-0 px-0.5 text-center text-gray-9 whitespace-nowrap text-xs",
-          title ? "block" : "hidden"
+          "text-gray-09 bg-gray-00 absolute -top-3 left-4 z-10 whitespace-nowrap px-0.5 text-center text-xs",
+          title ? "block" : "hidden",
         )}
       >
         {title}
@@ -44,7 +44,7 @@ export const Stage = ({
         className={cn(
           "relative grid h-full w-full place-items-center overflow-visible p-4",
           stageVariants({ ...options }),
-          className
+          className,
         )}
         {...rest}
       >
@@ -62,7 +62,7 @@ export const StagesWrap = ({
     <div
       className={cn(
         "grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4",
-        className
+        className,
       )}
       {...rest}
     />

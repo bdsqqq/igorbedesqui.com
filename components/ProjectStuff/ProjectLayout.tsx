@@ -48,7 +48,7 @@ export const ProjectLayout: React.FC<
           {nextProjMeta && (
             <>
               <div className="col-span-4 mt-12">
-                <span className="font-bold text-gray-9">Next project</span>
+                <span className="text-gray-09 font-bold">Next project</span>
                 <span className="flex items-center gap-0.5 text-gray-11">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
                     {nextProjMeta.name}
@@ -67,7 +67,7 @@ export const ProjectLayout: React.FC<
           <aside
             className={cn(
               "transition-opacity duration-fast-02 ease-expressive-standard focus-within:opacity-100 hover:opacity-100",
-              isFaded ? "opacity-40" : "opacity-100"
+              isFaded ? "opacity-40" : "opacity-100",
             )}
           >
             <div tabIndex={0} className={"flex md:flex-col md:gap-6"}>
@@ -79,7 +79,7 @@ export const ProjectLayout: React.FC<
               <div className="col-span-4">
                 <Separator className="mb-12 w-11" />
 
-                <span className="font-bold text-gray-9">Next project</span>
+                <span className="text-gray-09 font-bold">Next project</span>
                 <span className="flex items-center gap-0.5 text-gray-11">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
                     {nextProjMeta.name}
@@ -98,7 +98,7 @@ export const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
   return (
     <>
       <div className="col-span-2">
-        <p className="font-bold text-gray-9">Type of work</p>
+        <p className="text-gray-09 font-bold">Type of work</p>
         <ul>
           {projMeta.roles.map((role, i) => {
             return (
@@ -112,12 +112,12 @@ export const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
       </div>
 
       <div className="col-span-2">
-        <span className="font-bold text-gray-9">Project type</span>
+        <span className="text-gray-09 font-bold">Project type</span>
         <p>{projMeta.type}</p>
       </div>
 
       <div className="col-span-2">
-        <p className="font-bold text-gray-9">Tools</p>
+        <p className="text-gray-09 font-bold">Tools</p>
         <ul>
           {projMeta.tools.map((tool, i) => {
             return (
@@ -130,7 +130,7 @@ export const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
         </ul>
       </div>
       <div className="col-span-2">
-        <span className="font-bold text-gray-9">Date</span>
+        <span className="text-gray-09 font-bold">Date</span>
         <p>{projMeta.date}</p>
       </div>
     </>

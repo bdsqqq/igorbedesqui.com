@@ -6,7 +6,7 @@ const Footer = () => {
           className="col-span-16 h-px w-full"
           style={{
             background:
-              "radial-gradient(ellipse at center, var(--color-gray-7) 0%, var(--color-gray-1) 75%, transparent 100%)",
+              "radial-gradient(ellipse at center, var(--color-gray-07) 0%, var(--color-gray-01) 75%, transparent 100%)",
           }}
         />
         <footer
@@ -16,7 +16,7 @@ const Footer = () => {
               md: 8,
               sm: 4,
             })(),
-            "py-8"
+            "py-8",
           )}
         >
           {/* <div className="grid grid-cols-2 gap-y-8 gap-x-2 md:grid-cols-3 lg:grid-cols-4"> */}
