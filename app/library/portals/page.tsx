@@ -38,7 +38,12 @@ export default async function Page() {
             "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15"
           }
         >
-          <MDX>{`\`\`\`${PortalsSource}\`\`\``}</MDX>
+          <MDX>
+            {`
+\`\`\`
+${PortalsSource}
+\`\`\``.trim()}
+          </MDX>
         </section>
       </div>
     </Container>

@@ -55,7 +55,7 @@ export const PortalStore = createStore<PortalStore>((set) => ({
     }),
 }));
 
-const useRegisterInPortal = ({
+const useInPortal = ({
   name,
   intendedOut,
 }: {
@@ -104,7 +104,7 @@ export function InPortal({
   name: InPortalName;
   outPortalName: OutPortalName;
 }) {
-  useRegisterInPortal({ name, intendedOut: outPortalName });
+  useInPortal({ name, intendedOut: outPortalName });
   const { outPortals } = useStore(PortalStore);
   const [outPortalNode, setOutPortalNode] = React.useState<HTMLElement | null>(
     null,
