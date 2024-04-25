@@ -2,20 +2,19 @@ import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
 import React, { useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
+import { TOOLBOX_PORTAL_NAME } from "@/components/toolbox";
 
 /**
  * Update this dictionary to add new portals.
  * Used to keep track of portal names and avoid clashes.
  */
 const PORTAL_DICTIONARY = {
-  in: [""],
-  out: ["intentionallyEmpty"],
+  out: [TOOLBOX_PORTAL_NAME, "intentionallyEmpty"],
 } as const;
-type InPortalName = (typeof PORTAL_DICTIONARY)["in"][number];
 type OutPortalName = (typeof PORTAL_DICTIONARY)["out"][number];
 
 type InPortal = {
-  name: InPortalName;
+  name: string;
   intendedOut: OutPortalName;
 };
 type OutPortal = {
@@ -23,11 +22,11 @@ type OutPortal = {
   ref: React.RefObject<HTMLElement> | null;
 };
 interface PortalStore {
-  inPortals: Map<InPortalName, InPortal>;
+  inPortals: Map<string, InPortal>;
   outPortals: Map<OutPortalName, OutPortal>;
 
   addInPortal: (portal: InPortal) => void;
-  removeInPortal: (id: InPortalName) => void;
+  removeInPortal: (id: string) => void;
 
   addOutPortal: (portal: OutPortal) => void;
   removeOutPortal: (id: OutPortalName) => void;
@@ -59,7 +58,7 @@ const useInPortal = ({
   name,
   intendedOut,
 }: {
-  name: InPortalName;
+  name: string;
   intendedOut: OutPortalName;
 }) => {
   const { addInPortal, removeInPortal } = useStore(PortalStore);
@@ -101,7 +100,7 @@ export function InPortal({
   outPortalName,
 }: {
   children: React.ReactNode;
-  name: InPortalName;
+  name: string;
   outPortalName: OutPortalName;
 }) {
   useInPortal({ name, intendedOut: outPortalName });

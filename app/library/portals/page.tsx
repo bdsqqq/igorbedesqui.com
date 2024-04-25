@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
 import { MDX } from "@/components/MDX";
-import { grid, subGrid } from "@/components/ui/Grid";
+import { subGrid } from "@/components/ui/Grid";
 import { cn } from "@/lib/styling";
 import { promises as fs } from "fs";
 
