@@ -64,7 +64,7 @@ export default async function Rice() {
     >
       <Band id="01" gridless>
         <div className={grid()}>
-          <div className="prose prose col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
+          <div className="prose col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
             <MDX
               components={{
                 Blur: (props) => <Blur {...props} />,

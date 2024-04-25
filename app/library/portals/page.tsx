@@ -1,6 +1,7 @@
+import Band from "@/components/Band";
 import Container from "@/components/Container";
 import { MDX } from "@/components/MDX";
-import { subGrid } from "@/components/ui/Grid";
+import { grid } from "@/components/ui/Grid";
 import { cn } from "@/lib/styling";
 import { promises as fs } from "fs";
 
@@ -12,15 +13,16 @@ export default async function Page() {
 
   return (
     <Container backable backAnchor="library">
-      <div className={cn(subGrid({ lg: 16, md: 8, sm: 4 })(), "gap-y-8")}>
-        <div
-          className={
-            "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-9"
-          }
-        >
-          <section className="prose space-y-4">
-            <MDX>
-              {`
+      <Band gridless id="">
+        <div className={cn(grid(), " gap-y-8")}>
+          <div
+            className={
+              "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-9"
+            }
+          >
+            <section className="prose space-y-4">
+              <MDX>
+                {`
               # Portals
               
               Usually, **the react tree maps 1:1 with the DOM tree. However, this is not always convenient.** The most common cases where this is unwanted is for dialogs, dropdowns, and any other UI element that needs to be rendered on top of everything else. Libraries like Radix UI and Ariakit deal with this by letting you use the component anywhere in the react tree, but rendering it at the end of the body tag in the DOM tree.
@@ -29,23 +31,24 @@ export default async function Page() {
               
               **These are some helpers I always end up creating to make Portals more ergonomic and easier to debug.**
               `}
-            </MDX>
-          </section>
-        </div>
+              </MDX>
+            </section>
+          </div>
 
-        <section
-          className={
-            "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15"
-          }
-        >
-          <MDX>
-            {`
+          <section
+            className={
+              "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15"
+            }
+          >
+            <MDX>
+              {`
 \`\`\`jsx
 ${PortalsSource}
 \`\`\``.trim()}
-          </MDX>
-        </section>
-      </div>
+            </MDX>
+          </section>
+        </div>
+      </Band>
     </Container>
   );
 }
