@@ -87,34 +87,6 @@ function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
 }
 
 const defaultComponents = {
-  // @ts-ignore
-  a: (props) => <StyledLinkWithIcon {...props} />,
-  h1: (props: HTMLProps<HTMLHeadingElement>) => (
-    <h1 className="mb-8 text-2xl text-gray-11" {...props} />
-  ),
-  h2: (props: HTMLProps<HTMLHeadingElement>) => (
-    <h1 className="my-2 text-lg font-bold" {...props} />
-  ),
-  strong: (props: HTMLProps<HTMLElement>) => (
-    <strong className="font-bold text-gray-12" {...props} />
-  ),
-  pre: (props: HTMLProps<HTMLPreElement>) => (
-    <pre
-      className="-mx-4 my-2 overflow-x-auto rounded bg-gray-02 p-4 text-sm"
-      {...props}
-    />
-  ),
-  code: (props: HTMLProps<HTMLElement>) => (
-    <code className="rounded bg-gray-02 px-1 py-0.5 font-mono" {...props} />
-  ),
-  img: (props: HTMLProps<HTMLImageElement>) => (
-    <Border className="-mx-4 rounded-sm">
-      <img className="rounded-inherit" {...props} />
-    </Border>
-  ),
-};
-
-const components = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
@@ -156,7 +128,7 @@ export function MDX({
       {...passthrough}
       source={children}
       // @ts-ignore I copied from leerob, pretend this doesn't break lmao
-      components={{ ...components, ...(propComponents || {}) }}
+      components={{ ...defaultComponents, ...(propComponents || {}) }}
     />
   );
 }
