@@ -7,6 +7,7 @@ import { MDXProvider } from "@mdx-js/react";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { cn } from "@/lib/styling";
 import { CopyButton } from "@/components/ui/CopyButton";
+import remarkGfm from "remark-gfm";
 
 function Table({
   data,
@@ -138,6 +139,11 @@ export function MDX({
       source={children}
       // @ts-ignore I copied from leerob, pretend this doesn't break lmao
       components={{ ...defaultComponents, ...(propComponents || {}) }}
+      options={{
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+        },
+      }}
     />
   );
 }
