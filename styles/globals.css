@@ -132,11 +132,11 @@ ul {
 }
 
 .prose h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
   @apply mb-[1.5em];
 }
 
@@ -145,7 +145,7 @@ h6 {
 }
 
 .prose h2,
-h3,
-h4 {
+.prose h3,
+.prose h4 {
   @apply text-lg font-bold;
 }
