@@ -17,7 +17,7 @@ const StyledPopoverTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "inline-flex items-center gap-1 underline underline-offset-2 hover:text-gray-12 focus-visible:text-gray-12 data-[state=open]:text-gray-12",
-      className
+      className,
     )}
     {...rest}
   />
@@ -41,7 +41,7 @@ const PopoverContent = React.forwardRef<
       options,
       ...props
     },
-    ref
+    ref,
   ) => (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
@@ -53,7 +53,7 @@ const PopoverContent = React.forwardRef<
         {...props}
       />
     </PopoverPrimitive.Portal>
-  )
+  ),
 );
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
@@ -63,7 +63,7 @@ const tooltipVariants = cva(
   [
     `
     rounded-sm shadow-md outline-none
-    border border-gray-A4
+    border border-gray-A04
     data-[state=open]:animate-in data-[state=closed]:animate-out
     data-[state=closed]:ease-productive-exit data-[state=open]:ease-productive-enter data-[state=open]:duration-fast-01 data-[state=closed]:duration-fast-01 data-[state=open]:zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95  origin-radix-popover data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-[side=bottom]:slide-out-to-top-1 data-[side=left]:slide-out-to-right-1 data-[side=right]:slide-out-to-left-1 data-[side=top]:slide-out-to-bottom-1
     z-10
@@ -72,8 +72,8 @@ const tooltipVariants = cva(
   {
     variants: {
       bg: {
-        standard: "bg-gray-1",
-        subtle: "bg-gray-0",
+        standard: "bg-gray-01",
+        subtle: "bg-gray-00",
       },
       padding: {
         none: "p-0",
@@ -91,5 +91,5 @@ const tooltipVariants = cva(
       maxW: "md",
       padding: "lg",
     },
-  }
+  },
 );

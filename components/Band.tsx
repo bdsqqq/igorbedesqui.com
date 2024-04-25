@@ -57,7 +57,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
         sectionStyles({
           padding: options?.padding,
         }),
-        !gridless && !options?.subGrid ? "px-4 md:px-16" : ""
+        !gridless && !options?.subGrid ? "px-4 md:px-16" : "",
       )}
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
     >
@@ -66,10 +66,10 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
           !gridless
             ? !!options?.subGrid
               ? subGrid({
-                lg: options?.subGrid?.lg,
-                md: options?.subGrid?.md,
-                sm: options?.subGrid?.sm,
-              })({ mode: "narrow" })
+                  lg: options?.subGrid?.lg,
+                  md: options?.subGrid?.md,
+                  sm: options?.subGrid?.sm,
+                })({ mode: "narrow" })
               : grid({ mode: "narrow" })
             : ""
         }
@@ -78,8 +78,8 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
           <>
             <div
               className={cn(
-                "col-span-4 md:col-span-1 md:-mx-4 z-aboveVignette",
-                options?.narrow ? "md:col-start-1 lg:col-start-4" : ""
+                "z-aboveVignette col-span-4 md:col-span-1 md:-mx-4",
+                options?.narrow ? "md:col-start-1 lg:col-start-4" : "",
               )}
             >
               <Headline bold={headline.bold} thin={headline.thin} />
@@ -88,7 +88,7 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
             <div
               className={cn(
                 "col-span-full md:col-start-2 lg:col-start-2",
-                options?.narrow ? "md:col-start-2 lg:col-start-5" : ""
+                options?.narrow ? "md:col-start-2 lg:col-start-5" : "",
               )}
             >
               {children}
@@ -105,10 +105,10 @@ const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
 const Headline = ({ bold, thin }: { bold: string; thin: string }) => {
   return (
     <h2 className="top-4 mb-12 grid h-max items-end pr-16 md:sticky md:h-min md:items-start">
-      <span className="text-7xl font-bold leading-none text-gray-A2 [grid-area:1/1/1/1] md:[writing-mode:vertical-lr]">
+      <span className="text-gray-A02 text-7xl font-bold leading-none [grid-area:1/1/1/1] md:[writing-mode:vertical-lr]">
         {bold}
       </span>
-      <div className="pb-4 text-gray-A9 align-top text-lg font-bold [grid-area:1/1/1/1] md:w-min md:pl-3 md:pb-3 md:[writing-mode:vertical-lr]">
+      <div className="text-gray-A09 pb-4 align-top text-lg font-bold [grid-area:1/1/1/1] md:w-min md:pb-3 md:pl-3 md:[writing-mode:vertical-lr]">
         {thin}
       </div>
     </h2>

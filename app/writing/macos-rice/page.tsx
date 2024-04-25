@@ -25,24 +25,29 @@ export const metadata: Metadata = makeSeo({
 
 // TODO: Turn this into the default CODE component for all MDX things.
 // TODO: make this count the lines of it's children and set height accordingly; code will never wrap
-const ScrollableCodeWithCopy = (
-  props: ComponentProps<"code"> & { heightclassname: string },
-) => {
+const ScrollableCodeWithCopy = ({
+  children,
+  heightclassname,
+  className,
+  ...passthrough
+}: ComponentProps<"code"> & { heightclassname: string }) => {
   return (
     <Border>
-      <pre className="relative -mx-4 my-2 rounded-sm bg-gray-2 text-sm">
-        <ScrollArea className={cn("p-4", props.heightclassname)}>
+      <pre className="relative -mx-4 my-2 rounded-sm bg-gray-02 text-sm">
+        <ScrollArea className={cn("p-4", heightclassname)}>
           <code
-            className={cn("rounded bg-gray-2 font-mono", props.className)}
-            {...props}
-          />
+            className={cn("rounded bg-gray-02 font-mono", className)}
+            {...passthrough}
+          >
+            {children}
+          </code>
           <ScrollBar orientation="vertical" />
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
 
         <CopyButton
           className="absolute right-0 top-0"
-          contentToCopy={props.children?.toString() || ""}
+          contentToCopy={children?.toString() || ""}
         />
       </pre>
     </Border>
@@ -59,7 +64,7 @@ export default async function Rice() {
     >
       <Band id="01" gridless>
         <div className={grid()}>
-          <div className="col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
+          <div className="prose prose col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
             <MDX
               components={{
                 Blur: (props) => <Blur {...props} />,
@@ -95,7 +100,7 @@ Fine! First off, this is how my setup looks right now:
             </MDX>
 
             <LightBox
-              className="-mx-4 rounded-sm bg-gray-1"
+              className="-mx-4 rounded-sm bg-gray-01"
               alt="Screenshot of customized MacOS Desktop. The colors in VSCode, Obsidian, and the btop system monitor running in a terminal match the Vesper color palette"
               src={"/images/macos-rice/setup_1.jpg"}
               width={1440}
@@ -103,7 +108,7 @@ Fine! First off, this is how my setup looks right now:
             />
 
             <LightBox
-              className="-mx-4 rounded-sm bg-gray-1"
+              className="-mx-4 rounded-sm bg-gray-01"
               alt="Screenshot of customized MacOS Desktop. The colors in Linear, Spotify, Raycast, Discord, and VSCode match the Vesper color palette."
               src={"/images/macos-rice/setup_2.jpg"}
               width={1440}
@@ -124,7 +129,7 @@ The bulk of my rice consists of setting colors, but the most important part of m
 and you're pretty much done, the Window Management Extension has everything I use, and if you want my exact keybindings (and the _aesthetic_ gap between windows), you can copy the following settings:`}
             </MDX>
             <LightBox
-              className="-mx-4 rounded-sm bg-gray-1"
+              className="-mx-4 rounded-sm bg-gray-01"
               alt="Screenshot of Raycast settings for Window Manager extension. The hotkeys are as follows: Almost maximize = control + option + command + arrow up; Bottom Left Quarter = control + option + command + h; Bottom Left Sixth = control + option + Shift + command + h; Bottom Right Quarter = control + option + command + j; Bottom Right Sixth = control + option + Shift + command + j; Left Half = control + option + command + arrow left; Make Larger = control + option + Shift + command + arrow up; Make Smaller = control + option + Shift + command + arrow down; Reasonable Size = control + option + command + arrow down; Right Half = control + option + command + arrow right; Top Left Quarter = control + option + command + y; Top Left Sixth = control + option + Shift + command + Y; Top Right Quarter = control + option + command + u; Top Right Sixth = control + option + Shift + command + u. Window Management settings are: Gap = Tiny(8px); Cycling: Cycle ½, ⅔, ⅓; Advanced, Respect Stage Manager: off."
               src={"/images/macos-rice/raycast_wm.jpg"}
               width={1440}
@@ -413,7 +418,7 @@ Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my ke
             </MDX>
 
             <LightBox
-              className="-mx-4 rounded-sm bg-gray-1"
+              className="-mx-4 rounded-sm bg-gray-01"
               alt="Keyboard and mouse in the dark, both with LED lights shining in an orange color that matches the Vesper theme's orange"
               src={"/images/macos-rice/keyboard.jpg"}
               width={1440}

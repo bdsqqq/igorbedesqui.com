@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply h-full min-w-[360px] scroll-smooth bg-gray-0 leading-normal text-gray-11 antialiased;
+  @apply h-full min-w-[360px] scroll-smooth bg-gray-00 leading-normal text-gray-11 antialiased;
   font-family: sans-serif;
 }
 
@@ -19,12 +19,12 @@ svg {
 
 ,
 ::selection {
-  @apply bg-gray-12 text-gray-1;
+  @apply bg-gray-12 text-gray-01;
 }
 
 ,
 * {
-  @apply focus-visible:z-10 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-9 focus-visible:ring-offset-4 focus-visible:ring-offset-gray-0;
+  @apply focus-visible:z-10 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-09 focus-visible:ring-offset-4 focus-visible:ring-offset-gray-00;
 }
 
 ,
@@ -74,4 +74,78 @@ ul {
 
 'input[type="email"]' {
   appearance: "none";
+}
+
+:root {
+  --gray-00: hsl(0 0% 4%);
+  --gray-01: hsl(0 0% 8.5%);
+  --gray-02: hsl(0 0% 11%);
+  --gray-03: hsl(0 0% 13.6%);
+  --gray-04: hsl(0 0% 15.8%);
+  --gray-05: hsl(0 0% 17.9%);
+  --gray-06: hsl(0 0% 20.5%);
+  --gray-07: hsl(0 0% 24.3%);
+  --gray-08: hsl(0 0% 31.2%);
+  --gray-09: hsl(0 0% 43.9%);
+  --gray-10: hsl(0 0% 49.4%);
+  --gray-11: hsl(0 0% 62.8%);
+  --gray-12: hsl(0 0% 93%);
+  --gray-A01: hsl(0 0% 100% / 0);
+  --gray-A02: hsl(0 0% 100% / 0.026);
+  --gray-A03: hsl(0 0% 100% / 0.056);
+  --gray-A04: hsl(0 0% 100% / 0.077);
+  --gray-A05: hsl(0 0% 100% / 0.103);
+  --gray-A06: hsl(0 0% 100% / 0.129);
+  --gray-A07: hsl(0 0% 100% / 0.172);
+  --gray-A08: hsl(0 0% 100% / 0.249);
+  --gray-A09: hsl(0 0% 100% / 0.386);
+  --gray-A10: hsl(0 0% 100% / 0.446);
+  --gray-A11: hsl(0 0% 100% / 0.592);
+  --gray-A12: hsl(0 0% 100% / 0.923);
+
+  --sh-class: var(--gray-12);
+  --sh-identifier: var(--gray-12);
+  --sh-sign: var(--gray-11);
+  --sh-property: var(--gray-12);
+  --sh-entity: var(--gray-11);
+  --sh-jsxliterals: var(--gray-11);
+  --sh-string: var(--gray-12);
+  --sh-keyword: var(--gray-11);
+  --sh-comment: var(--gray-09);
+}
+
+:target {
+  scroll-margin-top: 100px;
+}
+
+.prose .anchor {
+  @apply relative;
+}
+
+.prose .anchor:after {
+  @apply absolute -left-4 text-gray-09 opacity-0 transition-opacity duration-75 ease-out;
+  content: "#";
+}
+
+.prose *:hover > .anchor:after {
+  @apply opacity-100;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply mb-[1.5em];
+}
+
+.prose h1 {
+  @apply text-2xl;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply text-lg font-bold;
 }

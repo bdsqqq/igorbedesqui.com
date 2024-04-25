@@ -71,7 +71,7 @@ const Scales = () => {
   // remove name from inputsSetAsDefault if it's there
   const removeFromInputsSetAsDefault = (name: string) => {
     setInputsSetAsDefault(
-      inputsSetAsDefault.filter((input) => input.name !== name)
+      inputsSetAsDefault.filter((input) => input.name !== name),
     );
   };
 
@@ -87,7 +87,7 @@ const Scales = () => {
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     defaultValue: number,
-    setState: (value: number) => void
+    setState: (value: number) => void,
   ) => {
     const value = event.target.value;
     if (numberInputIsValid(value)) {
@@ -141,7 +141,7 @@ const Scales = () => {
             .includes(comboboxState.value.toLowerCase()) ||
           scale.value.toLowerCase().includes(comboboxState.value.toLowerCase())
         );
-      })
+      }),
     );
   }, [comboboxState.value]);
 
@@ -206,20 +206,20 @@ const Scales = () => {
                   data-placement={comboboxState.currentPlacement}
                   state={comboboxState}
                   className={cn(
-                    "z-10 transform rounded-sm border border-gray-7 bg-gray-2 text-gray-12 shadow-sm transition-all duration-fast-02",
+                    "bg-gray-02 border-gray-07 z-10 transform rounded-sm border text-gray-12 shadow-sm transition-all duration-fast-02",
                     "data-[placement=bottom-start]:origin-top-left",
                     "data-[placement=top-start]:origin-bottom",
                     "data-[enter]:ease-productive-enter data-[enter]:opacity-100",
                     "data-[leave]:opacity-0 data-[leave]:ease-productive-exit",
                     "data-[enter]:translate-y-0",
                     "data-[placement=bottom-start]:data-[leave]:-translate-y-2",
-                    "data-[placement=top-start]:data-[leave]:translate-y-2"
+                    "data-[placement=top-start]:data-[leave]:translate-y-2",
                   )}
                 >
                   {filteredPreDefinedScales.map((scale) => (
                     <ComboboxItem
                       key={`${scale.name}_ComboboxItem`}
-                      className="cursor-pointer rounded-sm border-none px-3 py-1 duration-fast-01 ease-productive-standard hover:bg-gray-4 focus:bg-gray-4 aria-selected:bg-gray-5 motion-safe:transition-colors"
+                      className="hover:bg-gray-04 focus:bg-gray-04 aria-selected:bg-gray-05 cursor-pointer rounded-sm border-none px-3 py-1 duration-fast-01 ease-productive-standard motion-safe:transition-colors"
                       value={scale.value}
                     >
                       {scale.name}
@@ -282,7 +282,7 @@ const Scales = () => {
                 {Object.keys(defaultValues)
                   .filter((key) => key === input.name)
                   .map(
-                    (key) => defaultValues[key as keyof typeof defaultValues]
+                    (key) => defaultValues[key as keyof typeof defaultValues],
                   )}
               </li>
             ))}
@@ -341,7 +341,7 @@ const Scales = () => {
 };
 
 const inputVariants = cva(
-  "relative focus-within:z-10 p-1 bg-gray-3 text-gray-12 text-center border-none rounded-sm outline outline-1 outline-transparent hover:bg-gray-4 focus:gray-5 focus:outline-gray-8 !ring-0 !ring-offset-0 focus-v motion-safe:transition-colors duration-fast-01 ease-productive-standard",
+  "relative focus-within:z-10 p-1 bg-gray-03 text-gray-12 text-center border-none rounded-sm outline outline-1 outline-transparent hover:bg-gray-04 focus:gray-05 focus:outline-gray-08 !ring-0 !ring-offset-0 focus-v motion-safe:transition-colors duration-fast-01 ease-productive-standard",
   {
     variants: {
       size: {
@@ -352,7 +352,7 @@ const inputVariants = cva(
     defaultVariants: {
       size: "md",
     },
-  }
+  },
 );
 const Formula: React.FC<{
   ratio: ReactNode;

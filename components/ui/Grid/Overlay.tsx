@@ -27,7 +27,7 @@ export const Overlay = () => {
       <div
         className={cn(
           !visible ? "opacity-0" : "opacity-100",
-          "pointer-events-none absolute inset-0 z-50 bg-gray-A1 transition-opacity duration-fast-01 ease-productive-standard",
+          "bg-gray-A01 pointer-events-none absolute inset-0 z-50 transition-opacity duration-fast-01 ease-productive-standard",
         )}
       >
         <div
@@ -47,7 +47,7 @@ export const Overlay = () => {
               <div
                 key={`${i}-always_visible`}
                 className={cn(
-                  "hidden border-l border-dashed border-gray-A1",
+                  "hidden border-l border-dashed border-gray-A01",
                   i < 4 && "block",
                   i + 1 == 4 && "border-r md:border-r-0",
                   i < 8 && "md:block",
@@ -56,7 +56,7 @@ export const Overlay = () => {
                   i + 1 == 16 && "lg:border-r"
                 )}
               >
-                <div className="relative h-full w-full border-x border-dashed border-gray-A2" />
+                <div className="relative h-full w-full border-x border-dashed border-gray-A02" />
               </div>
             );
           })}
@@ -74,13 +74,13 @@ const GridColumns = () => {
           <div
             key={i}
             className={cn(
-              "hidden border-x border-gray-A3 bg-gray-A2",
+              "border-gray-A03 bg-gray-A02 hidden border-x",
               i < 4 && "block",
               i < 8 && "md:block",
               i < 16 && "lg:block",
             )}
           >
-            <div className="relative h-full w-full bg-gray-A2 text-center text-gray-10">
+            <div className="bg-gray-A02 relative h-full w-full text-center text-gray-10">
               <div className="sticky left-0 right-0 top-4">{i + 1}</div>
             </div>
           </div>

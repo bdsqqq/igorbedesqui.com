@@ -48,7 +48,7 @@ const VignetteStrip = ({
   return (
     <div
       className={cn(
-        "fixed z-vignette select-none from-transparent to-gray-1 blur-[1px] backdrop-filter",
+        "to-gray-01 fixed z-vignette select-none from-transparent blur-[1px] backdrop-filter",
         orientation[pos] === "vertical" && "w-full",
         orientation[pos] === "horizontal" &&
           "h-full min-w-[120px] max-md:hidden",
@@ -56,12 +56,12 @@ const VignetteStrip = ({
         pos === "bottom" && "bottom-0 bg-gradient-to-b",
         // pos === "left" && "-left-6 bg-gradient-to-l",
         // pos === "right" && "-right-6 bg-gradient-to-r",
-        className
+        className,
       )}
       style={{
         [pos === "top" || pos === "bottom" ? "height" : "width"]:
           sizing || defaultSizes[pos],
-        maskImage: `linear-gradient(to ${opositeDir[pos]}, var(--color-gray-1) 20%, transparent)`,
+        maskImage: `linear-gradient(to ${opositeDir[pos]}, var(--color-gray-01) 20%, transparent)`,
       }}
       {...rest}
     />

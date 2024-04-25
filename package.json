@@ -33,6 +33,7 @@
     "remark-gfm": "^3.0.1",
     "sharp": "^0.33.2",
     "sharp ↳": "// next will use sharp on vercel deploys",
+    "sugar-high": "^0.6.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.6",
     "zustand": "^4.3.6"

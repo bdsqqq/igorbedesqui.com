@@ -31,7 +31,7 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
         data-dir={options?.side || "top"}
       >
         {content}
-        <TooltipArrow className=" stroke-gray-7 drop-shadow-sm filter" />
+        <TooltipArrow className=" stroke-gray-07 drop-shadow-sm filter" />
       </AriaKitTooltip>
     </>
   );
@@ -39,7 +39,7 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
 
 const tooltipVariants = cva(
   [
-    "shadow-sm border border-gray-7 rounded-sm transform motion-safe:transition-all duration-fast-02",
+    "shadow-sm border border-gray-07 rounded-sm transform motion-safe:transition-all duration-fast-02",
     "data-[dir=top]:origin-bottom",
     "data-[dir=bottom]:origin-top",
     "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-enter",
@@ -50,8 +50,8 @@ const tooltipVariants = cva(
   {
     variants: {
       bg: {
-        standard: "bg-gray-1",
-        subtle: "bg-gray-0",
+        standard: "bg-gray-01",
+        subtle: "bg-gray-00",
       },
       size: {
         sm: ["text-sm", "py-0.5", "px-1"],
@@ -67,7 +67,7 @@ const tooltipVariants = cva(
       size: "md",
       maxW: "md",
     },
-  }
+  },
 );
 
 import type { VariantProps } from "class-variance-authority";
