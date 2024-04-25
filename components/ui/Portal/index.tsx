@@ -108,15 +108,11 @@ export function InPortal({
     null,
   );
 
-  const tryToFindOutPortal = React.useCallback(() => {
+  React.useLayoutEffect(() => {
     const ref = outPortals.get(outPortalName)?.ref || null;
 
     setOutPortalNode(ref?.current || null);
   }, [outPortalName, outPortals]);
-
-  React.useLayoutEffect(() => {
-    tryToFindOutPortal();
-  }, [tryToFindOutPortal]);
 
   return <>{outPortalNode ? createPortal(children, outPortalNode) : null}</>;
 }
