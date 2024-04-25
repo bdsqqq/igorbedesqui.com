@@ -1,4 +1,4 @@
-import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
 import { Children, HTMLProps, ReactNode, createElement } from "react";
 import { Border } from "@/components/ui/Border";
@@ -47,7 +47,10 @@ function Code({
   return (
     <code
       dangerouslySetInnerHTML={{ __html: codeHTML }}
-      className={cn("bg-gray-02 rounded px-1 py-0.5 font-mono", className)}
+      className={cn(
+        "bg-gray-02 rounded font-mono [&:not(pre_*)]:px-1 [&:not(pre_*)]:py-0.5",
+        className,
+      )}
       {...props}
     />
   );
