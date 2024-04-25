@@ -18,7 +18,7 @@ export default async function Page() {
             "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-9"
           }
         >
-          <section className="space-y-4">
+          <section className="prose space-y-4">
             <MDX>
               {`
               # Portals

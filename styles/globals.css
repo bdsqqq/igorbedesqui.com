@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-00 h-full min-w-[360px] scroll-smooth leading-normal text-gray-11 antialiased;
+  @apply h-full min-w-[360px] scroll-smooth bg-gray-00 leading-normal text-gray-11 antialiased;
   font-family: sans-serif;
 }
 
@@ -19,12 +19,12 @@ svg {
 
 ,
 ::selection {
-  @apply text-gray-01 bg-gray-12;
+  @apply bg-gray-12 text-gray-01;
 }
 
 ,
 * {
-  @apply focus-visible:ring-gray-09 focus-visible:ring-offset-gray-00 focus-visible:z-10 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4;
+  @apply focus-visible:z-10 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-09 focus-visible:ring-offset-4 focus-visible:ring-offset-gray-00;
 }
 
 ,
@@ -116,4 +116,17 @@ ul {
 
 :target {
   scroll-margin-top: 100px;
+}
+
+.prose .anchor {
+  @apply relative;
+}
+
+.prose .anchor:after {
+  @apply absolute -left-4 text-gray-09 opacity-0 transition-opacity duration-75 ease-out;
+  content: "#";
+}
+
+.prose *:hover > .anchor:after {
+  @apply opacity-100;
 }

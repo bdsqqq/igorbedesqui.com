@@ -162,7 +162,7 @@ export default async function IBM() {
                     <h2 className="font-semibold">{children}</h2>
                   ),
                   ol: ({ children }) => (
-                    <ol className="marker:text-gray-08 list-outside list-decimal space-y-2">
+                    <ol className="list-outside list-decimal space-y-2 marker:text-gray-08">
                       {children}
                     </ol>
                   ),
@@ -182,11 +182,11 @@ export default async function IBM() {
         </Band>
         <Band gridless id="people">
           <div className={cn(grid({ mode: "narrow" }), "gap-y-20")}>
-            <div className="col-span-6 space-y-4 lg:col-span-8 lg:col-start-1">
+            <div className="prose col-span-6 space-y-4 lg:col-span-8 lg:col-start-1">
               <MDX
                 components={{
                   ol: ({ children }) => (
-                    <ol className="marker:text-gray-08 list-outside list-decimal space-y-2">
+                    <ol className="list-outside list-decimal space-y-2 marker:text-gray-08">
                       {children}
                     </ol>
                   ),
@@ -203,7 +203,7 @@ export default async function IBM() {
                 `}
               </MDX>
             </div>
-            <div className="col-span-5 space-y-4 md:col-end-9 lg:col-span-12 lg:col-start-5">
+            <div className="prose col-span-5 space-y-4 md:col-end-9 lg:col-span-12 lg:col-start-5">
               <MDX
                 components={{
                   Blur: Blur,
