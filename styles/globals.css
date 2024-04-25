@@ -130,3 +130,22 @@ ul {
 .prose *:hover > .anchor:after {
   @apply opacity-100;
 }
+
+.prose h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply mb-[1.5em];
+}
+
+.prose h1 {
+  @apply text-2xl;
+}
+
+.prose h2,
+h3,
+h4 {
+  @apply text-lg font-bold;
+}
