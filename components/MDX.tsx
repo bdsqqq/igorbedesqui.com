@@ -8,6 +8,7 @@ import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { cn } from "@/lib/styling";
 import { CopyButton } from "@/components/ui/CopyButton";
 import remarkGfm from "remark-gfm";
+import { ScrollBar, ScrollArea } from "@/components/ui/ScrollArea";
 
 function Table({
   data,
@@ -104,12 +105,18 @@ const defaultComponents = {
   strong: (props: HTMLProps<HTMLElement>) => (
     <strong className="font-bold text-gray-12" {...props} />
   ),
-  pre: (props: HTMLProps<HTMLPreElement>) => (
+  pre: ({ children, ...passthorugh }: HTMLProps<HTMLPreElement>) => (
     <Border>
       <pre
-        className="relative -mx-4 my-2 overflow-x-auto rounded-sm bg-gray-02 p-4 text-sm"
-        {...props}
-      />
+        className="relative -mx-4 my-2 rounded-sm bg-gray-02 text-sm"
+        {...passthorugh}
+      >
+        <ScrollArea className={cn("p-4")}>
+          {children}
+          <ScrollBar orientation="vertical" />
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </pre>
     </Border>
   ),
   img: (props: HTMLProps<HTMLImageElement>) => (
