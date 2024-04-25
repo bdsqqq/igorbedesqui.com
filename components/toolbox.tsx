@@ -12,7 +12,7 @@ import { cn } from "@/lib/styling";
 import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import { ReactNode, useCallback, useRef, useState } from "react";
 
-const TOOLBOX_PORTAL_NAME = "toolbox";
+export const TOOLBOX_PORTAL_NAME = "toolbox";
 
 export const Toolbox = () => {
   const [isDebugging, setIsDebugging] = useState(false);
