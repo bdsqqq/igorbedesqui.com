@@ -2,14 +2,13 @@ import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
 import React, { useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
-import { TOOLBOX_PORTAL_NAME } from "@/components/toolbox";
 
 /**
  * Update this dictionary to add new portals.
  * Used to keep track of portal names and avoid clashes.
  */
 const PORTAL_DICTIONARY = {
-  out: [TOOLBOX_PORTAL_NAME, "intentionallyEmpty"],
+  out: ["toolbox", "intentionallyEmpty"],
 } as const;
 type OutPortalName = (typeof PORTAL_DICTIONARY)["out"][number];
 
