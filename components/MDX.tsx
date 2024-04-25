@@ -54,7 +54,7 @@ function Code({
       <code
         dangerouslySetInnerHTML={{ __html: codeHTML }}
         className={cn(
-          "rounded bg-gray-02 font-mono [&:not(pre_*)]:px-1 [&:not(pre_*)]:py-0.5",
+          "rounded border-gray-06 bg-gray-02 font-mono [&:not(pre_*)]:border [&:not(pre_*)]:px-1 [&:not(pre_*)]:py-0.5",
           className,
         )}
         {...props}
@@ -104,10 +104,12 @@ const defaultComponents = {
     <strong className="font-bold text-gray-12" {...props} />
   ),
   pre: (props: HTMLProps<HTMLPreElement>) => (
-    <pre
-      className="relative -mx-4 my-2 overflow-x-auto rounded bg-gray-02 p-4 text-sm"
-      {...props}
-    />
+    <Border>
+      <pre
+        className="relative -mx-4 my-2 overflow-x-auto rounded-sm bg-gray-02 p-4 text-sm"
+        {...props}
+      />
+    </Border>
   ),
   img: (props: HTMLProps<HTMLImageElement>) => (
     <Border className="-mx-4 rounded-sm">
