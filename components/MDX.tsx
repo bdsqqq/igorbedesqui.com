@@ -6,6 +6,7 @@ import { highlight } from "sugar-high";
 import { MDXProvider } from "@mdx-js/react";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { cn } from "@/lib/styling";
+import { CopyButton } from "@/components/ui/CopyButton";
 
 function Table({
   data,
@@ -45,14 +46,20 @@ function Code({
 }) {
   const codeHTML = highlight(children);
   return (
-    <code
-      dangerouslySetInnerHTML={{ __html: codeHTML }}
-      className={cn(
-        "rounded bg-gray-02 font-mono [&:not(pre_*)]:px-1 [&:not(pre_*)]:py-0.5",
-        className,
-      )}
-      {...props}
-    />
+    <>
+      <CopyButton
+        className="absolute right-0 top-0 [&:not(pre_*)]:hidden"
+        contentToCopy={children?.toString() || ""}
+      />
+      <code
+        dangerouslySetInnerHTML={{ __html: codeHTML }}
+        className={cn(
+          "rounded bg-gray-02 font-mono [&:not(pre_*)]:px-1 [&:not(pre_*)]:py-0.5",
+          className,
+        )}
+        {...props}
+      />
+    </>
   );
 }
 
@@ -98,7 +105,7 @@ const defaultComponents = {
   ),
   pre: (props: HTMLProps<HTMLPreElement>) => (
     <pre
-      className="-mx-4 my-2 overflow-x-auto rounded bg-gray-02 p-4 text-sm"
+      className="relative -mx-4 my-2 overflow-x-auto rounded bg-gray-02 p-4 text-sm"
       {...props}
     />
   ),
