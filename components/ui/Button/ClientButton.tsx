@@ -8,48 +8,6 @@ type TogglePropsWithValuesAsNever = {
   [K in keyof TogglePropsWithoutPrimitiveButtonProps]: never;
 };
 
-const buttonVariants = cva(
-  cn(
-    "select-none appearance-none",
-    "relative rounded-sm inline-flex items-center gap-2 align-middle outline-none focus-within:outline-none",
-    "motion-safe:duration-fast-01 motion-safe:ease-expressive-standard transition-all",
-    "border",
-    "shadow-input ",
-    "bg-gradient-to-tr",
-    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-00/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard",
-  ),
-  {
-    variants: {
-      size: {
-        sm: "h-7 min-w-7 px-1.5 py-1.5 text-sm",
-        md: "h-8 min-w-8 px-2 py-1.5 text-base",
-      },
-      variant: {
-        primary: cn(
-          "border-gray-A04",
-          "shadow-gray-A03",
-          "from-gray-A02 to-gray-A04",
-          "data-[state=on]:from-gray-A03 data-[state=on]:to-gray-A05",
-          "data-[state=open]:from-gray-A03 data-[state=open]:to-gray-A05",
-          "hover:border-gray-A08",
-          "focus-visible:border-gray-A08",
-        ),
-      },
-      activeStyle: {
-        scale: "active:scale-95",
-        none: "",
-      },
-    },
-    defaultVariants: {
-      size: "md",
-      variant: "primary",
-      activeStyle: "scale",
-    },
-  },
-);
-
-type ButtonVariants = VariantProps<typeof buttonVariants>;
-
 interface BaseButtonProps {
   loading?: boolean;
   left?: React.ReactNode;
@@ -114,6 +72,7 @@ export const Button = React.forwardRef<
       className,
       variant,
       size,
+      activeStyle,
       asChild = false,
       loading: _loading,
       left,
@@ -132,7 +91,9 @@ export const Button = React.forwardRef<
 
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ variant, size, activeStyle, className }),
+        )}
         ref={ref}
         {...props}
       >
@@ -159,6 +120,7 @@ export const LinkButton = React.forwardRef<
       className,
       variant,
       size,
+      activeStyle,
       loading: _loading,
       loadingStrategy = "delay",
       left,
@@ -172,7 +134,9 @@ export const LinkButton = React.forwardRef<
 
     return (
       <UnstyledLink
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ variant, size, activeStyle, className }),
+        )}
         ref={ref}
         {...props}
       >
@@ -298,8 +262,7 @@ const useArtificialDelay = (
 export const Spinner = ({ ...props }: React.ComponentProps<"svg">) => (<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}><path fill="currentColor" d="M12.6561 7.46354C12.6365 4.6326 10.3356 2.34375 7.5 2.34375V1.40625C7.81512 1.40625 8.12851 1.43068 8.4375 1.47879C9.23048 1.60226 9.99444 1.88168 10.684 2.30422C11.6422 2.89142 12.4194 3.73216 12.9296 4.7335C13.4398 5.73483 13.6631 6.85775 13.575 7.97811C13.5115 8.78432 13.2885 9.56661 12.9223 10.2807C12.78 10.5582 12.6161 10.8253 12.4316 11.0796L12.4299 11.0818L11.6718 10.531C12.2855 9.68777 12.6497 8.65135 12.6562 7.53016C12.6563 7.50794 12.6563 7.48574 12.6561 7.46354Z"/></svg>);
 // prettier
 
-import { UnstyledLink } from "./primitives";
-import { cva, type VariantProps } from "class-variance-authority";
+import { UnstyledLink } from "../primitives";
 import { cn } from "@/lib/styling";
 import React, { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
@@ -309,3 +272,4 @@ import {
   Root as ToggleRoot,
   ToggleProps,
 } from "@radix-ui/react-toggle";
+import { ButtonVariants, buttonVariants } from "@/components/ui/Button";
