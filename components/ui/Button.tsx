@@ -1,88 +1,11 @@
 "use client";
 
-export const Spinner = ({ ...props }: React.ComponentProps<"svg">) => (
-  <svg
-    width="15"
-    height="15"
-    viewBox="0 0 15 15"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M12.6561 7.46354C12.6365 4.6326 10.3356 2.34375 7.5 2.34375V1.40625C7.81512 1.40625 8.12851 1.43068 8.4375 1.47879C9.23048 1.60226 9.99444 1.88168 10.684 2.30422C11.6422 2.89142 12.4194 3.73216 12.9296 4.7335C13.4398 5.73483 13.6631 6.85775 13.575 7.97811C13.5115 8.78432 13.2885 9.56661 12.9223 10.2807C12.78 10.5582 12.6161 10.8253 12.4316 11.0796L12.4299 11.0818L11.6718 10.531C12.2855 9.68777 12.6497 8.65135 12.6562 7.53016C12.6563 7.50794 12.6563 7.48574 12.6561 7.46354Z"
-      fill="currentColor"
-    />
-  </svg>
-);
-
 type TogglePropsWithoutPrimitiveButtonProps = Omit<
   ToggleProps,
   keyof PrimitiveButtonProps
 >;
 type TogglePropsWithValuesAsNever = {
   [K in keyof TogglePropsWithoutPrimitiveButtonProps]: never;
-};
-
-/** Map of modifier keys to their KeyboardEvent properties
- * {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState MDN Reference}
- */
-export type ModifierKey = (typeof ModifierKeys)[number];
-
-export const ModifierKeys = [
-  "Accel",
-  "Alt" /* Full Browser Support */,
-  "AltGraph" /* Full Browser Support */,
-  "CapsLock" /* Full Browser Support */,
-  "Control" /* Full Browser Support */,
-  "Fn",
-  "Meta" /* Full Browser Support */,
-  "NumLock",
-  "OS",
-  "ScrollLock",
-  "Shift" /* Full Browser Support */,
-  "Symbol",
-] as const;
-
-const ModifierToElement = {
-  Accel: "⌘",
-  Alt: "⌥",
-  AltGraph: "AltGr",
-  CapsLock: "Caps",
-  Control: "Ctrl",
-  Fn: "Fn",
-  Meta: "⌘",
-  NumLock: "Num",
-  OS: "OS",
-  ScrollLock: "Scroll",
-  Shift: "⇧",
-  Symbol: "Sym",
-} as const;
-
-export const Shortcut = ({
-  children,
-  modifier,
-}: {
-  children: string;
-  modifier?: ModifierKey[];
-}) => {
-  const stableId = React.useId();
-
-  return (
-    <span className="flex items-center gap-0.5">
-      {modifier?.map((mod) => (
-        <kbd
-          className="rounded-[3px] border border-[#00000055] bg-[#00000008] px-1 py-px text-sm leading-none"
-          key={`${stableId}-${mod}`}
-        >
-          {ModifierToElement[mod]}
-        </kbd>
-      ))}
-      <kbd className="rounded-[3px] border border-[#00000055] bg-[#00000008] px-1 py-px text-sm uppercase leading-none">
-        {children}
-      </kbd>
-    </span>
-  );
 };
 
 const buttonVariants = cva(
@@ -131,10 +54,6 @@ interface BaseButtonProps {
   loading?: boolean;
   left?: React.ReactNode;
   right?: React.ReactNode;
-  shortcut?: {
-    key: string;
-    modifier?: ModifierKey[];
-  };
   /**
    * minimum artificial delays
    * - minimumDuration: shows spinner for at least 500ms
@@ -153,9 +72,8 @@ const ButtonContent = ({
   left,
   loading,
   children,
-  shortcut,
   right,
-}: Pick<BaseButtonProps, "left" | "loading" | "shortcut" | "right"> & {
+}: Pick<BaseButtonProps, "left" | "loading" | "right"> & {
   children: React.ReactNode;
 }) => {
   const Left = loading ? <Spinner className="animate-spin" /> : left;
@@ -163,14 +81,7 @@ const ButtonContent = ({
   return (
     <>
       {Left}
-      {children || shortcut ? (
-        <span className="inline-flex gap-1">
-          {children}
-          {shortcut && (
-            <Shortcut modifier={shortcut.modifier}>{shortcut.key}</Shortcut>
-          )}
-        </span>
-      ) : null}
+      {children ? <span className="inline-flex gap-1">{children}</span> : null}
       {right}
     </>
   );
@@ -180,7 +91,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     BaseButtonProps,
     TogglePropsWithValuesAsNever,
-    VariantProps<typeof buttonVariants> {
+    ButtonVariants {
   asChild?: boolean;
   toggle?: false;
 }
@@ -189,7 +100,7 @@ export interface ToggleButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     BaseButtonProps,
     ToggleProps,
-    VariantProps<typeof buttonVariants> {
+    ButtonVariants {
   asChild?: false;
   toggle: true;
 }
@@ -207,7 +118,6 @@ export const Button = React.forwardRef<
       loading: _loading,
       left,
       right,
-      shortcut,
       children,
       loadingStrategy = "delay",
       toggle,
@@ -226,12 +136,7 @@ export const Button = React.forwardRef<
         ref={ref}
         {...props}
       >
-        <ButtonContent
-          left={left}
-          loading={loading}
-          shortcut={shortcut}
-          right={right}
-        >
+        <ButtonContent left={left} loading={loading} right={right}>
           {children}
         </ButtonContent>
       </Comp>
@@ -243,7 +148,7 @@ Button.displayName = "Button";
 export interface LinkButtonProps
   extends UnstyledLinkProps,
     BaseButtonProps,
-    VariantProps<typeof buttonVariants> {}
+    ButtonVariants {}
 
 export const LinkButton = React.forwardRef<
   HTMLAnchorElement,
@@ -256,7 +161,6 @@ export const LinkButton = React.forwardRef<
       size,
       loading: _loading,
       loadingStrategy = "delay",
-      shortcut,
       left,
       right,
       children,
@@ -272,12 +176,7 @@ export const LinkButton = React.forwardRef<
         ref={ref}
         {...props}
       >
-        <ButtonContent
-          left={left}
-          loading={loading}
-          shortcut={shortcut}
-          right={right}
-        >
+        <ButtonContent left={left} loading={loading} right={right}>
           {children}
         </ButtonContent>
       </UnstyledLink>
@@ -395,15 +294,14 @@ const useArtificialDelay = (
   return isLoading;
 };
 
+// prettier-ignore
+export const Spinner = ({ ...props }: React.ComponentProps<"svg">) => (<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}><path fill="currentColor" d="M12.6561 7.46354C12.6365 4.6326 10.3356 2.34375 7.5 2.34375V1.40625C7.81512 1.40625 8.12851 1.43068 8.4375 1.47879C9.23048 1.60226 9.99444 1.88168 10.684 2.30422C11.6422 2.89142 12.4194 3.73216 12.9296 4.7335C13.4398 5.73483 13.6631 6.85775 13.575 7.97811C13.5115 8.78432 13.2885 9.56661 12.9223 10.2807C12.78 10.5582 12.6161 10.8253 12.4316 11.0796L12.4299 11.0818L11.6718 10.531C12.2855 9.68777 12.6497 8.65135 12.6562 7.53016C12.6563 7.50794 12.6563 7.48574 12.6561 7.46354Z"/></svg>);
+// prettier
+
 import { UnstyledLink } from "./primitives";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/styling";
-import React, {
-  ComponentPropsWithoutRef,
-  ElementRef,
-  HtmlHTMLAttributes,
-  forwardRef,
-} from "react";
+import React, { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { UnstyledLinkProps } from "@/components/ui/primitives/UnstyledLink";
 import {
