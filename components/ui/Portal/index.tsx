@@ -10,7 +10,7 @@ import { createPortal } from "react-dom";
 const PORTAL_DICTIONARY = {
   out: ["toolbox", "intentionallyEmpty"],
 } as const;
-type OutPortalName = (typeof PORTAL_DICTIONARY)["out"][number];
+type OutPortalName = (typeof PORTAL_DICTIONARY)["out"][number] | (string & {});
 
 type InPortal = {
   name: string;

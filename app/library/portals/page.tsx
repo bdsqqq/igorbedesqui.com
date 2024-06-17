@@ -2,7 +2,13 @@ import Band from "@/components/Band";
 import Container from "@/components/Container";
 import { MDX } from "@/components/MDX";
 import { grid } from "@/components/ui/Grid";
+import { Separator } from "@/components/ui/Separator";
 import { cn } from "@/lib/styling";
+import {
+  PortalShowcase_FarAwaySlots,
+  PortalShowcase_Multiplexer,
+  PortalShowcase_dynamicOut,
+} from "app/library/portals/showcase";
 import { promises as fs } from "fs";
 
 export default async function Page() {
@@ -48,6 +54,13 @@ ${PortalsSource}
             </MDX>
           </section>
         </div>
+      </Band>
+      <Band gridless id="showcase">
+        <PortalShowcase_FarAwaySlots />
+        <Separator />
+        <PortalShowcase_Multiplexer />
+        <Separator />
+        <PortalShowcase_dynamicOut />
       </Band>
     </Container>
   );
