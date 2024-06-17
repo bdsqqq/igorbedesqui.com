@@ -22,4 +22,4 @@ const nextConfig = {
   },
 };
 
-export default MillionCompiler.next()(nextConfig);
+export default MillionCompiler.next({ rsc: true })(nextConfig);
