@@ -1,6 +1,6 @@
-import { useStore } from "zustand";
-import { createStore } from "zustand/vanilla";
-import React, { useMemo, useRef } from "react";
+"use client";
+import { StoreApi, createStore, useStore } from "zustand";
+import React, { useId, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 
 /**
@@ -30,28 +30,55 @@ interface PortalStore {
   addOutPortal: (portal: OutPortal) => void;
   removeOutPortal: (id: OutPortalName) => void;
 }
-export const PortalStore = createStore<PortalStore>((set) => ({
-  inPortals: new Map(),
-  outPortals: new Map(),
 
-  addInPortal: (portal) =>
-    set((prev) => ({ inPortals: prev.inPortals.set(portal.name, portal) })),
-  removeInPortal: (name) =>
-    set((prev) => {
-      const newInPortals = new Map(prev.inPortals);
-      newInPortals.delete(name);
-      return { inPortals: newInPortals };
-    }),
+const PortalStoreContext = React.createContext<StoreApi<PortalStore> | null>(
+  null,
+);
+export const PortalStoreProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [store] = React.useState(() =>
+    createStore<PortalStore>((set) => ({
+      inPortals: new Map(),
+      outPortals: new Map(),
 
-  addOutPortal: (portal) =>
-    set((prev) => ({ outPortals: prev.outPortals.set(portal.name, portal) })),
-  removeOutPortal: (name) =>
-    set((prev) => {
-      const newOutPortals = new Map(prev.outPortals);
-      newOutPortals.delete(name);
-      return { outPortals: newOutPortals };
-    }),
-}));
+      addInPortal: (portal) =>
+        set((prev) => ({ inPortals: prev.inPortals.set(portal.name, portal) })),
+      removeInPortal: (name) =>
+        set((prev) => {
+          const newInPortals = new Map(prev.inPortals);
+          newInPortals.delete(name);
+          return { inPortals: newInPortals };
+        }),
+
+      addOutPortal: (portal) =>
+        set((prev) => ({
+          outPortals: prev.outPortals.set(portal.name, portal),
+        })),
+      removeOutPortal: (name) =>
+        set((prev) => {
+          const newOutPortals = new Map(prev.outPortals);
+          newOutPortals.delete(name);
+          return { outPortals: newOutPortals };
+        }),
+    })),
+  );
+
+  return (
+    <PortalStoreContext.Provider value={store}>
+      {children}
+    </PortalStoreContext.Provider>
+  );
+};
+export const usePortalStore = () => {
+  const store = React.useContext(PortalStoreContext);
+  if (!store) {
+    throw new Error("Missing PortalStoreProvider");
+  }
+  return useStore(store);
+};
 
 const useInPortal = ({
   name,
@@ -60,7 +87,7 @@ const useInPortal = ({
   name: string;
   intendedOut: OutPortalName;
 }) => {
-  const { addInPortal, removeInPortal } = useStore(PortalStore);
+  const { addInPortal, removeInPortal } = usePortalStore();
 
   React.useEffect(() => {
     addInPortal({ name, intendedOut });
@@ -75,7 +102,7 @@ const useInPortal = ({
  * Returns a ref that will make an element into an `OutPortal`.
  */
 export const useOutPortal = <T extends HTMLElement>(name: OutPortalName) => {
-  const { addOutPortal, removeOutPortal } = useStore(PortalStore);
+  const { addOutPortal, removeOutPortal } = usePortalStore();
   const ref = useRef<T>(null);
 
   React.useEffect(() => {
@@ -102,8 +129,9 @@ export function InPortal({
   name: string;
   outPortalName: OutPortalName;
 }) {
+  const id = useId();
   useInPortal({ name, intendedOut: outPortalName });
-  const { outPortals } = useStore(PortalStore);
+  const { outPortals } = usePortalStore();
   const [outPortalNode, setOutPortalNode] = React.useState<HTMLElement | null>(
     null,
   );
@@ -114,7 +142,9 @@ export function InPortal({
     setOutPortalNode(ref?.current || null);
   }, [outPortalName, outPortals]);
 
-  return <>{outPortalNode ? createPortal(children, outPortalNode) : null}</>;
+  return (
+    <>{outPortalNode ? createPortal(children, outPortalNode, id) : null}</>
+  );
 }
 
 /**

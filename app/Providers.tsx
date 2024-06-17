@@ -3,8 +3,10 @@
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <HistoryTracker />
-      {children}
+      <PortalStoreProvider>
+        <HistoryTracker />
+        {children}
+      </PortalStoreProvider>
     </>
   );
 };
@@ -12,6 +14,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
 import { create } from "zustand";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { PortalStoreProvider } from "@/components/ui/Portal";
 
 // TODO: maybe move this to nav since it's the only thing that uses it?? then this whole file can be deleted yay. Just not sure if it will work since Nav remounts on navigation
 type BreadcrumbsState = {

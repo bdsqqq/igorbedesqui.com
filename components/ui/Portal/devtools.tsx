@@ -1,13 +1,12 @@
-import { useStore } from "zustand";
-import { PortalStore } from ".";
 import { cn } from "@/lib/styling";
+import { usePortalStore } from "@/components/ui/Portal";
 
 /**
  * Keeps track of the name and type of rendered portals.
  */
 export function PortalDevtools() {
   const { inPortals: inPortalsMap, outPortals: outPortalsMap } =
-    useStore(PortalStore);
+    usePortalStore();
 
   const inPortals = Array.from(inPortalsMap.values());
   const outPortals = Array.from(outPortalsMap.values());
