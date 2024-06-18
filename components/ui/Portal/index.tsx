@@ -89,7 +89,7 @@ const useInPortal = ({
 }) => {
   const { addInPortal, removeInPortal } = usePortalStore();
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     addInPortal({ name, intendedOut });
 
     return () => {
@@ -105,7 +105,7 @@ export const useOutPortal = <T extends HTMLElement>(name: OutPortalName) => {
   const { addOutPortal, removeOutPortal } = usePortalStore();
   const ref = useRef<T>(null);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     addOutPortal({ name, ref });
 
     return () => {
