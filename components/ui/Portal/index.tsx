@@ -45,7 +45,9 @@ export const PortalStoreProvider = ({
       outPortals: new Map(),
 
       addInPortal: (portal) =>
-        set((prev) => ({ inPortals: prev.inPortals.set(portal.name, portal) })),
+        set((prev) => ({
+          inPortals: new Map(prev.inPortals).set(portal.name, portal),
+        })),
       removeInPortal: (name) =>
         set((prev) => {
           const newInPortals = new Map(prev.inPortals);
@@ -55,7 +57,7 @@ export const PortalStoreProvider = ({
 
       addOutPortal: (portal) =>
         set((prev) => ({
-          outPortals: prev.outPortals.set(portal.name, portal),
+          outPortals: new Map(prev.outPortals).set(portal.name, portal),
         })),
       removeOutPortal: (name) =>
         set((prev) => {
