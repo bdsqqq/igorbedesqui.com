@@ -8,7 +8,7 @@ type TogglePropsWithValuesAsNever = {
   [K in keyof TogglePropsWithoutPrimitiveButtonProps]: never;
 };
 
-interface BaseButtonProps {
+type BaseButtonProps = {
   loading?: boolean;
   icon?:
     | React.ReactNode
@@ -24,7 +24,7 @@ interface BaseButtonProps {
    * @default "delay"
    */
   loadingStrategy?: loadingStrategy;
-}
+};
 
 /**
  * type guard to check if an icon prop is an oject with left and right OR a single element
@@ -78,23 +78,21 @@ const ButtonContent = ({
   );
 };
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    BaseButtonProps,
-    TogglePropsWithValuesAsNever,
-    ButtonVariants {
-  asChild?: boolean;
-  toggle?: false;
-}
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  BaseButtonProps &
+  TogglePropsWithValuesAsNever &
+  ButtonVariants & {
+    asChild?: boolean;
+    toggle?: false;
+  };
 
-export interface ToggleButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    BaseButtonProps,
-    ToggleProps,
-    ButtonVariants {
-  asChild?: false;
-  toggle: true;
-}
+export type ToggleButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  BaseButtonProps &
+  ToggleProps &
+  ButtonVariants & {
+    asChild?: false;
+    toggle: true;
+  };
 
 export const Button = React.forwardRef<
   HTMLButtonElement,
@@ -138,10 +136,9 @@ export const Button = React.forwardRef<
 );
 Button.displayName = "Button";
 
-export interface LinkButtonProps
-  extends UnstyledLinkProps,
-    BaseButtonProps,
-    ButtonVariants {}
+export type LinkButtonProps = UnstyledLinkProps &
+  BaseButtonProps &
+  ButtonVariants;
 
 export const LinkButton = React.forwardRef<
   HTMLAnchorElement,
