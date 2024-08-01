@@ -10,8 +10,12 @@ type TogglePropsWithValuesAsNever = {
 
 interface BaseButtonProps {
   loading?: boolean;
-  left?: React.ReactNode;
-  right?: React.ReactNode;
+  icon?:
+    | React.ReactNode
+    | {
+        left?: React.ReactNode;
+        right?: React.ReactNode;
+      };
   /**
    * minimum artificial delays
    * - minimumDuration: shows spinner for at least 500ms
@@ -23,24 +27,65 @@ interface BaseButtonProps {
 }
 
 /**
+ * type guard to check if an icon prop is an oject with left and right OR a single element
+ */
+const isIconObject = (
+  icon: BaseButtonProps["icon"],
+): icon is { left?: React.ReactNode; right?: React.ReactNode } => {
+  return (
+    typeof icon === "object" &&
+    icon !== null &&
+    ("left" in icon || "right" in icon)
+  );
+};
+/**
  * Content rendered by buttons, handles swapping item with loading when appropriate
  * Used to share content between Button and ButtonLink
  */
 const ButtonContent = ({
-  left,
+  icon,
   loading,
   children,
-  right,
-}: Pick<BaseButtonProps, "left" | "loading" | "right"> & {
+}: Pick<BaseButtonProps, "icon" | "loading"> & {
   children: React.ReactNode;
 }) => {
-  const Left = loading ? <Spinner className="animate-spin" /> : left;
+  const iconObj = isIconObject(icon)
+    ? icon
+    : { left: undefined, right: undefined };
+
+  const leftIconExists = isIconObject(icon) && icon.left !== undefined;
+  const rightIconExists = isIconObject(icon) && icon.right !== undefined;
+  const isSingleIcon =
+    React.isValidElement(icon) ||
+    ((leftIconExists || rightIconExists) &&
+      !(leftIconExists && rightIconExists));
+
+  const Left =
+    // default to left icon for spinner unless right icon is the only one defined.
+    loading && !(!leftIconExists && rightIconExists) ? (
+      <Spinner className="animate-spin" />
+    ) : (
+      iconObj.left
+    );
+
+  const Right =
+    loading && !leftIconExists && rightIconExists ? (
+      <Spinner className="animate-spin" />
+    ) : (
+      iconObj.right
+    );
+
+  const isIconOnly = isSingleIcon && !children;
+
+  if (isIconOnly) {
+    return <>{Left || Right || icon}</>;
+  }
 
   return (
     <>
-      {Left}
-      {children ? <span className="inline-flex gap-1">{children}</span> : null}
-      {right}
+      {Left ? Left : <span />}
+      {children}
+      {Right ? Right : <span />}
     </>
   );
 };
@@ -75,8 +120,7 @@ export const Button = React.forwardRef<
       activeStyle,
       asChild = false,
       loading: _loading,
-      left,
-      right,
+      icon,
       children,
       loadingStrategy = "delay",
       toggle,
@@ -97,7 +141,7 @@ export const Button = React.forwardRef<
         ref={ref}
         {...props}
       >
-        <ButtonContent left={left} loading={loading} right={right}>
+        <ButtonContent icon={icon} loading={loading}>
           {children}
         </ButtonContent>
       </Comp>
@@ -123,8 +167,7 @@ export const LinkButton = React.forwardRef<
       activeStyle,
       loading: _loading,
       loadingStrategy = "delay",
-      left,
-      right,
+      icon,
       children,
       ...props
     },
@@ -140,7 +183,7 @@ export const LinkButton = React.forwardRef<
         ref={ref}
         {...props}
       >
-        <ButtonContent left={left} loading={loading} right={right}>
+        <ButtonContent icon={icon} loading={loading}>
           {children}
         </ButtonContent>
       </UnstyledLink>

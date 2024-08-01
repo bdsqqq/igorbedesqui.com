@@ -27,9 +27,7 @@ export const Toolbox = () => {
       <ToolboxItem name="portal-debugging">
         <Popover>
           <PopoverTrigger asChild>
-            <Button onClick={toggleDebugging}>
-              <OpenInNewWindowIcon />
-            </Button>
+            <Button onClick={toggleDebugging} icon={<OpenInNewWindowIcon />} />
           </PopoverTrigger>
           <PopoverContent side="left" align="start">
             <PortalDevtools />

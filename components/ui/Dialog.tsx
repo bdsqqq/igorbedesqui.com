@@ -38,17 +38,17 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "bg-gray-00 fixed left-[50%] top-[50%] z-aboveVignette grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] p-6",
+        "fixed left-[50%] top-[50%] z-aboveVignette grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] bg-gray-00 p-6",
         className,
       )}
       {...props}
     >
       {children}
       <DialogPrimitive.Close asChild>
-        <Button className="absolute right-4 top-4 z-aboveVignette">
-          <Cross2Icon />
-          <span className="sr-only">Close</span>
-        </Button>
+        <Button
+          icon={<Cross2Icon aria-label="Close" />}
+          className="absolute right-4 top-4"
+        />
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>

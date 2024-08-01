@@ -5,7 +5,7 @@ import { Stage } from "@/components/Stage";
 import { buttonPermutations, Button } from "@/components/ui/Button";
 import { grid } from "@/components/ui/Grid";
 import { cn } from "@/lib/styling";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { ArrowLeftIcon, ArrowRightIcon, CodeIcon } from "@radix-ui/react-icons";
 import { promises as fs } from "fs";
 
 export default async function Page() {
@@ -36,6 +36,96 @@ export default async function Page() {
 
           <section className="col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
             <ButtonPermutations />
+            <Button
+              loading
+              icon={{
+                left: <ArrowLeftIcon />,
+                right: <ArrowRightIcon />,
+              }}
+            />
+            <Button loading icon={<CodeIcon />} />
+            <Button
+              loading
+              icon={{
+                left: <ArrowLeftIcon />,
+              }}
+            />
+            <Button
+              loading
+              icon={{
+                right: <ArrowRightIcon />,
+              }}
+            />
+            <Button
+              icon={{
+                left: <ArrowLeftIcon />,
+                right: <ArrowRightIcon />,
+              }}
+            />
+            <Button icon={<CodeIcon />} />
+            <Button
+              icon={{
+                left: <ArrowLeftIcon />,
+              }}
+            />
+            <Button
+              icon={{
+                right: <ArrowRightIcon />,
+              }}
+            />
+
+            <Button
+              icon={{
+                left: <ArrowLeftIcon />,
+                right: <ArrowRightIcon />,
+              }}
+            >
+              Hej
+            </Button>
+            <Button icon={<CodeIcon />}>Hej</Button>
+            <Button
+              icon={{
+                left: <ArrowLeftIcon />,
+              }}
+            >
+              Hej
+            </Button>
+            <Button
+              icon={{
+                right: <ArrowRightIcon />,
+              }}
+            >
+              Hej
+            </Button>
+
+            <Button
+              loading
+              icon={{
+                left: <ArrowLeftIcon />,
+                right: <ArrowRightIcon />,
+              }}
+            >
+              Hej
+            </Button>
+            <Button loading icon={<CodeIcon />}>
+              Hej
+            </Button>
+            <Button
+              loading
+              icon={{
+                left: <ArrowLeftIcon />,
+              }}
+            >
+              Hej
+            </Button>
+            <Button
+              loading
+              icon={{
+                right: <ArrowRightIcon />,
+              }}
+            >
+              Hej
+            </Button>
           </section>
 
           <section

@@ -5,12 +5,12 @@ import { VariantProps } from "class-variance-authority";
 export const [buttonVariants, permutations] = CVAWithPerms(
   cn(
     "select-none appearance-none",
-    "relative whitespace-nowrap rounded-sm inline-flex items-center gap-2 align-middle outline-none focus-within:outline-none",
+    "relative whitespace-nowrap rounded-sm inline-flex items-center gap-1 align-middle outline-none focus-within:outline-none",
     "motion-safe:duration-fast-01 motion-safe:ease-expressive-standard transition-all",
     "border",
     "shadow-input ",
     "bg-gradient-to-tr",
-    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-00/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard",
+    "before:absolute before:inset-0 before:rounded-[inherit] before:shadow-lg before:shadow-gray-00/50 before:transition-all before:motion-safe:duration-fast-01 before:motion-safe:ease-expressive-standard",
   ),
   {
     variants: {
