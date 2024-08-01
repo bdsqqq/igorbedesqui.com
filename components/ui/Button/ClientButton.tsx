@@ -50,42 +50,30 @@ const ButtonContent = ({
   children: React.ReactNode;
 }) => {
   const iconObj = isIconObject(icon)
-    ? icon
-    : { left: undefined, right: undefined };
+    ? icon // position is specified, use that
+    : {
+        left: icon, // if no position is specified, assume left
+        right: undefined,
+      };
+  const spinner = <Spinner className="animate-spin" />;
 
-  const leftIconExists = isIconObject(icon) && icon.left !== undefined;
-  const rightIconExists = isIconObject(icon) && icon.right !== undefined;
-  const isSingleIcon =
-    React.isValidElement(icon) ||
-    ((leftIconExists || rightIconExists) &&
-      !(leftIconExists && rightIconExists));
+  const leftIcon =
+    // use left icon for spinner unless right icon is the only one defined.
+    loading && !(!iconObj.left && iconObj.right) ? spinner : iconObj.left;
+  const rightIcon =
+    // use right icon for spinner unless left icon is defined.
+    loading && !iconObj.left ? spinner : iconObj.right;
 
-  const Left =
-    // default to left icon for spinner unless right icon is the only one defined.
-    loading && !(!leftIconExists && rightIconExists) ? (
-      <Spinner className="animate-spin" />
-    ) : (
-      iconObj.left
-    );
-
-  const Right =
-    loading && !leftIconExists && rightIconExists ? (
-      <Spinner className="animate-spin" />
-    ) : (
-      iconObj.right
-    );
-
-  const isIconOnly = isSingleIcon && !children;
-
-  if (isIconOnly) {
-    return <>{Left || Right || icon}</>;
-  }
+  /**
+   * if this is an iconOnly button (AKA: no children), we don't want to render empty nodes for the extra gap space.
+   */
+  const maybeSpacer = children ? <span /> : null;
 
   return (
     <>
-      {Left ? Left : <span />}
+      {leftIcon ? leftIcon : maybeSpacer}
       {children}
-      {Right ? Right : <span />}
+      {rightIcon ? rightIcon : maybeSpacer}
     </>
   );
 };
