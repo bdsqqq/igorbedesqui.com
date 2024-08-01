@@ -2,7 +2,12 @@ import Band from "@/components/Band";
 import Container from "@/components/Container";
 import { MDX } from "@/components/MDX";
 import { Stage } from "@/components/Stage";
-import { buttonPermutations, Button } from "@/components/ui/Button";
+import {
+  buttonPermutations,
+  Button,
+  LinkButton,
+  ButtonGroup,
+} from "@/components/ui/Button";
 import { grid } from "@/components/ui/Grid";
 import { cn } from "@/lib/styling";
 import { ArrowLeftIcon, ArrowRightIcon, CodeIcon } from "@radix-ui/react-icons";
@@ -140,11 +145,76 @@ ${ButtonSource}
 \`\`\``.trim()}
             </MDX>
           </section>
+
+          <section className="col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
+            {/* <MDX>
+              {`
+## Usage
+
+### As a button
+
+\`\`\`jsx
+<Button>Hej</Button>
+\`\`\`
+
+### As a link
+
+\`\`\`jsx
+<LinkButton href="#">Hej</LinkButton>
+\`\`\`
+
+### As a toggle
+
+\`\`\`jsx
+<ToggleButton>Hej</ToggleButton>
+\`\`\`
+
+### As a button group
+
+\`\`\`jsx
+<ButtonGroup>
+  <Button>Hej</Button>
+  <Button>Hej</Button>
+</ButtonGroup>
+\`\`\`
+`}
+            </MDX> */}
+
+            <MDX>
+              {`
+              ${Object.entries(usages)
+                .map(
+                  ([name, usage]) =>
+                    `
+                  ### ${name}
+                  ${usage}
+                  
+                  \`\`\`jsx
+                  ${usage.toString()}
+                  \`\`\`
+                 `,
+                )
+                .join("\n\n")}
+            `}
+            </MDX>
+          </section>
         </div>
       </Band>
     </Container>
   );
 }
+
+const usages = {
+  "As a button": <Button>Hej</Button>,
+  "As a link": <LinkButton href="#">Hej</LinkButton>,
+  "As a toggle": <Button toggle>Hej</Button>,
+  "As part of a button group": (
+    <ButtonGroup orientation="horizontal">
+      <Button>Hej</Button>
+      <Button>Hej</Button>
+    </ButtonGroup>
+  ),
+};
 
 const ButtonPermutations = () => {
   return (
