@@ -10,13 +10,13 @@ const CodeAndDemoButtons = ({
     // -ml-2 align text to the grid instead of the button container
     <div className="-ml-2 flex gap-2">
       {codeUrl && (
-        <LinkButton left={<GitHubLogoIcon />} href={codeUrl}>
+        <LinkButton icon={<GitHubLogoIcon />} href={codeUrl}>
           <span>code</span>
           <span className="sr-only">Github</span>
         </LinkButton>
       )}
       {demoUrl && (
-        <LinkButton left={<ImageIcon />} href={demoUrl}>
+        <LinkButton icon={<ImageIcon />} href={demoUrl}>
           live
         </LinkButton>
       )}
