@@ -8,10 +8,17 @@ import {
   LinkButton,
   ButtonGroup,
 } from "@/components/ui/Button";
+import {
+  BUTTON_DISPLAY_NAME,
+  BUTTON_GROUP_DISPLAY_NAME,
+  LINK_BUTTON_DISPLAY_NAME,
+} from "@/components/ui/Button/ClientButton";
 import { grid } from "@/components/ui/Grid";
 import { cn } from "@/lib/styling";
 import { ArrowLeftIcon, ArrowRightIcon, CodeIcon } from "@radix-ui/react-icons";
 import { promises as fs } from "fs";
+import { Fragment, isValidElement } from "react";
+import jsxToString from "react-element-to-jsx-string";
 
 export default async function Page() {
   const ButtonSource = await fs.readFile(
@@ -179,24 +186,28 @@ ${ButtonSource}
 \`\`\`
 `}
             </MDX> */}
+            {Object.entries(usages).map(([name, usage]) => (
+              <Fragment key={`${name}-usage-fragment`}>
+                <MDX>
+                  {`
+                    ### ${name}
 
-            <MDX>
-              {`
-              ${Object.entries(usages)
-                .map(
-                  ([name, usage]) =>
-                    `
-                  ### ${name}
-                  ${usage}
-                  
-                  \`\`\`jsx
-                  ${usage.toString()}
-                  \`\`\`
-                 `,
-                )
-                .join("\n\n")}
-            `}
-            </MDX>
+                    \`\`\`jsx
+${jsxToString(usage, {
+  filterProps: ["data-display-name"],
+  displayName(element) {
+    if (!isValidElement(element)) return "";
+
+    console.log(element);
+    return element.props["data-display-name"] ?? "";
+  },
+})}
+                     \`\`\`
+                  `}
+                </MDX>
+                {usage}
+              </Fragment>
+            ))}
           </section>
         </div>
       </Band>
@@ -205,13 +216,24 @@ ${ButtonSource}
 }
 
 const usages = {
-  "As a button": <Button>Hej</Button>,
-  "As a link": <LinkButton href="#">Hej</LinkButton>,
-  "As a toggle": <Button toggle>Hej</Button>,
+  "As a button": <Button data-display-name={BUTTON_DISPLAY_NAME}>Hej</Button>,
+  "As a link": (
+    <LinkButton data-display-name={LINK_BUTTON_DISPLAY_NAME} href="#">
+      Hej
+    </LinkButton>
+  ),
+  "As a toggle": (
+    <Button data-display-name={BUTTON_DISPLAY_NAME} toggle>
+      Hej
+    </Button>
+  ),
   "As part of a button group": (
-    <ButtonGroup orientation="horizontal">
-      <Button>Hej</Button>
-      <Button>Hej</Button>
+    <ButtonGroup
+      data-display-name={BUTTON_GROUP_DISPLAY_NAME}
+      orientation="horizontal"
+    >
+      <Button data-display-name={BUTTON_DISPLAY_NAME}>Hej</Button>
+      <Button data-display-name={BUTTON_DISPLAY_NAME}>Hej</Button>
     </ButtonGroup>
   ),
 };

@@ -94,6 +94,7 @@ export type ToggleButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
     toggle: true;
   };
 
+export const BUTTON_DISPLAY_NAME = "Button";
 export const Button = React.forwardRef<
   HTMLButtonElement,
   ButtonProps | ToggleButtonProps
@@ -134,12 +135,12 @@ export const Button = React.forwardRef<
     );
   },
 );
-Button.displayName = "Button";
+Button.displayName = BUTTON_DISPLAY_NAME;
 
 export type LinkButtonProps = UnstyledLinkProps &
   BaseButtonProps &
   ButtonVariants;
-
+export const LINK_BUTTON_DISPLAY_NAME = "LinkButton";
 export const LinkButton = React.forwardRef<
   HTMLAnchorElement,
   LinkButtonProps & { children: React.ReactNode }
@@ -175,8 +176,9 @@ export const LinkButton = React.forwardRef<
     );
   },
 );
-LinkButton.displayName = "ButtonLink";
+LinkButton.displayName = LINK_BUTTON_DISPLAY_NAME;
 
+export const BUTTON_GROUP_DISPLAY_NAME = "ButtonGroup";
 /**
  * Group of buttons
  * Takes buttons, removes the borders that would get doubled, makes only the outer ones rounded.
@@ -230,7 +232,7 @@ export const ButtonGroup = forwardRef<
     </div>
   );
 });
-ButtonGroup.displayName = "ButtonGroup";
+ButtonGroup.displayName = BUTTON_GROUP_DISPLAY_NAME;
 
 type loadingStrategy = "minimumDuration" | "delay" | "immediate";
 const useArtificialDelay = (
