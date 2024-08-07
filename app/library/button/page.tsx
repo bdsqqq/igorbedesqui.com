@@ -8,12 +8,7 @@ import {
   LinkButton,
   ButtonGroup,
 } from "@/components/ui/Button";
-import {
-  BUTTON_DISPLAY_NAME,
-  BUTTON_GROUP_DISPLAY_NAME,
-  LINK_BUTTON_DISPLAY_NAME,
-} from "@/components/ui/Button/ClientButton";
-import { grid } from "@/components/ui/Grid";
+import { grid, subGrid } from "@/components/ui/Grid";
 import { cn } from "@/lib/styling";
 import { ArrowLeftIcon, ArrowRightIcon, CodeIcon } from "@radix-ui/react-icons";
 import { promises as fs } from "fs";
@@ -142,7 +137,7 @@ export default async function Page() {
 
           <section
             className={
-              "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15"
+              "col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-3 lg:col-end-15"
             }
           >
             <MDX>
@@ -153,61 +148,63 @@ ${ButtonSource}
             </MDX>
           </section>
 
-          <section className="col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
-            {/* <MDX>
-              {`
-## Usage
+          <section
+            className={cn(
+              "flex flex-col gap-6",
+              "col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-3 lg:col-end-15",
+            )}
+          >
+            {Object.entries(usages).map(([name, usage]) => {
+              const formattedUsage = jsxToString(usage, {
+                filterProps: ["data-display-name"],
+                displayName(element) {
+                  if (!isValidElement(element)) return "";
 
-### As a button
+                  // console.log(element);
+                  return element.props["data-display-name"] ?? "";
+                },
+              }).replace(/ /g, " "); // replace spaces with non-breaking spaces, otherwise they'll be collapsed and indentation will break
+              // to debug the string, use:
+              // .replace(/ /g, "·") // Regular space
+              // .replace(/\t/g, "→") // Tab
+              // .replace(/\n/g, "↵") // Line feed
+              // .replace(/\r/g, "←") // Carriage return
+              // .replace(/\f/g, "♦") // Form feed
+              // .replace(/\v/g, "↕") // Vertical tab
+              // .replace(/\u00A0/g, "°"); // Non-breaking space
 
-\`\`\`jsx
-<Button>Hej</Button>
-\`\`\`
-
-### As a link
-
-\`\`\`jsx
-<LinkButton href="#">Hej</LinkButton>
-\`\`\`
-
-### As a toggle
-
-\`\`\`jsx
-<ToggleButton>Hej</ToggleButton>
-\`\`\`
-
-### As a button group
-
-\`\`\`jsx
-<ButtonGroup>
-  <Button>Hej</Button>
-  <Button>Hej</Button>
-</ButtonGroup>
-\`\`\`
-`}
-            </MDX> */}
-            {Object.entries(usages).map(([name, usage]) => (
-              <Fragment key={`${name}-usage-fragment`}>
-                <MDX>
-                  {`
+              return (
+                <div className="" key={`${name}-usage-fragment`}>
+                  <MDX>
+                    {`
                     ### ${name}
-
-                    \`\`\`jsx
-${jsxToString(usage, {
-  filterProps: ["data-display-name"],
-  displayName(element) {
-    if (!isValidElement(element)) return "";
-
-    console.log(element);
-    return element.props["data-display-name"] ?? "";
-  },
-})}
-                     \`\`\`
-                  `}
-                </MDX>
-                {usage}
-              </Fragment>
-            ))}
+                    `}
+                  </MDX>
+                  <div
+                    className={cn(
+                      subGrid({
+                        lg: 12,
+                        md: 8,
+                        sm: 4,
+                      })({ mode: "narrow" }),
+                    )}
+                  >
+                    <div className="col-start-1 col-end-5 md:col-start-1 md:col-end-5 lg:col-start-1 lg:col-end-8">
+                      <MDX>
+                        {`
+                    \`\`\` jsx
+                    ${formattedUsage}
+                    \`\`\`
+                    `}
+                      </MDX>
+                    </div>
+                    <div className="col-start-1 col-end-5 md:col-start-5 md:col-end-9 lg:col-start-8 lg:col-end-13">
+                      {usage}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </section>
         </div>
       </Band>
@@ -216,24 +213,21 @@ ${jsxToString(usage, {
 }
 
 const usages = {
-  "As a button": <Button data-display-name={BUTTON_DISPLAY_NAME}>Hej</Button>,
+  "As a button": <Button data-display-name="Button">Hej</Button>,
   "As a link": (
-    <LinkButton data-display-name={LINK_BUTTON_DISPLAY_NAME} href="#">
+    <LinkButton data-display-name="LinkButton" href="#">
       Hej
     </LinkButton>
   ),
   "As a toggle": (
-    <Button data-display-name={BUTTON_DISPLAY_NAME} toggle>
+    <Button data-display-name="Button" toggle>
       Hej
     </Button>
   ),
   "As part of a button group": (
-    <ButtonGroup
-      data-display-name={BUTTON_GROUP_DISPLAY_NAME}
-      orientation="horizontal"
-    >
-      <Button data-display-name={BUTTON_DISPLAY_NAME}>Hej</Button>
-      <Button data-display-name={BUTTON_DISPLAY_NAME}>Hej</Button>
+    <ButtonGroup data-display-name="ButtonGroup" orientation="horizontal">
+      <Button data-display-name="Button">Hej</Button>
+      <Button data-display-name="Button">Hej</Button>
     </ButtonGroup>
   ),
 };
