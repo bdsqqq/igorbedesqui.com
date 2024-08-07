@@ -144,8 +144,11 @@ ul {
   @apply text-2xl;
 }
 
-.prose h2,
+.prose h2 {
+  @apply text-lg font-bold;
+}
+
 .prose h3,
 .prose h4 {
-  @apply text-lg font-bold;
+  @apply font-bold;
 }
