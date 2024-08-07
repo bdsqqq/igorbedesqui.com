@@ -24,7 +24,7 @@ export default async function Page() {
   return (
     <Container backable backAnchor="library">
       <Band gridless id="">
-        <div className={cn(grid(), " gap-y-8")}>
+        <div className={cn(grid(), "gap-y-8")}>
           <div
             className={
               "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-9"
@@ -137,7 +137,7 @@ export default async function Page() {
 
           <section
             className={
-              "col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-3 lg:col-end-15"
+              "prose col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-3 lg:col-end-15"
             }
           >
             <MDX>
@@ -150,7 +150,7 @@ ${ButtonSource}
 
           <section
             className={cn(
-              "flex flex-col gap-6",
+              "prose flex flex-col gap-6",
               "col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-3 lg:col-end-15",
             )}
           >
@@ -174,7 +174,7 @@ ${ButtonSource}
               // .replace(/\u00A0/g, "°"); // Non-breaking space
 
               return (
-                <div className="" key={`${name}-usage-fragment`}>
+                <div key={`${name}-usage-fragment`}>
                   <MDX>
                     {`
                     ### ${name}
