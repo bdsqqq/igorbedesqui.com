@@ -10,7 +10,18 @@ import {
 } from "@/components/ui/Button";
 import { grid, subGrid } from "@/components/ui/Grid";
 import { cn } from "@/lib/styling";
-import { ArrowLeftIcon, ArrowRightIcon, CodeIcon } from "@radix-ui/react-icons";
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  CodeIcon,
+  FontBoldIcon,
+  FontItalicIcon,
+  FontRomanIcon,
+  StrikethroughIcon,
+  TextAlignCenterIcon,
+  TextAlignLeftIcon,
+  TextAlignRightIcon,
+} from "@radix-ui/react-icons";
 import { promises as fs } from "fs";
 import { Fragment, isValidElement } from "react";
 import jsxToString from "react-element-to-jsx-string";
@@ -198,7 +209,12 @@ ${ButtonSource}
                     `}
                       </MDX>
                     </div>
-                    <div className="col-start-1 col-end-5 md:col-start-5 md:col-end-9 lg:col-start-8 lg:col-end-13">
+                    <div
+                      className={cn(
+                        "col-start-1 col-end-5 md:col-start-5 md:col-end-9 lg:col-start-8 lg:col-end-13",
+                        "grid place-items-center",
+                      )}
+                    >
                       {usage}
                     </div>
                   </div>
@@ -213,21 +229,36 @@ ${ButtonSource}
 }
 
 const usages = {
-  "As a button": <Button data-display-name="Button">Hej</Button>,
+  "As a button": <Button data-display-name="Button">Run</Button>,
   "As a link": (
-    <LinkButton data-display-name="LinkButton" href="#">
-      Hej
+    <LinkButton data-display-name="LinkButton" href="#as-a-link">
+      Navigate
     </LinkButton>
   ),
   "As a toggle": (
-    <Button data-display-name="Button" toggle>
-      Hej
-    </Button>
+    <Button
+      data-display-name="Button"
+      toggle
+      icon={<CodeIcon data-display-name="CodeIcon" />}
+    />
   ),
   "As part of a button group": (
     <ButtonGroup data-display-name="ButtonGroup" orientation="horizontal">
-      <Button data-display-name="Button">Hej</Button>
-      <Button data-display-name="Button">Hej</Button>
+      <Button
+        toggle
+        data-display-name="Button"
+        icon={<FontItalicIcon data-display-name="FontItalicIcon" />}
+      />
+      <Button
+        toggle
+        data-display-name="Button"
+        icon={<FontBoldIcon data-display-name="FontBoldIcon" />}
+      />
+      <Button
+        toggle
+        data-display-name="Button"
+        icon={<StrikethroughIcon data-display-name="StrikethroughIcon" />}
+      />
     </ButtonGroup>
   ),
 };
