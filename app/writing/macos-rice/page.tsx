@@ -117,14 +117,14 @@ Fine! First off, this is how my setup looks right now:
 
             <MDX>
               {`
-Most apps have the same custom color scheme, I tile windows through [Raycast's Window Management Extension](https://www.raycast.com/extensions/window-management) and have keybindings for about everything thanks to [Raycast's Hotkeys](https://manual.raycast.com/command-aliases-and-hotkeys).
+Most apps have the same custom color scheme, I tile windows through [Raycast's Window Management Extension](https://www.raycast.com/extensions/window-management?via=igor-bedesqui) and have keybindings for about everything thanks to [Raycast's Hotkeys](https://manual.raycast.com/command-aliases-and-hotkeys?via=igor-bedesqui).
 
 I shared my progress on applying the custom theme to each app on [Twitter](https://twitter.com/search?q=from:@bedesqui%20vesper&src=typed_query) bit by bit, and this week, [2 posts about my MacOS rice](https://twitter.com/search?q=(fine%20%20OR%20twitter%20OR%20weekly%20OR%20reminder)%20(from:bedesqui)%20min_faves:500%20-filter:replies&src=typed_query&f=top) got over 360K impressions combined. With this many eyes on it, a few people asked for a guide on how to do it themselves, and it's surprisingly simpler than it seems.
 ## How can I replicate it?
 
 ### Window Management
 
-The bulk of my rice consists of setting colors, but the most important part of my workflow is the window management aspect of it. Luckily it's simply leveraging Raycast's defaults with custom hotkeys for a few commands. If you don't have installed Raycast yet(Why?), you can get it by running \`brew install --cask raycast\`, or following the instructions on [their site](https://www.raycast.com/).
+The bulk of my rice consists of setting colors, but the most important part of my workflow is the window management aspect of it. Luckily it's simply leveraging Raycast's defaults with custom hotkeys for a few commands. If you don't have installed Raycast yet(Why?), you can get it by running \`brew install --cask raycast\`, or following the instructions on [their site](https://www.raycast.com/?via=igor-bedesqui).
 
 and you're pretty much done, the Window Management Extension has everything I use, and if you want my exact keybindings (and the _aesthetic_ gap between windows), you can copy the following settings:`}
             </MDX>
