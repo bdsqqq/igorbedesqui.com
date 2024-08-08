@@ -46,7 +46,7 @@ const Page = () => {
                   loading={count % 2 === 0}
                   className="font-normal"
                   onClick={increment}
-                  left={<PlusIcon />}
+                  icon={<PlusIcon />}
                 >
                   add
                 </Button>
@@ -160,7 +160,7 @@ const BorderExamples = () => {
   return (
     <div className="flex items-center justify-center gap-6">
       <Border>
-        <div className="from-gray-A07 to-gray-A04 h-44 w-44 bg-gradient-to-l" />
+        <div className="h-44 w-44 bg-gradient-to-l from-gray-A07 to-gray-A04" />
       </Border>
       <Border asWrapper className="max-w-sm rounded">
         <video

@@ -29,7 +29,7 @@ const VOID_ELEMENTS = [
 const MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID = ["video"];
 
 export const shadowBorderStyles =
-  "relative after:pointer-events-none after:absolute after:inset-0 after:block after:rounded-inherit after:shadow-[0px_0px_0px_1px_inset_--tw-shadow-color] after:shadow-gray-A05 overflow-hidden";
+  "relative after:pointer-events-none after:absolute after:inset-0 after:block after:rounded-inherit after:shadow-[0px_0px_0px_1px_inset_--tw-shadow-color] after:shadow-gray-A05";
 
 export type BorderProps = PropsWithChildren<{
   className?: string;

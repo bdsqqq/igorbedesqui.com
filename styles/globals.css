@@ -114,7 +114,8 @@ ul {
   --sh-comment: var(--gray-09);
 }
 
-:target {
+:target,
+[id] /* all elements with an id */ {
   scroll-margin-top: 100px;
 }
 
@@ -132,11 +133,7 @@ ul {
 }
 
 .prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
+.prose h2 {
   @apply mb-[1.5em];
 }
 
@@ -144,8 +141,11 @@ ul {
   @apply text-2xl;
 }
 
-.prose h2,
+.prose h2 {
+  @apply text-lg font-bold;
+}
+
 .prose h3,
 .prose h4 {
-  @apply text-lg font-bold;
+  @apply font-bold;
 }

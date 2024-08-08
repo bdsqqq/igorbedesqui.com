@@ -41,6 +41,7 @@ export const CopyButton = ({
       options={{ size: "sm" }}
     >
       <Button
+        icon={success ? <CheckIcon /> : <ClipboardCopyIcon />}
         onClick={() => {
           if (!navigator.clipboard) {
             console.log(
@@ -52,9 +53,7 @@ export const CopyButton = ({
         }}
         size="sm"
         className={className}
-      >
-        {success ? <CheckIcon /> : <ClipboardCopyIcon />}
-      </Button>
+      />
     </Tooltip>
   );
 };
