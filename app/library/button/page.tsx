@@ -22,6 +22,7 @@ import {
   TextAlignLeftIcon,
   TextAlignRightIcon,
 } from "@radix-ui/react-icons";
+import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
 import { promises as fs } from "fs";
 import { Fragment, isValidElement } from "react";
 import jsxToString from "react-element-to-jsx-string";
@@ -165,8 +166,8 @@ ${ButtonSource}
               "col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-3 lg:col-end-15",
             )}
           >
-            {Object.entries(usages).map(([name, usage]) => {
-              const formattedUsage = jsxToString(usage, {
+            {usages.map((usage) => {
+              const formattedUsage = jsxToString(usage.code, {
                 filterProps: ["data-display-name"],
                 displayName(element) {
                   if (!isValidElement(element)) return "";
@@ -185,10 +186,12 @@ ${ButtonSource}
               // .replace(/\u00A0/g, "°"); // Non-breaking space
 
               return (
-                <div key={`${name}-usage-fragment`}>
+                <div key={`${usage.title}-usage-fragment`}>
                   <MDX>
                     {`
-                    ### ${name}
+                    ### ${usage.title}
+
+                    ${usage.description ? usage.description : ""}
                     `}
                   </MDX>
                   <div
@@ -215,7 +218,7 @@ ${ButtonSource}
                         "grid place-items-center",
                       )}
                     >
-                      {usage}
+                      {usage.code}
                     </div>
                   </div>
                 </div>
@@ -228,40 +231,105 @@ ${ButtonSource}
   );
 }
 
-const usages = {
-  "As a button": <Button data-display-name="Button">Run</Button>,
-  "As a link": (
-    <LinkButton data-display-name="LinkButton" href="#as-a-link">
-      Navigate
-    </LinkButton>
-  ),
-  "As a toggle": (
-    <Button
-      data-display-name="Button"
-      toggle
-      icon={<CodeIcon data-display-name="CodeIcon" />}
-    />
-  ),
-  "As part of a button group": (
-    <ButtonGroup data-display-name="ButtonGroup" orientation="horizontal">
+const usages = [
+  {
+    title: "As a button",
+    code: <Button data-display-name="Button">Run</Button>,
+  },
+  {
+    title: "As a link",
+    code: (
+      <LinkButton data-display-name="LinkButton" href="#as-a-link">
+        Navigate
+      </LinkButton>
+    ),
+  },
+  {
+    title: "As a toggle",
+    description: "With the `toggle` prop, a button becomes a two-state toggle.",
+    code: (
       <Button
-        toggle
         data-display-name="Button"
-        icon={<FontItalicIcon data-display-name="FontItalicIcon" />}
-      />
-      <Button
         toggle
-        data-display-name="Button"
-        icon={<FontBoldIcon data-display-name="FontBoldIcon" />}
+        icon={<CodeIcon data-display-name="CodeIcon" />}
       />
-      <Button
-        toggle
-        data-display-name="Button"
-        icon={<StrikethroughIcon data-display-name="StrikethroughIcon" />}
-      />
-    </ButtonGroup>
-  ),
-};
+    ),
+  },
+  {
+    title: "As part of a button group",
+    description:
+      "Using `ButtonGroup`, borders and border radii of `Button`s are updated, to prevent double borders or rounded corners in the inner buttons.",
+    code: (
+      <ButtonGroup data-display-name="ButtonGroup" orientation="horizontal">
+        <Button
+          toggle
+          data-display-name="Button"
+          icon={<FontItalicIcon data-display-name="FontItalicIcon" />}
+        />
+        <Button
+          toggle
+          data-display-name="Button"
+          icon={<FontBoldIcon data-display-name="FontBoldIcon" />}
+        />
+        <Button
+          toggle
+          data-display-name="Button"
+          icon={<StrikethroughIcon data-display-name="StrikethroughIcon" />}
+        />
+      </ButtonGroup>
+    ),
+  },
+  {
+    title: "As part of a toggle group",
+    description:
+      "By composing primitives, you can extend behaviour. For example, a group of toggle buttons where only one can be active simultaneously.",
+    code: (
+      <ToggleGroup
+        data-display-name="ToggleGroup"
+        type="single"
+        defaultValue="left"
+        asChild
+      >
+        <ButtonGroup data-display-name="ButtonGroup" orientation="horizontal">
+          <ToggleGroupItem
+            data-display-name="ToggleGroupItem"
+            value="left"
+            asChild
+          >
+            <Button
+              data-display-name="Button"
+              icon={<TextAlignLeftIcon data-display-name="TextAlignLeftIcon" />}
+            />
+          </ToggleGroupItem>
+          <ToggleGroupItem
+            data-display-name="ToggleGroupItem"
+            value="center"
+            asChild
+          >
+            <Button
+              data-display-name="Button"
+              icon={
+                <TextAlignCenterIcon data-display-name="TextAlignCenterIcon" />
+              }
+            />
+          </ToggleGroupItem>
+          <ToggleGroupItem
+            data-display-name="ToggleGroupItem"
+            value="right"
+            asChild
+          >
+            <Button
+              data-display-name="Button"
+              icon={
+                <TextAlignRightIcon data-display-name="TextAlignRightIcon" />
+              }
+            />
+          </ToggleGroupItem>
+        </ButtonGroup>
+      </ToggleGroup>
+    ),
+  },
+];
 
 const ButtonPermutations = () => {
   return (
