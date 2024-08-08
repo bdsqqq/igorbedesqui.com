@@ -114,7 +114,8 @@ ul {
   --sh-comment: var(--gray-09);
 }
 
-:target {
+:target,
+[id] /* all elements with an id */ {
   scroll-margin-top: 100px;
 }
 
