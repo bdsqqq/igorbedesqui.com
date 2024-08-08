@@ -191,12 +191,14 @@ export const ButtonGroup = forwardRef<
 >(({ children, className, orientation = "horizontal" }, ref) => {
   const stableId = React.useId();
 
-  const isHorizontal = orientation === "horizontal";
-
   return (
     <div
       ref={ref}
-      className={cn("flex", !isHorizontal ? "flex-col" : "", className)}
+      className={cn(
+        "flex",
+        orientation === "vertical" && "flex-col",
+        className,
+      )}
     >
       {React.Children.map(children, (child, index) => {
         const isFirst = index === 0;
@@ -205,12 +207,19 @@ export const ButtonGroup = forwardRef<
         const childWithProps = React.cloneElement(child as React.ReactElement, {
           className: cn(
             (child as React.ReactElement).props.className,
-            !isFirst && isHorizontal
-              ? "rounded-l-none border-l-0"
-              : "rounded-t-none border-t-0",
-            !isLast && isHorizontal
-              ? "rounded-r-none border-r-0"
-              : "rounded-b-none border-b-0",
+            !isFirst &&
+              orientation === "horizontal" &&
+              "rounded-l-none border-l-0",
+            !isFirst &&
+              orientation === "vertical" &&
+              "rounded-t-none border-t-0",
+
+            !isLast &&
+              orientation === "horizontal" &&
+              "rounded-r-none border-r-0",
+            !isLast &&
+              orientation === "vertical" &&
+              "rounded-b-none border-b-0",
           ),
           key: `${stableId}-${index}`,
         });
@@ -221,8 +230,9 @@ export const ButtonGroup = forwardRef<
             {!isLast && (
               <span
                 className={cn(
-                  "bg-gray-07",
-                  isHorizontal ? "h-auto w-px" : "h-px w-full",
+                  "bg-gray-A07",
+                  orientation === "horizontal" && "h-auto w-px",
+                  orientation === "vertical" && "h-px w-full",
                 )}
               />
             )}
