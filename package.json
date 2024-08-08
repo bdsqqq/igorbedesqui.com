@@ -20,6 +20,7 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toggle": "^1.0.3",
+    "@radix-ui/react-toggle-group": "^1.1.0",
     "@vercel/og": "^0.6.2",
     "ariakit": "2.0.0-next.43",
     "class-variance-authority": "^0.7.0",
