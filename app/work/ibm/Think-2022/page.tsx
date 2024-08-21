@@ -5,7 +5,6 @@ import {
   ProjectBand,
   ProjectLayout,
 } from "@/components/ProjectStuff/ProjectLayout";
-import PopOver from "@/components/ui/Popover";
 import type { Metadata } from "next";
 
 import { bebopMeta, issMeta } from "../../metas";

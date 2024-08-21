@@ -34,8 +34,6 @@ const makeSeo = ({
       card: "summary_large_image",
       title: title,
       description: description,
-      image: ogImageUrl,
-      imageAlt: ogText.replace("*", ""),
     },
     openGraph: {
       title: title,

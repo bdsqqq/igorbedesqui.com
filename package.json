@@ -1,6 +1,7 @@
 {
   "name": "with-tailwindcss",
   "version": "1.0.0",
+  "packageManager": "pnpm@9.2.0",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -38,6 +39,7 @@
     "sugar-high": "^0.6.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "turbo": "^2.0.14",
     "zustand": "5.0.0-beta.0"
   },
   "devDependencies": {
@@ -54,7 +56,7 @@
     "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.4.3",
     "tailwindcss-radix": "^2.9.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   },
   "license": "MIT"
 }
