@@ -2,7 +2,7 @@ import Band from "@/components/Band";
 import Container from "@/components/Container";
 import { MDX } from "@/components/MDX";
 import { grid, subGrid } from "@/components/ui/Grid";
-import { TiledLayout } from "@/components/ui/tiledLayout";
+import { Tile, TiledLayout } from "@/components/ui/tiledLayout";
 import { cn } from "@/lib/styling";
 import {
   cloneElement,
@@ -90,12 +90,7 @@ export default function Page() {
 // MOCK COMPONENTS
 const Box = ({ children, className }: ComponentProps<"div">) => {
   return (
-    <div
-      className={cn(
-        "relative z-aboveVignette border border-gray-A05 bg-gray-A02",
-        className,
-      )}
-    >
+    <div className={cn("border border-gray-A05 bg-gray-A02", className)}>
       {children}
     </div>
   );
@@ -146,68 +141,57 @@ const MockPage = ({
   ...props
 }: ComponentProps<typeof TiledLayout>) => {
   return (
-    <TiledLayout
-      direction="vertical"
-      nodes={[
-        {
-          node: <MockNav />,
-          size: "fitContent",
-        },
-        {
-          node: <MockNav variant="secondary" />,
-          size: "fitContent",
-        },
-        {
-          node: <MockMainWithSidebar />,
-          size: "remainingSpace",
-        },
-      ]}
-    />
+    <TiledLayout className={className} {...props}>
+      <Tile data-tile-size="fitContent">
+        <MockNav />
+      </Tile>
+      <Tile data-tile-size="fitContent">
+        <MockNav variant="secondary" />
+      </Tile>
+      <Tile data-tile-size="remainingSpace">
+        <MockMainWithSidebar />
+      </Tile>
+    </TiledLayout>
   );
 };
 
 const MockMainWithSidebar = ({
   className,
   ...props
-}: Omit<ComponentProps<typeof TiledLayout>, "nodes" | "direction">) => {
+}: Omit<ComponentProps<typeof TiledLayout>, "direction">) => {
   return (
     <TiledLayout
       className={cn("h-96", className)}
       direction="horizontal"
       {...props}
-      nodes={[
-        {
-          node: <Box className="w-40" />,
-          size: "fitContent",
-        },
-        {
-          node: <MockFlowsContent />,
-          size: "remainingSpace",
-        },
-      ]}
-    />
+    >
+      <Tile data-tile-size="fitContent">
+        <Box className="w-40" />
+      </Tile>
+      <Tile data-tile-size="remainingSpace">
+        <MockFlowsContent />
+      </Tile>
+    </TiledLayout>
   );
 };
 
 const MockFlowsContent = ({
   className,
   ...props
-}: Omit<ComponentProps<typeof TiledLayout>, "nodes" | "direction">) => {
+}: Omit<ComponentProps<typeof TiledLayout>, "direction">) => {
   return (
     <TiledLayout
       direction="vertical"
       className={cn("h-full", className)}
-      nodes={[
-        {
-          node: <Box className="h-full" data-display-name="Nav" />,
-          size: "remainingSpace",
-        },
-        {
-          node: <Box className="h-24" data-display-name="Nav" />,
-          size: "fitContent",
-        },
-      ]}
-    />
+      {...props}
+    >
+      <Tile data-tile-size="remainingSpace">
+        <Box className="h-full" data-display-name="Nav" />
+      </Tile>
+      <Tile data-tile-size="fitContent">
+        <Box className="h-24" data-display-name="Nav" />
+      </Tile>
+    </TiledLayout>
   );
 };
 
@@ -216,48 +200,60 @@ const usages = [
     title: "flows AKA: main nav, top nav, main with sidebar and content",
     code: (
       <TiledLayout
+        className="h-96"
         direction="vertical"
         data-display-name="TiledLayout"
-        nodes={[
-          {
-            node: <MockNav data-display-name="Nav" />,
-            size: "fitContent",
-          },
-          {
-            node: <MockNav data-display-name="Nav" variant="secondary" />,
-            size: "fitContent",
-          },
-          {
-            node: (
-              <TiledLayout
-                data-display-name="Main"
-                className="h-96"
-                direction="horizontal"
-                nodes={[
-                  {
-                    node: undefined,
-                    size: "fitContent",
-                  },
-                  {
-                    node: (
-                      <Box
-                        data-display-name="sidebar"
-                        className="h-full w-40"
-                      />
-                    ),
-                    size: "fitContent",
-                  },
-                  {
-                    node: <MockFlowsContent className="h-full" />,
-                    size: "remainingSpace",
-                  },
-                ]}
-              />
-            ),
-            size: "remainingSpace",
-          },
-        ]}
-      />
+      >
+        <MockNav data-display-name="Nav" />
+        <MockNav data-display-name="Nav" variant="secondary" />
+        <Tile asChild data-display-name="Tile" data-tile-size="remainingSpace">
+          <TiledLayout data-display-name="Main" direction="horizontal">
+            <Tile asChild data-display-name="Tile" data-tile-size="fitContent">
+              <Box data-display-name="sidebar" className="h-full w-40" />
+            </Tile>
+            <Tile
+              asChild
+              data-display-name="Tile"
+              data-tile-size="remainingSpace"
+            >
+              <TiledLayout direction="vertical" data-display-name="Main">
+                <Tile data-display-name="Tile" data-tile-size="remainingSpace">
+                  <Box className="h-full" data-display-name="Box" />
+                </Tile>
+                <Tile data-display-name="Tile" data-tile-size="fitContent">
+                  <Box className="h-24" data-display-name="Box" />
+                </Tile>
+              </TiledLayout>
+            </Tile>
+          </TiledLayout>
+        </Tile>
+      </TiledLayout>
+    ),
+  },
+  {
+    title:
+      "Usage with ReactNodes that are not ReactElements, AKA: undefined, null, string, number, boolean",
+    code: (
+      <TiledLayout
+        className="h-96"
+        direction="vertical"
+        data-display-name="TiledLayout"
+      >
+        <Tile data-display-name="Tile" data-tile-size="fitContent">
+          <MockNav data-display-name="Nav" />
+        </Tile>
+        <Tile data-display-name="Tile" data-tile-size="fitContent">
+          <MockNav data-display-name="Nav" variant="secondary" />
+        </Tile>
+        {undefined}
+        {null}
+        {"string"}
+        {42}
+        {true}
+        <Tile data-display-name="Tile" asChild data-tile-size="remainingSpace">
+          <Box data-display-name="Box" />
+        </Tile>
+      </TiledLayout>
     ),
   },
 ];
