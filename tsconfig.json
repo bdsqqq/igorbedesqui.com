@@ -13,7 +13,8 @@
       "@/locales/*": ["locales/*"],
       "@/public/*": ["public/*"]
     },
-    "allowJs": true,
+    "allowJs": false,
+    "incremental": false,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
