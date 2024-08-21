@@ -139,7 +139,7 @@ export const TiledLayout = forwardRef<HTMLDivElement, TiledLayoutProps>(
          * ```
          *
          */
-        return `minmax(0px, ${child.props["data-tile-fr"] ?? 1}fr)`;
+        return `minmax(0px, ${child.props["data-tile-fr-of-remaining-spacer"] ?? 1}fr)`;
       }
       return fitContentCellSize;
     });
