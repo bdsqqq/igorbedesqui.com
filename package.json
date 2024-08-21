@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "analyze": "ANALYZE=true pnpm build",
-    "lint": "next lint",
-    "check-types": "tsc --noEmit"
+    "lint": "next lint"
   },
   "dependencies": {
     "@mdx-js/react": "^2.3.0",
