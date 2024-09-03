@@ -26,6 +26,68 @@ export default function Page() {
               "col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-1 lg:col-end-17",
             )}
           >
+            {otherUsages.map((usage) => {
+              const formattedUsage = jsxToString(usage.code, {
+                filterProps: ["data-display-name"],
+                displayName(element) {
+                  if (!isValidElement(element)) return "";
+
+                  // console.log(element);
+                  return element.props["data-display-name"] ?? "";
+                },
+              }).replace(/ /g, " "); // replace spaces with non-breaking spaces, otherwise they'll be collapsed and indentation will break
+              // to debug the string, use:
+              // .replace(/ /g, "·") // Regular space
+              // .replace(/\t/g, "→") // Tab
+              // .replace(/\n/g, "↵") // Line feed
+              // .replace(/\r/g, "←") // Carriage return
+              // .replace(/\f/g, "♦") // Form feed
+              // .replace(/\v/g, "↕") // Vertical tab
+              // .replace(/\u00A0/g, "°"); // Non-breaking space
+
+              return (
+                <div key={`${usage.title}-usage-fragment`}>
+                  <MDX>{`### ${usage.title}`}</MDX>
+
+                  <div
+                    className={cn(
+                      subGrid({
+                        lg: 16,
+                        md: 8,
+                        sm: 4,
+                      })({ mode: "narrow" }),
+                    )}
+                  >
+                    <div className="col-start-1 col-end-5 md:col-start-1 md:col-end-5 lg:col-start-1 lg:col-end-8">
+                      <MDX>{`\`\`\`${usage.ascii}\`\`\``}</MDX>
+
+                      <MDX>
+                        {`
+                    \`\`\` jsx
+                    ${formattedUsage}
+                    \`\`\`
+                    `}
+                      </MDX>
+                    </div>
+                    <div
+                      className={cn(
+                        "col-start-1 col-end-5 md:col-start-5 md:col-end-9 lg:col-start-8 lg:col-end-17",
+                      )}
+                    >
+                      {usage.code}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </section>
+
+          <section
+            className={cn(
+              "prose flex flex-col gap-6",
+              "col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-1 lg:col-end-17",
+            )}
+          >
             {usages.map((usage) => {
               const formattedUsage = jsxToString(usage.code, {
                 filterProps: ["data-display-name"],
@@ -253,6 +315,50 @@ const usages = [
         <Tile data-display-name="Tile" asChild data-tile-size="remainingSpace">
           <Box data-display-name="Box" />
         </Tile>
+      </TiledLayout>
+    ),
+  },
+];
+
+const otherUsages = [
+  {
+    title: "Horizontal layout with sidebar and main content",
+    ascii: `
+┌─────────────────────────────────────────────┐
+│                   TopNav                    │
+├───────────┬─────────────────────────────────┤
+│           │                                 │
+│           │                                 │
+│  Sidebar  │           Main Content          │
+│           │                                 │
+│           │                                 │
+└───────────┴─────────────────────────────────┘
+`,
+    code: (
+      <TiledLayout
+        className="h-96"
+        direction="vertical"
+        data-display-name="TiledLayout"
+      >
+        <Tile data-display-name="Tile" data-tile-size="fitContent">
+          <MockNav data-display-name="Nav" />
+        </Tile>
+        <TiledLayout
+          className="h-96"
+          direction="horizontal"
+          data-display-name="TiledLayout"
+        >
+          <Tile data-display-name="Tile" asChild data-tile-size="fitContent">
+            <Box className="w-40" data-display-name="Box" />
+          </Tile>
+          <Tile
+            data-display-name="Tile"
+            asChild
+            data-tile-size="remainingSpace"
+          >
+            <Box data-display-name="Box" />
+          </Tile>
+        </TiledLayout>
       </TiledLayout>
     ),
   },
