@@ -362,4 +362,86 @@ const otherUsages = [
       </TiledLayout>
     ),
   },
+  {
+    title: "Application with toolbars and panels",
+    ascii: `
+┌─────────────────────────────────────────────┐
+│                   Menu Bar                  │
+├─────────┬───────────────────────────────────┤
+│         │           Tool Bar                │
+│         ├───────────────────────┬───────────┤
+│         │                       │           │
+│  Side   │                       │  Property │
+│  Panel  │     Canvas / Editor   │   Panel   │
+│         │                       │           │
+│         │                       │           │
+├─────────┴───────────────────────┴───────────┤
+│                 Status Bar                  │
+└─────────────────────────────────────────────┘
+`,
+    code: (
+      <TiledLayout
+        className="h-96"
+        direction="vertical"
+        data-display-name="TiledLayout"
+      >
+        <Tile data-display-name="Tile" data-tile-size="fitContent">
+          <Box className="h-12" data-display-name="Box" />
+        </Tile>
+
+        <Tile data-display-name="Tile" data-tile-size="remainingSpace">
+          <TiledLayout
+            className="h-full"
+            direction="horizontal"
+            data-display-name="TiledLayout"
+          >
+            <Tile data-display-name="Tile" asChild data-tile-size="fitContent">
+              <Box className="w-32" data-display-name="Box" />
+            </Tile>
+
+            <Tile
+              data-display-name="Tile"
+              asChild
+              data-tile-size="remainingSpace"
+            >
+              <TiledLayout direction="vertical" data-display-name="TiledLayout">
+                <Tile
+                  asChild
+                  data-display-name="Tile"
+                  data-tile-size="fitContent"
+                >
+                  <Box className="h-12" data-display-name="Box" />
+                </Tile>
+                <Tile data-display-name="Tile" data-tile-size="remainingSpace">
+                  <TiledLayout
+                    direction="horizontal"
+                    data-display-name="TiledLayout"
+                  >
+                    <Tile
+                      data-display-name="Tile"
+                      asChild
+                      data-tile-size="remainingSpace"
+                    >
+                      <Box data-display-name="Box" />
+                    </Tile>
+                    <Tile
+                      data-display-name="Tile"
+                      asChild
+                      data-tile-size="fitContent"
+                    >
+                      <Box className="w-40" data-display-name="Box" />
+                    </Tile>
+                  </TiledLayout>
+                </Tile>
+              </TiledLayout>
+            </Tile>
+          </TiledLayout>
+        </Tile>
+
+        <Tile data-display-name="Tile" data-tile-size="fitContent">
+          <Box className="h-12" data-display-name="Box" />
+        </Tile>
+      </TiledLayout>
+    ),
+  },
 ];
