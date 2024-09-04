@@ -152,7 +152,12 @@ export default function Page() {
 // MOCK COMPONENTS
 const Box = ({ children, className }: ComponentProps<"div">) => {
   return (
-    <div className={cn("border border-gray-A05 bg-gray-A02", className)}>
+    <div
+      className={cn(
+        "grid place-items-center border border-gray-A05 bg-gray-A02",
+        className,
+      )}
+    >
       {children}
     </div>
   );
@@ -341,7 +346,9 @@ const otherUsages = [
         data-display-name="TiledLayout"
       >
         <Tile data-display-name="Tile" data-tile-size="fitContent">
-          <MockNav data-display-name="Nav" />
+          <Box className="h-12" data-display-name="Box">
+            Top Nav
+          </Box>
         </Tile>
         <TiledLayout
           className="h-96"
@@ -349,14 +356,16 @@ const otherUsages = [
           data-display-name="TiledLayout"
         >
           <Tile data-display-name="Tile" asChild data-tile-size="fitContent">
-            <Box className="w-40" data-display-name="Box" />
+            <Box className="w-40" data-display-name="Box">
+              Sidebar
+            </Box>
           </Tile>
           <Tile
             data-display-name="Tile"
             asChild
             data-tile-size="remainingSpace"
           >
-            <Box data-display-name="Box" />
+            <Box data-display-name="Box">Main Content</Box>
           </Tile>
         </TiledLayout>
       </TiledLayout>
@@ -386,7 +395,9 @@ const otherUsages = [
         data-display-name="TiledLayout"
       >
         <Tile data-display-name="Tile" data-tile-size="fitContent">
-          <Box className="h-12" data-display-name="Box" />
+          <Box className="h-12" data-display-name="Box">
+            Menu Bar
+          </Box>
         </Tile>
 
         <Tile data-display-name="Tile" data-tile-size="remainingSpace">
@@ -396,7 +407,9 @@ const otherUsages = [
             data-display-name="TiledLayout"
           >
             <Tile data-display-name="Tile" asChild data-tile-size="fitContent">
-              <Box className="w-32" data-display-name="Box" />
+              <Box className="w-32" data-display-name="Box">
+                Sidebar
+              </Box>
             </Tile>
 
             <Tile
@@ -410,7 +423,9 @@ const otherUsages = [
                   data-display-name="Tile"
                   data-tile-size="fitContent"
                 >
-                  <Box className="h-12" data-display-name="Box" />
+                  <Box className="h-12" data-display-name="Box">
+                    Tool Bar
+                  </Box>
                 </Tile>
                 <Tile data-display-name="Tile" data-tile-size="remainingSpace">
                   <TiledLayout
@@ -422,14 +437,16 @@ const otherUsages = [
                       asChild
                       data-tile-size="remainingSpace"
                     >
-                      <Box data-display-name="Box" />
+                      <Box data-display-name="Box">Canvas / Editor</Box>
                     </Tile>
                     <Tile
                       data-display-name="Tile"
                       asChild
                       data-tile-size="fitContent"
                     >
-                      <Box className="w-40" data-display-name="Box" />
+                      <Box className="w-40" data-display-name="Box">
+                        Property <br /> Panel
+                      </Box>
                     </Tile>
                   </TiledLayout>
                 </Tile>
@@ -439,7 +456,9 @@ const otherUsages = [
         </Tile>
 
         <Tile data-display-name="Tile" data-tile-size="fitContent">
-          <Box className="h-12" data-display-name="Box" />
+          <Box className="h-12" data-display-name="Box">
+            Status Bar
+          </Box>
         </Tile>
       </TiledLayout>
     ),
