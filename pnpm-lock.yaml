@@ -99,8 +99,8 @@ importers:
         specifier: ^2.0.14
         version: 2.0.14
       zustand:
-        specifier: 5.0.0-beta.0
-        version: 5.0.0-beta.0(@types/react@18.2.79)(react@18.3.1)(use-sync-external-store@1.2.0(react@18.3.1))
+        specifier: 5.0.0-rc.1
+        version: 5.0.0-rc.1(@types/react@18.2.79)(react@18.3.1)(use-sync-external-store@1.2.0(react@18.3.1))
     devDependencies:
       '@types/mdx':
         specifier: ^2.0.13
@@ -3696,8 +3696,8 @@ packages:
   yoga-wasm-web@0.3.3:
     resolution: {integrity: sha512-N+d4UJSJbt/R3wqY7Coqs5pcV0aUj2j9IaQ3rNj9bVCLld8tTGKRa2USARjnvZJWVx1NDmQev8EknoczaOQDOA==}
 
-  zustand@5.0.0-beta.0:
-    resolution: {integrity: sha512-Ri/E3SZtNDtyRx+XjE8X6LZzO6SnD4F0sumYEXiYbvHj5mPQ7KCEkIjh2jm2+fxmjmI8u27BKzG8UipURIIMqQ==}
+  zustand@5.0.0-rc.1:
+    resolution: {integrity: sha512-/PBSVVNuzgLZUqNeZDWdWp7ehKjiAqKkUva8+cj3gYeHXgUaAd5b5AQm39T1/Q3aUYEnsfp5ZqhQKZZipZz8vA==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=18.0.0'
@@ -7826,7 +7826,7 @@ snapshots:
 
   yoga-wasm-web@0.3.3: {}
 
-  zustand@5.0.0-beta.0(@types/react@18.2.79)(react@18.3.1)(use-sync-external-store@1.2.0(react@18.3.1)):
+  zustand@5.0.0-rc.1(@types/react@18.2.79)(react@18.3.1)(use-sync-external-store@1.2.0(react@18.3.1)):
     optionalDependencies:
       '@types/react': 18.2.79
       react: 18.3.1
