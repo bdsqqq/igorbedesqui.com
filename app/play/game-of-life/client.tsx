@@ -44,7 +44,7 @@ const getNeighbourIndices = (i: number, gridSize: number) => {
   const isFirstCol = col === 0;
   const isLastCol = col === gridSize - 1;
 
-  for (let dx = -1; dx <= 1; dx++) {
+  for (let dx = -1; dx <= 1; dx++) { // wanna refactor this to avoid having to allocate an array every time I need to check neighbours
     for (let dy = -1; dy <= 1; dy++) {
       if (dx === 0 && dy === 0) continue; // Skip the cell itself
 
