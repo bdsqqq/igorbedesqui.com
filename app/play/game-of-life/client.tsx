@@ -123,7 +123,7 @@ const useGameOfLifeStore = () => {
 
 export const Test = () => {
   return (
-    <GameOfLiveStoreProvider initialCells={makeBoard(3)}>
+    <GameOfLiveStoreProvider initialCells={makeBoard(10)}>
     <div className="flex gap-4">
       <GameOfLifeBoard />
         <div className="flex flex-col gap-1">
