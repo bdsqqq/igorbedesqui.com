@@ -2,32 +2,32 @@
 import { Button } from "@/components/ui/Button";
 import React from "react";
 import { useStore } from "zustand/react";
-import { createStore, StoreApi } from "zustand/vanilla";
+import { StoreApi } from "zustand/vanilla";
+import { createWithEqualityFn as create } from 'zustand/traditional'
 
 const GameOfLifeStoreContext = React.createContext<
   StoreApi<GameOfLifeStore>
 >(null!);
-
 type GameOfLifeStore = {
-  cells: Uint8Array;
+  cells: Map<number, number>;
   gridSize: number;
   actions: {
-    updateCell: (i: number, j: number) => void;
+    updateCell: (i: number) => void;
     calculateNextState: () => void;
   };
 }
 
 type GameOfLifeStoreProviderProps = {
   children?: React.ReactNode;
-  initialCells: Uint8Array;
+  initialCells: Map<number, number>;
 }
-
-const prettyPrint = (cells: Uint8Array): string => {
-  const size = Math.sqrt(cells.length);
+const prettyPrint = (cells: Map<number, number>): string => {
+  const size = Math.sqrt(cells.size);
   let result = '';
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
-      result += cells[i * size + j] + ' ';
+      const index = i * size + j;
+      result += (cells.get(index) || 0) + ' ';
     }
     result += '\n';
   }
@@ -64,43 +64,42 @@ const getNeighbourIndices = (i: number, gridSize: number) => {
 
   return neighbours;
 };
-
 const GameOfLiveStoreProvider: React.FC<GameOfLifeStoreProviderProps> = ({ children, initialCells }) => {
   const [store] = React.useState(() =>
-    createStore<GameOfLifeStore>((set) => ({
-      cells:  initialCells,
-      gridSize: Math.sqrt(initialCells.length),
+    create<GameOfLifeStore>((set, get) => ({
+      cells: new Map(initialCells.entries()),
+      gridSize: Math.sqrt(initialCells.size),
       actions: {
-        updateCell: (i: number, j: number) => {
-          set((state) => {
-            const newCells = new Uint8Array(state.cells);
-            newCells[i * state.gridSize + j] = newCells[i * state.gridSize + j] === 1 ? 0 : 1;
-            return { cells: newCells };
-          });
+        updateCell: (i: number) => {
+            set((state) => {
+
+              return { cells: get().cells.set(i, get().cells.get(i) === 1 ? 0 : 1) };
+            });
         },
         calculateNextState: () => {
           set((state) => {
             const prevCells = state.cells;
+            const newCells = new Map<number, number>();
 
-            const newCells = prevCells.map((cell, i) =>{
-              const neighbourIndices = getNeighbourIndices(i, state.gridSize).filter(index => index >= 0 && index < prevCells.length);
-              const neighbours = neighbourIndices.map(index => prevCells[index]);
+            for (let i = 0; i < state.gridSize * state.gridSize; i++) {
+              const cell = prevCells.get(i) || 0;
+              const neighbourIndices = getNeighbourIndices(i, state.gridSize).filter(index => index >= 0 && index < prevCells.size);
+              const neighbours = neighbourIndices.map(index => prevCells.get(index) || 0);
 
+              const liveNeighbours = neighbours.filter(n => n === 1).length;
 
-              const liveNeighbours = neighbours.filter(n => n === 1).length
+              if (i === 2) console.log(neighbourIndices, liveNeighbours, neighbours);
 
-              if(i === 2) console.log(neighbourIndices, liveNeighbours, neighbours)
+              if (cell === 1) {
+                newCells.set(i, [2, 3].includes(liveNeighbours) ? 1 : 0);
+              } else {
+                newCells.set(i, liveNeighbours === 3 ? 1 : 0);
+              }
+            }
 
-              if(cell === 1) return [2, 3].includes(liveNeighbours) ? 1 : 0;
-              if(cell === 0) return liveNeighbours === 3 ? 1 : 0;
-
-              return 0;
-            });
-
-
-            console.log(prettyPrint(prevCells))
-            console.log(" ↓")
-            console.log(prettyPrint(newCells))
+            console.log(prettyPrint(prevCells));
+            console.log(" ↓");
+            console.log(prettyPrint(newCells));
 
             return { cells: newCells };
           });
@@ -141,38 +140,43 @@ const CalculateNextState = () => {
     <Button className="w-fit" onClick={actions.calculateNextState}>Calculate Next State</Button>
   );
 };
-
 const CopyCurrentState = () => {
   const { cells, gridSize } = useGameOfLifeStore();
-  const currentState = Array.from(cells);
+  const currentState = Array.from({ length: gridSize * gridSize }, (_, index) => cells.get(index) || 0);
 
   return <Button onClick={() => navigator.clipboard.writeText(currentState.join(' '))}>Copy current state</Button>;
 };
-
 const GameOfLifeBoard = () => {
-  const { cells, gridSize, actions } = useGameOfLifeStore();
+  const {gridSize } = useGameOfLifeStore();
   return (
     <div style={{ display: "grid", gridTemplateColumns: `repeat(${gridSize}, 1fr)` }} className="gap-1 w-fit">
-      {Array.from(cells).map((cell, index) => {
-        const row = Math.floor(index / gridSize);
-        const col = index % gridSize;
-        return (
-          <Button
-            key={`cell-${index}`}
-            toggle
-            pressed={cell === 1}
-            className="aspect-square"
-            onClick={() => actions.updateCell(row, col)}
-          >{ index}</Button>
-        );
+      {Array.from({ length: gridSize * gridSize }, (_, index) => {
+        return <Cell key={`cell-${index}`} index={index} />;
       })}
     </div>
   );
 };
 
+const Cell = ({ index }: { index: number}) => {
+  const { cells, actions } = useGameOfLifeStore();
+  const cell = cells.get(index) || 0;
+  return (
+    <Button
+      key={`cell-${index}`}
+      toggle
+      pressed={cell === 1}
+      className="aspect-square"
+      onClick={() => actions.updateCell(index)}
+    >{ index}</Button>
+  );
+};
 
 const makeBoard = (size: number) => {
-  return new Uint8Array(size ** 2) ;
+  const board = new Map<number, number>();
+  for (let i = 0; i < size * size; i++) {
+    board.set(i, 0);
+  }
+  return board;
 };
 
 export default GameOfLifeBoard;
