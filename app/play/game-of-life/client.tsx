@@ -2,7 +2,9 @@
 import { Button } from "@/components/ui/Button";
 import React from "react";
 import { useStore } from "zustand/react";
-import { createStore, StoreApi } from "zustand/vanilla";
+import { StoreApi } from "zustand/vanilla";
+import { createWithEqualityFn as create } from 'zustand/traditional'
+import { useShallow } from 'zustand/shallow'
 
 const GameOfLifeStoreContext = React.createContext<
   StoreApi<GameOfLifeStore>
@@ -12,7 +14,7 @@ type GameOfLifeStore = {
   cells: Uint8Array;
   gridSize: number;
   actions: {
-    updateCell: (i: number, j: number) => void;
+    updateCell: (index: number, newValue: number) => void;
     calculateNextState: () => void;
   };
 }
@@ -67,16 +69,16 @@ const getNeighbourIndices = (i: number, gridSize: number) => {
 
 const GameOfLiveStoreProvider: React.FC<GameOfLifeStoreProviderProps> = ({ children, initialCells }) => {
   const [store] = React.useState(() =>
-    createStore<GameOfLifeStore>((set) => ({
+    create<GameOfLifeStore>((set, get) => ({
       cells:  initialCells,
       gridSize: Math.sqrt(initialCells.length),
       actions: {
-        updateCell: (i: number, j: number) => {
+        updateCell: (i: number, newValue: number) => {
           set((state) => {
-            const newCells = new Uint8Array(state.cells);
-            newCells[i * state.gridSize + j] = newCells[i * state.gridSize + j] === 1 ? 0 : 1;
-            return { cells: newCells };
-          });
+            const newCells = new Uint8Array(state.cells.buffer);
+            newCells[i] = newValue;
+            return { ...get(), cells: newCells };
+          }, true);
         },
         calculateNextState: () => {
           set((state) => {
@@ -121,13 +123,31 @@ const useGameOfLifeStore = () => {
   return useStore(store);
 };
 
+const useGridSize = () => {
+  const store = React.useContext(GameOfLifeStoreContext);
+  return useStore(store, useShallow((state) => state.gridSize));
+};
+
+const useActions = () => {
+  const store = React.useContext(GameOfLifeStoreContext);
+  return useStore(store, useShallow((state) => state.actions));
+};
+
+const useCells = (index?: number) => {
+  const store = React.useContext(GameOfLifeStoreContext);
+
+  return useStore(store, useShallow((state) =>
+    index !== undefined ? state.cells[index] : state.cells
+  ));
+};
+
 export const Test = () => {
   return (
     <GameOfLiveStoreProvider initialCells={makeBoard(10)}>
     <div className="flex gap-4">
       <GameOfLifeBoard />
         <div className="flex flex-col gap-1">
-      <CalculateNextState />
+          <CalculateNextState />
           <CopyCurrentState />
         </div>
     </div>
@@ -143,33 +163,36 @@ const CalculateNextState = () => {
 };
 
 const CopyCurrentState = () => {
-  const { cells, gridSize } = useGameOfLifeStore();
-  const currentState = Array.from(cells);
+ const cells = useCells();
 
-  return <Button onClick={() => navigator.clipboard.writeText(currentState.join(' '))}>Copy current state</Button>;
+  return <Button onClick={() => navigator.clipboard.writeText(typeof cells === 'number' ? cells.toString() : cells.join(''))}>Copy current state</Button>;
 };
 
 const GameOfLifeBoard = () => {
-  const { cells, gridSize, actions } = useGameOfLifeStore();
+  const gridSize = useGridSize();
+
   return (
     <div style={{ display: "grid", gridTemplateColumns: `repeat(${gridSize}, 1fr)` }} className="gap-1 w-fit">
-      {Array.from(cells).map((cell, index) => {
-        const row = Math.floor(index / gridSize);
-        const col = index % gridSize;
-        return (
-          <Button
-            key={`cell-${index}`}
-            toggle
-            pressed={cell === 1}
-            className="aspect-square"
-            onClick={() => actions.updateCell(row, col)}
-          >{ index}</Button>
-        );
+      {Array.from({ length: gridSize ** 2}, () => null).map((_, index) => {
+       return <Cell key={`cell-${index}`} index={index} />
       })}
     </div>
   );
 };
 
+const Cell = ({ index }: { index: number }) => {
+  const actions = useActions();
+  const cell = useCells(index);
+
+  return (
+    <Button
+      toggle
+      pressed={cell === 1}
+      className="aspect-square"
+      onClick={() => actions.updateCell(index, cell === 1 ? 0 : 1)}
+    />
+  );
+};
 
 const makeBoard = (size: number) => {
   return new Uint8Array(size ** 2) ;
