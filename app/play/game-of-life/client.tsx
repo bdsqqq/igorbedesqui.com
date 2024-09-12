@@ -1,10 +1,11 @@
 "use client";
-import { Button } from "@/components/ui/Button";
-import React from "react";
+import { Button, ButtonGroup } from "@/components/ui/Button";
+import React, { useEffect } from "react";
 import { useStore } from "zustand/react";
 import { StoreApi } from "zustand/vanilla";
 import { createWithEqualityFn as create } from 'zustand/traditional'
 import { useShallow } from 'zustand/shallow'
+import { ClockIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
 
 const GameOfLifeStoreContext = React.createContext<
   StoreApi<GameOfLifeStore>
@@ -149,16 +150,29 @@ export const Test = () => {
         <div className="flex flex-col gap-1">
           <CalculateNextState />
           <CopyCurrentState />
-        </div>
+       </div>
     </div>
     </GameOfLiveStoreProvider>
   );
 };
 
 const CalculateNextState = () => {
+  const [playing, setPlaying] = React.useState(true);
+  const togglePlay = () => setPlaying((prev) => !prev);
   const { actions } = useGameOfLifeStore();
+
+  React.useEffect(() => {
+      const interval = setInterval(() => {
+        playing && actions.calculateNextState();
+      }, 100);
+    return () => clearInterval(interval);
+  }, [actions, playing]);
+
   return (
-    <Button className="w-fit" onClick={actions.calculateNextState}>Calculate Next State</Button>
+    <ButtonGroup>
+      <Button disabled={playing} className="w-fit" onClick={actions.calculateNextState}>Calculate Next State</Button>
+      <Button className="w-fit" toggle pressed={playing} onClick={togglePlay} icon={playing ? <PauseIcon /> : <PlayIcon />} />
+    </ButtonGroup>
   );
 };
 
