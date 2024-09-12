@@ -5,7 +5,7 @@ import { useStore } from "zustand/react";
 import { StoreApi } from "zustand/vanilla";
 import { createWithEqualityFn as create } from 'zustand/traditional'
 import { useShallow } from 'zustand/shallow'
-import { ClockIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
+import { PauseIcon, PlayIcon } from "@radix-ui/react-icons";
 
 const GameOfLifeStoreContext = React.createContext<
   StoreApi<GameOfLifeStore>
@@ -16,6 +16,7 @@ type GameOfLifeStore = {
   gridSize: number;
   actions: {
     updateCell: (index: number, newValue: number) => void;
+    updateCells: (newCells: Uint8Array) => void;
     calculateNextState: () => void;
   };
 }
@@ -81,6 +82,9 @@ const GameOfLiveStoreProvider: React.FC<GameOfLifeStoreProviderProps> = ({ child
             return { ...get(), cells: newCells };
           }, true);
         },
+        updateCells: (newCells: Uint8Array) => {
+          set({ ...get(), cells: newCells }, true);
+        },
         calculateNextState: () => {
           set((state) => {
             const prevCells = state.cells;
@@ -144,20 +148,21 @@ const useCells = (index?: number) => {
 
 export const Test = () => {
   return (
-    <GameOfLiveStoreProvider initialCells={makeBoard(10)}>
+    <GameOfLiveStoreProvider initialCells={makeBoard(20)}>
     <div className="flex gap-4">
       <GameOfLifeBoard />
         <div className="flex flex-col gap-1">
-          <CalculateNextState />
+          <CalculateNextStateButtons />
           <CopyCurrentState />
+          <ClearCurrentStateButton />
        </div>
     </div>
     </GameOfLiveStoreProvider>
   );
 };
 
-const CalculateNextState = () => {
-  const [playing, setPlaying] = React.useState(true);
+const CalculateNextStateButtons = () => {
+  const [playing, setPlaying] = React.useState(false);
   const togglePlay = () => setPlaying((prev) => !prev);
   const { actions } = useGameOfLifeStore();
 
@@ -180,6 +185,12 @@ const CopyCurrentState = () => {
  const cells = useCells();
 
   return <Button onClick={() => navigator.clipboard.writeText(typeof cells === 'number' ? cells.toString() : cells.join(''))}>Copy current state</Button>;
+};
+
+const ClearCurrentStateButton = () => {
+ const actions = useActions();
+
+  return <Button onClick={() => actions.updateCells(makeBoard(20))}>Clear current state</Button>;
 };
 
 const GameOfLifeBoard = () => {
