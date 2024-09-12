@@ -37,6 +37,7 @@ export const LightBox = ({
 
           <DialogTrigger asChild>
             <Button
+              onClick={() => setOpen(true)}
               icon={<EnterFullScreenIcon />}
               className="absolute right-0 top-0 bg-gray-00"
             />
