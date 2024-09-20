@@ -75,6 +75,10 @@ module.exports = {
         17: "17",
       },
       keyframes: {
+        fadeBlueOut: {
+          "0%": { backgroundColor: "#0E61FE", transform: "scale(1)"},
+          "100%": { backgroundColor: "var(--gray-04)" , transform: "scale(0.4)"},
+        },
         fade: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
@@ -102,11 +106,11 @@ module.exports = {
         },
       },
       animation: {
+        fadeBlueOut: "fadeBlueOut 1500ms cubic-bezier(0.2, 0, 0.38, 0.9)",
         fade: "fade 550ms cubic-bezier(0, 0, 0.3, 1)",
         fadeOut: "fadeOut 550ms cubic-bezier(0, 0, 0.3, 1)",
 
-        scaleInSlideDown:
-          "scaleInSlideDown 110ms cubic-bezier(0, 0, 0.38, 0.9)",
+        scaleInSlideDown: "scaleInSlideDown 110ms ease-out",
         scaleInSlideUp: "scaleInSlideUp 110ms cubic-bezier(0, 0, 0.38, 0.9)",
 
         scaleOutSlideDown: "scaleOutSlideDown 110ms linear",
