@@ -5,7 +5,10 @@ import { useStore } from "zustand/react";
 import { StoreApi } from "zustand/vanilla";
 import { createWithEqualityFn as create } from 'zustand/traditional'
 import { useShallow } from 'zustand/shallow'
-import { PauseIcon, PlayIcon } from "@radix-ui/react-icons";
+import { Component1Icon, Component2Icon, PauseIcon, PlayIcon, TimerIcon } from "@radix-ui/react-icons";
+import { InPortal } from "@/components/ui/Portal";
+import { ToolboxItem } from "@/components/toolbox";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/Popover";
 
 const GameOfLifeStoreContext = React.createContext<
   StoreApi<GameOfLifeStore>
@@ -149,17 +152,36 @@ const useCells = (index?: number) => {
 export const Test = () => {
   return (
     <GameOfLiveStoreProvider initialCells={makeBoard(20)}>
-    <div className="flex gap-4">
       <GameOfLifeBoard />
-        <div className="flex flex-col gap-1">
-          <CalculateNextStateButtons />
-          <CopyCurrentState />
-          <ClearCurrentStateButton />
-       </div>
-    </div>
-    </GameOfLiveStoreProvider>
-  );
+        <ToolboxItemPopover name="game-of-life-controls" icon={<Component1Icon />}>
+          <Controls />
+        </ToolboxItemPopover>
+      </GameOfLiveStoreProvider>
+    );
 };
+
+const ToolboxItemPopover = ({ name, icon, children }: { name: string, icon: React.ReactNode, children: React.ReactNode }) => (
+  <ToolboxItem name={name}>
+    <Popover>
+      <PopoverTrigger>
+        <Button icon={icon} />
+      </PopoverTrigger>
+      <PopoverContent align="end">
+        {children}
+      </PopoverContent>
+    </Popover>
+  </ToolboxItem>
+);
+
+export const Controls = () => {
+  return (
+    <div className="flex flex-col gap-1">
+      <CalculateNextStateButtons />
+      <CopyCurrentState />
+      <ClearCurrentStateButton />
+   </div>
+  )
+}
 
 const CalculateNextStateButtons = () => {
   const [playing, setPlaying] = React.useState(false);
@@ -176,7 +198,7 @@ const CalculateNextStateButtons = () => {
   return (
     <ButtonGroup>
       <Button disabled={playing} className="w-fit" onClick={actions.calculateNextState}>Calculate Next State</Button>
-      <Button className="w-fit" toggle pressed={playing} onClick={togglePlay} icon={playing ? <PauseIcon /> : <PlayIcon />} />
+      <Button className="w-fit" toggle pressed={playing} onClick={togglePlay} icon={<TimerIcon />} />
     </ButtonGroup>
   );
 };
