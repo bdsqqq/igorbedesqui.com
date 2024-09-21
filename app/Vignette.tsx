@@ -53,7 +53,7 @@ const VignetteStrip = ({
         orientation[pos] === "horizontal" &&
           "h-full min-w-[120px] max-md:hidden",
         pos === "top" && "top-0 bg-gradient-to-t",
-        pos === "bottom" && "bottom-0 bg-gradient-to-b",
+        pos === "bottom" && "-bottom-px bg-gradient-to-b",
         // pos === "left" && "-left-6 bg-gradient-to-l",
         // pos === "right" && "-right-6 bg-gradient-to-r",
         className,
