@@ -178,7 +178,7 @@ export default async function Home() {
         >
           <div className={subGrid()({ mode: "narrow" })}>
             <div className="col-span-4 col-start-1 row-start-1 -mt-6">
-              <span className="text-gray-08 text-xs font-bold tracking-tighter">
+              <span className="text-xs font-bold tracking-tighter text-gray-08">
                 Last updated on <time>06 Oct 2023</time>
               </span>
             </div>

@@ -24,7 +24,7 @@ const EmailLink = ({
 }) => {
   return (
     <Popover>
-      <PopoverTrigger className="inline-flex items-center gap-1 underline">
+      <PopoverTrigger className="inline-flex items-center gap-1 underline focus:text-gray-12 hover:text-gray-12">
         {children} <EnvelopeClosedIcon />
       </PopoverTrigger>
       <PopoverContent
