@@ -1,9 +1,9 @@
 "use client";
 import { Border } from "@/components/ui/Border";
 import { Button } from "@/components/ui/Button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/Dialog";
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components/ui/Dialog";
 import { cn } from "@/lib/styling";
-import { EnterFullScreenIcon } from "@radix-ui/react-icons";
+import { Cross2Icon, EnterFullScreenIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import Image, { ImageProps } from "next/image";
 import { ComponentProps, useState } from "react";
@@ -45,10 +45,18 @@ export const LightBox = ({
         </>
       </MotionBorder>
 
-      <DialogContent className="!pointer-events-none bottom-0 left-0 right-0 top-px grid w-full max-w-none translate-x-0 translate-y-0 place-items-center bg-transparent p-0">
+      <DialogContent onClick={(e) => setOpen(false)} className="bottom-0 left-0 right-0 top-0 grid w-full max-w-none translate-x-0 translate-y-0 place-items-center bg-transparent p-0">
         <MotionBorder layoutId={props.src as string} asWrapper>
           <MotionImage {...props} />
         </MotionBorder>
+
+          <DialogClose asChild>
+            <Button
+              onClick={() => setOpen(false)}
+              icon={<Cross2Icon aria-label="Close" />}
+              className="absolute right-4 top-4"
+            />
+          </DialogClose>
       </DialogContent>
     </Dialog>
   );

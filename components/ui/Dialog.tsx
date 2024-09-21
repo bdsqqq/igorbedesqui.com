@@ -44,12 +44,6 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close asChild>
-        <Button
-          icon={<Cross2Icon aria-label="Close" />}
-          className="absolute right-4 top-4"
-        />
-      </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>
 ));
