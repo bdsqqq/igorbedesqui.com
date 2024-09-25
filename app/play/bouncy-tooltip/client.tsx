@@ -1,10 +1,10 @@
 "use client";
 
 import { Portal } from "ariakit";
-import React, { ElementRef, MouseEvent, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useStore } from "zustand";
 import { createStore, StoreApi } from "zustand/vanilla"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion, MotionProps } from "framer-motion"
 
 type CursorPositionStore = {
   pos: {x: number, y: number}
@@ -67,15 +67,17 @@ const CursorWithAttachedElementStoreProvider = ({ children }: { children: React.
 // it's neither a tooltip nor a hovercard,
 // it follow the mouse so the user can never click on it,
 // it's more akin to a custom cursor like the one in figma with your name on it.
-export const CursorWithAttachedElement = () => {
+export const CursorWithAttachedElement = ({ children, attachedElementContent }: { children: React.ReactNode, attachedElementContent: React.ReactNode}) => {
   return (
     <CursorWithAttachedElementStoreProvider>
-      <CursorWithAttachedElementContent />
+      <CursorWithAttachedElementContent attachedElementContent={attachedElementContent}>
+        { children }
+      </CursorWithAttachedElementContent>
     </CursorWithAttachedElementStoreProvider>
   )
 }
 
-const CursorWithAttachedElementContent = () => {
+const CursorWithAttachedElementContent = ({ children, attachedElementContent }: { children: React.ReactNode, attachedElementContent: React.ReactNode}) => {
   // don't need to track hover state here, can subscribe in the element that appears
   // to avoid re-rendering the trigger
   const ref = React.useRef<HTMLDivElement>(null!) // TODO: probably wanna compose ref when I start using children here
@@ -91,13 +93,12 @@ const CursorWithAttachedElementContent = () => {
             onPointerEnter={() => {
                 setIsHovering(true)
               }}
-            onClick={() => {
-              console.log(ref.current.getBoundingClientRect())
-            }} className="cursor-alias">
-
-            !work
+            className="cursor-alias">
+          { children }
           </div>
-          <AttachedElement />
+          <AttachedElement>
+           { attachedElementContent }
+          </AttachedElement>
     </>
   )
 }
@@ -114,7 +115,7 @@ const AttachedElement = ({ children }: { children?: React.ReactNode }) => {
       isShown ?
          <Portal>
           <motion.div className="absolute top-0 left-0 pointer-events-none" style={{ x: pos.x, y: pos.y}}>
-            <BouncyStaggeredElements />
+            {children}
           </motion.div>
       </Portal> : null
       }
@@ -123,7 +124,7 @@ const AttachedElement = ({ children }: { children?: React.ReactNode }) => {
   )
 }
 
-const BouncyStaggeredElements = () => {
+export const AnimatedElements = ({ animation }: { animation: animationFnName }) => {
   const media = [
     {
       src: "https://igorbedesqui.com/_next/image?url=%2Fimages%2Fprojs%2Fthe-manual%2F1.jpg&w=1920&q=75",
@@ -146,21 +147,10 @@ const BouncyStaggeredElements = () => {
       media.map((item, i) => (
         <motion.div
             key={`${item.src}-${i}`}
-            initial={{ scale: .5, opacity: 0, rotate: 0  }}
-            animate={{ scale: 1, opacity: 1, rotate: i !== 0 ? 10 * (i % 2 === 0 ? -1 : 1) : 0}}
-            exit={{ scale: .5, opacity: 0 }}
-            transition={{
-              ease: [0.175, 0.885, 0.32, 1.275],
-              duration: duration,
-              delay: (i * duration) * .3
-            }}
-            style={{
-              x: `${i * 30}px`,
-              y: i !== 0 ? `${20 * (i % 2 === 0 ? 1 : -1)}px` : 0,
-            }}
-            className="shadow absolute top-0 left-0 rounded"
+            {...animationFns[animation](i, duration)}
+            className="shadow absolute top-0 left-0 rounded-sm"
           >
-            <div className="w-36 bg-gray-A04 border border-gray-06 rounded-inherit overflow-hidden">
+            <div className="w-36 bg-gray-A04 ring-1 ring-gray-A05 rounded-inherit overflow-hidden">
           {item.type === 'image' ? (
             <img src={item.src} alt="" />
           ) : (
@@ -173,3 +163,48 @@ const BouncyStaggeredElements = () => {
    </div>
  )
 }
+const bouncyAnimation = (i: number, duration: number) => {
+  return {
+    initial: { scale: .5, opacity: 0, rotate: 0 },
+    animate: { scale: 1, opacity: 1, rotate: i !== 0 ? 10 * (i % 2 === 0 ? -1 : 1) : 0 },
+    exit: { scale: .5, opacity: 0 },
+    transition: {
+      ease: [0.175, 0.885, 0.32, 1.275],
+      duration: duration,
+      delay: (i * duration) * .3
+    },
+    style: {
+      x: `${i * 30}px`,
+      y: i !== 0 ? `${20 * (i % 2 === 0 ? 1 : -1)}px` : 0,
+    }
+  }
+}
+
+const glitchAnimation = (i: number, duration: number) => {
+  return {
+    initial: {
+      opacity: 0,
+    },
+    animate: {
+      opacity: [0, 1, 0, 1, 0, 1],
+    },
+    exit: {
+      opacity: [1, 0, 1, 0, 1, 0],
+    },
+    transition: {
+      duration: duration,
+      times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+      delay: (i * duration) * .3
+    },
+    style: {
+      x: `${i * 30}px`,
+      y: i !== 0 ? `${20 * (i % 2 === 0 ? 1 : -1)}px` : 0,
+    }
+  };
+};
+
+const animationFns = {
+  "bouncy": bouncyAnimation,
+  "glichy": glitchAnimation
+} as const
+type animationFnName = keyof typeof animationFns
