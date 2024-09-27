@@ -2,7 +2,7 @@ import { AnimatedElements, CursorWithAttachedElement, CursorWithAttachedElementC
 
 export default function Page() {
   return (
-    <div className="grid min-h-dvh place-items-center justify-items-end">
+    <div className="grid min-h-dvh place-items-center">
       <div className="flex gap-8">
         <CursorWithAttachedElement>
           <CursorWithAttachedElementTrigger>

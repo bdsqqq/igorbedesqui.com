@@ -144,7 +144,10 @@ const AttachedElement = ({ children }: { children?: React.ReactNode }) => {
         {isShown ?
             <Portal>
               <MotionTooltipAnchor className="absolute top-0 left-0 pointer-events-none" style={pos} />
-              <Tooltip className="pointer-events-none">
+              <Tooltip
+                shift={144} // in the real world, this would measure the child to choose the side it starts at
+                className="pointer-events-none"
+              >
                 {children}
               </Tooltip>
             </Portal>
