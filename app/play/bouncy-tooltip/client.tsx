@@ -67,39 +67,42 @@ const CursorWithAttachedElementStoreProvider = ({ children }: { children: React.
 // it's neither a tooltip nor a hovercard,
 // it follow the mouse so the user can never click on it,
 // it's more akin to a custom cursor like the one in figma with your name on it.
-export const CursorWithAttachedElement = ({ children, attachedElementContent }: { children: React.ReactNode, attachedElementContent: React.ReactNode}) => {
+export const CursorWithAttachedElement = ({ children }: { children: React.ReactNode }) => {
   return (
     <CursorWithAttachedElementStoreProvider>
-      <CursorWithAttachedElementContent attachedElementContent={attachedElementContent}>
-        { children }
-      </CursorWithAttachedElementContent>
+      { children }
     </CursorWithAttachedElementStoreProvider>
   )
 }
 
-const CursorWithAttachedElementContent = ({ children, attachedElementContent }: { children: React.ReactNode, attachedElementContent: React.ReactNode}) => {
+export const CursorWithAttachedElementTrigger = ({ children }: { children: React.ReactNode}) => {
   // don't need to track hover state here, can subscribe in the element that appears
   // to avoid re-rendering the trigger
   const ref = React.useRef<HTMLDivElement>(null!) // TODO: probably wanna compose ref when I start using children here
-    const store = useContext(CursorWithAttachedElementStoreContext)
-    const setIsHovering = useStore(store, state => state.setIsHovering)
+  const store = useContext(CursorWithAttachedElementStoreContext)
+  const setIsHovering = useStore(store, state => state.setIsHovering)
 
+  return(
+    <div ref={ref}
+      onPointerLeave={() => {
+        setIsHovering(false)
+      }}
+      onPointerEnter={() => {
+          setIsHovering(true)
+        }}
+      className="cursor-alias"
+    >
+      { children }
+    </div>
+  )
+
+}
+
+export const CursorWithAttachedElementContent = ({ children }: { children: React.ReactNode}) => {
     return (
-    <>
-      <div ref={ref}
-            onPointerLeave={() => {
-              setIsHovering(false)
-            }}
-            onPointerEnter={() => {
-                setIsHovering(true)
-              }}
-            className="cursor-alias">
-          { children }
-          </div>
-          <AttachedElement>
-           { attachedElementContent }
-          </AttachedElement>
-    </>
+      <AttachedElement>
+        { children }
+      </AttachedElement>
   )
 }
 
@@ -109,18 +112,19 @@ const AttachedElement = ({ children }: { children?: React.ReactNode }) => {
   const pos = useStore(cursorPositionStore, state => state.pos)
   const isShown = useStore(cursorWithAttachmentStore, state => state.isHovering)
 
- return (<>
-   <AnimatePresence>
-     {
-      isShown ?
-         <Portal>
-          <motion.div className="absolute top-0 left-0 pointer-events-none" style={{ x: pos.x, y: pos.y}}>
-            {children}
-          </motion.div>
-      </Portal> : null
-      }
-    </AnimatePresence>
-      </>
+  return (
+    <>
+      <AnimatePresence>
+        {isShown ?
+            <Portal>
+              <motion.div className="absolute top-0 left-0 pointer-events-none" style={{ x: pos.x, y: pos.y}}>
+                {children}
+              </motion.div>
+            </Portal>
+          : null
+        }
+      </AnimatePresence>
+    </>
   )
 }
 

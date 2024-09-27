@@ -1,15 +1,28 @@
-import { AnimatedElements, CursorWithAttachedElement } from "./client"
+import { AnimatedElements, CursorWithAttachedElement, CursorWithAttachedElementContent, CursorWithAttachedElementTrigger } from "./client"
 
 export default function Page() {
   return (
     <div className="grid min-h-dvh place-items-center">
       <div className="flex gap-8">
-        <CursorWithAttachedElement attachedElementContent={<AnimatedElements animation="bouncy" />}>
-          bouncy
+        <CursorWithAttachedElement>
+          <CursorWithAttachedElementTrigger>
+            Bouncy
+          </CursorWithAttachedElementTrigger>
+
+          <CursorWithAttachedElementContent>
+            <AnimatedElements animation="bouncy" />
+          </CursorWithAttachedElementContent>
         </CursorWithAttachedElement>
 
-        <CursorWithAttachedElement attachedElementContent={<AnimatedElements animation="glichy" />}>
-          glitchy
+
+        <CursorWithAttachedElement>
+          <CursorWithAttachedElementTrigger>
+            glitchy
+          </CursorWithAttachedElementTrigger>
+
+          <CursorWithAttachedElementContent>
+            <AnimatedElements animation="glichy" />
+          </CursorWithAttachedElementContent>
         </CursorWithAttachedElement>
       </div>
     </div>
