@@ -4,7 +4,8 @@ import { Portal } from "ariakit";
 import React, { useContext, useEffect, useState } from "react";
 import { useStore } from "zustand";
 import { createStore, StoreApi } from "zustand/vanilla"
-import { AnimatePresence, motion, MotionProps } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
+import { Tooltip, TooltipAnchor, TooltipProvider, useTooltipContext } from "@ariakit/react"
 
 type CursorPositionStore = {
   pos: {x: number, y: number}
@@ -70,8 +71,22 @@ const CursorWithAttachedElementStoreProvider = ({ children }: { children: React.
 export const CursorWithAttachedElement = ({ children }: { children: React.ReactNode }) => {
   return (
     <CursorWithAttachedElementStoreProvider>
-      { children }
+      <TooltipProviderWithHoverState>
+        { children }
+      </TooltipProviderWithHoverState>
     </CursorWithAttachedElementStoreProvider>
+  )
+}
+
+const TooltipProviderWithHoverState = ({ children }: { children: React.ReactNode }) => {
+  const store = useContext(CursorWithAttachedElementStoreContext)
+  const isHovering = useStore(store, state => state.isHovering)
+  const id = React.useId()
+
+  return (
+    <TooltipProvider key={id} open={isHovering}>
+      {children}
+    </TooltipProvider>
   )
 }
 
@@ -81,15 +96,24 @@ export const CursorWithAttachedElementTrigger = ({ children }: { children: React
   const ref = React.useRef<HTMLDivElement>(null!) // TODO: probably wanna compose ref when I start using children here
   const store = useContext(CursorWithAttachedElementStoreContext)
   const setIsHovering = useStore(store, state => state.setIsHovering)
+  const tooltipStore = useTooltipContext()
+
 
   return(
     <div ref={ref}
       onPointerLeave={() => {
+        console.log("leave");
+        if(!tooltipStore){
+          console.log("no tooltipStore")
+        }
         setIsHovering(false)
+       tooltipStore?.setOpen(false)
       }}
       onPointerEnter={() => {
-          setIsHovering(true)
-        }}
+        console.log("enter")
+        setIsHovering(true)
+        tooltipStore?.setOpen(true)
+      }}
       className="cursor-alias"
     >
       { children }
@@ -106,6 +130,8 @@ export const CursorWithAttachedElementContent = ({ children }: { children: React
   )
 }
 
+const MotionTooltipAnchor = motion(TooltipAnchor)
+
 const AttachedElement = ({ children }: { children?: React.ReactNode }) => {
   const cursorPositionStore = useContext(CursorPositionStoreContext)
   const cursorWithAttachmentStore = useContext(CursorWithAttachedElementStoreContext)
@@ -117,9 +143,10 @@ const AttachedElement = ({ children }: { children?: React.ReactNode }) => {
       <AnimatePresence>
         {isShown ?
             <Portal>
-              <motion.div className="absolute top-0 left-0 pointer-events-none" style={{ x: pos.x, y: pos.y}}>
+              <MotionTooltipAnchor className="absolute top-0 left-0 pointer-events-none" style={pos} />
+              <Tooltip className="pointer-events-none">
                 {children}
-              </motion.div>
+              </Tooltip>
             </Portal>
           : null
         }
@@ -146,13 +173,13 @@ export const AnimatedElements = ({ animation }: { animation: animationFnName }) 
   const duration = .2
 
  return (
-   <div className="relative">
+   <div className="grid grid-cols-1 grid-rows-1">
     {
       media.map((item, i) => (
         <motion.div
             key={`${item.src}-${i}`}
             {...animationFns[animation](i, duration)}
-            className="shadow absolute top-0 left-0 rounded-sm"
+            className="shadow row-start-1 row-end-1 col-start-1 col-end-1 rounded-sm"
           >
             <div className="w-36 bg-gray-A04 ring-1 ring-gray-A05 rounded-inherit overflow-hidden">
           {item.type === 'image' ? (
@@ -178,8 +205,8 @@ const bouncyAnimation = (i: number, duration: number) => {
       delay: (i * duration) * .3
     },
     style: {
-      x: `${i * 30}px`,
-      y: i !== 0 ? `${20 * (i % 2 === 0 ? 1 : -1)}px` : 0,
+      marginLeft: `${i * 30}px`,
+      marginTop: i !== 0 ? `${20 * (i % 2 === 0 ? 1 : -1)}px` : 0,
     }
   }
 }
@@ -201,8 +228,8 @@ const glitchAnimation = (i: number, duration: number) => {
       delay: (i * duration) * .3
     },
     style: {
-      x: `${i * 30}px`,
-      y: i !== 0 ? `${20 * (i % 2 === 0 ? 1 : -1)}px` : 0,
+      marginLeft: `${i * 30}px`,
+      marginTop: i !== 0 ? `${20 * (i % 2 === 0 ? 1 : -1)}px` : 0,
     }
   };
 };

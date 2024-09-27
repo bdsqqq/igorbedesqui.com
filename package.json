@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ariakit/react": "^0.4.11",
     "@mdx-js/react": "^2.3.0",
     "@million/lint": "1.0.0-rc.26",
     "@radix-ui/react-collapsible": "^1.0.3",
