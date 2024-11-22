@@ -258,7 +258,7 @@ const useArtificialDelay = (
 ) => {
   // loading strategy is based on https://x.com/JohnPhamous/status/1679271160570327040?s=20
   const [isLoading, setLoading] = React.useState(loading);
-  const artificialDelayPromiseRef = React.useRef<Promise<void>>();
+  const artificialDelayPromiseRef = React.useRef<Promise<void>>(undefined);
 
   const minimumDurationCallback = React.useCallback(() => {
     setLoading(true);

@@ -18,7 +18,7 @@ type InPortal = {
 };
 type OutPortal = {
   name: OutPortalName;
-  ref: React.RefObject<HTMLElement> | null;
+  ref: React.RefObject<HTMLElement | null> | null;
 };
 interface PortalStore {
   inPortals: Map<string, InPortal>;

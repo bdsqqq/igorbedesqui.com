@@ -7,7 +7,6 @@ body {
   font-family: sans-serif;
 }
 
-,
 img,
 picture,
 video,
@@ -17,17 +16,14 @@ svg {
   max-width: 100%;
 }
 
-,
 ::selection {
   @apply bg-gray-12 text-gray-01;
 }
 
-,
 * {
   @apply focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[--blue-A09];
 }
 
-,
 input,
 button,
 textarea,
@@ -35,7 +31,6 @@ select {
   font: inherit;
 }
 
-,
 p,
 h1,
 h2,
@@ -46,7 +41,6 @@ h6 {
   overflow-wrap: break-word;
 }
 
-,
 h1,
 h2,
 h3,
@@ -57,7 +51,6 @@ h6 {
   font-weight: inherit;
 }
 
-,
 ol,
 ul {
   list-style: none;
@@ -65,14 +58,12 @@ ul {
   padding: 0;
 }
 
-,
-
 /* Remove Safari input shadow on mobile */
-'input[type="text"]' {
+input[type="text"] {
   appearance: "none";
 }
 
-'input[type="email"]' {
+input[type="email"] {
   appearance: "none";
 }
 

@@ -241,7 +241,7 @@ const PlayPauseButton = () => {
 const CopyCurrentStateButton = () => {
   const gameOfLifeStore = useContext(GameOfLifeStoreContext);
   const [copied, setCopied] = React.useState(false);
-  const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>(undefined);
 
   return (
     <Tooltip content="Copy current game state">
