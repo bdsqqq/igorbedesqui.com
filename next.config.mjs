@@ -28,6 +28,8 @@ const nextConfig = {
   },
 };
 
-export default MillionLint.next({
-  enabled: true
-})(MillionCompiler.next({ rsc: true })(nextConfig));
+// export default MillionLint.next({
+//   enabled: true
+// })(MillionCompiler.next({ rsc: true })(nextConfig));
+
+export default nextConfig
