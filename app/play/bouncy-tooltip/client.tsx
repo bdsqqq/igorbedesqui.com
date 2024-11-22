@@ -130,7 +130,7 @@ export const CursorWithAttachedElementContent = ({ children }: { children: React
   )
 }
 
-const MotionTooltipAnchor = motion(TooltipAnchor)
+const MotionTooltipAnchor = motion.create(TooltipAnchor)
 
 const AttachedElement = ({ children }: { children?: React.ReactNode }) => {
   const cursorPositionStore = useContext(CursorPositionStoreContext)
