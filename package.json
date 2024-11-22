@@ -26,7 +26,7 @@
     "@vercel/og": "^0.6.2",
     "ariakit": "2.0.0-next.43",
     "class-variance-authority": "^0.7.0",
-    "framer-motion": "^10.18.0",
+    "framer-motion": "12.0.0-alpha.1",
     "geist": "^1.3.0",
     "match-sorter": "^8.0.0",
     "nanoid": "^5.0.7",
