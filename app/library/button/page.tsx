@@ -46,8 +46,8 @@ export default async function Page() {
               <MDX>
                 {`
               # The last Button primitive
-              
-              A \`Button\` is usually the first component you'll create, and the one your users will interact with the most. Given it's importance, I find it important to use a primitive with good defaults and a few extra details. 
+
+              A \`Button\` is usually the first component you'll create, and the one your users will interact with the most. Given it's importance, I find it important to use a primitive with good defaults and a few extra details.
               `}
               </MDX>
             </section>
@@ -171,11 +171,9 @@ ${ButtonSource}
                 filterProps: ["data-display-name"],
                 displayName(element) {
                   if (!isValidElement(element)) return "";
-
-                  // console.log(element);
-                  return element.props["data-display-name"] ?? "";
+                  return (element as { props: { 'data-display-name'?: string } })?.props?.['data-display-name'] ?? "";
                 },
-              }).replace(/ /g, " "); // replace spaces with non-breaking spaces, otherwise they'll be collapsed and indentation will break
+              }).replace(/ /g, " "); // replace spaces with non-breaking spaces, otherwise they'll be collapsed and indentation will break
               // to debug the string, use:
               // .replace(/ /g, "·") // Regular space
               // .replace(/\t/g, "→") // Tab

@@ -183,12 +183,9 @@ export const BUTTON_GROUP_DISPLAY_NAME = "ButtonGroup";
  * Group of buttons
  * Takes buttons, removes the borders that would get doubled, makes only the outer ones rounded.
  */
-export const ButtonGroup = forwardRef<
-  ElementRef<"div">,
-  ComponentPropsWithoutRef<"div"> & {
-    orientation?: "horizontal" | "vertical";
-  }
->(({ children, className, orientation = "horizontal" }, ref) => {
+export const ButtonGroup = ({ children, className, orientation = "horizontal", ref }: ComponentPropsWithRef<"div"> & {
+  orientation?: "horizontal" | "vertical";
+}) => {
   const stableId = React.useId();
 
   return (
@@ -204,9 +201,9 @@ export const ButtonGroup = forwardRef<
         const isFirst = index === 0;
         const isLast = index === React.Children.count(children) - 1;
 
-        const childWithProps = React.cloneElement(child as React.ReactElement, {
+        const childWithProps = React.cloneElement(child as React.ReactElement<{className?: string}>, {
           className: cn(
-            (child as React.ReactElement).props.className,
+            (child as React.ReactElement<{className?: string}>).props.className,
             !isFirst &&
               orientation === "horizontal" &&
               "rounded-l-none border-l-0",
@@ -241,7 +238,7 @@ export const ButtonGroup = forwardRef<
       })}
     </div>
   );
-});
+};
 ButtonGroup.displayName = BUTTON_GROUP_DISPLAY_NAME;
 
 type loadingStrategy = "minimumDuration" | "delay" | "immediate";
@@ -304,7 +301,7 @@ export const Spinner = ({ ...props }: React.ComponentProps<"svg">) => (<svg widt
 
 import { UnstyledLink } from "../primitives";
 import { cn } from "@/lib/styling";
-import React, { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+import React, { ComponentPropsWithoutRef, ComponentPropsWithRef, ElementRef, forwardRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { UnstyledLinkProps } from "@/components/ui/primitives/UnstyledLink";
 import {
