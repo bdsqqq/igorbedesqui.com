@@ -58,5 +58,11 @@
     "tailwindcss-radix": "^2.9.0",
     "typescript": "^5.5.4"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.0.2",
+      "@types/react-dom": "19.0.2"
+    }
+  }
 }
