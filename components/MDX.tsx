@@ -1,6 +1,5 @@
-import { MDXRemote } from "next-mdx-remote/rsc";
 import StyledLinkWithIcon from "@/components/ui/StyledLink";
-import { Children, HTMLProps, ReactNode, createElement } from "react";
+import { HTMLProps, createElement } from "react";
 import { Border } from "@/components/ui/Border";
 import { highlight } from "sugar-high";
 import { MDXProvider } from "@mdx-js/react";
@@ -9,6 +8,9 @@ import { cn } from "@/lib/styling";
 import { CopyButton } from "@/components/ui/CopyButton";
 import remarkGfm from "remark-gfm";
 import { ScrollBar, ScrollArea } from "@/components/ui/ScrollArea";
+
+import { compile, run } from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime'
 
 function Table({
   data,
@@ -131,26 +133,25 @@ const defaultComponents = {
   // LiveCode,
 };
 
-export function MDX({
+export async function MDX({
   children,
   components: propComponents,
   ...passthrough
 }: { children: string } & {
-  // TODO: allow children OR source
   options?: SerializeOptions | undefined;
   components?: React.ComponentProps<typeof MDXProvider>["components"];
 }) {
-  return (
-    <MDXRemote
-      {...passthrough}
-      source={children}
-      // @ts-ignore I copied from leerob, pretend this doesn't break lmao
-      components={{ ...defaultComponents, ...(propComponents || {}) }}
-      options={{
-        mdxOptions: {
-          remarkPlugins: [remarkGfm],
-        },
-      }}
-    />
-  );
+  const mdxSource = children;
+
+  const code = String(
+      await compile(mdxSource, { outputFormat: 'function-body', remarkPlugins: [remarkGfm] })
+    )
+
+    const { default: MDXContent } = await run(code, {
+      ...runtime,
+      baseUrl: import.meta.url,
+    })
+
+  return <MDXContent components={{ ...defaultComponents, ...(propComponents || {}) }} {...passthrough} />
+
 }
