@@ -3,7 +3,6 @@ import { HTMLProps, createElement } from "react";
 import { Border } from "@/components/ui/Border";
 import { highlight } from "sugar-high";
 import { MDXProvider } from "@mdx-js/react";
-import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { cn } from "@/lib/styling";
 import { CopyButton } from "@/components/ui/CopyButton";
 import remarkGfm from "remark-gfm";
@@ -138,7 +137,6 @@ export async function MDX({
   components: propComponents,
   ...passthrough
 }: { children: string } & {
-  options?: SerializeOptions | undefined;
   components?: React.ComponentProps<typeof MDXProvider>["components"];
 }) {
   const mdxSource = children;
