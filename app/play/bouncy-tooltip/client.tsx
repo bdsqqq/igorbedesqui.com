@@ -1,11 +1,10 @@
 "use client";
 
-import { Portal } from "ariakit";
 import React, { useContext, useEffect, useState } from "react";
 import { useStore } from "zustand";
 import { createStore, StoreApi } from "zustand/vanilla"
-import { AnimatePresence, motion } from "framer-motion"
-import { Tooltip, TooltipAnchor, TooltipProvider, useTooltipContext } from "@ariakit/react"
+import { AnimatePresence, motion } from "motion/react"
+import { Tooltip, TooltipAnchor, TooltipProvider, useTooltipContext, Portal } from "@ariakit/react"
 
 type CursorPositionStore = {
   pos: {x: number, y: number}

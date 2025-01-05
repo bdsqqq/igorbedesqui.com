@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components/ui/Dialog";
 import { cn } from "@/lib/styling";
 import { Cross2Icon, EnterFullScreenIcon } from "@radix-ui/react-icons";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Image, { ImageProps } from "next/image";
 import { ComponentProps, useState } from "react";
 

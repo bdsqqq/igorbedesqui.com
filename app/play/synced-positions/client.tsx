@@ -3,7 +3,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useStore } from "zustand";
 import { createStore, StoreApi } from "zustand/vanilla"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 
 type CursorPositionStore = {
   pos: {x: number, y: number}
