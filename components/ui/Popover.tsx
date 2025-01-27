@@ -9,51 +9,39 @@ import { VariantProps, cva } from "class-variance-authority";
 const Popover = PopoverPrimitive.Root;
 
 const PopoverTrigger = PopoverPrimitive.Trigger;
-const StyledPopoverTrigger = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Trigger>,
-  React.PropsWithoutRef<PopoverPrimitive.PopoverTriggerProps>
->(({ className, ...rest }, ref) => (
+const StyledPopoverTrigger = ({
+  className,
+  ...rest
+}: PopoverPrimitive.PopoverTriggerProps) => (
   <PopoverPrimitive.Trigger
-    ref={ref}
     className={cn(
       "inline-flex items-center gap-1 underline underline-offset-2 hover:text-gray-12 focus-visible:text-gray-12 data-[state=open]:text-gray-12",
       className,
     )}
     {...rest}
   />
-));
+);
 StyledPopoverTrigger.displayName = PopoverPrimitive.Trigger.displayName;
 
-const PopoverContent = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.PropsWithoutRef<
-    PopoverPrimitive.PopoverContentProps & {
-      options?: VariantProps<typeof tooltipVariants>;
-    }
-  >
->(
-  (
-    {
-      className,
-      align = "center",
-      side = "top",
-      sideOffset = 4,
-      options,
-      ...props
-    },
-    ref,
-  ) => (
-    <PopoverPrimitive.Portal>
-      <PopoverPrimitive.Content
-        ref={ref}
-        align={align}
-        sideOffset={sideOffset}
-        side={side}
-        className={cn(tooltipVariants(options), className)}
-        {...props}
-      />
-    </PopoverPrimitive.Portal>
-  ),
+const PopoverContent = ({
+  className,
+  align = "center",
+  side = "top",
+  sideOffset = 4,
+  options,
+  ...props
+}: PopoverPrimitive.PopoverContentProps & {
+  options?: VariantProps<typeof tooltipVariants>;
+}) => (
+  <PopoverPrimitive.Portal>
+    <PopoverPrimitive.Content
+      align={align}
+      sideOffset={sideOffset}
+      side={side}
+      className={cn(tooltipVariants(options), className)}
+      {...props}
+    />
+  </PopoverPrimitive.Portal>
 );
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
