@@ -14,6 +14,7 @@ const StyledPopoverTrigger = ({
   ...rest
 }: PopoverPrimitive.PopoverTriggerProps) => (
   <PopoverPrimitive.Trigger
+    // @future: this is just a link. take styles from that
     className={cn(
       "inline-flex items-center gap-1 underline underline-offset-2 hover:text-gray-12 focus-visible:text-gray-12 data-[state=open]:text-gray-12",
       className,
