@@ -12,7 +12,7 @@ import { makeSeo } from "@/lib/makeSeo";
 import { Border } from "@/components/ui/Border";
 import Tooltip from "@/components/ui/Tooltip";
 import {
-  Popover,
+  PopoverProvider,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
@@ -39,15 +39,15 @@ export default async function Basics() {
               components={{
                 Blur: (props) => <Blur {...props} />,
                 Popover: (props) => (
-                  <Popover>
+                  <PopoverProvider>
                     <PopoverTrigger {...props} />
-                    <PopoverContent align="end" alignOffset={0}>
+                    <PopoverContent gutter={0}>
                       <MDX>
                         [Antoine de Saint-Exupéry: Terre des hommes, Gallimard,
                         France, 1939](https://amzn.eu/d/3FDtHJw)
                       </MDX>
                     </PopoverContent>
-                  </Popover>
+                  </PopoverProvider>
                 ),
                 Tooltip: (props) => (
                   <Tooltip content="great book btw" {...props} />
@@ -69,7 +69,7 @@ export default async function Basics() {
 
                > “Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.”
                > 
-               > <div className="text-sm before:content-['—'] flex gap-1 justify-end w-full"><Popover><cite>Antoine de Saint-Exupéry</cite></Popover></div>
+               > <div className="text-sm before:content-['—'] flex gap-1 justify-end w-full"><PopoverProvider><cite>Antoine de Saint-Exupéry</cite></PopoverProvider></div>
                 
                While I generally agree with this idea, and use it as guidance when designing, **there’s something that is lost when we omit details**, especially when writing. YES, I can express the same general idea with way less text, but it’s not the same.
 

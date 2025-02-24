@@ -1,20 +1,23 @@
 "use client";
 
 import * as React from "react";
-import * as PopoverPrimitive from "@radix-ui/react-popover";
-
+import * as Ariakit from "@ariakit/react";
 import { cn } from "@/lib/styling";
 import { VariantProps, cva } from "class-variance-authority";
 
-const Popover = PopoverPrimitive.Root;
+const PopoverProvider = ({
+  placement = "top",
+  ...props
+}: React.ComponentProps<typeof Ariakit.PopoverProvider> & {
+  placement?: string;
+}) => <Ariakit.PopoverProvider placement={placement} {...props} />;
 
-const PopoverTrigger = PopoverPrimitive.Trigger;
+const PopoverTrigger = Ariakit.PopoverDisclosure;
 const StyledPopoverTrigger = ({
   className,
   ...rest
-}: PopoverPrimitive.PopoverTriggerProps) => (
-  <PopoverPrimitive.Trigger
-    // @future: this is just a link. take styles from that
+}: React.ComponentProps<typeof Ariakit.PopoverDisclosure>) => (
+  <Ariakit.PopoverDisclosure
     className={cn(
       "inline-flex items-center gap-1 underline underline-offset-2 hover:text-gray-12 focus-visible:text-gray-12 data-[state=open]:text-gray-12",
       className,
@@ -22,31 +25,33 @@ const StyledPopoverTrigger = ({
     {...rest}
   />
 );
-StyledPopoverTrigger.displayName = PopoverPrimitive.Trigger.displayName;
+StyledPopoverTrigger.displayName = "PopoverTrigger";
 
+const empty = "" as const;
 const PopoverContent = ({
   className,
-  align = "center",
-  side = "top",
-  sideOffset = 4,
+  gutter = 4,
   options,
   ...props
-}: PopoverPrimitive.PopoverContentProps & {
+}: React.ComponentProps<typeof Ariakit.Popover> & {
   options?: VariantProps<typeof tooltipVariants>;
-}) => (
-  <PopoverPrimitive.Portal>
-    <PopoverPrimitive.Content
-      align={align}
-      sideOffset={sideOffset}
-      side={side}
+}) => {
+  return (
+    <Ariakit.Popover
+      gutter={gutter}
       className={cn(tooltipVariants(options), className)}
       {...props}
     />
-  </PopoverPrimitive.Portal>
-);
-PopoverContent.displayName = PopoverPrimitive.Content.displayName;
+  );
+};
+PopoverContent.displayName = "PopoverContent";
 
-export { Popover, PopoverTrigger, PopoverContent, StyledPopoverTrigger };
+export {
+  PopoverProvider,
+  PopoverTrigger,
+  PopoverContent,
+  StyledPopoverTrigger,
+};
 
 const tooltipVariants = cva(
   [
@@ -54,7 +59,7 @@ const tooltipVariants = cva(
     rounded-sm shadow-md outline-none
     border border-gray-A04
     data-[state=open]:animate-in data-[state=closed]:animate-out
-    data-[state=closed]:ease-productive-exit data-[state=open]:ease-productive-enter data-[state=open]:duration-fast-01 data-[state=closed]:duration-fast-01 data-[state=open]:zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95  origin-radix-popover data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-[side=bottom]:slide-out-to-top-1 data-[side=left]:slide-out-to-right-1 data-[side=right]:slide-out-to-left-1 data-[side=top]:slide-out-to-bottom-1
+    data-[state=closed]:ease-productive-exit data-[state=open]:ease-productive-enter data-[state=open]:duration-fast-01 data-[state=closed]:duration-fast-01 data-[state=open]:zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 origin-radix-popover data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-[side=bottom]:slide-out-to-top-1 data-[side=left]:slide-out-to-right-1 data-[side=right]:slide-out-to-left-1 data-[side=top]:slide-out-to-bottom-1
     z-10
     `,
   ],

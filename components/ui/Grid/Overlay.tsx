@@ -96,7 +96,7 @@ import { Button } from "@/ui/Button";
 import { GridIcon, MixerHorizontalIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
 import {
-  Popover,
+  PopoverProvider,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";

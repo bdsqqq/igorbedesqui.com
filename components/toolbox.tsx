@@ -2,7 +2,7 @@
 
 import { Button, ButtonGroup } from "@/components/ui/Button";
 import {
-  Popover,
+  PopoverProvider,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
@@ -25,14 +25,19 @@ export const Toolbox = () => {
   return (
     <>
       <ToolboxItem name="portal-debugging">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button onClick={toggleDebugging} icon={<OpenInNewWindowIcon />} />
-          </PopoverTrigger>
+        <PopoverProvider>
+          <PopoverTrigger
+            render={
+              <Button
+                onClick={toggleDebugging}
+                icon={<OpenInNewWindowIcon />}
+              />
+            }
+          ></PopoverTrigger>
           <PopoverContent side="left" align="start">
             <PortalDevtools />
           </PopoverContent>
-        </Popover>
+        </PopoverProvider>
       </ToolboxItem>
 
       <div

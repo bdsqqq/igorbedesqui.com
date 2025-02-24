@@ -8,7 +8,7 @@ import { psykipMeta, bebopMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 import Image from "next/image";
 import {
-  Popover,
+  PopoverProvider,
   PopoverContent,
   StyledPopoverTrigger,
 } from "@/components/ui/Popover";
@@ -266,7 +266,7 @@ export default async function TheManual() {
                     <h2 className="mb-4 text-2xl font-bold" {...props} />
                   ),
                   Popover: (props) => (
-                    <Popover {...props}>
+                    <PopoverProvider {...props}>
                       <StyledPopoverTrigger>
                         {props.children}
                         <QuestionMarkCircledIcon />
@@ -288,7 +288,7 @@ export default async function TheManual() {
                           </figcaption>
                         </figure>
                       </PopoverContent>
-                    </Popover>
+                    </PopoverProvider>
                   ),
                   strong: (props) => (
                     <span className="text-gray-12" {...props} />
@@ -300,7 +300,7 @@ export default async function TheManual() {
 
                 Before writing any user-facing code, I spent some time [playing with golang to transform 8 translations into 424 markdown files](https://twitter.com/bedesqui/status/1557388112032137218?s=20). Then, [wrote other scripts to bulk-edit these files and their metadata as needed](https://twitter.com/bedesqui/status/1560750830302760965?s=20).
                 
-                **I approached development from a static-first angle**, the site is usable with javascript disabled and on pretty much any device, *it even* <Popover>*ran on my kindle*</Popover>. Leveraging [Astro](astro.build/) I **generated hundreds of pages for translations, chapters, and comparisons using data from the markdown files** to populate a few templates. 
+                **I approached development from a static-first angle**, the site is usable with javascript disabled and on pretty much any device, *it even* <PopoverProvider>*ran on my kindle*</PopoverProvider>. Leveraging [Astro](astro.build/) I **generated hundreds of pages for translations, chapters, and comparisons using data from the markdown files** to populate a few templates. 
                 
                 For the interactive bits, I used islands of [Solid.js](https://www.solidjs.com/) and scripts with no framework. Deploying on [Vercel](vercel.com/) meant **sub-minute build times even with 490 pages, including the monstrous [“compare all translations” page](psykip.vercel.app/compare/all) with 13200 DOM elements**. Additionally, **[tailwindcss](https://tailwindcss.com/) allowed me to colocate styles and markup without sacrificing functionality**. 
                 

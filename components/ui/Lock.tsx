@@ -1,4 +1,4 @@
-import { Popover, PopoverContent, PopoverTrigger } from "@/ui/Popover";
+import { PopoverProvider, PopoverContent, PopoverTrigger } from "@/ui/Popover";
 import React, {
   Children,
   cloneElement,
@@ -21,18 +21,18 @@ export const Lock = forwardRef<
 
   // Not too happy about this bit, but it makes sure cloneElement gets a valid element (not a string and other misc types allowed by ReactNode)
   const isValid = isValidElement<HTMLButtonElement & { onClick?: () => void }>(
-    child
+    child,
   );
   if (!isValid)
     throw new Error(`Lock's child must be a valid react element, see: `);
 
   return (
-    <Popover>
+    <PopoverProvider>
       <PopoverTrigger asChild {...rest} ref={ref}>
         {cloneElement(child, { onClick: () => {} })}
       </PopoverTrigger>
       <PopoverContent align="end">{lockedFeedback}</PopoverContent>
-    </Popover>
+    </PopoverProvider>
   );
 });
 Lock.displayName = "Lock";

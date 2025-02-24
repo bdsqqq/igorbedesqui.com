@@ -23,13 +23,13 @@ const EmailLink = ({
   children: React.ReactNode;
 }) => {
   return (
-    <Popover>
-      <PopoverTrigger className="inline-flex items-center gap-1 underline focus:text-gray-12 hover:text-gray-12">
+    <PopoverProvider>
+      <PopoverTrigger className="inline-flex items-center gap-1 underline hover:text-gray-12 focus:text-gray-12">
         {children} <EnvelopeClosedIcon />
       </PopoverTrigger>
       <PopoverContent
         className="overflow-visible"
-        sideOffset={0}
+        gutter={0}
         options={{
           padding: "none",
           maxW: "full",
@@ -75,7 +75,7 @@ const EmailPopoverContent = ({ email }: { email: string }) => {
           onClick={() => {
             if (!navigator.clipboard) {
               console.log(
-                "no clipboard! This api requires https on chrome so if you're on localhost I'm sorry"
+                "no clipboard! This api requires https on chrome so if you're on localhost I'm sorry",
               );
               return;
             }
@@ -95,7 +95,7 @@ const EmailPopoverContent = ({ email }: { email: string }) => {
         options={{ size: "sm" }}
       >
         <LinkButton
-          className="-my-[1px] -mr-[1px] rounded-r-sm rounded-l-none"
+          className="-my-[1px] -mr-[1px] rounded-l-none rounded-r-sm"
           href={`mailto:${email}`}
         >
           <PaperPlaneIcon />

@@ -6,7 +6,7 @@ import {
   ProjectLayout,
 } from "@/components/ProjectStuff/ProjectLayout";
 import {
-  Popover,
+  PopoverProvider,
   PopoverContent,
   StyledPopoverTrigger,
 } from "@/components/ui/Popover";
@@ -64,7 +64,7 @@ export default async function Bebop() {
           <MDX
             components={{
               Popover: (props) => (
-                <Popover>
+                <PopoverProvider>
                   <StyledPopoverTrigger>
                     {props.children} <QuestionMarkCircledIcon />
                   </StyledPopoverTrigger>
@@ -73,12 +73,12 @@ export default async function Bebop() {
                       {`The **WebJam** is a hackathon where the participants try to create a website following a prompt and some rules.`}
                     </MDX>
                   </PopoverContent>
-                </Popover>
+                </PopoverProvider>
               ),
             }}
           >
             {`
-              I made this project as an entry for the second installment of the <Popover>WebJam</Popover>.
+              I made this project as an entry for the second installment of the <PopoverProvider>WebJam</PopoverProvider>.
               <br/>
               The challenge for this WebJam was to create a single page/non-scrollable site for a movie of my choosing. The site should work on any screen size and illustrate the movie.
             `}
@@ -115,7 +115,7 @@ export default async function Bebop() {
           <div className="my-1 grid min-h-0 grid-cols-4 items-center gap-2">
             <div className="col-start-1 col-end-2">
               <Image
-                className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
+                className="relative z-[31] overflow-hidden rounded-sm border border-gray-03"
                 src={smartphoneScreenshot}
                 width="1440"
                 height="3040"
@@ -125,7 +125,7 @@ export default async function Bebop() {
             </div>
             <div className="col-start-2 col-end-5">
               <Image
-                className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
+                className="relative z-[31] overflow-hidden rounded-sm border border-gray-03"
                 src={desktopScreenshot}
                 width="1200"
                 height="800"

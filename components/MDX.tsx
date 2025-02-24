@@ -7,9 +7,11 @@ import { cn } from "@/lib/styling";
 import { CopyButton } from "@/components/ui/CopyButton";
 import remarkGfm from "remark-gfm";
 import { ScrollBar, ScrollArea } from "@/components/ui/ScrollArea";
+import { visit } from "unist-util-visit";
 
-import { compile, run } from '@mdx-js/mdx'
-import * as runtime from 'react/jsx-runtime'
+import { compile, run } from "@mdx-js/mdx";
+import * as runtime from "react/jsx-runtime";
+import { PopoverProvider } from "@/components/ui/Popover";
 
 function Table({
   data,
@@ -96,6 +98,35 @@ function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
   return HeadingComponent;
 }
 
+function remarkPopovers() {
+  return (tree: any) => {
+    const footnotes = new Map();
+
+    // First pass: collect all footnote definitions
+    visit(tree, "footnoteDefinition", (node) => {
+      footnotes.set(node.identifier, node);
+    });
+
+    // Second pass: transform footnote references to popovers
+    visit(tree, "footnoteReference", (node, index, parent) => {
+      const footnote = footnotes.get(node.identifier);
+      if (footnote) {
+        parent.children[index] = {
+          type: "element",
+          name: "Popover",
+          data: {
+            hName: "Popover",
+            hProperties: {
+              trigger: node.label,
+              content: footnote.children,
+            },
+          },
+        };
+      }
+    });
+  };
+}
+
 const defaultComponents = {
   h1: createHeading(1),
   h2: createHeading(2),
@@ -129,6 +160,7 @@ const defaultComponents = {
   a: (props) => <StyledLinkWithIcon {...props} />,
   code: Code,
   Table,
+  Popover: PopoverProvider,
   // LiveCode,
 };
 
@@ -142,14 +174,21 @@ export async function MDX({
   const mdxSource = children;
 
   const code = String(
-      await compile(mdxSource, { outputFormat: 'function-body', remarkPlugins: [remarkGfm] })
-    )
+    await compile(mdxSource, {
+      outputFormat: "function-body",
+      remarkPlugins: [remarkGfm, remarkPopovers],
+    }),
+  );
 
-    const { default: MDXContent } = await run(code, {
-      ...runtime,
-      baseUrl: import.meta.url,
-    })
+  const { default: MDXContent } = await run(code, {
+    ...runtime,
+    baseUrl: import.meta.url,
+  });
 
-  return <MDXContent components={{ ...defaultComponents, ...(propComponents || {}) }} {...passthrough} />
-
+  return (
+    <MDXContent
+      components={{ ...defaultComponents, ...(propComponents || {}) }}
+      {...passthrough}
+    />
+  );
 }
