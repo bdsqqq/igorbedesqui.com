@@ -38,7 +38,7 @@ const EmailLink = ({
       >
         <EmailPopoverContent email={email} />
       </PopoverContent>
-    </Popover>
+    </PopoverProvider>
   );
 };
 
@@ -115,7 +115,7 @@ import {
 } from "@radix-ui/react-icons";
 
 import {
-  Popover,
+  PopoverProvider,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
