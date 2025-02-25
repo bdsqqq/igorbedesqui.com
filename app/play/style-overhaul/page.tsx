@@ -22,9 +22,7 @@ const Content = () => {
   return (
     <>
       <PopoverProvider>
-        <PopoverTrigger asChild>
-          <Button activeStyle="none">Hej</Button>
-        </PopoverTrigger>
+        <PopoverTrigger render={<Button activeStyle="none">Hej</Button>} />
         <PopoverContent
           options={{
             maxW: "full",

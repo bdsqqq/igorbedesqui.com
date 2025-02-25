@@ -25,7 +25,7 @@ export const Toolbox = () => {
   return (
     <>
       <ToolboxItem name="portal-debugging">
-        <PopoverProvider>
+        <PopoverProvider placement="left-start">
           <PopoverTrigger
             render={
               <Button
@@ -34,7 +34,7 @@ export const Toolbox = () => {
               />
             }
           ></PopoverTrigger>
-          <PopoverContent side="left" align="start">
+          <PopoverContent>
             <PortalDevtools />
           </PopoverContent>
         </PopoverProvider>
@@ -43,7 +43,7 @@ export const Toolbox = () => {
       <div
         className={cn(
           "fixed right-4 top-4 z-50",
-          `opacity-0 transition-opacity duration-fast-02 ease-productive-standard focus-within:opacity-100 hover:opacity-100 has-[button[data-state="open"]]:opacity-100`,
+          `opacity-0 transition-opacity duration-fast-02 ease-productive-standard focus-within:opacity-100 hover:opacity-100 has-[button[aria-expanded="true"]]:opacity-100`,
         )}
       >
         <ButtonGroup orientation="vertical" ref={toolboxRef} />
