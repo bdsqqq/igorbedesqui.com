@@ -101,7 +101,7 @@ export default async function Basics() {
               {`
               ## Update <Update1 />
 
-              After dogfooding this approach to markdown on this very website, I can confidently say <PopoverProvider>it helps</PopoverProvider>. As much as you can format your content in plain JSX, MDX makes it easier to write and *read* without taking power away. I prefer reading some *'s and _'s over a \`<span>\` soup every time.
+              After dogfooding this approach to markdown on this very website, I can confidently say <Popover>it helps</Popover>. As much as you can format your content in plain JSX, MDX makes it easier to write and *read* without taking power away. I prefer reading some *'s and _'s over a \`<span>\` soup every time.
               <br/>
 
               Preparing to migrate to Next.js 13’s [App directory](https://beta.nextjs.org/docs/routing/fundamentals#the-app-directory), I ran into enough bugs with my MDX solution that the absolute GOAT, [Marcos S.](https://twitter.com/MarcosNASAG), helped me [rewrite it into a much safer approach with no mutations](https://github.com/bdsqqq/igorbedesqui.com/commit/e32f8ab38d323105ce8f99e68387d91b34e1bbdf). While at it, he planted the seed of a simpler API in my head. What if \`<MDX>**Content**</MDX>\` just worked™? Knowing that the server has to serialize the content meant this approach would be hacky at best, and straight-up impossible at worst. That is, without server components.
