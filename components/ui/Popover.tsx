@@ -37,11 +37,13 @@ const PopoverContent = ({
   options?: VariantProps<typeof tooltipVariants>;
 }) => {
   return (
-    <Ariakit.Popover
-      gutter={gutter}
-      className={cn(tooltipVariants(options), className)}
-      {...props}
-    />
+    <Ariakit.Portal>
+      <Ariakit.Popover
+        gutter={gutter}
+        className={cn(tooltipVariants(options), className)}
+        {...props}
+      />
+    </Ariakit.Portal>
   );
 };
 PopoverContent.displayName = "PopoverContent";
