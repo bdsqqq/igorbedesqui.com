@@ -27,11 +27,13 @@ export const Lock = forwardRef<
     throw new Error(`Lock's child must be a valid react element, see: `);
 
   return (
-    <PopoverProvider>
-      <PopoverTrigger asChild {...rest} ref={ref}>
-        {cloneElement(child, { onClick: () => {} })}
-      </PopoverTrigger>
-      <PopoverContent align="end">{lockedFeedback}</PopoverContent>
+    <PopoverProvider placement="top-end">
+      <PopoverTrigger
+        {...rest}
+        render={cloneElement(child, { onClick: () => {} })}
+        ref={ref}
+      />
+      <PopoverContent>{lockedFeedback}</PopoverContent>
     </PopoverProvider>
   );
 });
