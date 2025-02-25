@@ -43,7 +43,6 @@ const Page = () => {
                 }
               >
                 <Button
-                  loading={count % 2 === 0}
                   className="font-normal"
                   onClick={increment}
                   icon={<PlusIcon />}
