@@ -23,12 +23,13 @@ export default async function Page() {
         <div className="flex flex-col gap-4">
           <MDX>
             {dedent`
-          Click the [Profile Menu ⌄][^profile]
+          I often use popovers to explain things, and it feels super annoying to actually write \`<Popover>\` and \`</Popover>\` everywhere. So now markdown footnotes are automatically transformed into popovers in my MD content.
+          
+          Profile Menu [^standard]
+          [^standard]: This is a standard footnote content.
 
-          [^profile]: 
-            - View Profile
-            - Settings
-            - Log Out
+          Profile Menu^[This is an inline footnote content.]
+
           `}
           </MDX>
         </div>

@@ -4,6 +4,7 @@ import * as React from "react";
 import * as Ariakit from "@ariakit/react";
 import { cn } from "@/lib/styling";
 import { VariantProps, cva } from "class-variance-authority";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 const PopoverProvider = ({
   placement = "top",
@@ -27,7 +28,6 @@ const StyledPopoverTrigger = ({
 );
 StyledPopoverTrigger.displayName = "PopoverTrigger";
 
-const empty = "" as const;
 const PopoverContent = ({
   className,
   gutter = 4,
@@ -47,6 +47,25 @@ const PopoverContent = ({
   );
 };
 PopoverContent.displayName = "PopoverContent";
+
+export const Popover = ({
+  children,
+  content,
+  ...rest
+}: {
+  children: React.ReactNode;
+  content: React.ReactNode;
+}) => {
+  return (
+    <PopoverProvider>
+      <StyledPopoverTrigger>
+        {children}
+        <QuestionMarkCircledIcon />
+      </StyledPopoverTrigger>
+      <PopoverContent>{content}</PopoverContent>
+    </PopoverProvider>
+  );
+};
 
 export {
   PopoverProvider,
