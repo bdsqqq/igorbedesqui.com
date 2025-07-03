@@ -199,7 +199,6 @@ module.exports = {
     },
   ],
   plugins: [
-    require("tailwindcss-radix")(),
     require("tailwindcss-animate"),
     function ({ addBase, theme }) {
       function extractColorVars(colorObj, colorGroup = "") {

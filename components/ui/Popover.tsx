@@ -1,19 +1,19 @@
 "use client";
 
 import * as React from "react";
-import * as PopoverPrimitive from "@radix-ui/react-popover";
+import { Popover as BasePopover } from "@base-ui-components/react/popover";
 
 import { cn } from "@/lib/styling";
 import { VariantProps, cva } from "class-variance-authority";
 
-const Popover = PopoverPrimitive.Root;
+const Popover = BasePopover.Root;
 
-const PopoverTrigger = PopoverPrimitive.Trigger;
+const PopoverTrigger = BasePopover.Trigger;
 const StyledPopoverTrigger = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Trigger>,
-  React.PropsWithoutRef<PopoverPrimitive.PopoverTriggerProps>
+  HTMLButtonElement,
+  React.ComponentPropsWithoutRef<typeof BasePopover.Trigger>
 >(({ className, ...rest }, ref) => (
-  <PopoverPrimitive.Trigger
+  <BasePopover.Trigger
     ref={ref}
     className={cn(
       "inline-flex items-center gap-1 underline underline-offset-2 hover:text-gray-12 focus-visible:text-gray-12 data-[state=open]:text-gray-12",
@@ -22,15 +22,16 @@ const StyledPopoverTrigger = React.forwardRef<
     {...rest}
   />
 ));
-StyledPopoverTrigger.displayName = PopoverPrimitive.Trigger.displayName;
+StyledPopoverTrigger.displayName = "StyledPopoverTrigger";
 
 const PopoverContent = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.PropsWithoutRef<
-    PopoverPrimitive.PopoverContentProps & {
-      options?: VariantProps<typeof tooltipVariants>;
-    }
-  >
+  HTMLDivElement,
+  Omit<React.ComponentPropsWithoutRef<typeof BasePopover.Popup>, 'render'> & {
+    options?: VariantProps<typeof tooltipVariants>;
+    side?: "top" | "right" | "bottom" | "left";
+    sideOffset?: number;
+    align?: "start" | "center" | "end";
+  }
 >(
   (
     {
@@ -43,19 +44,18 @@ const PopoverContent = React.forwardRef<
     },
     ref,
   ) => (
-    <PopoverPrimitive.Portal>
-      <PopoverPrimitive.Content
-        ref={ref}
-        align={align}
-        sideOffset={sideOffset}
-        side={side}
-        className={cn(tooltipVariants(options), className)}
-        {...props}
-      />
-    </PopoverPrimitive.Portal>
+    <BasePopover.Portal>
+      <BasePopover.Positioner sideOffset={sideOffset}>
+        <BasePopover.Popup
+          ref={ref}
+          className={cn(tooltipVariants(options), className)}
+          {...props}
+        />
+      </BasePopover.Positioner>
+    </BasePopover.Portal>
   ),
 );
-PopoverContent.displayName = PopoverPrimitive.Content.displayName;
+PopoverContent.displayName = "PopoverContent";
 
 export { Popover, PopoverTrigger, PopoverContent, StyledPopoverTrigger };
 

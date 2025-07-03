@@ -3,9 +3,9 @@ import {
   Children,
   forwardRef,
   isValidElement,
+  cloneElement,
   type PropsWithChildren,
 } from "react";
-import { Slot } from "@radix-ui/react-slot";
 
 /**
  * @see https://html.spec.whatwg.org/multipage/syntax.html#void-elements
@@ -67,7 +67,7 @@ export const Border = forwardRef<HTMLElement, BorderProps>(
       return null;
     }
 
-    const child = Children.only(children) as React.ReactElement;
+    const child = Children.only(children) as React.ReactElement<any>;
     const shouldWrap =
       VOID_ELEMENTS.includes(child.type as string) ||
       MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID.includes(
@@ -111,11 +111,12 @@ export const Border = forwardRef<HTMLElement, BorderProps>(
         </span>
       );
 
-    return (
-      <Slot className={cn(shadowBorderStyles, className)} ref={ref} {...rest}>
-        {children}
-      </Slot>
-    );
+    return cloneElement(child, {
+      ...child.props,
+      ...rest,
+      className: cn(shadowBorderStyles, child.props.className, className),
+      ref: ref,
+    });
   },
 );
 Border.displayName = "Border";

@@ -6,8 +6,8 @@ import {
   isValidElement,
   ReactElement,
   useId,
+  cloneElement,
 } from "react";
-import { Slot } from "@radix-ui/react-slot";
 
 type TiledLayoutProps = ComponentPropsWithoutRef<"div"> & {
   direction: "horizontal" | "vertical";
@@ -179,8 +179,14 @@ type TileProps =
 
 export const Tile = ({
   asChild,
+  children,
   ...props
-}: TileProps & ComponentPropsWithoutRef<"div"> & { asChild?: boolean }) => {
-  const Comp = asChild ? Slot : "div";
-  return <Comp {...props} />;
+}: TileProps & ComponentPropsWithoutRef<"div"> & { asChild?: boolean; children?: React.ReactNode }) => {
+  if (asChild && isValidElement(children)) {
+    return cloneElement(children as React.ReactElement<any>, {
+      ...(children as React.ReactElement<any>).props,
+      ...props,
+    });
+  }
+  return <div {...props}>{children}</div>;
 };
