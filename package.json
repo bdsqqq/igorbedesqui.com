@@ -25,6 +25,7 @@
     "motion": "^11.15.0",
     "nanoid": "^5.0.7",
     "next": "15.1.2",
+    "next-mdx-remote": "^5.0.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-element-to-jsx-string": "^15.0.0",

@@ -8,7 +8,30 @@ import { VariantProps, cva } from "class-variance-authority";
 
 const Popover = BasePopover.Root;
 
-const PopoverTrigger = BasePopover.Trigger;
+const PopoverTrigger = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentPropsWithoutRef<typeof BasePopover.Trigger> & {
+    asChild?: boolean;
+    children?: React.ReactNode;
+  }
+>(({ asChild, children, ...props }, ref) => {
+  if (asChild && React.isValidElement(children)) {
+    return (
+      <BasePopover.Trigger
+        ref={ref}
+        render={React.cloneElement(children as React.ReactElement<any>)}
+        {...props}
+      />
+    );
+  }
+  
+  return (
+    <BasePopover.Trigger ref={ref} {...props}>
+      {children}
+    </BasePopover.Trigger>
+  );
+});
+PopoverTrigger.displayName = "PopoverTrigger";
 const StyledPopoverTrigger = React.forwardRef<
   HTMLButtonElement,
   React.ComponentPropsWithoutRef<typeof BasePopover.Trigger>
@@ -31,6 +54,7 @@ const PopoverContent = React.forwardRef<
     side?: "top" | "right" | "bottom" | "left";
     sideOffset?: number;
     align?: "start" | "center" | "end";
+    alignOffset?: number;
   }
 >(
   (

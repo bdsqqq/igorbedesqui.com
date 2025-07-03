@@ -8,11 +8,57 @@ import { Button } from "@/components/ui/Button";
 
 const Dialog = BaseDialog.Root;
 
-const DialogTrigger = BaseDialog.Trigger;
+const DialogTrigger = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentPropsWithoutRef<typeof BaseDialog.Trigger> & {
+    asChild?: boolean;
+    children?: React.ReactNode;
+  }
+>(({ asChild, children, ...props }, ref) => {
+  if (asChild && React.isValidElement(children)) {
+    return (
+      <BaseDialog.Trigger
+        ref={ref}
+        render={React.cloneElement(children as React.ReactElement<any>)}
+        {...props}
+      />
+    );
+  }
+  
+  return (
+    <BaseDialog.Trigger ref={ref} {...props}>
+      {children}
+    </BaseDialog.Trigger>
+  );
+});
+DialogTrigger.displayName = "DialogTrigger";
 
 const DialogPortal = BaseDialog.Portal;
 
-const DialogClose = BaseDialog.Close;
+const DialogClose = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentPropsWithoutRef<typeof BaseDialog.Close> & {
+    asChild?: boolean;
+    children?: React.ReactNode;
+  }
+>(({ asChild, children, ...props }, ref) => {
+  if (asChild && React.isValidElement(children)) {
+    return (
+      <BaseDialog.Close
+        ref={ref}
+        render={React.cloneElement(children as React.ReactElement<any>)}
+        {...props}
+      />
+    );
+  }
+  
+  return (
+    <BaseDialog.Close ref={ref} {...props}>
+      {children}
+    </BaseDialog.Close>
+  );
+});
+DialogClose.displayName = "DialogClose";
 
 const DialogOverlay = React.forwardRef<
   HTMLDivElement,

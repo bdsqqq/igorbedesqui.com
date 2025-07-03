@@ -121,7 +121,8 @@ export const TiledLayout = forwardRef<HTMLDivElement, TiledLayoutProps>(
        */
       const fitContentCellSize = "minmax(auto, min-content)";
 
-      const size = child.props["data-tile-size"];
+      const childElement = child as React.ReactElement<any>;
+      const size = childElement.props?.["data-tile-size"];
       if (size === "fitContent") {
         return fitContentCellSize;
       }
@@ -139,7 +140,7 @@ export const TiledLayout = forwardRef<HTMLDivElement, TiledLayoutProps>(
          * ```
          *
          */
-        return `minmax(0px, ${child.props["data-tile-fr-of-remaining-spacer"] ?? 1}fr)`;
+        return `minmax(0px, ${childElement.props?.["data-tile-fr-of-remaining-spacer"] ?? 1}fr)`;
       }
       return fitContentCellSize;
     });
@@ -183,8 +184,9 @@ export const Tile = ({
   ...props
 }: TileProps & ComponentPropsWithoutRef<"div"> & { asChild?: boolean; children?: React.ReactNode }) => {
   if (asChild && isValidElement(children)) {
-    return cloneElement(children as React.ReactElement<any>, {
-      ...(children as React.ReactElement<any>).props,
+    const childElement = children as React.ReactElement<any>;
+    return cloneElement(childElement, {
+      ...childElement.props,
       ...props,
     });
   }

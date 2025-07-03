@@ -80,24 +80,16 @@ const ButtonContent = ({
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   BaseButtonProps &
-  TogglePropsWithValuesAsNever &
-  ButtonVariants & {
+  ButtonVariants & 
+  Partial<ToggleProps> & {
     asChild?: boolean;
-    toggle?: false;
-  };
-
-export type ToggleButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  BaseButtonProps &
-  ToggleProps &
-  ButtonVariants & {
-    asChild?: false;
-    toggle: true;
+    toggle?: boolean;
   };
 
 export const BUTTON_DISPLAY_NAME = "Button";
 export const Button = React.forwardRef<
   HTMLButtonElement,
-  ButtonProps | ToggleButtonProps
+  ButtonProps
 >(
   (
     {
@@ -110,7 +102,7 @@ export const Button = React.forwardRef<
       icon,
       children,
       loadingStrategy = "delay",
-      toggle,
+      toggle = false,
       ...props
     },
     ref,

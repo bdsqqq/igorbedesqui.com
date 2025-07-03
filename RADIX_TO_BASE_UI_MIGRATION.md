@@ -104,8 +104,24 @@ This project has been successfully migrated from Radix UI primitives to Base UI 
 ## Migration Status
 ✅ **Migration Complete** - The project builds successfully and all Radix UI primitives have been replaced with Base UI equivalents.
 
+## Issues Fixed
+1. **Button component type errors** - Simplified the ButtonProps type to avoid discriminated union issues
+2. **`asChild` prop support** - Added compatibility layer for Base UI components that don't support this pattern
+3. **`alignOffset` prop** - Added support for this prop in PopoverContent
+4. **Props type issues** - Fixed TypeScript errors related to accessing props on ReactElement
+5. **Missing dependency** - Installed `next-mdx-remote` package
+
 ## Build Verification
 ```bash
+# Linting
+pnpm lint
+# ✓ No errors
+
+# TypeScript check
+pnpm tsc --noEmit
+# ✓ No errors
+
+# Production build
 pnpm build
 # ✓ Compiled successfully
 # ✓ Collecting page data    

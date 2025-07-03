@@ -111,10 +111,11 @@ export const Border = forwardRef<HTMLElement, BorderProps>(
         </span>
       );
 
-    return cloneElement(child, {
-      ...child.props,
+    const childElement = child as React.ReactElement<any>;
+    return cloneElement(childElement, {
+      ...childElement.props,
       ...rest,
-      className: cn(shadowBorderStyles, child.props.className, className),
+      className: cn(shadowBorderStyles, childElement.props?.className, className),
       ref: ref,
     });
   },
