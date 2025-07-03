@@ -1,21 +1,20 @@
 "use client";
-// Radix separator has an useEffect for some reason??
+// Base UI separator component
 
 import * as React from "react";
-import * as SeparatorPrimitive from "@radix-ui/react-separator";
+import { Separator as BaseSeparator } from "@base-ui-components/react/separator";
 import { cn } from "@/lib/styling";
 
 const Separator = React.forwardRef<
-  React.ElementRef<typeof SeparatorPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>
+  React.ElementRef<typeof BaseSeparator>,
+  React.ComponentPropsWithoutRef<typeof BaseSeparator>
 >(
   (
-    { className, orientation = "horizontal", decorative = true, ...props },
+    { className, orientation = "horizontal", ...props },
     ref,
   ) => (
-    <SeparatorPrimitive.Root
+    <BaseSeparator
       ref={ref}
-      decorative={decorative}
       orientation={orientation}
       className={cn(
         "bg-gray-04",
@@ -26,6 +25,6 @@ const Separator = React.forwardRef<
     />
   ),
 );
-Separator.displayName = SeparatorPrimitive.Root.displayName;
+Separator.displayName = BaseSeparator.displayName;
 
 export { Separator };
