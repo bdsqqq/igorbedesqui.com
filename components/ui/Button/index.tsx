@@ -55,7 +55,6 @@ import {
   LinkButtonProps,
   Spinner,
   ButtonGroup,
-  ToggleButtonProps,
 } from "./ClientButton";
 
 export {
@@ -65,5 +64,4 @@ export {
   type LinkButtonProps,
   Spinner,
   ButtonGroup,
-  type ToggleButtonProps,
 };

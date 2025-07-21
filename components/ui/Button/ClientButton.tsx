@@ -80,24 +80,16 @@ const ButtonContent = ({
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   BaseButtonProps &
-  TogglePropsWithValuesAsNever &
-  ButtonVariants & {
+  ButtonVariants & 
+  Partial<ToggleProps> & {
     asChild?: boolean;
-    toggle?: false;
-  };
-
-export type ToggleButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  BaseButtonProps &
-  ToggleProps &
-  ButtonVariants & {
-    asChild?: false;
-    toggle: true;
+    toggle?: boolean;
   };
 
 export const BUTTON_DISPLAY_NAME = "Button";
 export const Button = React.forwardRef<
   HTMLButtonElement,
-  ButtonProps | ToggleButtonProps
+  ButtonProps
 >(
   (
     {
@@ -110,28 +102,54 @@ export const Button = React.forwardRef<
       icon,
       children,
       loadingStrategy = "delay",
-      toggle,
+      toggle = false,
       ...props
     },
     ref,
   ) => {
     const loading = useArtificialDelay(_loading, loadingStrategy);
 
-    const CompIfNotAsChild = toggle ? ToggleRoot : "button";
-    const Comp = asChild ? Slot : CompIfNotAsChild;
+    const buttonClassName = cn(
+      buttonVariants({ variant, size, activeStyle, className }),
+    );
+
+    const content = (
+      <ButtonContent icon={icon} loading={loading}>
+        {children}
+      </ButtonContent>
+    );
+
+    if (asChild && isValidElement(children)) {
+      return cloneElement(children as React.ReactElement<any>, {
+        ...(children as React.ReactElement<any>).props,
+        className: buttonClassName,
+        ref,
+        ...props,
+      });
+    }
+
+    if (toggle) {
+      const { value, ...toggleProps } = props as any;
+      return (
+        <BaseToggle
+          className={buttonClassName}
+          ref={ref}
+          value={typeof value === 'string' ? value : undefined}
+          {...toggleProps}
+        >
+          {content}
+        </BaseToggle>
+      );
+    }
 
     return (
-      <Comp
-        className={cn(
-          buttonVariants({ variant, size, activeStyle, className }),
-        )}
+      <button
+        className={buttonClassName}
         ref={ref}
         {...props}
       >
-        <ButtonContent icon={icon} loading={loading}>
-          {children}
-        </ButtonContent>
-      </Comp>
+        {content}
+      </button>
     );
   },
 );
@@ -301,12 +319,10 @@ export const Spinner = ({ ...props }: React.ComponentProps<"svg">) => (<svg widt
 
 import { UnstyledLink } from "../primitives";
 import { cn } from "@/lib/styling";
-import React, { ComponentPropsWithoutRef, ComponentPropsWithRef, ElementRef, forwardRef } from "react";
-import { Slot } from "@radix-ui/react-slot";
+import React, { ComponentPropsWithoutRef, ComponentPropsWithRef, ElementRef, forwardRef, cloneElement, isValidElement } from "react";
 import { UnstyledLinkProps } from "@/components/ui/primitives/UnstyledLink";
-import {
-  PrimitiveButtonProps,
-  Root as ToggleRoot,
-  ToggleProps,
-} from "@radix-ui/react-toggle";
+import { Toggle as BaseToggle } from "@base-ui-components/react/toggle";
 import { ButtonVariants, buttonVariants } from "@/components/ui/Button";
+
+type PrimitiveButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+type ToggleProps = React.ComponentPropsWithoutRef<typeof BaseToggle>;

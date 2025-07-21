@@ -26,16 +26,16 @@ export default function Page() {
               "col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-1 lg:col-end-17",
             )}
           >
-            {otherUsages.map((usage) => {
+                        {otherUsages.map((usage) => {
               const formattedUsage = jsxToString(usage.code, {
                 filterProps: ["data-display-name"],
                 displayName(element) {
                   if (!isValidElement(element)) return "";
 
-                  // console.log(element);
-                  return element.props["data-display-name"] ?? "";
+                  const elementWithProps = element as React.ReactElement<any>;
+                  return elementWithProps.props?.["data-display-name"] ?? "";
                 },
-              }).replace(/ /g, " "); // replace spaces with non-breaking spaces, otherwise they'll be collapsed and indentation will break
+                            }).replace(/ /g, " "); // replace spaces with non-breaking spaces, otherwise they'll be collapsed and indentation will break
               // to debug the string, use:
               // .replace(/ /g, "·") // Regular space
               // .replace(/\t/g, "→") // Tab
@@ -88,16 +88,16 @@ export default function Page() {
               "col-start-1 col-end-5 md:col-start-1 md:col-end-9 lg:col-start-1 lg:col-end-17",
             )}
           >
-            {usages.map((usage) => {
+                        {usages.map((usage) => {
               const formattedUsage = jsxToString(usage.code, {
                 filterProps: ["data-display-name"],
                 displayName(element) {
                   if (!isValidElement(element)) return "";
 
-                  // console.log(element);
-                  return element.props["data-display-name"] ?? "";
+                  const elementWithProps = element as React.ReactElement<any>;
+                  return elementWithProps.props?.["data-display-name"] ?? "";
                 },
-              }).replace(/ /g, " "); // replace spaces with non-breaking spaces, otherwise they'll be collapsed and indentation will break
+                            }).replace(/ /g, " "); // replace spaces with non-breaking spaces, otherwise they'll be collapsed and indentation will break
               // to debug the string, use:
               // .replace(/ /g, "·") // Regular space
               // .replace(/\t/g, "→") // Tab

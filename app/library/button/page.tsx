@@ -22,10 +22,10 @@ import {
   TextAlignLeftIcon,
   TextAlignRightIcon,
 } from "@radix-ui/react-icons";
-import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
 import { promises as fs } from "fs";
 import { Fragment, isValidElement } from "react";
 import jsxToString from "react-element-to-jsx-string";
+import CustomToggleGroup from "./CustomToggleGroup";
 
 export default async function Page() {
   const ButtonSource = await fs.readFile(
@@ -282,49 +282,10 @@ const usages = [
     description:
       "By composing primitives, you can extend behaviour. For example, a group of toggle buttons where only one can be active simultaneously.",
     code: (
-      <ToggleGroup
+      <CustomToggleGroup
         data-display-name="ToggleGroup"
-        type="single"
         defaultValue="left"
-        asChild
-      >
-        <ButtonGroup data-display-name="ButtonGroup" orientation="horizontal">
-          <ToggleGroupItem
-            data-display-name="ToggleGroupItem"
-            value="left"
-            asChild
-          >
-            <Button
-              data-display-name="Button"
-              icon={<TextAlignLeftIcon data-display-name="TextAlignLeftIcon" />}
-            />
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            data-display-name="ToggleGroupItem"
-            value="center"
-            asChild
-          >
-            <Button
-              data-display-name="Button"
-              icon={
-                <TextAlignCenterIcon data-display-name="TextAlignCenterIcon" />
-              }
-            />
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            data-display-name="ToggleGroupItem"
-            value="right"
-            asChild
-          >
-            <Button
-              data-display-name="Button"
-              icon={
-                <TextAlignRightIcon data-display-name="TextAlignRightIcon" />
-              }
-            />
-          </ToggleGroupItem>
-        </ButtonGroup>
-      </ToggleGroup>
+      />
     ),
   },
 ];

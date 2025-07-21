@@ -1,24 +1,70 @@
 "use client";
 
 import * as React from "react";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { Dialog as BaseDialog } from "@base-ui-components/react/dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
 import { Button } from "@/components/ui/Button";
 
-const Dialog = DialogPrimitive.Root;
+const Dialog = BaseDialog.Root;
 
-const DialogTrigger = DialogPrimitive.Trigger;
+const DialogTrigger = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentPropsWithoutRef<typeof BaseDialog.Trigger> & {
+    asChild?: boolean;
+    children?: React.ReactNode;
+  }
+>(({ asChild, children, ...props }, ref) => {
+  if (asChild && React.isValidElement(children)) {
+    return (
+      <BaseDialog.Trigger
+        ref={ref}
+        render={React.cloneElement(children as React.ReactElement<any>)}
+        {...props}
+      />
+    );
+  }
+  
+  return (
+    <BaseDialog.Trigger ref={ref} {...props}>
+      {children}
+    </BaseDialog.Trigger>
+  );
+});
+DialogTrigger.displayName = "DialogTrigger";
 
-const DialogPortal = DialogPrimitive.Portal;
+const DialogPortal = BaseDialog.Portal;
 
-const DialogClose = DialogPrimitive.Close;
+const DialogClose = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentPropsWithoutRef<typeof BaseDialog.Close> & {
+    asChild?: boolean;
+    children?: React.ReactNode;
+  }
+>(({ asChild, children, ...props }, ref) => {
+  if (asChild && React.isValidElement(children)) {
+    return (
+      <BaseDialog.Close
+        ref={ref}
+        render={React.cloneElement(children as React.ReactElement<any>)}
+        {...props}
+      />
+    );
+  }
+  
+  return (
+    <BaseDialog.Close ref={ref} {...props}>
+      {children}
+    </BaseDialog.Close>
+  );
+});
+DialogClose.displayName = "DialogClose";
 
 const DialogOverlay = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof BaseDialog.Backdrop>
 >(({ className, ...props }, ref) => (
-  <DialogPrimitive.Overlay
+  <BaseDialog.Backdrop
     ref={ref}
     className={cn(
       "fixed inset-0 bg-gray-00 opacity-70  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
@@ -27,15 +73,15 @@ const DialogOverlay = React.forwardRef<
     {...props}
   />
 ));
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
+DialogOverlay.displayName = "DialogOverlay";
 
 const DialogContent = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof BaseDialog.Popup>
 >(({ className, children, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
-    <DialogPrimitive.Content
+    <BaseDialog.Popup
       ref={ref}
       className={cn(
         "fixed left-[50%] top-[50%] z-aboveVignette grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] bg-gray-00 p-6",
@@ -44,10 +90,10 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-    </DialogPrimitive.Content>
+    </BaseDialog.Popup>
   </DialogPortal>
 ));
-DialogContent.displayName = DialogPrimitive.Content.displayName;
+DialogContent.displayName = "DialogContent";
 
 const DialogHeader = ({
   className,
@@ -78,10 +124,10 @@ const DialogFooter = ({
 DialogFooter.displayName = "DialogFooter";
 
 const DialogTitle = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
+  HTMLHeadingElement,
+  React.ComponentPropsWithoutRef<typeof BaseDialog.Title>
 >(({ className, ...props }, ref) => (
-  <DialogPrimitive.Title
+  <BaseDialog.Title
     ref={ref}
     className={cn(
       "text-lg font-semibold leading-none tracking-tight",
@@ -90,19 +136,19 @@ const DialogTitle = React.forwardRef<
     {...props}
   />
 ));
-DialogTitle.displayName = DialogPrimitive.Title.displayName;
+DialogTitle.displayName = "DialogTitle";
 
 const DialogDescription = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
+  HTMLParagraphElement,
+  React.ComponentPropsWithoutRef<typeof BaseDialog.Description>
 >(({ className, ...props }, ref) => (
-  <DialogPrimitive.Description
+  <BaseDialog.Description
     ref={ref}
     className={cn("text-muted-foreground text-sm", className)}
     {...props}
   />
 ));
-DialogDescription.displayName = DialogPrimitive.Description.displayName;
+DialogDescription.displayName = "DialogDescription";
 
 export {
   Dialog,
