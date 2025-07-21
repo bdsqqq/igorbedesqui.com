@@ -22,7 +22,7 @@ import {
   TextAlignLeftIcon,
   TextAlignRightIcon,
 } from "@radix-ui/react-icons";
-import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
+import { ToggleGroup } from "@base-ui-components/react/toggle-group";
 import { promises as fs } from "fs";
 import { Fragment, isValidElement } from "react";
 import jsxToString from "react-element-to-jsx-string";
@@ -284,45 +284,29 @@ const usages = [
     code: (
       <ToggleGroup
         data-display-name="ToggleGroup"
-        type="single"
-        defaultValue="left"
-        asChild
+        toggleMultiple={false}
+        defaultValue={["left"]}
       >
         <ButtonGroup data-display-name="ButtonGroup" orientation="horizontal">
-          <ToggleGroupItem
-            data-display-name="ToggleGroupItem"
-            value="left"
-            asChild
-          >
-            <Button
-              data-display-name="Button"
-              icon={<TextAlignLeftIcon data-display-name="TextAlignLeftIcon" />}
-            />
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            data-display-name="ToggleGroupItem"
-            value="center"
-            asChild
-          >
-            <Button
-              data-display-name="Button"
-              icon={
-                <TextAlignCenterIcon data-display-name="TextAlignCenterIcon" />
-              }
-            />
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            data-display-name="ToggleGroupItem"
-            value="right"
-            asChild
-          >
-            <Button
-              data-display-name="Button"
-              icon={
-                <TextAlignRightIcon data-display-name="TextAlignRightIcon" />
-              }
-            />
-          </ToggleGroupItem>
+          <Button
+            data-display-name="Button"
+            toggle
+            icon={<TextAlignLeftIcon data-display-name="TextAlignLeftIcon" />}
+          />
+          <Button
+            data-display-name="Button"
+            toggle
+            icon={
+              <TextAlignCenterIcon data-display-name="TextAlignCenterIcon" />
+            }
+          />
+          <Button
+            data-display-name="Button"
+            toggle
+            icon={
+              <TextAlignRightIcon data-display-name="TextAlignRightIcon" />
+            }
+          />
         </ButtonGroup>
       </ToggleGroup>
     ),

@@ -1,8 +1,11 @@
 "use client";
 
+import { Toggle as BaseToggle } from "@base-ui-components/react/toggle";
+import { ButtonVariants, buttonVariants } from "@/components/ui/Button";
+
 type TogglePropsWithoutPrimitiveButtonProps = Omit<
-  ToggleProps,
-  keyof PrimitiveButtonProps
+  BaseToggle.Props,
+  keyof React.ButtonHTMLAttributes<HTMLButtonElement>
 >;
 type TogglePropsWithValuesAsNever = {
   [K in keyof TogglePropsWithoutPrimitiveButtonProps]: never;
@@ -88,7 +91,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
 
 export type ToggleButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   BaseButtonProps &
-  ToggleProps &
+  BaseToggle.Props &
   ButtonVariants & {
     asChild?: false;
     toggle: true;
@@ -117,7 +120,7 @@ export const Button = React.forwardRef<
   ) => {
     const loading = useArtificialDelay(_loading, loadingStrategy);
 
-    const CompIfNotAsChild = toggle ? ToggleRoot : "button";
+    const CompIfNotAsChild = toggle ? BaseToggle : "button";
     const Comp = asChild ? Slot : CompIfNotAsChild;
 
     return (
@@ -304,9 +307,3 @@ import { cn } from "@/lib/styling";
 import React, { ComponentPropsWithoutRef, ComponentPropsWithRef, ElementRef, forwardRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { UnstyledLinkProps } from "@/components/ui/primitives/UnstyledLink";
-import {
-  PrimitiveButtonProps,
-  Root as ToggleRoot,
-  ToggleProps,
-} from "@radix-ui/react-toggle";
-import { ButtonVariants, buttonVariants } from "@/components/ui/Button";
