@@ -1,16 +1,8 @@
-import MillionLint from "@million/lint";
-import MillionCompiler from "@million/lint";
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // swcMinify: true,
-  experimental: {
-    turbo: {
-      useSwcCss: true
-    }
-  },
   reactStrictMode: true,
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+  turbopack: {},
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -28,8 +20,4 @@ const nextConfig = {
   },
 };
 
-// export default MillionLint.next({
-//   enabled: true
-// })(MillionCompiler.next({ rsc: true })(nextConfig));
-
-export default nextConfig
+export default nextConfig;
