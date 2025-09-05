@@ -26,6 +26,14 @@ const nextConfig = {
       },
     ];
   },
+  rewrites: async () => {
+    return [
+      {
+        source: "/transcript",
+        destination: "/api/transcript",
+      },
+    ];
+  },
 };
 
 // export default MillionLint.next({
