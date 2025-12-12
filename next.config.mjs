@@ -4,11 +4,6 @@ import MillionCompiler from "@million/lint";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // swcMinify: true,
-  experimental: {
-    turbo: {
-      useSwcCss: true
-    }
-  },
   reactStrictMode: true,
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   eslint: {
