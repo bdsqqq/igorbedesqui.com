@@ -13,7 +13,6 @@ const UnstyledLink = forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
     }
 
     return (
-      // eslint-disable-next-line react/jsx-no-target-blank
       <a
         ref={ref}
         className={className}
