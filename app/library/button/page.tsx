@@ -5,19 +5,15 @@ import { Stage } from "@/components/Stage";
 import {
   buttonPermutations,
   Button,
-  LinkButton,
   ButtonGroup,
 } from "@/components/ui/Button";
 import { grid, subGrid } from "@/components/ui/Grid";
+import { UnstyledLink } from "@/components/ui/primitives";
 import { cn } from "@/lib/styling";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
   CodeIcon,
-  FontBoldIcon,
-  FontItalicIcon,
-  FontRomanIcon,
-  StrikethroughIcon,
   TextAlignCenterIcon,
   TextAlignLeftIcon,
   TextAlignRightIcon,
@@ -171,7 +167,10 @@ ${ButtonSource}
                 filterProps: ["data-display-name"],
                 displayName(element) {
                   if (!isValidElement(element)) return "";
-                  return (element as { props: { 'data-display-name'?: string } })?.props?.['data-display-name'] ?? "";
+                  return (
+                    (element as { props: { "data-display-name"?: string } })
+                      ?.props?.["data-display-name"] ?? ""
+                  );
                 },
               }).replace(/ /g, " "); // replace spaces with non-breaking spaces, otherwise they'll be collapsed and indentation will break
               // to debug the string, use:
@@ -237,44 +236,14 @@ const usages = [
   {
     title: "As a link",
     code: (
-      <LinkButton data-display-name="LinkButton" href="#as-a-link">
-        Navigate
-      </LinkButton>
-    ),
-  },
-  {
-    title: "As a toggle",
-    description: "With the `toggle` prop, a button becomes a two-state toggle.",
-    code: (
       <Button
         data-display-name="Button"
-        toggle
-        icon={<CodeIcon data-display-name="CodeIcon" />}
-      />
-    ),
-  },
-  {
-    title: "As part of a button group",
-    description:
-      "Using `ButtonGroup`, borders and border radii of `Button`s are updated, to prevent double borders or rounded corners in the inner buttons.",
-    code: (
-      <ButtonGroup data-display-name="ButtonGroup" orientation="horizontal">
-        <Button
-          toggle
-          data-display-name="Button"
-          icon={<FontItalicIcon data-display-name="FontItalicIcon" />}
-        />
-        <Button
-          toggle
-          data-display-name="Button"
-          icon={<FontBoldIcon data-display-name="FontBoldIcon" />}
-        />
-        <Button
-          toggle
-          data-display-name="Button"
-          icon={<StrikethroughIcon data-display-name="StrikethroughIcon" />}
-        />
-      </ButtonGroup>
+        render={
+          <UnstyledLink data-display-name="UnstyledLink" href="#as-a-link" />
+        }
+      >
+        Navigate
+      </Button>
     ),
   },
   {
