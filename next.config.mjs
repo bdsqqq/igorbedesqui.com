@@ -6,9 +6,6 @@ const nextConfig = {
   // swcMinify: true,
   reactStrictMode: true,
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -27,4 +24,4 @@ const nextConfig = {
 //   enabled: true
 // })(MillionCompiler.next({ rsc: true })(nextConfig));
 
-export default nextConfig
+export default nextConfig;
