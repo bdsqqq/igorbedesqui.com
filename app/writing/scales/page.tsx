@@ -99,21 +99,16 @@ const Scales = () => {
     }
   };
 
-  const comboboxState = useComboboxState({
+  const comboboxStore = useComboboxStore({
     defaultValue: "1", // default value 1 allows the user to see all the others options in the combobox while being a good starting point too
-    gutter: 4,
-    sameWidth: false,
-    animated: true,
-    fitViewport: true,
-    focusLoop: true,
-    flip: false,
   });
+  const comboboxValue = useStoreState(comboboxStore, "value");
 
   const [filteredPreDefinedScales, setFilteredPreDefinedScales] =
     useState(preDefinedScales);
 
   useEffect(() => {
-    const valueWithoutComma = comboboxState.value.replace(",", ".");
+    const valueWithoutComma = comboboxValue.replace(",", ".");
     if (numberInputIsValid(valueWithoutComma)) {
       setRatio(parseFloat(valueWithoutComma));
       removeFromInputsSetAsDefault(Object.keys(defaultValues)[0]);
@@ -122,7 +117,7 @@ const Scales = () => {
       addToInputsSetAsDefault("Ratio", Object.keys(defaultValues)[0]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comboboxState.value]);
+  }, [comboboxValue]);
 
   useEffect(() => {
     setFilteredPreDefinedScales(
@@ -131,19 +126,19 @@ const Scales = () => {
           scale.name
             .toLowerCase()
             .replace(".", "")
-            .includes(comboboxState.value.toLowerCase()) ||
+            .includes(comboboxValue.toLowerCase()) ||
           scale.value
             .toLowerCase()
             .replace(".", "")
-            .includes(comboboxState.value.toLowerCase().replace(",", "")) ||
+            .includes(comboboxValue.toLowerCase().replace(",", "")) ||
           scale.name
             .toLowerCase()
-            .includes(comboboxState.value.toLowerCase()) ||
-          scale.value.toLowerCase().includes(comboboxState.value.toLowerCase())
+            .includes(comboboxValue.toLowerCase()) ||
+          scale.value.toLowerCase().includes(comboboxValue.toLowerCase())
         );
       }),
     );
-  }, [comboboxState.value]);
+  }, [comboboxValue]);
 
   // I want this page to:
   // - talk a bit about how scales
@@ -198,13 +193,15 @@ const Scales = () => {
                 name="Ratio"
                 autoComplete="list"
                 autoSelect
-                state={comboboxState}
+                store={comboboxStore}
                 placeholder="1"
               />
               {filteredPreDefinedScales.length > 0 && (
                 <ComboboxPopover
-                  data-placement={comboboxState.currentPlacement}
-                  state={comboboxState}
+                  store={comboboxStore}
+                  gutter={4}
+                  sameWidth={false}
+                  fitViewport
                   className={cn(
                     "bg-gray-02 border-gray-07 z-10 transform rounded-sm border text-gray-12 shadow-sm transition-all duration-fast-02",
                     "data-[placement=bottom-start]:origin-top-left",
@@ -393,8 +390,9 @@ import {
   Combobox,
   ComboboxItem,
   ComboboxPopover,
-  useComboboxState,
-} from "ariakit/combobox";
+  useComboboxStore,
+  useStoreState,
+} from "@ariakit/react";
 
 import Container from "@/components/Container";
 import Band from "@/components/Band";

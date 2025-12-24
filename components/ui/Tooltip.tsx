@@ -1,5 +1,17 @@
 "use client";
 
+import type { VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
+
+import {
+  Tooltip as AriaKitTooltip,
+  TooltipAnchor,
+  TooltipProvider,
+  TooltipArrow,
+  Role,
+} from "@ariakit/react";
+import { cloneElement } from "react";
+
 interface Tooltip {
   children: React.ReactElement;
   content: React.ReactNode;
@@ -9,20 +21,14 @@ interface Tooltip {
 }
 
 const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
-  const tooltipState = useTooltipState({
-    animated: true,
-    placement: options?.side ?? "top",
-    gutter: 0,
-    timeout: 200,
-  });
-
   return (
-    <>
-      <TooltipAnchor state={tooltipState}>
-        {(referenceProps: any) => cloneElement(children, referenceProps)}
-      </TooltipAnchor>
+    <TooltipProvider
+      placement={options?.side ?? "top"}
+      showTimeout={200}
+    >
+      <TooltipAnchor render={(props) => cloneElement(children, props)} />
       <AriaKitTooltip
-        state={tooltipState}
+        gutter={0}
         className={tooltipVariants({
           bg: options?.bg,
           maxW: options?.maxW,
@@ -33,7 +39,7 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
         {content}
         <TooltipArrow className=" stroke-gray-07 drop-shadow-sm filter" />
       </AriaKitTooltip>
-    </>
+    </TooltipProvider>
   );
 };
 
@@ -70,14 +76,4 @@ const tooltipVariants = cva(
   },
 );
 
-import type { VariantProps } from "class-variance-authority";
-import { cva } from "class-variance-authority";
-
-import { cloneElement } from "react";
-import {
-  Tooltip as AriaKitTooltip,
-  TooltipAnchor,
-  useTooltipState,
-  TooltipArrow,
-} from "ariakit/tooltip";
 export default Tooltip;

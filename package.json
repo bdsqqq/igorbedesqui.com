@@ -28,7 +28,6 @@
     "@radix-ui/react-toggle": "^1.0.3",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@vercel/og": "^0.6.2",
-    "ariakit": "2.0.0-next.43",
     "class-variance-authority": "^0.7.0",
     "geist": "^1.4.2",
     "jotai": "^2.12.1",
