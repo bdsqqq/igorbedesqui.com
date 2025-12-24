@@ -18,21 +18,17 @@ function MainNav({
   backAnchor,
 }: MainNavProps) {
   const { breadcrumbs } = useBreadcrumbsStore();
-  const [anchor, setAnchor] = useState("/");
-  useEffect(() => {
-    if (!breadcrumbs) return;
-    let found = false;
-    //loop trought history backwards until you get to 0 or until you get to the first match, matches can be the backAnchor or "/". Then feed this to the nextLink bellow and be happy
-    //this can be expanded making the backanchor into an array and looping through it to find a match, in the current implementation a page can only have one anchor.
-    for (let i = breadcrumbs.length - 1; i >= 0 && found == false; i--) {
-      if (breadcrumbs[i] == backAnchor) {
-        setAnchor(breadcrumbs[i]);
-        found = true;
+  const anchor = useMemo(() => {
+    if (!breadcrumbs) return "/";
+    for (let i = breadcrumbs.length - 1; i >= 0; i--) {
+      if (breadcrumbs[i] === backAnchor) {
+        return breadcrumbs[i];
       }
-      if (breadcrumbs[i] == "/") {
-        found = true;
+      if (breadcrumbs[i] === "/") {
+        return "/";
       }
     }
+    return "/";
   }, [backAnchor, breadcrumbs]);
 
   return (
@@ -71,7 +67,7 @@ export default MainNav;
 
 import { useBreadcrumbsStore } from "app/Providers";
 
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import { ArrowLeftIcon, PinLeftIcon } from "@radix-ui/react-icons";
 import { cva } from "class-variance-authority";
