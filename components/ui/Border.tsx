@@ -5,7 +5,7 @@ import {
   isValidElement,
   type PropsWithChildren,
 } from "react";
-import { Slot } from "@radix-ui/react-slot";
+import { Slot } from "radix-ui";
 
 /**
  * @see https://html.spec.whatwg.org/multipage/syntax.html#void-elements
@@ -112,9 +112,13 @@ export const Border = forwardRef<HTMLElement, BorderProps>(
       );
 
     return (
-      <Slot className={cn(shadowBorderStyles, className)} ref={ref} {...rest}>
+      <Slot.Root
+        className={cn(shadowBorderStyles, className)}
+        ref={ref}
+        {...rest}
+      >
         {children}
-      </Slot>
+      </Slot.Root>
     );
   },
 );

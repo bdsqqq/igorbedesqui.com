@@ -10,15 +10,17 @@ const CodeAndDemoButtons = ({
     // -ml-2 align text to the grid instead of the button container
     <div className="-ml-2 flex gap-2">
       {codeUrl && (
-        <LinkButton icon={<GitHubLogoIcon />} href={codeUrl}>
+        <Button
+          icon={<GitHubLogoIcon />}
+          render={<UnstyledLink href={codeUrl} />}
+        >
           <span>code</span>
-          <span className="sr-only">Github</span>
-        </LinkButton>
+        </Button>
       )}
       {demoUrl && (
-        <LinkButton icon={<ImageIcon />} href={demoUrl}>
+        <Button icon={<ImageIcon />} render={<UnstyledLink href={demoUrl} />}>
           live
-        </LinkButton>
+        </Button>
       )}
     </div>
   );
@@ -26,5 +28,6 @@ const CodeAndDemoButtons = ({
 
 export default CodeAndDemoButtons;
 
-import { LinkButton } from "@/ui/Button";
+import { UnstyledLink } from "@/components/ui/primitives";
+import { Button } from "@/ui/Button";
 import { GitHubLogoIcon, ImageIcon } from "@radix-ui/react-icons";

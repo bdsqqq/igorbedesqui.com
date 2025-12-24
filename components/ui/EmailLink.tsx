@@ -24,7 +24,7 @@ const EmailLink = ({
 }) => {
   return (
     <Popover>
-      <PopoverTrigger className="inline-flex items-center gap-1 underline focus:text-gray-12 hover:text-gray-12">
+      <PopoverTrigger className="inline-flex items-center gap-1 underline hover:text-gray-12 focus:text-gray-12">
         {children} <EnvelopeClosedIcon />
       </PopoverTrigger>
       <PopoverContent
@@ -75,15 +75,14 @@ const EmailPopoverContent = ({ email }: { email: string }) => {
           onClick={() => {
             if (!navigator.clipboard) {
               console.log(
-                "no clipboard! This api requires https on chrome so if you're on localhost I'm sorry"
+                "no clipboard! This api requires https on chrome so if you're on localhost I'm sorry",
               );
               return;
             }
             navigator.clipboard.writeText(email).then(incrementSuccess);
           }}
-        >
-          {success ? <CheckIcon /> : <ClipboardCopyIcon />}
-        </Button>
+          icon={success ? <CheckIcon /> : <ClipboardCopyIcon />}
+        />
       </Tooltip>
       <span className="p-1 ">{email}</span>
       <Tooltip
@@ -94,12 +93,11 @@ const EmailPopoverContent = ({ email }: { email: string }) => {
         }
         options={{ size: "sm" }}
       >
-        <LinkButton
-          className="-my-[1px] -mr-[1px] rounded-r-sm rounded-l-none"
-          href={`mailto:${email}`}
-        >
-          <PaperPlaneIcon />
-        </LinkButton>
+        <Button
+          className="-my-[1px] -mr-[1px] rounded-l-none rounded-r-sm"
+          icon={<PaperPlaneIcon />}
+          render={<UnstyledLink href={`mailto:${email}`} />}
+        />
       </Tooltip>
     </div>
   );
@@ -119,7 +117,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
-import { Button, LinkButton } from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 import Tooltip from "@/components/ui/Tooltip";
 
 import { useEffect, useState } from "react";
+import { UnstyledLink } from "@/components/ui/primitives";

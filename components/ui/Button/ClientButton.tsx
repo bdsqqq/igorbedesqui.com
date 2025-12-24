@@ -1,13 +1,5 @@
 "use client";
 
-type TogglePropsWithoutPrimitiveButtonProps = Omit<
-  ToggleProps,
-  keyof PrimitiveButtonProps
->;
-type TogglePropsWithValuesAsNever = {
-  [K in keyof TogglePropsWithoutPrimitiveButtonProps]: never;
-};
-
 type BaseButtonProps = {
   loading?: boolean;
   icon?:
@@ -38,30 +30,38 @@ const isIconObject = (
     ("left" in icon || "right" in icon)
   );
 };
-/**
- * Content rendered by buttons, handles swapping item with loading when appropriate
- * Used to share content between Button and ButtonLink
- */
-const ButtonContent = ({
+
+export type ButtonProps = React.ComponentPropsWithRef<typeof AriakitButton> &
+  BaseButtonProps &
+  ButtonVariants;
+
+export function Button({
+  className,
+  variant,
+  size,
+  activeStyle,
+  loading: _loading,
   icon,
-  loading,
   children,
-}: Pick<BaseButtonProps, "icon" | "loading"> & {
-  children: React.ReactNode;
-}) => {
+  loadingStrategy = "delay",
+  ...props
+}: ButtonProps) {
+  const loading = useArtificialDelay(_loading, loadingStrategy);
+
   const iconObj = isIconObject(icon)
-    ? icon // position is specified, use that
+    ? icon
     : {
-        left: icon, // if no position is specified, assume left
+        left: icon,
         right: undefined,
       };
+
   const spinner = <Spinner className="animate-spin" />;
 
   const leftIcon =
-    // use left icon for spinner unless right icon is the only one defined.
+    /** use left icon for spinner unless right icon is the only one defined. */
     loading && !(!iconObj.left && iconObj.right) ? spinner : iconObj.left;
   const rightIcon =
-    // use right icon for spinner unless left icon is defined.
+    /** use right icon for spinner unless left icon is defined. */
     loading && !iconObj.left ? spinner : iconObj.right;
 
   /**
@@ -70,120 +70,28 @@ const ButtonContent = ({
   const maybeSpacer = children ? <span /> : null;
 
   return (
-    <>
+    <AriakitButton
+      className={cn(buttonVariants({ variant, size, activeStyle, className }))}
+      {...props}
+    >
       {leftIcon ? leftIcon : maybeSpacer}
       {children}
       {rightIcon ? rightIcon : maybeSpacer}
-    </>
+    </AriakitButton>
   );
-};
-
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  BaseButtonProps &
-  TogglePropsWithValuesAsNever &
-  ButtonVariants & {
-    asChild?: boolean;
-    toggle?: false;
-  };
-
-export type ToggleButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  BaseButtonProps &
-  ToggleProps &
-  ButtonVariants & {
-    asChild?: false;
-    toggle: true;
-  };
-
-export const BUTTON_DISPLAY_NAME = "Button";
-export const Button = React.forwardRef<
-  HTMLButtonElement,
-  ButtonProps | ToggleButtonProps
->(
-  (
-    {
-      className,
-      variant,
-      size,
-      activeStyle,
-      asChild = false,
-      loading: _loading,
-      icon,
-      children,
-      loadingStrategy = "delay",
-      toggle,
-      ...props
-    },
-    ref,
-  ) => {
-    const loading = useArtificialDelay(_loading, loadingStrategy);
-
-    const CompIfNotAsChild = toggle ? ToggleRoot : "button";
-    const Comp = asChild ? Slot : CompIfNotAsChild;
-
-    return (
-      <Comp
-        className={cn(
-          buttonVariants({ variant, size, activeStyle, className }),
-        )}
-        ref={ref}
-        {...props}
-      >
-        <ButtonContent icon={icon} loading={loading}>
-          {children}
-        </ButtonContent>
-      </Comp>
-    );
-  },
-);
-Button.displayName = BUTTON_DISPLAY_NAME;
-
-export type LinkButtonProps = UnstyledLinkProps &
-  BaseButtonProps &
-  ButtonVariants;
-export const LINK_BUTTON_DISPLAY_NAME = "LinkButton";
-export const LinkButton = React.forwardRef<
-  HTMLAnchorElement,
-  LinkButtonProps & { children: React.ReactNode }
->(
-  (
-    {
-      className,
-      variant,
-      size,
-      activeStyle,
-      loading: _loading,
-      loadingStrategy = "delay",
-      icon,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const loading = useArtificialDelay(_loading, loadingStrategy);
-
-    return (
-      <UnstyledLink
-        className={cn(
-          buttonVariants({ variant, size, activeStyle, className }),
-        )}
-        ref={ref}
-        {...props}
-      >
-        <ButtonContent icon={icon} loading={loading}>
-          {children}
-        </ButtonContent>
-      </UnstyledLink>
-    );
-  },
-);
-LinkButton.displayName = LINK_BUTTON_DISPLAY_NAME;
+}
 
 export const BUTTON_GROUP_DISPLAY_NAME = "ButtonGroup";
 /**
  * Group of buttons
  * Takes buttons, removes the borders that would get doubled, makes only the outer ones rounded.
  */
-export const ButtonGroup = ({ children, className, orientation = "horizontal", ref }: ComponentPropsWithRef<"div"> & {
+export const ButtonGroup = ({
+  children,
+  className,
+  orientation = "horizontal",
+  ref,
+}: ComponentPropsWithRef<"div"> & {
   orientation?: "horizontal" | "vertical";
 }) => {
   const stableId = React.useId();
@@ -201,25 +109,29 @@ export const ButtonGroup = ({ children, className, orientation = "horizontal", r
         const isFirst = index === 0;
         const isLast = index === React.Children.count(children) - 1;
 
-        const childWithProps = React.cloneElement(child as React.ReactElement<{className?: string}>, {
-          className: cn(
-            (child as React.ReactElement<{className?: string}>).props.className,
-            !isFirst &&
-              orientation === "horizontal" &&
-              "rounded-l-none border-l-0",
-            !isFirst &&
-              orientation === "vertical" &&
-              "rounded-t-none border-t-0",
+        const childWithProps = React.cloneElement(
+          child as React.ReactElement<{ className?: string }>,
+          {
+            className: cn(
+              (child as React.ReactElement<{ className?: string }>).props
+                .className,
+              !isFirst &&
+                orientation === "horizontal" &&
+                "rounded-l-none border-l-0",
+              !isFirst &&
+                orientation === "vertical" &&
+                "rounded-t-none border-t-0",
 
-            !isLast &&
-              orientation === "horizontal" &&
-              "rounded-r-none border-r-0",
-            !isLast &&
-              orientation === "vertical" &&
-              "rounded-b-none border-b-0",
-          ),
-          key: `${stableId}-${index}`,
-        });
+              !isLast &&
+                orientation === "horizontal" &&
+                "rounded-r-none border-r-0",
+              !isLast &&
+                orientation === "vertical" &&
+                "rounded-b-none border-b-0",
+            ),
+            key: `${stableId}-${index}`,
+          },
+        );
 
         return (
           <>
@@ -299,14 +211,8 @@ const useArtificialDelay = (
 export const Spinner = ({ ...props }: React.ComponentProps<"svg">) => (<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}><path fill="currentColor" d="M12.6561 7.46354C12.6365 4.6326 10.3356 2.34375 7.5 2.34375V1.40625C7.81512 1.40625 8.12851 1.43068 8.4375 1.47879C9.23048 1.60226 9.99444 1.88168 10.684 2.30422C11.6422 2.89142 12.4194 3.73216 12.9296 4.7335C13.4398 5.73483 13.6631 6.85775 13.575 7.97811C13.5115 8.78432 13.2885 9.56661 12.9223 10.2807C12.78 10.5582 12.6161 10.8253 12.4316 11.0796L12.4299 11.0818L11.6718 10.531C12.2855 9.68777 12.6497 8.65135 12.6562 7.53016C12.6563 7.50794 12.6563 7.48574 12.6561 7.46354Z"/></svg>);
 // prettier
 
-import { UnstyledLink } from "../primitives";
 import { cn } from "@/lib/styling";
-import React, { ComponentPropsWithoutRef, ComponentPropsWithRef, ElementRef, forwardRef } from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { UnstyledLinkProps } from "@/components/ui/primitives/UnstyledLink";
-import {
-  PrimitiveButtonProps,
-  Root as ToggleRoot,
-  ToggleProps,
-} from "@radix-ui/react-toggle";
+import React, { ComponentPropsWithRef } from "react";
 import { ButtonVariants, buttonVariants } from "@/components/ui/Button";
+
+import { Button as AriakitButton } from "@ariakit/react";
