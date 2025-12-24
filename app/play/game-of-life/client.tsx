@@ -13,7 +13,7 @@ import {
   TimerIcon,
 } from "@radix-ui/react-icons";
 import { ToolboxItem } from "@/components/toolbox";
-import { Toggle } from "@radix-ui/react-toggle";
+import { Toggle } from "radix-ui";
 import Tooltip from "@/components/ui/Tooltip";
 
 const GameOfLifeStoreContext = React.createContext<StoreApi<GameOfLifeStore>>(
@@ -365,7 +365,7 @@ const Cell = ({ index }: { index: number }) => {
   const cell = useCells(index);
 
   return (
-    <Toggle
+    <Toggle.Root
       pressed={cell === 1}
       style={{
         willChange: "background-color",
