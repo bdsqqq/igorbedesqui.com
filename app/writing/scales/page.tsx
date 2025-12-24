@@ -394,7 +394,7 @@ import {
   ComboboxItem,
   ComboboxPopover,
   useComboboxState,
-} from "ariakit/combobox";
+} from "@ariakit/react";
 
 import Container from "@/components/Container";
 import Band from "@/components/Band";

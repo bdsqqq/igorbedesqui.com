@@ -79,5 +79,5 @@ import {
   TooltipAnchor,
   useTooltipState,
   TooltipArrow,
-} from "ariakit/tooltip";
+} from "@ariakit/react";
 export default Tooltip;
