@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-export const mockConfig = {
+const mockConfig = {
   variants: {
     size: {
       sm: "sm",

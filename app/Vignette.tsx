@@ -18,9 +18,6 @@ const orientation = {
   right: "horizontal",
 };
 
-// TODO: This is also defined in tailwind config, when you make it a .ts choose the source of truth
-export const vignetteZIndex = 10;
-
 export const Vignette = () => {
   return (
     <div className="pointer-events-none fixed inset-0 z-vignette h-full w-full overflow-hidden">
