@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "packageManager": "pnpm@10.0.0",
   "engines": {
-    "node": "24.x"
+    "node": ">=20.x"
   },
   "scripts": {
     "dev": "next dev --turbopack",
