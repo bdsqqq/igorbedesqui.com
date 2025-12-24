@@ -2,7 +2,7 @@ import { CVAWithPerms } from "@/lib/CVAPermutations";
 import { cn } from "@/lib/styling";
 import { VariantProps } from "class-variance-authority";
 
-export const [buttonVariants, permutations] = CVAWithPerms(
+export const [buttonVariants, buttonPermutations] = CVAWithPerms(
   cn(
     "select-none appearance-none",
     "relative whitespace-nowrap rounded-sm inline-flex items-center gap-1 align-middle outline-none focus-within:outline-none",
@@ -42,8 +42,6 @@ export const [buttonVariants, permutations] = CVAWithPerms(
     },
   },
 );
-
-export const buttonPermutations = permutations;
 
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
