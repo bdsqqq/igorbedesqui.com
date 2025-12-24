@@ -84,10 +84,10 @@ const getNeighbourIndices = (i: number, gridSize: number) => {
   return neighbours;
 };
 
-const GameOfLiveStoreProvider: React.FC<GameOfLifeStoreProviderProps> = ({
+function GameOfLiveStoreProvider({
   children,
   initialCells,
-}) => {
+}: GameOfLifeStoreProviderProps) {
   const [store] = React.useState(() =>
     create<GameOfLifeStore>((set, get) => ({
       cells: initialCells,
@@ -309,9 +309,9 @@ const pointerdownStoreContext = React.createContext<StoreApi<PointerDownStore>>(
   null!,
 );
 
-const PointerDownStoreProvider: React.FC<React.PropsWithChildren> = ({
+function PointerDownStoreProvider({
   children,
-}) => {
+}: React.PropsWithChildren) {
   const [store] = React.useState(() =>
     create<PointerDownStore>((set) => ({
       pointerDown: false,

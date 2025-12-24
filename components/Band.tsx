@@ -40,13 +40,13 @@ const sectionStyles = cva("w-full", {
   },
 });
 
-const Band: React.FC<React.PropsWithChildren<BandProps>> = ({
+function Band({
   gridless,
   options,
   id,
   headline,
   children,
-}) => {
+}: React.PropsWithChildren<BandProps>) {
   let bandId: string = "";
   id && (bandId = id);
   headline && (bandId = headline.thin);

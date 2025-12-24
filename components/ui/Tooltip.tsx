@@ -20,7 +20,7 @@ interface Tooltip {
   };
 }
 
-const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
+function Tooltip({ children, content, options }: Tooltip) {
   return (
     <TooltipProvider
       placement={options?.side ?? "top"}

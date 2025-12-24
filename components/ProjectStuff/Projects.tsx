@@ -1,7 +1,7 @@
 type ProjectsProps = {
   projectsMeta: Meta[];
 };
-const Projects: React.FC<ProjectsProps> = ({ projectsMeta }) => {
+function Projects({ projectsMeta }: ProjectsProps) {
   return (
     <ul className="pointer-events-none flex w-full flex-col flex-wrap items-start justify-start hover:text-gray-10 md:grid md:grid-cols-2 md:gap-x-6 [&_>_a]:hover:opacity-40">
       {projectsMeta.map((project, i) => {

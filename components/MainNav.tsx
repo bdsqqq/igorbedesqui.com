@@ -12,11 +12,11 @@ type MainNavProps =
     backAnchor?: string;
   };
 
-const MainNav: React.FC<MainNavProps> = ({
+function MainNav({
   backable,
   backMessage,
   backAnchor,
-}) => {
+}: MainNavProps) {
   const { breadcrumbs } = useBreadcrumbsStore();
   const [anchor, setAnchor] = useState("/");
   useEffect(() => {

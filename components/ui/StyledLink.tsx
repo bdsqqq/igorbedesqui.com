@@ -6,7 +6,7 @@ interface StyledLinkProps extends LinkProps {
   bold?: boolean;
 }
 
-const StyledLinkWithIcon: FC<StyledLinkProps & HtmlHTMLAttributes<{}>> = ({
+function StyledLinkWithIcon({
   className,
   href,
   children,
@@ -14,7 +14,7 @@ const StyledLinkWithIcon: FC<StyledLinkProps & HtmlHTMLAttributes<{}>> = ({
   iconless,
   bold,
   ...rest
-}) => {
+}: StyledLinkProps & HtmlHTMLAttributes<{}>) {
   const ICONS_ENUM = {
     external: <ArrowTopRightIcon />,
   };

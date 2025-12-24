@@ -351,11 +351,15 @@ const inputVariants = cva(
     },
   },
 );
-const Formula: React.FC<{
+function Formula({
+  ratio,
+  f0,
+  scaleLength,
+}: {
   ratio: ReactNode;
   f0: ReactNode;
   scaleLength: ReactNode;
-}> = ({ ratio, f0, scaleLength }) => {
+}) {
   return (
     <div className="grid w-min grid-rows-3">
       <span className="row-start-2 row-end-4 text-3xl leading-none">𝑓</span>
