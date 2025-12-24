@@ -1,3 +1,5 @@
+"use client";
+
 // TODO: move this to HeroBand, it's the only place that will use it
 const CodeAndDemoButtons = ({
   codeUrl,

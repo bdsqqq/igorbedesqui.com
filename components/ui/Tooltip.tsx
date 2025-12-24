@@ -8,7 +8,9 @@ import {
   TooltipAnchor,
   TooltipProvider,
   TooltipArrow,
+  Role,
 } from "@ariakit/react";
+import { cloneElement } from "react";
 
 interface Tooltip {
   children: React.ReactElement;
@@ -24,7 +26,7 @@ const Tooltip: React.FC<Tooltip> = ({ children, content, options }) => {
       placement={options?.side ?? "top"}
       showTimeout={200}
     >
-      <TooltipAnchor render={children} />
+      <TooltipAnchor render={(props) => cloneElement(children, props)} />
       <AriaKitTooltip
         gutter={0}
         className={tooltipVariants({
