@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import * as PopoverPrimitive from "@radix-ui/react-popover";
+import { Popover as PopoverPrimitive } from "radix-ui";
 
 import { cn } from "@/lib/styling";
 import { VariantProps, cva } from "class-variance-authority";
