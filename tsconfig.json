@@ -1,17 +1,37 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/ui/*": ["components/ui/*"],
-      "@/animations": ["styles/animations"],
-      "@/contexts/*": ["contexts/*"],
-      "@/hooks/*": ["hooks/*"],
-      "@/lib/*": ["lib/*"],
-      "@/locales/*": ["locales/*"],
-      "@/public/*": ["public/*"]
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/ui/*": [
+        "components/ui/*"
+      ],
+      "@/animations": [
+        "styles/animations"
+      ],
+      "@/contexts/*": [
+        "contexts/*"
+      ],
+      "@/hooks/*": [
+        "hooks/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ],
+      "@/locales/*": [
+        "locales/*"
+      ],
+      "@/public/*": [
+        "public/*"
+      ]
     },
     "allowJs": false,
     "incremental": false,
@@ -24,7 +44,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "plugins": [
       {
         "name": "next"
@@ -36,7 +56,10 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
