@@ -37,12 +37,13 @@ function OgImage({ src }: { src: string }) {
 }
 
 export default function Page() {
-  const [text, setText] = useState("hello, *world*");
+  const [text, setText] = useState("hello, *world*\nthis is a new line");
   const deferredText = useDeferredValue(text);
   const isStale = text !== deferredText;
 
-  const ogUrl = `/api/og?text=${encodeURIComponent(deferredText)}`;
-  const displayUrl = `/api/og?text=${encodeURIComponent(text)}`;
+  const toApiFormat = (str: string) => str.replace(/\n/g, "/n");
+  const ogUrl = `/api/og?text=${encodeURIComponent(toApiFormat(deferredText))}`;
+  const displayUrl = `/api/og?text=${encodeURIComponent(toApiFormat(text))}`;
   const fullUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}${displayUrl}`
@@ -55,15 +56,15 @@ export default function Page() {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-2">
               <label htmlFor="og-text" className="text-sm text-gray-11">
-                text parameter (use /n for newlines, *text* for bold)
+                text parameter (*text* for bold)
               </label>
-              <input
+              <textarea
                 id="og-text"
-                type="text"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="hello, *world*/nthis is a new line"
-                className="w-full rounded border border-gray-A04 bg-gray-A02 px-3 py-2 text-gray-12 placeholder:text-gray-08 focus:border-gray-A08 focus:outline-none"
+                placeholder="hello, *world*"
+                rows={3}
+                className="w-full resize-none rounded border border-gray-A04 bg-gray-A02 px-3 py-2 text-gray-12 placeholder:text-gray-08 focus:border-gray-A08 focus:outline-none"
               />
             </div>
 
