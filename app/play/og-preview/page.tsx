@@ -2,14 +2,25 @@
 
 import Container from "@/components/Container";
 import Band from "@/components/Band";
-import { useState, useMemo } from "react";
+import { useState, useTransition, useEffect } from "react";
 
 export default function Page() {
   const [text, setText] = useState("hello, *world*");
+  const [deferredText, setDeferredText] = useState(text);
+  const [isPending, startTransition] = useTransition();
 
-  const encodedText = useMemo(() => encodeURIComponent(text), [text]);
+  useEffect(() => {
+    startTransition(() => {
+      setDeferredText(text);
+    });
+  }, [text]);
+
+  const encodedText = encodeURIComponent(deferredText);
   const ogUrl = `/api/og?text=${encodedText}`;
-  const fullUrl = `https://www.igorbedesqui.com${ogUrl}`;
+  const fullUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}${ogUrl}`
+      : ogUrl;
 
   return (
     <Container>
@@ -39,7 +50,12 @@ export default function Page() {
 
             <div className="flex flex-col gap-2">
               <span className="text-sm text-gray-11">preview (1200×630)</span>
-              <div className="overflow-hidden rounded border border-gray-A04">
+              <div className="relative overflow-hidden rounded border border-gray-A04">
+                {isPending && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gray-01/80">
+                    <span className="text-sm text-gray-11">loading...</span>
+                  </div>
+                )}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={ogUrl}
