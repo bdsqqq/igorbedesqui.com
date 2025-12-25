@@ -2,42 +2,18 @@
 
 import Container from "@/components/Container";
 import Band from "@/components/Band";
-import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState, useDeferredValue } from "react";
 
 export default function Page() {
   const [text, setText] = useState("hello, *world*");
-  const [displayedUrl, setDisplayedUrl] = useState(
-    `/api/og?text=${encodeURIComponent(text)}`
-  );
-  const pendingUrlRef = useRef<string | null>(null);
+  const deferredText = useDeferredValue(text);
+  const isStale = text !== deferredText;
 
-  const targetUrl = `/api/og?text=${encodeURIComponent(text)}`;
-  const isLoading = targetUrl !== displayedUrl;
-
-  useEffect(() => {
-    if (targetUrl === displayedUrl) return;
-
-    pendingUrlRef.current = targetUrl;
-
-    const img = new window.Image();
-    img.src = targetUrl;
-    img.onload = () => {
-      if (pendingUrlRef.current === targetUrl) {
-        setDisplayedUrl(targetUrl);
-      }
-    };
-    img.onerror = () => {
-      if (pendingUrlRef.current === targetUrl) {
-        setDisplayedUrl(targetUrl);
-      }
-    };
-  }, [targetUrl, displayedUrl]);
-
+  const ogUrl = `/api/og?text=${encodeURIComponent(deferredText)}`;
   const fullUrl =
     typeof window !== "undefined"
-      ? `${window.location.origin}${targetUrl}`
-      : targetUrl;
+      ? `${window.location.origin}${ogUrl}`
+      : ogUrl;
 
   return (
     <Container>
@@ -68,37 +44,18 @@ export default function Page() {
             <div className="flex flex-col gap-2">
               <span className="text-sm text-gray-11">preview (1200×630)</span>
               <div className="overflow-hidden rounded border border-gray-A04">
-                <Image
-                  src={displayedUrl}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={ogUrl}
                   alt="OG image preview"
-                  width={1200}
-                  height={630}
-                  className="w-full"
-                  style={
-                    isLoading
-                      ? {
-                          animation: "pulse 1s linear infinite",
-                        }
-                      : undefined
-                  }
-                  unoptimized
+                  className="aspect-[1200/630] w-full object-cover transition-opacity duration-150"
+                  style={{ opacity: isStale ? 0.9 : 1 }}
                 />
               </div>
             </div>
           </div>
         </Band>
       </div>
-      <style jsx global>{`
-        @keyframes pulse {
-          0%,
-          100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.9;
-          }
-        }
-      `}</style>
     </Container>
   );
 }
