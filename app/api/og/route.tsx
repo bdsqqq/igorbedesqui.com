@@ -1,27 +1,21 @@
 import { ImageResponse } from "@vercel/og";
-import { NextRequest } from "next/server";
 
-export const config = {
-  runtime: "edge",
-};
+export const runtime = "edge";
 
-// Make sure the font exists in the specified path:
 const font = fetch(
-  new URL("../../public/fonts/IBMPlexSerif-Regular.ttf", import.meta.url)
+  new URL("../../../public/fonts/IBMPlexSerif-Regular.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
 const fontBold = fetch(
-  new URL("../../public/fonts/IBMPlexSerif-SemiBold.ttf", import.meta.url)
+  new URL("../../../public/fonts/IBMPlexSerif-SemiBold.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
 
-export default async function handler(req: NextRequest) {
+export async function GET(request: Request) {
   const fontData = await font;
   const fontDataBold = await fontBold;
-  //TODO: font-weight isn't working. Why?
 
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(request.url);
 
-    // ?title=<title>
     const hasText = searchParams.has("text");
     const text = hasText
       ? searchParams.get("text")?.slice(0, 125).split("/n")
@@ -89,7 +83,6 @@ export default async function handler(req: NextRequest) {
                           text.startsWith(";")
                             ? "-1rem"
                             : "0",
-                        // doesn't scale, should probably include a pattern to match all poctuation
                       }}
                     >
                       {text}
