@@ -1,21 +1,20 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/Popover";
-import React, {
-  Children,
-  cloneElement,
-  forwardRef,
-  isValidElement,
-} from "react";
+import React, { Children, cloneElement, isValidElement } from "react";
 
 /**
  * @see: https://github.com/radix-ui/primitives/pull/2234#issuecomment-1613000587
  */
-export const Lock = forwardRef<
-  HTMLButtonElement,
-  React.PropsWithChildren<{
-    locked: boolean;
-    lockedFeedback: React.ReactNode;
-  }>
->(({ children, locked, lockedFeedback, ...rest }, ref) => {
+export function Lock({
+  children,
+  locked,
+  lockedFeedback,
+  ref,
+  ...rest
+}: React.PropsWithChildren<{
+  locked: boolean;
+  lockedFeedback: React.ReactNode;
+  ref?: React.Ref<HTMLButtonElement>;
+}>) {
   const child = Children.only(children);
   if (!locked) return <>{child}</>;
 
@@ -34,5 +33,4 @@ export const Lock = forwardRef<
       <PopoverContent align="end">{lockedFeedback}</PopoverContent>
     </Popover>
   );
-});
-Lock.displayName = "Lock";
+}
