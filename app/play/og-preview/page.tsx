@@ -2,25 +2,42 @@
 
 import Container from "@/components/Container";
 import Band from "@/components/Band";
-import { useState, useTransition, useEffect } from "react";
+import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
 
 export default function Page() {
   const [text, setText] = useState("hello, *world*");
-  const [deferredText, setDeferredText] = useState(text);
-  const [isPending, startTransition] = useTransition();
+  const [displayedUrl, setDisplayedUrl] = useState(
+    `/api/og?text=${encodeURIComponent(text)}`
+  );
+  const pendingUrlRef = useRef<string | null>(null);
+
+  const targetUrl = `/api/og?text=${encodeURIComponent(text)}`;
+  const isLoading = targetUrl !== displayedUrl;
 
   useEffect(() => {
-    startTransition(() => {
-      setDeferredText(text);
-    });
-  }, [text]);
+    if (targetUrl === displayedUrl) return;
 
-  const encodedText = encodeURIComponent(deferredText);
-  const ogUrl = `/api/og?text=${encodedText}`;
+    pendingUrlRef.current = targetUrl;
+
+    const img = new window.Image();
+    img.src = targetUrl;
+    img.onload = () => {
+      if (pendingUrlRef.current === targetUrl) {
+        setDisplayedUrl(targetUrl);
+      }
+    };
+    img.onerror = () => {
+      if (pendingUrlRef.current === targetUrl) {
+        setDisplayedUrl(targetUrl);
+      }
+    };
+  }, [targetUrl, displayedUrl]);
+
   const fullUrl =
     typeof window !== "undefined"
-      ? `${window.location.origin}${ogUrl}`
-      : ogUrl;
+      ? `${window.location.origin}${targetUrl}`
+      : targetUrl;
 
   return (
     <Container>
@@ -50,23 +67,38 @@ export default function Page() {
 
             <div className="flex flex-col gap-2">
               <span className="text-sm text-gray-11">preview (1200×630)</span>
-              <div className="relative overflow-hidden rounded border border-gray-A04">
-                {isPending && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gray-01/80">
-                    <span className="text-sm text-gray-11">loading...</span>
-                  </div>
-                )}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={ogUrl}
+              <div className="overflow-hidden rounded border border-gray-A04">
+                <Image
+                  src={displayedUrl}
                   alt="OG image preview"
-                  className="aspect-[1200/630] w-full object-cover"
+                  width={1200}
+                  height={630}
+                  className="w-full"
+                  style={
+                    isLoading
+                      ? {
+                          animation: "pulse 1s linear infinite",
+                        }
+                      : undefined
+                  }
+                  unoptimized
                 />
               </div>
             </div>
           </div>
         </Band>
       </div>
+      <style jsx global>{`
+        @keyframes pulse {
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.9;
+          }
+        }
+      `}</style>
     </Container>
   );
 }
