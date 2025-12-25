@@ -143,7 +143,7 @@ function GameOfLiveStoreProvider({
       {children}
     </GameOfLifeStoreContext.Provider>
   );
-};
+}
 
 const useGridSize = () => {
   const store = React.useContext(GameOfLifeStoreContext);
@@ -229,8 +229,7 @@ const PlayPauseButton = () => {
     <Tooltip content={playing ? "Pause" : "Play"}>
       <Button
         className="w-fit"
-        toggle
-        pressed={playing}
+        aria-pressed={playing}
         onClick={togglePlay}
         icon={<TimerIcon />}
       />
@@ -309,9 +308,7 @@ const pointerdownStoreContext = React.createContext<StoreApi<PointerDownStore>>(
   null!,
 );
 
-function PointerDownStoreProvider({
-  children,
-}: React.PropsWithChildren) {
+function PointerDownStoreProvider({ children }: React.PropsWithChildren) {
   const [store] = React.useState(() =>
     create<PointerDownStore>((set) => ({
       pointerDown: false,
@@ -353,7 +350,7 @@ function PointerDownStoreProvider({
       {children}
     </pointerdownStoreContext.Provider>
   );
-};
+}
 
 const Cell = ({ index }: { index: number }) => {
   // getting the store instead of subscribing to it because I don't
@@ -366,7 +363,7 @@ const Cell = ({ index }: { index: number }) => {
 
   return (
     <Toggle.Root
-      pressed={cell === 1}
+      aria-pressed={cell === 1}
       style={{
         willChange: "background-color",
       }}

@@ -12,12 +12,11 @@ export const Overlay = () => {
     <>
       <ToolboxItem name="grid-overlay">
         <Button
-          pressed={visible}
-          toggle
+          aria-pressed={visible}
           aria-label="toggle grid overlay"
           // onClick={setVisibleCallback}
-          onPressedChange={(pressed) => {
-            setVisible(pressed);
+          onClick={() => {
+            setVisible((v) => !v);
           }}
           icon={<GridIcon />}
         />
