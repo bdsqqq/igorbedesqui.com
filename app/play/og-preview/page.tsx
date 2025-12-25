@@ -42,10 +42,11 @@ export default function Page() {
   const isStale = text !== deferredText;
 
   const ogUrl = `/api/og?text=${encodeURIComponent(deferredText)}`;
+  const displayUrl = `/api/og?text=${encodeURIComponent(text)}`;
   const fullUrl =
     typeof window !== "undefined"
-      ? `${window.location.origin}${ogUrl}`
-      : ogUrl;
+      ? `${window.location.origin}${displayUrl}`
+      : displayUrl;
 
   return (
     <Container>
