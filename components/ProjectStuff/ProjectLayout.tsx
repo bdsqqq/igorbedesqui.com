@@ -162,6 +162,6 @@ import { Separator } from "@/ui/Separator";
 import StyledLink from "@/ui/StyledLink";
 
 import { Meta } from "@/components/ProjectStuff/Projects";
-import React, { FC, PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import { grid, subGrid } from "../ui/Grid";
 import { cn } from "@/lib/styling";

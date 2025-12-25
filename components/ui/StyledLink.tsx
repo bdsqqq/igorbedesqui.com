@@ -63,4 +63,4 @@ import { UnstyledLink } from "@/ui/primitives";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/styling";
-import type { FC, HtmlHTMLAttributes, ReactNode } from "react";
+import type { HtmlHTMLAttributes, ReactNode } from "react";
