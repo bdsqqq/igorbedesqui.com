@@ -13,23 +13,8 @@
       "@/ui/*": [
         "./components/ui/*"
       ],
-      "@/animations": [
-        "./styles/animations"
-      ],
-      "@/contexts/*": [
-        "./contexts/*"
-      ],
-      "@/hooks/*": [
-        "./hooks/*"
-      ],
       "@/lib/*": [
         "./lib/*"
-      ],
-      "@/locales/*": [
-        "./locales/*"
-      ],
-      "@/public/*": [
-        "./public/*"
       ],
       "*": ["./*"]
     },
@@ -60,6 +45,7 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist", "out", "build", ".next"
   ]
 }
