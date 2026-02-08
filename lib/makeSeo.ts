@@ -21,7 +21,6 @@ export const makeSeo = ({
     twitter: {
       site: "@bdsqqq",
       creator: "@bdsqqq",
-      // @ts-ignore
       card: "summary_large_image",
       title: title,
       description: description,

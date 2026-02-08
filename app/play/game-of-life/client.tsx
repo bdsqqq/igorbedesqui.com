@@ -13,7 +13,7 @@ import {
   TimerIcon,
 } from "@radix-ui/react-icons";
 import { ToolboxItem } from "@/components/toolbox";
-import { Toggle } from "@radix-ui/react-toggle";
+import { Toggle } from "radix-ui";
 import Tooltip from "@/components/ui/Tooltip";
 
 const GameOfLifeStoreContext = React.createContext<StoreApi<GameOfLifeStore>>(
@@ -84,10 +84,10 @@ const getNeighbourIndices = (i: number, gridSize: number) => {
   return neighbours;
 };
 
-const GameOfLiveStoreProvider: React.FC<GameOfLifeStoreProviderProps> = ({
+function GameOfLiveStoreProvider({
   children,
   initialCells,
-}) => {
+}: GameOfLifeStoreProviderProps) {
   const [store] = React.useState(() =>
     create<GameOfLifeStore>((set, get) => ({
       cells: initialCells,
@@ -143,7 +143,7 @@ const GameOfLiveStoreProvider: React.FC<GameOfLifeStoreProviderProps> = ({
       {children}
     </GameOfLifeStoreContext.Provider>
   );
-};
+}
 
 const useGridSize = () => {
   const store = React.useContext(GameOfLifeStoreContext);
@@ -229,8 +229,7 @@ const PlayPauseButton = () => {
     <Tooltip content={playing ? "Pause" : "Play"}>
       <Button
         className="w-fit"
-        toggle
-        pressed={playing}
+        aria-pressed={playing}
         onClick={togglePlay}
         icon={<TimerIcon />}
       />
@@ -309,9 +308,7 @@ const pointerdownStoreContext = React.createContext<StoreApi<PointerDownStore>>(
   null!,
 );
 
-const PointerDownStoreProvider: React.FC<React.PropsWithChildren> = ({
-  children,
-}) => {
+function PointerDownStoreProvider({ children }: React.PropsWithChildren) {
   const [store] = React.useState(() =>
     create<PointerDownStore>((set) => ({
       pointerDown: false,
@@ -353,7 +350,7 @@ const PointerDownStoreProvider: React.FC<React.PropsWithChildren> = ({
       {children}
     </pointerdownStoreContext.Provider>
   );
-};
+}
 
 const Cell = ({ index }: { index: number }) => {
   // getting the store instead of subscribing to it because I don't
@@ -365,8 +362,8 @@ const Cell = ({ index }: { index: number }) => {
   const cell = useCells(index);
 
   return (
-    <Toggle
-      pressed={cell === 1}
+    <Toggle.Root
+      aria-pressed={cell === 1}
       style={{
         willChange: "background-color",
       }}

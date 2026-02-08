@@ -125,7 +125,7 @@ const defaultComponents = {
       {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
       <img className="rounded-inherit" {...props} />
     </Border>
-  ), // @ts-ignore
+  ), // @ts-expect-error
   a: (props) => <StyledLinkWithIcon {...props} />,
   code: Code,
   Table,

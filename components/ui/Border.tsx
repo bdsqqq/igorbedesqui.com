@@ -1,10 +1,5 @@
 import { cn } from "@/lib/styling";
-import {
-  Children,
-  forwardRef,
-  isValidElement,
-  type PropsWithChildren,
-} from "react";
+import { Children, isValidElement, type PropsWithChildren, type Ref } from "react";
 import { Slot } from "radix-ui";
 
 /**
@@ -34,6 +29,7 @@ export const shadowBorderStyles =
 export type BorderProps = PropsWithChildren<{
   className?: string;
   asWrapper?: boolean;
+  ref?: Ref<HTMLElement>;
 }>;
 
 /**
@@ -48,8 +44,7 @@ export type BorderProps = PropsWithChildren<{
  * but it's not perfect, so it's recommended to explicitly set `asWrapper` to true
  * when needed.
  */
-export const Border = forwardRef<HTMLElement, BorderProps>(
-  ({ children, asWrapper, className, ...rest }, ref) => {
+export function Border({ children, asWrapper, className, ref, ...rest }: BorderProps) {
     if (children === undefined || children === null) {
       console.error("Border must have a child");
       throw new Error("Border must have a child");
@@ -120,6 +115,4 @@ export const Border = forwardRef<HTMLElement, BorderProps>(
         {children}
       </Slot.Root>
     );
-  },
-);
-Border.displayName = "Border";
+}

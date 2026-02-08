@@ -18,7 +18,7 @@ import {
   TextAlignLeftIcon,
   TextAlignRightIcon,
 } from "@radix-ui/react-icons";
-import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
+import { ToggleGroup } from "radix-ui";
 import { promises as fs } from "fs";
 import { Fragment, isValidElement } from "react";
 import jsxToString from "react-element-to-jsx-string";
@@ -251,14 +251,14 @@ const usages = [
     description:
       "By composing primitives, you can extend behaviour. For example, a group of toggle buttons where only one can be active simultaneously.",
     code: (
-      <ToggleGroup
+      <ToggleGroup.Root
         data-display-name="ToggleGroup"
         type="single"
         defaultValue="left"
         asChild
       >
         <ButtonGroup data-display-name="ButtonGroup" orientation="horizontal">
-          <ToggleGroupItem
+          <ToggleGroup.Item
             data-display-name="ToggleGroupItem"
             value="left"
             asChild
@@ -267,8 +267,8 @@ const usages = [
               data-display-name="Button"
               icon={<TextAlignLeftIcon data-display-name="TextAlignLeftIcon" />}
             />
-          </ToggleGroupItem>
-          <ToggleGroupItem
+          </ToggleGroup.Item>
+          <ToggleGroup.Item
             data-display-name="ToggleGroupItem"
             value="center"
             asChild
@@ -279,8 +279,8 @@ const usages = [
                 <TextAlignCenterIcon data-display-name="TextAlignCenterIcon" />
               }
             />
-          </ToggleGroupItem>
-          <ToggleGroupItem
+          </ToggleGroup.Item>
+          <ToggleGroup.Item
             data-display-name="ToggleGroupItem"
             value="right"
             asChild
@@ -291,9 +291,9 @@ const usages = [
                 <TextAlignRightIcon data-display-name="TextAlignRightIcon" />
               }
             />
-          </ToggleGroupItem>
+          </ToggleGroup.Item>
         </ButtonGroup>
-      </ToggleGroup>
+      </ToggleGroup.Root>
     ),
   },
 ];

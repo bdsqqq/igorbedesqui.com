@@ -2,12 +2,14 @@
 
 import Band, { BandProps } from "../Band";
 
-export const ProjectLayout: React.FC<
-  React.PropsWithChildren<{
-    projMeta: Meta;
-    nextProjMeta?: Meta;
-  }>
-> = ({ children, projMeta, nextProjMeta }) => {
+export function ProjectLayout({
+  children,
+  projMeta,
+  nextProjMeta,
+}: React.PropsWithChildren<{
+  projMeta: Meta;
+  nextProjMeta?: Meta;
+}>) {
   const [isFaded, setIsFaded] = React.useState(false);
   const asideRef = React.useRef<HTMLDivElement>(null);
 
@@ -137,10 +139,10 @@ export const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
   );
 };
 
-export const ProjectBand: FC<PropsWithChildren<BandProps>> = ({
+export function ProjectBand({
   options,
   ...props
-}) => {
+}: PropsWithChildren<BandProps>) {
   return (
     <Band
       options={{
@@ -160,6 +162,6 @@ import { Separator } from "@/ui/Separator";
 import StyledLink from "@/ui/StyledLink";
 
 import { Meta } from "@/components/ProjectStuff/Projects";
-import React, { FC, PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import { grid, subGrid } from "../ui/Grid";
 import { cn } from "@/lib/styling";

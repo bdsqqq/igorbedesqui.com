@@ -1,6 +1,3 @@
-import MillionLint from "@million/lint";
-import MillionCompiler from "@million/lint";
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // swcMinify: true,
@@ -19,9 +16,5 @@ const nextConfig = {
     ];
   },
 };
-
-// export default MillionLint.next({
-//   enabled: true
-// })(MillionCompiler.next({ rsc: true })(nextConfig));
 
 export default nextConfig;

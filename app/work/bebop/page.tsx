@@ -18,8 +18,8 @@ import Image from "next/image";
 
 import { makeSeo } from "@/lib/makeSeo";
 
-import desktopScreenshot from "@/public/images/projs/bebop/desktop-screenshot.png";
-import smartphoneScreenshot from "@/public/images/projs/bebop/smartphone-screenshot.png";
+import desktopScreenshot from "public/images/projs/bebop/desktop-screenshot.png";
+import smartphoneScreenshot from "public/images/projs/bebop/smartphone-screenshot.png";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 export const metadata: Metadata = makeSeo({

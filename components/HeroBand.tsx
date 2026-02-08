@@ -13,11 +13,11 @@ type HeroBandVideo = {
 
 type HeroBandProps = HeroBandVideo | HeroBandImg;
 
-const HeroBand: React.FC<React.PropsWithChildren<HeroBandProps>> = ({
+function HeroBand({
   heroImg,
   heroVideo,
   children,
-}) => {
+}: React.PropsWithChildren<HeroBandProps>) {
   return (
     <Band gridless id="hero">
       <div

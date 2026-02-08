@@ -10,12 +10,12 @@ type ContainerProps =
       backAnchor?: string;
     };
 
-const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
+function Container({
   backable,
   backMessage,
   backAnchor,
   children,
-}) => {
+}: React.PropsWithChildren<ContainerProps>) {
   // const childrenArray: any[] = Children.toArray(children);
   // let dark: boolean | undefined;
   // if (childrenArray.length > 0) {

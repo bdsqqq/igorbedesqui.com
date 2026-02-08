@@ -6,32 +6,17 @@
       "dom.iterable",
       "esnext"
     ],
-    "baseUrl": ".",
     "paths": {
       "@/components/*": [
-        "components/*"
+        "./components/*"
       ],
       "@/ui/*": [
-        "components/ui/*"
-      ],
-      "@/animations": [
-        "styles/animations"
-      ],
-      "@/contexts/*": [
-        "contexts/*"
-      ],
-      "@/hooks/*": [
-        "hooks/*"
+        "./components/ui/*"
       ],
       "@/lib/*": [
-        "lib/*"
+        "./lib/*"
       ],
-      "@/locales/*": [
-        "locales/*"
-      ],
-      "@/public/*": [
-        "public/*"
-      ]
+      "*": ["./*"]
     },
     "allowJs": false,
     "incremental": false,
@@ -41,7 +26,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
@@ -60,6 +45,7 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist", "out", "build", ".next"
   ]
 }

@@ -5,6 +5,7 @@ import { useStore } from "zustand";
 import { createStore, StoreApi } from "zustand/vanilla"
 import { AnimatePresence, motion } from "motion/react"
 import { Tooltip, TooltipAnchor, TooltipProvider, useTooltipContext, Portal } from "@ariakit/react"
+import Image from "next/image"
 
 type CursorPositionStore = {
   pos: {x: number, y: number}
@@ -185,7 +186,7 @@ export const AnimatedElements = ({ animation }: { animation: animationFnName }) 
           >
             <div className="w-36 bg-gray-A04 ring-1 ring-gray-A05 rounded-inherit overflow-hidden">
           {item.type === 'image' ? (
-            <img src={item.src} alt="" />
+            <Image src={item.src} alt="" width={144} height={144} className="w-full h-auto" />
           ) : (
             <video src={item.src} autoPlay loop muted playsInline />
           )}

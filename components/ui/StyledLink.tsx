@@ -6,7 +6,7 @@ interface StyledLinkProps extends LinkProps {
   bold?: boolean;
 }
 
-const StyledLinkWithIcon: FC<StyledLinkProps & HtmlHTMLAttributes<{}>> = ({
+function StyledLinkWithIcon({
   className,
   href,
   children,
@@ -14,7 +14,7 @@ const StyledLinkWithIcon: FC<StyledLinkProps & HtmlHTMLAttributes<{}>> = ({
   iconless,
   bold,
   ...rest
-}) => {
+}: StyledLinkProps & HtmlHTMLAttributes<{}>) {
   const ICONS_ENUM = {
     external: <ArrowTopRightIcon />,
   };
@@ -63,4 +63,4 @@ import { UnstyledLink } from "@/ui/primitives";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/styling";
-import type { FC, HtmlHTMLAttributes, ReactNode } from "react";
+import type { HtmlHTMLAttributes, ReactNode } from "react";
