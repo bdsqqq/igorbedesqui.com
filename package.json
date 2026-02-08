@@ -12,7 +12,9 @@
     "analyze": "ANALYZE=true pnpm build",
     "lint": "oxlint --type-aware --format=stylish --type-check --report-unused-disable-directives",
     "lint:fix": "oxlint --type-aware --format=stylish --type-check --fix --report-unused-disable-directives",
-    "lint:github": "oxlint --type-aware --type-check --format=github --report-unused-disable-directives"
+    "lint:github": "oxlint --type-aware --type-check --format=github --report-unused-disable-directives",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check"
   },
   "dependencies": {
     "@ariakit/react": "^0.4.21",
@@ -43,13 +45,11 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "autoprefixer": "^10.4.24",
-    "eslint": "^9.39.2",
     "eslint-config-next": "16.1.1",
+    "oxfmt": "^0.28.0",
     "oxlint": "^1.43.0",
     "oxlint-tsgolint": "^0.11.5",
     "postcss": "^8.5.6",
-    "prettier": "^3.8.1",
-    "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.4.19",
     "tailwindcss-radix": "^2.9.0",
     "typescript": "^5.9.3"
