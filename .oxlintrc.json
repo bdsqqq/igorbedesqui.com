@@ -89,43 +89,15 @@
       },
       "plugins": [
         "react",
+        "react-perf",
         "nextjs",
         "import",
-        "jsx-a11y"
+        "jsx-a11y",
       ],
       "env": {
         "browser": true,
         "node": true
       }
     },
-    {
-      "files": [
-        "**/*.{md,mdx}"
-      ],
-      "rules": {
-        "no-unused-expressions": "error",
-        "react/react-in-jsx-scope": "off"
-      },
-      "globals": {
-        "React": "readonly"
-      },
-      "plugins": [
-        "react"
-      ]
-    },
-    {
-      "files": [
-        "**/*.{md,mdx}/**"
-      ],
-      "rules": {
-        "no-undef": "off",
-        "no-unused-expressions": "off",
-        "no-unused-vars": "off",
-        "unicode-bom": "off"
-      },
-      "plugins": [
-        "typescript"
-      ]
-    }
   ]
 }

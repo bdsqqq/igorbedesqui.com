@@ -10,8 +10,8 @@
     "build": "next build",
     "start": "next start",
     "analyze": "ANALYZE=true pnpm build",
-    "lint": "oxlint --type-aware --type-check --report-unused-disable-directives",
-    "lint:fix": "oxlint --type-aware --type-check --fix --report-unused-disable-directives",
+    "lint": "oxlint --type-aware --format=stylish --type-check --report-unused-disable-directives",
+    "lint:fix": "oxlint --type-aware --format=stylish --type-check --fix --report-unused-disable-directives",
     "lint:github": "oxlint --type-aware --type-check --format=github --report-unused-disable-directives"
   },
   "dependencies": {
