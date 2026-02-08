@@ -6,32 +6,32 @@
       "dom.iterable",
       "esnext"
     ],
-    "baseUrl": ".",
     "paths": {
       "@/components/*": [
-        "components/*"
+        "./components/*"
       ],
       "@/ui/*": [
-        "components/ui/*"
+        "./components/ui/*"
       ],
       "@/animations": [
-        "styles/animations"
+        "./styles/animations"
       ],
       "@/contexts/*": [
-        "contexts/*"
+        "./contexts/*"
       ],
       "@/hooks/*": [
-        "hooks/*"
+        "./hooks/*"
       ],
       "@/lib/*": [
-        "lib/*"
+        "./lib/*"
       ],
       "@/locales/*": [
-        "locales/*"
+        "./locales/*"
       ],
       "@/public/*": [
-        "public/*"
-      ]
+        "./public/*"
+      ],
+      "*": ["./*"]
     },
     "allowJs": false,
     "incremental": false,

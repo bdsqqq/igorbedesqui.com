@@ -1,0 +1,129 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [],
+  "categories": {
+    "correctness": "off"
+  },
+  "env": {
+    "builtin": true
+  },
+  "ignorePatterns": [
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/*.{js,jsx,mjs,ts,tsx,mts,cts}"
+      ],
+      "rules": {
+        "react/display-name": "error",
+        "react/jsx-key": "error",
+        "react/jsx-no-comment-textnodes": "error",
+        "react/jsx-no-duplicate-props": "error",
+        "react/jsx-no-target-blank": "off",
+        "react/jsx-no-undef": "error",
+        "react/no-children-prop": "error",
+        "react/no-danger-with-children": "error",
+        "react/no-direct-mutation-state": "error",
+        "react/no-find-dom-node": "error",
+        "react/no-is-mounted": "error",
+        "react/no-render-return-value": "error",
+        "react/no-string-refs": "error",
+        "react/no-unescaped-entities": "error",
+        "react/no-unknown-property": "off",
+        "react/no-unsafe": "off",
+        "react/react-in-jsx-scope": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "@next/next/google-font-display": "warn",
+        "@next/next/google-font-preconnect": "warn",
+        "@next/next/next-script-for-ga": "warn",
+        "@next/next/no-async-client-component": "warn",
+        "@next/next/no-before-interactive-script-outside-document": "warn",
+        "@next/next/no-css-tags": "warn",
+        "@next/next/no-head-element": "warn",
+        "@next/next/no-html-link-for-pages": "warn",
+        "@next/next/no-img-element": "warn",
+        "@next/next/no-page-custom-font": "warn",
+        "@next/next/no-styled-jsx-in-document": "warn",
+        "@next/next/no-sync-scripts": "warn",
+        "@next/next/no-title-in-document-head": "warn",
+        "@next/next/no-typos": "warn",
+        "@next/next/no-unwanted-polyfillio": "warn",
+        "@next/next/inline-script-id": "error",
+        "@next/next/no-assign-module-variable": "error",
+        "@next/next/no-document-import-in-page": "error",
+        "@next/next/no-duplicate-head": "error",
+        "@next/next/no-head-import-in-document": "error",
+        "@next/next/no-script-component-in-head": "error",
+        "import/no-anonymous-default-export": "warn",
+        "jsx-a11y/alt-text": [
+          "warn",
+          {
+            "elements": [
+              "img"
+            ],
+            "img": [
+              "Image"
+            ]
+          }
+        ],
+        "jsx-a11y/aria-props": "warn",
+        "jsx-a11y/aria-proptypes": "warn",
+        "jsx-a11y/aria-unsupported-elements": "warn",
+        "jsx-a11y/role-has-required-aria-props": "warn",
+        "jsx-a11y/role-supports-aria-props": "warn"
+      },
+      "globals": {
+        "AudioWorkletGlobalScope": "readonly",
+        "AudioWorkletProcessor": "readonly",
+        "currentFrame": "readonly",
+        "currentTime": "readonly",
+        "registerProcessor": "readonly",
+        "sampleRate": "readonly",
+        "WorkletGlobalScope": "readonly"
+      },
+      "plugins": [
+        "react",
+        "nextjs",
+        "import",
+        "jsx-a11y"
+      ],
+      "env": {
+        "browser": true,
+        "node": true
+      }
+    },
+    {
+      "files": [
+        "**/*.{md,mdx}"
+      ],
+      "rules": {
+        "no-unused-expressions": "error",
+        "react/react-in-jsx-scope": "off"
+      },
+      "globals": {
+        "React": "readonly"
+      },
+      "plugins": [
+        "react"
+      ]
+    },
+    {
+      "files": [
+        "**/*.{md,mdx}/**"
+      ],
+      "rules": {
+        "no-unused-expressions": "off",
+        "no-unused-vars": "off",
+        "unicode-bom": "off"
+      },
+      "plugins": [
+        "typescript"
+      ]
+    }
+  ]
+}
