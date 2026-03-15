@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply h-full min-w-[360px] scroll-smooth bg-gray-00 leading-normal text-gray-11 antialiased;
-  font-family: sans-serif;
-}
-
 img,
 picture,
 video,

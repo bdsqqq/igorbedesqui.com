@@ -55,20 +55,21 @@ const DocumentStuff = () => {
 };
 
 export default function RootLayout({
-  // Layouts must accept a children prop.
-  // This will be populated with nested layouts or pages
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className="h-full min-h-lvh bg-gray-00 text-gray-11 antialiased smooth-scroll"
+    >
       <head>
         <DocumentStuff />
       </head>
       <Providers>
         <body
-          className={`${PlexSerif.variable} ${GeistMono.variable} relative font-serif`}
+          className={`${PlexSerif.variable} ${GeistMono.variable} relative font-serif h-full leading-normal`}
         >
           <Grain />
           <Vignette />
