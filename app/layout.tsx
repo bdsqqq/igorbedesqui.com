@@ -8,6 +8,7 @@ import { IBM_Plex_Serif } from "next/font/google";
 
 import Script from "next/script";
 import { Toolbox } from "@/components/toolbox";
+import { Viewport } from "next";
 
 const PlexSerif = IBM_Plex_Serif({
   display: "swap",
@@ -15,6 +16,15 @@ const PlexSerif = IBM_Plex_Serif({
   weight: ["200", "400", "700"],
   variable: "--font-ibm-plex-serif",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: "var(--color-gray-00)",
+};
 
 const DocumentStuff = () => {
   return (
@@ -42,8 +52,6 @@ const DocumentStuff = () => {
         href="/favicon/safari-pinned-tab.svg"
         color="#0A0A0A"
       />
-      <meta name="msapplication-TileColor" content="#0A0A0A" />
-      <meta name="theme-color" content="#0A0A0A" />
 
       <Script
         strategy="afterInteractive"
