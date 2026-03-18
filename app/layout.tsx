@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { Providers } from "./Providers";
 import { Grain } from "./Grain";
-import { Vignette } from "./Vignette";
+import { Fade } from "./Vignette";
 
 import { GeistMono } from "geist/font/mono";
 import { IBM_Plex_Serif } from "next/font/google";
@@ -9,6 +9,7 @@ import { IBM_Plex_Serif } from "next/font/google";
 import Script from "next/script";
 import { Toolbox } from "@/components/toolbox";
 import { Viewport } from "next";
+import { Fuck_you_safari_for_taking_my_fullscreen_overlays_I_guess_Im_stuck_rendering_solids_behind_your_liquid_ass } from "@/components/force-solid-backdrop-under-safari-liquid-glass-url-and-topbar";
 
 const PlexSerif = IBM_Plex_Serif({
   display: "swap",
@@ -23,7 +24,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: "var(--color-gray-00)",
+  themeColor: "var(--color-gray-01)",
 };
 
 const DocumentStuff = () => {
@@ -70,17 +71,26 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="h-full min-h-lvh bg-gray-00 text-gray-11 antialiased smooth-scroll"
+      className="bg-gray-00 text-gray-11 min-h-lvh overflow-auto antialiased smooth-scroll"
     >
       <head>
         <DocumentStuff />
       </head>
       <Providers>
         <body
-          className={`${PlexSerif.variable} ${GeistMono.variable} relative font-serif h-full leading-normal`}
+          className={`${PlexSerif.variable} ${GeistMono.variable} font-serif leading-normal relative`}
         >
+          <Fuck_you_safari_for_taking_my_fullscreen_overlays_I_guess_Im_stuck_rendering_solids_behind_your_liquid_ass />
+          <Fade
+            to="top"
+            className="top-0 h-1/6 backdrop-filter backdrop-blur-sm"
+          />
+          <Fade
+            to="bottom"
+            className="bottom-0 h-2/6 backdrop-filter backdrop-blur-sm"
+          />
           <Grain />
-          <Vignette />
+
           {children}
           <Toolbox />
 
