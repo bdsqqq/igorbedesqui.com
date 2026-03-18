@@ -76,8 +76,11 @@ module.exports = {
       },
       keyframes: {
         fadeBlueOut: {
-          "0%": { backgroundColor: "#0E61FE", transform: "scale(1)"},
-          "100%": { backgroundColor: "var(--gray-04)" , transform: "scale(0.4)"},
+          "0%": { backgroundColor: "#0E61FE", transform: "scale(1)" },
+          "100%": {
+            backgroundColor: "var(--gray-04)",
+            transform: "scale(0.4)",
+          },
         },
         fade: {
           "0%": { opacity: "0" },
