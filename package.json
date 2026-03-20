@@ -37,7 +37,6 @@
     "tailwind-merge": "^2.6.1",
     "tailwindcss-animate": "^1.0.7",
     "turbo": "^2.8.3",
-    "unist-util-visit": "^5.1.0",
     "zustand": "^5.0.11"
   },
   "devDependencies": {
@@ -45,7 +44,6 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "autoprefixer": "^10.4.24",
-    "eslint-config-next": "16.1.1",
     "oxfmt": "^0.28.0",
     "oxlint": "^1.43.0",
     "oxlint-tsgolint": "^0.11.5",
