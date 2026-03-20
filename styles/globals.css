@@ -1,6 +1,107 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-*: initial;
+
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: hsl(0 0% 100%);
+
+  --color-gray-00: var(--gray-00);
+  --color-gray-01: var(--gray-01);
+  --color-gray-02: var(--gray-02);
+  --color-gray-03: var(--gray-03);
+  --color-gray-04: var(--gray-04);
+  --color-gray-05: var(--gray-05);
+  --color-gray-06: var(--gray-06);
+  --color-gray-07: var(--gray-07);
+  --color-gray-08: var(--gray-08);
+  --color-gray-09: var(--gray-09);
+  --color-gray-10: var(--gray-10);
+  --color-gray-11: var(--gray-11);
+  --color-gray-12: var(--gray-12);
+  --color-gray-A01: var(--gray-A01);
+  --color-gray-A02: var(--gray-A02);
+  --color-gray-A03: var(--gray-A03);
+  --color-gray-A04: var(--gray-A04);
+  --color-gray-A05: var(--gray-A05);
+  --color-gray-A06: var(--gray-A06);
+  --color-gray-A07: var(--gray-A07);
+  --color-gray-A08: var(--gray-A08);
+  --color-gray-A09: var(--gray-A09);
+  --color-gray-A10: var(--gray-A10);
+  --color-gray-A11: var(--gray-A11);
+  --color-gray-A12: var(--gray-A12);
+
+  --font-serif: var(--font-ibm-plex-serif);
+  --font-sans: var(--font-ibm-plex-serif);
+  --font-mono: var(--font-geist-mono);
+
+  --animate-fadeBlueOut: fadeBlueOut 1500ms cubic-bezier(0.2, 0, 0.38, 0.9);
+  --animate-fade: fade 550ms cubic-bezier(0, 0, 0.3, 1);
+  --animate-fadeOut: fadeOut 550ms cubic-bezier(0, 0, 0.3, 1);
+  --animate-scaleInSlideDown: scaleInSlideDown 110ms ease-out;
+  --animate-scaleInSlideUp: scaleInSlideUp 110ms cubic-bezier(0, 0, 0.38, 0.9);
+  --animate-scaleOutSlideDown: scaleOutSlideDown 110ms linear;
+  --animate-scaleOutSlideUp: scaleOutSlideUp 110ms cubic-bezier(0.2, 0, 1, 0.9);
+
+  @keyframes fadeBlueOut {
+    0% { background-color: #0E61FE; transform: scale(1); }
+    100% { background-color: var(--gray-04); transform: scale(0.4); }
+  }
+  @keyframes fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes scaleInSlideDown {
+    0% { opacity: 0; transform: translateY(-5px) scale(0); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes scaleInSlideUp {
+    0% { opacity: 0; transform: translateY(5px) scale(0); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes scaleOutSlideDown {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-5px) scale(0); }
+  }
+  @keyframes scaleOutSlideUp {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(5px) scale(0); }
+  }
+
+  --ease-productive-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --ease-productive-entrance: cubic-bezier(0, 0, 0.38, 0.9);
+  --ease-productive-exit: cubic-bezier(0.2, 0, 1, 0.9);
+  --ease-expressive-standard: cubic-bezier(0.4, 0.14, 0.3, 1);
+  --ease-expressive-entrance: cubic-bezier(0, 0, 0.3, 1);
+  --ease-expressive-exit: cubic-bezier(0.4, 0.14, 1, 1);
+
+  --duration-fast-01: 70ms;
+  --duration-fast-02: 110ms;
+  --duration-moderate-01: 150ms;
+  --duration-moderate-02: 240ms;
+  --duration-slow-01: 400ms;
+  --duration-slow-02: 700ms;
+
+  --radius-inherit: inherit;
+
+  --shadow-input: 0px 1px 0px -1px var(--tw-shadow-color), 0px 1px 1px -1px var(--tw-shadow-color), 0px 1px 2px -1px var(--tw-shadow-color), 0px 2px 4px -2px var(--tw-shadow-color), 0px 3px 6px -3px var(--tw-shadow-color);
+  --shadow-highlight: inset 0px 0px 0px 1px var(--tw-shadow-color), inset 0px 1px 0px var(--tw-shadow-color);
+  --shadow-faux-border: inset 0px 0px 0px 1px var(--tw-shadow-color);
+
+  --drop-shadow-input: 0px 1px 0px -1px var(--tw-shadow-color), 0px 1px 1px -1px var(--tw-shadow-color), 0px 1px 2px -1px var(--tw-shadow-color), 0px 2px 4px -2px var(--tw-shadow-color), 0px 3px 6px -3px var(--tw-shadow-color);
+  --drop-shadow-highlight: inset 0px 0px 0px 1px var(--tw-shadow-color), inset 0px 1px 0px var(--tw-shadow-color);
+  --drop-shadow-faux-border: inset 0px 0px 0px 1px var(--tw-shadow-color);
+
+  --z-vignette: 10;
+  --z-aboveVignette: 11;
+}
 
 img,
 picture,
@@ -16,7 +117,7 @@ svg {
 }
 
 * {
-  @apply focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[--blue-A09];
+  @apply focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--blue-A09);
 }
 
 input,

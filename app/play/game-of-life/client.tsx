@@ -381,4 +381,3 @@ const makeBoard = (size: number) => {
   return new Uint8Array(size ** 2);
 };
 
-export default GameOfLifeBoard;

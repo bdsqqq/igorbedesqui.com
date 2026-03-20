@@ -5,7 +5,7 @@ import { cn } from "@/lib/styling";
 import { ButtonGroup, Button } from "@/components/ui/Button";
 import { InPortal, OutPortal, useOutPortal } from "@/components/ui/Portal";
 
-export const PRETEND_NAVBAR_PORTAL_NAME = "out-nav";
+const PRETEND_NAVBAR_PORTAL_NAME = "out-nav";
 const InPortalPretendNavbar = ({
   name,
   children,
