@@ -29,10 +29,11 @@ function HeroBand({
               {heroImg && !!!heroVideo && (
                 <Image
                   priority
+                  layout="fullWidth"
+                  className="h-full w-full object-center"
                   src={heroImg.src}
                   alt={heroImg.alt}
-                  fill
-                  style={{ objectFit: "cover", objectPosition: "center" }}
+                  objectFit="cover"
                 />
               )}
 
@@ -62,13 +63,13 @@ function HeroBand({
       </div>
     </Band>
   );
-};
+}
 
 export default HeroBand;
 
 import Band from "@/components/Band";
 import { cn } from "@/lib/styling";
 
-import Image from "@/components/ui/Image";
+import { Image } from "@/components/ui/Image";
 import React from "react";
 import { grid } from "./ui/Grid";

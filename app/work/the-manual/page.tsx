@@ -5,7 +5,7 @@ import Tooltip from "@/components/ui/Tooltip";
 import type { Meta } from "@/components/ProjectStuff/Projects";
 import { bebopMeta } from "../metas";
 import { MDX } from "@/components/MDX";
-import Image from "@/components/ui/Image";
+import { Image } from "@/components/ui/Image";
 import {
   Popover,
   PopoverContent,

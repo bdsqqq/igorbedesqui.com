@@ -13,7 +13,7 @@ import {
 import type { Meta } from "@/components/ProjectStuff/Projects";
 import { issMeta } from "../metas";
 import { MDX } from "@/components/MDX";
-import Image from "@/components/ui/Image";
+import { Image } from "@/components/ui/Image";
 
 import desktopScreenshot from "public/images/projs/bebop/desktop-screenshot.png";
 import smartphoneScreenshot from "public/images/projs/bebop/smartphone-screenshot.png";
@@ -128,9 +128,8 @@ export default function Bebop() {
               <Image
                 className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
                 src={smartphoneScreenshot}
-                width="1440"
-                height="3040"
-                // fill
+                width={1440}
+                height={3040}
                 alt=""
               />
             </div>
@@ -138,9 +137,8 @@ export default function Bebop() {
               <Image
                 className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
                 src={desktopScreenshot}
-                width="1200"
-                height="800"
-                // fill
+                width={1200}
+                height={800}
                 alt=""
               />
             </div>

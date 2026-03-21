@@ -9,7 +9,7 @@ import Tooltip from "@/components/ui/Tooltip";
 import type { Meta } from "@/components/ProjectStuff/Projects";
 import { wasmGifMeta } from "../metas";
 import { MDX } from "@/components/MDX";
-import Image from "@/components/ui/Image";
+import { Image } from "@/components/ui/Image";
 
 export const issMeta: Meta = {
   shortName: "iss",
@@ -106,9 +106,8 @@ export default function Bebop() {
             <figure className="col-start-1">
               <Image
                 className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
-                layout="responsive"
-                width="310"
-                height="310"
+                width={310}
+                height={310}
                 objectFit="contain"
                 src="/images/projs/iss/blur.png"
                 alt=""
@@ -124,9 +123,8 @@ export default function Bebop() {
             <figure className="col-start-2">
               <Image
                 className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
-                layout="responsive"
-                width="310"
-                height="310"
+                width={310}
+                height={310}
                 objectFit="contain"
                 src="/images/projs/iss/no_blur.png"
                 alt=""
@@ -149,9 +147,8 @@ export default function Bebop() {
           <figure className="mb-4">
             <Image
               className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
-              layout="responsive"
-              width="500"
-              height="851"
+              width={500}
+              height={851}
               objectFit="contain"
               src="/images/projs/iss/full_screenshot.png"
               alt="Website screenshot"
