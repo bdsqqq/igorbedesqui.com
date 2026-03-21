@@ -100,7 +100,7 @@ function Band({
       </div>
     </section>
   );
-};
+}
 
 const Headline = ({ bold, thin }: { bold: string; thin: string }) => {
   return (

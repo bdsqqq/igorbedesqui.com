@@ -380,4 +380,3 @@ const Cell = ({ index }: { index: number }) => {
 const makeBoard = (size: number) => {
   return new Uint8Array(size ** 2);
 };
-

@@ -111,7 +111,7 @@ export default function TheManual() {
               `}
               </MDX>
             </div>
-            <div className="relative col-span-full -mx-4 lg:col-start-1 lg:col-end-14 lg:-mx-0">
+            <div className="relative col-span-full -mx-4 lg:col-start-1 lg:col-end-14 lg:mx-0">
               <Border asWrapper className="rounded">
                 <video
                   className=""
@@ -131,8 +131,8 @@ export default function TheManual() {
                 </video>
               </Border>
             </div>
-            <div className="col-span-3 col-end-[-1] flex items-end md:col-end-9 lg:col-start-14 lg:col-end-17">
-              <div className="-mx-4 h-fit rounded border border-gray-A02 bg-gradient-to-b from-gray-A03 to-gray-A02 p-4 text-gray-09">
+            <div className="col-span-3 -col-end-1 flex items-end md:col-end-9 lg:col-start-14 lg:col-end-17">
+              <div className="-mx-4 h-fit rounded border border-gray-A02 bg-linear-to-b from-gray-A03 to-gray-A02 p-4 text-gray-09">
                 <MDX>
                   {`
                       *The recent dark theme update follows the same “show, don’t tell” pattern by choosing a theme based purely on system preferences, and a “highlights” feature is planned in the [public roadmap](https://psykip-git-next-bdsq.vercel.app/roadmap).*

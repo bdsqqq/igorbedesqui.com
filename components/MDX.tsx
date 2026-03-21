@@ -8,8 +8,8 @@ import { CopyButton } from "@/components/ui/CopyButton";
 import remarkGfm from "remark-gfm";
 import { ScrollBar, ScrollArea } from "@/components/ui/ScrollArea";
 
-import { evaluateSync } from '@mdx-js/mdx'
-import * as runtime from 'react/jsx-runtime'
+import { evaluateSync } from "@mdx-js/mdx";
+import * as runtime from "react/jsx-runtime";
 
 function Table({
   data,
@@ -143,7 +143,12 @@ export function MDX({
     ...runtime,
     remarkPlugins: [remarkGfm],
     baseUrl: import.meta.url,
-  })
+  });
 
-  return <MDXContent components={{ ...defaultComponents, ...(propComponents || {}) }} {...passthrough} />
+  return (
+    <MDXContent
+      components={{ ...defaultComponents, ...(propComponents || {}) }}
+      {...passthrough}
+    />
+  );
 }

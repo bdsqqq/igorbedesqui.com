@@ -1,4 +1,4 @@
-import { Test, LocalCursorPositionStoreProvider } from "./client"
+import { Test, LocalCursorPositionStoreProvider } from "./client";
 
 export default function Page() {
   return (
@@ -19,5 +19,5 @@ export default function Page() {
         </div>
       </LocalCursorPositionStoreProvider>
     </div>
-  )
+  );
 }

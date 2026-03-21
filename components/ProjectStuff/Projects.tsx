@@ -22,7 +22,7 @@ function Projects({ projectsMeta }: ProjectsProps) {
       })}
     </ul>
   );
-};
+}
 
 export default Projects;
 

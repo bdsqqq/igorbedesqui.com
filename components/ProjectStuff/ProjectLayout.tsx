@@ -94,7 +94,7 @@ export function ProjectLayout({
       </div>
     </div>
   );
-};
+}
 
 export const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
   return (
@@ -156,7 +156,7 @@ export function ProjectBand({
       {...props}
     />
   );
-};
+}
 
 import { Separator } from "@/ui/Separator";
 import StyledLink from "@/ui/StyledLink";

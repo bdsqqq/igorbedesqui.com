@@ -7,7 +7,7 @@ function ProjectContainer({
       {children}
     </Container>
   );
-};
+}
 
 export default ProjectContainer;
 

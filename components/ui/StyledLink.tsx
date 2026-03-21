@@ -36,9 +36,9 @@ function StyledLinkWithIcon({
                 true: "font-bold",
               },
             },
-          }
+          },
         )({ bold: bold }),
-        className
+        className,
       )}
       href={href}
       {...rest}
@@ -53,7 +53,7 @@ function StyledLinkWithIcon({
       )}
     </UnstyledLink>
   );
-};
+}
 
 export default StyledLinkWithIcon;
 

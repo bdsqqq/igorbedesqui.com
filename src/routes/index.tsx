@@ -90,9 +90,7 @@ function Home() {
                     <div className="flex flex-col ">
                       <div>
                         <h3 className="inline-block font-bold">
-                          <StyledLink href="https://axiom.co">
-                            Axiom
-                          </StyledLink>
+                          <StyledLink href="https://axiom.co">Axiom</StyledLink>
                         </h3>{" "}
                         <span className="text-bold inline-block transform text-end text-xs tracking-tighter text-gray-11 transition-all duration-moderate-01 ease-productive-standard group-focus-within:translate-x-0 group-focus-within:opacity-100 group-hover:translate-x-0 group-hover:opacity-100 md:-translate-x-4 md:opacity-0">
                           2023 ~ now

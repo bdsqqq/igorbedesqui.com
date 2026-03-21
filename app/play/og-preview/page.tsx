@@ -18,7 +18,7 @@ function loadImage(src: string): Promise<string> {
         img.src = src;
         img.onload = () => resolve(src);
         img.onerror = reject;
-      })
+      }),
     );
   }
   return imageCache.get(src)!;

@@ -20,7 +20,7 @@ export function Lock({
 
   // Not too happy about this bit, but it makes sure cloneElement gets a valid element (not a string and other misc types allowed by ReactNode)
   const isValid = isValidElement<HTMLButtonElement & { onClick?: () => void }>(
-    child
+    child,
   );
   if (!isValid)
     throw new Error(`Lock's child must be a valid react element, see: `);

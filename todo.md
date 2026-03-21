@@ -50,6 +50,7 @@ flowchart TD
 ### 1. ~~migrate to tailwind v4~~ ✅
 
 **done**
+
 - replaced tailwind v3 + legacy postcss/autoprefixer with tailwind v4 + minimal `@tailwindcss/postcss`
 - moved theme from `tailwind.config.js` to CSS `@theme` block in `globals.css`
 - replaced `tailwindcss-animate` with `tw-animate-css`
@@ -61,6 +62,7 @@ flowchart TD
 ### 2. ~~remove dead tooling and dead code~~ ✅
 
 **done**
+
 - removed `turbo` package + `turbo.json` + `.gitignore` turbo entries
 - deleted empty `app/library/button/meta.ts` and `app/library/portals/meta.ts`
 - removed unused default export from `app/play/game-of-life/client.tsx`
@@ -68,11 +70,13 @@ flowchart TD
 - deleted `tailwind.config.js` (superseded by CSS `@theme`)
 
 **kept**
+
 - `nanoid` kept as requested
 
 ### 3. thin route files
 
 **do before framework migration**
+
 - move list/index data out of fake route-adjacent registries when a route can own its own metadata directly
 - do NOT create new `view.tsx`/`content.tsx` sidecars as prep — the tanstack start target is same-file route ownership where each route file owns its content and route-local meta
 - next's `page.tsx` / `Metadata` API is why some metadata still lives in external files today; that constraint disappears with the framework swap
@@ -96,6 +100,7 @@ function MyPost() { /* content lives here */ }
 colocated `-meta.ts` or `-content.tsx` sidecars are fine where a route is genuinely large, but same-file ownership is the default.
 
 **why this helps**
+
 - fewer files to move during migration
 - route ownership is explicit — no indirection through sidecars for the common case
 - content remains importable via colocated `-`-prefixed modules where needed
@@ -103,6 +108,7 @@ colocated `-meta.ts` or `-content.tsx` sidecars are fine where a route is genuin
 ### 4. migrate to tanstack start
 
 **start is now primary runtime**
+
 - ✅ home route (`src/routes/index.tsx`) owns the home page content directly; deleted the old `app/page.tsx` copy
 - ✅ work index route (`src/routes/work.tsx`) reuses `app/work/page.tsx` for real `/work` content
 - ✅ shared link primitives and breadcrumb pathname tracking no longer import `next/link` or `next/navigation`; the Start build no longer needs compat aliases for either
@@ -120,6 +126,7 @@ colocated `-meta.ts` or `-content.tsx` sidecars are fine where a route is genuin
 - ✅ removed `src/shims/next-link.tsx` and `src/shims/next-navigation.ts` — no shared code imports them
 
 **next.js removal: complete**
+
 - `next` and `postcss` removed from `package.json`
 - empty `app/writing/` and `app/api/` directories deleted
 - remaining `app/` files are plain React components imported by Start routes — no Next.js API surface
@@ -142,22 +149,26 @@ colocated `-meta.ts` or `-content.tsx` sidecars are fine where a route is genuin
 ## practical execution buckets
 
 ### bucket a — tailwind v4
+
 - package updates
 - config removal/rewrite
 - class/plugin fixes
 - visual smoke test
 
 ### bucket b — tooling cleanup
+
 - remove turbo
 - remove stale files
 - rerun knip / install
 
 ### bucket c — route shaping
+
 - pick a small slice first: `work`, `writing`, or `library`
 - establish one durable metadata/content pattern
 - propagate only after it feels good
 
 ### bucket d — framework migration
+
 - scaffold tanstack start
 - move one slice at a time
 - keep the app runnable throughout

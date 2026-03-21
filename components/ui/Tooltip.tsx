@@ -22,10 +22,7 @@ interface Tooltip {
 
 function Tooltip({ children, content, options }: Tooltip) {
   return (
-    <TooltipProvider
-      placement={options?.side ?? "top"}
-      showTimeout={200}
-    >
+    <TooltipProvider placement={options?.side ?? "top"} showTimeout={200}>
       <TooltipAnchor render={(props) => cloneElement(children, props)} />
       <AriaKitTooltip
         gutter={0}
@@ -41,7 +38,7 @@ function Tooltip({ children, content, options }: Tooltip) {
       </AriaKitTooltip>
     </TooltipProvider>
   );
-};
+}
 
 const tooltipVariants = cva(
   [

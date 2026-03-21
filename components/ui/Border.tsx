@@ -1,5 +1,10 @@
 import { cn } from "@/lib/styling";
-import { Children, isValidElement, type PropsWithChildren, type Ref } from "react";
+import {
+  Children,
+  isValidElement,
+  type PropsWithChildren,
+  type Ref,
+} from "react";
 import { Slot } from "radix-ui";
 
 /**
@@ -44,58 +49,51 @@ export type BorderProps = PropsWithChildren<{
  * but it's not perfect, so it's recommended to explicitly set `asWrapper` to true
  * when needed.
  */
-export function Border({ children, asWrapper, className, ref, ...rest }: BorderProps) {
-    if (children === undefined || children === null) {
-      console.error("Border must have a child");
-      throw new Error("Border must have a child");
-      return null;
-    }
+export function Border({
+  children,
+  asWrapper,
+  className,
+  ref,
+  ...rest
+}: BorderProps) {
+  if (children === undefined || children === null) {
+    console.error("Border must have a child");
+    throw new Error("Border must have a child");
+    return null;
+  }
 
-    if (
-      typeof children === "string" ||
-      typeof children === "number" ||
-      typeof children === "boolean" ||
-      Array.isArray(children)
-    ) {
-      console.error("Border's child must be a single React element");
-      throw new Error("Border's child must be a single React element");
-      return null;
-    }
+  if (
+    typeof children === "string" ||
+    typeof children === "number" ||
+    typeof children === "boolean" ||
+    Array.isArray(children)
+  ) {
+    console.error("Border's child must be a single React element");
+    throw new Error("Border's child must be a single React element");
+    return null;
+  }
 
-    const child = Children.only(children) as React.ReactElement;
-    const shouldWrap =
-      VOID_ELEMENTS.includes(child.type as string) ||
-      MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID.includes(
-        child.type as string,
-      );
-    const isValid = isValidElement(child);
-    if (!isValid)
-      throw new Error(
-        `Border's child must be a valid react element, got ${typeof child}`,
-      );
+  const child = Children.only(children) as React.ReactElement;
+  const shouldWrap =
+    VOID_ELEMENTS.includes(child.type as string) ||
+    MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID.includes(
+      child.type as string,
+    );
+  const isValid = isValidElement(child);
+  if (!isValid)
+    throw new Error(
+      `Border's child must be a valid react element, got ${typeof child}`,
+    );
 
-    if (!asWrapper && shouldWrap) {
+  if (!asWrapper && shouldWrap) {
+    console.warn(
+      "Border's child is a void element, you should use the `asWrapper` prop to render a helper div",
+    );
+
+    if (asWrapper === undefined && shouldWrap) {
       console.warn(
-        "Border's child is a void element, you should use the `asWrapper` prop to render a helper div",
+        "Automatically wrapping void element in a helper div, if you want to avoid this behavior, set the `asWrapper` prop explicitly",
       );
-
-      if (asWrapper === undefined && shouldWrap) {
-        console.warn(
-          "Automatically wrapping void element in a helper div, if you want to avoid this behavior, set the `asWrapper` prop explicitly",
-        );
-        return (
-          <span
-            className={cn("block", shadowBorderStyles, className)}
-            ref={ref}
-            {...rest}
-          >
-            {children}
-          </span>
-        );
-      }
-    }
-
-    if (asWrapper)
       return (
         <span
           className={cn("block", shadowBorderStyles, className)}
@@ -105,14 +103,27 @@ export function Border({ children, asWrapper, className, ref, ...rest }: BorderP
           {children}
         </span>
       );
+    }
+  }
 
+  if (asWrapper)
     return (
-      <Slot.Root
-        className={cn(shadowBorderStyles, className)}
+      <span
+        className={cn("block", shadowBorderStyles, className)}
         ref={ref}
         {...rest}
       >
         {children}
-      </Slot.Root>
+      </span>
     );
+
+  return (
+    <Slot.Root
+      className={cn(shadowBorderStyles, className)}
+      ref={ref}
+      {...rest}
+    >
+      {children}
+    </Slot.Root>
+  );
 }

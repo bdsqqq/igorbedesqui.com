@@ -19,7 +19,7 @@ export default function Page() {
         <ul
           className={cn(
             grid(),
-            "pointer-events-none focus-within:text-gray-10 hover:text-gray-10"
+            "pointer-events-none focus-within:text-gray-10 hover:text-gray-10",
           )}
         >
           {projects.map((p) => {

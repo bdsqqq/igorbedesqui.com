@@ -1,5 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import React, { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Combobox,
   ComboboxItem,
@@ -192,8 +198,7 @@ function Scales() {
           }
           f0={
             <span className="row-start-2 row-end-4 w-fit text-3xl leading-none">
-              𝑓
-              <span className="text-base">0</span>
+              𝑓<span className="text-base">0</span>
             </span>
           }
           scaleLength={<div>𝑛</div>}

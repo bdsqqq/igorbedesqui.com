@@ -35,15 +35,15 @@ export const makePermutations = <T>(config: Config<T>) => {
   const options = variantKeys.map((key) => Object.keys(variants[key]));
 
   const keyOptions = variantKeys.map((key, index) =>
-    options[index].map((option) => ({ [key]: option }))
+    options[index].map((option) => ({ [key]: option })),
   );
 
   return keyOptions.reduce(
     (acc, keyOption) =>
       acc.flatMap((accOption) =>
-        keyOption.map((option) => ({ ...accOption, ...option }))
+        keyOption.map((option) => ({ ...accOption, ...option })),
       ),
-    [{}]
+    [{}],
   );
 };
 
@@ -66,7 +66,7 @@ export const makePermutations = <T>(config: Config<T>) => {
 export const CVAWithPerms = <T>(base: ClassValue, config: Config<T>) => {
   if (!config) {
     console.warn(
-      "Can't make permutations without config, be sure to pass the second argument"
+      "Can't make permutations without config, be sure to pass the second argument",
     );
     return [cva(base, config), null] as const;
   }

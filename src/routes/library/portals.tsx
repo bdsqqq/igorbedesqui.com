@@ -4,10 +4,7 @@ import { promises as fs } from "fs";
 import { PortalsPageContent } from "app/library/portals/content";
 
 const getPortalSource = createServerFn({ method: "GET" }).handler(async () => {
-  return fs.readFile(
-    process.cwd() + "/components/ui/Portal/index.tsx",
-    "utf8",
-  );
+  return fs.readFile(process.cwd() + "/components/ui/Portal/index.tsx", "utf8");
 });
 
 export const Route = createFileRoute("/library/portals")({

@@ -38,7 +38,9 @@ function LibraryPage() {
         <div className={cn(grid(), "gap-y-6")}>
           <div className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-10">
             <h1 className="font-semibold">Library</h1>
-            <p className="mt-2 text-gray-11">Component experiments, primitives, and notes.</p>
+            <p className="mt-2 text-gray-11">
+              Component experiments, primitives, and notes.
+            </p>
           </div>
 
           <ul className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-12 pointer-events-none flex flex-col focus-within:text-gray-10 hover:text-gray-10">

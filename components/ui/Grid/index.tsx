@@ -20,7 +20,7 @@ const subGrid = (
     lg: 14,
     md: 7,
     sm: 4,
-  }
+  },
 ) => {
   return cva(`grid grid-cols-${sm} md:grid-cols-${md} lg:grid-cols-${lg}`, {
     variants: {
