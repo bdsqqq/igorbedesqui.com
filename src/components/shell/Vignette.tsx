@@ -50,10 +50,10 @@ export const Fade = ({
         "from-transparent to-gray-01 fixed z-vignette",
         orientation_of_dir[direction] === "vertical" && "w-full",
         orientation_of_dir[direction] === "horizontal" && "h-full",
-        direction === "top" && "bg-gradient-to-t",
-        direction === "bottom" && "bg-gradient-to-b",
-        direction === "left" && "bg-gradient-to-l",
-        direction === "right" && "bg-gradient-to-r",
+        direction === "top" && "bg-linear-to-t",
+        direction === "bottom" && "bg-linear-to-b",
+        direction === "left" && "bg-linear-to-l",
+        direction === "right" && "bg-linear-to-r",
         className,
       )}
       style={{
