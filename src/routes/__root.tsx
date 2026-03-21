@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-router";
 import * as React from "react";
 import globalsCssHref from "../../styles/globals.css?url";
+import { Agentation } from "agentation";
 
 const globalsCss = import.meta.env.DEV ? "/styles/globals.css" : globalsCssHref;
 const rootShellCss = `
@@ -152,6 +153,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           />
         </PortalStoreProvider>
         <Scripts />
+        {process.env.NODE_ENV === "development" && <Agentation />}
       </body>
     </html>
   );

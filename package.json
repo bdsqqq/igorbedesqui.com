@@ -48,6 +48,7 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "agentation": "^2.3.3",
     "fontaine": "^0.8.0",
     "nitro": "^3.0.260311-beta",
     "oxfmt": "^0.28.0",
