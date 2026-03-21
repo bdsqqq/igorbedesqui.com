@@ -6,7 +6,45 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import * as React from "react";
-import globalsCss from "../../styles/globals.css?url";
+import globalsCssHref from "../../styles/globals.css?url";
+
+const globalsCss = import.meta.env.DEV ? "/styles/globals.css" : globalsCssHref;
+const rootShellCss = `
+  :root {
+    --gray-00: hsl(0 0% 4%);
+    --gray-11: #b5b3ad;
+    background-color: var(--gray-00);
+    color: var(--gray-11);
+    font-family: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  }
+
+  html {
+    min-height: 100lvh;
+    overflow: auto;
+    scroll-behavior: smooth;
+    background-color: var(--gray-00);
+    color: var(--gray-11);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    position: relative;
+    min-height: 100lvh;
+    margin: 0;
+    background-color: var(--gray-00);
+    color: var(--gray-11);
+    font-family: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+    line-height: 1.5;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --gray-00: hsl(0 0% 100%);
+      --gray-11: #63635e;
+    }
+  }
+`;
 
 import { Grain } from "../../app/Grain";
 import { Fade } from "../../app/Vignette";
@@ -35,6 +73,7 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      { rel: "preload", href: globalsCss, as: "style" },
       { rel: "stylesheet", href: globalsCss },
       {
         rel: "apple-touch-icon",
@@ -58,6 +97,11 @@ export const Route = createRootRoute({
         rel: "mask-icon",
         href: "/favicon/safari-pinned-tab.svg",
         color: "#0A0A0A",
+      },
+    ],
+    styles: [
+      {
+        children: rootShellCss,
       },
     ],
     scripts: [
