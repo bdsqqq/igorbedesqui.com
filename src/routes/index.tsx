@@ -10,10 +10,10 @@ import { cn } from "@/lib/styling";
 
 import { bebopMeta, psykipMeta, ibmMeta } from "app/work/metas";
 import { dontBelieveMeta } from "./writing/dont-believe-in-yourself";
-import { macosRice } from "./writing/macos-rice";
+import { macosRice } from "./writing/macos-rice/route";
 import { basicsMeta } from "./writing/not-just-the-basics";
 import { onWritingMeta } from "./writing/on-writing";
-import { schrodingerMinimalism } from "./writing/schrodinger-minimalism";
+import { schrodingerMinimalism } from "./writing/schrodinger-minimalism/route";
 
 const writingPieces = [
   macosRice,

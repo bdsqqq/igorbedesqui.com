@@ -21,6 +21,17 @@ import { Border } from "@/components/ui/Border";
 
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
+import cat_webm from "./-cat.webm";
+import cat_mp4 from "./-cat.mp4";
+import reading_progress_webm from "./-reading_progress.webm";
+import reading_progress_mp4 from "./-reading_progress.mp4";
+import manual_1 from "./-1.jpg";
+import manual_2 from "./-2.jpg";
+import manual_3 from "./-3.jpg";
+import manual_4 from "./-4.jpg";
+import manual_5 from "./-5.jpg";
+import manual_kindle from "./-kindle.jpg";
+
 export const psykipMeta: Meta = {
   shortName: "the-manual",
   name: "The manual",
@@ -55,7 +66,7 @@ export default function TheManual() {
       backable
       backMessage={psykipMeta.backMessage}
     >
-      <HeroBand heroVideo="/videos/the-manual/cat">
+      <HeroBand heroVideo={{ webm: cat_webm, mp4: cat_mp4 }}>
         <span className="text-gray-12">
           The best way to read the Enchiridion.
         </span>
@@ -120,14 +131,8 @@ export default function TheManual() {
                   loop={true}
                   muted={true}
                 >
-                  <source
-                    src="/videos/the-manual/reading_progress.webm"
-                    type="video/webm"
-                  />
-                  <source
-                    src="/videos/the-manual/reading_progress.mp4"
-                    type="video/mp4"
-                  />
+                  <source src={reading_progress_webm} type="video/webm" />
+                  <source src={reading_progress_mp4} type="video/mp4" />
                 </video>
               </Border>
             </div>
@@ -190,7 +195,7 @@ export default function TheManual() {
                   <Image
                     className="w-full rounded"
                     alt=""
-                    src={"/images/projs/the-manual/1.jpg"}
+                    src={manual_1}
                     width={685}
                     height={993}
                   />
@@ -205,7 +210,7 @@ export default function TheManual() {
                   <Image
                     className="w-full rounded"
                     alt=""
-                    src={"/images/projs/the-manual/2.jpg"}
+                    src={manual_2}
                     width={685}
                     height={993}
                   />
@@ -225,7 +230,7 @@ export default function TheManual() {
                   <Image
                     className="w-full "
                     alt=""
-                    src={"/images/projs/the-manual/5.jpg"}
+                    src={manual_5}
                     width={1505}
                     height={993}
                   />
@@ -244,7 +249,7 @@ export default function TheManual() {
                     <Image
                       className="w-full"
                       alt=""
-                      src={"/images/projs/the-manual/3.jpg"}
+                      src={manual_3}
                       width={1505}
                       height={993}
                     />
@@ -253,7 +258,7 @@ export default function TheManual() {
                     <Image
                       className="w-full"
                       alt=""
-                      src={"/images/projs/the-manual/4.jpg"}
+                      src={manual_4}
                       width={1505}
                       height={993}
                     />
@@ -289,7 +294,7 @@ export default function TheManual() {
                         <figure className="space-y-1 pb-2">
                           <Image
                             alt=""
-                            src={"/images/projs/the-manual/kindle.jpg"}
+                            src={manual_kindle}
                             width={540}
                             height={720}
                           />

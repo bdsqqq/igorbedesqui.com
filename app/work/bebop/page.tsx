@@ -15,8 +15,10 @@ import { issMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 import { Image } from "@/components/ui/Image";
 
-import desktopScreenshot from "public/images/projs/bebop/desktop-screenshot.png";
-import smartphoneScreenshot from "public/images/projs/bebop/smartphone-screenshot.png";
+import noodles_webm from "./-noodles.webm";
+import noodles_mp4 from "./-noodles.mp4";
+import desktopScreenshot from "./-desktop-screenshot.png";
+import smartphoneScreenshot from "./-smartphone-screenshot.png";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 export const bebopMeta: Meta = {
@@ -45,7 +47,7 @@ export const bebopMeta: Meta = {
 export default function Bebop() {
   return (
     <ProjectContainer key="bebopProj" backMessage={bebopMeta.backMessage}>
-      <HeroBand heroVideo={"/videos/bebop/noodles"}>
+      <HeroBand heroVideo={{ webm: noodles_webm, mp4: noodles_mp4 }}>
         <MDX>
           {`
             **The work** which **becomes a new genre itself** will be called... **COWBOY BEBOP**

@@ -11,6 +11,12 @@ import { wasmGifMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 import { Image } from "@/components/ui/Image";
 
+import space_webm from "./-space.webm";
+import space_mp4 from "./-space.mp4";
+import iss_blur from "./-blur.png";
+import iss_no_blur from "./-no_blur.png";
+import iss_full from "./-full_screenshot.png";
+
 export const issMeta: Meta = {
   shortName: "iss",
   name: "Where's the iss?",
@@ -36,7 +42,7 @@ export const issMeta: Meta = {
 export default function Bebop() {
   return (
     <ProjectContainer key="issProj" backMessage={issMeta.backMessage}>
-      <HeroBand heroVideo="/videos/iss/space">
+      <HeroBand heroVideo={{ webm: space_webm, mp4: space_mp4 }}>
         <span>
           Where’s the{" "}
           <Tooltip content="International Space Station">
@@ -109,7 +115,7 @@ export default function Bebop() {
                 width={310}
                 height={310}
                 objectFit="contain"
-                src="/images/projs/iss/blur.png"
+                src={iss_blur}
                 alt=""
               />
               <figcaption>
@@ -126,7 +132,7 @@ export default function Bebop() {
                 width={310}
                 height={310}
                 objectFit="contain"
-                src="/images/projs/iss/no_blur.png"
+                src={iss_no_blur}
                 alt=""
               />
 
@@ -150,7 +156,7 @@ export default function Bebop() {
               width={500}
               height={851}
               objectFit="contain"
-              src="/images/projs/iss/full_screenshot.png"
+              src={iss_full}
               alt="Website screenshot"
             />
           </figure>

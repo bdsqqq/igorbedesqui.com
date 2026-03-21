@@ -13,6 +13,8 @@ export const Route = createFileRoute("/api/og")({
         const fontDataBold = await readFile(
           resolve("public/fonts/IBMPlexSerif-SemiBold.ttf"),
         );
+        const framernoisePng = await readFile(resolve("app/-framernoise.png"));
+        const framernoiseBg = `url(data:image/png;base64,${framernoisePng.toString("base64")})`;
 
         try {
           const { searchParams } = new URL(request.url);
@@ -114,8 +116,7 @@ export const Route = createFileRoute("/api/og")({
                   position: "absolute",
                   inset: "0",
                   opacity: "0.03",
-                  background:
-                    "url(https://www.igorbedesqui.com/images/framernoise.png)",
+                  background: framernoiseBg,
                 }}
               />
             </div>,

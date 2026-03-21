@@ -13,6 +13,9 @@ import {
 } from "@ariakit/react";
 import { Image } from "@/components/ui/Image";
 
+import theManual1 from "app/work/the-manual/-1.jpg";
+import bebopDesktop from "app/work/bebop/-desktop-screenshot.png";
+
 type CursorPositionStore = {
   pos: { x: number; y: number };
   updatePos: (x: number, y: number) => void;
@@ -199,11 +202,11 @@ export const AnimatedElements = ({
 }) => {
   const media = [
     {
-      src: "/images/projs/the-manual/1.jpg",
+      src: theManual1,
       type: "image",
     },
     {
-      src: "/images/projs/bebop/desktop-screenshot.png",
+      src: bebopDesktop,
       type: "image",
     },
     {

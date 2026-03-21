@@ -8,6 +8,9 @@ import { grid } from "@/components/ui/Grid";
 import { Blur } from "@/components/ui/Blur";
 import { cn } from "@/lib/styling";
 
+import tapes_webm from "./-tapes.webm";
+import tapes_mp4 from "./-tapes.mp4";
+
 export const ibmMeta: Meta = {
   shortName: "IBM",
   name: "IBM",
@@ -32,7 +35,7 @@ export default function IBM() {
 
   return (
     <Container key="IBMProj" backable backAnchor="/work">
-      <HeroBand heroVideo={"/videos/ibm/tapes"}>
+      <HeroBand heroVideo={{ webm: tapes_webm, mp4: tapes_mp4 }}>
         Creating web experiences for the enterprise of enterprises.
       </HeroBand>
       <div className="mb-16" />

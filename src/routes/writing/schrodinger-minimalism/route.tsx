@@ -6,6 +6,14 @@ import { Blur } from "@/components/ui/Blur";
 import { grid } from "@/components/ui/Grid";
 import { Border } from "@/components/ui/Border";
 import Tooltip from "@/components/ui/Tooltip";
+
+import pedro_thumb from "./-pedro.jpg";
+import pedro_mp4 from "./-pedro.mp4";
+import pedro_webm from "./-pedro.webm";
+import los_feliz_thumb from "./-los_feliz.jpg";
+import los_feliz_mp4 from "./-los_feliz.mp4";
+import los_feliz_webm from "./-los_feliz.webm";
+
 import {
   Popover,
   PopoverContent,
@@ -103,17 +111,17 @@ function SchrodingerMinimalismPage() {
             <figure>
               <Border asWrapper className="rounded">
                 <video
-                  poster="/images/minimalism/pedro.jpg"
+                  poster={pedro_thumb}
                   autoPlay={true}
                   controls={false}
                   loop={true}
                   muted={true}
                 >
                   <source
-                    src="/videos/minimalism/pedro.webm"
+                    src={pedro_webm}
                     type="video/webm; codecs=vp9,vorbis"
                   />
-                  <source src="/videos/minimalism/pedro.mp4" type="video/mp4" />
+                  <source src={pedro_mp4} type="video/mp4" />
                 </video>
               </Border>
               <figcaption className="text-end">
@@ -124,20 +132,17 @@ function SchrodingerMinimalismPage() {
             <figure>
               <Border asWrapper className="rounded">
                 <video
-                  poster="/images/minimalism/los_feliz.jpg"
+                  poster={los_feliz_thumb}
                   autoPlay={true}
                   controls={false}
                   loop={true}
                   muted={true}
                 >
                   <source
-                    src="/videos/minimalism/los_feliz.webm"
+                    src={los_feliz_webm}
                     type="video/webm; codecs=vp9,vorbis"
                   />
-                  <source
-                    src="/videos/minimalism/los_feliz.mp4"
-                    type="video/mp4"
-                  />
+                  <source src={los_feliz_mp4} type="video/mp4" />
                 </video>
               </Border>
               <figcaption className="text-end">

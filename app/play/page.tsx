@@ -11,6 +11,10 @@ import { Image } from "@/components/ui/Image";
 import Band from "@/components/Band";
 import Link from "@/components/ui/StyledLink";
 
+import reading_progress_webm from "../work/the-manual/-reading_progress.webm";
+import reading_progress_mp4 from "../work/the-manual/-reading_progress.mp4";
+import manual_2 from "../work/the-manual/-2.jpg";
+
 const Page = () => {
   const [count, setCount] = useState(0);
   const [walled, setWalled] = useState(false);
@@ -170,21 +174,15 @@ const BorderExamples = () => {
           loop={true}
           muted={true}
         >
-          <source
-            src="/videos/the-manual/reading_progress.webm"
-            type="video/webm"
-          />
-          <source
-            src="/videos/the-manual/reading_progress.mp4"
-            type="video/mp4"
-          />
+          <source src={reading_progress_webm} type="video/webm" />
+          <source src={reading_progress_mp4} type="video/mp4" />
         </video>
       </Border>
       <Border asWrapper className="rounded">
         <Image
           className="w-full rounded"
           alt=""
-          src={"/images/projs/the-manual/2.jpg"}
+          src={manual_2}
           width={685}
           height={993}
         />

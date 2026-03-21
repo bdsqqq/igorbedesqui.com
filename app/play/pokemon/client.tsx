@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import pokemonSheet from "./-pokemonicons-sheet.png";
+
 const PokemonIcon = ({ id, scale = 1 }: { id: string; scale?: number }) => {
   const SPRITESHEET_DIMENSIONS = {
     width: 480,
@@ -16,7 +18,7 @@ const PokemonIcon = ({ id, scale = 1 }: { id: string; scale?: number }) => {
   return (
     <div
       style={{
-        background: `transparent url(/images/pokemon/pokemonicons-sheet.png) no-repeat scroll -${left * scale}px -${top * scale}px / ${SPRITESHEET_DIMENSIONS.width * scale}px ${SPRITESHEET_DIMENSIONS.height * scale}px`,
+        background: `transparent url(${pokemonSheet}) no-repeat scroll -${left * scale}px -${top * scale}px / ${SPRITESHEET_DIMENSIONS.width * scale}px ${SPRITESHEET_DIMENSIONS.height * scale}px`,
         width: `${40 * scale}px`,
         height: `${30 * scale}px`,
         imageRendering: "pixelated",

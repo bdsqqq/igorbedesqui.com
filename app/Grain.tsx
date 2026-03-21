@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
+import framernoiseUrl from "./-framernoise.png";
+
 export const Grain = () => {
   const grainRef = useRef<HTMLDivElement>(null);
 
@@ -50,7 +52,8 @@ export const Grain = () => {
     <div className="pointer-events-none fixed inset-0 z-40 h-full w-full overflow-hidden">
       <div
         ref={grainRef}
-        className="absolute inset-[-200%] h-[400%] w-[400%] bg-[url('/images/framernoise.png')] bg-[length:256px] bg-left-top opacity-[3%]"
+        className="absolute inset-[-200%] h-[400%] w-[400%] bg-[length:256px] bg-left-top opacity-[3%]"
+        style={{ backgroundImage: `url(${framernoiseUrl})` }}
       />
     </div>
   );

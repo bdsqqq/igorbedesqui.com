@@ -10,6 +10,9 @@ import type { Meta } from "@/components/ProjectStuff/Projects";
 import { bebopMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 
+import wow_webm from "./-wow.webm";
+import wow_mp4 from "./-wow.mp4";
+
 export const wasmGifMeta: Meta = {
   shortName: "wasmGif",
   name: "Wasm Gif Converter",
@@ -32,7 +35,7 @@ export const wasmGifMeta: Meta = {
 export default function WasmGif() {
   return (
     <ProjectContainer key="wasmGifProj" backMessage={wasmGifMeta.backMessage}>
-      <HeroBand heroVideo="/videos/wasmgif/wow">
+      <HeroBand heroVideo={{ webm: wow_webm, mp4: wow_mp4 }}>
         <MDX>{`**Fast** and **secure** gif making.`}</MDX>
         <div className="mt-6">
           <CodeAndDemoButtons

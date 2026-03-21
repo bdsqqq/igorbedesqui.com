@@ -7,7 +7,8 @@ type HeroBandImg = {
 };
 
 type HeroBandVideo = {
-  heroVideo?: string;
+  /** Bundled asset URLs from `import x from ".../*.webm"` / `.mp4` */
+  heroVideo?: { webm: string; mp4: string };
   heroImg?: never;
 };
 
@@ -47,8 +48,8 @@ function HeroBand({
                   loop
                   className="visible h-full w-full object-cover object-center "
                 >
-                  <source src={`${heroVideo}.webm`} type="video/webm" />
-                  <source src={`${heroVideo}.mp4`} type="video/mp4" />
+                  <source src={heroVideo.webm} type="video/webm" />
+                  <source src={heroVideo.mp4} type="video/mp4" />
                 </video>
               )}
               <div className="bg-gray-01 absolute top-0 h-full w-full opacity-75" />

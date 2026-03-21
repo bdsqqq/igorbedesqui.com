@@ -8,10 +8,13 @@ import {
 import { bebopMeta, issMeta } from "../../metas";
 import { MDX } from "@/components/MDX";
 
+import noodles_webm from "../../bebop/-noodles.webm";
+import noodles_mp4 from "../../bebop/-noodles.mp4";
+
 export default function Think() {
   return (
     <ProjectContainer key="bebopProj" backMessage={bebopMeta.backMessage}>
-      <HeroBand heroVideo={"/videos/bebop/noodles"}>
+      <HeroBand heroVideo={{ webm: noodles_webm, mp4: noodles_mp4 }}>
         <MDX>
           {`
             Leading bleeding edge at massive scale.
