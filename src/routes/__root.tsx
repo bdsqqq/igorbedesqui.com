@@ -74,8 +74,6 @@ export const Route = createRootRoute({
       },
     ],
     links: [
-      { rel: "preload", href: globalsCss, as: "style" },
-      { rel: "stylesheet", href: globalsCss },
       {
         rel: "apple-touch-icon",
         sizes: "180x180",
@@ -124,6 +122,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       className="bg-gray-00 text-gray-11 min-h-lvh overflow-auto antialiased smooth-scroll"
     >
       <head>
+        <link rel="preload" href={globalsCss} as="style" />
+        <link rel="stylesheet" href={globalsCss} />
         <HeadContent />
       </head>
       <body className="font-serif leading-normal relative">
