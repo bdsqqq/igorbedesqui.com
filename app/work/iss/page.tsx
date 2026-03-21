@@ -6,23 +6,34 @@ import {
   ProjectLayout,
 } from "@/components/ProjectStuff/ProjectLayout";
 import Tooltip from "@/components/ui/Tooltip";
-import type { Metadata } from "next";
-
-import { issMeta, wasmGifMeta } from "../metas";
+import type { Meta } from "@/components/ProjectStuff/Projects";
+import { wasmGifMeta } from "../metas";
 import { MDX } from "@/components/MDX";
-import Image from "next/image";
+import Image from "@/components/ui/Image";
 
-import { makeSeo } from "@/lib/makeSeo";
+export const issMeta: Meta = {
+  shortName: "iss",
+  name: "Where's the iss?",
+  description: "Real time tracking of the International Space Station.",
+  roles: ["FrontEnd Developer", "UX/UI Designer"],
+  type: "Personal",
+  tools: [
+    "NextJS",
+    "React",
+    "Typescript",
+    "TailwindCSS",
+    "COBE",
+    "Tanstack-query",
+    "Jotai",
+    "Vercel",
+  ],
+  date: "2021 ~ 2022",
+  urlSlug: "iss",
+  backMessage: "Back into orbit",
+  draft: false,
+};
 
-export const metadata: Metadata = makeSeo({
-  title: "Where's the ISS?",
-  description:
-    "A simple webapp that tells you where is the International Space Station — made by Igor Bedesqui",
-  slug: "/work/iss",
-  ogText: "Realtime tracking of/nthe *International Space Station*",
-});
-
-export default async function Bebop() {
+export default function Bebop() {
   return (
     <ProjectContainer key="issProj" backMessage={issMeta.backMessage}>
       <HeroBand heroVideo="/videos/iss/space">

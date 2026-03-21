@@ -5,7 +5,6 @@ import { CVAWithPerms } from "@/lib/CVAPermutations";
 import { ArrowRightIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
 import { Border } from "@/components/ui/Border";
-import Image from "next/image";
 import Band from "@/components/Band";
 import Tooltip from "@/components/ui/Tooltip";
 

@@ -10,28 +10,39 @@ import {
   PopoverContent,
   StyledPopoverTrigger,
 } from "@/components/ui/Popover";
-import type { Metadata } from "next";
-
-import { bebopMeta, issMeta } from "../metas";
+import type { Meta } from "@/components/ProjectStuff/Projects";
+import { issMeta } from "../metas";
 import { MDX } from "@/components/MDX";
-import Image from "next/image";
-
-import { makeSeo } from "@/lib/makeSeo";
+import Image from "@/components/ui/Image";
 
 import desktopScreenshot from "public/images/projs/bebop/desktop-screenshot.png";
 import smartphoneScreenshot from "public/images/projs/bebop/smartphone-screenshot.png";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
-export const metadata: Metadata = makeSeo({
-  title: "Cowboy Bebop web poster",
+export const bebopMeta: Meta = {
+  shortName: "bebop",
+  name: "Cowboy Bebop web poster",
   description:
     "My entry for, and winner of, the second installment of the WebJam.",
-  slug: "/work/bebop",
-  ogText:
-    "*The work*, which *becomes* /n*a new genre itself*, will be /ncalled... *COWBOY BEBOP*",
-});
+  roles: ["FrontEnd Developer", "UX/UI Designer"],
+  type: "Personal",
+  tools: [
+    "Javascript",
+    "TailwindCSS",
+    "CSS",
+    "Motion One",
+    "Vite",
+    "Rollup",
+    "HTML",
+    "Adobe Illustrator",
+  ],
+  date: "2021",
+  urlSlug: "bebop",
+  backMessage: "See you space cowboy...",
+  draft: false,
+};
 
-export default async function Bebop() {
+export default function Bebop() {
   return (
     <ProjectContainer key="bebopProj" backMessage={bebopMeta.backMessage}>
       <HeroBand heroVideo={"/videos/bebop/noodles"}>

@@ -8,7 +8,7 @@ import { CopyButton } from "@/components/ui/CopyButton";
 import remarkGfm from "remark-gfm";
 import { ScrollBar, ScrollArea } from "@/components/ui/ScrollArea";
 
-import { compile, run } from '@mdx-js/mdx'
+import { evaluateSync } from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime'
 
 function Table({
@@ -122,7 +122,7 @@ const defaultComponents = {
   ),
   img: (props: HTMLProps<HTMLImageElement>) => (
     <Border className="-mx-4 rounded-sm">
-      {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <img className="rounded-inherit" {...props} />
     </Border>
   ), // @ts-expect-error
@@ -132,24 +132,18 @@ const defaultComponents = {
   // LiveCode,
 };
 
-export async function MDX({
+export function MDX({
   children,
   components: propComponents,
   ...passthrough
 }: { children: string } & {
   components?: React.ComponentProps<typeof MDXProvider>["components"];
 }) {
-  const mdxSource = children;
-
-  const code = String(
-      await compile(mdxSource, { outputFormat: 'function-body', remarkPlugins: [remarkGfm] })
-    )
-
-    const { default: MDXContent } = await run(code, {
-      ...runtime,
-      baseUrl: import.meta.url,
-    })
+  const { default: MDXContent } = evaluateSync(children, {
+    ...runtime,
+    remarkPlugins: [remarkGfm],
+    baseUrl: import.meta.url,
+  })
 
   return <MDXContent components={{ ...defaultComponents, ...(propComponents || {}) }} {...passthrough} />
-
 }

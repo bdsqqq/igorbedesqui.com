@@ -1,5 +1,4 @@
-import type { LinkProps } from "next/link";
-interface StyledLinkProps extends LinkProps {
+interface StyledLinkProps extends ComponentPropsWithoutRef<"a"> {
   href: string;
   icon?: ReactNode;
   iconless?: boolean;
@@ -14,7 +13,7 @@ function StyledLinkWithIcon({
   iconless,
   bold,
   ...rest
-}: StyledLinkProps & HtmlHTMLAttributes<{}>) {
+}: StyledLinkProps) {
   const ICONS_ENUM = {
     external: <ArrowTopRightIcon />,
   };
@@ -63,4 +62,4 @@ import { UnstyledLink } from "@/ui/primitives";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/styling";
-import type { HtmlHTMLAttributes, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";

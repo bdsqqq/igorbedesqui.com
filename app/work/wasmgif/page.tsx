@@ -6,21 +6,30 @@ import {
   ProjectLayout,
 } from "@/components/ProjectStuff/ProjectLayout";
 import Tooltip from "@/components/ui/Tooltip";
-import type { Metadata } from "next";
-
-import { wasmGifMeta, bebopMeta } from "../metas";
+import type { Meta } from "@/components/ProjectStuff/Projects";
+import { bebopMeta } from "../metas";
 import { MDX } from "@/components/MDX";
 
-import { makeSeo } from "@/lib/makeSeo";
+export const wasmGifMeta: Meta = {
+  shortName: "wasmGif",
+  name: "Wasm Gif Converter",
+  description: "Video to gif conversion without sending any data anywhere.",
+  roles: ["FrontEnd Developer", "UX/UI Designer"],
+  type: "Personal",
+  tools: [
+    "NextJS",
+    "React",
+    "Typescript",
+    "Framer Motion",
+    "ffmpeg",
+    "Web Assembly",
+  ],
+  date: "2021",
+  urlSlug: "wasmgif",
+  draft: false,
+};
 
-export const metadata: Metadata = makeSeo({
-  title: "WASM Gif maker",
-  description: "Fast and secure gif making — made by Igor Bedesqui",
-  slug: "/work/wasmgif",
-  ogText: "*Fast* and *secure* gif making.",
-});
-
-export default async function WasmGif() {
+export default function WasmGif() {
   return (
     <ProjectContainer key="wasmGifProj" backMessage={wasmGifMeta.backMessage}>
       <HeroBand heroVideo="/videos/wasmgif/wow">

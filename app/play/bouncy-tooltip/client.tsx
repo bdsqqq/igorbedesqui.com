@@ -5,7 +5,7 @@ import { useStore } from "zustand";
 import { createStore, StoreApi } from "zustand/vanilla"
 import { AnimatePresence, motion } from "motion/react"
 import { Tooltip, TooltipAnchor, TooltipProvider, useTooltipContext, Portal } from "@ariakit/react"
-import Image from "next/image"
+import Image from "@/components/ui/Image"
 
 type CursorPositionStore = {
   pos: {x: number, y: number}
@@ -161,11 +161,11 @@ const AttachedElement = ({ children }: { children?: React.ReactNode }) => {
 export const AnimatedElements = ({ animation }: { animation: animationFnName }) => {
   const media = [
     {
-      src: "https://igorbedesqui.com/_next/image?url=%2Fimages%2Fprojs%2Fthe-manual%2F1.jpg&w=1920&q=75",
+      src: "/images/projs/the-manual/1.jpg",
       type: "image"
     },
     {
-      src: "https://igorbedesqui.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdesktop-screenshot.c3599435.png&w=3840&q=75",
+      src: "/images/projs/bebop/desktop-screenshot.png",
       type: "image"
     },
     {

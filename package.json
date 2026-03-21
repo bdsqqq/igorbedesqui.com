@@ -6,10 +6,10 @@
     "node": "24.x"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "analyze": "ANALYZE=true pnpm build",
+    "dev": "vite dev",
+    "build": "vite build && tsc -p tsconfig.start.json --noEmit",
+    "preview": "vite preview",
+    "start": "node .output/server/index.mjs",
     "lint": "oxlint --type-aware --format=stylish --type-check --report-unused-disable-directives",
     "lint:fix": "oxlint --type-aware --format=stylish --type-check --fix --report-unused-disable-directives",
     "lint:github": "oxlint --type-aware --type-check --format=github --report-unused-disable-directives",
@@ -18,15 +18,17 @@
   },
   "dependencies": {
     "@ariakit/react": "^0.4.21",
+    "@fontsource-variable/geist-mono": "^5.2.7",
+    "@fontsource/ibm-plex-serif": "^5.2.7",
     "@mdx-js/mdx": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@radix-ui/react-icons": "^1.3.2",
+    "@tanstack/react-router": "^1.168.1",
+    "@tanstack/react-start": "^1.167.1",
     "@vercel/og": "^0.6.8",
     "class-variance-authority": "^0.7.1",
-    "geist": "^1.7.0",
     "motion": "^11.18.2",
     "nanoid": "^5.1.6",
-    "next": "^16.1.6",
     "radix-ui": "^1.4.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -38,17 +40,20 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/vite": "^4",
     "@types/node": "^24.10.12",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "fontaine": "^0.8.0",
+    "nitro": "^3.0.260311-beta",
     "oxfmt": "^0.28.0",
     "oxlint": "^1.43.0",
     "oxlint-tsgolint": "^0.11.5",
-    "postcss": "^8.5.6",
     "tailwindcss": "^4",
     "tw-animate-css": "^1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vite": "^8.0.0"
   },
   "license": "MIT"
 }

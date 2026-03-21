@@ -7,7 +7,7 @@ import { CVAWithPerms } from "@/lib/CVAPermutations";
 import { ArrowRightIcon, PlusIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
 import { Border } from "@/components/ui/Border";
-import Image from "next/image";
+import Image from "@/components/ui/Image";
 import Band from "@/components/Band";
 import Link from "@/components/ui/StyledLink";
 

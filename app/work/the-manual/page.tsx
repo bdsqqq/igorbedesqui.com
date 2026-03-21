@@ -2,11 +2,10 @@ import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Container from "@/components/Container";
 import Tooltip from "@/components/ui/Tooltip";
-import type { Metadata } from "next";
-
-import { psykipMeta, bebopMeta } from "../metas";
+import type { Meta } from "@/components/ProjectStuff/Projects";
+import { bebopMeta } from "../metas";
 import { MDX } from "@/components/MDX";
-import Image from "next/image";
+import Image from "@/components/ui/Image";
 import {
   Popover,
   PopoverContent,
@@ -20,16 +19,27 @@ import { Separator } from "@/ui/Separator";
 import { cn } from "@/lib/styling";
 import { Border } from "@/components/ui/Border";
 
-import { makeSeo } from "@/lib/makeSeo";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
-export const metadata: Metadata = makeSeo({
-  title: "The Manual",
-  description:
-    "A carefully crafted web experience, enabling frictionless reading of a variety of translations of the Enchiridion from Epictetus",
-  slug: "/work/the-manual",
-  ogText: "The best way to read the enchiridion",
-});
+export const psykipMeta: Meta = {
+  shortName: "the-manual",
+  name: "The manual",
+  description: "The best way to read The Enchiridion from Epictetus.",
+  roles: ["FrontEnd Developer", "UX/UI Designer"],
+  type: "Personal",
+  tools: [
+    "Typescript",
+    "Astro",
+    "SolidJS",
+    "TailwindCSS",
+    "Partytown",
+    "Golang",
+    "Vercel",
+  ],
+  date: "2022",
+  urlSlug: "the-manual",
+  draft: false,
+};
 
 const g = grid({ mode: "narrow" });
 const slottedInMiddleWide =
@@ -37,7 +47,7 @@ const slottedInMiddleWide =
 const slottedInMiddle =
   "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-5 lg:col-end-13";
 
-export default async function TheManual() {
+export default function TheManual() {
   return (
     <Container
       backAnchor="/work"

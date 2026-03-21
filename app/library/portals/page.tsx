@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import { PortalsView } from "./view";
+import { PortalsPageContent } from "./content";
 
 export default async function Page() {
   const source = await fs.readFile(
@@ -7,5 +7,5 @@ export default async function Page() {
     "utf8",
   );
 
-  return <PortalsView source={source} />;
+  return <PortalsPageContent source={source} />;
 }

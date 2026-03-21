@@ -5,7 +5,7 @@ import { grid } from "@/components/ui/Grid";
 import { cn } from "@/lib/styling";
 import { Test } from "./client";
 
-export default async function Page() {
+export default function Page() {
   return (
     <Container backable backAnchor="library">
       <div className={"absolute inset-0 h-full overflow-clip"}>

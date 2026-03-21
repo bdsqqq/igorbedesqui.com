@@ -73,45 +73,57 @@ flowchart TD
 ### 3. thin route files
 
 **do before framework migration**
-- move content, metadata, and view logic out of heavy route files into plain colocated modules
-- keep route files as framework glue: route config, loader hooks, and small composition only
 - move list/index data out of fake route-adjacent registries when a route can own its own metadata directly
+- do NOT create new `view.tsx`/`content.tsx` sidecars as prep — the tanstack start target is same-file route ownership where each route file owns its content and route-local meta
+- next's `page.tsx` / `Metadata` API is why some metadata still lives in external files today; that constraint disappears with the framework swap
+- established in `app/writing/not-just-the-basics/page.tsx`: the route can own its listing + seo source object, while `app/writing/metas.ts` becomes a minimal re-export for existing list consumers
+- next 16 in this repo accepts extra named exports from `page.tsx` beyond `metadata`/`generateMetadata`; verified via `.next/types/validator.ts` assigning page modules to `AppPageConfig`, and `pnpm exec tsc --noEmit` passed after adding a route-local meta export
+- propagated to `on-writing/page.tsx` and `dont-believe-in-yourself/page.tsx`; `metas.ts` now re-exports `onWritingMeta`, `basicsMeta`, `dontBelieveMeta` from their routes; `tsc --noEmit` passes
+- propagated to `schrodinger-minimalism/page.tsx` and `macos-rice/page.tsx`; `metas.ts` is now a pure re-export surface with zero central meta objects; `tsc --noEmit` passes
+- propagated to `app/work/{bebop,iss,wasmgif,ibm,the-manual}/page.tsx`; `app/work/metas.ts` now re-exports route-local metas and only keeps `minesweeperMeta` inline because no route exists yet; `tsc --noEmit` passes
 
-**template slice: `library/portals`** ✅
-- `page.tsx` — framework glue + fs read only
-- `view.tsx` — page composition component, receives data as props
-- `content.tsx` — static MDX prose, plain module
-- `showcase.tsx` — client interactive demos (unchanged)
-
-**target shape**
-
-```text
-app-or-routes/
-  writing/my-post/
-    page.tsx or route.tsx
-    meta.ts
-    view.tsx
-    content.tsx
-```
-
-or, where it stays small:
+**target shape (tanstack start)**
 
 ```ts
+// routes/writing/my-post/route.tsx
 export const meta = { ... }
-export const Route = createFileRoute(...)({ ... })
+export const Route = createFileRoute(...)({
+  component: MyPost,
+})
+function MyPost() { /* content lives here */ }
 ```
 
+colocated `-meta.ts` or `-content.tsx` sidecars are fine where a route is genuinely large, but same-file ownership is the default.
+
 **why this helps**
-- content becomes importable without framework rules getting in the way
-- migration becomes mostly file-moving and api-swapping, not archaeology
+- fewer files to move during migration
+- route ownership is explicit — no indirection through sidecars for the common case
+- content remains importable via colocated `-`-prefixed modules where needed
 
 ### 4. migrate to tanstack start
 
-**do after cleanup**
-- convert route structure
-- replace `next/link`, `next/navigation`, `Metadata`, `next/image`, `next/font`, `next/script`
-- port redirects from `next.config.mjs`
-- port og route to a tanstack server route using `@vercel/og`
+**start is now primary runtime**
+- ✅ home route (`src/routes/index.tsx`) owns the home page content directly; deleted the old `app/page.tsx` copy
+- ✅ work index route (`src/routes/work.tsx`) reuses `app/work/page.tsx` for real `/work` content
+- ✅ shared link primitives and breadcrumb pathname tracking no longer import `next/link` or `next/navigation`; the Start build no longer needs compat aliases for either
+- ✅ `/writing/grow`, `/writing/dont-believe-in-yourself`, `/writing/not-just-the-basics`, `/writing/on-writing`, `/writing/schrodinger-minimalism`, `/writing/macos-rice`, `/writing/scales` — route content + route-local meta now live in `src/routes/writing/*`; Start routes are the source of truth
+- ✅ `MDX` component switched from async `compile`+`run` to sync `evaluateSync` — works in both runtimes
+- ✅ `/play` index + all 8 subroutes (`actions`, `bouncy-tooltip`, `game-of-life`, `pokemon`, `synced-positions`, `og-preview`, `style-composition`, `style-overhaul`) — reuse `app/play/*/page.tsx` directly
+- ✅ `/work/bebop`, `/work/iss`, `/work/wasmgif`, `/work/ibm`, `/work/the-manual`, `/work/ibm/Think-2022` — reuse `app/work/*/page.tsx` directly (removed unnecessary `async` from default exports; `tsc -p tsconfig.start.json` clean)
+- ✅ `/library/button`, `/library/portals` — `createServerFn` reads source at load time; extracted `content.tsx` components reused from `app/library/*/content.tsx`
+- ✅ `/library` index route — minimal listing page linking to button and portals; fixes the `backAnchor="library"` fallback for current library routes
+- ✅ `/p/$slug` redirect route — Start `beforeLoad` redirects to `/work/$slug` with a 301
+- ✅ `/api/og` server route — Start route serves `@vercel/og` image responses with the existing logic
+- ✅ replaced `next/image` — local `components/ui/Image.tsx` wrapper used everywhere; vite shim removed
+- ✅ `next/font` and `next/script` — replaced by the TanStack Start root shell; deleted `app/layout.tsx` after moving document/head responsibility to `src/routes/__root.tsx`
+- ✅ `dev`/`build`/`start` now target TanStack Start; removed the legacy Next.js scripts from `package.json`
+- ✅ removed `src/shims/next-link.tsx` and `src/shims/next-navigation.ts` — no shared code imports them
+
+**next.js removal: complete**
+- `next` and `postcss` removed from `package.json`
+- empty `app/writing/` and `app/api/` directories deleted
+- remaining `app/` files are plain React components imported by Start routes — no Next.js API surface
+- `__root.tsx` handles fonts and analytics; Start route at `src/routes/api/og.tsx` handles OG images
 
 ## repo-specific notes
 

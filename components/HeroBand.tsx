@@ -69,6 +69,6 @@ export default HeroBand;
 import Band from "@/components/Band";
 import { cn } from "@/lib/styling";
 
-import Image from "next/image";
+import Image from "@/components/ui/Image";
 import React from "react";
 import { grid } from "./ui/Grid";

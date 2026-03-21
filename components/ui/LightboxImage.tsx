@@ -5,7 +5,7 @@ import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components/
 import { cn } from "@/lib/styling";
 import { Cross2Icon, EnterFullScreenIcon } from "@radix-ui/react-icons";
 import { motion } from "motion/react";
-import Image, { ImageProps } from "next/image";
+import Image, { ImageProps } from "@/components/ui/Image";
 import { ComponentProps, useState } from "react";
 
 const MotionImage = motion(Image);

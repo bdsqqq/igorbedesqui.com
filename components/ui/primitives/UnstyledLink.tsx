@@ -1,11 +1,9 @@
-import Link from "next/link";
-import type { LinkProps } from "next/link";
 import type { ComponentPropsWithoutRef, Ref } from "react";
 
-export type UnstyledLinkProps = LinkProps &
-  ComponentPropsWithoutRef<"a"> & {
-    ref?: Ref<HTMLAnchorElement>;
-  };
+export type UnstyledLinkProps = ComponentPropsWithoutRef<"a"> & {
+  href: string;
+  ref?: Ref<HTMLAnchorElement>;
+};
 
 function UnstyledLink({
   className,
@@ -14,22 +12,14 @@ function UnstyledLink({
   ref,
   ...rest
 }: UnstyledLinkProps) {
-  const isInternalLink =
-    typeof href == "string" && (href.startsWith("/") || href.startsWith("#"));
-  if (isInternalLink) {
-    return (
-      <Link ref={ref} href={href} passHref className={className} {...rest}>
-        {children}
-      </Link>
-    );
-  }
+  const isInternalLink = href.startsWith("/") || href.startsWith("#");
 
   return (
     <a
       ref={ref}
       className={className}
-      target="_blank"
-      href={href as string}
+      href={href}
+      {...(!isInternalLink && { target: "_blank" })}
       {...rest}
     >
       {children}

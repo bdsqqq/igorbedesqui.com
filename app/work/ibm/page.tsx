@@ -1,6 +1,5 @@
 import HeroBand from "@/components/HeroBand";
-import type { Metadata } from "next";
-
+import type { Meta } from "@/components/ProjectStuff/Projects";
 import { MDX } from "@/components/MDX";
 
 import Container from "@/components/Container";
@@ -9,57 +8,19 @@ import { grid } from "@/components/ui/Grid";
 import { Blur } from "@/components/ui/Blur";
 import { cn } from "@/lib/styling";
 
-const makeSeo = ({
-  title,
-  description,
-  slug,
-  ogText,
-}: {
-  title: string;
-  description: string;
-  slug: string;
-  ogText: string;
-}): Metadata => {
-  const ogImageUrl = new URL(
-    `https://www.igorbedesqui.com/api/og?text=${ogText}`,
-  ).href;
-
-  return {
-    title,
-    description,
-    twitter: {
-      site: "@bdsqqq",
-      creator: "@bdsqqq",
-      card: "summary_large_image",
-      title: title,
-      description: description,
-    },
-    openGraph: {
-      title: title,
-      description: description,
-      url: `https://www.igorbedesqui.com${slug}`,
-      type: "website",
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: ogText.replace("*", "").replace("/n", ""),
-        },
-      ],
-    },
-  };
+export const ibmMeta: Meta = {
+  shortName: "IBM",
+  name: "IBM",
+  description: "Creating web experiences for the enterprise of enterprises.",
+  roles: ["FullStack Developer"],
+  type: "Full time",
+  tools: [""],
+  date: "2020 ~ 2022",
+  urlSlug: "ibm",
+  draft: false,
 };
 
-export const metadata: Metadata = makeSeo({
-  title: "IBM",
-  description:
-    "Igor Bedesqui lead impactful initiatives and collaborated with top talent to deliver Think 2022 and other web experiences for IBM.",
-  slug: "/work/ibm",
-  ogText: "Creating web experiences/nfor the enterprise of/nenterprises.",
-});
-
-export default async function IBM() {
+export default function IBM() {
   // context
   // projects
   // // Think

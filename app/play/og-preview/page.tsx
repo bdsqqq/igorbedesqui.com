@@ -27,7 +27,6 @@ function loadImage(src: string): Promise<string> {
 function OgImage({ src }: { src: string }) {
   use(loadImage(src));
   return (
-    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
       alt="OG image preview"
