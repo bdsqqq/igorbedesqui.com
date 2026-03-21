@@ -1,7 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ImageResponse } from "@vercel/og";
 import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const ogRouteDir = dirname(fileURLToPath(import.meta.url));
 
 export const Route = createFileRoute("/api/og")({
   server: {
@@ -13,7 +16,7 @@ export const Route = createFileRoute("/api/og")({
         const fontDataBold = await readFile(
           resolve("public/fonts/IBMPlexSerif-SemiBold.ttf"),
         );
-        const framernoisePng = await readFile(resolve("app/-framernoise.png"));
+        const framernoisePng = await readFile(join(ogRouteDir, "-framernoise.png"));
         const framernoiseBg = `url(data:image/png;base64,${framernoisePng.toString("base64")})`;
 
         try {

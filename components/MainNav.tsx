@@ -61,7 +61,7 @@ function MainNav({ backable, backMessage, backAnchor }: MainNavProps) {
 
 export default MainNav;
 
-import { useBreadcrumbsStore } from "app/Providers";
+import { useBreadcrumbsStore } from "@/providers/breadcrumbs";
 
 import { useMemo } from "react";
 

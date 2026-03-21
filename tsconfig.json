@@ -6,6 +6,7 @@
       "@/components/*": ["./components/*"],
       "@/ui/*": ["./components/ui/*"],
       "@/lib/*": ["./lib/*"],
+      "@/providers/*": ["./src/providers/*"],
       "*": ["./*"]
     },
     "allowJs": false,

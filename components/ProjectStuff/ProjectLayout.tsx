@@ -8,7 +8,8 @@ export function ProjectLayout({
   nextProjMeta,
 }: React.PropsWithChildren<{
   projMeta: Meta;
-  nextProjMeta?: Meta;
+  /** only name + slug are rendered; keeps work routes from circular-importing full meta */
+  nextProjMeta?: Pick<Meta, "name" | "urlSlug">;
 }>) {
   const [isFaded, setIsFaded] = React.useState(false);
   const asideRef = React.useRef<HTMLDivElement>(null);

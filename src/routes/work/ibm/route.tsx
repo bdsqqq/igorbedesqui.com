@@ -1,0 +1,169 @@
+import { createFileRoute } from "@tanstack/react-router";
+import HeroBand from "@/components/HeroBand";
+import type { Meta } from "@/components/ProjectStuff/Projects";
+import { MDX } from "@/components/MDX";
+
+import Container from "@/components/Container";
+import Band from "@/components/Band";
+import { grid } from "@/components/ui/Grid";
+import { Blur } from "@/components/ui/Blur";
+import { cn } from "@/lib/styling";
+
+import tapes_webm from "./-tapes.webm";
+import tapes_mp4 from "./-tapes.mp4";
+
+export const ibmMeta: Meta = {
+  shortName: "IBM",
+  name: "IBM",
+  description: "Creating web experiences for the enterprise of enterprises.",
+  roles: ["FullStack Developer"],
+  type: "Full time",
+  tools: [""],
+  date: "2020 ~ 2022",
+  urlSlug: "ibm",
+  draft: false,
+};
+
+function IbmWorkPage() {
+  return (
+    <Container key="IBMProj" backable backAnchor="/work">
+      <HeroBand heroVideo={{ webm: tapes_webm, mp4: tapes_mp4 }}>
+        Creating web experiences for the enterprise of enterprises.
+      </HeroBand>
+      <div className="mb-16" />
+
+      <div className="flex flex-col gap-20">
+        <Band gridless id="context">
+          <div className={cn(grid({ mode: "narrow" }))}>
+            <div className="col-span-5 text-xl lg:col-span-9">
+              <MDX
+                components={{
+                  strong: (props) => (
+                    <span className="text-gray-12" {...props} />
+                  ),
+                }}
+              >
+                {`
+                  From updating content in product pages to **developing an** online **event with 121k attendees, I worked** on a wide range of projects at IBM, collaborated **with amazing folks, and led impactful initiatives.**
+                `}
+              </MDX>
+            </div>
+          </div>
+        </Band>
+        <Band gridless id="work">
+          <ul
+            className={cn(
+              grid({ mode: "narrow" }),
+              "gap-y-8 ",
+              //"hover:text-gray-10 focus-within:text-gray-10"
+            )}
+          >
+            <li className="col-span-4 cursor-text lg:col-span-8">
+              <h2 className="font-semibold">Think 2022</h2>
+              <p>{`Creating the digital experience for IBM's flagship event with bleeding-edge tech.`}</p>
+            </li>
+            <li className="col-span-4 lg:col-span-8 ">
+              <h2 className="font-semibold">Interactive event app</h2>
+              <p>
+                {`Highlighting key offerings to convert interested attendees into blown away clients.`}
+              </p>
+            </li>
+            <li className="col-span-4 lg:col-span-8">
+              <h2 className="font-semibold">QA Helper</h2>
+              <p>
+                {`Automating QA tasks in browser to help engineers focus on what matters. Typesafelly, of course.`}
+              </p>
+            </li>
+            <li className="col-span-4 lg:col-span-8">
+              <h2 className="font-semibold">
+                Open Source Exploration initiative
+              </h2>
+              <p>
+                {`Nerding about cool tech to the point it became an actual job activity when our studio decided to focus on unique experiences.`}
+              </p>
+            </li>
+            <li className="col-span-6 lg:col-span-12 lg:col-end-14">
+              <MDX
+                components={{
+                  h2: ({ children }) => (
+                    <h2 className="font-semibold">{children}</h2>
+                  ),
+                  ol: ({ children }) => (
+                    <ol className="list-outside list-decimal space-y-2 marker:text-gray-08">
+                      {children}
+                    </ol>
+                  ),
+                }}
+              >
+                {`
+                  ## Other contributions
+
+                  1. Was responsible for the development and technical decisions for ibm.com/events.
+                  1. Trained colleagues in React, Typescript, and NextJS through presentations, one on one sessions, and collaborative work.
+                  1. Maintained, used, and improved template repositories used to create whitepapers and other deliverables.
+                  1. Created pages and maintained one of a kind assets made in collaboration with external agencies for ibm.com /industries, /consulting and /services.
+                `}
+              </MDX>
+            </li>
+          </ul>
+        </Band>
+        <Band gridless id="people">
+          <div className={cn(grid({ mode: "narrow" }), "gap-y-20")}>
+            <div className="prose col-span-6 space-y-4 lg:col-span-8 lg:col-start-1">
+              <MDX
+                components={{
+                  ol: ({ children }) => (
+                    <ol className="list-outside list-decimal space-y-2 marker:text-gray-08">
+                      {children}
+                    </ol>
+                  ),
+                  strong: (props) => (
+                    <span className="text-gray-12" {...props} />
+                  ),
+                }}
+              >
+                {`
+                  Dozens of individuals are responsible for my growth, and I'm thankful to have met people who changed how I approach my work. Two that hold a special place in my development are [Rafael Merz](https://www.linkedin.com/in/rafael-merz/) and [Sebastian Huynh](https://www.linkedin.com/in/sebastian-huynh/);
+
+                  1. **Rafael's management style allowed me to pursue quality work and taught me the joy of ownership;** My best work happened under his leadership. **Together we delivered experiences that set a new standard for our organization.**
+                  1. **Sebastian's mentorship taught me how to speak, how to think about design, and from observing him, how to be a better person. I'm lucky to have worked with Sebastian and even luckier to call him a friend.**
+                `}
+              </MDX>
+            </div>
+            <div className="prose col-span-5 space-y-4 md:col-end-9 lg:col-span-12 lg:col-start-5">
+              <MDX
+                components={{
+                  Blur: Blur,
+                  strong: ({ children }) => (
+                    <span className="text-gray-08 transition-colors duration-moderate-02 ease-productive-standard group-hover/blur:text-gray-12 group-focus/blur:text-gray-12">
+                      {children}
+                    </span>
+                  ),
+                }}
+              >
+                {`
+                  Leaving was a hard decision, but after two years of aquiring new responsibilities and skills, with no change in pay, I decided to move on. A job at a company this big is transactional relationship after all.
+
+                  <Blur>…And getting paid **7K USD a year as a major contributor to high-impact projects in a multi-billion company** freaked me out. Feeling like a cost savings measure as a third-party offshore contractor in Brazil isn't the best for self worth. **But don't tell anyone, this is a secret!**</Blur>
+                `}
+              </MDX>
+            </div>
+          </div>
+        </Band>
+      </div>
+    </Container>
+  );
+}
+
+export const Route = createFileRoute("/work/ibm")({
+  component: IbmWorkPage,
+  head: () => ({
+    meta: [
+      { title: `${ibmMeta.name} — Igor Bedesqui` },
+      {
+        name: "description",
+        content: ibmMeta.description,
+      },
+    ],
+  }),
+});

@@ -17,7 +17,8 @@
       "~/*": ["./src/*"],
       "@/components/*": ["./components/*"],
       "@/ui/*": ["./components/ui/*"],
-      "@/lib/*": ["./lib/*"]
+      "@/lib/*": ["./lib/*"],
+      "@/providers/*": ["./src/providers/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

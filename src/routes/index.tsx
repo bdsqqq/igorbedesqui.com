@@ -8,7 +8,9 @@ import { Blur } from "@/components/ui/Blur";
 import StyledLink from "@/components/ui/StyledLink";
 import { cn } from "@/lib/styling";
 
-import { bebopMeta, psykipMeta, ibmMeta } from "app/work/metas";
+import { ibmMeta } from "./work/ibm/route";
+import { psykipMeta } from "./work/the-manual/route";
+import { bebopMeta } from "./work/bebop/route";
 import { dontBelieveMeta } from "./writing/dont-believe-in-yourself";
 import { macosRice } from "./writing/macos-rice/route";
 import { basicsMeta } from "./writing/not-just-the-basics";
@@ -29,7 +31,7 @@ export const Route = createFileRoute("/")({
 });
 
 /**
- * Home page — mirrors `app/page.tsx` with MDX content inlined as JSX.
+ * Home page — MDX-heavy sections inlined as JSX (tanstack routes are client components).
  *
  * The Next.js version uses an async `MDX` server component to compile
  * inline mdx strings. TanStack Start routes are client components, so

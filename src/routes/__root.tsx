@@ -46,8 +46,9 @@ const rootShellCss = `
   }
 `;
 
-import { Grain } from "../../app/Grain";
-import { Fade } from "../../app/Vignette";
+import { Grain } from "../components/shell/Grain";
+import { Fade } from "../components/shell/Vignette";
+import { HistoryTracker } from "../providers/breadcrumbs";
 import { Fuck_you_safari_for_taking_my_fullscreen_overlays_I_guess_Im_stuck_rendering_solids_behind_your_liquid_ass } from "../../components/force-solid-backdrop-under-safari-liquid-glass-url-and-topbar";
 import { PortalStoreProvider } from "../../components/ui/Portal";
 import { Toolbox } from "../../components/toolbox";
@@ -127,6 +128,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="font-serif leading-normal relative">
         <PortalStoreProvider>
+          <HistoryTracker />
           <Fuck_you_safari_for_taking_my_fullscreen_overlays_I_guess_Im_stuck_rendering_solids_behind_your_liquid_ass />
           <Fade
             to="top"
