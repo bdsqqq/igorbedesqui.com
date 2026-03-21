@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import type { ComponentPropsWithoutRef, Ref } from "react";
 
 export type UnstyledLinkProps = ComponentPropsWithoutRef<"a"> & {
@@ -12,14 +13,23 @@ function UnstyledLink({
   ref,
   ...rest
 }: UnstyledLinkProps) {
-  const isInternalLink = href.startsWith("/") || href.startsWith("#");
+  const isInternalRoute = href.startsWith("/");
+  const isHashLink = href.startsWith("#");
+
+  if (isInternalRoute) {
+    return (
+      <Link ref={ref} to={href} className={className} {...rest}>
+        {children}
+      </Link>
+    );
+  }
 
   return (
     <a
       ref={ref}
       className={className}
       href={href}
-      {...(!isInternalLink && { target: "_blank" })}
+      {...(!isHashLink && { target: "_blank" })}
       {...rest}
     >
       {children}
