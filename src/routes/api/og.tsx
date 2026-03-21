@@ -16,7 +16,9 @@ export const Route = createFileRoute("/api/og")({
         const fontDataBold = await readFile(
           resolve("public/fonts/IBMPlexSerif-SemiBold.ttf"),
         );
-        const framernoisePng = await readFile(join(ogRouteDir, "-framernoise.png"));
+        const framernoisePng = await readFile(
+          join(ogRouteDir, "-framernoise.png"),
+        );
         const framernoiseBg = `url(data:image/png;base64,${framernoisePng.toString("base64")})`;
 
         try {
