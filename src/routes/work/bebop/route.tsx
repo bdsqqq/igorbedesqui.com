@@ -17,8 +17,8 @@ import { Image } from "@/components/ui/Image";
 
 import noodles_webm from "./-noodles.webm";
 import noodles_mp4 from "./-noodles.mp4";
-import desktopScreenshot from "./-desktop-screenshot.png";
-import smartphoneScreenshot from "./-smartphone-screenshot.png";
+import desktopScreenshot from "./-desktop-screenshot.png?as=img";
+import smartphoneScreenshot from "./-smartphone-screenshot.png?as=img";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 export const bebopMeta: Meta = {
@@ -136,8 +136,6 @@ function BebopWorkPage() {
               <Image
                 className="border-gray-03 relative z-31 overflow-hidden rounded-sm border"
                 src={smartphoneScreenshot}
-                width={1440}
-                height={3040}
                 alt=""
               />
             </div>
@@ -145,8 +143,6 @@ function BebopWorkPage() {
               <Image
                 className="border-gray-03 relative z-31 overflow-hidden rounded-sm border"
                 src={desktopScreenshot}
-                width={1200}
-                height={800}
                 alt=""
               />
             </div>

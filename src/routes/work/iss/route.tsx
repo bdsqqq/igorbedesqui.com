@@ -13,9 +13,9 @@ import { Image } from "@/components/ui/Image";
 
 import space_webm from "./-space.webm";
 import space_mp4 from "./-space.mp4";
-import iss_blur from "./-blur.png";
-import iss_no_blur from "./-no_blur.png";
-import iss_full from "./-full_screenshot.png";
+import iss_blur from "./-blur.png?as=img";
+import iss_no_blur from "./-no_blur.png?as=img";
+import iss_full from "./-full_screenshot.png?as=img";
 
 export const issMeta: Meta = {
   shortName: "iss",
@@ -118,8 +118,6 @@ function IssWorkPage() {
             <figure className="col-start-1">
               <Image
                 className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
-                width={310}
-                height={310}
                 objectFit="contain"
                 src={iss_blur}
                 alt=""
@@ -135,8 +133,6 @@ function IssWorkPage() {
             <figure className="col-start-2">
               <Image
                 className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
-                width={310}
-                height={310}
                 objectFit="contain"
                 src={iss_no_blur}
                 alt=""
@@ -159,8 +155,6 @@ function IssWorkPage() {
           <figure className="mb-4">
             <Image
               className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
-              width={500}
-              height={851}
               objectFit="contain"
               src={iss_full}
               alt="Website screenshot"

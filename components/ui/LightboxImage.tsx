@@ -8,9 +8,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/Dialog";
 import { cn } from "@/lib/styling";
+import { isStaticImageData } from "@/lib/static-image";
 import { Cross2Icon, EnterFullScreenIcon } from "@radix-ui/react-icons";
 import { motion } from "motion/react";
-import { Image, ImageProps } from "@/components/ui/Image";
+import { Image } from "@/components/ui/Image";
 import { ComponentProps, useState } from "react";
 
 const MotionImage = motion(Image);
@@ -21,6 +22,7 @@ export const LightBox = ({
   ...props
 }: ComponentProps<typeof MotionImage> & { className?: string }) => {
   const [open, setOpen] = useState(false);
+  const layoutId = isStaticImageData(props.src) ? props.src.src : props.src;
 
   return (
     <Dialog
@@ -30,7 +32,7 @@ export const LightBox = ({
       }}
     >
       <MotionBorder
-        layoutId={props.src as string}
+        layoutId={layoutId}
         asWrapper
         className={cn("relative", open && "overflow-visible", className)}
       >
@@ -54,7 +56,7 @@ export const LightBox = ({
         onClick={(e) => setOpen(false)}
         className="bottom-0 left-0 right-0 top-0 grid w-full max-w-none translate-x-0 translate-y-0 place-items-center bg-transparent p-0"
       >
-        <MotionBorder layoutId={props.src as string} asWrapper>
+        <MotionBorder layoutId={layoutId} asWrapper>
           <MotionImage {...props} />
         </MotionBorder>
 

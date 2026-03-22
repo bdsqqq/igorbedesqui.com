@@ -25,12 +25,12 @@ import cat_webm from "./-cat.webm";
 import cat_mp4 from "./-cat.mp4";
 import reading_progress_webm from "./-reading_progress.webm";
 import reading_progress_mp4 from "./-reading_progress.mp4";
-import manual_1 from "./-1.jpg";
-import manual_2 from "./-2.jpg";
-import manual_3 from "./-3.jpg";
-import manual_4 from "./-4.jpg";
-import manual_5 from "./-5.jpg";
-import manual_kindle from "./-kindle.jpg";
+import manual_1 from "./-1.jpg?as=img";
+import manual_2 from "./-2.jpg?as=img";
+import manual_3 from "./-3.jpg?as=img";
+import manual_4 from "./-4.jpg?as=img";
+import manual_5 from "./-5.jpg?as=img";
+import manual_kindle from "./-kindle.jpg?as=img";
 
 export const psykipMeta: Meta = {
   shortName: "the-manual",
@@ -192,13 +192,7 @@ function TheManualWorkPage() {
             >
               <figure className={"space-y-2"}>
                 <Border asWrapper className="rounded">
-                  <Image
-                    className="w-full rounded"
-                    alt=""
-                    src={manual_1}
-                    width={685}
-                    height={993}
-                  />
+                  <Image className="w-full rounded" alt="" src={manual_1} />
                 </Border>
                 <figcaption className="text-sm italic tracking-wide text-gray-10">
                   The landing page mimics a book cover.
@@ -207,13 +201,7 @@ function TheManualWorkPage() {
 
               <figure className={"space-y-2"}>
                 <Border asWrapper className="rounded">
-                  <Image
-                    className="w-full rounded"
-                    alt=""
-                    src={manual_2}
-                    width={685}
-                    height={993}
-                  />
+                  <Image className="w-full rounded" alt="" src={manual_2} />
                 </Border>
                 <figcaption className="text-sm italic tracking-wide text-gray-10">
                   The chapters borrow from actual books with generous line
@@ -227,13 +215,7 @@ function TheManualWorkPage() {
             >
               <figure className={"space-y-2"}>
                 <Border asWrapper className="rounded">
-                  <Image
-                    className="w-full "
-                    alt=""
-                    src={manual_5}
-                    width={1505}
-                    height={993}
-                  />
+                  <Image className="w-full " alt="" src={manual_5} />
                 </Border>
                 <figcaption className="text-sm italic tracking-wide text-gray-10">
                   The “compare” pages were inspired by newspapers’s approach to
@@ -246,22 +228,10 @@ function TheManualWorkPage() {
               <figure className={"space-y-2"}>
                 <div className="space-y-2">
                   <Border asWrapper className="rounded">
-                    <Image
-                      className="w-full"
-                      alt=""
-                      src={manual_3}
-                      width={1505}
-                      height={993}
-                    />
+                    <Image className="w-full" alt="" src={manual_3} />
                   </Border>
                   <Border asWrapper className="rounded">
-                    <Image
-                      className="w-full"
-                      alt=""
-                      src={manual_4}
-                      width={1505}
-                      height={993}
-                    />
+                    <Image className="w-full" alt="" src={manual_4} />
                   </Border>
                 </div>
                 <figcaption className="text-sm italic tracking-wide text-gray-10">
@@ -292,12 +262,7 @@ function TheManualWorkPage() {
                         }}
                       >
                         <figure className="space-y-1 pb-2">
-                          <Image
-                            alt=""
-                            src={manual_kindle}
-                            width={540}
-                            height={720}
-                          />
+                          <Image alt="" src={manual_kindle} />
                           <figcaption className="text-center">
                             <MDX>{`[More pics on Twitter](https://twitter.com/bedesqui/status/1579608624514871296?s=20)`}</MDX>
                           </figcaption>
@@ -344,7 +309,9 @@ function TheManualWorkPage() {
               <SidebarContent projMeta={psykipMeta} />
               <div className="col-span-full mt-12">
                 <h3 className="font-bold text-gray-09">Next project</h3>
-                <StyledLink href="/work/bebop">Cowboy Bebop web poster</StyledLink>
+                <StyledLink href="/work/bebop">
+                  Cowboy Bebop web poster
+                </StyledLink>
               </div>
             </div>
           </div>

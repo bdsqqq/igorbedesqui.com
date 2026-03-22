@@ -11,9 +11,10 @@ import {
   Portal,
 } from "@ariakit/react";
 import { Image } from "@/components/ui/Image";
+import type { StaticImageData } from "@/lib/static-image";
 
-import theManual1 from "../../work/the-manual/-1.jpg";
-import bebopDesktop from "../../work/bebop/-desktop-screenshot.png";
+import theManual1 from "../../work/the-manual/-1.jpg?as=img";
+import bebopDesktop from "../../work/bebop/-desktop-screenshot.png?as=img";
 
 type CursorPositionStore = {
   pos: { x: number; y: number };
@@ -199,27 +200,35 @@ export const AnimatedElements = ({
 }: {
   animation: animationFnName;
 }) => {
-  const media = [
+  const media: Array<
+    | { key: string; src: StaticImageData; type: "image" }
+    | { key: string; src: string; type: "video" }
+  > = [
     {
+      key: "the-manual",
       src: theManual1,
       type: "image",
     },
     {
+      key: "bebop-desktop",
       src: bebopDesktop,
       type: "image",
     },
     {
+      key: "profile-video",
       src: "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/sRGuzPg7aefddqqyQhgHTZi2sM53/rDbRz9x7nIoBUpLrGOP3/624244f2-1e6d-461b-b189-e0d1c4750ebe.mp4?_a=DATAdtAAZAA0",
       type: "video",
     },
   ];
   const duration = 0.2;
+  // Intentional square crops: these previews read as floating cards, not literal screenshots.
+  const tooltipThumbnailSize = 144;
 
   return (
     <div className="grid grid-cols-1 grid-rows-1">
       {media.map((item, i) => (
         <motion.div
-          key={`${item.src}-${i}`}
+          key={`${item.key}-${i}`}
           {...animationFns[animation](i, duration)}
           className="shadow row-start-1 row-end-1 col-start-1 col-end-1 rounded-sm"
         >
@@ -228,9 +237,10 @@ export const AnimatedElements = ({
               <Image
                 src={item.src}
                 alt=""
-                width={144}
-                height={144}
-                className="w-full h-auto"
+                width={tooltipThumbnailSize}
+                aspectRatio={1}
+                objectFit="cover"
+                className="w-full"
               />
             ) : (
               <video src={item.src} autoPlay loop muted playsInline />

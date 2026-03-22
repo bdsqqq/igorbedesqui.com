@@ -14,7 +14,7 @@ import { Lock } from "@/components/ui/Lock";
 
 import reading_progress_webm from "../work/the-manual/-reading_progress.webm";
 import reading_progress_mp4 from "../work/the-manual/-reading_progress.mp4";
-import manual_2 from "../work/the-manual/-2.jpg";
+import manual_2 from "../work/the-manual/-2.jpg?as=img";
 
 function replaceLeafValuesWithDots(
   obj: Record<string, unknown>,
@@ -125,13 +125,7 @@ function BorderExamples() {
         </video>
       </Border>
       <Border asWrapper className="rounded">
-        <Image
-          className="w-full rounded"
-          alt=""
-          src={manual_2}
-          width={685}
-          height={993}
-        />
+        <Image className="w-full rounded" alt="" src={manual_2} />
       </Border>
     </div>
   );

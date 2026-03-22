@@ -21,6 +21,6 @@
       "@/providers/*": ["./src/providers/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "imagetools.d.ts"],
   "exclude": ["node_modules", "dist", ".output"]
 }
