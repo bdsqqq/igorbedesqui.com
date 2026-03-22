@@ -6,10 +6,8 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import * as React from "react";
-import globalsCssHref from "../../styles/globals.css?url";
+import css from "./-main.css?url";
 import { Agentation } from "agentation";
-
-const globalsCss = import.meta.env.DEV ? "/styles/globals.css" : globalsCssHref;
 
 import { Grain } from "../components/shell/Grain";
 import { Fade } from "../components/shell/Vignette";
@@ -82,8 +80,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       className="bg-gray-00 text-gray-11 min-h-lvh overflow-auto antialiased smooth-scroll"
     >
       <head>
-        <link rel="preload" href={globalsCss} as="style" />
-        <link rel="stylesheet" href={globalsCss} />
+        <link rel="preload" href={css} as="style" />
+        <link rel="stylesheet" href={css} />
         <HeadContent />
       </head>
       <body className="font-serif leading-normal relative">
