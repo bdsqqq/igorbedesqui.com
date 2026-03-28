@@ -1,0 +1,8 @@
+{
+  "name": "@igorbedesqui/pattern-language",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared pattern language documentation for cross-project use",
+  "license": "MIT",
+  "files": ["*.md"]
+}

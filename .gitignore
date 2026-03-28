@@ -37,6 +37,6 @@ yarn-error.log*
 .million
 
 # tanstack start
-/.output/
-/.tanstack/
-/src/routeTree.gen.ts
+**/.output/
+**/.tanstack/
+apps/web/src/routeTree.gen.ts
