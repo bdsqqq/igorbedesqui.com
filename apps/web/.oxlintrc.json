@@ -7,12 +7,7 @@
   "env": {
     "builtin": true
   },
-  "ignorePatterns": [
-    "out/**",
-    "build/**",
-    ".output/**",
-    "**/node_modules/**"
-  ],
+  "ignorePatterns": ["out/**", "build/**", ".output/**", "**/node_modules/**"],
   "overrides": [
     {
       "files": ["**/*.{js,jsx,mjs,ts,tsx,mts,cts}"],
