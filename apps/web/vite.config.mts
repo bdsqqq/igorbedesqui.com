@@ -18,12 +18,11 @@ export default defineConfig({
       config: {
         version: 3,
         images: {
-          // Every w= in /_vercel/image must appear here. @unpic/react emits widths
-          // from intrinsic size × DPR (e.g. 3600, 1984) plus tiny LQIP (24).
+          // Every `w` in `/_vercel/image` must be listed. @unpic/core: DEFAULT_RESOLUTIONS + `getBreakpoints` (constrained) from each asset width, plus LQIP 24.
           sizes: [
-            24, 144, 288, 310, 500, 540, 620, 640, 685, 750, 828, 960, 1000, 1080, 1200, 1280, 1370,
-            1440, 1505, 1668, 1920, 1984, 2048, 2400, 2560, 2880, 3010, 3200, 3600, 3840, 3968,
-            4480, 5120, 6016, 7200,
+            24, 144, 288, 310, 500, 540, 620, 640, 685, 700, 750, 756, 828, 960, 1000, 1080,
+            1200, 1280, 1370, 1400, 1440, 1487, 1505, 1512, 1668, 1920, 1984, 2048, 2400, 2560,
+            2880, 2974, 3010, 3200, 3600, 3840, 3968, 4313, 4480, 5120, 6016, 7200, 8626,
           ],
           domains: ["igorbedesqui.com"],
           minimumCacheTTL: 60,
