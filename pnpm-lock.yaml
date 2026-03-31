@@ -98,6 +98,9 @@ importers:
       '@types/react-dom':
         specifier: 19.2.3
         version: 19.2.3(@types/react@19.2.7)
+      '@unpic/core':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@vitejs/plugin-react':
         specifier: ^6.0.1
         version: 6.0.1(vite@8.0.1(@types/node@24.10.12)(esbuild@0.27.4)(jiti@2.6.1)(tsx@4.21.0))
@@ -107,6 +110,9 @@ importers:
       fontaine:
         specifier: ^0.8.0
         version: 0.8.0
+      image-size:
+        specifier: ^2.0.2
+        version: 2.0.2
       nitro:
         specifier: ^3.0.260311-beta
         version: 3.0.260311-beta(jiti@2.6.1)(vite@8.0.1(@types/node@24.10.12)(esbuild@0.27.4)(jiti@2.6.1)(tsx@4.21.0))
@@ -2259,6 +2265,11 @@ packages:
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+
+  image-size@2.0.2:
+    resolution: {integrity: sha512-IRqXKlaXwgSMAMtpNzZa1ZAe8m+Sa1770Dhk8VkSsP9LS+iHD62Zd8FQKs8fbPiagBE7BzoFX23cxFnwshpV6w==}
+    engines: {node: '>=16.x'}
+    hasBin: true
 
   imagetools-core@9.1.0:
     resolution: {integrity: sha512-xQjs+2vrxLnAjCq+omuNkd5UQTld9/bP8+YT0LyYTlKfuSQtgUBvqhUwGugzSAh6sCdN+LnROMuLswn5hZ9Fhg==}
@@ -5324,6 +5335,8 @@ snapshots:
   iconv-lite@0.6.3:
     dependencies:
       safer-buffer: 2.1.2
+
+  image-size@2.0.2: {}
 
   imagetools-core@9.1.0: {}
 
