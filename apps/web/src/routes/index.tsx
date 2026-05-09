@@ -99,8 +99,7 @@ function Home() {
                         </span>
                       </div>
                       <p>
-                        Raising the bar for observability, security, and
-                        analytics.
+                        UI & Engineering for making sense of petabytes of logs.
                       </p>
                     </div>
                   </div>
