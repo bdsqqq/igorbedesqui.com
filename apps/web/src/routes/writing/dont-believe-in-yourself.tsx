@@ -39,24 +39,22 @@ function DontBelieveContent() {
   return (
     <>
       <MDX
-              components={{
-                Blur: (props) => (
-                  <Blur className="cursor-not-allowed" {...props} />
-                  // https://twitter.com/MarcosNASAG/status/1656626373534916608?s=20
-                ),
-                blockquote: (props) => (
-                  <blockquote
-                    className="-indent-4 text-3xl text-gray-12 sm:-indent-6 sm:text-5xl"
-                    {...props}
-                  />
-                ),
-                strong: (props) => <span className="text-gray-12" {...props} />,
-                em: (props) => (
-                  <em className="italic text-gray-10" {...props} />
-                ),
-              }}
-            >
-              {`
+        components={{
+          Blur: (props) => (
+            <Blur className="cursor-not-allowed" {...props} />
+            // https://twitter.com/MarcosNASAG/status/1656626373534916608?s=20
+          ),
+          blockquote: (props) => (
+            <blockquote
+              className="-indent-4 text-3xl text-gray-12 sm:-indent-6 sm:text-5xl"
+              {...props}
+            />
+          ),
+          strong: (props) => <span className="text-gray-12" {...props} />,
+          em: (props) => <em className="italic text-gray-10" {...props} />,
+        }}
+      >
+        {`
                > "Don't believe in yourself. Believe in the me that believes in you"
                
                Is a cheesy quote from an over the top animation that had way too much of an impact on me recently. 
@@ -71,7 +69,7 @@ function DontBelieveContent() {
                <br />
                I'll eventually outgrow this, but right now, I'm happy to use such amazing people as facades that enable trust in myself, even if indirectly.
             `}
-            </MDX>
+      </MDX>
     </>
   );
 }

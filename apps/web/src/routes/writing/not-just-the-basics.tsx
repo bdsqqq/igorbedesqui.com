@@ -39,18 +39,16 @@ function NotJustTheBasicsContent() {
   return (
     <>
       <MDX
-              components={{
-                Blur,
-                strong: (props) => <span className="text-gray-12" {...props} />,
-                h1: (props) => (
-                  <h1 className="mb-8 text-2xl text-gray-12" {...props} />
-                ),
-                del: (props) => (
-                  <span aria-hidden className="hidden" {...props} />
-                ),
-              }}
-            >
-              {`
+        components={{
+          Blur,
+          strong: (props) => <span className="text-gray-12" {...props} />,
+          h1: (props) => (
+            <h1 className="mb-8 text-2xl text-gray-12" {...props} />
+          ),
+          del: (props) => <span aria-hidden className="hidden" {...props} />,
+        }}
+      >
+        {`
                # ${basicsMeta.name}
 
                **Being smart, creative, and innovative is important, but ignoring the risks that come with it is irresponsible; Allowing yourself to make big mistakes is an inherent part of the creative process.**
@@ -67,7 +65,7 @@ function NotJustTheBasicsContent() {
 
                ~~For a long time I played League with my friends, and this year, despite not being good at the game, we tried to climb the competitive ranks less than a month before the end of the season. The strategy I chose and forced my friends to adopt was repeating the phrase "Just the basic" every couple of seconds as a meme and actually executing just the basics in the game, nothing fancy other than trying to not make mistakes. In the 10 games I played, we won 9; In an incredibly scientific effort, I stopped playing with them and saw the win streak end, it seems like there was a direct relation between playing a simple game of fundamentals and the statistical anomaly of a 90% win rate. If you came here for League tips: don't die, farm well, and focus on objectives; Getting enough of an advantage will allow you to risk making mistakes.~~
             `}
-            </MDX>
+      </MDX>
     </>
   );
 }
