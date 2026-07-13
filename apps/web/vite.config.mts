@@ -1,3 +1,4 @@
+import { copyFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -29,6 +30,42 @@ function fixNitroRscLoadModuleExtension(): Plugin {
   };
 }
 
+function useTslibEsmForSsr(): Plugin {
+  return {
+    name: "fix:tslib-esm-for-ssr",
+    enforce: "pre",
+    apply: "build",
+    applyToEnvironment: (environment) => environment.name === "ssr",
+    resolveId(source, importer, options) {
+      if (source !== "tslib") return null;
+
+      return this.resolve("tslib/tslib.es6.mjs", importer, {
+        ...options,
+        skipSelf: true,
+      });
+    },
+  };
+}
+
+const vercelOgAssets = [
+  "noto-sans-v27-latin-regular.ttf",
+  "yoga.wasm",
+  "resvg.wasm",
+];
+
+async function copyVercelOgAssetsForSsr(serverDir: string) {
+  const targetDir = path.join(serverDir, "_ssr");
+  await mkdir(targetDir, { recursive: true });
+  await Promise.all(
+    vercelOgAssets.map((fileName) =>
+      copyFile(
+        new URL(`./node_modules/@vercel/og/dist/${fileName}`, import.meta.url),
+        path.join(targetDir, fileName),
+      ),
+    ),
+  );
+}
+
 export default defineConfig({
   server: {
     port: 3000,
@@ -37,6 +74,10 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   nitro: {
+    hooks: {
+      compiled: (nitro) =>
+        copyVercelOgAssetsForSsr(nitro.options.output.serverDir),
+    },
     vercel: {
       config: {
         version: 3,
@@ -66,6 +107,7 @@ export default defineConfig({
     }),
     tailwindcss(),
     imagetools(),
+    useTslibEsmForSsr(),
     tanstackStart({
       srcDirectory: "src",
       rsc: {
