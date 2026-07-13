@@ -74,10 +74,15 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   nitro: {
-    hooks: {
-      compiled: (nitro) =>
-        copyVercelOgAssetsForSsr(nitro.options.output.serverDir),
-    },
+    modules: [
+      {
+        setup(nitro) {
+          nitro.hooks.hook("compiled", () =>
+            copyVercelOgAssetsForSsr(nitro.options.output.serverDir),
+          );
+        },
+      },
+    ],
     vercel: {
       config: {
         version: 3,
