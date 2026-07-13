@@ -55,31 +55,35 @@ function SchrodingerMinimalismContent() {
   return (
     <>
       <MDX
-        components={{
-          Blur: (props) => <Blur {...props} />,
-          Popover: (props) => (
-            <Popover>
-              <PopoverTrigger {...props} />
-              <PopoverContent align="end" alignOffset={0}>
-                <MDX>
-                  [Antoine de Saint-Exupéry: Terre des hommes, Gallimard,
-                  France, 1939](https://amzn.eu/d/3FDtHJw)
-                </MDX>
-              </PopoverContent>
-            </Popover>
-          ),
-          Tooltip: (props) => <Tooltip content="great book btw" {...props} />,
-          blockquote: (props) => (
-            <blockquote
-              className="-indent-2 text-xl text-gray-12 sm:-indent-2 sm:text-xl"
-              {...props}
-            />
-          ),
-          strong: (props) => <span className="text-gray-12" {...props} />,
-          em: (props) => <em className="italic text-gray-10" {...props} />,
-        }}
-      >
-        {`
+              components={{
+                Blur: (props) => <Blur {...props} />,
+                Popover: (props) => (
+                  <Popover>
+                    <PopoverTrigger {...props} />
+                    <PopoverContent align="end" alignOffset={0}>
+                      <MDX>
+                        [Antoine de Saint-Exupéry: Terre des hommes, Gallimard,
+                        France, 1939](https://amzn.eu/d/3FDtHJw)
+                      </MDX>
+                    </PopoverContent>
+                  </Popover>
+                ),
+                Tooltip: (props) => (
+                  <Tooltip content="great book btw" {...props} />
+                ),
+                blockquote: (props) => (
+                  <blockquote
+                    className="-indent-2 text-xl text-gray-12 sm:-indent-2 sm:text-xl"
+                    {...props}
+                  />
+                ),
+                strong: (props) => <span className="text-gray-12" {...props} />,
+                em: (props) => (
+                  <em className="italic text-gray-10" {...props} />
+                ),
+              }}
+            >
+              {`
                 # **${schrodingerMinimalism.name}** <Blur>**AKA: me yapping about design patterns I like.**</Blur>
 
                > “Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.”
@@ -102,49 +106,55 @@ function SchrodingerMinimalismContent() {
                
                No better way to see it than to look at their sites:
             `}
-      </MDX>
+            </MDX>
 
-      <figure>
-        <Border asWrapper className="rounded">
-          <video
-            poster={pedro_thumb}
-            autoPlay={true}
-            controls={false}
-            loop={true}
-            muted={true}
-          >
-            <source src={pedro_webm} type="video/webm; codecs=vp9,vorbis" />
-            <source src={pedro_mp4} type="video/mp4" />
-          </video>
-        </Border>
-        <figcaption className="text-end">
-          <MDX>{`https://ped.ro/`}</MDX>
-        </figcaption>
-      </figure>
+            <figure>
+              <Border asWrapper className="rounded">
+                <video
+                  poster={pedro_thumb}
+                  autoPlay={true}
+                  controls={false}
+                  loop={true}
+                  muted={true}
+                >
+                  <source
+                    src={pedro_webm}
+                    type="video/webm; codecs=vp9,vorbis"
+                  />
+                  <source src={pedro_mp4} type="video/mp4" />
+                </video>
+              </Border>
+              <figcaption className="text-end">
+                <MDX>{`https://ped.ro/`}</MDX>
+              </figcaption>
+            </figure>
 
-      <figure>
-        <Border asWrapper className="rounded">
-          <video
-            poster={los_feliz_thumb}
-            autoPlay={true}
-            controls={false}
-            loop={true}
-            muted={true}
-          >
-            <source src={los_feliz_webm} type="video/webm; codecs=vp9,vorbis" />
-            <source src={los_feliz_mp4} type="video/mp4" />
-          </video>
-        </Border>
-        <figcaption className="text-end">
-          <MDX>{`https://lfe.org/`}</MDX>
-        </figcaption>
-      </figure>
+            <figure>
+              <Border asWrapper className="rounded">
+                <video
+                  poster={los_feliz_thumb}
+                  autoPlay={true}
+                  controls={false}
+                  loop={true}
+                  muted={true}
+                >
+                  <source
+                    src={los_feliz_webm}
+                    type="video/webm; codecs=vp9,vorbis"
+                  />
+                  <source src={los_feliz_mp4} type="video/mp4" />
+                </video>
+              </Border>
+              <figcaption className="text-end">
+                <MDX>{`https://lfe.org/`}</MDX>
+              </figcaption>
+            </figure>
 
-      <MDX>
-        {`
+            <MDX>
+              {`
                Anyways, nice site [@peduarte](https://x.com/peduarte), and thanks for taking my obsession with somehow applying progressive disclosure to main content one step further.
                 `}
-      </MDX>
+            </MDX>
     </>
   );
 }

@@ -10,8 +10,7 @@ import { DEFAULT_RESOLUTIONS, getBreakpoints } from "@unpic/core/base";
  */
 const UNPIC_LQIP_WIDTH = 24;
 
-const importRe =
-  /from\s+["']([^"']+\.(?:jpe?g|png|webp|gif|avif))\?as=img["']/g;
+const importRe = /from\s+["']([^"']+\.(?:jpe?g|png|webp|gif|avif))\?as=img["']/g;
 
 function walkTsFiles(dir: string, acc: string[] = []): string[] {
   let entries;
@@ -24,10 +23,7 @@ function walkTsFiles(dir: string, acc: string[] = []): string[] {
     if (ent.name.startsWith(".") || ent.name === "node_modules") continue;
     const p = path.join(dir, ent.name);
     if (ent.isDirectory()) walkTsFiles(p, acc);
-    else if (
-      ent.isFile() &&
-      (ent.name.endsWith(".tsx") || ent.name.endsWith(".ts"))
-    ) {
+    else if (ent.isFile() && (ent.name.endsWith(".tsx") || ent.name.endsWith(".ts"))) {
       acc.push(p);
     }
   }
@@ -41,10 +37,7 @@ function walkTsFiles(dir: string, acc: string[] = []): string[] {
 export function vercelNitroImageSizes(appsWebRoot: string): number[] {
   const required = new Set<number>([UNPIC_LQIP_WIDTH, ...DEFAULT_RESOLUTIONS]);
 
-  for (const root of [
-    path.join(appsWebRoot, "src"),
-    path.join(appsWebRoot, "components"),
-  ]) {
+  for (const root of [path.join(appsWebRoot, "src"), path.join(appsWebRoot, "components")]) {
     for (const file of walkTsFiles(root)) {
       const txt = readFileSync(file, "utf8");
       if (!txt.includes("?as=img")) continue;
@@ -53,9 +46,7 @@ export function vercelNitroImageSizes(appsWebRoot: string): number[] {
       while ((m = importRe.exec(txt)) !== null) {
         const resolved = path.resolve(path.dirname(file), m[1]);
         if (!statSync(resolved).isFile()) {
-          throw new Error(
-            `vercelNitroImageSizes: missing ${resolved} (from ${file})`,
-          );
+          throw new Error(`vercelNitroImageSizes: missing ${resolved} (from ${file})`);
         }
         const dim = imageSize(new Uint8Array(readFileSync(resolved)));
         const w = dim.width;

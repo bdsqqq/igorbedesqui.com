@@ -81,19 +81,21 @@ function RiceContent() {
   return (
     <>
       <MDX
-        components={{
-          Blur: (props) => <Blur {...props} />,
-          blockquote: (props) => (
-            <blockquote
-              className="-indent-4 text-3xl text-gray-12 sm:-indent-6 sm:text-5xl"
-              {...props}
-            />
-          ),
-          strong: (props) => <span className="text-gray-12" {...props} />,
-          em: (props) => <em className="italic text-gray-10" {...props} />,
-        }}
-      >
-        {`
+              components={{
+                Blur: (props) => <Blur {...props} />,
+                blockquote: (props) => (
+                  <blockquote
+                    className="-indent-4 text-3xl text-gray-12 sm:-indent-6 sm:text-5xl"
+                    {...props}
+                  />
+                ),
+                strong: (props) => <span className="text-gray-12" {...props} />,
+                em: (props) => (
+                  <em className="italic text-gray-10" {...props} />
+                ),
+              }}
+            >
+              {`
 # Ricing MacOS
 ## Why...?
 About a year ago, Youtube recommended a video titled "[Improved AwesomeWM rice (With UI!)](https://www.youtube.com/watch?v=XyPs54eV99g&t=19s)", The minimal aesthetic and exaggerated animations got me hooked, and in a few hours, I got way too deep into the Unix Ricing rabbithole, exploring window managers, aesthetic CLI tools, and color themes. 
@@ -110,22 +112,22 @@ Aesthetics are cool and do play a role in driving my customizations, but the mos
 
 Fine! First off, this is how my setup looks right now:
 `}
-      </MDX>
+            </MDX>
 
-      <LightBox
-        className="-mx-4 rounded-sm bg-gray-01"
-        alt="Screenshot of customized MacOS Desktop. The colors in VSCode, Obsidian, and the btop system monitor running in a terminal match the Vesper color palette"
-        src={setup_1}
-      />
+            <LightBox
+              className="-mx-4 rounded-sm bg-gray-01"
+              alt="Screenshot of customized MacOS Desktop. The colors in VSCode, Obsidian, and the btop system monitor running in a terminal match the Vesper color palette"
+              src={setup_1}
+            />
 
-      <LightBox
-        className="-mx-4 rounded-sm bg-gray-01"
-        alt="Screenshot of customized MacOS Desktop. The colors in Linear, Spotify, Raycast, Discord, and VSCode match the Vesper color palette."
-        src={setup_2}
-      />
+            <LightBox
+              className="-mx-4 rounded-sm bg-gray-01"
+              alt="Screenshot of customized MacOS Desktop. The colors in Linear, Spotify, Raycast, Discord, and VSCode match the Vesper color palette."
+              src={setup_2}
+            />
 
-      <MDX>
-        {`
+            <MDX>
+              {`
 Most apps have the same custom color scheme, I tile windows through [Raycast's Window Management Extension](https://www.raycast.com/extensions/window-management?via=igor-bedesqui) and have keybindings for about everything thanks to [Raycast's Hotkeys](https://manual.raycast.com/command-aliases-and-hotkeys?via=igor-bedesqui).
 
 I shared my progress on applying the custom theme to each app on [Twitter](https://twitter.com/search?q=from:@bedesqui%20vesper&src=typed_query) bit by bit, and this week, [2 posts about my MacOS rice](https://twitter.com/search?q=(fine%20%20OR%20twitter%20OR%20weekly%20OR%20reminder)%20(from:bedesqui)%20min_faves:500%20-filter:replies&src=typed_query&f=top) got over 360K impressions combined. With this many eyes on it, a few people asked for a guide on how to do it themselves, and it's surprisingly simpler than it seems.
@@ -136,14 +138,14 @@ I shared my progress on applying the custom theme to each app on [Twitter](https
 The bulk of my rice consists of setting colors, but the most important part of my workflow is the window management aspect of it. Luckily it's simply leveraging Raycast's defaults with custom hotkeys for a few commands. If you don't have installed Raycast yet(Why?), you can get it by running \`brew install --cask raycast\`, or following the instructions on [their site](https://www.raycast.com/?via=igor-bedesqui).
 
 and you're pretty much done, the Window Management Extension has everything I use, and if you want my exact keybindings (and the _aesthetic_ gap between windows), you can copy the following settings:`}
-      </MDX>
-      <LightBox
-        className="-mx-4 rounded-sm bg-gray-01"
-        alt="Screenshot of Raycast settings for Window Manager extension. The hotkeys are as follows: Almost maximize = control + option + command + arrow up; Bottom Left Quarter = control + option + command + h; Bottom Left Sixth = control + option + Shift + command + h; Bottom Right Quarter = control + option + command + j; Bottom Right Sixth = control + option + Shift + command + j; Left Half = control + option + command + arrow left; Make Larger = control + option + Shift + command + arrow up; Make Smaller = control + option + Shift + command + arrow down; Reasonable Size = control + option + command + arrow down; Right Half = control + option + command + arrow right; Top Left Quarter = control + option + command + y; Top Left Sixth = control + option + Shift + command + Y; Top Right Quarter = control + option + command + u; Top Right Sixth = control + option + Shift + command + u. Window Management settings are: Gap = Tiny(8px); Cycling: Cycle ½, ⅔, ⅓; Advanced, Respect Stage Manager: off."
-        src={raycast_wm}
-      />
-      <MDX>
-        {`
+            </MDX>
+            <LightBox
+              className="-mx-4 rounded-sm bg-gray-01"
+              alt="Screenshot of Raycast settings for Window Manager extension. The hotkeys are as follows: Almost maximize = control + option + command + arrow up; Bottom Left Quarter = control + option + command + h; Bottom Left Sixth = control + option + Shift + command + h; Bottom Right Quarter = control + option + command + j; Bottom Right Sixth = control + option + Shift + command + j; Left Half = control + option + command + arrow left; Make Larger = control + option + Shift + command + arrow up; Make Smaller = control + option + Shift + command + arrow down; Reasonable Size = control + option + command + arrow down; Right Half = control + option + command + arrow right; Top Left Quarter = control + option + command + y; Top Left Sixth = control + option + Shift + command + Y; Top Right Quarter = control + option + command + u; Top Right Sixth = control + option + Shift + command + u. Window Management settings are: Gap = Tiny(8px); Cycling: Cycle ½, ⅔, ⅓; Advanced, Respect Stage Manager: off."
+              src={raycast_wm}
+            />
+            <MDX>
+              {`
 If you fancy a tiling window manager closer to what you'd find on Linux land, give [yabai](https://github.com/koekeishiya/yabai/) a try. And if you like snapping apps to the corners of screens like on Windows try [Rectangle](https://rectangleapp.com/).
 ### Apps
 
@@ -157,25 +159,25 @@ VSCode enables you to go DEEP with customizations, and this is a common trait of
 On the surface, picking a theme, and icon pack will do a lot of heavy lifting; My preferred combination is [Vesper](https://marketplace.visualstudio.com/items?itemName=raunofreiberg.vesper) with [Chalice icons](https://marketplace.visualstudio.com/items?itemName=artlaman.chalice-icon-theme).
 You can either install them from the VSCode Extension Marketplace or use the following commands:
 `}
-      </MDX>
-      <ScrollableCodeWithCopy heightclassname="h-24">
-        {`code --install-extension artlaman.chalice-icon-theme \n\ncode --install-extension raunofreiberg.vesper `}
-      </ScrollableCodeWithCopy>
-      <MDX>
-        {`
+            </MDX>
+            <ScrollableCodeWithCopy heightclassname="h-24">
+              {`code --install-extension artlaman.chalice-icon-theme \n\ncode --install-extension raunofreiberg.vesper `}
+            </ScrollableCodeWithCopy>
+            <MDX>
+              {`
 For even more control, the [Apc Customize UI++](https://marketplace.visualstudio.com/items?itemName=drcika.apc-extension) extension enables you to apply styles to the app with no limits, if it's something the VSCode devs could do, you can do it. I use it to change the App font, making it the same as the editor, but see others do way crazier things. You can install it from the marketplace or run the following command:
 `}
-      </MDX>
-      <ScrollableCodeWithCopy heightclassname="h-13">
-        {`sh code --install-extension drcika.apc-extension`}
-      </ScrollableCodeWithCopy>
-      <MDX>
-        {`
+            </MDX>
+            <ScrollableCodeWithCopy heightclassname="h-13">
+              {`sh code --install-extension drcika.apc-extension`}
+            </ScrollableCodeWithCopy>
+            <MDX>
+              {`
 going deeper, VSCode allows you to do extensive customizations through the \`settings.json\` file, to open it you can type "Open User Settings (JSON)" in your command palette. My current config is the following:
 `}
-      </MDX>
-      <ScrollableCodeWithCopy heightclassname="h-96">
-        {`{
+            </MDX>
+            <ScrollableCodeWithCopy heightclassname="h-96">
+              {`{
     // vscode meta stuff
     "workbench.startupEditor": "none",
     "editor.accessibilitySupport": "off",
@@ -304,9 +306,9 @@ going deeper, VSCode allows you to do extensive customizations through the \`set
       ["cx\\(([^)]*)\\)", "[\\"'\`]([^\\"'\`]*).*?[\\"'\`]"]
     ],
   }`}
-      </ScrollableCodeWithCopy>
-      <MDX>
-        {`
+            </ScrollableCodeWithCopy>
+            <MDX>
+              {`
 
 I commented on each section and left notes on what every config does. Mostly, I'm removing stuff! With the command palette and keybindings, I find the most value in the editor by coding with no clutter and then reaching for each tool as I need it.
 
@@ -324,12 +326,12 @@ Spotify doesn't surface significant customization at all, but the Open Source do
 You can install it with the following commands:
 
 `}
-      </MDX>
-      <ScrollableCodeWithCopy heightclassname="h-13">
-        {`curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | sh`}
-      </ScrollableCodeWithCopy>
-      <MDX>
-        {`
+            </MDX>
+            <ScrollableCodeWithCopy heightclassname="h-13">
+              {`curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | sh`}
+            </ScrollableCodeWithCopy>
+            <MDX>
+              {`
 For guidance on installation and usage, see the [Spicetify Docs](https://spicetify.app/docs/getting-started)
 
 Using the Spicetify CLI, you'll be able to apply a "Theme" to your Spotify, You can find my theme in the [spicetify-vesper-theme](https://github.com/bdsqqq/spicetify-vesper-theme/tree/main) Github repo. To use my theme, clone the repo into a folder in \`spicetify/Themes/\` (mine is in \`~/.config/spicetify/Themes/Vesper\`), and update the \`"current_theme"\` Setting in \`/spicetify/config-xpui.ini\`.
@@ -344,9 +346,9 @@ You can find my theme in the [better-discord-vesper-theme](https://github.com/bd
 The cool thing about terminals is that themes are often very portable, I daily drive [HyperTerm](https://hyper.is/) because Alacritty didn't let me use different padding from the top and bottom of the window. As you might've learned from previous items, electron-based things are great for customization.
 
 For my colors, I use some Vesper colors on top of the [Mellow nvim theme](https://github.com/mellow-theme/mellow.nvim/tree/main) :`}
-      </MDX>
-      <ScrollableCodeWithCopy heightclassname="h-96">
-        {`colors: {
+            </MDX>
+            <ScrollableCodeWithCopy heightclassname="h-96">
+              {`colors: {
       // Basic
       bg: "#101010",
       fg: "#ffffff",
@@ -380,9 +382,9 @@ For my colors, I use some Vesper colors on top of the [Mellow nvim theme](https:
       // Special
       none: "NONE",
     }`}
-      </ScrollableCodeWithCopy>
-      <MDX>
-        {`
+            </ScrollableCodeWithCopy>
+            <MDX>
+              {`
 If you use the [Warp terminal](https://www.warp.dev/), you can get the theme straight from my [Github repo](https://github.com/bdsqqq/warp-term-vesper-theme/tree/main). And if you use the default MacOS terminal the simple version that changes the background, text color, and caret color in [this gist](https://gist.github.com/bdsqqq/73e4c30f920fbcfc4502751ff4bd2307) might be enough to the the right look.
 
 I also use [Fig](https://fig.io/) for autocomplete in the terminal, the theme for it is available in [my fork of the Fig themes repo](https://github.com/bdsqqq/themes/blob/main/themes/vesper-dark.json) (and come on Fig maintainers, it has been 5 months since I made the [PR to include Vesper in the default themes](https://github.com/withfig/themes/pull/30)).
@@ -391,9 +393,9 @@ I also use [Fig](https://fig.io/) for autocomplete in the terminal, the theme fo
 
 In Obsidian, I use the [Simple Theme](https://github.com/kepano/obsidian-minimal) with a couple of overrides using the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin. 
 You can get my overrides by copying the following JSON into the \`Settings > Community Plugins > Style Settings > "Import"\` field.`}
-      </MDX>
-      <ScrollableCodeWithCopy heightclassname="h-96">
-        {`{
+            </MDX>
+            <ScrollableCodeWithCopy heightclassname="h-96">
+              {`{
   "minimal-advanced@@styled-scrollbars": false,
   "minimal-style@@tag-radius": "4px",
   "minimal-style@@tag-border-width": "0",
@@ -417,27 +419,27 @@ You can get my overrides by copying the following JSON into the \`Settings > Com
   "minimal-style@@tabs-style": "tabs-underline",
   "minimal-style@@workspace-background-translucent@@dark": "#101010"
 }`}
-      </ScrollableCodeWithCopy>
-      <MDX>
-        {`
+            </ScrollableCodeWithCopy>
+            <MDX>
+              {`
 #### Physical setup??
 Ah, and the Vesper mania wouldn't be complete if I didn't make the LEDs in my keyboard and mouse match the orange(or white sometimes; black and white are too nice to pass).`}
-      </MDX>
+            </MDX>
 
-      <LightBox
-        className="-mx-4 rounded-sm bg-gray-01"
-        alt="Keyboard and mouse in the dark, both with LED lights shining in an orange color that matches the Vesper theme's orange"
-        src={keyboard}
-      />
+            <LightBox
+              className="-mx-4 rounded-sm bg-gray-01"
+              alt="Keyboard and mouse in the dark, both with LED lights shining in an orange color that matches the Vesper theme's orange"
+              src={keyboard}
+            />
 
-      <MDX>
-        {`
+            <MDX>
+              {`
 ## Afterword
 
 While writting this, I realized how much care went into my rice. It was a gradual process that spanned several months, so I didn't even notice the extent of the work. I hope this inspires you to personalize your workspace. Wether by overfocussing on silly colors or diligently organizing and minimizing clutter. The most important part is crafting something yourself, for yourself.
 
             `}
-      </MDX>
+            </MDX>
     </>
   );
 }

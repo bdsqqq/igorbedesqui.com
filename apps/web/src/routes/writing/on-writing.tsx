@@ -44,7 +44,7 @@ function OnWritingContent() {
   return (
     <>
       <MDX>
-        {`
+              {`
                # On ways to write
 
                While chatting with amazing folks, I realized that content lies at the core of my passion for design and development. Picking apart past projects and things I'm excited about revealed the idea of "Elevating content through presentation" as a constant. The concept of content as the foundation of what I make brought attention to my personal site, as I like to describe it, [igorbedesqui.com](http://igorbedesqui.com) is a glorified playground, my safe space to overengineer and experiment. But *how can I hone the craft of elevating content through presentation if there's no content?* my 2 year old site only had a few pages worth of text and although the project pages were fine, I felt a lot of resistance whenever I wanted to create something different. 
@@ -91,29 +91,29 @@ function OnWritingContent() {
                first off, I did content in JSON because I needed it for i18n, but why am I using MDX now? markdown is an easier way to write HTML, and MDX is the same but with support for React stuff. I'm conflicted about this approach, it's simple enough but it still takes the content away from where it belongs. It does allow me to write MDX so for the time being I'll be using it in some places and ignoring it in others.
                <br/>
             `}
-      </MDX>
-      <MDX
-        components={{
-          Update1: () => (
-            <time className="text-xs font-bold text-gray-09">
-              March 14th 2023
-            </time>
-          ),
-          Popover: (props) => (
-            <Popover>
-              <StyledPopoverTrigger>
-                {props.children} <QuestionMarkCircledIcon />
-              </StyledPopoverTrigger>
-              <PopoverContent>
-                <MDX>
-                  {`Especially in cases where your content heavily uses links, bolds, italics, and all the other things that would require a whole tag with props to express in JSX.`}
-                </MDX>
-              </PopoverContent>
-            </Popover>
-          ),
-        }}
-      >
-        {`
+            </MDX>
+            <MDX
+              components={{
+                Update1: () => (
+                  <time className="text-xs font-bold text-gray-09">
+                    March 14th 2023
+                  </time>
+                ),
+                Popover: (props) => (
+                  <Popover>
+                    <StyledPopoverTrigger>
+                      {props.children} <QuestionMarkCircledIcon />
+                    </StyledPopoverTrigger>
+                    <PopoverContent>
+                      <MDX>
+                        {`Especially in cases where your content heavily uses links, bolds, italics, and all the other things that would require a whole tag with props to express in JSX.`}
+                      </MDX>
+                    </PopoverContent>
+                  </Popover>
+                ),
+              }}
+            >
+              {`
               ## Update <Update1 />
 
               After dogfooding this approach to markdown on this very website, I can confidently say <Popover>it helps</Popover>. As much as you can format your content in plain JSX, MDX makes it easier to write and *read* without taking power away. I prefer reading some *'s and _'s over a \`<span>\` soup every time.
@@ -145,7 +145,7 @@ function OnWritingContent() {
 
               Finally, the editor is getting out of my way as I write. And if this approach sounds interesting to you, it's completely [open source](https://github.com/bdsqqq/igorbedesqui.com/commit/ca21b5310a46507ffced1cee661ffa841fc6e40c#diff-d74a4ce4a0768fddc7c86e5e492dbe087d78e9eb05a8e40f8d82c54392766437) and easy to incrementally adopt.
           `}
-      </MDX>
+            </MDX>
     </>
   );
 }
