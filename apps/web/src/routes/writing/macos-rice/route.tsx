@@ -1,12 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import { renderServerComponent } from "@tanstack/react-start/rsc";
 import type { ComponentProps } from "react";
-import Container from "@/components/Container";
-import Band from "@/components/Band";
 import { MDX } from "@/components/MDX";
 import { Border } from "@/components/ui/Border";
 import { Blur } from "@/components/ui/Blur";
 import { CopyButton } from "@/components/ui/CopyButton";
-import { grid } from "@/components/ui/Grid";
 import { LightBox } from "@/components/ui/LightboxImage";
 import { ScrollArea, ScrollBar } from "@/components/ui/ScrollArea";
 import { cn } from "@/lib/styling";
@@ -25,8 +24,13 @@ export const macosRice = {
   backMessage: "~/writing/macos-rice cd ..",
 };
 
+const getMacosRice = createServerFn({ method: "GET" }).handler(() =>
+  renderServerComponent(<RiceContent />),
+);
+
 export const Route = createFileRoute("/writing/macos-rice")({
-  component: Rice,
+  loader: () => getMacosRice(),
+  component: RiceRoute,
   head: () => ({
     meta: [
       { title: `${macosRice.name} — Igor Bedesqui` },
@@ -69,18 +73,14 @@ const ScrollableCodeWithCopy = ({
   );
 };
 
-function Rice() {
+function RiceRoute() {
+  return Route.useLoaderData();
+}
+
+function RiceContent() {
   return (
-    <Container
-      key="rice"
-      backable
-      backMessage={macosRice.backMessage}
-      backAnchor="/writing"
-    >
-      <Band id="01" gridless>
-        <div className={grid()}>
-          <div className="prose col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
-            <MDX
+    <>
+      <MDX
               components={{
                 Blur: (props) => <Blur {...props} />,
                 blockquote: (props) => (
@@ -440,9 +440,6 @@ While writting this, I realized how much care went into my rice. It was a gradua
 
             `}
             </MDX>
-          </div>
-        </div>
-      </Band>
-    </Container>
+    </>
   );
 }

@@ -18,7 +18,7 @@ import {
   TextAlignLeftIcon,
   TextAlignRightIcon,
 } from "@radix-ui/react-icons";
-import { ToggleGroup } from "radix-ui";
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { isValidElement } from "react";
 import jsxToString from "react-element-to-jsx-string";
 

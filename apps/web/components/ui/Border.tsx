@@ -5,7 +5,7 @@ import {
   type PropsWithChildren,
   type Ref,
 } from "react";
-import { Slot } from "radix-ui";
+import * as Slot from "@radix-ui/react-slot";
 
 /**
  * @see https://html.spec.whatwg.org/multipage/syntax.html#void-elements

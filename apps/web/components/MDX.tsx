@@ -1,12 +1,8 @@
-import StyledLinkWithIcon from "@/components/ui/StyledLink";
-import { HTMLProps, createElement } from "react";
-import { Border } from "@/components/ui/Border";
+import type { HTMLProps } from "react";
+import { createElement } from "react";
 import { highlight } from "sugar-high";
-import { MDXProvider } from "@mdx-js/react";
 import { cn } from "@/lib/styling";
-import { CopyButton } from "@/components/ui/CopyButton";
 import remarkGfm from "remark-gfm";
-import { ScrollBar, ScrollArea } from "@/components/ui/ScrollArea";
 
 import { evaluateSync } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
@@ -49,20 +45,14 @@ function Code({
 }) {
   const codeHTML = highlight(children);
   return (
-    <>
-      <CopyButton
-        className="absolute right-0 top-0 [&:not(pre_*)]:hidden"
-        contentToCopy={children?.toString() || ""}
-      />
-      <code
-        dangerouslySetInnerHTML={{ __html: codeHTML }}
-        className={cn(
-          "rounded border-gray-06 bg-gray-02 font-mono [&:not(pre_*)]:border [&:not(pre_*)]:px-1 [&:not(pre_*)]:py-0.5",
-          className,
-        )}
-        {...props}
-      />
-    </>
+    <code
+      dangerouslySetInnerHTML={{ __html: codeHTML }}
+      className={cn(
+        "rounded border-gray-06 bg-gray-02 font-mono [&:not(pre_*)]:border [&:not(pre_*)]:px-1 [&:not(pre_*)]:py-0.5",
+        className,
+      )}
+      {...props}
+    />
   );
 }
 
@@ -106,27 +96,22 @@ const defaultComponents = {
   strong: (props: HTMLProps<HTMLElement>) => (
     <strong className="font-bold text-gray-12" {...props} />
   ),
-  pre: ({ children, ...passthorugh }: HTMLProps<HTMLPreElement>) => (
-    <Border>
-      <pre
-        className="relative -mx-4 my-2 rounded-sm bg-gray-02 text-sm"
-        {...passthorugh}
-      >
-        <ScrollArea className={cn("p-4")}>
-          {children}
-          <ScrollBar orientation="vertical" />
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </pre>
-    </Border>
+  pre: ({ children, className, ...passthrough }: HTMLProps<HTMLPreElement>) => (
+    <pre
+      className={cn(
+        "relative -mx-4 my-2 overflow-x-auto rounded-sm bg-gray-02 p-4 text-sm",
+        className,
+      )}
+      {...passthrough}
+    >
+      {children}
+    </pre>
   ),
   img: (props: HTMLProps<HTMLImageElement>) => (
-    <Border className="-mx-4 rounded-sm">
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
-      <img className="rounded-inherit" {...props} />
-    </Border>
-  ), // @ts-expect-error
-  a: (props) => <StyledLinkWithIcon {...props} />,
+    // eslint-disable-next-line jsx-a11y/alt-text
+    <img className="-mx-4 rounded-sm" {...props} />
+  ),
+  a: (props: HTMLProps<HTMLAnchorElement>) => <a {...props} />,
   code: Code,
   Table,
   // LiveCode,
@@ -137,7 +122,7 @@ export function MDX({
   components: propComponents,
   ...passthrough
 }: { children: string } & {
-  components?: React.ComponentProps<typeof MDXProvider>["components"];
+  components?: Record<string, React.ComponentType<any>>;
 }) {
   const { default: MDXContent } = evaluateSync(children, {
     ...runtime,

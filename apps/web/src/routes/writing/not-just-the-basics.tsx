@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Container from "@/components/Container";
-import Band from "@/components/Band";
+import { createServerFn } from "@tanstack/react-start";
+import { renderServerComponent } from "@tanstack/react-start/rsc";
 import { MDX } from "@/components/MDX";
 import { Blur } from "@/components/ui/Blur";
-import { grid } from "@/components/ui/Grid";
 
 export const basicsMeta = {
   shortName: "not \u201Cjust\u201D the basics",
@@ -14,8 +13,13 @@ export const basicsMeta = {
   backMessage: "",
 };
 
+const getNotJustTheBasics = createServerFn({ method: "GET" }).handler(() =>
+  renderServerComponent(<NotJustTheBasicsContent />),
+);
+
 export const Route = createFileRoute("/writing/not-just-the-basics")({
-  component: NotJustTheBasicsPage,
+  loader: () => getNotJustTheBasics(),
+  component: NotJustTheBasicsRoute,
   head: () => ({
     meta: [
       { title: `${basicsMeta.name} — Igor Bedesqui` },
@@ -27,13 +31,14 @@ export const Route = createFileRoute("/writing/not-just-the-basics")({
   }),
 });
 
-function NotJustTheBasicsPage() {
+function NotJustTheBasicsRoute() {
+  return Route.useLoaderData();
+}
+
+function NotJustTheBasicsContent() {
   return (
-    <Container key="basics" backable backAnchor="/writing">
-      <Band id="01" gridless>
-        <div className={grid()}>
-          <div className="prose col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
-            <MDX
+    <>
+      <MDX
               components={{
                 Blur,
                 strong: (props) => <span className="text-gray-12" {...props} />,
@@ -63,9 +68,6 @@ function NotJustTheBasicsPage() {
                ~~For a long time I played League with my friends, and this year, despite not being good at the game, we tried to climb the competitive ranks less than a month before the end of the season. The strategy I chose and forced my friends to adopt was repeating the phrase "Just the basic" every couple of seconds as a meme and actually executing just the basics in the game, nothing fancy other than trying to not make mistakes. In the 10 games I played, we won 9; In an incredibly scientific effort, I stopped playing with them and saw the win streak end, it seems like there was a direct relation between playing a simple game of fundamentals and the statistical anomaly of a 90% win rate. If you came here for League tips: don't die, farm well, and focus on objectives; Getting enough of an advantage will allow you to risk making mistakes.~~
             `}
             </MDX>
-          </div>
-        </div>
-      </Band>
-    </Container>
+    </>
   );
 }

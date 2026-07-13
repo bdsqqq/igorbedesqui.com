@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Container from "@/components/Container";
-import Band from "@/components/Band";
+import { createServerFn } from "@tanstack/react-start";
+import { renderServerComponent } from "@tanstack/react-start/rsc";
 import { MDX } from "@/components/MDX";
 import { Blur } from "@/components/ui/Blur";
-import { grid } from "@/components/ui/Grid";
 import { Border } from "@/components/ui/Border";
 import Tooltip from "@/components/ui/Tooltip";
 
@@ -30,8 +29,13 @@ export const schrodingerMinimalism = {
   backMessage: "Look at the cat on the way back.",
 };
 
+const getSchrodingerMinimalism = createServerFn({ method: "GET" }).handler(() =>
+  renderServerComponent(<SchrodingerMinimalismContent />),
+);
+
 export const Route = createFileRoute("/writing/schrodinger-minimalism")({
-  component: SchrodingerMinimalismPage,
+  loader: () => getSchrodingerMinimalism(),
+  component: SchrodingerMinimalismRoute,
   head: () => ({
     meta: [
       { title: `${schrodingerMinimalism.name} — Igor Bedesqui` },
@@ -43,18 +47,14 @@ export const Route = createFileRoute("/writing/schrodinger-minimalism")({
   }),
 });
 
-function SchrodingerMinimalismPage() {
+function SchrodingerMinimalismRoute() {
+  return Route.useLoaderData();
+}
+
+function SchrodingerMinimalismContent() {
   return (
-    <Container
-      backMessage={schrodingerMinimalism.backMessage}
-      key="basics"
-      backable
-      backAnchor="/writing"
-    >
-      <Band id="01" gridless>
-        <div className={grid()}>
-          <div className="prose col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
-            <MDX
+    <>
+      <MDX
               components={{
                 Blur: (props) => <Blur {...props} />,
                 Popover: (props) => (
@@ -155,9 +155,6 @@ function SchrodingerMinimalismPage() {
                Anyways, nice site [@peduarte](https://x.com/peduarte), and thanks for taking my obsession with somehow applying progressive disclosure to main content one step further.
                 `}
             </MDX>
-          </div>
-        </div>
-      </Band>
-    </Container>
+    </>
   );
 }

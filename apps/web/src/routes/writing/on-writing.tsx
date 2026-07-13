@@ -1,13 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Container from "@/components/Container";
-import Band from "@/components/Band";
+import { createServerFn } from "@tanstack/react-start";
+import { renderServerComponent } from "@tanstack/react-start/rsc";
 import { MDX } from "@/components/MDX";
 import {
   Popover,
   PopoverContent,
   StyledPopoverTrigger,
 } from "@/components/ui/Popover";
-import { grid } from "@/components/ui/Grid";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 export const onWritingMeta = {
@@ -19,8 +18,13 @@ export const onWritingMeta = {
   backMessage: "",
 };
 
+const getOnWriting = createServerFn({ method: "GET" }).handler(() =>
+  renderServerComponent(<OnWritingContent />),
+);
+
 export const Route = createFileRoute("/writing/on-writing")({
-  component: OnWritingPage,
+  loader: () => getOnWriting(),
+  component: OnWritingRoute,
   head: () => ({
     meta: [
       { title: `${onWritingMeta.name} — Igor Bedesqui` },
@@ -32,13 +36,14 @@ export const Route = createFileRoute("/writing/on-writing")({
   }),
 });
 
-function OnWritingPage() {
+function OnWritingRoute() {
+  return Route.useLoaderData();
+}
+
+function OnWritingContent() {
   return (
-    <Container backable backAnchor="/writing">
-      <Band id="01" gridless>
-        <div className={grid()}>
-          <div className="prose col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
-            <MDX>
+    <>
+      <MDX>
               {`
                # On ways to write
 
@@ -141,9 +146,6 @@ function OnWritingPage() {
               Finally, the editor is getting out of my way as I write. And if this approach sounds interesting to you, it's completely [open source](https://github.com/bdsqqq/igorbedesqui.com/commit/ca21b5310a46507ffced1cee661ffa841fc6e40c#diff-d74a4ce4a0768fddc7c86e5e492dbe087d78e9eb05a8e40f8d82c54392766437) and easy to incrementally adopt.
           `}
             </MDX>
-          </div>
-        </div>
-      </Band>
-    </Container>
+    </>
   );
 }

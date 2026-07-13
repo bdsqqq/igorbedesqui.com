@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import { renderServerComponent } from "@tanstack/react-start/rsc";
 import { MDX } from "@/components/MDX";
 
 export const growMeta = {
@@ -10,8 +12,13 @@ export const growMeta = {
   backMessage: "",
 };
 
+const getGrowContent = createServerFn({ method: "GET" }).handler(() => {
+  return renderServerComponent(<GrowContent />);
+});
+
 export const Route = createFileRoute("/writing/grow")({
-  component: GrowPage,
+  loader: () => getGrowContent(),
+  component: GrowRoute,
   head: () => ({
     meta: [
       { title: `${growMeta.name} — Igor Bedesqui` },
@@ -23,7 +30,11 @@ export const Route = createFileRoute("/writing/grow")({
   }),
 });
 
-function GrowPage() {
+function GrowRoute() {
+  return Route.useLoaderData();
+}
+
+function GrowContent() {
   return (
     <MDX>
       {`

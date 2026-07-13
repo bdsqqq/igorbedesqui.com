@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Container from "@/components/Container";
-import Band from "@/components/Band";
+import { createServerFn } from "@tanstack/react-start";
+import { renderServerComponent } from "@tanstack/react-start/rsc";
 import { MDX } from "@/components/MDX";
 import { Blur } from "@/components/ui/Blur";
-import { grid } from "@/components/ui/Grid";
 
 export const dontBelieveMeta = {
   shortName: "\u201CDon\u2019t believe in yourself\u201D",
@@ -14,8 +13,13 @@ export const dontBelieveMeta = {
   backMessage: "",
 };
 
+const getDontBelieve = createServerFn({ method: "GET" }).handler(() =>
+  renderServerComponent(<DontBelieveContent />),
+);
+
 export const Route = createFileRoute("/writing/dont-believe-in-yourself")({
-  component: DontBelievePage,
+  loader: () => getDontBelieve(),
+  component: DontBelieveRoute,
   head: () => ({
     meta: [
       { title: `${dontBelieveMeta.name} — Igor Bedesqui` },
@@ -27,13 +31,14 @@ export const Route = createFileRoute("/writing/dont-believe-in-yourself")({
   }),
 });
 
-function DontBelievePage() {
+function DontBelieveRoute() {
+  return Route.useLoaderData();
+}
+
+function DontBelieveContent() {
   return (
-    <Container key="basics" backable backAnchor="/writing">
-      <Band id="01" gridless>
-        <div className={grid()}>
-          <div className="prose col-start-1 col-end-5 space-y-4 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
-            <MDX
+    <>
+      <MDX
               components={{
                 Blur: (props) => (
                   <Blur className="cursor-not-allowed" {...props} />
@@ -67,9 +72,6 @@ function DontBelievePage() {
                I'll eventually outgrow this, but right now, I'm happy to use such amazing people as facades that enable trust in myself, even if indirectly.
             `}
             </MDX>
-          </div>
-        </div>
-      </Band>
-    </Container>
+    </>
   );
 }

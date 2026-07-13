@@ -2,7 +2,7 @@
 // Radix separator has an useEffect for some reason??
 
 import * as React from "react";
-import { Separator as SeparatorPrimitive } from "radix-ui";
+import * as SeparatorPrimitive from "@radix-ui/react-separator";
 import { cn } from "@/lib/styling";
 
 function Separator({

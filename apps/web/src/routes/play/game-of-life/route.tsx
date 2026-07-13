@@ -18,7 +18,7 @@ import {
   TimerIcon,
 } from "@radix-ui/react-icons";
 import { ToolboxItem } from "@/components/toolbox";
-import { Toggle } from "radix-ui";
+import * as Toggle from "@radix-ui/react-toggle";
 import Tooltip from "@/components/ui/Tooltip";
 
 const GameOfLifeStoreContext = React.createContext<StoreApi<GameOfLifeStore>>(
