@@ -7,9 +7,10 @@
     "build": "vite build && tsc -p tsconfig.start.json --noEmit",
     "preview": "vite preview",
     "start": "node .output/server/index.mjs",
-    "lint": "oxlint --type-aware --format=stylish --type-check --report-unused-disable-directives",
-    "lint:fix": "oxlint --type-aware --format=stylish --type-check --fix --report-unused-disable-directives",
-    "lint:github": "oxlint --type-aware --type-check --format=github --report-unused-disable-directives",
+    "routes:generate": "tsr generate",
+    "lint": "pnpm routes:generate && oxlint --type-aware --format=stylish --type-check --report-unused-disable-directives",
+    "lint:fix": "pnpm routes:generate && oxlint --type-aware --format=stylish --type-check --fix --report-unused-disable-directives",
+    "lint:github": "pnpm routes:generate && oxlint --type-aware --type-check --format=github --report-unused-disable-directives",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check"
   },
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4",
+    "@tanstack/router-cli": "1.167.18",
     "@types/node": "^24.10.12",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
