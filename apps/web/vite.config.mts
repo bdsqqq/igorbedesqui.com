@@ -30,7 +30,7 @@ function fixNitroRscLoadModuleExtension(): Plugin {
   };
 }
 
-function useTslibEsmForSsr(): Plugin {
+function forceTslibEsmForSsr(): Plugin {
   return {
     name: "fix:tslib-esm-for-ssr",
     enforce: "pre",
@@ -107,7 +107,7 @@ export default defineConfig({
     }),
     tailwindcss(),
     imagetools(),
-    useTslibEsmForSsr(),
+    forceTslibEsmForSsr(),
     tanstackStart({
       srcDirectory: "src",
       rsc: {
