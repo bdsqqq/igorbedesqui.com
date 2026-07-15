@@ -1,45 +1,69 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
+import { randomBytes } from "node:crypto";
+import { mkdir, writeFile } from "node:fs/promises";
+import { dirname } from "node:path";
 import { StringDecoder } from "node:string_decoder";
 
 const RPC_TIMEOUT_MS = 30_000;
 const AGENT_TIMEOUT_MS = 30 * 60_000;
 
+type RpcCommand = { type: string; [key: string]: unknown };
 type RpcRecord = {
-  id?: string;
   type?: string;
+  id?: string;
   success?: boolean;
   error?: string;
   data?: unknown;
+  [key: string]: unknown;
 };
-
 type PendingRequest = {
   resolve: (record: RpcRecord) => void;
   reject: (error: Error) => void;
   timeout: NodeJS.Timeout;
 };
-
 type EventWaiter = {
   resolve: (record: RpcRecord) => void;
   reject: (error: Error) => void;
   timeout: NodeJS.Timeout;
 };
+type StateData = { sessionFile?: string; sessionId?: string };
+type SessionData = { cancelled?: boolean };
+type MessagesData = { messages?: Array<{ role?: string; stopReason?: string }> };
+type TextData = { text?: string };
 
-export type ChildSessionResult = {
-  sessionFile?: string;
-  response?: string | null;
+export type PiRpcEvent = RpcRecord;
+
+type ParentSessionOptions = {
+  piBin: string;
+  cwd: string;
+  name: string;
+};
+
+type ChildSessionOptions = ParentSessionOptions & {
+  parentSession: string;
+  prompt: string;
+  onSpawn?: (child: ChildProcessWithoutNullStreams) => void;
+  onEvent?: (event: PiRpcEvent) => void;
 };
 
 class RpcClient {
-  readonly process: ChildProcessWithoutNullStreams;
   private readonly decoder = new StringDecoder("utf8");
   private readonly pending = new Map<string, PendingRequest>();
   private readonly eventWaiters = new Map<string, Set<EventWaiter>>();
+  private readonly onEvent?: (record: RpcRecord) => void;
+  readonly process: ChildProcessWithoutNullStreams;
   private buffer = "";
   private stderr = "";
   private requestSequence = 0;
   private exited = false;
 
-  constructor(command: string, cwd: string, env: NodeJS.ProcessEnv) {
+  constructor(
+    command: string,
+    cwd: string,
+    env: NodeJS.ProcessEnv,
+    onEvent?: (record: RpcRecord) => void,
+  ) {
+    this.onEvent = onEvent;
     this.process = spawn(command, ["--mode", "rpc"], {
       cwd,
       env,
@@ -47,8 +71,8 @@ class RpcClient {
     });
 
     this.process.stdin.on("error", (error) => this.failAll(error));
-    this.process.stdout.on("data", (chunk: Buffer) => this.consume(chunk));
-    this.process.stderr.on("data", (chunk: Buffer) => {
+    this.process.stdout.on("data", (chunk) => this.consume(chunk));
+    this.process.stderr.on("data", (chunk) => {
       this.stderr = `${this.stderr}${chunk.toString("utf8")}`.slice(-16_384);
     });
     this.process.on("error", (error) => this.failAll(error));
@@ -63,18 +87,22 @@ class RpcClient {
     });
   }
 
-  request(command: Record<string, unknown>): Promise<RpcRecord> {
+  request<T = unknown>(command: RpcCommand): Promise<RpcRecord & { data?: T }> {
     if (this.exited || !this.process.stdin.writable) {
       return Promise.reject(new Error("pi rpc is not writable"));
     }
 
     const id = `agentation-${++this.requestSequence}`;
-    return new Promise((resolve, reject) => {
+    return new Promise<RpcRecord & { data?: T }>((resolve, reject) => {
       const timeout = setTimeout(() => {
         this.pending.delete(id);
         reject(new Error(`pi rpc request timed out: ${String(command.type)}`));
       }, RPC_TIMEOUT_MS);
-      this.pending.set(id, { resolve, reject, timeout });
+      this.pending.set(id, {
+        resolve: (record) => resolve(record as RpcRecord & { data?: T }),
+        reject,
+        timeout,
+      });
       try {
         this.process.stdin.write(`${JSON.stringify({ ...command, id })}\n`, (error) => {
           if (error) this.failAll(error);
@@ -86,8 +114,8 @@ class RpcClient {
   }
 
   waitForEvent(type: string, timeoutMs = AGENT_TIMEOUT_MS): Promise<RpcRecord> {
-    return new Promise((resolve, reject) => {
-      const waiter = {
+    return new Promise<RpcRecord>((resolve, reject) => {
+      const waiter: EventWaiter = {
         resolve: (record: RpcRecord) => {
           clearTimeout(waiter.timeout);
           this.eventWaiters.get(type)?.delete(waiter);
@@ -98,7 +126,7 @@ class RpcClient {
           this.eventWaiters.get(type)?.delete(waiter);
           reject(new Error(`pi rpc event timed out: ${type}`));
         }, timeoutMs),
-      } satisfies EventWaiter;
+      };
       const waiters = this.eventWaiters.get(type) ?? new Set();
       waiters.add(waiter);
       this.eventWaiters.set(type, waiters);
@@ -123,18 +151,20 @@ class RpcClient {
     if (!this.exited) this.process.kill("SIGTERM");
   }
 
-  private consume(chunk: Buffer): void {
+  consume(chunk: Buffer): void {
     this.buffer += this.decoder.write(chunk);
     this.drainLines();
   }
 
-  private consumeEnd(): void {
+  consumeEnd(): void {
     this.buffer += this.decoder.end();
-    if (this.buffer) this.handleLine(this.buffer.endsWith("\r") ? this.buffer.slice(0, -1) : this.buffer);
+    if (this.buffer) {
+      this.handleLine(this.buffer.endsWith("\r") ? this.buffer.slice(0, -1) : this.buffer);
+    }
     this.buffer = "";
   }
 
-  private drainLines(): void {
+  drainLines(): void {
     while (true) {
       const newline = this.buffer.indexOf("\n");
       if (newline === -1) return;
@@ -145,7 +175,7 @@ class RpcClient {
     }
   }
 
-  private handleLine(line: string): void {
+  handleLine(line: string): void {
     let record: RpcRecord;
     try {
       record = JSON.parse(line) as RpcRecord;
@@ -169,11 +199,18 @@ class RpcClient {
     }
 
     if (record.type) {
-      for (const waiter of [...(this.eventWaiters.get(record.type) ?? [])]) waiter.resolve(record);
+      try {
+        this.onEvent?.(record);
+      } catch {
+        // Observability must not break the RPC transport.
+      }
+      for (const waiter of [...(this.eventWaiters.get(record.type) ?? [])]) {
+        waiter.resolve(record);
+      }
     }
   }
 
-  private failAll(error: Error): void {
+  failAll(error: Error): void {
     for (const pending of this.pending.values()) {
       clearTimeout(pending.timeout);
       pending.reject(error);
@@ -189,44 +226,100 @@ class RpcClient {
   }
 }
 
-export async function runChildSession(options: {
-  piBin: string;
-  cwd: string;
-  parentSession: string;
-  name: string;
-  prompt: string;
-  onSpawn?: (process: ChildProcessWithoutNullStreams) => void;
-}): Promise<ChildSessionResult> {
-  const client = new RpcClient(options.piBin, options.cwd, {
+function entryId() {
+  return randomBytes(4).toString("hex");
+}
+
+export async function createParentSession({
+  piBin,
+  cwd,
+  name,
+}: ParentSessionOptions): Promise<string> {
+  const client = new RpcClient(piBin, cwd, {
     ...process.env,
     AGENTATION_CHILD: "1",
   });
-  options.onSpawn?.(client.process);
 
   try {
-    const newSession = await client.request({
-      type: "new_session",
-      parentSession: options.parentSession,
+    const state = await client.request<StateData>({ type: "get_state" });
+    const { sessionFile, sessionId } = state.data ?? {};
+    if (!sessionFile || !sessionId) throw new Error("pi did not provide a parent session path");
+    await client.close();
+
+    const timestamp = new Date().toISOString();
+    const nameEntryId = entryId();
+    const contents = [
+      {
+        type: "session",
+        version: 3,
+        id: sessionId,
+        timestamp,
+        cwd,
+      },
+      {
+        type: "session_info",
+        id: nameEntryId,
+        parentId: null,
+        timestamp,
+        name,
+      },
+      {
+        type: "custom",
+        customType: "agentation-parent",
+        id: entryId(),
+        parentId: nameEntryId,
+        timestamp,
+        data: { startedAt: timestamp },
+      },
+    ];
+    await mkdir(dirname(sessionFile), { recursive: true });
+    await writeFile(sessionFile, `${contents.map((entry) => JSON.stringify(entry)).join("\n")}\n`, {
+      flag: "wx",
+      mode: 0o600,
     });
-    if ((newSession.data as { cancelled?: boolean } | undefined)?.cancelled) {
-      throw new Error("pi rpc child session creation was cancelled");
-    }
-    await client.request({ type: "set_session_name", name: options.name });
-    const state = await client.request({ type: "get_state" });
+    return sessionFile;
+  } finally {
+    await client.close();
+  }
+}
+
+export async function runChildSession({
+  piBin,
+  cwd,
+  parentSession,
+  name,
+  prompt,
+  onSpawn,
+  onEvent,
+}: ChildSessionOptions): Promise<{ sessionFile?: string; response?: string }> {
+  const client = new RpcClient(
+    piBin,
+    cwd,
+    {
+      ...process.env,
+      AGENTATION_CHILD: "1",
+    },
+    onEvent,
+  );
+  onSpawn?.(client.process);
+
+  try {
+    const newSession = await client.request<SessionData>({ type: "new_session", parentSession });
+    if (newSession.data?.cancelled) throw new Error("pi rpc child session creation was cancelled");
+    await client.request({ type: "set_session_name", name });
+    const state = await client.request<StateData>({ type: "get_state" });
     const settled = client.waitForEvent("agent_settled");
     try {
-      await client.request({ type: "prompt", message: options.prompt });
+      await client.request({ type: "prompt", message: prompt });
       await settled;
     } catch (error) {
       void settled.catch(() => undefined);
       throw error;
     }
-    const messages = await client.request({ type: "get_messages" });
-    const response = await client.request({ type: "get_last_assistant_text" });
-    const lastAssistant = (
-      (messages.data as { messages?: Array<{ role?: string; stopReason?: string }> } | undefined)
-        ?.messages ?? []
-    )
+
+    const messages = await client.request<MessagesData>({ type: "get_messages" });
+    const response = await client.request<TextData>({ type: "get_last_assistant_text" });
+    const lastAssistant = (messages.data?.messages ?? [])
       .toReversed()
       .find(({ role }) => role === "assistant");
     if (lastAssistant?.stopReason === "error" || lastAssistant?.stopReason === "aborted") {
@@ -234,8 +327,8 @@ export async function runChildSession(options: {
     }
 
     return {
-      sessionFile: (state.data as { sessionFile?: string } | undefined)?.sessionFile,
-      response: (response.data as { text?: string | null } | undefined)?.text,
+      sessionFile: state.data?.sessionFile,
+      response: response.data?.text,
     };
   } finally {
     await client.close();

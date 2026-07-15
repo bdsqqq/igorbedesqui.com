@@ -6,8 +6,8 @@
     "node": "24.x"
   },
   "scripts": {
-    "dev": "pnpm --filter @igorbedesqui/web dev",
-    "build": "pnpm --filter @igorbedesqui/web build",
+    "dev": "pnpm --parallel --filter @igorbedesqui/web --filter @igorbedesqui/agentation-pi dev",
+    "build": "pnpm --filter @igorbedesqui/agentation-pi typecheck && pnpm --filter @igorbedesqui/web build",
     "preview": "pnpm --filter @igorbedesqui/web preview",
     "start": "pnpm --filter @igorbedesqui/web start",
     "lint": "pnpm --filter @igorbedesqui/web lint",

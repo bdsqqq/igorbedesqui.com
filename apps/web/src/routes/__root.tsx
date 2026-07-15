@@ -7,8 +7,8 @@ import {
 } from "@tanstack/react-router";
 import * as React from "react";
 import css from "./-main.css?url";
-import { Agentation } from "agentation";
 
+import { AgentationBridge } from "../components/agentation/AgentationBridge";
 import { Grain } from "../components/shell/Grain";
 import { Fade } from "../components/shell/Vignette";
 import { HistoryTracker } from "../providers/breadcrumbs";
@@ -110,9 +110,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           />
         </PortalStoreProvider>
         <Scripts />
-        {process.env.NODE_ENV === "development" && (
-          <Agentation webhookUrl="http://127.0.0.1:4748/agentation" />
-        )}
+        {process.env.NODE_ENV === "development" && <AgentationBridge />}
       </body>
     </html>
   );

@@ -4,7 +4,22 @@
 @import "@fontsource-variable/geist-mono";
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "streamdown/styles.css";
+@source "../../../../node_modules/streamdown/dist/*.js";
 @source inline("{,md:,lg:,}grid-cols-{1..16}");
+
+.agentation-progress-card {
+  --background: var(--gray-01);
+  --foreground: var(--gray-12);
+  --card: var(--gray-01);
+  --card-foreground: var(--gray-12);
+  --muted: var(--gray-03);
+  --muted-foreground: var(--gray-10);
+  --border: var(--gray-A04);
+  --primary: var(--gray-12);
+  --primary-foreground: var(--gray-01);
+  --radius: 0.75rem;
+}
 
 @theme {
   --color-*: initial;
