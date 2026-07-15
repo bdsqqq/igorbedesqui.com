@@ -110,7 +110,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           />
         </PortalStoreProvider>
         <Scripts />
-        {process.env.NODE_ENV === "development" && <Agentation />}
+        {process.env.NODE_ENV === "development" && (
+          <Agentation webhookUrl="http://127.0.0.1:4748/agentation" />
+        )}
       </body>
     </html>
   );
