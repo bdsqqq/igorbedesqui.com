@@ -1,11 +1,15 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { randomBytes } from "node:crypto";
-import { mkdir, writeFile } from "node:fs/promises";
-import { dirname } from "node:path";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { dirname, isAbsolute, join, sep } from "node:path";
+import { fileURLToPath } from "node:url";
 import { StringDecoder } from "node:string_decoder";
 
 const RPC_TIMEOUT_MS = 30_000;
 const AGENT_TIMEOUT_MS = 30 * 60_000;
+const MAX_CAPTURE_FILES = 50;
+const MAX_CAPTURE_BYTES = 32 * 1024 * 1024;
 
 type RpcCommand = { type: string; [key: string]: unknown };
 type RpcRecord = {
@@ -32,6 +36,7 @@ type MessagesData = { messages?: Array<{ role?: string; stopReason?: string }> }
 type TextData = { text?: string };
 
 export type PiRpcEvent = RpcRecord;
+export type CapturedChange = { path: string; before: string; after: string };
 
 type ParentSessionOptions = {
   piBin: string;
@@ -62,13 +67,18 @@ class RpcClient {
     cwd: string,
     env: NodeJS.ProcessEnv,
     onEvent?: (record: RpcRecord) => void,
+    extraArgs: string[] = [],
   ) {
     this.onEvent = onEvent;
-    this.process = spawn(command, ["--mode", "rpc"], {
-      cwd,
-      env,
-      stdio: ["pipe", "pipe", "pipe"],
-    });
+    this.process = spawn(
+      command,
+      ["--mode", "rpc", ...extraArgs],
+      {
+        cwd,
+        env,
+        stdio: ["pipe", "pipe", "pipe"],
+      },
+    );
 
     this.process.stdin.on("error", (error) => this.failAll(error));
     this.process.stdout.on("data", (chunk) => this.consume(chunk));
@@ -230,6 +240,37 @@ function entryId() {
   return randomBytes(4).toString("hex");
 }
 
+async function readCaptureManifest(path: string): Promise<CapturedChange[]> {
+  const value = JSON.parse(await readFile(path, "utf8")) as { files?: unknown };
+  if (!Array.isArray(value.files) || value.files.length > MAX_CAPTURE_FILES) {
+    throw new Error("invalid capture manifest");
+  }
+
+  let bytes = 0;
+  const paths = new Set<string>();
+  return value.files.map((file) => {
+    if (!file || typeof file !== "object") throw new Error("invalid capture manifest");
+    const { path, before, after } = file as Record<string, unknown>;
+    if (
+      typeof path !== "string" ||
+      !path ||
+      path.includes("\0") ||
+      path === ".." ||
+      path.startsWith(`..${sep}`) ||
+      isAbsolute(path) ||
+      paths.has(path) ||
+      typeof before !== "string" ||
+      typeof after !== "string"
+    ) {
+      throw new Error("invalid capture manifest");
+    }
+    paths.add(path);
+    bytes += Buffer.byteLength(before, "utf8") + Buffer.byteLength(after, "utf8");
+    if (bytes > MAX_CAPTURE_BYTES) throw new Error("capture manifest exceeds 32 MiB");
+    return { path, before, after };
+  });
+}
+
 export async function createParentSession({
   piBin,
   cwd,
@@ -291,19 +332,36 @@ export async function runChildSession({
   prompt,
   onSpawn,
   onEvent,
-}: ChildSessionOptions): Promise<{ sessionFile?: string; response?: string }> {
-  const client = new RpcClient(
-    piBin,
-    cwd,
-    {
-      ...process.env,
-      AGENTATION_CHILD: "1",
-    },
-    onEvent,
-  );
-  onSpawn?.(client.process);
-
+}: ChildSessionOptions): Promise<{
+  sessionFile?: string;
+  response?: string;
+  captures: CapturedChange[];
+}> {
+  const captureDirectory = await mkdtemp(join(tmpdir(), "agentation-capture-"));
+  const captureManifest = join(captureDirectory, "manifest.json");
+  const captureExtension = fileURLToPath(new URL("./capture-extension.ts", import.meta.url));
+  let client: RpcClient | undefined;
   try {
+    await writeFile(captureManifest, JSON.stringify({ files: [] }), { mode: 0o600 });
+    client = new RpcClient(
+      piBin,
+      cwd,
+      {
+        ...process.env,
+        AGENTATION_CHILD: "1",
+        AGENTATION_CAPTURE_MANIFEST: captureManifest,
+      },
+      onEvent,
+      [
+        "--tools",
+        "read,grep,find,ls,edit,write",
+        "--no-extensions",
+        "--extension",
+        captureExtension,
+      ],
+    );
+    onSpawn?.(client.process);
+
     const newSession = await client.request<SessionData>({ type: "new_session", parentSession });
     if (newSession.data?.cancelled) throw new Error("pi rpc child session creation was cancelled");
     await client.request({ type: "set_session_name", name });
@@ -317,6 +375,7 @@ export async function runChildSession({
       throw error;
     }
 
+    const captures = await readCaptureManifest(captureManifest);
     const messages = await client.request<MessagesData>({ type: "get_messages" });
     const response = await client.request<TextData>({ type: "get_last_assistant_text" });
     const lastAssistant = (messages.data?.messages ?? [])
@@ -329,8 +388,10 @@ export async function runChildSession({
     return {
       sessionFile: state.data?.sessionFile,
       response: response.data?.text,
+      captures,
     };
   } finally {
-    await client.close();
+    await client?.close();
+    await rm(captureDirectory, { recursive: true, force: true });
   }
 }

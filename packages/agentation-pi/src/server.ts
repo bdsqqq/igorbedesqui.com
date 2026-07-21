@@ -1,5 +1,5 @@
 import { type ChildProcess } from "node:child_process";
-import { createHash } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { basename } from "node:path";
 import { StringDecoder } from "node:string_decoder";
@@ -14,6 +14,7 @@ const RETAINED_TASK_LIMIT = 100;
 const MAX_PROJECTION_STREAMS = 4;
 const MAX_PROJECTION_MARKDOWN_BYTES = 50 * 1024;
 const PROJECTION_BROADCAST_INTERVAL_MS = 100;
+const MAX_PROJECTION_CONTENT_BYTES = 32 * 1024 * 1024;
 
 type Annotation = {
   id: string;
@@ -65,6 +66,11 @@ type TaskSnapshot = {
   markdown?: string;
   sessionFile?: string;
   error?: string;
+  changes?: Array<{ path: string }>;
+};
+type ProjectionContent = {
+  before: string;
+  after: string;
 };
 type Logger = Pick<Console, "info" | "error">;
 type AgentationServerOptions = {
@@ -72,6 +78,8 @@ type AgentationServerOptions = {
   piBin?: string;
   port?: number;
   logger?: Logger;
+  maxProjectionContentBytes?: number;
+  retainedTaskLimit?: number;
 };
 type AgentationServer = {
   parentSession: string;
@@ -197,7 +205,15 @@ export async function createAgentationServer({
   piBin = process.env.PI_BIN ?? "pi",
   port = DEFAULT_PORT,
   logger = console,
+  maxProjectionContentBytes = MAX_PROJECTION_CONTENT_BYTES,
+  retainedTaskLimit = RETAINED_TASK_LIMIT,
 }: AgentationServerOptions): Promise<AgentationServer> {
+  maxProjectionContentBytes = Number.isFinite(maxProjectionContentBytes)
+    ? Math.min(MAX_PROJECTION_CONTENT_BYTES, Math.max(0, maxProjectionContentBytes))
+    : MAX_PROJECTION_CONTENT_BYTES;
+  retainedTaskLimit = Number.isFinite(retainedTaskLimit)
+    ? Math.min(RETAINED_TASK_LIMIT, Math.max(0, Math.floor(retainedTaskLimit)))
+    : RETAINED_TASK_LIMIT;
   const parentSession = await createParentSession({
     piBin,
     cwd,
@@ -208,11 +224,14 @@ export async function createAgentationServer({
   const eventHistory = new Map<string, ProgressEvent[]>();
   const projectionStreams = new Set<ServerResponse>();
   const projectionSnapshots = new Map<string, TaskSnapshot>();
+  const projectionContents = new Map<string, Map<string, ProjectionContent>>();
   const projectionBroadcastTimers = new Map<string, NodeJS.Timeout>();
+  const projectionGeneration = randomBytes(16).toString("hex");
   const recentActions = new Set<string>();
   let closing = false;
   let queued = 0;
   let active = 0;
+  let projectionContentBytes = 0;
   let queue: Promise<void> = Promise.resolve();
 
   const broadcast = (clientId: string, event: ProgressEvent): void => {
@@ -227,6 +246,21 @@ export async function createAgentationServer({
     }
   };
 
+  const broadcastTaskRemove = (taskId: string): void => {
+    const record = `data: ${JSON.stringify({ type: "task.remove", taskId })}\n\n`;
+    for (const stream of projectionStreams) stream.write(record);
+  };
+
+  const deleteProjectionContents = (taskId: string): void => {
+    const contents = projectionContents.get(taskId);
+    if (!contents) return;
+    for (const { before, after } of contents.values()) {
+      projectionContentBytes -=
+        Buffer.byteLength(before, "utf8") + Buffer.byteLength(after, "utf8");
+    }
+    projectionContents.delete(taskId);
+  };
+
   const storeSnapshot = (snapshot: TaskSnapshot): void => {
     projectionSnapshots.delete(snapshot.taskId);
     projectionSnapshots.set(snapshot.taskId, snapshot);
@@ -235,9 +269,11 @@ export async function createAgentationServer({
       ({ status }) => status === "completed" || status === "failed",
     ).length;
     for (const [taskId, retained] of projectionSnapshots) {
-      if (terminalCount <= RETAINED_TASK_LIMIT) break;
+      if (terminalCount <= retainedTaskLimit) break;
       if (retained.status === "queued" || retained.status === "running") continue;
       projectionSnapshots.delete(taskId);
+      deleteProjectionContents(taskId);
+      broadcastTaskRemove(taskId);
       terminalCount -= 1;
     }
   };
@@ -246,6 +282,47 @@ export async function createAgentationServer({
     storeSnapshot(snapshot);
     const record = `data: ${JSON.stringify(snapshot)}\n\n`;
     for (const stream of projectionStreams) stream.write(record);
+  };
+
+  const evictProjectionContents = (taskId: string): void => {
+    deleteProjectionContents(taskId);
+    const snapshot = projectionSnapshots.get(taskId);
+    if (!snapshot?.changes) return;
+    const withoutChanges = { ...snapshot };
+    delete withoutChanges.changes;
+    broadcastSnapshot(withoutChanges);
+  };
+
+  const storeProjectionContents = (
+    taskId: string,
+    captures: Array<{ path: string; before: string; after: string }>,
+  ): Array<{ path: string }> => {
+    const changed = captures.filter(({ before, after }) => before !== after);
+    const bytes = changed.reduce(
+      (total, { before, after }) =>
+        total + Buffer.byteLength(before, "utf8") + Buffer.byteLength(after, "utf8"),
+      0,
+    );
+    if (bytes > maxProjectionContentBytes) return [];
+
+    deleteProjectionContents(taskId);
+    while (projectionContentBytes + bytes > maxProjectionContentBytes) {
+      const oldestTerminal = [...projectionContents.keys()].find((retainedTaskId) => {
+        const status = projectionSnapshots.get(retainedTaskId)?.status;
+        return status === "completed" || status === "failed";
+      });
+      if (!oldestTerminal) return [];
+      evictProjectionContents(oldestTerminal);
+    }
+
+    const contents = new Map(
+      changed.map(({ path, before, after }) => [path, { before, after }]),
+    );
+    if (contents.size > 0) {
+      projectionContents.set(taskId, contents);
+      projectionContentBytes += bytes;
+    }
+    return [...contents.keys()].map((path) => ({ path }));
   };
 
   const flushSnapshot = (taskId: string): void => {
@@ -267,7 +344,9 @@ export async function createAgentationServer({
 
   const updateSnapshot = (
     taskId: string,
-    update: Partial<Pick<TaskSnapshot, "status" | "detail" | "markdown" | "sessionFile" | "error">>,
+    update: Partial<
+      Pick<TaskSnapshot, "status" | "detail" | "markdown" | "sessionFile" | "error" | "changes">
+    >,
     broadcast = true,
   ): void => {
     const snapshot = projectionSnapshots.get(taskId);
@@ -296,6 +375,32 @@ export async function createAgentationServer({
 
     const requestUrl = new URL(req.url ?? "/", `http://${HOST}`);
     const origin = req.headers.origin;
+    if (requestUrl.pathname === "/projection-content") {
+      if (origin !== undefined) {
+        res.writeHead(403).end();
+        return;
+      }
+      if (req.method !== "GET") {
+        res.writeHead(404).end();
+        return;
+      }
+      const taskId = requestUrl.searchParams.get("taskId");
+      const requestedPath = requestUrl.searchParams.get("path");
+      const side = requestUrl.searchParams.get("side");
+      if (!taskId || !requestedPath || (side !== "before" && side !== "after")) {
+        res.writeHead(400).end();
+        return;
+      }
+      const content = projectionContents.get(taskId)?.get(requestedPath);
+      const text = content?.[side];
+      if (text === undefined) {
+        res.writeHead(404).end();
+        return;
+      }
+      res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end(text);
+      return;
+    }
     if (requestUrl.pathname === "/projection-events") {
       // This loopback endpoint trusts local non-browser clients; Origin-bearing browser access stays denied.
       if (origin !== undefined) {
@@ -317,6 +422,9 @@ export async function createAgentationServer({
       });
       res.write(": connected\n\n");
       projectionStreams.add(res);
+      res.write(
+        `data: ${JSON.stringify({ type: "projection.reset", generation: projectionGeneration })}\n\n`,
+      );
       for (const snapshot of projectionSnapshots.values()) {
         res.write(`data: ${JSON.stringify(snapshot)}\n\n`);
       }
@@ -484,6 +592,7 @@ export async function createAgentationServer({
                 }
               },
             });
+            const changes = storeProjectionContents(key, result.captures);
             succeeded = true;
             const markdown = result.response ?? "Completed.";
             broadcast(clientId, {
@@ -496,6 +605,7 @@ export async function createAgentationServer({
               status: "completed",
               detail: "Completed",
               markdown,
+              ...(changes.length === 0 ? {} : { changes }),
               ...(result.sessionFile === undefined ? {} : { sessionFile: result.sessionFile }),
             });
             logger.info(
@@ -551,6 +661,7 @@ export async function createAgentationServer({
       eventHistory.clear();
       projectionStreams.clear();
       projectionSnapshots.clear();
+      projectionContents.clear();
       for (const timer of projectionBroadcastTimers.values()) clearTimeout(timer);
       projectionBroadcastTimers.clear();
       server.closeAllConnections();
