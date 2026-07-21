@@ -10,8 +10,20 @@ const DEFAULT_PORT = 4748;
 const MAX_REQUEST_BYTES = 1_000_000;
 const MAX_QUEUED_ACTIONS = 5;
 const RECENT_ACTION_LIMIT = 100;
+const RETAINED_TASK_LIMIT = 100;
+const MAX_PROJECTION_STREAMS = 4;
+const MAX_PROJECTION_MARKDOWN_BYTES = 50 * 1024;
+const PROJECTION_BROADCAST_INTERVAL_MS = 100;
 
-type Annotation = { id?: string; comment?: string };
+type Annotation = {
+  id: string;
+  comment: string;
+  sourceFile?: string;
+  element?: string;
+  elementPath?: string;
+  selectedText?: string;
+  reactComponents?: string;
+};
 type Submission = {
   event: "submit";
   output: string;
@@ -27,6 +39,32 @@ type ProgressEvent = {
   markdown?: string;
   message?: string;
   toolName?: string;
+};
+type ProjectionAnnotation = Pick<
+  Annotation,
+  | "id"
+  | "comment"
+  | "sourceFile"
+  | "element"
+  | "elementPath"
+  | "selectedText"
+  | "reactComponents"
+>;
+/**
+ * Canonical task state for editor/canvas/browser projections. Consumers replace local state with each
+ * snapshot; they never own execution or reconstruct truth from an event log.
+ */
+type TaskSnapshot = {
+  type: "task.snapshot";
+  taskId: string;
+  cwd: string;
+  url?: string;
+  annotations: ProjectionAnnotation[];
+  status: "queued" | "running" | "completed" | "failed";
+  detail: string;
+  markdown?: string;
+  sessionFile?: string;
+  error?: string;
 };
 type Logger = Pick<Console, "info" | "error">;
 type AgentationServerOptions = {
@@ -64,7 +102,15 @@ function readSubmission(req: IncomingMessage): Promise<Submission> {
           value.event !== "submit" ||
           typeof value.output !== "string" ||
           value.output.trim().length === 0 ||
-          !Array.isArray(value.annotations)
+          !Array.isArray(value.annotations) ||
+          !value.annotations.every(
+            (annotation) =>
+              annotation &&
+              typeof annotation === "object" &&
+              typeof annotation.id === "string" &&
+              annotation.id.length > 0 &&
+              typeof annotation.comment === "string",
+          )
         ) {
           reject(new Error("invalid Agentation submission"));
           return;
@@ -160,6 +206,9 @@ export async function createAgentationServer({
   const childProcesses = new Set<ChildProcess>();
   const eventStreams = new Map<ServerResponse, string>();
   const eventHistory = new Map<string, ProgressEvent[]>();
+  const projectionStreams = new Set<ServerResponse>();
+  const projectionSnapshots = new Map<string, TaskSnapshot>();
+  const projectionBroadcastTimers = new Map<string, NodeJS.Timeout>();
   const recentActions = new Set<string>();
   let closing = false;
   let queued = 0;
@@ -178,13 +227,106 @@ export async function createAgentationServer({
     }
   };
 
+  const storeSnapshot = (snapshot: TaskSnapshot): void => {
+    projectionSnapshots.delete(snapshot.taskId);
+    projectionSnapshots.set(snapshot.taskId, snapshot);
+
+    let terminalCount = [...projectionSnapshots.values()].filter(
+      ({ status }) => status === "completed" || status === "failed",
+    ).length;
+    for (const [taskId, retained] of projectionSnapshots) {
+      if (terminalCount <= RETAINED_TASK_LIMIT) break;
+      if (retained.status === "queued" || retained.status === "running") continue;
+      projectionSnapshots.delete(taskId);
+      terminalCount -= 1;
+    }
+  };
+
+  const broadcastSnapshot = (snapshot: TaskSnapshot): void => {
+    storeSnapshot(snapshot);
+    const record = `data: ${JSON.stringify(snapshot)}\n\n`;
+    for (const stream of projectionStreams) stream.write(record);
+  };
+
+  const flushSnapshot = (taskId: string): void => {
+    const timer = projectionBroadcastTimers.get(taskId);
+    if (!timer) return;
+    clearTimeout(timer);
+    projectionBroadcastTimers.delete(taskId);
+    const snapshot = projectionSnapshots.get(taskId);
+    if (snapshot) broadcastSnapshot(snapshot);
+  };
+
+  const scheduleSnapshot = (taskId: string): void => {
+    if (projectionBroadcastTimers.has(taskId)) return;
+    projectionBroadcastTimers.set(
+      taskId,
+      setTimeout(() => flushSnapshot(taskId), PROJECTION_BROADCAST_INTERVAL_MS),
+    );
+  };
+
+  const updateSnapshot = (
+    taskId: string,
+    update: Partial<Pick<TaskSnapshot, "status" | "detail" | "markdown" | "sessionFile" | "error">>,
+    broadcast = true,
+  ): void => {
+    const snapshot = projectionSnapshots.get(taskId);
+    if (!snapshot) return;
+    const next = {
+      ...snapshot,
+      ...update,
+      ...(update.markdown === undefined
+        ? {}
+        : { markdown: truncateUtf8(update.markdown, MAX_PROJECTION_MARKDOWN_BYTES) }),
+    };
+    if (broadcast) {
+      flushSnapshot(taskId);
+      broadcastSnapshot(next);
+    } else {
+      storeSnapshot(next);
+      scheduleSnapshot(taskId);
+    }
+  };
+
   const server = createServer(async (req, res) => {
     if (closing) {
       res.writeHead(503).end();
       return;
     }
 
+    const requestUrl = new URL(req.url ?? "/", `http://${HOST}`);
     const origin = req.headers.origin;
+    if (requestUrl.pathname === "/projection-events") {
+      // This loopback endpoint trusts local non-browser clients; Origin-bearing browser access stays denied.
+      if (origin !== undefined) {
+        res.writeHead(403).end();
+        return;
+      }
+      if (req.method !== "GET") {
+        res.writeHead(404).end();
+        return;
+      }
+      if (projectionStreams.size >= MAX_PROJECTION_STREAMS) {
+        res.writeHead(429).end();
+        return;
+      }
+      res.writeHead(200, {
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+        "Content-Type": "text/event-stream",
+      });
+      res.write(": connected\n\n");
+      projectionStreams.add(res);
+      for (const snapshot of projectionSnapshots.values()) {
+        res.write(`data: ${JSON.stringify(snapshot)}\n\n`);
+      }
+      const heartbeat = setInterval(() => res.write(": ping\n\n"), 30_000);
+      req.on("close", () => {
+        clearInterval(heartbeat);
+        projectionStreams.delete(res);
+      });
+      return;
+    }
     if (!isAllowedOrigin(origin)) {
       res.writeHead(403).end();
       return;
@@ -193,7 +335,6 @@ export async function createAgentationServer({
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.setHeader("Vary", "Origin");
-    const requestUrl = new URL(req.url ?? "/", `http://${HOST}`);
     const clientId = requestUrl.searchParams.get("clientId");
 
     if (req.method === "OPTIONS") {
@@ -258,6 +399,25 @@ export async function createAgentationServer({
       }
       recentActions.add(key);
       broadcast(clientId, { type: "batch.queued", batchId: key, annotationIds });
+      broadcastSnapshot({
+        type: "task.snapshot",
+        taskId: key,
+        cwd,
+        ...(submission.url === undefined ? {} : { url: submission.url }),
+        annotations: submission.annotations.map(
+          ({ id, comment, sourceFile, element, elementPath, selectedText, reactComponents }) => ({
+            id,
+            comment,
+            ...(sourceFile === undefined ? {} : { sourceFile }),
+            ...(element === undefined ? {} : { element }),
+            ...(elementPath === undefined ? {} : { elementPath }),
+            ...(selectedText === undefined ? {} : { selectedText }),
+            ...(reactComponents === undefined ? {} : { reactComponents }),
+          }),
+        ),
+        status: "queued",
+        detail: "Queued",
+      });
       if (recentActions.size > RECENT_ACTION_LIMIT) {
         const oldestAction = recentActions.values().next().value;
         if (oldestAction) recentActions.delete(oldestAction);
@@ -274,6 +434,7 @@ export async function createAgentationServer({
               `[agentation] running ${submission.annotations.length} annotation(s) in a child session`,
             );
             broadcast(clientId, { type: "child.started", batchId: key, annotationIds });
+            updateSnapshot(key, { status: "running", detail: "Working" });
             const result = await runChildSession({
               piBin,
               cwd,
@@ -294,6 +455,7 @@ export async function createAgentationServer({
                     annotationIds,
                     toolName,
                   });
+                  updateSnapshot(key, { status: "running", detail: `Running ${toolName}` });
                 }
                 const assistantEvent = event.assistantMessageEvent as
                   | { type?: unknown; delta?: unknown }
@@ -309,15 +471,32 @@ export async function createAgentationServer({
                     annotationIds,
                     delta: assistantEvent.delta,
                   });
+                  const snapshot = projectionSnapshots.get(key);
+                  updateSnapshot(
+                    key,
+                    {
+                      status: "running",
+                      detail: "Responding",
+                      markdown: `${snapshot?.markdown ?? ""}${assistantEvent.delta}`,
+                    },
+                    false,
+                  );
                 }
               },
             });
             succeeded = true;
+            const markdown = result.response ?? "Completed.";
             broadcast(clientId, {
               type: "child.completed",
               batchId: key,
               annotationIds,
-              markdown: result.response ?? "Completed.",
+              markdown,
+            });
+            updateSnapshot(key, {
+              status: "completed",
+              detail: "Completed",
+              markdown,
+              ...(result.sessionFile === undefined ? {} : { sessionFile: result.sessionFile }),
             });
             logger.info(
               `[agentation] completed${result.sessionFile ? ` ${basename(result.sessionFile)}` : ""}`,
@@ -325,6 +504,7 @@ export async function createAgentationServer({
           } catch (error) {
             const message = error instanceof Error ? error.message : String(error);
             broadcast(clientId, { type: "child.failed", batchId: key, annotationIds, message });
+            updateSnapshot(key, { status: "failed", detail: "Failed", error: message });
             logger.error(`[agentation] child failed: ${message}`);
           } finally {
             active -= 1;
@@ -366,13 +546,24 @@ export async function createAgentationServer({
       closing = true;
       const serverClosed = new Promise<void>((resolve) => server.close(() => resolve()));
       for (const stream of eventStreams.keys()) stream.end();
+      for (const stream of projectionStreams) stream.end();
       eventStreams.clear();
       eventHistory.clear();
+      projectionStreams.clear();
+      projectionSnapshots.clear();
+      for (const timer of projectionBroadcastTimers.values()) clearTimeout(timer);
+      projectionBroadcastTimers.clear();
       server.closeAllConnections();
       await Promise.all([serverClosed, ...[...childProcesses].map(stopProcess)]);
       childProcesses.clear();
     },
   };
+}
+
+function truncateUtf8(value: string, maxBytes: number): string {
+  const bytes = Buffer.from(value, "utf8");
+  if (bytes.length <= maxBytes) return value;
+  return bytes.subarray(0, maxBytes).toString("utf8");
 }
 
 export { actionKey, childName, childPrompt, isAllowedOrigin, readSubmission };

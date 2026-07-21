@@ -15,6 +15,38 @@ async function availablePort() {
   return address.port;
 }
 
+async function collectSseUntil(
+  response: Response,
+  until: (event: Record<string, unknown>) => boolean,
+): Promise<Array<Record<string, unknown>>> {
+  const body = response.body;
+  assert.ok(body);
+  const reader = body.getReader();
+  const decoder = new TextDecoder();
+  const events: Array<Record<string, unknown>> = [];
+  let buffer = "";
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) return events;
+    buffer += decoder.decode(value, { stream: true });
+    const records = buffer.split("\n\n");
+    buffer = records.pop() ?? "";
+    for (const record of records) {
+      const data = record
+        .split("\n")
+        .find((line) => line.startsWith("data: "))
+        ?.slice(6);
+      if (!data) continue;
+      const event = JSON.parse(data) as Record<string, unknown>;
+      events.push(event);
+      if (until(event)) {
+        await reader.cancel();
+        return events;
+      }
+    }
+  }
+}
+
 async function createFakePi(directory: string): Promise<string> {
   const fakePi = join(directory, "fake-pi.mjs");
   await writeFile(
@@ -99,6 +131,32 @@ test("dev coordinator creates a parent and routes submissions to linked children
       body: "{}",
     });
     assert.equal(wrongPort.status, 403);
+    const invalidAnnotation = await fetch(`${coordinator.url}?clientId=invalid`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Origin: "http://localhost:3000" },
+      body: JSON.stringify({ event: "submit", output: "feedback", annotations: [{}] }),
+    });
+    assert.equal(invalidAnnotation.status, 400);
+
+    const projectionUrl = coordinator.url.replace("/agentation", "/projection-events");
+    const blockedProjection = await fetch(projectionUrl, {
+      headers: { Origin: "http://localhost:3000" },
+    });
+    assert.equal(blockedProjection.status, 403);
+    const projectionResponse = await fetch(projectionUrl);
+    assert.equal(projectionResponse.status, 200);
+    const projectionDone = collectSseUntil(
+      projectionResponse,
+      ({ status }) => status === "completed",
+    );
+
+    const cappedStreams = await Promise.all(
+      Array.from({ length: 3 }, () => fetch(projectionUrl)),
+    );
+    assert.ok(cappedStreams.every(({ status }) => status === 200));
+    const cappedResponse = await fetch(projectionUrl);
+    assert.equal(cappedResponse.status, 429);
+    await Promise.all(cappedStreams.map(({ body }) => body?.cancel()));
 
     const clientId = "test-client";
     const eventsUrl = `${coordinator.url.replace("/agentation", "/events")}?clientId=${clientId}`;
@@ -144,7 +202,13 @@ test("dev coordinator creates a parent and routes submissions to linked children
         timestamp: 42,
         url: "http://localhost:3000/",
         output: "## Feedback\nmake the button blue",
-        annotations: [{ id: "annotation-1", comment: "make it blue" }],
+        annotations: [
+          {
+            id: "annotation-1",
+            comment: "make it blue",
+            sourceFile: "src/Button.tsx:12",
+          },
+        ],
       }),
     });
     assert.equal(response.status, 200);
@@ -156,8 +220,57 @@ test("dev coordinator creates a parent and routes submissions to linked children
     const newSession = commands.find(({ type }) => type === "new_session");
     assert.equal(newSession.parentSession, parentSession);
     await eventsDone;
+    const projectionEvents = await projectionDone;
     assert.ok(events.some(({ type, delta }) => type === "assistant.delta" && delta === "working"));
     assert.ok(events.some(({ type }) => type === "child.completed"));
+    assert.ok(projectionEvents.every(({ type }) => type === "task.snapshot"));
+
+    const queuedProjection = projectionEvents.find(({ status }) => status === "queued");
+    assert.ok(queuedProjection);
+    assert.equal(queuedProjection.cwd, directory);
+    assert.equal(queuedProjection.url, "http://localhost:3000/");
+    assert.deepEqual(queuedProjection.annotations, [
+      {
+        id: "annotation-1",
+        comment: "make it blue",
+        sourceFile: "src/Button.tsx:12",
+      },
+    ]);
+    const taskId = queuedProjection.taskId;
+    assert.equal(typeof taskId, "string");
+    assert.ok(
+      projectionEvents.some(
+        ({ taskId: eventTaskId, status, detail }) =>
+          eventTaskId === taskId && status === "running" && detail === "Working",
+      ),
+    );
+    assert.ok(
+      projectionEvents.some(
+        ({ taskId: eventTaskId, status, detail }) =>
+          eventTaskId === taskId && status === "running" && detail === "Running edit",
+      ),
+    );
+    assert.ok(
+      projectionEvents.some(
+        ({ taskId: eventTaskId, status, detail, markdown }) =>
+          eventTaskId === taskId &&
+          status === "running" &&
+          detail === "Responding" &&
+          markdown === "working",
+      ),
+    );
+    const completedProjection = projectionEvents.at(-1);
+    assert.equal(completedProjection?.status, "completed");
+    assert.equal(completedProjection?.taskId, taskId);
+    assert.equal(completedProjection?.markdown, "done");
+    assert.equal(completedProjection?.sessionFile, childSession);
+
+    const projectionReplay = await collectSseUntil(
+      await fetch(projectionUrl),
+      ({ status }) => status === "completed",
+    );
+    assert.equal(projectionReplay.length, 1);
+    assert.deepEqual(projectionReplay[0], completedProjection);
 
     const replayResponse = await fetch(eventsUrl, {
       headers: { Origin: "http://localhost:3000" },
