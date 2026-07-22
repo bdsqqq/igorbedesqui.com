@@ -45,18 +45,36 @@ export type CapturedChange = {
   beforeMode?: number;
 };
 
+export class SessionRunError extends Error {
+  readonly captures: CapturedChange[];
+  readonly sessionFile?: string;
+
+  constructor(
+    message: string,
+    captures: CapturedChange[],
+    sessionFile?: string,
+    options?: ErrorOptions,
+  ) {
+    super(message, options);
+    this.name = "SessionRunError";
+    this.captures = captures;
+    this.sessionFile = sessionFile;
+  }
+}
+
 type ParentSessionOptions = {
   piBin: string;
   cwd: string;
   name: string;
 };
 
-type ChildSessionOptions = ParentSessionOptions & {
-  parentSession: string;
+type SessionRunOptions = ParentSessionOptions & {
   prompt: string;
   onSpawn?: (child: ChildProcessWithoutNullStreams) => void;
   onEvent?: (event: PiRpcEvent) => void;
 };
+type ChildSessionOptions = SessionRunOptions & { parentSession: string };
+type ResumedSessionOptions = SessionRunOptions & { sessionFile: string };
 
 class RpcClient {
   private readonly decoder = new StringDecoder("utf8");
@@ -347,23 +365,29 @@ export async function createParentSession({
   }
 }
 
-export async function runChildSession({
-  piBin,
-  cwd,
-  parentSession,
-  name,
-  prompt,
-  onSpawn,
-  onEvent,
-}: ChildSessionOptions): Promise<{
+type SessionResult = {
   sessionFile?: string;
   response?: string;
   captures: CapturedChange[];
-}> {
+};
+
+export function runChildSession(options: ChildSessionOptions): Promise<SessionResult> {
+  return runSession(options, { type: "new_session", parentSession: options.parentSession });
+}
+
+export function resumeChildSession(options: ResumedSessionOptions): Promise<SessionResult> {
+  return runSession(options, { type: "switch_session", sessionPath: options.sessionFile });
+}
+
+async function runSession(
+  { piBin, cwd, name, prompt, onSpawn, onEvent }: SessionRunOptions,
+  sessionCommand: RpcCommand,
+): Promise<SessionResult> {
   const captureDirectory = await mkdtemp(join(tmpdir(), "agentation-capture-"));
   const captureManifest = join(captureDirectory, "manifest.json");
   const captureExtension = fileURLToPath(new URL("./capture-extension.ts", import.meta.url));
   let client: RpcClient | undefined;
+  let sessionFile: string | undefined;
   try {
     await writeFile(captureManifest, JSON.stringify({ files: [] }), { mode: 0o600 });
     client = new RpcClient(
@@ -385,10 +409,13 @@ export async function runChildSession({
     );
     onSpawn?.(client.process);
 
-    const newSession = await client.request<SessionData>({ type: "new_session", parentSession });
-    if (newSession.data?.cancelled) throw new Error("pi rpc child session creation was cancelled");
-    await client.request({ type: "set_session_name", name });
+    const selectedSession = await client.request<SessionData>(sessionCommand);
+    if (selectedSession.data?.cancelled) throw new Error("pi rpc session selection was cancelled");
+    if (sessionCommand.type === "new_session") {
+      await client.request({ type: "set_session_name", name });
+    }
     const state = await client.request<StateData>({ type: "get_state" });
+    sessionFile = state.data?.sessionFile;
     const settled = client.waitForEvent("agent_settled");
     try {
       await client.request({ type: "prompt", message: prompt });
@@ -409,10 +436,19 @@ export async function runChildSession({
     }
 
     return {
-      sessionFile: state.data?.sessionFile,
+      sessionFile,
       response: response.data?.text,
       captures,
     };
+  } catch (error) {
+    let captures: CapturedChange[] = [];
+    try {
+      captures = await readCaptureManifest(captureManifest);
+    } catch {
+      // The original run failure remains authoritative when capture recovery is unavailable.
+    }
+    const message = error instanceof Error ? error.message : String(error);
+    throw new SessionRunError(message, captures, sessionFile, { cause: error });
   } finally {
     await client?.close();
     await rm(captureDirectory, { recursive: true, force: true });

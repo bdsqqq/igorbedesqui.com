@@ -4,7 +4,19 @@ import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
-import { createAgentationServer } from "./server.js";
+import {
+  boundProjectionMessages,
+  createAgentationServer,
+  ReplyTombstoneStore,
+  replySignature,
+} from "./server.js";
+
+type TestProjectionMessage = {
+  id: string;
+  annotationId?: string;
+  role: "user" | "assistant";
+  body: string;
+};
 
 async function availablePort() {
   const server = createServer();
@@ -47,6 +59,58 @@ async function collectSseUntil(
   }
 }
 
+function assertMonotonicRevisions(events: Array<Record<string, unknown>>, taskId: unknown): void {
+  const revisions = events
+    .filter((event) => event.taskId === taskId)
+    .map(({ revision }) => revision as number);
+  assert.ok(revisions.length > 0);
+  assert.ok(revisions.every((revision, index) => index === 0 || revision > revisions[index - 1]));
+}
+
+test("projection messages drop oldest whole records by count and utf-8 bytes", () => {
+  const messages: TestProjectionMessage[] = Array.from({ length: 51 }, (_, index) => ({
+    id: String(index),
+    role: "assistant",
+    body: index === 50 ? "😀".repeat(25_600) : "x",
+  }));
+  const bounded = boundProjectionMessages(messages);
+  assert.equal(bounded.length, 1);
+  assert.equal(bounded[0].id, "50");
+  assert.equal(Buffer.byteLength(bounded[0].body, "utf8"), 100 * 1024);
+
+  const over = boundProjectionMessages([
+    ...bounded,
+    { id: "51", role: "user", body: "y" },
+  ]);
+  assert.deepEqual(over.map(({ id }) => id), ["51"]);
+});
+
+test("reply tombstones retain only the newest 200 request signatures", () => {
+  const tombstones = new ReplyTombstoneStore();
+  for (let index = 0; index <= 200; index += 1) {
+    const requestId = `request-${index}`;
+    const reply = {
+      generation: "generation",
+      taskId: "task",
+      annotationId: "annotation",
+      text: `reply ${index}`,
+      requestId,
+    };
+    tombstones.add({ requestId, taskId: reply.taskId, signature: replySignature(reply) });
+  }
+  assert.equal(tombstones.size, 200);
+  assert.equal(tombstones.match("request-0", "task", "missing"), undefined);
+  const recent = {
+    generation: "generation",
+    taskId: "task",
+    annotationId: "annotation",
+    text: "reply 200",
+    requestId: "request-200",
+  };
+  assert.equal(tombstones.match(recent.requestId, recent.taskId, replySignature(recent)), 202);
+  assert.equal(tombstones.match(recent.requestId, recent.taskId, "different"), 409);
+});
+
 async function createFakePi(directory: string): Promise<string> {
   const fakePi = join(directory, "fake-pi.mjs");
   await writeFile(
@@ -71,14 +135,14 @@ process.stdin.on("data", async chunk => {
     buffer = buffer.slice(newline + 1);
     if (!line) continue;
     const command = JSON.parse(line);
-    if (command.type === "new_session") childMode = true;
+    if (command.type === "new_session" || command.type === "switch_session") childMode = true;
     appendFileSync(process.env.TEST_RPC_LOG, JSON.stringify({ ...command, childMode }) + "\\n");
     let data;
-    if (command.type === "new_session") data = { cancelled: false };
+    if (command.type === "new_session" || command.type === "switch_session") data = { cancelled: false };
     if (command.type === "get_state") data = childMode
       ? { sessionFile: process.env.TEST_CHILD_SESSION, sessionId: "child-id" }
       : { sessionFile: process.env.TEST_PARENT_SESSION, sessionId: "parent-id" };
-    if (command.type === "get_messages") data = { messages: [{ role: "assistant", stopReason: "stop" }] };
+    if (command.type === "get_messages") data = { messages: [{ role: "assistant", stopReason: process.env.TEST_STOP_REASON || "stop" }] };
     if (command.type === "get_last_assistant_text") data = { text: "done" };
     process.stdout.write(JSON.stringify({ id: command.id, type: "response", command: command.type, success: true, data }) + "\\n");
     if (command.type === "prompt") {
@@ -104,7 +168,7 @@ process.stdin.on("data", async chunk => {
       const secondGate = await handlers.tool_call?.(secondEdit, { cwd: process.cwd() });
       if (secondGate?.block) throw new Error(secondGate.reason);
       if (secondEdit.input.path !== realpathSync(process.env.TEST_SOURCE_FILE)) throw new Error("relative path was not normalized");
-      writeFileSync(secondEdit.input.path, "after\\n", "utf8");
+      writeFileSync(secondEdit.input.path, process.env.TEST_AFTER_TEXT || "after\\n", "utf8");
       await handlers.tool_result?.(secondEdit, { cwd: process.cwd() });
       process.stdout.write(JSON.stringify({ type: "tool_execution_end", toolCallId: secondEdit.toolCallId, toolName: "edit", isError: false }) + "\\n");
       const createdWrite = { toolCallId: "write-created", toolName: "write", input: { path: "created.ts" } };
@@ -112,6 +176,7 @@ process.stdin.on("data", async chunk => {
       if (createdGate?.block) throw new Error(createdGate.reason);
       writeFileSync(createdWrite.input.path, "new\\n", "utf8");
       await handlers.tool_result?.(createdWrite, { cwd: process.cwd() });
+      await new Promise(resolve => setTimeout(resolve, 50));
       process.stdout.write(JSON.stringify({ type: "message_update", assistantMessageEvent: { type: "text_delta", delta: "working" } }) + "\\n");
       process.stdout.write(JSON.stringify({ type: "agent_settled" }) + "\\n");
     }
@@ -138,6 +203,8 @@ test("dev coordinator creates a parent and routes submissions to linked children
     TEST_PARENT_SESSION: process.env.TEST_PARENT_SESSION,
     TEST_CHILD_SESSION: process.env.TEST_CHILD_SESSION,
     TEST_SOURCE_FILE: process.env.TEST_SOURCE_FILE,
+    TEST_STOP_REASON: process.env.TEST_STOP_REASON,
+    TEST_AFTER_TEXT: process.env.TEST_AFTER_TEXT,
   };
   process.env.TEST_RPC_LOG = rpcLog;
   process.env.TEST_PARENT_SESSION = parentSession;
@@ -282,6 +349,7 @@ test("dev coordinator creates a parent and routes submissions to linked children
 
     const queuedProjection = projectionEvents.find(({ status }) => status === "queued");
     assert.ok(queuedProjection);
+    assert.equal(queuedProjection.revision, 1);
     assert.equal(queuedProjection.cwd, directory);
     assert.equal(queuedProjection.url, "http://localhost:3000/");
     assert.deepEqual(queuedProjection.annotations, [
@@ -323,6 +391,15 @@ test("dev coordinator creates a parent and routes submissions to linked children
       { path: "source.ts" },
       { path: "created.ts" },
     ]);
+    assertMonotonicRevisions(projectionEvents, taskId);
+    const initialMessages = completedProjection?.messages as TestProjectionMessage[];
+    assert.deepEqual(initialMessages, [
+      {
+        id: initialMessages[0].id,
+        role: "assistant",
+        body: "done",
+      },
+    ]);
 
     const contentUrl = coordinator.url.replace("/agentation", "/projection-content");
     const contentQuery = `generation=${generation}&taskId=${taskId}&path=source.ts`;
@@ -356,6 +433,221 @@ test("dev coordinator creates a parent and routes submissions to linked children
         .status,
       404,
     );
+
+    const replyUrl = coordinator.url.replace("/agentation", "/projection-replies");
+    const replyBody = {
+      generation,
+      taskId,
+      annotationId: "annotation-1",
+      text: "make the border round too",
+      requestId: "reply-1",
+    };
+    assert.equal(
+      (await fetch(replyUrl, {
+        method: "POST",
+        headers: { Origin: "http://localhost:3000" },
+        body: JSON.stringify(replyBody),
+      })).status,
+      403,
+    );
+    assert.equal((await fetch(replyUrl, { method: "POST", body: "{}" })).status, 400);
+    assert.equal(
+      (await fetch(replyUrl, {
+        method: "POST",
+        body: JSON.stringify({ ...replyBody, text: "   ", requestId: "blank-reply" }),
+      })).status,
+      400,
+    );
+    assert.equal(
+      (await fetch(replyUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          ...replyBody,
+          text: "x".repeat(100 * 1024 + 1),
+          requestId: "oversize-reply",
+        }),
+      })).status,
+      400,
+    );
+    assert.equal(
+      (await fetch(replyUrl, {
+        method: "POST",
+        body: JSON.stringify({ ...replyBody, generation: "stale", requestId: "stale-reply" }),
+      })).status,
+      410,
+    );
+    assert.equal(
+      (await fetch(replyUrl, {
+        method: "POST",
+        body: JSON.stringify({ ...replyBody, taskId: "unknown", requestId: "unknown-reply" }),
+      })).status,
+      404,
+    );
+    assert.equal(
+      (await fetch(replyUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          ...replyBody,
+          annotationId: "unknown",
+          requestId: "unknown-annotation",
+        }),
+      })).status,
+      404,
+    );
+
+    const replyEventsDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ status, messages: snapshotMessages }) =>
+        status === "completed" &&
+        Array.isArray(snapshotMessages) &&
+        snapshotMessages.some(
+          (message) => message.role === "assistant" && message.annotationId === "annotation-1",
+        ),
+    );
+    const competingReply = { ...replyBody, requestId: "reply-conflict" };
+    const replyResponses = await Promise.all(
+      [replyBody, competingReply].map((body) =>
+        fetch(replyUrl, { method: "POST", body: JSON.stringify(body) }),
+      ),
+    );
+    assert.deepEqual(
+      replyResponses.map(({ status }) => status).sort(),
+      [202, 409],
+    );
+    const acceptedReply = replyResponses[0].status === 202 ? replyBody : competingReply;
+    assert.equal(
+      (await fetch(replyUrl, { method: "POST", body: JSON.stringify(acceptedReply) })).status,
+      202,
+    );
+    assert.equal(
+      (await fetch(replyUrl, {
+        method: "POST",
+        body: JSON.stringify({ ...acceptedReply, text: "different" }),
+      })).status,
+      409,
+    );
+    const replyEvents = await replyEventsDone;
+    const queuedReply = replyEvents.find(
+      ({ status, detail }) => status === "queued" && detail === "Reply queued",
+    );
+    assert.ok(queuedReply);
+    assert.ok((queuedReply.revision as number) > (completedProjection?.revision as number));
+    assert.equal(queuedReply.markdown, undefined);
+    assert.ok(
+      (queuedReply.messages as TestProjectionMessage[]).some(
+        (message) =>
+          message.role === "user" &&
+          message.annotationId === "annotation-1" &&
+          message.body === replyBody.text,
+      ),
+    );
+    assert.ok(
+      replyEvents.some(
+        ({ status, detail, markdown, messages: snapshotMessages }) =>
+          status === "running" &&
+          detail === "Responding" &&
+          markdown === "working" &&
+          (snapshotMessages as TestProjectionMessage[]).some(
+            ({ role, annotationId, body }) =>
+              role === "assistant" && annotationId === "annotation-1" && body === "working",
+          ),
+      ),
+    );
+    const completedReply = replyEvents.at(-1);
+    assertMonotonicRevisions(replyEvents, taskId);
+    assert.equal(completedReply?.status, "completed");
+    assert.equal(completedReply?.markdown, "done");
+    assert.equal(completedReply?.sessionFile, childSession);
+    assert.deepEqual(completedReply?.changes, [
+      { path: "source.ts" },
+      { path: "created.ts" },
+    ]);
+    assert.deepEqual(
+      (completedReply?.messages as TestProjectionMessage[]).map(({ role, annotationId, body }) => ({
+        role,
+        annotationId,
+        body,
+      })),
+      [
+        { role: "assistant", annotationId: undefined, body: "done" },
+        { role: "user", annotationId: "annotation-1", body: replyBody.text },
+        { role: "assistant", annotationId: "annotation-1", body: "done" },
+      ],
+    );
+    const replyCommands = (await readFile(rpcLog, "utf8"))
+      .trim()
+      .split("\n")
+      .map((line) => JSON.parse(line));
+    assert.equal(replyCommands.filter(({ type }) => type === "new_session").length, 1);
+    const switchSession = replyCommands.find(({ type }) => type === "switch_session");
+    assert.equal(switchSession.sessionPath, childSession);
+
+    process.env.TEST_STOP_REASON = "error";
+    process.env.TEST_AFTER_TEXT = "failure\n";
+    const failedReplyBody = {
+      ...replyBody,
+      text: "try a failing follow-up",
+      requestId: "reply-failure",
+    };
+    const failedReplyEventsDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ status }) => status === "failed",
+    );
+    assert.equal(
+      (await fetch(replyUrl, { method: "POST", body: JSON.stringify(failedReplyBody) })).status,
+      202,
+    );
+    const failedReplyEvents = await failedReplyEventsDone;
+    const failedReply = failedReplyEvents.at(-1);
+    assertMonotonicRevisions(failedReplyEvents, taskId);
+    assert.equal(failedReply?.error, "pi child ended with error");
+    assert.deepEqual(failedReply?.changes, [
+      { path: "source.ts" },
+      { path: "created.ts" },
+    ]);
+    assert.ok(
+      (failedReply?.messages as TestProjectionMessage[]).some(
+        ({ role, body }) => role === "user" && body === failedReplyBody.text,
+      ),
+    );
+    const failedContentQuery = `generation=${generation}&taskId=${taskId}&path=source.ts`;
+    assert.equal(
+      await (await fetch(`${contentUrl}?${failedContentQuery}&side=before`)).text(),
+      "before\n",
+    );
+    assert.equal(
+      await (await fetch(`${contentUrl}?${failedContentQuery}&side=after`)).text(),
+      "failure\n",
+    );
+
+    if (previous.TEST_STOP_REASON === undefined) delete process.env.TEST_STOP_REASON;
+    else process.env.TEST_STOP_REASON = previous.TEST_STOP_REASON;
+    if (previous.TEST_AFTER_TEXT === undefined) delete process.env.TEST_AFTER_TEXT;
+    else process.env.TEST_AFTER_TEXT = previous.TEST_AFTER_TEXT;
+    assert.equal(
+      (await fetch(replyUrl, { method: "POST", body: JSON.stringify(failedReplyBody) })).status,
+      202,
+    );
+
+    const recoveryReplyBody = {
+      ...replyBody,
+      text: "recover after the failed follow-up",
+      requestId: "reply-recovery",
+    };
+    const recoveryEventsDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ status, messages: snapshotMessages }) =>
+        status === "completed" &&
+        Array.isArray(snapshotMessages) &&
+        snapshotMessages.some(
+          (message) => message.role === "user" && message.body === recoveryReplyBody.text,
+        ),
+    );
+    assert.equal(
+      (await fetch(replyUrl, { method: "POST", body: JSON.stringify(recoveryReplyBody) })).status,
+      202,
+    );
+    await recoveryEventsDone;
 
     const prepareUrl = coordinator.url.replace(
       "/agentation",
@@ -413,6 +705,83 @@ test("dev coordinator creates a parent and routes submissions to linked children
       })).status,
       404,
     );
+
+    const stalePrepareResponse = await fetch(prepareUrl, {
+      method: "POST",
+      body: JSON.stringify({
+        generation,
+        taskId,
+        path: "source.ts",
+        requestId: "stale-content-rejection",
+      }),
+    });
+    assert.equal(stalePrepareResponse.status, 200);
+    const stalePrepared = (await stalePrepareResponse.json()) as { operationId: string };
+    process.env.TEST_AFTER_TEXT = "mutated\n";
+    const mutationReplyBody = {
+      ...replyBody,
+      text: "mutate the projected source",
+      requestId: "reply-mutate-rejection",
+    };
+    const mutationEventsDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ status, messages: snapshotMessages }) =>
+        status === "completed" &&
+        Array.isArray(snapshotMessages) &&
+        snapshotMessages.some(
+          (message) => message.role === "user" && message.body === mutationReplyBody.text,
+        ),
+    );
+    assert.equal(
+      (await fetch(replyUrl, { method: "POST", body: JSON.stringify(mutationReplyBody) })).status,
+      202,
+    );
+    const mutationEvents = await mutationEventsDone;
+    assert.ok(
+      (mutationEvents.at(-1)?.changes as Array<{ path: string }>).some(
+        ({ path }) => path === "source.ts",
+      ),
+    );
+    assert.equal(
+      (await fetch(ackUrl, {
+        method: "POST",
+        body: JSON.stringify({ generation, operationId: stalePrepared.operationId }),
+      })).status,
+      409,
+    );
+    assert.equal((await fetch(`${contentUrl}?${contentQuery}&side=after`)).status, 200);
+    assert.equal(await (await fetch(`${contentUrl}?${contentQuery}&side=after`)).text(), "mutated\n");
+    const staleAckReplay = await collectSseUntil(
+      await fetch(projectionUrl),
+      ({ taskId: eventTaskId, status }) => eventTaskId === taskId && status === "completed",
+    );
+    assert.ok(
+      (staleAckReplay.at(-1)?.changes as Array<{ path: string }>).some(
+        ({ path }) => path === "source.ts",
+      ),
+    );
+
+    if (previous.TEST_AFTER_TEXT === undefined) delete process.env.TEST_AFTER_TEXT;
+    else process.env.TEST_AFTER_TEXT = previous.TEST_AFTER_TEXT;
+    const restoreReplyBody = {
+      ...replyBody,
+      text: "restore the projected source",
+      requestId: "reply-restore-rejection",
+    };
+    const restoreEventsDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ status, messages: snapshotMessages }) =>
+        status === "completed" &&
+        Array.isArray(snapshotMessages) &&
+        snapshotMessages.some(
+          (message) => message.role === "user" && message.body === restoreReplyBody.text,
+        ),
+    );
+    assert.equal(
+      (await fetch(replyUrl, { method: "POST", body: JSON.stringify(restoreReplyBody) })).status,
+      202,
+    );
+    await restoreEventsDone;
 
     const prepareResponse = await fetch(prepareUrl, { method: "POST", body: prepareBody });
     assert.equal(prepareResponse.status, 200);
@@ -613,13 +982,13 @@ test("dev coordinator creates a parent and routes submissions to linked children
       })).status,
       429,
     );
-    for (const operationId of bulkSourceOperations) {
+    for (const [index, operationId] of bulkSourceOperations.entries()) {
       assert.equal(
         (await fetch(ackUrl, {
           method: "POST",
           body: JSON.stringify({ generation, operationId }),
         })).status,
-        200,
+        index === 0 ? 200 : 409,
       );
     }
 
@@ -637,13 +1006,13 @@ test("dev coordinator creates a parent and routes submissions to linked children
       assert.equal(response.status, 200);
       recentOperations.push(((await response.json()) as { operationId: string }).operationId);
     }
-    for (const operationId of recentOperations) {
+    for (const [index, operationId] of recentOperations.entries()) {
       assert.equal(
         (await fetch(ackUrl, {
           method: "POST",
           body: JSON.stringify({ generation, operationId }),
         })).status,
-        200,
+        index === 0 ? 200 : 409,
       );
     }
     assert.equal(
@@ -651,12 +1020,12 @@ test("dev coordinator creates a parent and routes submissions to linked children
         method: "POST",
         body: JSON.stringify({ generation, operationId: bulkSourceOperations[0] }),
       })).status,
-      404,
+      200,
     );
     assert.equal(
       (await fetch(ackUrl, {
         method: "POST",
-        body: JSON.stringify({ generation, operationId: recentOperations.at(-1) }),
+        body: JSON.stringify({ generation, operationId: recentOperations[0] }),
       })).status,
       200,
     );
@@ -671,6 +1040,67 @@ test("dev coordinator creates a parent and routes submissions to linked children
     assert.match(replay, /"type":"assistant.delta"/);
     assert.match(replay, /"type":"child.completed"/);
     assert.ok(messages.some((message) => message.includes("completed")));
+
+    process.env.TEST_STOP_REASON = "aborted";
+    process.env.TEST_AFTER_TEXT = "bad\n";
+    const failedInitialEventsDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ status, annotations }) =>
+        status === "failed" &&
+        Array.isArray(annotations) &&
+        annotations.some((annotation) => annotation.id === "annotation-3"),
+    );
+    const failedInitialResponse = await fetch(submissionUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Origin: "http://localhost:3000" },
+      body: JSON.stringify({
+        event: "submit",
+        timestamp: 44,
+        output: "## Feedback\nexercise failed capture retention",
+        annotations: [{ id: "annotation-3", comment: "exercise failed capture retention" }],
+      }),
+    });
+    assert.equal(failedInitialResponse.status, 500);
+    const failedInitialEvents = await failedInitialEventsDone;
+    const failedInitial = failedInitialEvents.at(-1);
+    assert.ok((failedInitial?.revision as number) > 1);
+    assert.equal(failedInitial?.error, "pi child ended with aborted");
+    assert.equal(failedInitial?.sessionFile, childSession);
+    assert.deepEqual(failedInitial?.changes, [{ path: "source.ts" }]);
+    assertMonotonicRevisions(failedInitialEvents, failedInitial?.taskId);
+    const failedInitialContent = `${contentUrl}?generation=${generation}&taskId=${failedInitial?.taskId}&path=source.ts`;
+    assert.equal(await (await fetch(`${failedInitialContent}&side=after`)).text(), "bad\n");
+
+    if (previous.TEST_STOP_REASON === undefined) delete process.env.TEST_STOP_REASON;
+    else process.env.TEST_STOP_REASON = previous.TEST_STOP_REASON;
+    if (previous.TEST_AFTER_TEXT === undefined) delete process.env.TEST_AFTER_TEXT;
+    else process.env.TEST_AFTER_TEXT = previous.TEST_AFTER_TEXT;
+    const failedTaskReply = {
+      generation,
+      taskId: failedInitial?.taskId,
+      annotationId: "annotation-3",
+      text: "resume the failed initial task",
+      requestId: "reply-failed-initial",
+    };
+    const resumedFailedTaskDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ taskId: eventTaskId, status }) =>
+        eventTaskId === failedInitial?.taskId && status === "completed",
+    );
+    assert.equal(
+      (await fetch(replyUrl, { method: "POST", body: JSON.stringify(failedTaskReply) })).status,
+      202,
+    );
+    const resumedFailedTaskEvents = await resumedFailedTaskDone;
+    assert.equal(resumedFailedTaskEvents.at(-1)?.sessionFile, childSession);
+    const finalCommands = (await readFile(rpcLog, "utf8"))
+      .trim()
+      .split("\n")
+      .map((line) => JSON.parse(line));
+    assert.equal(
+      finalCommands.filter(({ type }) => type === "switch_session").at(-1)?.sessionPath,
+      childSession,
+    );
   } finally {
     await coordinator?.close();
     for (const [key, value] of Object.entries(previous)) {
