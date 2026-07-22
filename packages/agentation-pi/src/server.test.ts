@@ -107,6 +107,11 @@ process.stdin.on("data", async chunk => {
       writeFileSync(secondEdit.input.path, "after\\n", "utf8");
       await handlers.tool_result?.(secondEdit, { cwd: process.cwd() });
       process.stdout.write(JSON.stringify({ type: "tool_execution_end", toolCallId: secondEdit.toolCallId, toolName: "edit", isError: false }) + "\\n");
+      const createdWrite = { toolCallId: "write-created", toolName: "write", input: { path: "created.ts" } };
+      const createdGate = await handlers.tool_call?.(createdWrite, { cwd: process.cwd() });
+      if (createdGate?.block) throw new Error(createdGate.reason);
+      writeFileSync(createdWrite.input.path, "new\\n", "utf8");
+      await handlers.tool_result?.(createdWrite, { cwd: process.cwd() });
       process.stdout.write(JSON.stringify({ type: "message_update", assistantMessageEvent: { type: "text_delta", delta: "working" } }) + "\\n");
       process.stdout.write(JSON.stringify({ type: "agent_settled" }) + "\\n");
     }
@@ -125,6 +130,7 @@ test("dev coordinator creates a parent and routes submissions to linked children
   const parentSession = join(directory, "parent.jsonl");
   const childSession = join(directory, "child.jsonl");
   const sourceFile = join(directory, "source.ts");
+  const createdFile = join(directory, "created.ts");
   await writeFile(sourceFile, "before\n", "utf8");
   const port = await availablePort();
   const previous = {
@@ -271,6 +277,7 @@ test("dev coordinator creates a parent and routes submissions to linked children
     const reset = projectionEvents[0];
     assert.equal(reset?.type, "projection.reset");
     assert.equal(typeof reset?.generation, "string");
+    const generation = reset.generation as string;
     assert.ok(projectionEvents.slice(1).every(({ type }) => type === "task.snapshot"));
 
     const queuedProjection = projectionEvents.find(({ status }) => status === "queued");
@@ -312,10 +319,13 @@ test("dev coordinator creates a parent and routes submissions to linked children
     assert.equal(completedProjection?.taskId, taskId);
     assert.equal(completedProjection?.markdown, "done");
     assert.equal(completedProjection?.sessionFile, childSession);
-    assert.deepEqual(completedProjection?.changes, [{ path: "source.ts" }]);
+    assert.deepEqual(completedProjection?.changes, [
+      { path: "source.ts" },
+      { path: "created.ts" },
+    ]);
 
     const contentUrl = coordinator.url.replace("/agentation", "/projection-content");
-    const contentQuery = `taskId=${taskId}&path=source.ts`;
+    const contentQuery = `generation=${generation}&taskId=${taskId}&path=source.ts`;
     const before = await fetch(`${contentUrl}?${contentQuery}&side=before`);
     assert.equal(before.status, 200);
     assert.equal(before.headers.get("content-type"), "text/plain; charset=utf-8");
@@ -329,17 +339,196 @@ test("dev coordinator creates a parent and routes submissions to linked children
       })).status,
       403,
     );
-    assert.equal((await fetch(`${contentUrl}?taskId=unknown&path=source.ts&side=after`)).status, 404);
+    assert.equal(
+      (await fetch(`${contentUrl}?generation=stale&taskId=${taskId}&path=source.ts&side=after`))
+        .status,
+      410,
+    );
+    assert.equal((await fetch(`${contentUrl}?taskId=${taskId}&path=source.ts&side=after`)).status, 410);
+    assert.equal(
+      (await fetch(`${contentUrl}?generation=${generation}&taskId=unknown&path=source.ts&side=after`))
+        .status,
+      404,
+    );
     assert.equal((await fetch(`${contentUrl}?${contentQuery}&side=unknown`)).status, 400);
-    assert.equal((await fetch(`${contentUrl}?taskId=${taskId}&path=unknown.ts&side=after`)).status, 404);
+    assert.equal(
+      (await fetch(`${contentUrl}?generation=${generation}&taskId=${taskId}&path=unknown.ts&side=after`))
+        .status,
+      404,
+    );
 
+    const prepareUrl = coordinator.url.replace(
+      "/agentation",
+      "/projection-rejections/prepare",
+    );
+    const ackUrl = coordinator.url.replace("/agentation", "/projection-rejections/ack");
+    const prepareBody = JSON.stringify({
+      generation,
+      taskId,
+      path: "source.ts",
+      requestId: "reject-source",
+    });
+    assert.equal(
+      (await fetch(prepareUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Origin: "http://localhost:3000" },
+        body: prepareBody,
+      })).status,
+      403,
+    );
+    assert.equal((await fetch(prepareUrl, { method: "POST", body: "{}" })).status, 400);
+    assert.equal(
+      (await fetch(prepareUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          generation: "stale",
+          taskId,
+          path: "source.ts",
+          requestId: "stale",
+        }),
+      })).status,
+      410,
+    );
+    assert.equal(
+      (await fetch(prepareUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          generation,
+          taskId: "unknown",
+          path: "source.ts",
+          requestId: "unknown-task",
+        }),
+      })).status,
+      404,
+    );
+    assert.equal(
+      (await fetch(prepareUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          generation,
+          taskId,
+          path: "unknown.ts",
+          requestId: "unknown-path",
+        }),
+      })).status,
+      404,
+    );
+
+    const prepareResponse = await fetch(prepareUrl, { method: "POST", body: prepareBody });
+    assert.equal(prepareResponse.status, 200);
+    const prepared = (await prepareResponse.json()) as {
+      operationId: string;
+      beforeExists: boolean;
+      afterExists: boolean;
+    };
+    assert.equal(typeof prepared.operationId, "string");
+    assert.equal(prepared.beforeExists, true);
+    assert.equal(prepared.afterExists, true);
+    assert.equal(await readFile(sourceFile, "utf8"), "after\n");
+    assert.deepEqual(
+      await (await fetch(prepareUrl, { method: "POST", body: prepareBody })).json(),
+      prepared,
+    );
+    assert.equal(
+      (await fetch(prepareUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          generation,
+          taskId,
+          path: "created.ts",
+          requestId: "reject-source",
+        }),
+      })).status,
+      409,
+    );
+    const preparedReplay = await collectSseUntil(
+      await fetch(projectionUrl),
+      ({ status }) => status === "completed",
+    );
+    assert.deepEqual(preparedReplay[1]?.changes, completedProjection?.changes);
+    assert.equal((await fetch(`${contentUrl}?${contentQuery}&side=after`)).status, 200);
+
+    const ackBody = JSON.stringify({ generation, operationId: prepared.operationId });
+    assert.equal((await fetch(ackUrl, { method: "POST", body: "{}" })).status, 400);
+    assert.equal(
+      (await fetch(ackUrl, {
+        method: "POST",
+        headers: { Origin: "http://localhost:3000" },
+        body: ackBody,
+      })).status,
+      403,
+    );
+    assert.equal(
+      (await fetch(ackUrl, {
+        method: "POST",
+        body: JSON.stringify({ generation: "stale", operationId: prepared.operationId }),
+      })).status,
+      410,
+    );
+    assert.equal(
+      (await fetch(ackUrl, {
+        method: "POST",
+        body: JSON.stringify({ generation, operationId: "unknown" }),
+      })).status,
+      404,
+    );
+
+    await writeFile(sourceFile, "before\n", "utf8");
+    const rejectionEvents = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ status, changes }) =>
+        status === "completed" &&
+        Array.isArray(changes) &&
+        !changes.some((change) => change.path === "source.ts"),
+    );
+    assert.equal((await fetch(ackUrl, { method: "POST", body: ackBody })).status, 200);
+    assert.equal((await fetch(ackUrl, { method: "POST", body: ackBody })).status, 200);
+    assert.equal(await readFile(sourceFile, "utf8"), "before\n");
+    assert.equal((await fetch(`${contentUrl}?${contentQuery}&side=after`)).status, 404);
+    const rejectedProjection = (await rejectionEvents).at(-1);
+    assert.deepEqual(rejectedProjection?.changes, [{ path: "created.ts" }]);
+    assert.deepEqual(
+      await (await fetch(prepareUrl, { method: "POST", body: prepareBody })).json(),
+      prepared,
+    );
+
+    const createdPrepareResponse = await fetch(prepareUrl, {
+      method: "POST",
+      body: JSON.stringify({
+        generation,
+        taskId,
+        path: "created.ts",
+        requestId: "reject-created",
+      }),
+    });
+    assert.equal(createdPrepareResponse.status, 200);
+    const createdPrepared = (await createdPrepareResponse.json()) as {
+      operationId: string;
+      beforeExists: boolean;
+      afterExists: boolean;
+    };
+    assert.equal(createdPrepared.beforeExists, false);
+    assert.equal(createdPrepared.afterExists, true);
+    assert.equal(await readFile(createdFile, "utf8"), "new\n");
     const projectionReplay = await collectSseUntil(
       await fetch(projectionUrl),
       ({ status }) => status === "completed",
     );
-    assert.equal(projectionReplay.length, 2);
-    assert.deepEqual(projectionReplay[0], reset);
-    assert.deepEqual(projectionReplay[1], completedProjection);
+    assert.deepEqual(projectionReplay[1], rejectedProjection);
+
+    await rm(createdFile);
+    assert.equal(
+      (await fetch(ackUrl, {
+        method: "POST",
+        body: JSON.stringify({ generation, operationId: createdPrepared.operationId }),
+      })).status,
+      200,
+    );
+    const fullyRejectedReplay = await collectSseUntil(
+      await fetch(projectionUrl),
+      ({ status }) => status === "completed",
+    );
+    assert.equal(fullyRejectedReplay[1]?.changes, undefined);
 
     await writeFile(sourceFile, "before\n", "utf8");
     const evictionEvents = collectSseUntil(
@@ -365,7 +554,7 @@ test("dev coordinator creates a parent and routes submissions to linked children
     const firstTaskUpdates = evictionProjectionEvents.filter(
       ({ taskId: eventTaskId, status }) => eventTaskId === taskId && status === "completed",
     );
-    assert.deepEqual(firstTaskUpdates[0]?.changes, [{ path: "source.ts" }]);
+    assert.equal(firstTaskUpdates[0]?.changes, undefined);
     assert.equal(firstTaskUpdates.at(-1)?.changes, undefined);
     assert.ok(
       evictionProjectionEvents.some(
@@ -373,6 +562,20 @@ test("dev coordinator creates a parent and routes submissions to linked children
       ),
     );
     assert.equal((await fetch(`${contentUrl}?${contentQuery}&side=after`)).status, 404);
+    assert.equal(
+      (await fetch(ackUrl, {
+        method: "POST",
+        body: JSON.stringify({ generation, operationId: prepared.operationId }),
+      })).status,
+      404,
+    );
+    assert.equal(
+      (await fetch(ackUrl, {
+        method: "POST",
+        body: JSON.stringify({ generation, operationId: createdPrepared.operationId }),
+      })).status,
+      404,
+    );
 
     const retainedReplay = await collectSseUntil(
       await fetch(projectionUrl),
@@ -382,6 +585,80 @@ test("dev coordinator creates a parent and routes submissions to linked children
     assert.deepEqual(
       retainedReplay.slice(1).map(({ taskId: eventTaskId }) => eventTaskId),
       [secondTaskId],
+    );
+
+    const bulkSourceOperations: string[] = [];
+    for (let index = 0; index < 200; index += 1) {
+      const response = await fetch(prepareUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          generation,
+          taskId: secondTaskId,
+          path: "source.ts",
+          requestId: `bulk-source-${index}`,
+        }),
+      });
+      assert.equal(response.status, 200);
+      bulkSourceOperations.push(((await response.json()) as { operationId: string }).operationId);
+    }
+    assert.equal(
+      (await fetch(prepareUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          generation,
+          taskId: secondTaskId,
+          path: "source.ts",
+          requestId: "pending-overflow",
+        }),
+      })).status,
+      429,
+    );
+    for (const operationId of bulkSourceOperations) {
+      assert.equal(
+        (await fetch(ackUrl, {
+          method: "POST",
+          body: JSON.stringify({ generation, operationId }),
+        })).status,
+        200,
+      );
+    }
+
+    const recentOperations: string[] = [];
+    for (let index = 0; index < 10; index += 1) {
+      const response = await fetch(prepareUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          generation,
+          taskId: secondTaskId,
+          path: "created.ts",
+          requestId: `bulk-created-${index}`,
+        }),
+      });
+      assert.equal(response.status, 200);
+      recentOperations.push(((await response.json()) as { operationId: string }).operationId);
+    }
+    for (const operationId of recentOperations) {
+      assert.equal(
+        (await fetch(ackUrl, {
+          method: "POST",
+          body: JSON.stringify({ generation, operationId }),
+        })).status,
+        200,
+      );
+    }
+    assert.equal(
+      (await fetch(ackUrl, {
+        method: "POST",
+        body: JSON.stringify({ generation, operationId: bulkSourceOperations[0] }),
+      })).status,
+      404,
+    );
+    assert.equal(
+      (await fetch(ackUrl, {
+        method: "POST",
+        body: JSON.stringify({ generation, operationId: recentOperations.at(-1) }),
+      })).status,
+      200,
     );
 
     const replayResponse = await fetch(eventsUrl, {

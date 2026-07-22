@@ -36,7 +36,14 @@ type MessagesData = { messages?: Array<{ role?: string; stopReason?: string }> }
 type TextData = { text?: string };
 
 export type PiRpcEvent = RpcRecord;
-export type CapturedChange = { path: string; before: string; after: string };
+export type CapturedChange = {
+  path: string;
+  before: string;
+  after: string;
+  beforeExists: boolean;
+  afterExists: boolean;
+  beforeMode?: number;
+};
 
 type ParentSessionOptions = {
   piBin: string;
@@ -250,7 +257,10 @@ async function readCaptureManifest(path: string): Promise<CapturedChange[]> {
   const paths = new Set<string>();
   return value.files.map((file) => {
     if (!file || typeof file !== "object") throw new Error("invalid capture manifest");
-    const { path, before, after } = file as Record<string, unknown>;
+    const { path, before, after, beforeExists, afterExists, beforeMode } = file as Record<
+      string,
+      unknown
+    >;
     if (
       typeof path !== "string" ||
       !path ||
@@ -260,14 +270,27 @@ async function readCaptureManifest(path: string): Promise<CapturedChange[]> {
       isAbsolute(path) ||
       paths.has(path) ||
       typeof before !== "string" ||
-      typeof after !== "string"
+      typeof after !== "string" ||
+      typeof beforeExists !== "boolean" ||
+      typeof afterExists !== "boolean" ||
+      (!beforeExists && before !== "") ||
+      (!afterExists && after !== "") ||
+      (beforeMode !== undefined &&
+        (!Number.isInteger(beforeMode) || (beforeMode as number) < 0 || (beforeMode as number) > 0o7777))
     ) {
       throw new Error("invalid capture manifest");
     }
     paths.add(path);
     bytes += Buffer.byteLength(before, "utf8") + Buffer.byteLength(after, "utf8");
     if (bytes > MAX_CAPTURE_BYTES) throw new Error("capture manifest exceeds 32 MiB");
-    return { path, before, after };
+    return {
+      path,
+      before,
+      after,
+      beforeExists,
+      afterExists,
+      ...(beforeMode === undefined ? {} : { beforeMode: beforeMode as number }),
+    };
   });
 }
 

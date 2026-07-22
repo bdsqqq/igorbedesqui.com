@@ -15,6 +15,7 @@ const MAX_PROJECTION_STREAMS = 4;
 const MAX_PROJECTION_MARKDOWN_BYTES = 50 * 1024;
 const PROJECTION_BROADCAST_INTERVAL_MS = 100;
 const MAX_PROJECTION_CONTENT_BYTES = 32 * 1024 * 1024;
+const MAX_PROJECTION_REJECTION_OPERATIONS = 200;
 
 type Annotation = {
   id: string;
@@ -71,6 +72,21 @@ type TaskSnapshot = {
 type ProjectionContent = {
   before: string;
   after: string;
+  beforeExists: boolean;
+  afterExists: boolean;
+  beforeMode?: number;
+};
+type ProjectionRejectionPrepare = {
+  generation: string;
+  taskId: string;
+  path: string;
+  requestId: string;
+};
+type ProjectionRejectionAck = { generation: string; operationId: string };
+type ProjectionRejectionOperation = ProjectionRejectionPrepare & {
+  operationId: string;
+  beforeExists: boolean;
+  afterExists: boolean;
 };
 type Logger = Pick<Console, "info" | "error">;
 type AgentationServerOptions = {
@@ -130,6 +146,41 @@ function readSubmission(req: IncomingMessage): Promise<Submission> {
     });
     req.on("error", reject);
   });
+}
+
+function readProjectionRequest(req: IncomingMessage): Promise<Record<string, unknown>> {
+  return new Promise((resolveRequest, rejectRequest) => {
+    const decoder = new StringDecoder("utf8");
+    let body = "";
+    let bytes = 0;
+    let exceeded = false;
+    req.on("data", (chunk: Buffer) => {
+      bytes += chunk.length;
+      if (bytes > MAX_REQUEST_BYTES) exceeded = true;
+      if (!exceeded) body += decoder.write(chunk);
+    });
+    req.on("end", () => {
+      if (exceeded) {
+        rejectRequest(new Error("request exceeds 1 MB"));
+        return;
+      }
+      body += decoder.end();
+      try {
+        const value = JSON.parse(body) as unknown;
+        if (!value || typeof value !== "object" || Array.isArray(value)) {
+          throw new Error("invalid projection request");
+        }
+        resolveRequest(value as Record<string, unknown>);
+      } catch (error) {
+        rejectRequest(error instanceof Error ? error : new Error("invalid JSON"));
+      }
+    });
+    req.on("error", rejectRequest);
+  });
+}
+
+function isBoundedId(value: unknown): value is string {
+  return typeof value === "string" && value.length > 0 && value.length <= 512 && !value.includes("\0");
 }
 
 function isAllowedOrigin(origin: string | undefined): origin is string {
@@ -227,12 +278,26 @@ export async function createAgentationServer({
   const projectionContents = new Map<string, Map<string, ProjectionContent>>();
   const projectionBroadcastTimers = new Map<string, NodeJS.Timeout>();
   const projectionGeneration = randomBytes(16).toString("hex");
+  const pendingRejectionOperationsById = new Map<string, ProjectionRejectionOperation>();
+  const pendingRejectionOperationsByRequest = new Map<string, ProjectionRejectionOperation>();
+  const committedRejectionOperationsById = new Map<string, ProjectionRejectionOperation>();
+  const committedRejectionOperationsByRequest = new Map<string, ProjectionRejectionOperation>();
   const recentActions = new Set<string>();
   let closing = false;
   let queued = 0;
   let active = 0;
   let projectionContentBytes = 0;
+  let projectionMutationQueue: Promise<void> = Promise.resolve();
   let queue: Promise<void> = Promise.resolve();
+
+  const serializeProjectionMutation = <T>(operation: () => Promise<T> | T): Promise<T> => {
+    const result = projectionMutationQueue.then(operation, operation);
+    projectionMutationQueue = result.then(
+      () => undefined,
+      () => undefined,
+    );
+    return result;
+  };
 
   const broadcast = (clientId: string, event: ProgressEvent): void => {
     const history = eventHistory.get(clientId) ?? [];
@@ -261,6 +326,32 @@ export async function createAgentationServer({
     projectionContents.delete(taskId);
   };
 
+  const deleteProjectionOperations = (taskId: string): void => {
+    for (const [operationId, operation] of pendingRejectionOperationsById) {
+      if (operation.taskId !== taskId) continue;
+      pendingRejectionOperationsById.delete(operationId);
+      pendingRejectionOperationsByRequest.delete(operation.requestId);
+    }
+    for (const [operationId, operation] of committedRejectionOperationsById) {
+      if (operation.taskId !== taskId) continue;
+      committedRejectionOperationsById.delete(operationId);
+      committedRejectionOperationsByRequest.delete(operation.requestId);
+    }
+  };
+
+  const commitProjectionOperation = (operation: ProjectionRejectionOperation): void => {
+    pendingRejectionOperationsById.delete(operation.operationId);
+    pendingRejectionOperationsByRequest.delete(operation.requestId);
+    committedRejectionOperationsById.set(operation.operationId, operation);
+    committedRejectionOperationsByRequest.set(operation.requestId, operation);
+    while (committedRejectionOperationsById.size > MAX_PROJECTION_REJECTION_OPERATIONS) {
+      const oldest = committedRejectionOperationsById.values().next().value;
+      if (!oldest) break;
+      committedRejectionOperationsById.delete(oldest.operationId);
+      committedRejectionOperationsByRequest.delete(oldest.requestId);
+    }
+  };
+
   const storeSnapshot = (snapshot: TaskSnapshot): void => {
     projectionSnapshots.delete(snapshot.taskId);
     projectionSnapshots.set(snapshot.taskId, snapshot);
@@ -273,6 +364,7 @@ export async function createAgentationServer({
       if (retained.status === "queued" || retained.status === "running") continue;
       projectionSnapshots.delete(taskId);
       deleteProjectionContents(taskId);
+      deleteProjectionOperations(taskId);
       broadcastTaskRemove(taskId);
       terminalCount -= 1;
     }
@@ -295,9 +387,19 @@ export async function createAgentationServer({
 
   const storeProjectionContents = (
     taskId: string,
-    captures: Array<{ path: string; before: string; after: string }>,
+    captures: Array<{
+      path: string;
+      before: string;
+      after: string;
+      beforeExists: boolean;
+      afterExists: boolean;
+      beforeMode?: number;
+    }>,
   ): Array<{ path: string }> => {
-    const changed = captures.filter(({ before, after }) => before !== after);
+    const changed = captures.filter(
+      ({ before, after, beforeExists, afterExists }) =>
+        before !== after || beforeExists !== afterExists,
+    );
     const bytes = changed.reduce(
       (total, { before, after }) =>
         total + Buffer.byteLength(before, "utf8") + Buffer.byteLength(after, "utf8"),
@@ -316,7 +418,16 @@ export async function createAgentationServer({
     }
 
     const contents = new Map(
-      changed.map(({ path, before, after }) => [path, { before, after }]),
+      changed.map(({ path, before, after, beforeExists, afterExists, beforeMode }) => [
+        path,
+        {
+          before,
+          after,
+          beforeExists,
+          afterExists,
+          ...(beforeMode === undefined ? {} : { beforeMode }),
+        },
+      ]),
     );
     if (contents.size > 0) {
       projectionContents.set(taskId, contents);
@@ -338,7 +449,10 @@ export async function createAgentationServer({
     if (projectionBroadcastTimers.has(taskId)) return;
     projectionBroadcastTimers.set(
       taskId,
-      setTimeout(() => flushSnapshot(taskId), PROJECTION_BROADCAST_INTERVAL_MS),
+      setTimeout(
+        () => void serializeProjectionMutation(() => flushSnapshot(taskId)),
+        PROJECTION_BROADCAST_INTERVAL_MS,
+      ),
     );
   };
 
@@ -375,6 +489,121 @@ export async function createAgentationServer({
 
     const requestUrl = new URL(req.url ?? "/", `http://${HOST}`);
     const origin = req.headers.origin;
+    if (
+      requestUrl.pathname === "/projection-rejections/prepare" ||
+      requestUrl.pathname === "/projection-rejections/ack"
+    ) {
+      if (origin !== undefined) {
+        res.writeHead(403).end();
+        return;
+      }
+      if (req.method !== "POST") {
+        res.writeHead(404).end();
+        return;
+      }
+      let value: Record<string, unknown>;
+      try {
+        value = await readProjectionRequest(req);
+      } catch {
+        res.writeHead(400).end();
+        return;
+      }
+
+      if (requestUrl.pathname === "/projection-rejections/prepare") {
+        if (
+          Object.keys(value).length !== 4 ||
+          !isBoundedId(value.generation) ||
+          !isBoundedId(value.taskId) ||
+          !isBoundedId(value.path) ||
+          !isBoundedId(value.requestId)
+        ) {
+          res.writeHead(400).end();
+          return;
+        }
+        const rejection = value as ProjectionRejectionPrepare;
+        if (rejection.generation !== projectionGeneration) {
+          res.writeHead(410).end();
+          return;
+        }
+        const result = await serializeProjectionMutation(() => {
+          const existing =
+            pendingRejectionOperationsByRequest.get(rejection.requestId) ??
+            committedRejectionOperationsByRequest.get(rejection.requestId);
+          if (existing) {
+            if (
+              existing.generation !== rejection.generation ||
+              existing.taskId !== rejection.taskId ||
+              existing.path !== rejection.path
+            ) {
+              return { status: 409 } as const;
+            }
+            return { status: 200, operation: existing } as const;
+          }
+          const content = projectionContents.get(rejection.taskId)?.get(rejection.path);
+          if (!content) return { status: 404 } as const;
+          if (pendingRejectionOperationsById.size >= MAX_PROJECTION_REJECTION_OPERATIONS) {
+            return { status: 429 } as const;
+          }
+          const operation: ProjectionRejectionOperation = {
+            ...rejection,
+            operationId: randomBytes(16).toString("hex"),
+            beforeExists: content.beforeExists,
+            afterExists: content.afterExists,
+          };
+          pendingRejectionOperationsById.set(operation.operationId, operation);
+          pendingRejectionOperationsByRequest.set(operation.requestId, operation);
+          return { status: 200, operation } as const;
+        });
+        if (result.status !== 200) {
+          res.writeHead(result.status).end();
+          return;
+        }
+        const { operationId, beforeExists, afterExists } = result.operation;
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ operationId, beforeExists, afterExists }));
+        return;
+      }
+
+      if (
+        Object.keys(value).length !== 2 ||
+        !isBoundedId(value.generation) ||
+        !isBoundedId(value.operationId)
+      ) {
+        res.writeHead(400).end();
+        return;
+      }
+      const rejection = value as ProjectionRejectionAck;
+      if (rejection.generation !== projectionGeneration) {
+        res.writeHead(410).end();
+        return;
+      }
+      const status = await serializeProjectionMutation(() => {
+        if (committedRejectionOperationsById.has(rejection.operationId)) return 200;
+        const operation = pendingRejectionOperationsById.get(rejection.operationId);
+        if (!operation) return 404;
+
+        const contents = projectionContents.get(operation.taskId);
+        const content = contents?.get(operation.path);
+        if (contents && content) {
+          contents.delete(operation.path);
+          projectionContentBytes -=
+            Buffer.byteLength(content.before, "utf8") + Buffer.byteLength(content.after, "utf8");
+          if (contents.size === 0) projectionContents.delete(operation.taskId);
+          const snapshot = projectionSnapshots.get(operation.taskId);
+          if (snapshot) {
+            const changes = [...contents.keys()].map((path) => ({ path }));
+            updateSnapshot(operation.taskId, {
+              changes: changes.length === 0 ? undefined : changes,
+            });
+          }
+        }
+        commitProjectionOperation(operation);
+        return 200;
+      });
+      res.writeHead(status, status === 200 ? { "Content-Type": "application/json" } : undefined);
+      res.end(status === 200 ? JSON.stringify({ acknowledged: true }) : undefined);
+      return;
+    }
     if (requestUrl.pathname === "/projection-content") {
       if (origin !== undefined) {
         res.writeHead(403).end();
@@ -382,6 +611,11 @@ export async function createAgentationServer({
       }
       if (req.method !== "GET") {
         res.writeHead(404).end();
+        return;
+      }
+      const generation = requestUrl.searchParams.get("generation");
+      if (generation !== projectionGeneration) {
+        res.writeHead(410).end();
         return;
       }
       const taskId = requestUrl.searchParams.get("taskId");
@@ -507,25 +741,27 @@ export async function createAgentationServer({
       }
       recentActions.add(key);
       broadcast(clientId, { type: "batch.queued", batchId: key, annotationIds });
-      broadcastSnapshot({
-        type: "task.snapshot",
-        taskId: key,
-        cwd,
-        ...(submission.url === undefined ? {} : { url: submission.url }),
-        annotations: submission.annotations.map(
-          ({ id, comment, sourceFile, element, elementPath, selectedText, reactComponents }) => ({
-            id,
-            comment,
-            ...(sourceFile === undefined ? {} : { sourceFile }),
-            ...(element === undefined ? {} : { element }),
-            ...(elementPath === undefined ? {} : { elementPath }),
-            ...(selectedText === undefined ? {} : { selectedText }),
-            ...(reactComponents === undefined ? {} : { reactComponents }),
-          }),
-        ),
-        status: "queued",
-        detail: "Queued",
-      });
+      await serializeProjectionMutation(() =>
+        broadcastSnapshot({
+          type: "task.snapshot",
+          taskId: key,
+          cwd,
+          ...(submission.url === undefined ? {} : { url: submission.url }),
+          annotations: submission.annotations.map(
+            ({ id, comment, sourceFile, element, elementPath, selectedText, reactComponents }) => ({
+              id,
+              comment,
+              ...(sourceFile === undefined ? {} : { sourceFile }),
+              ...(element === undefined ? {} : { element }),
+              ...(elementPath === undefined ? {} : { elementPath }),
+              ...(selectedText === undefined ? {} : { selectedText }),
+              ...(reactComponents === undefined ? {} : { reactComponents }),
+            }),
+          ),
+          status: "queued",
+          detail: "Queued",
+        }),
+      );
       if (recentActions.size > RECENT_ACTION_LIMIT) {
         const oldestAction = recentActions.values().next().value;
         if (oldestAction) recentActions.delete(oldestAction);
@@ -542,7 +778,9 @@ export async function createAgentationServer({
               `[agentation] running ${submission.annotations.length} annotation(s) in a child session`,
             );
             broadcast(clientId, { type: "child.started", batchId: key, annotationIds });
-            updateSnapshot(key, { status: "running", detail: "Working" });
+            await serializeProjectionMutation(() =>
+              updateSnapshot(key, { status: "running", detail: "Working" }),
+            );
             const result = await runChildSession({
               piBin,
               cwd,
@@ -563,7 +801,9 @@ export async function createAgentationServer({
                     annotationIds,
                     toolName,
                   });
-                  updateSnapshot(key, { status: "running", detail: `Running ${toolName}` });
+                  void serializeProjectionMutation(() =>
+                    updateSnapshot(key, { status: "running", detail: `Running ${toolName}` }),
+                  );
                 }
                 const assistantEvent = event.assistantMessageEvent as
                   | { type?: unknown; delta?: unknown }
@@ -579,20 +819,21 @@ export async function createAgentationServer({
                     annotationIds,
                     delta: assistantEvent.delta,
                   });
-                  const snapshot = projectionSnapshots.get(key);
-                  updateSnapshot(
-                    key,
-                    {
-                      status: "running",
-                      detail: "Responding",
-                      markdown: `${snapshot?.markdown ?? ""}${assistantEvent.delta}`,
-                    },
-                    false,
-                  );
+                  void serializeProjectionMutation(() => {
+                    const snapshot = projectionSnapshots.get(key);
+                    updateSnapshot(
+                      key,
+                      {
+                        status: "running",
+                        detail: "Responding",
+                        markdown: `${snapshot?.markdown ?? ""}${assistantEvent.delta}`,
+                      },
+                      false,
+                    );
+                  });
                 }
               },
             });
-            const changes = storeProjectionContents(key, result.captures);
             succeeded = true;
             const markdown = result.response ?? "Completed.";
             broadcast(clientId, {
@@ -601,12 +842,15 @@ export async function createAgentationServer({
               annotationIds,
               markdown,
             });
-            updateSnapshot(key, {
-              status: "completed",
-              detail: "Completed",
-              markdown,
-              ...(changes.length === 0 ? {} : { changes }),
-              ...(result.sessionFile === undefined ? {} : { sessionFile: result.sessionFile }),
+            await serializeProjectionMutation(() => {
+              const changes = storeProjectionContents(key, result.captures);
+              updateSnapshot(key, {
+                status: "completed",
+                detail: "Completed",
+                markdown,
+                ...(changes.length === 0 ? {} : { changes }),
+                ...(result.sessionFile === undefined ? {} : { sessionFile: result.sessionFile }),
+              });
             });
             logger.info(
               `[agentation] completed${result.sessionFile ? ` ${basename(result.sessionFile)}` : ""}`,
@@ -614,7 +858,9 @@ export async function createAgentationServer({
           } catch (error) {
             const message = error instanceof Error ? error.message : String(error);
             broadcast(clientId, { type: "child.failed", batchId: key, annotationIds, message });
-            updateSnapshot(key, { status: "failed", detail: "Failed", error: message });
+            await serializeProjectionMutation(() =>
+              updateSnapshot(key, { status: "failed", detail: "Failed", error: message }),
+            );
             logger.error(`[agentation] child failed: ${message}`);
           } finally {
             active -= 1;
@@ -662,6 +908,10 @@ export async function createAgentationServer({
       projectionStreams.clear();
       projectionSnapshots.clear();
       projectionContents.clear();
+      pendingRejectionOperationsById.clear();
+      pendingRejectionOperationsByRequest.clear();
+      committedRejectionOperationsById.clear();
+      committedRejectionOperationsByRequest.clear();
       for (const timer of projectionBroadcastTimers.values()) clearTimeout(timer);
       projectionBroadcastTimers.clear();
       server.closeAllConnections();

@@ -22,7 +22,10 @@ type ExtensionApi = {
 type CapturedFile = {
   path: string;
   before: string;
-  after?: string;
+  after: string;
+  beforeExists: boolean;
+  afterExists: boolean;
+  beforeMode?: number;
 };
 
 function isInside(root: string, candidate: string): boolean {
@@ -86,10 +89,10 @@ async function captureTarget(
 async function readText(
   realCwd: string,
   absolutePath: string,
-): Promise<{ path: string; text: string } | undefined> {
+): Promise<{ path: string; text: string; exists: boolean; mode?: number } | undefined> {
   const target = await captureTarget(realCwd, absolutePath);
   if (!target) return undefined;
-  if (!target.exists) return { path: target.path, text: "" };
+  if (!target.exists) return { path: target.path, text: "", exists: false };
 
   try {
     const file = await open(target.absolutePath, "r");
@@ -99,13 +102,15 @@ async function readText(
       const contents = await file.readFile();
       if (contents.length > MAX_FILE_BYTES) return undefined;
       const text = new TextDecoder("utf-8", { fatal: true }).decode(contents);
-      return text.includes("\0") ? undefined : { path: target.path, text };
+      return text.includes("\0")
+        ? undefined
+        : { path: target.path, text, exists: true, mode: metadata.mode & 0o7777 };
     } finally {
       await file.close();
     }
   } catch (error) {
     return (error as NodeJS.ErrnoException).code === "ENOENT"
-      ? { path: target.path, text: "" }
+      ? { path: target.path, text: "", exists: false }
       : undefined;
   }
 }
@@ -160,9 +165,16 @@ export default function captureExtension(pi: ExtensionApi) {
       const before = await readText(realCwd, target.absolutePath);
       if (!before) return undefined;
       const beforeBytes = Buffer.byteLength(before.text, "utf8");
-      if (taskBytes + beforeBytes > MAX_TASK_BYTES) return undefined;
-      files.set(before.path, { path: before.path, before: before.text });
-      taskBytes += beforeBytes;
+      if (taskBytes + beforeBytes * 2 > MAX_TASK_BYTES) return undefined;
+      files.set(before.path, {
+        path: before.path,
+        before: before.text,
+        after: before.text,
+        beforeExists: before.exists,
+        afterExists: before.exists,
+        ...(before.mode === undefined ? {} : { beforeMode: before.mode }),
+      });
+      taskBytes += beforeBytes * 2;
       toolPaths.set(event.toolCallId, {
         path: before.path,
         requestedPath: target.absolutePath,
@@ -183,7 +195,7 @@ export default function captureExtension(pi: ExtensionApi) {
 
       const realCwd = await realpath(context.cwd);
       const after = await readText(realCwd, tracked.requestedPath);
-      const previousAfterBytes = Buffer.byteLength(retained.after ?? "", "utf8");
+      const previousAfterBytes = Buffer.byteLength(retained.after, "utf8");
       if (!after || after.path !== tracked.path) {
         taskBytes -= Buffer.byteLength(retained.before, "utf8") + previousAfterBytes;
         files.delete(tracked.path);
@@ -195,6 +207,7 @@ export default function captureExtension(pi: ExtensionApi) {
           files.delete(tracked.path);
         } else {
           retained.after = after.text;
+          retained.afterExists = after.exists;
           taskBytes = nextBytes;
         }
       }
