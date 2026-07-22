@@ -47,25 +47,15 @@ function Home() {
             <div className="col-span-full md:col-start-2 md:col-end-7 lg:col-start-5 lg:col-end-12">
               <br />
               <h1 className="text-2xl text-gray-12">
-                <span className="col-span-full text-base text-gray-11">
-                  Igor Bedesqui
-                </span>
-                <p>
-                  Crafting web experiences with care. Exploring design, UX, and
-                  interactivity.
-                </p>
+                <span className="col-span-full text-base text-gray-11">Igor Bedesqui</span>
+                <p>Crafting web experiences with care. Exploring design, UX, and interactivity.</p>
               </h1>
 
               <p>
                 Get in touch via{" "}
-                <StyledLink href="https://www.twitter.com/bedesqui">
-                  Twitter
-                </StyledLink>{" "}
-                or <EmailLink>email</EmailLink>, see my code on{" "}
-                <StyledLink href="https://www.github.com/bdsqqq/">
-                  Github
-                </StyledLink>
-                ,{" "}
+                <StyledLink href="https://www.twitter.com/bedesqui">Twitter</StyledLink> or{" "}
+                <EmailLink>email</EmailLink>, see my code on{" "}
+                <StyledLink href="https://www.github.com/bdsqqq/">Github</StyledLink>,{" "}
                 <Blur focusable={false} className="text-gray-09">
                   or find me on{" "}
                   <StyledLink href="https://www.linkedin.com/in/igor-bedesqui/">
@@ -98,9 +88,7 @@ function Home() {
                           2023 ~ 2026
                         </span>
                       </div>
-                      <p>
-                        UI & Engineering for making sense of petabytes of logs.
-                      </p>
+                      <p>UI & Engineering for making sense of petabytes of logs.</p>
                     </div>
                   </div>
                 </li>
@@ -114,9 +102,7 @@ function Home() {
                       >
                         <div className="flex flex-col ">
                           <div>
-                            <h3 className="inline-block font-bold">
-                              {projMeta.name}
-                            </h3>{" "}
+                            <h3 className="inline-block font-bold">{projMeta.name}</h3>{" "}
                             <span className="text-bold inline-block transform text-end text-xs tracking-tighter text-gray-11 transition-all duration-moderate-01 ease-productive-standard group-hover:translate-x-0 group-hover:opacity-100 group-focus:translate-x-0 group-focus:opacity-100 md:-translate-x-4 md:opacity-0">
                               {projMeta.date}
                             </span>
@@ -145,9 +131,7 @@ function Home() {
                         {piece.description.length > 0 && (
                           <>
                             <span>{" — "}</span>
-                            <p className="inline text-xs">
-                              {piece.description}
-                            </p>
+                            <p className="inline text-xs">{piece.description}</p>
                           </>
                         )}
                       </UnstyledLink>
@@ -188,20 +172,20 @@ function Home() {
                   </strong>
                   .
                 </Blur>{" "}
-                Figuring out how to balance all the aspects of my life without
-                neglecting any of them.{" "}
+                Figuring out how to balance all the aspects of my life without neglecting any of
+                them.{" "}
                 <Blur className="[&_strong]:text-gray-08 [&_strong]:transition-colors [&_strong]:duration-moderate-02 [&_strong]:ease-productive-standard">
-                  Instead of hyper-focusing on a single one and neglecting
-                  everything else as I usually do...
+                  Instead of hyper-focusing on a single one and neglecting everything else as I
+                  usually do...
                 </Blur>
               </p>
 
               <p>
                 Now,{" "}
                 <strong className="font-bold text-gray-12">
-                  I&apos;m focusing on the basics of my craft. The fine and
-                  detailed polish I strive for will come as I build{" "}
-                  <UnstyledLink href={`/writing/${basicsMeta.urlSlug}`}>
+                  I&apos;m focusing on the basics of my craft. The fine and detailed polish I strive
+                  for will come as I build{" "}
+                  <UnstyledLink className="underline" href={`/writing/${basicsMeta.urlSlug}`}>
                     &ldquo;Just&rdquo; the basics
                   </UnstyledLink>{" "}
                   with care
@@ -213,12 +197,14 @@ function Home() {
               </p>
 
               <p>
-                Collaborating with amazing people, convincing myself I belong
-                among them. Trying to make something worth stealing at{" "}
-                <StyledLink href="https://www.axiom.co/">axiom</StyledLink>.{" "}
+                Collaborating with amazing people,{" "}
                 <Blur className="[&_strong]:text-gray-08 [&_strong]:transition-colors [&_strong]:duration-moderate-02 [&_strong]:ease-productive-standard">
-                  Naively trying to raise the bar for an industry, knowing that
-                  I myself am below the current one.{" "}
+                  convincing myself I belong among them.{" "}
+                </Blur>{" "}
+                Trying to make something worth stealing.{" "}
+                <Blur className="[&_strong]:text-gray-08 [&_strong]:transition-colors [&_strong]:duration-moderate-02 [&_strong]:ease-productive-standard">
+                  Naively trying to raise the bar for an industry, knowing that I myself am below
+                  the current one.{" "}
                   <strong className="font-normal text-gray-12 group-hover/blur:text-gray-12 group-focus/blur:text-gray-12">
                     I&apos;ll get there.
                   </strong>
