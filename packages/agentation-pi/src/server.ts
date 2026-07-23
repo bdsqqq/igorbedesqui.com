@@ -76,7 +76,10 @@ type ProjectionMessage = {
 type TaskSnapshot = {
   type: "task.snapshot";
   taskId: string;
+  incarnationId: string;
   revision: number;
+  settled: boolean;
+  updatedAt: number;
   cwd: string;
   url?: string;
   annotations: ProjectionAnnotation[];
@@ -109,6 +112,13 @@ type ProjectionReply = {
   text: string;
   requestId: string;
 };
+type ProjectionSettlement = {
+  generation: string;
+  taskId: string;
+  incarnationId: string;
+  revision: number;
+  settled: boolean;
+};
 type ProjectionReplyOperation = ProjectionReply & {
   signature: string;
   messageId: string;
@@ -133,6 +143,7 @@ type AgentationServerOptions = {
   logger?: Logger;
   maxProjectionContentBytes?: number;
   retainedTaskLimit?: number;
+  recentActionLimit?: number;
 };
 type AgentationServer = {
   parentSession: string;
@@ -386,6 +397,7 @@ export async function createAgentationServer({
   logger = console,
   maxProjectionContentBytes = MAX_PROJECTION_CONTENT_BYTES,
   retainedTaskLimit = RETAINED_TASK_LIMIT,
+  recentActionLimit = RECENT_ACTION_LIMIT,
 }: AgentationServerOptions): Promise<AgentationServer> {
   maxProjectionContentBytes = Number.isFinite(maxProjectionContentBytes)
     ? Math.min(MAX_PROJECTION_CONTENT_BYTES, Math.max(0, maxProjectionContentBytes))
@@ -393,6 +405,9 @@ export async function createAgentationServer({
   retainedTaskLimit = Number.isFinite(retainedTaskLimit)
     ? Math.min(RETAINED_TASK_LIMIT, Math.max(0, Math.floor(retainedTaskLimit)))
     : RETAINED_TASK_LIMIT;
+  recentActionLimit = Number.isFinite(recentActionLimit)
+    ? Math.min(RECENT_ACTION_LIMIT, Math.max(0, Math.floor(recentActionLimit)))
+    : RECENT_ACTION_LIMIT;
   const parentSession = await createParentSession({
     piBin,
     cwd,
@@ -622,7 +637,14 @@ export async function createAgentationServer({
     update: Partial<
       Pick<
         TaskSnapshot,
-        "status" | "detail" | "markdown" | "sessionFile" | "error" | "changes" | "messages"
+        | "status"
+        | "detail"
+        | "markdown"
+        | "sessionFile"
+        | "error"
+        | "changes"
+        | "messages"
+        | "settled"
       >
     >,
     broadcast = true,
@@ -633,6 +655,7 @@ export async function createAgentationServer({
       ...snapshot,
       ...update,
       revision: snapshot.revision + 1,
+      updatedAt: Math.max(Date.now(), snapshot.updatedAt + 1),
       ...(update.markdown === undefined
         ? {}
         : { markdown: truncateUtf8(update.markdown, MAX_PROJECTION_MARKDOWN_BYTES) }),
@@ -654,6 +677,69 @@ export async function createAgentationServer({
 
     const requestUrl = new URL(req.url ?? "/", `http://${HOST}`);
     const origin = req.headers.origin;
+    if (requestUrl.pathname === "/projection-settlements") {
+      if (origin !== undefined) {
+        res.writeHead(403).end();
+        return;
+      }
+      if (req.method !== "POST") {
+        res.writeHead(404).end();
+        return;
+      }
+      let value: Record<string, unknown>;
+      try {
+        value = await readProjectionRequest(req);
+      } catch {
+        res.writeHead(400).end();
+        return;
+      }
+      if (
+        Object.keys(value).length !== 5 ||
+        !isBoundedId(value.generation) ||
+        !isBoundedId(value.taskId) ||
+        !isBoundedId(value.incarnationId) ||
+        !Number.isSafeInteger(value.revision) ||
+        (value.revision as number) < 1 ||
+        typeof value.settled !== "boolean"
+      ) {
+        res.writeHead(400).end();
+        return;
+      }
+      const settlement = value as ProjectionSettlement;
+      if (settlement.generation !== projectionGeneration) {
+        res.writeHead(410).end();
+        return;
+      }
+      const result = await serializeProjectionMutation(() => {
+        const snapshot = projectionSnapshots.get(settlement.taskId);
+        if (!snapshot) return { status: 404 } as const;
+        if (snapshot.incarnationId !== settlement.incarnationId) {
+          return { status: 409 } as const;
+        }
+        if (snapshot.settled === settlement.settled) {
+          return { status: 200, snapshot } as const;
+        }
+        if (snapshot.revision !== settlement.revision) return { status: 409 } as const;
+        if (
+          settlement.settled &&
+          (snapshot.status === "queued" || snapshot.status === "running")
+        ) {
+          return { status: 409 } as const;
+        }
+        updateSnapshot(settlement.taskId, { settled: settlement.settled });
+        return {
+          status: 200,
+          snapshot: projectionSnapshots.get(settlement.taskId) as TaskSnapshot,
+        } as const;
+      });
+      if (result.status !== 200) {
+        res.writeHead(result.status).end();
+        return;
+      }
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(result.snapshot));
+      return;
+    }
     if (requestUrl.pathname === "/projection-replies") {
       if (origin !== undefined) {
         res.writeHead(403).end();
@@ -720,6 +806,7 @@ export async function createAgentationServer({
         pendingReplyByTask.set(reply.taskId, operation);
         queued += 1;
         updateSnapshot(reply.taskId, {
+          settled: false,
           status: "queued",
           detail: "Reply queued",
           markdown: undefined,
@@ -1130,7 +1217,10 @@ export async function createAgentationServer({
         broadcastSnapshot({
           type: "task.snapshot",
           taskId: key,
+          incarnationId: randomBytes(16).toString("hex"),
           revision: 1,
+          settled: false,
+          updatedAt: Date.now(),
           cwd,
           ...(submission.url === undefined ? {} : { url: submission.url }),
           annotations: submission.annotations.map(
@@ -1148,9 +1238,10 @@ export async function createAgentationServer({
           detail: "Queued",
         }),
       );
-      if (recentActions.size > RECENT_ACTION_LIMIT) {
+      while (recentActions.size > recentActionLimit) {
         const oldestAction = recentActions.values().next().value;
-        if (oldestAction) recentActions.delete(oldestAction);
+        if (!oldestAction) break;
+        recentActions.delete(oldestAction);
       }
 
       let succeeded = false;

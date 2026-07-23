@@ -220,6 +220,7 @@ test("dev coordinator creates a parent and routes submissions to linked children
       port,
       maxProjectionContentBytes: 20,
       retainedTaskLimit: 1,
+      recentActionLimit: 1,
       logger: {
         info: (message) => messages.push(message),
         error: (message) => messages.push(message),
@@ -305,22 +306,23 @@ test("dev coordinator creates a parent and routes submissions to linked children
       }
     })();
 
+    const initialSubmission = {
+      event: "submit",
+      timestamp: 42,
+      url: "http://localhost:3000/",
+      output: "## Feedback\nmake the button blue",
+      annotations: [
+        {
+          id: "annotation-1",
+          comment: "make it blue",
+          sourceFile: "src/Button.tsx:12",
+        },
+      ],
+    };
     const response = await fetch(submissionUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json", Origin: "http://localhost:3000" },
-      body: JSON.stringify({
-        event: "submit",
-        timestamp: 42,
-        url: "http://localhost:3000/",
-        output: "## Feedback\nmake the button blue",
-        annotations: [
-          {
-            id: "annotation-1",
-            comment: "make it blue",
-            sourceFile: "src/Button.tsx:12",
-          },
-        ],
-      }),
+      body: JSON.stringify(initialSubmission),
     });
     assert.equal(response.status, 200, messages.join("\n"));
 
@@ -350,6 +352,9 @@ test("dev coordinator creates a parent and routes submissions to linked children
     const queuedProjection = projectionEvents.find(({ status }) => status === "queued");
     assert.ok(queuedProjection);
     assert.equal(queuedProjection.revision, 1);
+    assert.equal(typeof queuedProjection.incarnationId, "string");
+    assert.equal(queuedProjection.settled, false);
+    assert.equal(typeof queuedProjection.updatedAt, "number");
     assert.equal(queuedProjection.cwd, directory);
     assert.equal(queuedProjection.url, "http://localhost:3000/");
     assert.deepEqual(queuedProjection.annotations, [
@@ -392,6 +397,23 @@ test("dev coordinator creates a parent and routes submissions to linked children
       { path: "created.ts" },
     ]);
     assertMonotonicRevisions(projectionEvents, taskId);
+    const taskProjectionEvents = projectionEvents.filter(
+      ({ taskId: eventTaskId }) => eventTaskId === taskId,
+    );
+    assert.ok(
+      taskProjectionEvents.every(
+        ({ incarnationId }) => incarnationId === queuedProjection.incarnationId,
+      ),
+    );
+    assert.ok(taskProjectionEvents.every(({ settled }) => typeof settled === "boolean"));
+    assert.ok(taskProjectionEvents.every(({ updatedAt }) => typeof updatedAt === "number"));
+    assert.ok(
+      taskProjectionEvents.every(
+        ({ updatedAt }, index) =>
+          index === 0 ||
+          (updatedAt as number) > (taskProjectionEvents[index - 1].updatedAt as number),
+      ),
+    );
     const initialMessages = completedProjection?.messages as TestProjectionMessage[];
     assert.deepEqual(initialMessages, [
       {
@@ -433,6 +455,132 @@ test("dev coordinator creates a parent and routes submissions to linked children
         .status,
       404,
     );
+
+    const settlementUrl = coordinator.url.replace("/agentation", "/projection-settlements");
+    const completedRevision = completedProjection?.revision as number;
+    const settlementBody = {
+      generation,
+      taskId,
+      incarnationId: completedProjection?.incarnationId,
+      revision: completedRevision,
+      settled: true,
+    };
+    assert.equal(
+      (await fetch(settlementUrl, {
+        method: "POST",
+        headers: { Origin: "http://localhost:3000" },
+        body: JSON.stringify(settlementBody),
+      })).status,
+      403,
+    );
+    const settlementWithoutIncarnation = {
+      generation,
+      taskId,
+      revision: completedRevision,
+      settled: true,
+    };
+    for (const malformed of [
+      {},
+      settlementWithoutIncarnation,
+      { ...settlementBody, revision: 0 },
+      { ...settlementBody, revision: 1.5 },
+      { ...settlementBody, incarnationId: "" },
+      { ...settlementBody, settled: "true" },
+      { ...settlementBody, extra: true },
+    ]) {
+      assert.equal(
+        (await fetch(settlementUrl, { method: "POST", body: JSON.stringify(malformed) })).status,
+        400,
+      );
+    }
+    assert.equal(
+      (await fetch(settlementUrl, {
+        method: "POST",
+        body: JSON.stringify({ ...settlementBody, generation: "stale" }),
+      })).status,
+      410,
+    );
+    assert.equal(
+      (await fetch(settlementUrl, {
+        method: "POST",
+        body: JSON.stringify({ ...settlementBody, taskId: "unknown" }),
+      })).status,
+      404,
+    );
+    assert.equal(
+      (await fetch(settlementUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          ...settlementBody,
+          incarnationId: "wrong-incarnation",
+          settled: false,
+        }),
+      })).status,
+      409,
+    );
+    assert.equal(
+      (await fetch(settlementUrl, {
+        method: "POST",
+        body: JSON.stringify({ ...settlementBody, revision: completedRevision - 1 }),
+      })).status,
+      409,
+    );
+
+    const settledEventsDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ taskId: eventTaskId, settled }) => eventTaskId === taskId && settled === true,
+    );
+    const settledResponse = await fetch(settlementUrl, {
+      method: "POST",
+      body: JSON.stringify(settlementBody),
+    });
+    assert.equal(settledResponse.status, 200);
+    const settledSnapshot = (await settledResponse.json()) as Record<string, unknown>;
+    assert.equal(settledSnapshot.type, "task.snapshot");
+    assert.equal(settledSnapshot.settled, true);
+    assert.equal(settledSnapshot.revision, completedRevision + 1);
+    assert.ok((settledSnapshot.updatedAt as number) > (completedProjection?.updatedAt as number));
+    assert.deepEqual((await settledEventsDone).at(-1), settledSnapshot);
+
+    const unsettledEventsDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ taskId: eventTaskId, settled }) => eventTaskId === taskId && settled === false,
+    );
+    const unsettledResponse = await fetch(settlementUrl, {
+      method: "POST",
+      body: JSON.stringify({
+        ...settlementBody,
+        revision: settledSnapshot.revision,
+        settled: false,
+      }),
+    });
+    assert.equal(unsettledResponse.status, 200);
+    const unsettledSnapshot = (await unsettledResponse.json()) as Record<string, unknown>;
+    assert.equal(unsettledSnapshot.settled, false);
+    assert.deepEqual((await unsettledEventsDone).at(-1), unsettledSnapshot);
+    assert.equal(unsettledSnapshot.revision, (settledSnapshot.revision as number) + 1);
+    const idempotentUnsettle = await fetch(settlementUrl, {
+      method: "POST",
+      body: JSON.stringify({ ...settlementBody, revision: completedRevision, settled: false }),
+    });
+    assert.equal(idempotentUnsettle.status, 200);
+    assert.deepEqual(await idempotentUnsettle.json(), unsettledSnapshot);
+
+    const resettledResponse = await fetch(settlementUrl, {
+      method: "POST",
+      body: JSON.stringify({
+        ...settlementBody,
+        revision: unsettledSnapshot.revision,
+        settled: true,
+      }),
+    });
+    assert.equal(resettledResponse.status, 200);
+    const resettledSnapshot = (await resettledResponse.json()) as Record<string, unknown>;
+    const settlementReplay = await collectSseUntil(
+      await fetch(projectionUrl),
+      ({ taskId: eventTaskId }) => eventTaskId === taskId,
+    );
+    assert.deepEqual(settlementReplay.at(-1), resettledSnapshot);
 
     const replyUrl = coordinator.url.replace("/agentation", "/projection-replies");
     const replyBody = {
@@ -495,6 +643,10 @@ test("dev coordinator creates a parent and routes submissions to linked children
       404,
     );
 
+    const activeReplyEventsDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ taskId: eventTaskId, status }) => eventTaskId === taskId && status === "running",
+    );
     const replyEventsDone = collectSseUntil(
       await fetch(projectionUrl),
       ({ status, messages: snapshotMessages }) =>
@@ -515,6 +667,21 @@ test("dev coordinator creates a parent and routes submissions to linked children
       [202, 409],
     );
     const acceptedReply = replyResponses[0].status === 202 ? replyBody : competingReply;
+    const activeReplySnapshot = (await activeReplyEventsDone).at(-1);
+    assert.equal(activeReplySnapshot?.settled, false);
+    assert.equal(
+      (await fetch(settlementUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          generation,
+          taskId,
+          incarnationId: activeReplySnapshot?.incarnationId,
+          revision: activeReplySnapshot?.revision,
+          settled: true,
+        }),
+      })).status,
+      409,
+    );
     assert.equal(
       (await fetch(replyUrl, { method: "POST", body: JSON.stringify(acceptedReply) })).status,
       202,
@@ -1101,6 +1268,43 @@ test("dev coordinator creates a parent and routes submissions to linked children
       finalCommands.filter(({ type }) => type === "switch_session").at(-1)?.sessionPath,
       childSession,
     );
+
+    const recreatedEventsDone = collectSseUntil(
+      await fetch(projectionUrl),
+      ({ taskId: eventTaskId, status }) => eventTaskId === taskId && status === "completed",
+    );
+    const recreatedResponse = await fetch(submissionUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Origin: "http://localhost:3000" },
+      body: JSON.stringify(initialSubmission),
+    });
+    assert.equal(recreatedResponse.status, 200);
+    const recreatedEvents = await recreatedEventsDone;
+    const recreatedQueued = recreatedEvents.find(
+      ({ taskId: eventTaskId, status }) => eventTaskId === taskId && status === "queued",
+    );
+    const recreatedTask = recreatedEvents.at(-1);
+    assert.equal(recreatedQueued?.revision, 1);
+    assert.notEqual(recreatedTask?.incarnationId, completedProjection?.incarnationId);
+    assert.equal(
+      (await fetch(settlementUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          generation,
+          taskId,
+          incarnationId: completedProjection?.incarnationId,
+          revision: recreatedTask?.revision,
+          settled: true,
+        }),
+      })).status,
+      409,
+    );
+    const recreatedReplay = await collectSseUntil(
+      await fetch(projectionUrl),
+      ({ taskId: eventTaskId }) => eventTaskId === taskId,
+    );
+    assert.equal(recreatedReplay.at(-1)?.incarnationId, recreatedTask?.incarnationId);
+    assert.equal(recreatedReplay.at(-1)?.settled, false);
   } finally {
     await coordinator?.close();
     for (const [key, value] of Object.entries(previous)) {
