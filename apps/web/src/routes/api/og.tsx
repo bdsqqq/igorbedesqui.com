@@ -1,26 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ImageResponse } from "@vercel/og";
-import { readFile } from "node:fs/promises";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
 
-const ogRouteDir = dirname(fileURLToPath(import.meta.url));
+import regularFontDataUrl from "./-IBMPlexSerif-Regular.ttf?inline";
+import semiboldFontDataUrl from "./-IBMPlexSerif-SemiBold.ttf?inline";
+import framernoiseBg from "./-framernoise.png?inline";
+
+function dataUrlBuffer(dataUrl: string): ArrayBuffer {
+  const base64 = dataUrl.slice(dataUrl.indexOf(",") + 1);
+  return Uint8Array.from(atob(base64), (character) => character.charCodeAt(0)).buffer;
+}
+
+const fontData = dataUrlBuffer(regularFontDataUrl);
+const fontDataBold = dataUrlBuffer(semiboldFontDataUrl);
 
 export const Route = createFileRoute("/api/og")({
   server: {
     handlers: {
       GET: async ({ request }) => {
-        const fontData = await readFile(
-          resolve("public/fonts/IBMPlexSerif-Regular.ttf"),
-        );
-        const fontDataBold = await readFile(
-          resolve("public/fonts/IBMPlexSerif-SemiBold.ttf"),
-        );
-        const framernoisePng = await readFile(
-          join(ogRouteDir, "-framernoise.png"),
-        );
-        const framernoiseBg = `url(data:image/png;base64,${framernoisePng.toString("base64")})`;
-
         try {
           const { searchParams } = new URL(request.url);
 
@@ -121,7 +117,7 @@ export const Route = createFileRoute("/api/og")({
                   position: "absolute",
                   inset: "0",
                   opacity: "0.03",
-                  background: framernoiseBg,
+                  background: `url(${framernoiseBg})`,
                 }}
               />
             </div>,

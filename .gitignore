@@ -8,16 +8,10 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
 # misc
 .DS_Store
 *.pem
+!apps/web/src/routes/api/*.ttf
 
 # debug
 npm-debug.log*
