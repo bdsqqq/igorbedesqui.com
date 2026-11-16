@@ -126,7 +126,7 @@ export function RootError({ error }: ErrorComponentProps) {
       <div className="ak-frame ak-frame-card/card max-w-md text-center">
         <h1 className="text-2xl font-bold">Something went wrong</h1>
         <p className="ak-ink-60 mt-2">
-          {error.message}
+          {error instanceof Error ? error.message : String(error)}
           <br />
           How did you get here...?
         </p>
