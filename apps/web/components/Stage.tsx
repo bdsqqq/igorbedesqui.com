@@ -31,22 +31,21 @@ export const Stage = ({
   ...rest
 }: { options?: {} & StageVariants } & HTMLProps<HTMLDivElement>) => {
   return (
-    <div className="relative isolate">
+    <div
+      className={cn(
+        "ak-layer ak-layer-darken-2 ak-frame ak-frame-p-card relative isolate flex h-full min-w-0 flex-col overflow-visible",
+        stageVariants({ ...options }),
+        className,
+      )}
+      {...rest}
+    >
+      {title && (
+        <div className="ak-frame ak-frame-cover ak-frame-start border-b px-4 py-1 text-xs ak-ink-60">
+          {title}
+        </div>
+      )}
       <div
-        className={cn(
-          "ak-layer ak-layer-canvas ak-ink-60 absolute -top-3 left-4 z-10 whitespace-nowrap px-0.5 text-center text-xs",
-          title ? "block" : "hidden",
-        )}
-      >
-        {title}
-      </div>
-      <div
-        className={cn(
-          "ak-layer ak-layer-darken-2 ak-frame ak-frame-p-card relative grid h-full w-full place-items-center overflow-visible",
-          stageVariants({ ...options }),
-          className,
-        )}
-        {...rest}
+        className={cn("grid w-full flex-1 place-items-center", title && "pt-4")}
       >
         {children}
       </div>

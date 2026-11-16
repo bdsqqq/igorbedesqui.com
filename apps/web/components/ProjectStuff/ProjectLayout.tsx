@@ -47,7 +47,12 @@ export function ProjectLayout({
 
       <div className="sticky top-[1.5rem] z-aboveVignette col-span-full -my-2 h-fit max-h-[calc(100vh_-_4.5rem)] overflow-auto py-2 md:col-start-7 lg:col-start-13">
         {/* Mobile */}
-        <div className={cn(subGrid()(), "mt-20 gap-y-4 md:hidden")}>
+        <div
+          className={cn(
+            subGrid()(),
+            "ak-layer ak-layer-lighten-3 ak-frame ak-frame-card/2 ak-frame-ring ak-edge-10 mt-20 gap-y-4 md:hidden",
+          )}
+        >
           <SidebarContent projMeta={projMeta} />
           {nextProjMeta && (
             <>
@@ -70,7 +75,7 @@ export function ProjectLayout({
         >
           <aside
             className={cn(
-              "transition-opacity duration-fast-02 ease-expressive-standard focus-within:opacity-100 hover:opacity-100",
+              "ak-layer ak-layer-lighten-3 ak-frame ak-frame-card/2 ak-frame-ring ak-edge-10 transition-opacity duration-fast-02 ease-expressive-standard focus-within:opacity-100 hover:opacity-100",
               isFaded ? "opacity-40" : "opacity-100",
             )}
           >

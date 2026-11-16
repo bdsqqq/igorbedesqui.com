@@ -105,7 +105,7 @@ function SchrodingerMinimalismContent() {
       </MDX>
 
       <figure>
-        <Border asWrapper className="ak-frame-card/0">
+        <Border asWrapper>
           <video
             poster={pedro_thumb}
             autoPlay={true}
@@ -123,7 +123,7 @@ function SchrodingerMinimalismContent() {
       </figure>
 
       <figure>
-        <Border asWrapper className="ak-frame-card/0">
+        <Border asWrapper>
           <video
             poster={los_feliz_thumb}
             autoPlay={true}

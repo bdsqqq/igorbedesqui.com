@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/Popover";
 import type { Meta } from "@/components/ProjectStuff/Projects";
 import { MDX } from "@/components/MDX";
+import { Border } from "@/components/ui/Border";
 import { Image } from "@/components/ui/Image";
 
 import noodles_webm from "./-noodles.webm";
@@ -131,18 +132,22 @@ function BebopWorkPage() {
           </MDX>
           <div className="my-1 grid min-h-0 grid-cols-4 items-center gap-2">
             <div className="col-start-1 col-end-2">
-              <Image
-                className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-border relative z-31 overflow-hidden"
-                src={smartphoneScreenshot}
-                alt=""
-              />
+              <Border asWrapper className="relative z-31">
+                <Image
+                  className="ak-frame w-full"
+                  src={smartphoneScreenshot}
+                  alt=""
+                />
+              </Border>
             </div>
             <div className="col-start-2 col-end-5">
-              <Image
-                className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-border relative z-31 overflow-hidden"
-                src={desktopScreenshot}
-                alt=""
-              />
+              <Border asWrapper className="relative z-31">
+                <Image
+                  className="ak-frame w-full"
+                  src={desktopScreenshot}
+                  alt=""
+                />
+              </Border>
             </div>
           </div>
           <MDX>

@@ -48,11 +48,7 @@ function Tooltip({ children, content, options }: Tooltip) {
 
 const tooltipVariants = cva(
   [
-    "ak-layer ak-frame ak-frame-field ak-frame-border ak-edge-20 shadow-sm transform origin-(--popover-transform-origin) motion-safe:transition-[opacity,transform] duration-fast-02",
-    "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-entrance",
-    "data-[leave]:opacity-0 data-[leave]:scale-0 data-[leave]:ease-productive-exit",
-    "data-[side=top]:data-[leave]:translate-y-1",
-    "data-[side=bottom]:data-[leave]:-translate-y-1",
+    "surface-tooltip ak-layer ak-frame ak-frame-field ak-frame-border ak-edge-20 shadow-sm",
   ],
   {
     variants: {

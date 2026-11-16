@@ -19,7 +19,7 @@ function StyleCompositionPlayPage() {
               <div className="h-4 w-4 text-base">
                 <ArrowRightIcon />
               </div>
-              <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/card ak-frame-bordering flex flex-col gap-2">
+              <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/0.5 ak-frame-bordering flex flex-col gap-2">
                 <div className="ak-layer ak-layer-6 ak-frame ak-frame-field/0 from-(--ak-layer) to-(--ak-edge) h-20 w-20 bg-gradient-to-br" />
                 <div className="ak-frame ak-frame-field/0 h-20 w-20 bg-[url(https://images.unsplash.com/photo-1536311312982-31ed42ebc0f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2274&q=30)] bg-contain" />
               </div>
@@ -40,7 +40,7 @@ function StyleCompositionPlayPage() {
               <div className="h-4 w-4 text-base">
                 <ArrowRightIcon />
               </div>
-              <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/card ak-frame-bordering flex flex-col gap-2">
+              <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/0.5 ak-frame-bordering flex flex-col gap-2">
                 <Border>
                   <div className="ak-layer ak-layer-6 ak-frame ak-frame-field/0 from-(--ak-layer) to-(--ak-edge) h-20 w-20 bg-gradient-to-br" />
                 </Border>

@@ -329,9 +329,11 @@ const usages = [
 
 const ButtonPermutations = () => {
   return (
-    <div className="flex items-center gap-6">
-      <div className="max-w-sm">
-        <pre className="">{JSON.stringify(buttonPermutations, null, 2)}</pre>
+    <div className="flex min-w-0 flex-wrap items-center gap-6">
+      <div className="min-w-0 max-w-full">
+        <pre className="ak-layer ak-layer-darken-3 ak-frame ak-frame-card/2 overflow-x-auto text-sm">
+          {JSON.stringify(buttonPermutations, null, 2)}
+        </pre>
       </div>
       <div className="h-4 w-4 text-base">
         <ArrowRightIcon />

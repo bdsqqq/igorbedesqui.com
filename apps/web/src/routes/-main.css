@@ -4,6 +4,7 @@
 @import "@fontsource-variable/geist-mono";
 @import "tailwindcss";
 @import "@ariakit/tailwind";
+@import "../../components/ui/surface-motion.css";
 @import "tw-animate-css";
 @import "streamdown/styles.css";
 @source "../../../../node_modules/streamdown/dist/*.js";
@@ -69,10 +70,6 @@
   --animate-fadeBlueOut: fadeBlueOut 1500ms cubic-bezier(0.2, 0, 0.38, 0.9);
   --animate-fade: fade 550ms cubic-bezier(0, 0, 0.3, 1);
   --animate-fadeOut: fadeOut 550ms cubic-bezier(0, 0, 0.3, 1);
-  --animate-scaleInSlideDown: scaleInSlideDown 110ms ease-out;
-  --animate-scaleInSlideUp: scaleInSlideUp 110ms cubic-bezier(0, 0, 0.38, 0.9);
-  --animate-scaleOutSlideDown: scaleOutSlideDown 110ms linear;
-  --animate-scaleOutSlideUp: scaleOutSlideUp 110ms cubic-bezier(0.2, 0, 1, 0.9);
 
   @keyframes fadeBlueOut {
     0% {
@@ -100,47 +97,6 @@
       opacity: 0;
     }
   }
-  @keyframes scaleInSlideDown {
-    0% {
-      opacity: 0;
-      transform: translateY(-5px) scale(0);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-  @keyframes scaleInSlideUp {
-    0% {
-      opacity: 0;
-      transform: translateY(5px) scale(0);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-  @keyframes scaleOutSlideDown {
-    0% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-5px) scale(0);
-    }
-  }
-  @keyframes scaleOutSlideUp {
-    0% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(5px) scale(0);
-    }
-  }
-
   --ease-productive-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
   --ease-productive-entrance: cubic-bezier(0, 0, 0.38, 0.9);
   --ease-productive-exit: cubic-bezier(0.2, 0, 1, 0.9);
@@ -155,12 +111,12 @@
   --duration-slow-01: 400ms;
   --duration-slow-02: 700ms;
 
-  /* compact chrome stays distinct from the square, flush page grid. */
-  --radius-field: 0.125rem;
+  /* frames own surface chrome; the page grid stays square and flush. */
+  --radius-field: var(--radius-lg);
   --spacing-field: 0.375rem;
-  --radius-card: 0.25rem;
+  --radius-card: var(--radius-xl);
   --spacing-card: 1rem;
-  --radius-dialog: 0.5rem;
+  --radius-dialog: var(--radius-2xl);
   --spacing-dialog: 1.5rem;
   --radius-badge: calc(infinity * 1px);
   --spacing-badge: 0.25rem;

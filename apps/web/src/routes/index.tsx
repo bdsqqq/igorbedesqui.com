@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ContentList, contentListRow } from "@/components/ContentList";
 import Container from "@/components/Container";
 import Band from "@/components/Band";
 import { UnstyledLink } from "@/ui/primitives/";
@@ -86,9 +87,9 @@ function Home() {
         >
           <div className={subGrid()({ mode: "narrow" })}>
             <div className="col-span-full md:col-span-5 lg:col-span-6">
-              <ul className=" pointer-events-none -mt-4 flex flex-col focus-within:ak-ink-70 hover:ak-ink-70">
+              <ContentList className="-mx-2.5 -mt-4">
                 <li>
-                  <div className="group pointer-events-auto block py-4 transition-colors duration-fast-02 ease-productive-standard focus-within:ak-ink-100 hover:ak-ink-100">
+                  <div className={contentListRow}>
                     <div className="flex flex-col ">
                       <div>
                         <h3 className="inline-block font-bold">
@@ -109,7 +110,7 @@ function Home() {
                   return (
                     <li key={projMeta.shortName}>
                       <UnstyledLink
-                        className="group pointer-events-auto block py-4 transition-colors duration-fast-02 ease-productive-standard hover:ak-ink-100 focus:ak-ink-100"
+                        className={contentListRow}
                         href={`/work/${projMeta.urlSlug}`}
                       >
                         <div className="flex flex-col ">
@@ -127,18 +128,18 @@ function Home() {
                     </li>
                   );
                 })}
-              </ul>
+              </ContentList>
               <StyledLink href="/work">More work</StyledLink>
             </div>
 
             <div className="col-span-full lg:col-start-8 lg:col-end-12">
               <h2 className="mt-6 font-bold md:mt-10 lg:mt-0">Writing</h2>
               <div className="mt-2">
-                <ul className="pointer-events-none flex flex-col gap-4 focus-within:ak-ink-70 hover:ak-ink-70">
+                <ContentList className="-mx-2.5 gap-4">
                   {writingPieces.map((piece) => (
                     <li key={piece.urlSlug}>
                       <UnstyledLink
-                        className="pointer-events-auto block w-fit leading-none transition-colors duration-fast-02 ease-productive-standard hover:ak-ink-100 focus:ak-ink-100"
+                        className={cn(contentListRow, "py-0 leading-none")}
                         href={`/writing/${piece.urlSlug}`}
                       >
                         <h3 className="inline">{piece.name}</h3>
@@ -153,7 +154,7 @@ function Home() {
                       </UnstyledLink>
                     </li>
                   ))}
-                </ul>
+                </ContentList>
               </div>
             </div>
           </div>

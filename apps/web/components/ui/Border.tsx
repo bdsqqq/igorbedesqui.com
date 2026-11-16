@@ -34,7 +34,7 @@ export const shadowBorderStyles =
   "relative ak-frame ak-frame-ring ring-(--ak-edge)";
 
 const wrapperStyles =
-  "block ak-frame-card/0 [&>img]:ak-frame [&>video]:ak-frame";
+  "block ak-layer ak-layer-darken-2 [:where(&)]:ak-frame-card/0.5 [&>img]:ak-frame [&>video]:ak-frame";
 
 export type BorderProps = PropsWithChildren<{
   className?: string;
@@ -43,10 +43,11 @@ export type BorderProps = PropsWithChildren<{
 }>;
 
 /**
- * Adds a frame edge without changing the child's material or layout.
+ * Adds a frame edge to a child, or a recessed media bed when wrapping it.
  *
  * The ring stays outside the box so opaque media cannot paint over the edge.
- * Direct image and video children inherit the wrapper's frame radius.
+ * A thin media inset lets direct image and video frames derive concentric radii.
+ * The default frame has zero specificity so caller shortcuts can override it.
  *
  * This component will try to automatically detect if the child is a void element,
  * but it's not perfect, so it's recommended to explicitly set `asWrapper` to true

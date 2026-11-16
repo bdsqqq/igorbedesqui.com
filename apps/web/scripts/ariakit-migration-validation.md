@@ -43,3 +43,17 @@ standalone class factories and component callers may supply fragments whose base
 the node suite also evaluates the real DialogClose wrapper with installed ariakit, using isolated icon-slot and text consumers. an isolated mutation restoring the old `undefined` fallback must introduce the extra icon. native-button, import, class, theme, route discovery, quoted CSS glob and inventory fixtures exercise both bad and near-match source.
 
 the route smoke derives public page paths from source; API routes, dynamic parameters, and the Outlet-only `/writing` layout are excluded. modal assertions follow ariakit's inert-based contract: `body` is an allowed Tab destination; interactive background elements are not.
+
+## follow-up motion and geometry regressions
+
+`ariakit-followup.spec.mjs` runs alongside the original route/navigation/copy/game/keyboard suite. run it alone against the existing server with:
+
+```sh
+MIGRATION_BASE_URL=http://127.0.0.1:3105 pnpm --filter @igorbedesqui/web test:ui ariakit-followup.spec.mjs
+```
+
+normal-motion tests observe native `getAnimations()` effects for popover, tooltip, scales presets and the modal lightbox backdrop. the probe observes lifecycle/style mutations as well as animation frames, so a short exit or shared-layout update cannot disappear between samples. it pauses, seeks and restores each effect in one synchronous browser turn; it does not inject transition CSS or replace browser clocks. attachments contain actual keyframes, durations and computed start/middle/end opacity and scale. a negative-control fixture must fail the same assertion when content simply appears without an effect. reduced-motion tests separately assert settled state, no running shell/backdrop effects, dismissal and focus restoration. the full-screen lightbox intentionally leaves image geometry to Motion rather than scaling its coordinate space twice.
+
+list checks measure actual parent/child border boxes, padding, borders and effective computed corner radii at desktop/narrow widths. for a thin inset, the child's radius must equal the parent's radius minus the observed inset. timeline shells with larger insets may retain independent radii, consistent with Ariakit's native frame rules; decorative rails do not receive arbitrary contrast assertions. references: installed `@ariakit/tailwind/readme.md` → `ak-frame`, and `@ariakit/react-components/src/disclosure/disclosure-content.tsx` → double-frame entry and CSS-duration leave retention.
+
+run the final combined suite against one stable production build. live development reloads and missing hydration markers are infrastructure failures, not evidence that motion assertions passed. the follow-up tests do not add production fixture routes or alter application styles to manufacture passing motion.

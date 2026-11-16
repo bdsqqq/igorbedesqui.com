@@ -233,6 +233,7 @@ function Scales() {
                 <ComboboxPopover
                   store={comboboxStore}
                   data-placement={comboboxPlacement}
+                  data-side={comboboxPlacement.split("-")[0]}
                   style={{
                     transformOrigin: `var(--popover-transform-origin, ${comboboxPlacement.startsWith("top") ? "bottom left" : "top left"})`,
                   }}
@@ -240,14 +241,7 @@ function Scales() {
                   sameWidth={false}
                   fitViewport
                   className={cn(
-                    "ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/1 ak-frame-bordering z-10 transform shadow-sm transition-all duration-fast-02",
-                    "data-[placement=bottom-start]:origin-top-left",
-                    "data-[placement=top-start]:origin-bottom",
-                    "data-[enter]:ease-productive-enter data-[enter]:opacity-100",
-                    "data-[leave]:opacity-0 data-[leave]:ease-productive-exit",
-                    "data-[enter]:translate-y-0",
-                    "data-[placement=bottom-start]:data-[leave]:-translate-y-2",
-                    "data-[placement=top-start]:data-[leave]:translate-y-2",
+                    "surface-popover ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/1 ak-frame-bordering z-10 shadow-sm",
                   )}
                 >
                   {filteredPreDefinedScales.map((scale) => (
@@ -306,7 +300,7 @@ function Scales() {
       </Band>
       <Band gridless options={{ padding: "none" }} id="results">
         {inputsSetAsDefault.length > 0 && (
-          <ul>
+          <ul className="ak-ink-70 [&>li+li]:border-t [&>li+li]:border-(--ak-edge) [&>li]:py-2">
             {inputsSetAsDefault.map((input) => (
               <li key={`${input.name}_InputSetAsDefault`}>
                 {input.label} is not a valid number. Using the default value:{" "}

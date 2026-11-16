@@ -52,7 +52,7 @@ function IbmWorkPage() {
           <ul
             className={cn(
               grid({ mode: "narrow" }),
-              "gap-y-8 ",
+              "gap-y-8 [&>li]:border-t [&>li]:border-(--ak-edge) [&>li]:pt-3",
               //"hover:ak-ink-70 focus-within:ak-ink-70"
             )}
           >
@@ -87,7 +87,7 @@ function IbmWorkPage() {
                     <h2 className="font-semibold">{children}</h2>
                   ),
                   ol: ({ children }) => (
-                    <ol className="list-outside list-decimal space-y-2 marker:ak-ink-50">
+                    <ol className="list-outside list-decimal space-y-2 marker:ak-ink-50 [&>li+li]:border-t [&>li+li]:border-(--ak-edge) [&>li+li]:pt-2">
                       {children}
                     </ol>
                   ),
@@ -111,7 +111,7 @@ function IbmWorkPage() {
               <MDX
                 components={{
                   ol: ({ children }) => (
-                    <ol className="list-outside list-decimal space-y-2 marker:ak-ink-50">
+                    <ol className="list-outside list-decimal space-y-2 marker:ak-ink-50 [&>li+li]:border-t [&>li+li]:border-(--ak-edge) [&>li+li]:pt-2">
                       {children}
                     </ol>
                   ),

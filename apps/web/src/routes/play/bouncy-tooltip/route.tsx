@@ -244,7 +244,7 @@ export const AnimatedElements = ({
           {...animationFns[animation](i, duration)}
           className="ak-frame ak-frame-card/0 shadow row-start-1 row-end-1 col-start-1 col-end-1"
         >
-          <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/0 ak-frame-ring w-36 overflow-hidden">
+          <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/0.5 ak-frame-ring w-36">
             {item.type === "image" ? (
               <Image
                 src={item.src}
@@ -252,10 +252,17 @@ export const AnimatedElements = ({
                 width={tooltipThumbnailSize}
                 aspectRatio={1}
                 objectFit="cover"
-                className="w-full"
+                className="ak-frame w-full"
               />
             ) : (
-              <video src={item.src} autoPlay loop muted playsInline />
+              <video
+                className="ak-frame w-full"
+                src={item.src}
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
             )}
           </div>
         </motion.div>

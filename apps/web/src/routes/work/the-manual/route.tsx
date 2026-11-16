@@ -119,9 +119,9 @@ function TheManualWorkPage() {
               </MDX>
             </div>
             <div className="relative col-span-full -mx-4 lg:col-start-1 lg:col-end-14 lg:mx-0">
-              <Border asWrapper className="ak-frame-card/0">
+              <Border asWrapper>
                 <video
-                  className=""
+                  className="ak-frame w-full"
                   autoPlay={false}
                   controls={true}
                   loop={true}
@@ -169,7 +169,12 @@ function TheManualWorkPage() {
                     {...props}
                   />
                 ),
-                li: (props) => <li className="col-span-4" {...props} />,
+                li: (props) => (
+                  <li
+                    className="col-span-4 border-t border-(--ak-edge) pt-3"
+                    {...props}
+                  />
+                ),
                 strong: (props) => <span className="ak-ink-100" {...props} />,
               }}
             >
@@ -185,12 +190,8 @@ function TheManualWorkPage() {
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
-                <Border asWrapper className="ak-frame-card/0">
-                  <Image
-                    className="ak-frame ak-frame-card/0 w-full"
-                    alt=""
-                    src={manual_1}
-                  />
+                <Border asWrapper>
+                  <Image className="ak-frame w-full" alt="" src={manual_1} />
                 </Border>
                 <figcaption className="text-sm italic tracking-wide ak-ink-70">
                   The landing page mimics a book cover.
@@ -198,12 +199,8 @@ function TheManualWorkPage() {
               </figure>
 
               <figure className={"space-y-2"}>
-                <Border asWrapper className="ak-frame-card/0">
-                  <Image
-                    className="ak-frame ak-frame-card/0 w-full"
-                    alt=""
-                    src={manual_2}
-                  />
+                <Border asWrapper>
+                  <Image className="ak-frame w-full" alt="" src={manual_2} />
                 </Border>
                 <figcaption className="text-sm italic tracking-wide ak-ink-70">
                   The chapters borrow from actual books with generous line
@@ -216,7 +213,7 @@ function TheManualWorkPage() {
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
-                <Border asWrapper className="ak-frame-card/0">
+                <Border asWrapper>
                   <Image className="w-full " alt="" src={manual_5} />
                 </Border>
                 <figcaption className="text-sm italic tracking-wide ak-ink-70">
@@ -229,10 +226,10 @@ function TheManualWorkPage() {
 
               <figure className={"space-y-2"}>
                 <div className="space-y-2">
-                  <Border asWrapper className="ak-frame-card/0">
+                  <Border asWrapper>
                     <Image className="w-full" alt="" src={manual_3} />
                   </Border>
-                  <Border asWrapper className="ak-frame-card/0">
+                  <Border asWrapper>
                     <Image className="w-full" alt="" src={manual_4} />
                   </Border>
                 </div>

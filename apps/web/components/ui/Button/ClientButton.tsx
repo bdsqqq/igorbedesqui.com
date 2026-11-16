@@ -100,7 +100,7 @@ export const ButtonGroup = ({
       {...props}
       ref={ref}
       className={cn(
-        "ak-frame ak-frame-field/0 ak-frame-join flex",
+        "ak-frame [:where(&)]:ak-frame-field/0 ak-frame-join flex",
         orientation === "vertical" ? "ak-frame-col flex-col" : "ak-frame-row",
         className,
       )}

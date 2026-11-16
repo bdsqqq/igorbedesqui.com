@@ -9,6 +9,7 @@ import {
 import Tooltip from "@/components/ui/Tooltip";
 import type { Meta } from "@/components/ProjectStuff/Projects";
 import { MDX } from "@/components/MDX";
+import { Border } from "@/components/ui/Border";
 import { Image } from "@/components/ui/Image";
 
 import space_webm from "./-space.webm";
@@ -116,12 +117,14 @@ function IssWorkPage() {
           </MDX>
           <div className="my-2 grid grid-cols-2 gap-2">
             <figure className="col-start-1">
-              <Image
-                className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-border relative z-[31] overflow-hidden"
-                objectFit="contain"
-                src={iss_blur}
-                alt=""
-              />
+              <Border asWrapper className="relative z-31">
+                <Image
+                  className="ak-frame w-full"
+                  objectFit="contain"
+                  src={iss_blur}
+                  alt=""
+                />
+              </Border>
               <figcaption>
                 <span className="mt-1 inline-block text-center text-sm italic tracking-wide ak-ink-70">
                   <MDX>
@@ -131,12 +134,14 @@ function IssWorkPage() {
               </figcaption>
             </figure>
             <figure className="col-start-2">
-              <Image
-                className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-border relative z-[31] overflow-hidden"
-                objectFit="contain"
-                src={iss_no_blur}
-                alt=""
-              />
+              <Border asWrapper className="relative z-31">
+                <Image
+                  className="ak-frame w-full"
+                  objectFit="contain"
+                  src={iss_no_blur}
+                  alt=""
+                />
+              </Border>
 
               <figcaption>
                 <span className="mt-1 inline-block text-center text-sm italic tracking-wide ak-ink-70">
@@ -153,12 +158,14 @@ function IssWorkPage() {
         </ProjectBand>
         <ProjectBand headline={{ bold: "03", thin: "Result" }}>
           <figure className="mb-4">
-            <Image
-              className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-border relative z-[31] overflow-hidden"
-              objectFit="contain"
-              src={iss_full}
-              alt="Website screenshot"
-            />
+            <Border asWrapper className="relative z-31">
+              <Image
+                className="ak-frame w-full"
+                objectFit="contain"
+                src={iss_full}
+                alt="Website screenshot"
+              />
+            </Border>
           </figure>
 
           <MDX>

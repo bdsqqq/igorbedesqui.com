@@ -117,7 +117,7 @@ function PopoverContent({
 export { Popover, PopoverTrigger, PopoverContent, StyledPopoverTrigger };
 
 const tooltipVariants = cva(
-  "ak-layer ak-frame ak-frame-card ak-frame-border ak-edge-15 shadow-md outline-none origin-(--popover-transform-origin) motion-safe:transition-[opacity,scale] duration-fast-01 data-[enter]:opacity-100 data-[enter]:scale-100 data-[leave]:opacity-0 data-[leave]:scale-95 z-10",
+  "surface-popover ak-layer ak-frame ak-frame-card ak-frame-border ak-edge-15 shadow-md outline-none z-10",
   {
     variants: {
       bg: { standard: "ak-layer-lighten-6", subtle: "ak-layer-canvas" },

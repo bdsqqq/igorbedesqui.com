@@ -91,7 +91,7 @@ function DialogOverlay({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-state={open ? "open" : "closed"}
       className={cn(
-        "fixed inset-0 z-aboveVignette bg-gray-00 opacity-70",
+        "surface-backdrop fixed inset-0 z-aboveVignette bg-gray-00",
         className,
       )}
       {...props}
@@ -118,7 +118,7 @@ function DialogContent({
       className={cn(
         "fixed left-1/2 top-1/2 z-aboveVignette grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2",
         surface &&
-          "ak-layer ak-layer-lighten-6 ak-frame ak-frame-dialog/dialog",
+          "surface-dialog ak-layer ak-layer-lighten-6 ak-frame ak-frame-dialog/dialog",
         className,
       )}
       {...props}

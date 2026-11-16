@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ContentList, contentListRow } from "@/components/ContentList";
 import Band from "@/components/Band";
 import Container from "@/components/Container";
 import { grid } from "@/components/ui/Grid";
@@ -43,19 +44,18 @@ function LibraryPage() {
             </p>
           </div>
 
-          <ul className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-12 pointer-events-none flex flex-col focus-within:ak-ink-70 hover:ak-ink-70">
-            {libraryEntries.map((entry) => (
-              <li key={entry.href}>
-                <UnstyledLink
-                  className="group pointer-events-auto block py-4 transition-colors duration-fast-02 ease-productive-standard hover:ak-ink-100 focus:ak-ink-100"
-                  href={entry.href}
-                >
-                  <h2 className="font-bold">{entry.name}</h2>
-                  <p>{entry.description}</p>
-                </UnstyledLink>
-              </li>
-            ))}
-          </ul>
+          <div className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-12">
+            <ContentList className="-mx-2.5">
+              {libraryEntries.map((entry) => (
+                <li key={entry.href}>
+                  <UnstyledLink className={contentListRow} href={entry.href}>
+                    <h2 className="font-bold">{entry.name}</h2>
+                    <p>{entry.description}</p>
+                  </UnstyledLink>
+                </li>
+              ))}
+            </ContentList>
+          </div>
         </div>
       </Band>
     </Container>

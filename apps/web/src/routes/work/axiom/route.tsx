@@ -69,30 +69,30 @@ const maxFanWidth = 880;
 
 const receiptStyles = {
   calendar: {
-    card: "border-l-[3px] border-l-[#d29922] ak-layer-lighten-3",
+    pigment: "ak-text-[#d29922]",
     kind: "calendar",
   },
   commit: {
-    card: "border-l-[3px] border-l-[#238636] ak-layer-lighten-3",
+    pigment: "ak-text-[#238636]",
     kind: "commit",
   },
   issue: {
-    card: "border-l-[3px] border-l-[#1f6feb] ak-layer-lighten-3",
+    pigment: "ak-text-[#1f6feb]",
     kind: "linear issue",
   },
   pr: {
-    card: "border-l-[3px] border-l-[#8957e5] ak-layer-lighten-3",
+    pigment: "ak-text-[#8957e5]",
     kind: "merged pull request",
   },
   review: {
-    card: "border-l-[3px] border-l-(--ak-edge) ak-layer-lighten-1",
+    pigment: "ak-ink-70",
     kind: "performance review",
   },
   screenshot: {
-    card: "border-l-[3px] border-l-[#db6d28] ak-layer-lighten-3",
+    pigment: "ak-text-[#db6d28]",
     kind: "screenshot",
   },
-} satisfies Record<AxiomReceipt["kind"], { card: string; kind: string }>;
+} satisfies Record<AxiomReceipt["kind"], { pigment: string; kind: string }>;
 
 type CollectionInteraction = {
   activeId: string | null;
@@ -117,14 +117,11 @@ function ReceiptArtifact({
 
   return (
     <div
-      className={cn(
-        "ak-layer ak-frame ak-frame-card/5 ak-frame-border flex min-h-44 w-[calc(100vw-2rem)] max-w-[29.5rem] flex-col text-left shadow-xl shadow-black/40",
-        style.card,
-      )}
+      className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/5 ak-frame-bordering flex min-h-44 w-[calc(100vw-2rem)] max-w-[29.5rem] flex-col text-left shadow-xl shadow-[color-mix(in_oklab,var(--ak-layer),transparent_80%)]"
       data-receipt-id={receipt.id}
     >
-      <span className="mb-4 flex w-full items-center justify-between font-sans text-xs uppercase tracking-wide ak-ink-70">
-        <span>{style.kind}</span>
+      <span className="ak-frame ak-frame-cover ak-frame-start mb-4 flex items-center justify-between border-b border-(--ak-edge) px-5 py-3 font-sans text-xs uppercase tracking-wide ak-ink-70">
+        <span className={cn("ak-text", style.pigment)}>{style.kind}</span>
         {number ? <span>{String(number).padStart(2, "0")}</span> : null}
       </span>
       <strong
@@ -313,7 +310,7 @@ function InlineReveal({
           aria-controls={contentId}
           aria-expanded={isOpen}
           className={cn(
-            "ak-layer ak-layer-2 ak-frame ak-frame-field/0 ak-frame-border ak-edge-contrast mx-0.5 inline px-1 text-[0.9em] font-medium leading-none",
+            "ak-layer ak-layer-transparent ak-frame ak-frame-field/0 ak-frame-border ak-edge-contrast mx-0.5 inline px-1 text-[0.9em] font-medium leading-none",
             "motion-safe:transition-colors hover:ak-state-5 active:ak-state-darken-5",
             "focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2",
             "aria-expanded:ak-state-8",
@@ -394,25 +391,40 @@ function TimelineBeat({
       className="relative grid grid-cols-4 pb-20 md:grid-cols-8 lg:grid-cols-9"
       id={beat.id}
     >
-      <div className="absolute bottom-0 left-0 top-0 flex w-16 flex-col items-center px-4 md:relative md:col-span-1 md:w-auto">
-        <span className="ak-layer ak-layer-lighten-1 ak-frame ak-frame-badge/0 ak-frame-border relative z-10 grid size-8 place-items-center text-xs">
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 top-0 flex w-16 flex-col items-center px-4 md:relative md:col-span-1 md:w-auto"
+      >
+        <span className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-field/0 ak-frame-bordering relative z-10 grid size-8 place-items-center text-xs tabular-nums">
           {String(index + 1).padStart(2, "0")}
         </span>
         {index < axiomBeats.length - 1 ? (
-          <span className="absolute bottom-0 left-1/2 top-8 w-px -translate-x-1/2 bg-gray-A04" />
+          <span className="absolute bottom-0 left-1/2 top-8 w-px -translate-x-1/2 bg-(--ak-edge) md:-bottom-20" />
         ) : null}
       </div>
 
       <div className="col-span-4 min-w-0 pl-16 pr-4 md:col-start-2 md:col-end-8 md:px-4 lg:col-end-9">
-        <p className="text-xs uppercase ak-ink-60">{beat.period}</p>
-        <h2 className="text-xl font-semibold">{beat.label}</h2>
-        <p className="mt-2 text-lg leading-relaxed">
-          <InlineReveal
-            interaction={interaction}
-            path={beat.id}
-            reveal={beat.story}
-          />
-        </p>
+        <section
+          aria-labelledby={`${beat.id}-period`}
+          className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/2 ak-frame-bordering"
+        >
+          <p
+            id={`${beat.id}-period`}
+            className="px-2 py-2 text-xs uppercase ak-ink-70"
+          >
+            {beat.period}
+          </p>
+          <article className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/card ak-frame-bordering">
+            <h2 className="text-xl font-semibold">{beat.label}</h2>
+            <p className="mt-2 text-lg leading-relaxed">
+              <InlineReveal
+                interaction={interaction}
+                path={beat.id}
+                reveal={beat.story}
+              />
+            </p>
+          </article>
+        </section>
       </div>
     </li>
   );
@@ -473,11 +485,12 @@ function PileCard({
     <MotionButton
       animate={{
         ...position,
+        ...(prefersReducedMotion ? { rotate: 0, scale: 1 } : {}),
         opacity: interaction.activeId && !isActive ? 0.72 : 1,
       }}
       aria-label={`attachment ${receiptNumberById.get(receipt.id)}: ${receipt.label}`}
       aria-pressed={isSelected}
-      className="col-start-1 row-start-1 h-fit w-fit cursor-grab self-start justify-self-end ak-frame ak-frame-card/0 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2 active:cursor-grabbing"
+      className="col-start-1 row-start-1 h-fit w-fit touch-pan-y cursor-grab self-start justify-self-end ak-frame ak-frame-card/0 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2 active:cursor-grabbing"
       drag="x"
       dragElastic={0.08}
       dragMomentum={false}
@@ -532,7 +545,11 @@ function PileCard({
           : { ...fastSpring, layout: layoutSpring }
       }
       type="button"
-      whileDrag={{ rotate: 0, scale: 1.03, y: -48 }}
+      whileDrag={
+        prefersReducedMotion
+          ? { rotate: 0, scale: 1 }
+          : { rotate: 0, scale: 1.03, y: -48 }
+      }
     >
       <ReceiptArtifact
         number={receiptNumberById.get(receipt.id)}

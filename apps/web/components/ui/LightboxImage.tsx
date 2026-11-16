@@ -10,9 +10,9 @@ import {
 import { cn } from "@/lib/styling";
 import { isStaticImageData } from "@/lib/static-image";
 import { Cross2Icon, EnterFullScreenIcon } from "@radix-ui/react-icons";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Image } from "@/components/ui/Image";
-import { ComponentProps, useState } from "react";
+import { ComponentProps, useId, useState } from "react";
 
 const MotionImage = motion(Image);
 const MotionBorder = motion(Border);
@@ -22,7 +22,16 @@ export const LightBox = ({
   ...props
 }: ComponentProps<typeof MotionImage> & { className?: string }) => {
   const [open, setOpen] = useState(false);
-  const layoutId = isStaticImageData(props.src) ? props.src.src : props.src;
+  const instanceId = useId();
+  const reducedMotion = useReducedMotion();
+  // Reused image URLs must not join unrelated lightboxes' layout animations.
+  const layoutId = reducedMotion
+    ? undefined
+    : `${instanceId}-${isStaticImageData(props.src) ? props.src.src : props.src}`;
+  const transition = {
+    duration: reducedMotion ? 0 : 0.3,
+    ease: [0.32, 0.72, 0, 1] as const,
+  };
 
   return (
     <Dialog
@@ -33,6 +42,7 @@ export const LightBox = ({
     >
       <MotionBorder
         layoutId={layoutId}
+        transition={transition}
         asWrapper
         className={cn("relative", open && "overflow-visible", className)}
       >
@@ -53,11 +63,15 @@ export const LightBox = ({
         surface={false}
         aria-label={props.alt || "image preview"}
         onClick={() => setOpen(false)}
-        className="bottom-0 left-0 right-0 top-0 grid w-full max-w-none translate-x-0 translate-y-0 place-items-center"
+        className="surface-lightbox bottom-0 left-0 right-0 top-0 grid w-full max-w-none translate-x-0 translate-y-0 place-items-center"
       >
-        <MotionBorder layoutId={layoutId} asWrapper>
-          <MotionImage {...props} />
-        </MotionBorder>
+        {/* Release the shared layout on close while Ariakit retains the modal
+            shell for the backdrop's exit and focus restoration. */}
+        {open && (
+          <MotionBorder layoutId={layoutId} transition={transition} asWrapper>
+            <MotionImage {...props} />
+          </MotionBorder>
+        )}
 
         <DialogClose asChild>
           <Button

@@ -2,12 +2,14 @@ import { CVAWithPerms } from "@/lib/CVAPermutations";
 import { cn } from "@/lib/styling";
 import { VariantProps } from "class-variance-authority";
 
+// Zero-specificity geometry lets canonical caller frame utilities override defaults.
+// tailwind-merge does not recognize Ariakit shortcuts or their padding longhands.
 export const [buttonVariants, buttonPermutations] = CVAWithPerms(
   cn(
     "select-none appearance-none",
     "relative whitespace-nowrap inline-flex items-center gap-1 align-middle",
     "motion-safe:duration-fast-01 motion-safe:ease-expressive-standard transition-all",
-    "ak-layer ak-frame ak-frame-field/field ak-frame-border ak-edge-contrast",
+    "ak-layer ak-frame [:where(&)]:ak-frame-field/field ak-frame-border ak-edge-contrast",
     "focus-visible:ak-outline focus-visible:ak-outline-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10",
     "disabled:ak-ink-0 aria-disabled:ak-ink-0",
   ),

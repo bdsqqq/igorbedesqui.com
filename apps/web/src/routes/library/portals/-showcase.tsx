@@ -26,19 +26,19 @@ function FarAwaySlots_PretendNavBar() {
   return (
     <nav
       className={cn(
-        "ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/2 ak-frame-bordering flex w-full justify-between",
+        "ak-layer ak-layer-lighten-6 ak-frame ak-frame-cover ak-frame-start ak-frame-p-2 flex flex-wrap justify-between border-b",
         gap,
       )}
     >
-      <div className={cn("flex", gap)}>
+      <div className={cn("flex flex-wrap", gap)}>
         <Button>Datasets</Button>
         <Button>Query</Button>
       </div>
-      <div className={cn("flex", gap)}>
+      <div className={cn("flex flex-wrap", gap)}>
         <OutPortal
           className={cn(
             "ak-layer ak-frame ak-frame-field/0 ak-frame-border ak-edge-[#ff9a00] ak-edge-raw min-w-8 border-dashed",
-            "flex",
+            "flex flex-wrap",
             gap,
           )}
           name={PRETEND_NAVBAR_PORTAL_NAME}
@@ -61,8 +61,12 @@ function FarAwaySlots_PretendMain() {
         <Button>action from main</Button>
       </InPortalPretendNavbar>
       <TabProvider defaultSelectedId={`${tabId}-0`}>
-        <div className="ak-layer ak-layer-darken-3 ak-frame ak-frame-card/0 flex flex-col">
-          <TabList aria-label="Main tabs" render={<ButtonGroup />}>
+        <div className="ak-frame ak-frame-cover ak-frame-end ak-frame-p-2 flex min-w-0 flex-col gap-2">
+          <TabList
+            aria-label="Main tabs"
+            render={<ButtonGroup />}
+            className="self-start"
+          >
             {Array.from({ length: tabsAmmount }).map((_, i) => (
               <Tab
                 key={`tab-${i}`}
@@ -97,10 +101,11 @@ function FarAwaySlots_PretendTab({ id }: { id: string }) {
         <Button>{`action from tab ${id}`}</Button>
       </InPortalPretendNavbar>
       <TabProvider defaultSelectedId={`${subTabId}-0`}>
-        <div className="ak-layer ak-layer-4 ak-frame ak-frame-card/0">
+        <div className="ak-layer ak-layer-darken-3 ak-frame ak-frame-field/2 ak-frame-bordering">
           <TabList
             aria-label={`Subtabs for tab ${id}`}
             render={<ButtonGroup />}
+            className="ak-frame ak-frame-cover ak-frame-start"
           >
             {Array.from({ length: subTabsAmmount }).map((_, i) => (
               <Tab
@@ -113,7 +118,7 @@ function FarAwaySlots_PretendTab({ id }: { id: string }) {
               </Tab>
             ))}
           </TabList>
-          <div className="flex flex-col p-2">
+          <div className="flex flex-col pt-2">
             <span>tab: {id}</span>
 
             {Array.from({ length: subTabsAmmount }).map((_, i) => (
@@ -144,7 +149,7 @@ function FarAwaySlots_PretendSubTab({ id }: { id: string }) {
 
 export const PortalShowcase_FarAwaySlots = () => {
   return (
-    <div className="w-full">
+    <div className="ak-layer ak-layer-lighten-3 ak-frame ak-frame-card/2 ak-frame-ring ak-edge-10 flex w-full min-w-0 flex-col gap-2">
       <FarAwaySlots_PretendNavBar />
       <FarAwaySlots_PretendMain />
     </div>
@@ -160,7 +165,7 @@ function PortalShowcase_Multiplexer_content() {
 
   return (
     <>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Button onClick={increment}>+1</Button>
         <Button
           aria-pressed={portalDestination === "out-1"}

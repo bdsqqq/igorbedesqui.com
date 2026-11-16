@@ -9,7 +9,7 @@ if (!process.env.MIGRATION_BASE_URL)
 
 export default defineConfig({
   testDir: ".",
-  testMatch: "ariakit-migration.spec.mjs",
+  testMatch: ["ariakit-migration.spec.mjs", "ariakit-followup.spec.mjs"],
   fullyParallel: false,
   workers: 1,
   retries: 0,

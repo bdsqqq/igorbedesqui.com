@@ -10,8 +10,11 @@ function ScrollArea({
   return (
     <div
       tabIndex={0}
-      className={cn("relative overflow-auto [scrollbar-width:thin]", className)}
-      style={{ scrollbarColor: "var(--gray-09) transparent", ...style }}
+      className={cn(
+        "relative overflow-auto [scrollbar-width:thin] focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2",
+        className,
+      )}
+      style={{ scrollbarColor: "var(--ak-edge) transparent", ...style }}
       {...props}
     >
       {children}

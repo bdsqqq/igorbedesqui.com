@@ -73,14 +73,14 @@ const variantsPlaceholder = replaceLeafValuesWithDots(
 
 function Permutations() {
   return (
-    <div className="flex items-center gap-6">
-      <div className="max-w-sm">
+    <div className="flex min-w-0 flex-wrap items-center gap-6">
+      <div className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/2 ak-frame-bordering min-w-0 max-w-sm overflow-x-auto">
         <pre className="">{JSON.stringify(variantsPlaceholder, null, 2)}</pre>
       </div>
       <div className="h-4 w-4 text-base">
         <ArrowRightIcon />
       </div>
-      <div className="">
+      <div className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/2 ak-frame-bordering min-w-0 max-w-full overflow-x-auto">
         <pre>{JSON.stringify(permutations, null, 2)}</pre>
       </div>
       <div className="h-4 w-4 text-base">
@@ -104,13 +104,13 @@ function Permutations() {
 
 function BorderExamples() {
   return (
-    <div className="flex items-center justify-center gap-6">
+    <div className="flex flex-wrap items-center justify-center gap-6">
       <Border>
         <div className="ak-layer ak-layer-8 ak-frame ak-frame-card/0 h-44 w-44 bg-gradient-to-l from-(--ak-edge) to-(--ak-layer)" />
       </Border>
       <Border asWrapper className="max-w-sm">
         <video
-          className=""
+          className="ak-frame ak-frame-cover ak-frame-start ak-frame-end"
           autoPlay={false}
           controls={true}
           loop={true}
@@ -122,7 +122,7 @@ function BorderExamples() {
       </Border>
       <Border asWrapper>
         <Image
-          className="ak-frame ak-frame-card/0 w-full"
+          className="ak-frame ak-frame-cover ak-frame-start ak-frame-end w-full"
           alt=""
           src={manual_2}
         />
@@ -147,7 +147,7 @@ function PlayIndexPage() {
           <BorderExamples />
         </Band>
         <Band headline={{ bold: "03", thin: "Composition" }}>
-          <div className="flex items-center justify-center gap-8">
+          <div className="flex w-full flex-wrap items-center justify-center gap-8">
             <Stage>
               <Button aria-pressed={walled} onClick={toggleWalled}>
                 Toggle lock

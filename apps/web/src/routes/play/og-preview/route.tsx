@@ -35,7 +35,7 @@ function OgImage({ src }: { src: string }) {
     <img
       src={src}
       alt="OG image preview"
-      className="aspect-[1200/630] w-full object-cover"
+      className="ak-frame aspect-[1200/630] w-full object-cover"
     />
   );
 }
@@ -85,12 +85,12 @@ function OgPreviewPlayPage() {
             <div className="flex flex-col gap-2">
               <span className="text-sm ak-ink-80">preview (1200×630)</span>
               <div
-                className="ak-layer ak-frame ak-frame-card/0 ak-frame-border overflow-hidden transition-opacity duration-200"
+                className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0.5 ak-frame-border transition-opacity duration-200"
                 style={{ opacity: isStale ? 0.7 : 1 }}
               >
                 <Suspense
                   fallback={
-                    <div className="ak-layer ak-layer-6 aspect-[1200/630] w-full animate-pulse" />
+                    <div className="ak-layer ak-layer-6 ak-frame aspect-[1200/630] w-full animate-pulse" />
                   }
                 >
                   <OgImage src={ogUrl} />

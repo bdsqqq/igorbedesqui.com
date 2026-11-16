@@ -1,26 +1,29 @@
+import { ContentList, contentListRow } from "@/components/ContentList";
+import { cn } from "@/lib/styling";
+
 type ProjectsProps = {
   projectsMeta: Meta[];
 };
 function Projects({ projectsMeta }: ProjectsProps) {
   return (
-    <ul className="pointer-events-none flex w-full flex-col flex-wrap items-start justify-start hover:ak-ink-70 md:grid md:grid-cols-2 md:gap-x-6 [&_>_a]:hover:opacity-40">
-      {projectsMeta.map((project, i) => {
-        return (
+    <ContentList className="-mx-2.5 w-[calc(100%+1.25rem)] hover:[&>li>a]:opacity-40 focus-within:[&>li>a]:opacity-40 md:grid md:grid-cols-2 md:gap-x-6 [&>li:first-child>a]:pt-0 [&>li:last-child>a]:pb-0 md:[&>li:nth-child(2)>a]:pt-0 md:[&>li:nth-last-child(2):nth-child(odd)>a]:pb-0">
+      {projectsMeta.map((project) => (
+        <li key={project.name}>
           <UnstyledLink
-            className="pointer-events-auto w-full py-8 duration-moderate-01 ease-productive-standard first:pt-0 last:pb-0 hover:ak-ink-100! hover:!opacity-100 motion-safe:transition-all md:py-6 md:[&:nth-child(2)]:pt-0 md:[&:nth-last-child(2)_:nth-child(odd)]:pb-0"
+            className={cn(
+              contentListRow,
+              "py-8 hover:opacity-100! focus:opacity-100! md:py-6",
+            )}
             href={`/work/${project.urlSlug}`}
-            key={project.name}
           >
-            <li>
-              <h3 className="text-xl font-semibold tracking-tighter">
-                {project.name}
-              </h3>
-              <p>{project.description}</p>
-            </li>
+            <h3 className="text-xl font-semibold tracking-tighter">
+              {project.name}
+            </h3>
+            <p>{project.description}</p>
           </UnstyledLink>
-        );
-      })}
-    </ul>
+        </li>
+      ))}
+    </ContentList>
   );
 }
 

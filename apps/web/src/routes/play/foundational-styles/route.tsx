@@ -58,7 +58,7 @@ function SectionHeading({
     <header
       className={cn(
         foundationGrid,
-        "col-span-full gap-y-3 border-t border-gray-A04 pt-4",
+        "col-span-full gap-y-3 border-t border-(--ak-edge) pt-4",
       )}
     >
       <p className="col-span-full font-mono text-xs ak-ink-60 md:col-span-2 lg:col-span-4">
@@ -88,7 +88,7 @@ function PatternEntry({
       className={cn(
         showcaseColumns,
         patternGrid,
-        "gap-y-6 border-t border-gray-A04 pt-4",
+        "gap-y-6 border-t border-(--ak-edge) pt-4",
       )}
     >
       <div className="col-span-full md:col-span-2 lg:col-span-4">
@@ -103,7 +103,7 @@ function PatternEntry({
   );
 }
 
-export function FoundationalStylesPage() {
+function FoundationalStylesPage() {
   return (
     <Container>
       <Band gridless id="foundational-styles">
@@ -189,7 +189,7 @@ export function FoundationalStylesPage() {
               {typeScale.map((type) => (
                 <div
                   key={type.name}
-                  className="grid min-h-20 items-center gap-4 border-b border-gray-A04 px-4 py-5 last:border-b-0 md:grid-cols-3 md:px-6"
+                  className="grid min-h-20 items-center gap-4 border-b border-(--ak-edge) px-4 py-5 last:border-b-0 md:grid-cols-3 md:px-6"
                 >
                   <p className="font-mono text-xs ak-ink-60">
                     text-{type.name} · {type.size} / {type.lineHeight}
@@ -295,7 +295,7 @@ export function FoundationalStylesPage() {
               {spacing.map((space) => (
                 <div
                   key={space.name}
-                  className="grid min-h-14 grid-cols-[4rem_1fr_3rem] items-center gap-4 border-b border-gray-A04 px-4 py-3 last:border-b-0 md:grid-cols-[8rem_1fr_5rem] md:px-6"
+                  className="grid min-h-14 grid-cols-[4rem_1fr_3rem] items-center gap-4 border-b border-(--ak-edge) px-4 py-3 last:border-b-0 md:grid-cols-[8rem_1fr_5rem] md:px-6"
                 >
                   <p className="font-mono text-xs ak-ink-70">
                     space-{space.name}
@@ -321,7 +321,7 @@ export function FoundationalStylesPage() {
               ].map((example) => (
                 <article
                   key={example.label}
-                  className="flex min-h-72 flex-col ak-layer ak-frame ak-frame-card/0 ak-frame-border ak-frame-p-5"
+                  className="flex min-h-72 flex-col ak-layer ak-frame ak-frame-card/5 ak-frame-border"
                 >
                   <div
                     className="flex min-h-48 flex-col justify-center"
@@ -394,7 +394,7 @@ function SiteLanguageSection() {
         title="Contrast carries meaning"
         description="Weight is rarely enough on its own. High, normal, and low contrast let a paragraph expose its essential reading path."
       >
-        <div className="flex min-h-56 items-center ak-layer ak-frame ak-frame-card/0 ak-frame-border ak-frame-p-6">
+        <div className="flex min-h-56 items-center ak-layer ak-frame ak-frame-card/6 ak-frame-border">
           <p className="text-xl leading-relaxed ak-ink-80">
             <strong className="font-normal ak-ink-100">
               Start with the thought that must survive a skim.
@@ -413,7 +413,7 @@ function SiteLanguageSection() {
         title="Disclosure is part of the voice"
         description="Blurred asides hold doubt, jokes, and extra honesty. Hover or focus turns a private aside into an optional second reading."
       >
-        <div className="flex min-h-48 items-center ak-layer ak-frame ak-frame-card/0 ak-frame-border ak-frame-p-6 text-lg leading-relaxed">
+        <div className="flex min-h-48 items-center ak-layer ak-frame ak-frame-card/6 ak-frame-border text-lg leading-relaxed">
           <p>
             The direct version stays readable.{" "}
             <Blur>
@@ -441,7 +441,7 @@ function SiteLanguageSection() {
             <li
               key={name}
               tabIndex={0}
-              className="group pointer-events-auto py-3 transition-colors duration-fast-02 ease-productive-standard hover:ak-ink-100 focus:ak-ink-100 focus:outline-none"
+              className="group pointer-events-auto border-b border-(--ak-edge) py-3 last:border-b-0 transition-colors duration-fast-02 ease-productive-standard hover:ak-ink-100 focus:ak-ink-100 focus:outline-none"
             >
               <p>
                 <strong className="font-bold">{name}</strong>{" "}
@@ -486,8 +486,8 @@ function SiteLanguageSection() {
               </p>
             </div>
           </div>
-          <figure className="ak-layer ak-layer-3 flex flex-col p-4">
-            <div className="min-h-28 flex-1 ak-layer ak-frame ak-frame-card/0 ak-frame-border ak-layer-darken-3" />
+          <figure className="ak-layer ak-layer-3 ak-frame ak-frame-card/4 flex flex-col">
+            <div className="min-h-28 flex-1 ak-layer ak-frame ak-frame-field/0 ak-frame-border ak-layer-darken-3" />
             <figcaption className="mt-2 text-end text-sm italic tracking-wide ak-ink-70">
               The detail should reward a closer look.
             </figcaption>
@@ -500,11 +500,11 @@ function SiteLanguageSection() {
         title="Links declare their destination"
         description="Links stay inside the sentence and share a quiet underline. Internal navigation can carry a directional cue; external destinations receive the northeast arrow."
       >
-        <div className="flex min-h-48 flex-col justify-center gap-5 ak-layer ak-frame ak-frame-card/0 ak-frame-border ak-frame-p-6 text-lg">
+        <div className="flex min-h-48 flex-col justify-center gap-5 ak-layer ak-frame ak-frame-card/6 ak-frame-border text-lg">
           <p>
             Read more about the{" "}
             <a
-              className="underline decoration-gray-A08 underline-offset-2"
+              className="underline decoration-current/50 underline-offset-2"
               href="/writing/schrodinger-minimalism"
             >
               writing system
@@ -547,7 +547,7 @@ function SiteLanguageSection() {
         title="The grid permits asymmetry"
         description="Four, eight, then sixteen columns provide the shared skeleton. Content can narrow, offset, bleed, or leave a column empty while remaining visibly related."
       >
-        <div className="overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border ak-frame-p-4">
+        <div className="overflow-hidden ak-layer ak-frame ak-frame-card/4 ak-frame-border">
           <div className={cn(foundationGrid, "min-h-48 gap-y-2")}>
             {Array.from({ length: 16 }, (_, index) => (
               <div

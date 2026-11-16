@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <div className="relative z-aboveVignette w-full px-8 md:px-16">
-      <div className="mx-auto w-full md:max-w-7xl">
+      <div className="ak-frame ak-frame-force ak-frame-rounded-none mx-auto w-full md:max-w-7xl">
         <div
           className="col-span-16 h-px w-full"
           style={{
@@ -16,7 +16,7 @@ const Footer = () => {
               md: 8,
               sm: 4,
             })(),
-            "py-8",
+            "ak-frame ak-frame-cover ak-frame-end py-8",
           )}
         >
           {/* <div className="grid grid-cols-2 gap-y-8 gap-x-2 md:grid-cols-3 lg:grid-cols-4"> */}
