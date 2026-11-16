@@ -52,7 +52,7 @@ function HeroBand({
                   <source src={heroVideo.mp4} type="video/mp4" />
                 </video>
               )}
-              <div className="bg-gray-01 absolute top-0 h-full w-full opacity-75" />
+              <div className="bg-canvas absolute top-0 h-full w-full opacity-75" />
             </div>
           </div>
         )}

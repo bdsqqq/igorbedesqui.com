@@ -1,6 +1,7 @@
 "use client";
 
 import Band, { BandProps } from "../Band";
+import { Focusable } from "@ariakit/react";
 
 export function ProjectLayout({
   children,
@@ -51,8 +52,8 @@ export function ProjectLayout({
           {nextProjMeta && (
             <>
               <div className="col-span-4 mt-12">
-                <span className="text-gray-09 font-bold">Next project</span>
-                <span className="flex items-center gap-0.5 text-gray-11">
+                <span className="ak-ink-60 font-bold">Next project</span>
+                <span className="flex items-center gap-0.5 ak-ink-85">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
                     {nextProjMeta.name}
                   </StyledLink>
@@ -73,17 +74,17 @@ export function ProjectLayout({
               isFaded ? "opacity-40" : "opacity-100",
             )}
           >
-            <div tabIndex={0} className={"flex md:flex-col md:gap-6"}>
+            <Focusable className={"flex md:flex-col md:gap-6"}>
               <SidebarContent projMeta={projMeta} />
-            </div>
+            </Focusable>
           </aside>
           {nextProjMeta && (
             <>
               <div className="col-span-4">
                 <Separator className="mb-12 w-11" />
 
-                <span className="text-gray-09 font-bold">Next project</span>
-                <span className="flex items-center gap-0.5 text-gray-11">
+                <span className="ak-ink-60 font-bold">Next project</span>
+                <span className="flex items-center gap-0.5 ak-ink-85">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
                     {nextProjMeta.name}
                   </StyledLink>
@@ -101,7 +102,7 @@ export const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
   return (
     <>
       <div className="col-span-2">
-        <p className="text-gray-09 font-bold">Type of work</p>
+        <p className="ak-ink-60 font-bold">Type of work</p>
         <ul>
           {projMeta.roles.map((role, i) => {
             return (
@@ -115,12 +116,12 @@ export const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
       </div>
 
       <div className="col-span-2">
-        <span className="text-gray-09 font-bold">Project type</span>
+        <span className="ak-ink-60 font-bold">Project type</span>
         <p>{projMeta.type}</p>
       </div>
 
       <div className="col-span-2">
-        <p className="text-gray-09 font-bold">Tools</p>
+        <p className="ak-ink-60 font-bold">Tools</p>
         <ul>
           {projMeta.tools.map((tool, i) => {
             return (
@@ -133,7 +134,7 @@ export const SidebarContent = ({ projMeta }: { projMeta: Meta }) => {
         </ul>
       </div>
       <div className="col-span-2">
-        <span className="text-gray-09 font-bold">Date</span>
+        <span className="ak-ink-60 font-bold">Date</span>
         <p>{projMeta.date}</p>
       </div>
     </>

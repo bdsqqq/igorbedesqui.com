@@ -38,9 +38,7 @@ function IbmWorkPage() {
             <div className="col-span-5 text-xl lg:col-span-9">
               <MDX
                 components={{
-                  strong: (props) => (
-                    <span className="text-gray-12" {...props} />
-                  ),
+                  strong: (props) => <span className="ak-ink-100" {...props} />,
                 }}
               >
                 {`
@@ -55,7 +53,7 @@ function IbmWorkPage() {
             className={cn(
               grid({ mode: "narrow" }),
               "gap-y-8 ",
-              //"hover:text-gray-10 focus-within:text-gray-10"
+              //"hover:ak-ink-70 focus-within:ak-ink-70"
             )}
           >
             <li className="col-span-4 cursor-text lg:col-span-8">
@@ -89,7 +87,7 @@ function IbmWorkPage() {
                     <h2 className="font-semibold">{children}</h2>
                   ),
                   ol: ({ children }) => (
-                    <ol className="list-outside list-decimal space-y-2 marker:text-gray-08">
+                    <ol className="list-outside list-decimal space-y-2 marker:ak-ink-50">
                       {children}
                     </ol>
                   ),
@@ -113,13 +111,11 @@ function IbmWorkPage() {
               <MDX
                 components={{
                   ol: ({ children }) => (
-                    <ol className="list-outside list-decimal space-y-2 marker:text-gray-08">
+                    <ol className="list-outside list-decimal space-y-2 marker:ak-ink-50">
                       {children}
                     </ol>
                   ),
-                  strong: (props) => (
-                    <span className="text-gray-12" {...props} />
-                  ),
+                  strong: (props) => <span className="ak-ink-100" {...props} />,
                 }}
               >
                 {`
@@ -135,7 +131,7 @@ function IbmWorkPage() {
                 components={{
                   Blur: Blur,
                   strong: ({ children }) => (
-                    <span className="text-gray-08 transition-colors duration-moderate-02 ease-productive-standard group-hover/blur:text-gray-12 group-focus/blur:text-gray-12">
+                    <span className="ak-ink-50 transition-colors duration-moderate-02 ease-productive-standard group-hover/blur:ak-ink-100 group-focus/blur:ak-ink-100">
                       {children}
                     </span>
                   ),

@@ -7,6 +7,8 @@ import React, {
   useState,
 } from "react";
 import {
+  FormInput,
+  useFormStore,
   Combobox,
   ComboboxItem,
   ComboboxPopover,
@@ -85,6 +87,12 @@ const defaultValues = {
 };
 
 function Scales() {
+  const form = useFormStore({
+    defaultValues: {
+      "Fundamental frequency (f0)": String(defaultValues.f0),
+      "Scale Length": String(defaultValues.scaleLength),
+    },
+  });
   const [ratio, setRatio] = useState(parseFloat(defaultValues.ratio));
   const [scaleLength, setScaleLength] = useState(defaultValues.scaleLength);
   const [f0, setF0] = useState(defaultValues.f0);
@@ -145,6 +153,7 @@ function Scales() {
     defaultValue: "1",
   });
   const comboboxValue = useStoreState(comboboxStore, "value");
+  const comboboxPlacement = useStoreState(comboboxStore, "currentPlacement");
 
   const [filteredPreDefinedScales, setFilteredPreDefinedScales] =
     useState(preDefinedScales);
@@ -214,6 +223,7 @@ function Scales() {
                 ref={refs.ratio}
                 id={Object.keys(defaultValues)[0]}
                 name="Ratio"
+                aria-label="Ratio"
                 autoComplete="list"
                 autoSelect
                 store={comboboxStore}
@@ -222,11 +232,15 @@ function Scales() {
               {filteredPreDefinedScales.length > 0 && (
                 <ComboboxPopover
                   store={comboboxStore}
+                  data-placement={comboboxPlacement}
+                  style={{
+                    transformOrigin: `var(--popover-transform-origin, ${comboboxPlacement.startsWith("top") ? "bottom left" : "top left"})`,
+                  }}
                   gutter={4}
                   sameWidth={false}
                   fitViewport
                   className={cn(
-                    "bg-gray-02 border-gray-07 z-10 transform rounded-sm border text-gray-12 shadow-sm transition-all duration-fast-02",
+                    "ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/1 ak-frame-bordering z-10 transform shadow-sm transition-all duration-fast-02",
                     "data-[placement=bottom-start]:origin-top-left",
                     "data-[placement=top-start]:origin-bottom",
                     "data-[enter]:ease-productive-enter data-[enter]:opacity-100",
@@ -239,7 +253,7 @@ function Scales() {
                   {filteredPreDefinedScales.map((scale) => (
                     <ComboboxItem
                       key={`${scale.name}_ComboboxItem`}
-                      className="hover:bg-gray-04 focus:bg-gray-04 aria-selected:bg-gray-05 cursor-pointer rounded-sm border-none px-3 py-1 duration-fast-01 ease-productive-standard motion-safe:transition-colors"
+                      className="ak-layer ak-layer-transparent ak-frame ak-frame-field/1 hover:ak-state-6 data-active-item:ak-state-6 aria-selected:ak-state-10 cursor-pointer px-3 duration-fast-01 ease-productive-standard motion-safe:transition-colors"
                       value={scale.value}
                     >
                       {scale.name}
@@ -250,7 +264,8 @@ function Scales() {
             </>
           }
           f0={
-            <input
+            <FormInput
+              store={form}
               className={inputVariants()}
               style={{
                 width: `calc(${refs.f0?.current?.value.length || 1}ch + 0.5rem)`,
@@ -258,8 +273,8 @@ function Scales() {
               ref={refs.f0}
               id={Object.keys(defaultValues)[2]}
               name="Fundamental frequency (f0)"
+              aria-label="Fundamental frequency (f0)"
               inputMode="numeric"
-              defaultValue={defaultValues.f0}
               placeholder="1"
               onChange={(event) => {
                 handleInputChange(event, defaultValues.f0, setF0);
@@ -267,7 +282,8 @@ function Scales() {
             />
           }
           scaleLength={
-            <input
+            <FormInput
+              store={form}
               className={inputVariants({ size: "sm" })}
               style={{
                 width: `calc(${refs.scaleLength?.current?.value.length || 1}ch + 0.5rem)`,
@@ -275,8 +291,8 @@ function Scales() {
               ref={refs.scaleLength}
               id={Object.keys(defaultValues)[1]}
               name="Scale Length"
+              aria-label="Scale length"
               inputMode="numeric"
-              defaultValue={defaultValues.scaleLength}
               placeholder="14"
               maxLength={2}
               onChange={(event) => {
@@ -353,7 +369,7 @@ function Scales() {
 }
 
 const inputVariants = cva(
-  "relative focus-within:z-10 p-1 bg-gray-03 text-gray-12 text-center border-none rounded-sm outline outline-1 outline-transparent hover:bg-gray-04 focus:gray-05 focus:outline-gray-08 !ring-0 !ring-offset-0 focus-v motion-safe:transition-colors duration-fast-01 ease-productive-standard",
+  "relative ak-layer ak-layer-lighten-6 ak-frame ak-frame-field/1 ak-frame-ring ak-edge-contrast text-center hover:ak-state-6 focus:ak-state-6 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-within:z-10 motion-safe:transition-colors duration-fast-01 ease-productive-standard",
   {
     variants: {
       size: {

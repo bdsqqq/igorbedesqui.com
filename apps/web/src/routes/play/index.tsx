@@ -47,11 +47,10 @@ const cvaConfig = {
     },
     intent: {
       primary: [
-        "border-gray-A04",
-        "shadow-gray-A03",
-        "from-gray-A02 to-gray-A04",
-        "hover:border-gray-A08",
-        "focus-visible:border-gray-A08",
+        "ak-layer-6",
+        "ak-edge-contrast",
+        "hover:ak-state-6",
+        "focus-visible:ak-outline focus-visible:outline-2",
       ],
     },
   },
@@ -60,13 +59,10 @@ const cvaConfig = {
 const [, permutations] = CVAWithPerms(
   cn(
     "select-none appearance-none",
-    "relative rounded-sm px-2 py-1 inline-flex items-center gap-2 align-middle outline-none focus-within:outline-none",
+    "relative ak-layer ak-frame ak-frame-field/1 px-2 inline-flex items-center gap-2 align-middle",
     "motion-safe:duration-fast-01 motion-safe:ease-expressive-standard transition-all",
-    "border",
-    "shadow-input ",
-    "bg-gradient-to-tr",
+    "ak-frame-border",
     "active:scale-95",
-    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-00/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard",
   ),
   cvaConfig,
 );
@@ -110,9 +106,9 @@ function BorderExamples() {
   return (
     <div className="flex items-center justify-center gap-6">
       <Border>
-        <div className="h-44 w-44 bg-gradient-to-l from-gray-A07 to-gray-A04" />
+        <div className="ak-layer ak-layer-8 ak-frame ak-frame-card/0 h-44 w-44 bg-gradient-to-l from-(--ak-edge) to-(--ak-layer)" />
       </Border>
-      <Border asWrapper className="max-w-sm rounded">
+      <Border asWrapper className="max-w-sm">
         <video
           className=""
           autoPlay={false}
@@ -124,8 +120,12 @@ function BorderExamples() {
           <source src={reading_progress_mp4} type="video/mp4" />
         </video>
       </Border>
-      <Border asWrapper className="rounded">
-        <Image className="w-full rounded" alt="" src={manual_2} />
+      <Border asWrapper>
+        <Image
+          className="ak-frame ak-frame-card/0 w-full"
+          alt=""
+          src={manual_2}
+        />
       </Border>
     </div>
   );
@@ -149,7 +149,9 @@ function PlayIndexPage() {
         <Band headline={{ bold: "03", thin: "Composition" }}>
           <div className="flex items-center justify-center gap-8">
             <Stage>
-              <Button onClick={toggleWalled}>Toggle lock</Button>
+              <Button aria-pressed={walled} onClick={toggleWalled}>
+                Toggle lock
+              </Button>
             </Stage>
             <Stage title={`${!walled ? "unlocked" : "locked"}`}>
               <Lock

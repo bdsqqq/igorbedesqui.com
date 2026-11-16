@@ -52,7 +52,7 @@ function IssWorkPage() {
         <span>
           Where’s the{" "}
           <Tooltip content="International Space Station">
-            <strong className="text-gray-12">ISS</strong>
+            <strong className="ak-ink-100">ISS</strong>
           </Tooltip>
           ?
         </span>
@@ -83,7 +83,7 @@ function IssWorkPage() {
                 <h4 className="mb-4 text-xl font-bold">{children}</h4>
               ),
               del: ({ children }) => (
-                <del className="text-gray-08">{children}</del>
+                <del className="ak-ink-50">{children}</del>
               ),
             }}
           >
@@ -117,13 +117,13 @@ function IssWorkPage() {
           <div className="my-2 grid grid-cols-2 gap-2">
             <figure className="col-start-1">
               <Image
-                className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
+                className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-border relative z-[31] overflow-hidden"
                 objectFit="contain"
                 src={iss_blur}
                 alt=""
               />
               <figcaption>
-                <span className="mt-1 inline-block text-center text-sm italic tracking-wide text-gray-10">
+                <span className="mt-1 inline-block text-center text-sm italic tracking-wide ak-ink-70">
                   <MDX>
                     {`The UI in browsers that support filter properties blurs elements behind it.`}
                   </MDX>
@@ -132,14 +132,14 @@ function IssWorkPage() {
             </figure>
             <figure className="col-start-2">
               <Image
-                className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
+                className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-border relative z-[31] overflow-hidden"
                 objectFit="contain"
                 src={iss_no_blur}
                 alt=""
               />
 
               <figcaption>
-                <span className="mt-1 inline-block text-center text-sm italic tracking-wide text-gray-10">
+                <span className="mt-1 inline-block text-center text-sm italic tracking-wide ak-ink-70">
                   <MDX>
                     {`While the UI in browsers that don’t support filters, fallbacks into a solid color.`}
                   </MDX>
@@ -154,7 +154,7 @@ function IssWorkPage() {
         <ProjectBand headline={{ bold: "03", thin: "Result" }}>
           <figure className="mb-4">
             <Image
-              className="border-gray-03 relative z-[31] overflow-hidden rounded-sm border"
+              className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-border relative z-[31] overflow-hidden"
               objectFit="contain"
               src={iss_full}
               alt="Website screenshot"

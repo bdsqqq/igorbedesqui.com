@@ -70,9 +70,7 @@ function BebopWorkPage() {
 
       <ProjectLayout projMeta={bebopMeta} nextProjMeta={nextFromBebop}>
         <ProjectBand options={{ padding: "none" }} gridless id="update">
-          <h2 className="mb-2 text-xl font-bold uppercase text-gray-11">
-            Update
-          </h2>
+          <h2 className="mb-2 text-xl font-bold uppercase ak-ink-85">Update</h2>
           <MDX>
             {`
               On november 2nd 2021 I got a notification on my discord with the amazing news that this project had won the competition with the majority of votes. Now, I bask in the glory!! [I'll leave the screenshot of the announcement here because I'm very proud of this](https://raw.githubusercontent.com/bdsqqq/bebop-webjam/main/docs/img/winner.jpg).
@@ -134,14 +132,14 @@ function BebopWorkPage() {
           <div className="my-1 grid min-h-0 grid-cols-4 items-center gap-2">
             <div className="col-start-1 col-end-2">
               <Image
-                className="border-gray-03 relative z-31 overflow-hidden rounded-sm border"
+                className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-border relative z-31 overflow-hidden"
                 src={smartphoneScreenshot}
                 alt=""
               />
             </div>
             <div className="col-start-2 col-end-5">
               <Image
-                className="border-gray-03 relative z-31 overflow-hidden rounded-sm border"
+                className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-border relative z-31 overflow-hidden"
                 src={desktopScreenshot}
                 alt=""
               />

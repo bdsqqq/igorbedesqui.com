@@ -7,7 +7,8 @@ import framernoiseBg from "./-framernoise.png?inline";
 
 function dataUrlBuffer(dataUrl: string): ArrayBuffer {
   const base64 = dataUrl.slice(dataUrl.indexOf(",") + 1);
-  return Uint8Array.from(atob(base64), (character) => character.charCodeAt(0)).buffer;
+  return Uint8Array.from(atob(base64), (character) => character.charCodeAt(0))
+    .buffer;
 }
 
 const fontData = dataUrlBuffer(regularFontDataUrl);

@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   useTooltipContext,
   Portal,
+  Focusable,
 } from "@ariakit/react";
 import { Image } from "@/components/ui/Image";
 import type { StaticImageData } from "@/lib/static-image";
@@ -124,13 +125,14 @@ export const CursorWithAttachedElementTrigger = ({
 }) => {
   // don't need to track hover state here, can subscribe in the element that appears
   // to avoid re-rendering the trigger
-  const ref = React.useRef<HTMLDivElement>(null!); // TODO: probably wanna compose ref when I start using children here
+  const ref = React.useRef<HTMLDivElement>(null!);
   const store = useContext(CursorWithAttachedElementStoreContext);
   const setIsHovering = useStore(store, (state) => state.setIsHovering);
   const tooltipStore = useTooltipContext();
+  const cursorStore = useContext(CursorPositionStoreContext);
 
   return (
-    <div
+    <Focusable
       ref={ref}
       onPointerLeave={() => {
         console.log("leave");
@@ -145,10 +147,20 @@ export const CursorWithAttachedElementTrigger = ({
         setIsHovering(true);
         tooltipStore?.setOpen(true);
       }}
-      className="cursor-alias"
+      onFocus={() => {
+        const rect = ref.current.getBoundingClientRect();
+        cursorStore.getState().updatePos(rect.right, rect.top);
+        setIsHovering(true);
+        tooltipStore?.setOpen(true);
+      }}
+      onBlur={() => {
+        setIsHovering(false);
+        tooltipStore?.setOpen(false);
+      }}
+      className="ak-frame ak-frame-field/1 cursor-alias focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2"
     >
       {children}
-    </div>
+    </Focusable>
   );
 };
 
@@ -230,9 +242,9 @@ export const AnimatedElements = ({
         <motion.div
           key={`${item.key}-${i}`}
           {...animationFns[animation](i, duration)}
-          className="shadow row-start-1 row-end-1 col-start-1 col-end-1 rounded-sm"
+          className="ak-frame ak-frame-card/0 shadow row-start-1 row-end-1 col-start-1 col-end-1"
         >
-          <div className="w-36 bg-gray-A04 ring-1 ring-gray-A05 rounded-inherit overflow-hidden">
+          <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/0 ak-frame-ring w-36 overflow-hidden">
             {item.type === "image" ? (
               <Image
                 src={item.src}

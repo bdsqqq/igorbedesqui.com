@@ -8,9 +8,9 @@ import {
   TooltipAnchor,
   TooltipProvider,
   TooltipArrow,
-  Role,
+  useTooltipStore,
+  useStoreState,
 } from "@ariakit/react";
-import { cloneElement } from "react";
 
 interface Tooltip {
   children: React.ReactElement;
@@ -21,20 +21,26 @@ interface Tooltip {
 }
 
 function Tooltip({ children, content, options }: Tooltip) {
+  const store = useTooltipStore({
+    placement: options?.side ?? "top",
+    showTimeout: 200,
+  });
+  const placement = useStoreState(store, "currentPlacement");
   return (
-    <TooltipProvider placement={options?.side ?? "top"} showTimeout={200}>
-      <TooltipAnchor render={(props) => cloneElement(children, props)} />
+    <TooltipProvider store={store}>
+      <TooltipAnchor render={children} />
       <AriaKitTooltip
+        portal
         gutter={0}
         className={tooltipVariants({
           bg: options?.bg,
           maxW: options?.maxW,
           size: options?.size,
         })}
-        data-dir={options?.side || "top"}
+        data-side={placement.split("-")[0]}
       >
         {content}
-        <TooltipArrow className=" stroke-gray-07 drop-shadow-sm filter" />
+        <TooltipArrow className="stroke-(--ak-edge) drop-shadow-sm" />
       </AriaKitTooltip>
     </TooltipProvider>
   );
@@ -42,23 +48,21 @@ function Tooltip({ children, content, options }: Tooltip) {
 
 const tooltipVariants = cva(
   [
-    "shadow-sm border border-gray-07 rounded-sm transform motion-safe:transition-all duration-fast-02",
-    "data-[dir=top]:origin-bottom",
-    "data-[dir=bottom]:origin-top",
-    "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-enter",
+    "ak-layer ak-frame ak-frame-field ak-frame-border ak-edge-20 shadow-sm transform origin-(--popover-transform-origin) motion-safe:transition-[opacity,transform] duration-fast-02",
+    "data-[enter]:opacity-100 data-[enter]:translate-y-0 data-[enter]:scale-100 data-[enter]:ease-productive-entrance",
     "data-[leave]:opacity-0 data-[leave]:scale-0 data-[leave]:ease-productive-exit",
-    "data-[dir=top]:data-[leave]:translate-y-1",
-    "data-[dir=bottom]:data-[leave]:-translate-y-1",
+    "data-[side=top]:data-[leave]:translate-y-1",
+    "data-[side=bottom]:data-[leave]:-translate-y-1",
   ],
   {
     variants: {
       bg: {
-        standard: "bg-gray-01",
-        subtle: "bg-gray-00",
+        standard: "ak-layer-lighten-6",
+        subtle: "ak-layer-canvas",
       },
       size: {
-        sm: ["text-sm", "py-0.5", "px-1"],
-        md: ["text-base", "py-1", "px-2"],
+        sm: "text-sm ak-frame-p-0.5 px-1",
+        md: "text-base ak-frame-p-1 px-2",
       },
       maxW: {
         full: "max-w-full",

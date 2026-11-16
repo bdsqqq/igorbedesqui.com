@@ -1,64 +1,132 @@
 "use client";
 
 import * as React from "react";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import * as Ariakit from "@ariakit/react";
 import { cn } from "@/lib/styling";
-import { Button } from "@/components/ui/Button";
 
-const Dialog = DialogPrimitive.Root;
+const DialogModalContext = React.createContext(true);
 
-const DialogTrigger = DialogPrimitive.Trigger;
-
-const DialogPortal = DialogPrimitive.Portal;
-
-const DialogClose = DialogPrimitive.Close;
-
-function DialogOverlay({
-  className,
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & {
-  ref?: React.Ref<React.ElementRef<typeof DialogPrimitive.Overlay>>;
-}) {
+function Dialog({
+  children,
+  open,
+  defaultOpen,
+  onOpenChange,
+  modal = true,
+}: React.PropsWithChildren<{
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  modal?: boolean;
+}>) {
   return (
-    <DialogPrimitive.Overlay
-      ref={ref}
+    <Ariakit.DialogProvider
+      open={open}
+      defaultOpen={defaultOpen}
+      setOpen={onOpenChange}
+    >
+      <DialogModalContext value={modal}>{children}</DialogModalContext>
+    </Ariakit.DialogProvider>
+  );
+}
+
+function DialogTrigger({
+  asChild,
+  children,
+  ...props
+}: Ariakit.DialogDisclosureProps & { asChild?: boolean }) {
+  const store = Ariakit.useDialogContext();
+  const open = Ariakit.useStoreState(store, "open");
+  return (
+    <Ariakit.DialogDisclosure
+      data-state={open ? "open" : "closed"}
+      {...props}
+      render={
+        asChild
+          ? (React.Children.only(children) as React.ReactElement)
+          : props.render
+      }
+    >
+      {asChild ? undefined : children}
+    </Ariakit.DialogDisclosure>
+  );
+}
+
+function DialogClose({
+  asChild,
+  children,
+  ...props
+}: Ariakit.DialogDismissProps & { asChild?: boolean }) {
+  return (
+    <Ariakit.DialogDismiss
+      {...props}
+      render={
+        asChild
+          ? (React.Children.only(children) as React.ReactElement)
+          : props.render
+      }
+    >
+      {asChild ? null : children}
+    </Ariakit.DialogDismiss>
+  );
+}
+
+function DialogPortal({
+  container,
+  forceMount,
+  ...props
+}: Ariakit.PortalProps & {
+  container?: HTMLElement | null;
+  forceMount?: true;
+}) {
+  const store = Ariakit.useDialogContext();
+  const mounted = Ariakit.useStoreState(store, "mounted");
+  if (!forceMount && !mounted) return null;
+  return <Ariakit.Portal portalElement={container} {...props} />;
+}
+
+function DialogOverlay({ className, ...props }: React.ComponentProps<"div">) {
+  const store = Ariakit.useDialogContext();
+  const open = Ariakit.useStoreState(store, "open");
+  return (
+    <div
+      data-state={open ? "open" : "closed"}
       className={cn(
-        "fixed inset-0 bg-gray-00 opacity-70  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+        "fixed inset-0 z-aboveVignette bg-gray-00 opacity-70",
         className,
       )}
       {...props}
     />
   );
 }
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 function DialogContent({
   className,
   children,
-  ref,
+  surface = true,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
-  ref?: React.Ref<React.ElementRef<typeof DialogPrimitive.Content>>;
-}) {
+}: Ariakit.DialogProps & { surface?: boolean }) {
+  const modal = React.useContext(DialogModalContext);
+  const store = Ariakit.useDialogContext();
+  const open = Ariakit.useStoreState(store, "open");
   return (
-    <DialogPortal>
-      <DialogOverlay />
-      <DialogPrimitive.Content
-        ref={ref}
-        className={cn(
-          "fixed left-[50%] top-[50%] z-aboveVignette grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] bg-gray-00 p-6",
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </DialogPrimitive.Content>
-    </DialogPortal>
+    <Ariakit.Dialog
+      modal={modal}
+      backdrop={modal ? <DialogOverlay /> : false}
+      portal
+      unmountOnHide
+      data-state={open ? "open" : "closed"}
+      className={cn(
+        "fixed left-1/2 top-1/2 z-aboveVignette grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2",
+        surface &&
+          "ak-layer ak-layer-lighten-6 ak-frame ak-frame-dialog/dialog",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </Ariakit.Dialog>
   );
 }
-DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({
   className,
@@ -72,8 +140,6 @@ const DialogHeader = ({
     {...props}
   />
 );
-DialogHeader.displayName = "DialogHeader";
-
 const DialogFooter = ({
   className,
   ...props
@@ -86,18 +152,11 @@ const DialogFooter = ({
     {...props}
   />
 );
-DialogFooter.displayName = "DialogFooter";
 
-function DialogTitle({
-  className,
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> & {
-  ref?: React.Ref<React.ElementRef<typeof DialogPrimitive.Title>>;
-}) {
+function DialogTitle({ className, ...props }: Ariakit.DialogHeadingProps) {
   return (
-    <DialogPrimitive.Title
-      ref={ref}
+    <Ariakit.DialogHeading
+      render={<h2 />}
       className={cn(
         "text-lg font-semibold leading-none tracking-tight",
         className,
@@ -106,24 +165,18 @@ function DialogTitle({
     />
   );
 }
-DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
 function DialogDescription({
   className,
-  ref,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> & {
-  ref?: React.Ref<React.ElementRef<typeof DialogPrimitive.Description>>;
-}) {
+}: Ariakit.DialogDescriptionProps) {
   return (
-    <DialogPrimitive.Description
-      ref={ref}
-      className={cn("text-muted-foreground text-sm", className)}
+    <Ariakit.DialogDescription
+      className={cn("ak-ink-70 text-sm", className)}
       {...props}
     />
   );
 }
-DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export {
   Dialog,

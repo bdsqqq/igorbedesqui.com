@@ -1,23 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
 import * as Ariakit from "@ariakit/react";
+import { Button } from "@/components/ui/Button";
+
+const menuItemClass =
+  "ak-layer ak-layer-transparent ak-frame ak-frame-field/1.5 px-3 hover:ak-state-6 data-active-item:ak-state-6 disabled:ak-ink-0 cursor-default";
 
 function Example() {
   return (
     <Ariakit.MenuProvider>
-      <Ariakit.MenuButton className="button">
+      <Ariakit.MenuButton render={<Button />}>
         Actions
         <Ariakit.MenuButtonArrow />
       </Ariakit.MenuButton>
-      <Ariakit.Menu gutter={8} className="menu">
-        <Ariakit.MenuItem className="menu-item" onClick={() => alert("Edit")}>
+      <Ariakit.Menu
+        gutter={8}
+        className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/1 ak-frame-bordering min-w-40 shadow-lg"
+      >
+        <Ariakit.MenuItem
+          className={menuItemClass}
+          onClick={() => alert("Edit")}
+        >
           Edit
         </Ariakit.MenuItem>
-        <Ariakit.MenuItem className="menu-item">Share</Ariakit.MenuItem>
-        <Ariakit.MenuItem className="menu-item" disabled>
+        <Ariakit.MenuItem className={menuItemClass}>Share</Ariakit.MenuItem>
+        <Ariakit.MenuItem className={menuItemClass} disabled>
           Delete
         </Ariakit.MenuItem>
-        <Ariakit.MenuSeparator className="separator" />
-        <Ariakit.MenuItem className="menu-item">Report</Ariakit.MenuItem>
+        <Ariakit.MenuSeparator className="my-1 border-t border-current/10" />
+        <Ariakit.MenuItem className={menuItemClass}>Report</Ariakit.MenuItem>
       </Ariakit.Menu>
     </Ariakit.MenuProvider>
   );

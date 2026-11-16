@@ -24,7 +24,7 @@ const EmailLink = ({
 }) => {
   return (
     <Popover>
-      <PopoverTrigger className="inline-flex items-center gap-1 underline hover:text-gray-12 focus:text-gray-12">
+      <PopoverTrigger className="inline-flex items-center gap-1 underline underline-offset-2 ak-ink-80 hover:ak-ink-100 focus-visible:ak-ink-100 data-[state=open]:ak-ink-100 aria-expanded:ak-ink-100 focus-visible:ak-outline focus-visible:ak-outline-primary focus-visible:outline-2 focus-visible:outline-offset-2">
         {children} <EnvelopeClosedIcon />
       </PopoverTrigger>
       <PopoverContent
@@ -61,17 +61,18 @@ const EmailPopoverContent = ({ email }: { email: string }) => {
   }, [success]);
 
   return (
-    <div className="flex">
+    <div className="ak-frame ak-frame-field/0 ak-frame-row flex">
       <Tooltip
         content={
-          <span className="text-sm italic tracking-[0.2px] text-gray-11">
+          <span className="text-sm italic tracking-[0.2px] ak-ink-70">
             Copy to clipboard
           </span>
         }
         options={{ size: "sm" }}
       >
         <Button
-          className="-my-[1px] -ml-[1px] rounded-l-sm rounded-r-none"
+          className="ak-frame-cover ak-frame-start"
+          aria-label={success ? "Copied to clipboard" : "Copy email address"}
           onClick={() => {
             if (!navigator.clipboard) {
               console.log(
@@ -84,17 +85,18 @@ const EmailPopoverContent = ({ email }: { email: string }) => {
           icon={success ? <CheckIcon /> : <ClipboardCopyIcon />}
         />
       </Tooltip>
-      <span className="p-1 ">{email}</span>
+      <span className="self-center px-2 py-1">{email}</span>
       <Tooltip
         content={
-          <span className="text-sm italic tracking-[0.2px] text-gray-11">
+          <span className="text-sm italic tracking-[0.2px] ak-ink-70">
             Send an email
           </span>
         }
         options={{ size: "sm" }}
       >
         <Button
-          className="-my-[1px] -mr-[1px] rounded-l-none rounded-r-sm"
+          className="ak-frame-cover ak-frame-end"
+          aria-label="Send an email"
           icon={<PaperPlaneIcon />}
           render={<UnstyledLink href={`mailto:${email}`} />}
         />

@@ -3,6 +3,7 @@
 @import "@fontsource/ibm-plex-serif/latin-700.css";
 @import "@fontsource-variable/geist-mono";
 @import "tailwindcss";
+@import "@ariakit/tailwind";
 @import "tw-animate-css";
 @import "streamdown/styles.css";
 @source "../../../../node_modules/streamdown/dist/*.js";
@@ -24,7 +25,8 @@
 @theme {
   --color-*: initial;
 
-  --color-transparent: transparent;
+  --color-canvas: var(--gray-00);
+  --color-primary: var(--blue-A09);
   --color-current: currentColor;
   --color-white: hsl(0 0% 100%);
 
@@ -153,29 +155,21 @@
   --duration-slow-01: 400ms;
   --duration-slow-02: 700ms;
 
+  /* compact chrome stays distinct from the square, flush page grid. */
+  --radius-field: 0.125rem;
+  --spacing-field: 0.375rem;
+  --radius-card: 0.25rem;
+  --spacing-card: 1rem;
+  --radius-dialog: 0.5rem;
+  --spacing-dialog: 1.5rem;
+  --radius-badge: calc(infinity * 1px);
+  --spacing-badge: 0.25rem;
+  --spacing-px: 1px;
   --radius-inherit: inherit;
 
-  --shadow-input:
-    0px 1px 0px -1px var(--tw-shadow-color),
-    0px 1px 1px -1px var(--tw-shadow-color),
-    0px 1px 2px -1px var(--tw-shadow-color),
-    0px 2px 4px -2px var(--tw-shadow-color),
-    0px 3px 6px -3px var(--tw-shadow-color);
   --shadow-highlight:
     inset 0px 0px 0px 1px var(--tw-shadow-color),
     inset 0px 1px 0px var(--tw-shadow-color);
-  --shadow-faux-border: inset 0px 0px 0px 1px var(--tw-shadow-color);
-
-  --drop-shadow-input:
-    0px 1px 0px -1px var(--tw-shadow-color),
-    0px 1px 1px -1px var(--tw-shadow-color),
-    0px 1px 2px -1px var(--tw-shadow-color),
-    0px 2px 4px -2px var(--tw-shadow-color),
-    0px 3px 6px -3px var(--tw-shadow-color);
-  --drop-shadow-highlight:
-    inset 0px 0px 0px 1px var(--tw-shadow-color),
-    inset 0px 1px 0px var(--tw-shadow-color);
-  --drop-shadow-faux-border: inset 0px 0px 0px 1px var(--tw-shadow-color);
 
   --z-vignette: 10;
   --z-aboveVignette: 11;
@@ -199,7 +193,7 @@
   }
 
   * {
-    @apply focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--blue-A09);
+    @apply focus-visible:z-10 focus-visible:ak-outline focus-visible:ak-outline-primary focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   input,
@@ -246,6 +240,7 @@
   }
 
   :root {
+    color-scheme: dark;
     --gray-00: hsl(0 0% 4%);
 
     --gray-01: #111110;
@@ -325,6 +320,7 @@
     :root,
     .light,
     .light-theme {
+      color-scheme: light;
       --gray-00: hsl(0 0% 100%);
 
       --gray-01: #fdfdfc;

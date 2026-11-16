@@ -67,7 +67,7 @@ function TheManualWorkPage() {
       backMessage={psykipMeta.backMessage}
     >
       <HeroBand heroVideo={{ webm: cat_webm, mp4: cat_mp4 }}>
-        <span className="text-gray-12">
+        <span className="ak-ink-100">
           The best way to read the Enchiridion.
         </span>
         <div className="mt-6">
@@ -84,9 +84,7 @@ function TheManualWorkPage() {
             <div className="prose col-span-4 mb-8 mt-16 space-y-4 lg:col-span-8 lg:col-start-2">
               <MDX
                 components={{
-                  strong: (props) => (
-                    <span className="text-gray-12" {...props} />
-                  ),
+                  strong: (props) => <span className="ak-ink-100" {...props} />,
                 }}
               >
                 {`
@@ -108,9 +106,7 @@ function TheManualWorkPage() {
                   h2: (props) => (
                     <h2 className="mb-4 block text-2xl font-bold" {...props} />
                   ),
-                  strong: (props) => (
-                    <span className="text-gray-12" {...props} />
-                  ),
+                  strong: (props) => <span className="ak-ink-100" {...props} />,
                 }}
               >
                 {`
@@ -123,7 +119,7 @@ function TheManualWorkPage() {
               </MDX>
             </div>
             <div className="relative col-span-full -mx-4 lg:col-start-1 lg:col-end-14 lg:mx-0">
-              <Border asWrapper className="rounded">
+              <Border asWrapper className="ak-frame-card/0">
                 <video
                   className=""
                   autoPlay={false}
@@ -137,7 +133,7 @@ function TheManualWorkPage() {
               </Border>
             </div>
             <div className="col-span-3 -col-end-1 flex items-end md:col-end-9 lg:col-start-14 lg:col-end-17">
-              <div className="-mx-4 h-fit rounded border border-gray-A02 bg-linear-to-b from-gray-A03 to-gray-A02 p-4 text-gray-09">
+              <div className="ak-layer ak-layer-lighten-2 ak-frame ak-frame-card/card ak-frame-bordering -mx-4 h-fit ak-ink-60">
                 <MDX>
                   {`
                       *The recent dark theme update follows the same “show, don’t tell” pattern by choosing a theme based purely on system preferences, and a “highlights” feature is planned in the [public roadmap](https://psykip-git-next-bdsq.vercel.app/roadmap).*
@@ -155,9 +151,7 @@ function TheManualWorkPage() {
             <div className={cn(slottedInMiddle)}>
               <MDX
                 components={{
-                  strong: (props) => (
-                    <span className="text-gray-12" {...props} />
-                  ),
+                  strong: (props) => <span className="ak-ink-100" {...props} />,
                 }}
               >
                 {`**The visual design of the site exaggerates the print aesthetic and feel by heavily borrowing defining characteristics and working within carefully built constraints**:`}
@@ -170,13 +164,13 @@ function TheManualWorkPage() {
                     className={cn(
                       subGrid({ lg: 8, md: 8, sm: 4 })(),
                       slottedInMiddleWide,
-                      "list-inside list-decimal gap-y-4 marker:text-gray-08",
+                      "list-inside list-decimal gap-y-4 marker:ak-ink-50",
                     )}
                     {...props}
                   />
                 ),
                 li: (props) => <li className="col-span-4" {...props} />,
-                strong: (props) => <span className="text-gray-12" {...props} />,
+                strong: (props) => <span className="ak-ink-100" {...props} />,
               }}
             >
               {`
@@ -191,19 +185,27 @@ function TheManualWorkPage() {
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
-                <Border asWrapper className="rounded">
-                  <Image className="w-full rounded" alt="" src={manual_1} />
+                <Border asWrapper className="ak-frame-card/0">
+                  <Image
+                    className="ak-frame ak-frame-card/0 w-full"
+                    alt=""
+                    src={manual_1}
+                  />
                 </Border>
-                <figcaption className="text-sm italic tracking-wide text-gray-10">
+                <figcaption className="text-sm italic tracking-wide ak-ink-70">
                   The landing page mimics a book cover.
                 </figcaption>
               </figure>
 
               <figure className={"space-y-2"}>
-                <Border asWrapper className="rounded">
-                  <Image className="w-full rounded" alt="" src={manual_2} />
+                <Border asWrapper className="ak-frame-card/0">
+                  <Image
+                    className="ak-frame ak-frame-card/0 w-full"
+                    alt=""
+                    src={manual_2}
+                  />
                 </Border>
-                <figcaption className="text-sm italic tracking-wide text-gray-10">
+                <figcaption className="text-sm italic tracking-wide ak-ink-70">
                   The chapters borrow from actual books with generous line
                   heights, chapter numbers and drop caps.
                 </figcaption>
@@ -214,10 +216,10 @@ function TheManualWorkPage() {
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
               <figure className={"space-y-2"}>
-                <Border asWrapper className="rounded">
+                <Border asWrapper className="ak-frame-card/0">
                   <Image className="w-full " alt="" src={manual_5} />
                 </Border>
-                <figcaption className="text-sm italic tracking-wide text-gray-10">
+                <figcaption className="text-sm italic tracking-wide ak-ink-70">
                   The “compare” pages were inspired by newspapers’s approach to
                   dense information in using columns, adapted to the infinite
                   scrollable canvas of the web to include more whitespace and
@@ -227,14 +229,14 @@ function TheManualWorkPage() {
 
               <figure className={"space-y-2"}>
                 <div className="space-y-2">
-                  <Border asWrapper className="rounded">
+                  <Border asWrapper className="ak-frame-card/0">
                     <Image className="w-full" alt="" src={manual_3} />
                   </Border>
-                  <Border asWrapper className="rounded">
+                  <Border asWrapper className="ak-frame-card/0">
                     <Image className="w-full" alt="" src={manual_4} />
                   </Border>
                 </div>
-                <figcaption className="text-sm italic tracking-wide text-gray-10">
+                <figcaption className="text-sm italic tracking-wide ak-ink-70">
                   The About and Sources pages use layouts inspired by magazines
                   with their horizontal spread and use of whitespace.
                 </figcaption>
@@ -270,9 +272,7 @@ function TheManualWorkPage() {
                       </PopoverContent>
                     </Popover>
                   ),
-                  strong: (props) => (
-                    <span className="text-gray-12" {...props} />
-                  ),
+                  strong: (props) => <span className="ak-ink-100" {...props} />,
                 }}
               >
                 {`
@@ -308,7 +308,7 @@ function TheManualWorkPage() {
             >
               <SidebarContent projMeta={psykipMeta} />
               <div className="col-span-full mt-12">
-                <h3 className="font-bold text-gray-09">Next project</h3>
+                <h3 className="font-bold ak-ink-60">Next project</h3>
                 <StyledLink href="/work/bebop">
                   Cowboy Bebop web poster
                 </StyledLink>
@@ -375,7 +375,7 @@ function TheManualWorkPage() {
             components={{
               ul: (props) => (
                 <ul
-                  className="list-outside list-disc marker:text-gray-08"
+                  className="list-outside list-disc marker:ak-ink-50"
                   {...props}
                 />
               ),

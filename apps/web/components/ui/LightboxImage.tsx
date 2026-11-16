@@ -37,14 +37,11 @@ export const LightBox = ({
         className={cn("relative", open && "overflow-visible", className)}
       >
         <>
-          <MotionImage
-            className="w-full rounded-inherit bg-gray-01"
-            {...props}
-          />
+          <MotionImage className="ak-frame w-full" {...props} />
 
           <DialogTrigger asChild>
             <Button
-              onClick={() => setOpen(true)}
+              aria-label="enlarge image"
               icon={<EnterFullScreenIcon />}
               className="absolute right-0 top-0 bg-gray-00"
             />
@@ -53,8 +50,10 @@ export const LightBox = ({
       </MotionBorder>
 
       <DialogContent
-        onClick={(e) => setOpen(false)}
-        className="bottom-0 left-0 right-0 top-0 grid w-full max-w-none translate-x-0 translate-y-0 place-items-center bg-transparent p-0"
+        surface={false}
+        aria-label={props.alt || "image preview"}
+        onClick={() => setOpen(false)}
+        className="bottom-0 left-0 right-0 top-0 grid w-full max-w-none translate-x-0 translate-y-0 place-items-center"
       >
         <MotionBorder layoutId={layoutId} asWrapper>
           <MotionImage {...props} />
@@ -62,7 +61,7 @@ export const LightBox = ({
 
         <DialogClose asChild>
           <Button
-            onClick={() => setOpen(false)}
+            aria-label="close image preview"
             icon={<Cross2Icon aria-label="Close" />}
             className="absolute right-4 top-4"
           />

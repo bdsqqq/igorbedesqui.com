@@ -34,7 +34,7 @@ export const CopyButton = ({
     // Can extract tooltip to a parent so it isn't dependent on success state to prevent a rerender. Micro optimization so not doing it rn. Also, could want to update the tooltip depending on success, but would need to announce it to screen readers.
     <Tooltip
       content={
-        <span className="text-sm italic tracking-[0.2px] text-gray-11">
+        <span className="text-sm italic tracking-[0.2px] ak-ink-70">
           Copy to clipboard
         </span>
       }
@@ -42,6 +42,7 @@ export const CopyButton = ({
     >
       <Button
         icon={success ? <CheckIcon /> : <ClipboardCopyIcon />}
+        aria-label={success ? "Copied to clipboard" : "Copy to clipboard"}
         onClick={() => {
           if (!navigator.clipboard) {
             console.log(

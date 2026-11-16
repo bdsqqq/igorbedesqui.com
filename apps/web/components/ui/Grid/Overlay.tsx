@@ -1,12 +1,8 @@
 "use client";
 
 export const Overlay = () => {
-  const [mode, setMode] = useState<"wide" | "narrow" | "condensed">("narrow");
+  const mode = "narrow";
   const [visible, setVisible] = useState<boolean>(false);
-
-  const setVisibleCallback = useCallback(() => {
-    setVisible((v) => !v);
-  }, []);
 
   return (
     <>
@@ -14,7 +10,7 @@ export const Overlay = () => {
         <Button
           aria-pressed={visible}
           aria-label="toggle grid overlay"
-          // onClick={setVisibleCallback}
+          className="ak-frame-join-item"
           onClick={() => {
             setVisible((v) => !v);
           }}
@@ -23,6 +19,7 @@ export const Overlay = () => {
       </ToolboxItem>
 
       <div
+        aria-hidden="true"
         className={cn(
           !visible ? "opacity-0" : "opacity-100",
           "pointer-events-none absolute inset-0 z-50 bg-gray-A01 transition-opacity duration-fast-01 ease-productive-standard",
@@ -78,7 +75,7 @@ const GridColumns = () => {
               i < 16 && "lg:block",
             )}
           >
-            <div className="relative h-full w-full bg-gray-A02 text-center text-gray-10">
+            <div className="relative h-full w-full bg-gray-A02 text-center ak-ink-70">
               <div className="sticky left-0 right-0 top-4">{i + 1}</div>
             </div>
           </div>
@@ -90,14 +87,8 @@ const GridColumns = () => {
 
 import { grid } from "@/components/ui/Grid";
 
-import { useState, Fragment, useCallback } from "react";
+import { useState } from "react";
 import { Button } from "@/ui/Button";
-import { GridIcon, MixerHorizontalIcon } from "@radix-ui/react-icons";
+import { GridIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/Popover";
-import { OutPortal } from "@/components/ui/Portal";
 import { ToolboxItem } from "@/components/toolbox";

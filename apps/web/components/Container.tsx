@@ -24,7 +24,7 @@ function Container({
 
   return (
     <>
-      <div className="bg-gray-00 pointer-events-none absolute inset-0 z-30 opacity-0 motion-safe:animate-fadeOut" />
+      <div className="bg-canvas pointer-events-none absolute inset-0 z-30 opacity-0 motion-safe:animate-fadeOut" />
 
       <div className="relative mx-auto max-w-7xl">
         <div className="relative min-h-screen">
@@ -50,7 +50,7 @@ function Container({
 
 export default Container;
 
-import React, { Children } from "react";
+import React from "react";
 
 import { Overlay as GridOverlay } from "@/components/ui/Grid/Overlay";
 import MainNav from "@/components/MainNav";

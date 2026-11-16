@@ -6,7 +6,13 @@ import {
   useReducedMotion,
 } from "motion/react";
 import { useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import {
+  Button as AriakitButton,
+  Disclosure,
+  DisclosureContent,
+  DisclosureProvider,
+  Portal,
+} from "@ariakit/react";
 import Band from "@/components/Band";
 import Container from "@/components/Container";
 import HeroBand from "@/components/HeroBand";
@@ -55,32 +61,35 @@ const layoutSpring = {
   stiffness: 340,
   type: "spring" as const,
 };
+const MotionButton = motion.create(AriakitButton);
+const MotionDisclosureContent = motion.create(DisclosureContent);
+
 const fanBias = 0.85;
 const maxFanWidth = 880;
 
 const receiptStyles = {
   calendar: {
-    card: "border-l-[3px] border-l-[#d29922] bg-gray-02",
+    card: "border-l-[3px] border-l-[#d29922] ak-layer-lighten-3",
     kind: "calendar",
   },
   commit: {
-    card: "border-l-[3px] border-l-[#238636] bg-gray-02",
+    card: "border-l-[3px] border-l-[#238636] ak-layer-lighten-3",
     kind: "commit",
   },
   issue: {
-    card: "border-l-[3px] border-l-[#1f6feb] bg-gray-02",
+    card: "border-l-[3px] border-l-[#1f6feb] ak-layer-lighten-3",
     kind: "linear issue",
   },
   pr: {
-    card: "border-l-[3px] border-l-[#8957e5] bg-gray-02",
+    card: "border-l-[3px] border-l-[#8957e5] ak-layer-lighten-3",
     kind: "merged pull request",
   },
   review: {
-    card: "border-l-[3px] border-l-gray-A08 bg-gray-01",
+    card: "border-l-[3px] border-l-(--ak-edge) ak-layer-lighten-1",
     kind: "performance review",
   },
   screenshot: {
-    card: "border-l-[3px] border-l-[#db6d28] bg-gray-02",
+    card: "border-l-[3px] border-l-[#db6d28] ak-layer-lighten-3",
     kind: "screenshot",
   },
 } satisfies Record<AxiomReceipt["kind"], { card: string; kind: string }>;
@@ -109,12 +118,12 @@ function ReceiptArtifact({
   return (
     <div
       className={cn(
-        "flex min-h-44 w-[calc(100vw-2rem)] max-w-[29.5rem] flex-col rounded-sm border border-gray-A05 p-5 text-left shadow-xl shadow-black/40",
+        "ak-layer ak-frame ak-frame-card/5 ak-frame-border flex min-h-44 w-[calc(100vw-2rem)] max-w-[29.5rem] flex-col text-left shadow-xl shadow-black/40",
         style.card,
       )}
       data-receipt-id={receipt.id}
     >
-      <span className="mb-4 flex w-full items-center justify-between font-sans text-xs uppercase tracking-wide text-gray-10">
+      <span className="mb-4 flex w-full items-center justify-between font-sans text-xs uppercase tracking-wide ak-ink-70">
         <span>{style.kind}</span>
         {number ? <span>{String(number).padStart(2, "0")}</span> : null}
       </span>
@@ -134,7 +143,7 @@ function ReceiptArtifact({
       >
         {receipt.detail}
       </span>
-      <span className="mt-auto block pt-4 font-sans text-xs text-gray-10">
+      <span className="mt-auto block pt-4 font-sans text-xs ak-ink-70">
         {receipt.source}
       </span>
     </div>
@@ -186,14 +195,14 @@ function FoundReceiptReference({
 
   return (
     <>
-      <button
+      <AriakitButton
         aria-controls={contentId}
         aria-expanded={isOpen}
         aria-label={`attachment ${number}: ${receipt.label}`}
         className={cn(
-          "rounded-sm px-0.5 text-xs font-semibold leading-none text-gray-10 underline decoration-dotted underline-offset-2",
-          "motion-safe:transition-colors hover:text-gray-12 focus-visible:text-gray-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-A08",
-          interaction.activeId === receipt.id && "text-gray-12",
+          "ak-frame ak-frame-field/0 px-0.5 text-xs font-semibold leading-none ak-ink-70 underline decoration-dotted underline-offset-2",
+          "motion-safe:transition-colors hover:ak-ink-100 focus-visible:ak-ink-100 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2",
+          interaction.activeId === receipt.id && "ak-ink-100",
         )}
         onBlur={dismiss}
         onClick={preview}
@@ -207,9 +216,9 @@ function FoundReceiptReference({
         type="button"
       >
         {number}
-      </button>
-      {isOpen && anchorPosition
-        ? createPortal(
+      </AriakitButton>
+      {isOpen && anchorPosition ? (
+        <Portal>
           <motion.div
             animate={{
               filter: "blur(0px)",
@@ -245,10 +254,9 @@ function FoundReceiptReference({
             }
           >
             <ReceiptArtifact number={number} receipt={receipt} />
-          </motion.div>,
-          document.body,
-        )
-        : null}
+          </motion.div>
+        </Portal>
+      ) : null}
     </>
   );
 }
@@ -293,80 +301,82 @@ function InlineReveal({
   const isRelated = reveal.receiptIds?.includes(interaction.activeId ?? "");
 
   return (
-    <span
-      className={cn(
-        "motion-safe:transition-colors",
-        interaction.activeId && (isRelated ? "text-gray-12" : "text-gray-08"),
-      )}
-    >
-      {reveal.before}
-      <button
-        aria-controls={contentId}
-        aria-expanded={isOpen}
+    <DisclosureProvider open={isOpen} setOpen={setIsOpen}>
+      <span
         className={cn(
-          "mx-0.5 inline rounded-sm border border-gray-A05 bg-gray-A02 px-1 text-[0.9em] font-medium leading-none",
-          "motion-safe:transition-colors hover:border-gray-A08 hover:bg-gray-A03",
-          "focus-visible:border-gray-A08 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-A06",
-          "data-[state=open]:border-gray-A08 data-[state=open]:bg-gray-A04",
+          "motion-safe:transition-colors",
+          interaction.activeId && (isRelated ? "ak-ink-100" : "ak-ink-50"),
         )}
-        data-state={isOpen ? "open" : "closed"}
-        onClick={() => setIsOpen((current) => !current)}
-        type="button"
       >
-        {reveal.trigger}
-      </button>
-      {reveal.after}
-      {reveal.receiptIds?.length ? (
-        <ReceiptReferences
-          interaction={interaction}
-          receiptIds={reveal.receiptIds}
-        />
-      ) : null}
-
-      <AnimatePresence initial={false}>
-        {isOpen ? (
-          <motion.span
-            animate={{ filter: "blur(0px)", opacity: 1 }}
-            exit={
-              prefersReducedMotion
-                ? { opacity: 0 }
-                : {
-                    filter: "blur(1px)",
-                    opacity: 0,
-                    transition: {
-                      duration: 0.12,
-                      ease: [0.4, 0, 1, 1],
-                    },
-                  }
-            }
-            id={contentId}
-            initial={
-              prefersReducedMotion
-                ? { opacity: 1 }
-                : { filter: "blur(2px)", opacity: 0 }
-            }
-            key={contentId}
-            transition={{
-              duration: prefersReducedMotion ? 0 : 0.18,
-              ease: fastEase,
-            }}
-          >
-            {reveal.content.map((node, index) =>
-              typeof node === "string" ? (
-                node
-              ) : (
-                <InlineReveal
-                  interaction={interaction}
-                  key={`${path}-${index}`}
-                  path={`${path}-${index}`}
-                  reveal={node}
-                />
-              ),
-            )}
-          </motion.span>
+        {reveal.before}
+        <Disclosure
+          aria-controls={contentId}
+          aria-expanded={isOpen}
+          className={cn(
+            "ak-layer ak-layer-2 ak-frame ak-frame-field/0 ak-frame-border ak-edge-contrast mx-0.5 inline px-1 text-[0.9em] font-medium leading-none",
+            "motion-safe:transition-colors hover:ak-state-5 active:ak-state-darken-5",
+            "focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2",
+            "aria-expanded:ak-state-8",
+          )}
+          type="button"
+        >
+          {reveal.trigger}
+        </Disclosure>
+        {reveal.after}
+        {reveal.receiptIds?.length ? (
+          <ReceiptReferences
+            interaction={interaction}
+            receiptIds={reveal.receiptIds}
+          />
         ) : null}
-      </AnimatePresence>
-    </span>
+
+        <AnimatePresence initial={false}>
+          {isOpen ? (
+            <MotionDisclosureContent
+              alwaysVisible
+              render={<span />}
+              animate={{ filter: "blur(0px)", opacity: 1 }}
+              exit={
+                prefersReducedMotion
+                  ? { opacity: 0 }
+                  : {
+                      filter: "blur(1px)",
+                      opacity: 0,
+                      transition: {
+                        duration: 0.12,
+                        ease: [0.4, 0, 1, 1],
+                      },
+                    }
+              }
+              id={contentId}
+              initial={
+                prefersReducedMotion
+                  ? { opacity: 1 }
+                  : { filter: "blur(2px)", opacity: 0 }
+              }
+              key={contentId}
+              transition={{
+                duration: prefersReducedMotion ? 0 : 0.18,
+                ease: fastEase,
+              }}
+            >
+              {reveal.content.map((node, index) =>
+                typeof node === "string" ? (
+                  node
+                ) : (
+                  <InlineReveal
+                    interaction={interaction}
+                    key={`${path}-${index}`}
+                    path={`${path}-${index}`}
+                    reveal={node}
+                  />
+                ),
+              )}
+            </MotionDisclosureContent>
+          ) : null}
+        </AnimatePresence>
+      </span>
+    </DisclosureProvider>
   );
 }
 
@@ -385,7 +395,7 @@ function TimelineBeat({
       id={beat.id}
     >
       <div className="absolute bottom-0 left-0 top-0 flex w-16 flex-col items-center px-4 md:relative md:col-span-1 md:w-auto">
-        <span className="relative z-10 grid size-8 place-items-center rounded-full border border-gray-A05 bg-gray-01 text-xs">
+        <span className="ak-layer ak-layer-lighten-1 ak-frame ak-frame-badge/0 ak-frame-border relative z-10 grid size-8 place-items-center text-xs">
           {String(index + 1).padStart(2, "0")}
         </span>
         {index < axiomBeats.length - 1 ? (
@@ -394,7 +404,7 @@ function TimelineBeat({
       </div>
 
       <div className="col-span-4 min-w-0 pl-16 pr-4 md:col-start-2 md:col-end-8 md:px-4 lg:col-end-9">
-        <p className="text-xs uppercase text-gray-09">{beat.period}</p>
+        <p className="text-xs uppercase ak-ink-60">{beat.period}</p>
         <h2 className="text-xl font-semibold">{beat.label}</h2>
         <p className="mt-2 text-lg leading-relaxed">
           <InlineReveal
@@ -460,14 +470,14 @@ function PileCard({
       : restingPosition;
 
   return (
-    <motion.button
+    <MotionButton
       animate={{
         ...position,
         opacity: interaction.activeId && !isActive ? 0.72 : 1,
       }}
       aria-label={`attachment ${receiptNumberById.get(receipt.id)}: ${receipt.label}`}
       aria-pressed={isSelected}
-      className="col-start-1 row-start-1 h-fit w-fit cursor-grab self-start justify-self-end rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-A08 active:cursor-grabbing"
+      className="col-start-1 row-start-1 h-fit w-fit cursor-grab self-start justify-self-end ak-frame ak-frame-card/0 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2 active:cursor-grabbing"
       drag="x"
       dragElastic={0.08}
       dragMomentum={false}
@@ -528,7 +538,7 @@ function PileCard({
         number={receiptNumberById.get(receipt.id)}
         receipt={receipt}
       />
-    </motion.button>
+    </MotionButton>
   );
 }
 
@@ -604,7 +614,7 @@ function StickyCollection({
 
   return (
     <div>
-      <p className="mb-4 text-xs uppercase text-gray-09">
+      <p className="mb-4 text-xs uppercase ak-ink-60">
         attachments {interaction.receiptOrder.length}/{storyReceipts.length}
       </p>
       <div

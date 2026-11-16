@@ -45,7 +45,7 @@ function MainNav({ backable, backMessage, backAnchor }: MainNavProps) {
       {backable && (
         <UnstyledLink
           href={anchor ? anchor : "/"}
-          className="group -mx-4 flex translate-x-0 transform cursor-pointer select-none items-center gap-1 px-4 pb-0 text-xl text-gray-11 duration-moderate-01 ease-productive-standard hover:-translate-x-2 hover:text-gray-12 focus:-translate-x-2 focus:text-gray-12 motion-safe:transition-all"
+          className="group -mx-4 flex translate-x-0 transform cursor-pointer select-none items-center gap-1 px-4 pb-0 text-xl ak-ink-85 duration-moderate-01 ease-productive-standard hover:-translate-x-2 hover:ak-ink-100 focus:-translate-x-2 focus:ak-ink-100 motion-safe:transition-all"
         >
           <span className="shrink-0 translate-y-px">
             {anchor === "/" ? <PinLeftIcon /> : <ArrowLeftIcon />}

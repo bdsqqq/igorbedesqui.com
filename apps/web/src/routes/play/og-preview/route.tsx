@@ -1,7 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 import Container from "@/components/Container";
 import Band from "@/components/Band";
-import { Suspense, useState, useDeferredValue, use } from "react";
+import { Suspense, useDeferredValue, use } from "react";
+import {
+  FormInput,
+  FormLabel,
+  useFormStore,
+  useStoreState,
+} from "@ariakit/react";
 
 const imageCache = new Map<string, Promise<string>>();
 
@@ -35,7 +41,10 @@ function OgImage({ src }: { src: string }) {
 }
 
 function OgPreviewPlayPage() {
-  const [text, setText] = useState("hello, *world*\nthis is a new line");
+  const form = useFormStore({
+    defaultValues: { text: "hello, *world*\nthis is a new line" },
+  });
+  const text = useStoreState(form, (state) => state.values.text);
   const deferredText = useDeferredValue(text);
   const isStale = text !== deferredText;
 
@@ -53,35 +62,35 @@ function OgPreviewPlayPage() {
         <Band headline={{ bold: "OG", thin: "Preview" }}>
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-2">
-              <label htmlFor="og-text" className="text-sm text-gray-11">
+              <FormLabel store={form} name="text" className="text-sm ak-ink-80">
                 text parameter (*text* for bold)
-              </label>
-              <textarea
+              </FormLabel>
+              <FormInput
+                store={form}
+                name="text"
                 id="og-text"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
+                render={<textarea rows={3} />}
                 placeholder="hello, *world*"
-                rows={3}
-                className="w-full resize-none rounded border border-gray-A04 bg-gray-A02 px-3 py-2 text-gray-12 placeholder:text-gray-08 focus:border-gray-A08 focus:outline-none"
+                className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-field/2 ak-frame-border ak-edge-contrast w-full resize-none px-3 placeholder:ak-ink-50 hover:ak-state-6 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2"
               />
             </div>
 
             <div className="flex flex-col gap-2">
-              <span className="text-sm text-gray-11">generated url</span>
-              <code className="block overflow-x-auto rounded border border-gray-A04 bg-gray-A02 px-3 py-2 text-sm text-gray-11">
-                {fullUrl}
+              <span className="text-sm ak-ink-80">generated url</span>
+              <code className="ak-layer ak-layer-darken-3 ak-frame ak-frame-field/2 ak-frame-bordering block overflow-x-auto px-3 text-sm ak-ink-80">
+                <ClientOnly fallback={displayUrl}>{fullUrl}</ClientOnly>
               </code>
             </div>
 
             <div className="flex flex-col gap-2">
-              <span className="text-sm text-gray-11">preview (1200×630)</span>
+              <span className="text-sm ak-ink-80">preview (1200×630)</span>
               <div
-                className="overflow-hidden rounded border border-gray-A04 transition-opacity duration-200"
+                className="ak-layer ak-frame ak-frame-card/0 ak-frame-border overflow-hidden transition-opacity duration-200"
                 style={{ opacity: isStale ? 0.7 : 1 }}
               >
                 <Suspense
                   fallback={
-                    <div className="aspect-[1200/630] w-full animate-pulse bg-gray-A04" />
+                    <div className="ak-layer ak-layer-6 aspect-[1200/630] w-full animate-pulse" />
                   }
                 >
                   <OgImage src={ogUrl} />

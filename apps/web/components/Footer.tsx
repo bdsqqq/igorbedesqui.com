@@ -6,7 +6,7 @@ const Footer = () => {
           className="col-span-16 h-px w-full"
           style={{
             background:
-              "radial-gradient(ellipse at center, var(--color-gray-07) 0%, var(--color-gray-01) 75%, transparent 100%)",
+              "radial-gradient(ellipse at center, var(--ak-edge) 0%, var(--ak-layer) 75%, transparent 100%)",
           }}
         />
         <footer
@@ -92,7 +92,6 @@ const Footer = () => {
 
 export default Footer;
 
-import { Separator } from "@/ui/Separator";
 import StyledLink from "@/ui/StyledLink";
 import FireChicken from "@/components/firechicken";
 import { subGrid } from "@/components/ui/Grid";

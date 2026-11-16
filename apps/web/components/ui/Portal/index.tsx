@@ -1,6 +1,6 @@
 "use client";
 import { StoreApi, createStore, useStore } from "zustand";
-import React, { useId, useMemo, useRef } from "react";
+import React, { useId, useRef } from "react";
 import { createPortal } from "react-dom";
 
 /**
@@ -121,6 +121,8 @@ export const useOutPortal = <T extends HTMLElement>(name: OutPortalName) => {
 /**
  * Children passed to this component will be behave as if they were mounted here (they are),
  * but will be rendered as children of the matching `OutPortal` in the DOM.
+ * Keep the direct React portal: an extra element would change flex/grid and
+ * joined-control relationships at named endpoints such as the toolbox.
  */
 export function InPortal({
   children,

@@ -45,7 +45,7 @@ const Test = () => {
 
   return (
     <div
-      className="relative w-full h-16 bg-gray-A03 border border-gray-A05 rounded"
+      className="ak-layer ak-layer-darken-3 ak-frame ak-frame-card/0 ak-frame-bordering relative w-full h-16"
       onMouseMove={handleMouseMove}
     >
       <Crosshair />
@@ -59,7 +59,7 @@ const Crosshair = () => {
 
   return (
     <motion.div
-      className="absolute pointer-events-none bg-gray-12 rounded h-1 w-1"
+      className="ak-layer ak-layer-primary ak-layer-contrast ak-frame ak-frame-badge/0 absolute pointer-events-none h-1 w-1"
       style={pos}
     />
   );

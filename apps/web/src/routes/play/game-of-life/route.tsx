@@ -18,7 +18,7 @@ import {
   TimerIcon,
 } from "@radix-ui/react-icons";
 import { ToolboxItem } from "@/components/toolbox";
-import * as Toggle from "@radix-ui/react-toggle";
+import { Button as AriakitButton } from "@ariakit/react";
 import Tooltip from "@/components/ui/Tooltip";
 
 const GameOfLifeStoreContext = React.createContext<StoreApi<GameOfLifeStore>>(
@@ -210,6 +210,7 @@ const CalculateNextStateButton = () => {
   return (
     <Tooltip content="Calculate Next State">
       <Button
+        aria-label="Calculate next state"
         className="w-fit"
         onClick={calculateNextState}
         icon={<DoubleArrowRightIcon />}
@@ -220,7 +221,6 @@ const CalculateNextStateButton = () => {
 
 const PlayPauseButton = () => {
   const [playing, setPlaying] = React.useState(false);
-  const togglePlay = () => setPlaying((prev) => !prev);
   const calculateNextState = useActions().calculateNextState;
 
   React.useEffect(() => {
@@ -233,9 +233,10 @@ const PlayPauseButton = () => {
   return (
     <Tooltip content={playing ? "Pause" : "Play"}>
       <Button
-        className="w-fit"
         aria-pressed={playing}
-        onClick={togglePlay}
+        aria-label="Run simulation"
+        onClick={() => setPlaying((current) => !current)}
+        className="w-fit"
         icon={<TimerIcon />}
       />
     </Tooltip>
@@ -250,6 +251,7 @@ const CopyCurrentStateButton = () => {
   return (
     <Tooltip content="Copy current game state">
       <Button
+        aria-label="Copy current game state"
         icon={copied ? <CheckIcon /> : <ClipboardCopyIcon />}
         onClick={() => {
           const cells = gameOfLifeStore.getState().cells;
@@ -271,6 +273,7 @@ const ClearCurrentStateButton = () => {
   return (
     <Tooltip content="Clear current state">
       <Button
+        aria-label="Clear current state"
         icon={<ReloadIcon />}
         onClick={() => actions.updateCells(makeBoard(BOARD_SIZE))}
       />
@@ -367,13 +370,20 @@ const Cell = ({ index }: { index: number }) => {
   const cell = useCells(index);
 
   return (
-    <Toggle.Root
+    <AriakitButton
       aria-pressed={cell === 1}
+      aria-label={`Cell ${index + 1}`}
       style={{
         willChange: "background-color",
       }}
-      className="aspect-square w-8 rounded aria-pressed:scale-[.4] aria-pressed:animate-fadeBlueOut aria-pressed:bg-gray-04"
-      onPointerDown={() => actions.updateCell(index, cell === 1 ? 0 : 1)}
+      className="ak-layer ak-layer-transparent ak-frame ak-frame-field/0 aspect-square w-8 aria-pressed:scale-[.4] aria-pressed:animate-fadeBlueOut aria-pressed:ak-state-12 focus-visible:ak-outline focus-visible:outline-2"
+      onPointerDown={(event) => {
+        if (event.button === 0) actions.updateCell(index, cell === 1 ? 0 : 1);
+      }}
+      // Pointer painting updates on press; keyboard activation arrives as a click.
+      onClick={(event) => {
+        if (event.detail === 0) actions.updateCell(index, cell === 1 ? 0 : 1);
+      }}
       onMouseEnter={() => {
         if (pointerDownStore && pointerDownStore.getState().pointerDown)
           actions.updateCell(index, 1);

@@ -38,16 +38,16 @@ function LibraryPage() {
         <div className={cn(grid(), "gap-y-6")}>
           <div className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-10">
             <h1 className="font-semibold">Library</h1>
-            <p className="mt-2 text-gray-11">
+            <p className="mt-2 ak-ink-80">
               Component experiments, primitives, and notes.
             </p>
           </div>
 
-          <ul className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-12 pointer-events-none flex flex-col focus-within:text-gray-10 hover:text-gray-10">
+          <ul className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-12 pointer-events-none flex flex-col focus-within:ak-ink-70 hover:ak-ink-70">
             {libraryEntries.map((entry) => (
               <li key={entry.href}>
                 <UnstyledLink
-                  className="group pointer-events-auto block py-4 transition-colors duration-fast-02 ease-productive-standard hover:text-gray-12 focus:text-gray-12"
+                  className="group pointer-events-auto block py-4 transition-colors duration-fast-02 ease-productive-standard hover:ak-ink-100 focus:ak-ink-100"
                   href={entry.href}
                 >
                   <h2 className="font-bold">{entry.name}</h2>

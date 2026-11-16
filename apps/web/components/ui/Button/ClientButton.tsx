@@ -84,69 +84,36 @@ export function Button({
 export const BUTTON_GROUP_DISPLAY_NAME = "ButtonGroup";
 /**
  * Group of buttons
- * Takes buttons, removes the borders that would get doubled, makes only the outer ones rounded.
+ * Joined frames share one seam and keep only their outer corners rounded.
  */
 export const ButtonGroup = ({
   children,
   className,
   orientation = "horizontal",
   ref,
+  ...props
 }: ComponentPropsWithRef<"div"> & {
   orientation?: "horizontal" | "vertical";
 }) => {
-  const stableId = React.useId();
-
   return (
     <div
+      {...props}
       ref={ref}
       className={cn(
-        "flex",
-        orientation === "vertical" && "flex-col",
+        "ak-frame ak-frame-field/0 ak-frame-join flex",
+        orientation === "vertical" ? "ak-frame-col flex-col" : "ak-frame-row",
         className,
       )}
     >
-      {React.Children.map(children, (child, index) => {
-        const isFirst = index === 0;
-        const isLast = index === React.Children.count(children) - 1;
+      {React.Children.map(children, (child) => {
+        if (!React.isValidElement<{ className?: string }>(child)) return child;
 
-        const childWithProps = React.cloneElement(
-          child as React.ReactElement<{ className?: string }>,
-          {
-            className: cn(
-              (child as React.ReactElement<{ className?: string }>).props
-                .className,
-              !isFirst &&
-                orientation === "horizontal" &&
-                "rounded-l-none border-l-0",
-              !isFirst &&
-                orientation === "vertical" &&
-                "rounded-t-none border-t-0",
-
-              !isLast &&
-                orientation === "horizontal" &&
-                "rounded-r-none border-r-0",
-              !isLast &&
-                orientation === "vertical" &&
-                "rounded-b-none border-b-0",
-            ),
-            key: `${stableId}-${index}`,
-          },
-        );
-
-        return (
-          <>
-            {childWithProps}
-            {!isLast && (
-              <span
-                className={cn(
-                  "bg-gray-A07",
-                  orientation === "horizontal" && "h-auto w-px",
-                  orientation === "vertical" && "h-px w-full",
-                )}
-              />
-            )}
-          </>
-        );
+        return React.cloneElement(child, {
+          className: cn(
+            child.props.className,
+            "ak-frame-join-item hover:ak-frame-join-active aria-pressed:ak-frame-join-active data-[state=on]:ak-frame-join-active",
+          ),
+        });
       })}
     </div>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/styling";
 import {
   Children,
@@ -5,7 +7,7 @@ import {
   type PropsWithChildren,
   type Ref,
 } from "react";
-import * as Slot from "@radix-ui/react-slot";
+import { Role } from "@ariakit/react";
 
 /**
  * @see https://html.spec.whatwg.org/multipage/syntax.html#void-elements
@@ -29,7 +31,10 @@ const VOID_ELEMENTS = [
 const MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID = ["video"];
 
 export const shadowBorderStyles =
-  "relative after:pointer-events-none after:absolute after:inset-0 after:block after:rounded-inherit after:shadow-[0px_0px_0px_1px_inset_--tw-shadow-color] after:shadow-gray-A05";
+  "relative ak-frame ak-frame-ring ring-(--ak-edge)";
+
+const wrapperStyles =
+  "block ak-frame-card/0 [&>img]:ak-frame [&>video]:ak-frame";
 
 export type BorderProps = PropsWithChildren<{
   className?: string;
@@ -38,12 +43,10 @@ export type BorderProps = PropsWithChildren<{
 }>;
 
 /**
- * Nice gradient borders around elements.
+ * Adds a frame edge without changing the child's material or layout.
  *
- * This relies on the :after pseudo-element
- * any void element (elements that can't contain children
- * eg: img, video, inputs, other self-closing elements)
- * should use the `asWrapper` prop to render a helper div.
+ * The ring stays outside the box so opaque media cannot paint over the edge.
+ * Direct image and video children inherit the wrapper's frame radius.
  *
  * This component will try to automatically detect if the child is a void element,
  * but it's not perfect, so it's recommended to explicitly set `asWrapper` to true
@@ -59,7 +62,6 @@ export function Border({
   if (children === undefined || children === null) {
     console.error("Border must have a child");
     throw new Error("Border must have a child");
-    return null;
   }
 
   if (
@@ -70,7 +72,6 @@ export function Border({
   ) {
     console.error("Border's child must be a single React element");
     throw new Error("Border's child must be a single React element");
-    return null;
   }
 
   const child = Children.only(children) as React.ReactElement;
@@ -96,7 +97,7 @@ export function Border({
       );
       return (
         <span
-          className={cn("block", shadowBorderStyles, className)}
+          className={cn(shadowBorderStyles, wrapperStyles, className)}
           ref={ref}
           {...rest}
         >
@@ -109,7 +110,7 @@ export function Border({
   if (asWrapper)
     return (
       <span
-        className={cn("block", shadowBorderStyles, className)}
+        className={cn(shadowBorderStyles, wrapperStyles, className)}
         ref={ref}
         {...rest}
       >
@@ -118,12 +119,11 @@ export function Border({
     );
 
   return (
-    <Slot.Root
+    <Role.span
       className={cn(shadowBorderStyles, className)}
       ref={ref}
       {...rest}
-    >
-      {children}
-    </Slot.Root>
+      render={child}
+    />
   );
 }

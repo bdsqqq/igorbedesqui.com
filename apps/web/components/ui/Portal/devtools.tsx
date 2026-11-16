@@ -23,7 +23,7 @@ export function PortalDevtools() {
 
               return (
                 <li
-                  className={cn(linked ? "text-gray-12" : "text-gray-11")}
+                  className={cn(linked ? "ak-ink-100" : "ak-ink-85")}
                   key={p.name}
                 >
                   {p.name}
@@ -41,7 +41,7 @@ export function PortalDevtools() {
 
               return (
                 <li
-                  className={cn(linked ? "text-gray-12" : "text-gray-11")}
+                  className={cn(linked ? "ak-ink-100" : "ak-ink-85")}
                   key={p.name}
                 >
                   {p.name}

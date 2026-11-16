@@ -1,3 +1,6 @@
+"use client";
+
+import { Role } from "@ariakit/react";
 import { Link } from "@tanstack/react-router";
 import type { ComponentPropsWithoutRef, Ref } from "react";
 
@@ -18,14 +21,19 @@ function UnstyledLink({
 
   if (isInternalRoute) {
     return (
-      <Link ref={ref} to={href} className={className} {...rest}>
+      <Role.a
+        ref={ref}
+        render={<Link to={href} />}
+        className={className}
+        {...rest}
+      >
         {children}
-      </Link>
+      </Role.a>
     );
   }
 
   return (
-    <a
+    <Role.a
       ref={ref}
       className={className}
       href={href}
@@ -33,7 +41,7 @@ function UnstyledLink({
       {...rest}
     >
       {children}
-    </a>
+    </Role.a>
   );
 }
 UnstyledLink.displayName = "UnstyledLink";
