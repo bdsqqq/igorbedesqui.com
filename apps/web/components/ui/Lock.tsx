@@ -1,35 +1,36 @@
+"use client";
+
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/Popover";
+import { Role } from "@ariakit/react";
 import React, { Children, cloneElement, isValidElement } from "react";
 
+type LockProps = Omit<React.ComponentPropsWithRef<"button">, "children"> & {
+  children: React.ReactElement<React.ComponentPropsWithRef<"button">>;
+  locked: boolean;
+  lockedFeedback: React.ReactNode;
+};
+
 /**
- * @see: https://github.com/radix-ui/primitives/pull/2234#issuecomment-1613000587
+ * A locked child's action is intentionally withheld; other events/refs still
+ * merge through Ariakit. Put feedback-trigger effects on Lock's onClick.
  */
 export function Lock({
   children,
   locked,
   lockedFeedback,
-  ref,
-  ...rest
-}: React.PropsWithChildren<{
-  locked: boolean;
-  lockedFeedback: React.ReactNode;
-  ref?: React.Ref<HTMLButtonElement>;
-}>) {
+  ...props
+}: LockProps) {
   const child = Children.only(children);
-  if (!locked) return <>{child}</>;
-
-  // Not too happy about this bit, but it makes sure cloneElement gets a valid element (not a string and other misc types allowed by ReactNode)
-  const isValid = isValidElement<HTMLButtonElement & { onClick?: () => void }>(
-    child,
-  );
-  if (!isValid)
-    throw new Error(`Lock's child must be a valid react element, see: `);
+  if (!isValidElement(child))
+    throw new Error("Lock requires one button element");
+  if (!locked) return <Role.button {...props} render={child} />;
 
   return (
     <Popover>
-      <PopoverTrigger asChild {...rest} ref={ref}>
-        {cloneElement(child, { onClick: () => {} })}
-      </PopoverTrigger>
+      <PopoverTrigger
+        {...props}
+        render={cloneElement(child, { onClick: undefined })}
+      />
       <PopoverContent align="end">{lockedFeedback}</PopoverContent>
     </Popover>
   );

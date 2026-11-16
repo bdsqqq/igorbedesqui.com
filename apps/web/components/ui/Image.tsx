@@ -1,4 +1,5 @@
 import { blurhashToCssGradientString } from "@unpic/placeholder";
+import type { RefAttributes } from "react";
 import {
   Image as UnpicImage,
   type ImageProps as UnpicImageProps,
@@ -16,7 +17,8 @@ type StringImageProps = UnpicImageProps & {
   blurhash?: string;
 };
 
-export type ImageProps = StringImageProps | StaticImageProps;
+export type ImageProps = (StringImageProps | StaticImageProps) &
+  RefAttributes<HTMLImageElement>;
 
 export function Image({
   blurhash,

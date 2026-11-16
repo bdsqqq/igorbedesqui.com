@@ -59,24 +59,34 @@ export function Button({
 
   const leftIcon =
     /** use left icon for spinner unless right icon is the only one defined. */
-    loading && !(!iconObj.left && iconObj.right) ? spinner : iconObj.left;
+    loading &&
+    !(
+      (iconObj.left === undefined || iconObj.left === null) &&
+      iconObj.right !== undefined &&
+      iconObj.right !== null
+    )
+      ? spinner
+      : iconObj.left;
   const rightIcon =
     /** use right icon for spinner unless left icon is defined. */
-    loading && !iconObj.left ? spinner : iconObj.right;
+    loading && (iconObj.left === undefined || iconObj.left === null)
+      ? spinner
+      : iconObj.right;
 
   /**
    * if this is an iconOnly button (AKA: no children), we don't want to render empty nodes for the extra gap space.
    */
-  const maybeSpacer = children ? <span /> : null;
+  const hasChildren = children !== undefined && children !== null;
+  const maybeSpacer = hasChildren ? <span /> : null;
 
   return (
     <AriakitButton
       className={cn(buttonVariants({ variant, size, activeStyle, className }))}
       {...props}
     >
-      {leftIcon ? leftIcon : maybeSpacer}
+      {leftIcon !== undefined && leftIcon !== null ? leftIcon : maybeSpacer}
       {children}
-      {rightIcon ? rightIcon : maybeSpacer}
+      {rightIcon !== undefined && rightIcon !== null ? rightIcon : maybeSpacer}
     </AriakitButton>
   );
 }
@@ -133,43 +143,30 @@ const useArtificialDelay = (
   loadingStrategy: loadingStrategy = "delay",
 ) => {
   // loading strategy is based on https://x.com/JohnPhamous/status/1679271160570327040?s=20
-  const [isLoading, setLoading] = React.useState(loading);
-  const artificialDelayPromiseRef = React.useRef<Promise<void>>(undefined);
-
-  const minimumDurationCallback = React.useCallback(() => {
-    setLoading(true);
-    artificialDelayPromiseRef.current = new Promise((resolve) =>
-      setTimeout(resolve, 500),
-    );
-  }, []);
-
-  const delayCallback = React.useCallback(() => {
-    artificialDelayPromiseRef.current = new Promise((resolve) =>
-      setTimeout(() => {
-        setLoading(true);
-        resolve();
-      }, 100),
-    );
-  }, []);
+  const [isLoading, setLoading] = React.useState(Boolean(loading));
+  const minimumUntil = React.useRef(0);
 
   React.useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout> | undefined;
     if (loadingStrategy === "immediate") {
-      setLoading(loading);
-      return;
-    }
-
-    if (loading) {
-      if (loadingStrategy === "minimumDuration") {
-        minimumDurationCallback();
-      } else if (loadingStrategy === "delay") {
-        delayCallback();
-      }
+      minimumUntil.current = 0;
+      setLoading(Boolean(loading));
+    } else if (loadingStrategy === "delay") {
+      minimumUntil.current = 0;
+      if (loading) timeout = setTimeout(() => setLoading(true), 100);
+      else setLoading(false);
+    } else if (loading) {
+      setLoading(true);
+      minimumUntil.current = Date.now() + 500;
     } else {
-      void artificialDelayPromiseRef.current?.then(() => {
-        setLoading(false);
-      });
+      const remaining = minimumUntil.current - Date.now();
+      if (remaining > 0)
+        timeout = setTimeout(() => setLoading(false), remaining);
+      else setLoading(false);
     }
-  }, [loading, loadingStrategy, minimumDurationCallback, delayCallback]);
+    // A new request/strategy owns the next transition; old timers cannot hide it.
+    return () => clearTimeout(timeout);
+  }, [loading, loadingStrategy]);
 
   return isLoading;
 };

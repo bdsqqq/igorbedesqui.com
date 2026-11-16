@@ -3,6 +3,7 @@
 import * as React from "react";
 import * as Ariakit from "@ariakit/react";
 import { cn } from "@/lib/styling";
+import type { OpenStateProps, AsChildProps } from "./ownership";
 
 const DialogModalContext = React.createContext(true);
 
@@ -12,12 +13,12 @@ function Dialog({
   defaultOpen,
   onOpenChange,
   modal = true,
-}: React.PropsWithChildren<{
-  open?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  modal?: boolean;
-}>) {
+}: React.PropsWithChildren<OpenStateProps & { modal?: boolean }>) {
+  if (open !== undefined && (defaultOpen !== undefined || !onOpenChange)) {
+    throw new Error(
+      "Dialog requires onOpenChange with open and forbids defaultOpen with open",
+    );
+  }
   return (
     <Ariakit.DialogProvider
       open={open}
@@ -33,8 +34,12 @@ function DialogTrigger({
   asChild,
   children,
   ...props
-}: Ariakit.DialogDisclosureProps & { asChild?: boolean }) {
-  const store = Ariakit.useDialogContext();
+}: AsChildProps<React.ComponentPropsWithRef<typeof Ariakit.DialogDisclosure>>) {
+  if (asChild && props.render !== undefined) {
+    throw new Error("DialogTrigger accepts either asChild or render");
+  }
+  const context = Ariakit.useDialogContext();
+  const store = props.store ?? context;
   const open = Ariakit.useStoreState(store, "open");
   return (
     <Ariakit.DialogDisclosure
@@ -55,7 +60,10 @@ function DialogClose({
   asChild,
   children,
   ...props
-}: Ariakit.DialogDismissProps & { asChild?: boolean }) {
+}: AsChildProps<React.ComponentPropsWithRef<typeof Ariakit.DialogDismiss>>) {
+  if (asChild && props.render !== undefined) {
+    throw new Error("DialogClose accepts either asChild or render");
+  }
   return (
     <Ariakit.DialogDismiss
       {...props}
@@ -106,7 +114,8 @@ function DialogContent({
   ...props
 }: Ariakit.DialogProps & { surface?: boolean }) {
   const modal = React.useContext(DialogModalContext);
-  const store = Ariakit.useDialogContext();
+  const context = Ariakit.useDialogContext();
+  const store = props.store ?? context;
   const open = Ariakit.useStoreState(store, "open");
   return (
     <Ariakit.Dialog
@@ -131,7 +140,7 @@ function DialogContent({
 const DialogHeader = ({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+}: React.ComponentPropsWithRef<"div">) => (
   <div
     className={cn(
       "flex flex-col space-y-1.5 text-center sm:text-left",
@@ -143,7 +152,7 @@ const DialogHeader = ({
 const DialogFooter = ({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+}: React.ComponentPropsWithRef<"div">) => (
   <div
     className={cn(
       "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",

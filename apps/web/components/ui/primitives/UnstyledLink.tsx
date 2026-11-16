@@ -7,6 +7,8 @@ import type { ComponentPropsWithoutRef, Ref } from "react";
 export type UnstyledLinkProps = ComponentPropsWithoutRef<"a"> & {
   href: string;
   ref?: Ref<HTMLAnchorElement>;
+  /** Supplying a host keeps routing with the caller, even for local hrefs. */
+  render?: React.ComponentProps<typeof Role.a>["render"];
 };
 
 function UnstyledLink({
@@ -14,12 +16,13 @@ function UnstyledLink({
   href,
   children,
   ref,
+  render,
   ...rest
 }: UnstyledLinkProps) {
   const isInternalRoute = href.startsWith("/");
   const isHashLink = href.startsWith("#");
 
-  if (isInternalRoute) {
+  if (isInternalRoute && render === undefined) {
     return (
       <Role.a
         ref={ref}
@@ -37,7 +40,8 @@ function UnstyledLink({
       ref={ref}
       className={className}
       href={href}
-      {...(!isHashLink && { target: "_blank" })}
+      render={render}
+      {...(!isInternalRoute && !isHashLink && { target: "_blank" })}
       {...rest}
     >
       {children}

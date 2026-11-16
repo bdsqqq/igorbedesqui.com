@@ -13,15 +13,34 @@ import { Cross2Icon, EnterFullScreenIcon } from "@radix-ui/react-icons";
 import { motion, useReducedMotion } from "motion/react";
 import { Image } from "@/components/ui/Image";
 import { ComponentProps, useId, useState } from "react";
+import type { OpenStateProps } from "./ownership";
 
 const MotionImage = motion(Image);
 const MotionBorder = motion(Border);
 
 export const LightBox = ({
   className,
+  ref,
+  open: controlledOpen,
+  defaultOpen,
+  onOpenChange,
   ...props
-}: ComponentProps<typeof MotionImage> & { className?: string }) => {
-  const [open, setOpen] = useState(false);
+}: ComponentProps<typeof MotionImage> &
+  OpenStateProps & { className?: string }) => {
+  if (
+    controlledOpen !== undefined &&
+    (defaultOpen !== undefined || !onOpenChange)
+  ) {
+    throw new Error(
+      "LightBox requires onOpenChange with open and forbids defaultOpen with open",
+    );
+  }
+  const [localOpen, setLocalOpen] = useState(defaultOpen ?? false);
+  const open = controlledOpen ?? localOpen;
+  const setOpen = (next: boolean) => {
+    if (controlledOpen === undefined) setLocalOpen(next);
+    onOpenChange?.(next);
+  };
   const instanceId = useId();
   const reducedMotion = useReducedMotion();
   // Reused image URLs must not join unrelated lightboxes' layout animations.
@@ -47,7 +66,7 @@ export const LightBox = ({
         className={cn("relative", open && "overflow-visible", className)}
       >
         <>
-          <MotionImage className="ak-frame w-full" {...props} />
+          <MotionImage className="ak-frame w-full" {...props} ref={ref} />
 
           <DialogTrigger asChild>
             <Button

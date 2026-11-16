@@ -3,6 +3,7 @@
 import * as React from "react";
 import * as Ariakit from "@ariakit/react";
 import { cn } from "@/lib/styling";
+import type { OpenStateProps, AsChildProps } from "./ownership";
 import { type VariantProps, cva } from "class-variance-authority";
 
 const PopoverModalContext = React.createContext(false);
@@ -13,12 +14,12 @@ function Popover({
   defaultOpen,
   onOpenChange,
   modal = false,
-}: React.PropsWithChildren<{
-  open?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  modal?: boolean;
-}>) {
+}: React.PropsWithChildren<OpenStateProps & { modal?: boolean }>) {
+  if (open !== undefined && (defaultOpen !== undefined || !onOpenChange)) {
+    throw new Error(
+      "Popover requires onOpenChange with open and forbids defaultOpen with open",
+    );
+  }
   return (
     <Ariakit.PopoverProvider
       open={open}
@@ -34,8 +35,14 @@ function PopoverTrigger({
   asChild,
   children,
   ...props
-}: Ariakit.PopoverDisclosureProps & { asChild?: boolean }) {
-  const store = Ariakit.usePopoverContext();
+}: AsChildProps<
+  React.ComponentPropsWithRef<typeof Ariakit.PopoverDisclosure>
+>) {
+  if (asChild && props.render !== undefined) {
+    throw new Error("PopoverTrigger accepts either asChild or render");
+  }
+  const context = Ariakit.usePopoverContext();
+  const store = props.store ?? context;
   const open = Ariakit.useStoreState(store, "open");
   return (
     <Ariakit.PopoverDisclosure
@@ -86,7 +93,8 @@ function PopoverContent({
   collisionPadding?: number;
   options?: VariantProps<typeof tooltipVariants>;
 }) {
-  const store = Ariakit.usePopoverContext();
+  const context = Ariakit.usePopoverContext();
+  const store = props.store ?? context;
   const modal = React.useContext(PopoverModalContext);
   const open = Ariakit.useStoreState(store, "open");
   const currentPlacement = Ariakit.useStoreState(store, "currentPlacement");

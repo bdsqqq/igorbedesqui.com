@@ -1,11 +1,11 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithRef } from "react";
 import { cn } from "@/lib/styling";
 
 /** Rows own their interaction states; the list stays on the document plane. */
 export function ContentList({
   className,
   ...props
-}: ComponentPropsWithoutRef<"ul">) {
+}: ComponentPropsWithRef<"ul">) {
   return (
     <ul
       className={cn(

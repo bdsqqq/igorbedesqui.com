@@ -1,12 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/styling";
-import {
-  Children,
-  isValidElement,
-  type PropsWithChildren,
-  type Ref,
-} from "react";
+import { Children, isValidElement, type Ref } from "react";
 import { Role } from "@ariakit/react";
 
 /**
@@ -36,11 +31,15 @@ export const shadowBorderStyles =
 const wrapperStyles =
   "block ak-layer ak-layer-darken-2 [:where(&)]:ak-frame-card/0 [&>img]:ak-frame [&>video]:ak-frame";
 
-export type BorderProps = PropsWithChildren<{
-  className?: string;
-  asWrapper?: boolean;
+export type BorderProps = Omit<
+  React.ComponentPropsWithRef<"span">,
+  "children" | "ref"
+> & {
   ref?: Ref<HTMLElement>;
-}>;
+} & (
+    | { asWrapper: true; children: React.ReactNode }
+    | { asWrapper?: false; children: React.ReactElement }
+  );
 
 /**
  * Adds a single frame edge to a child or its media wrapper.
@@ -60,6 +59,18 @@ export function Border({
   ref,
   ...rest
 }: BorderProps) {
+  if (asWrapper) {
+    return (
+      <span
+        className={cn(shadowBorderStyles, wrapperStyles, className)}
+        ref={ref}
+        {...rest}
+      >
+        {children}
+      </span>
+    );
+  }
+
   if (children === undefined || children === null) {
     console.error("Border must have a child");
     throw new Error("Border must have a child");
@@ -107,17 +118,6 @@ export function Border({
       );
     }
   }
-
-  if (asWrapper)
-    return (
-      <span
-        className={cn(shadowBorderStyles, wrapperStyles, className)}
-        ref={ref}
-        {...rest}
-      >
-        {children}
-      </span>
-    );
 
   return (
     <Role.span

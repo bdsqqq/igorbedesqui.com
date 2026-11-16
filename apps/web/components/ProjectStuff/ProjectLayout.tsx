@@ -7,11 +7,13 @@ export function ProjectLayout({
   children,
   projMeta,
   nextProjMeta,
-}: React.PropsWithChildren<{
+  className,
+  ...props
+}: React.ComponentPropsWithRef<"div"> & {
   projMeta: Meta;
   /** only name + slug are rendered; keeps work routes from circular-importing full meta */
   nextProjMeta?: Pick<Meta, "name" | "urlSlug">;
-}>) {
+}) {
   const [isFaded, setIsFaded] = React.useState(false);
   const asideRef = React.useRef<HTMLDivElement>(null);
 
@@ -40,7 +42,10 @@ export function ProjectLayout({
   }, []);
 
   return (
-    <div className={cn("px-4 md:px-16", grid({ mode: "narrow" }))}>
+    <div
+      className={cn("px-4 md:px-16", grid({ mode: "narrow" }), className)}
+      {...props}
+    >
       <div className="col-span-full flex flex-col gap-16 md:col-end-7 lg:col-end-13">
         {children}
       </div>
@@ -149,10 +154,12 @@ export function ProjectBand({
     <Band
       options={{
         padding: "none",
+        ...options,
         subGrid: {
           lg: 12,
           md: 6,
           sm: 4,
+          ...options?.subGrid,
         },
       }}
       {...props}

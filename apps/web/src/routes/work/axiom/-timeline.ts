@@ -60,32 +60,17 @@
 // igor writes the final prose; this file stays factual and terse.
 // the route remains draft and unlisted until the story is written.
 
-export type AxiomReceipt = {
-  detail: string;
-  href?: string;
-  id: string;
-  kind: "calendar" | "commit" | "issue" | "pr" | "review" | "screenshot";
-  label: string;
-  source: string;
-};
-
-export type AxiomRevealNode = AxiomReveal | string;
-
-export type AxiomReveal = {
-  after?: string;
-  before?: string;
-  content: readonly AxiomRevealNode[];
-  receiptIds?: readonly string[];
-  trigger: string;
-};
-
-export type AxiomBeat = {
-  id: string;
-  label: string;
-  period: string;
-  receipts: readonly AxiomReceipt[];
-  story: AxiomReveal;
-};
+import type {
+  AxiomBeat,
+  AxiomReceipt,
+  AxiomReveal,
+} from "@/components/features/axiom/types";
+export type {
+  AxiomBeat,
+  AxiomReceipt,
+  AxiomReveal,
+  AxiomRevealNode,
+} from "@/components/features/axiom/types";
 
 // personal screenshots and calendar moments can be added here without citations.
 export const axiomFreeReceipts: readonly AxiomReceipt[] = [];

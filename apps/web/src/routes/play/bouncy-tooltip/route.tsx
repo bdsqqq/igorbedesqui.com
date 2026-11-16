@@ -1,352 +1,78 @@
 import { createFileRoute } from "@tanstack/react-router";
-import React, { useContext, useEffect, useState } from "react";
-import { useStore } from "zustand";
-import { createStore, StoreApi } from "zustand/vanilla";
-import { AnimatePresence, motion } from "motion/react";
+import { useEffect } from "react";
 import {
-  Tooltip,
-  TooltipAnchor,
-  TooltipProvider,
-  useTooltipContext,
-  Portal,
-  Focusable,
-} from "@ariakit/react";
-import { Image } from "@/components/ui/Image";
+  AnimatedElements,
+  CursorWithAttachedElement,
+  CursorWithAttachedElementTrigger,
+  CursorWithAttachedElementContent,
+  useBouncyTooltipStore,
+} from "@/components/features/bouncy-tooltip";
 import type { StaticImageData } from "@/lib/static-image";
-
 import theManual1 from "../../work/the-manual/-1.jpg?as=img";
 import bebopDesktop from "../../work/bebop/-desktop-screenshot.png?as=img";
 
-type CursorPositionStore = {
-  pos: { x: number; y: number };
-  updatePos: (x: number, y: number) => void;
-};
-const CursorPositionStoreContext = React.createContext<
-  StoreApi<CursorPositionStore>
->(null!);
-export const CursorPositionStoreProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const [store] = useState(() =>
-    createStore<CursorPositionStore>((set, get) => ({
-      pos: { x: 0, y: 0 },
-      updatePos: (x: number, y: number) => {
-        set({ pos: { x, y } });
-      },
-    })),
-  );
-  const updatePos = useStore(store, (state) => state.updatePos);
+const media: Array<
+  | { key: string; src: StaticImageData; type: "image" }
+  | { key: string; src: string; type: "video" }
+> = [
+  {
+    key: "the-manual",
+    src: theManual1,
+    type: "image",
+  },
+  {
+    key: "bebop-desktop",
+    src: bebopDesktop,
+    type: "image",
+  },
+  {
+    key: "profile-video",
+    src: "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/sRGuzPg7aefddqqyQhgHTZi2sM53/rDbRz9x7nIoBUpLrGOP3/624244f2-1e6d-461b-b189-e0d1c4750ebe.mp4?_a=DATAdtAAZAA0",
+    type: "video",
+  },
+];
 
+// The fullscreen demo deliberately tracks the whole viewport. Embedded features do not.
+function GlobalPointerTracking() {
+  const store = useBouncyTooltipStore();
   useEffect(() => {
-    const handleMouseMove = (e: globalThis.MouseEvent) => {
-      updatePos(e.clientX, e.clientY);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [updatePos]);
-
-  return (
-    <CursorPositionStoreContext.Provider value={store}>
-      {children}
-    </CursorPositionStoreContext.Provider>
-  );
-};
-
-type CursorWithAttachedElementStore = {
-  isHovering: boolean;
-  setIsHovering: (newState: boolean) => void;
-};
-const CursorWithAttachedElementStoreContext = React.createContext<
-  StoreApi<CursorWithAttachedElementStore>
->(null!);
-const CursorWithAttachedElementStoreProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const [store] = useState(() =>
-    createStore<CursorWithAttachedElementStore>((set, get) => ({
-      isHovering: false,
-      setIsHovering: (newState: boolean) => {
-        set({ isHovering: newState });
-      },
-    })),
-  );
-
-  return (
-    <CursorWithAttachedElementStoreContext.Provider value={store}>
-      {children}
-    </CursorWithAttachedElementStoreContext.Provider>
-  );
-};
-
-// thought proccess:
-// it's neither a tooltip nor a hovercard,
-// it follow the mouse so the user can never click on it,
-// it's more akin to a custom cursor like the one in figma with your name on it.
-export const CursorWithAttachedElement = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  return (
-    <CursorWithAttachedElementStoreProvider>
-      <TooltipProviderWithHoverState>{children}</TooltipProviderWithHoverState>
-    </CursorWithAttachedElementStoreProvider>
-  );
-};
-
-const TooltipProviderWithHoverState = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const store = useContext(CursorWithAttachedElementStoreContext);
-  const isHovering = useStore(store, (state) => state.isHovering);
-  const id = React.useId();
-
-  return (
-    <TooltipProvider key={id} open={isHovering}>
-      {children}
-    </TooltipProvider>
-  );
-};
-
-export const CursorWithAttachedElementTrigger = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  // don't need to track hover state here, can subscribe in the element that appears
-  // to avoid re-rendering the trigger
-  const ref = React.useRef<HTMLDivElement>(null!);
-  const store = useContext(CursorWithAttachedElementStoreContext);
-  const setIsHovering = useStore(store, (state) => state.setIsHovering);
-  const tooltipStore = useTooltipContext();
-  const cursorStore = useContext(CursorPositionStoreContext);
-
-  return (
-    <Focusable
-      ref={ref}
-      onPointerLeave={() => {
-        console.log("leave");
-        if (!tooltipStore) {
-          console.log("no tooltipStore");
-        }
-        setIsHovering(false);
-        tooltipStore?.setOpen(false);
-      }}
-      onPointerEnter={() => {
-        console.log("enter");
-        setIsHovering(true);
-        tooltipStore?.setOpen(true);
-      }}
-      onFocus={() => {
-        const rect = ref.current.getBoundingClientRect();
-        cursorStore.getState().updatePos(rect.right, rect.top);
-        setIsHovering(true);
-        tooltipStore?.setOpen(true);
-      }}
-      onBlur={() => {
-        setIsHovering(false);
-        tooltipStore?.setOpen(false);
-      }}
-      className="ak-frame ak-frame-field/1 cursor-alias focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2"
-    >
-      {children}
-    </Focusable>
-  );
-};
-
-export const CursorWithAttachedElementContent = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  return <AttachedElement>{children}</AttachedElement>;
-};
-
-const MotionTooltipAnchor = motion.create(TooltipAnchor);
-
-const AttachedElement = ({ children }: { children?: React.ReactNode }) => {
-  const cursorPositionStore = useContext(CursorPositionStoreContext);
-  const cursorWithAttachmentStore = useContext(
-    CursorWithAttachedElementStoreContext,
-  );
-  const pos = useStore(cursorPositionStore, (state) => state.pos);
-  const isShown = useStore(
-    cursorWithAttachmentStore,
-    (state) => state.isHovering,
-  );
-
-  return (
-    <>
-      <AnimatePresence>
-        {isShown ? (
-          <Portal>
-            <MotionTooltipAnchor
-              className="absolute top-0 left-0 pointer-events-none"
-              style={pos}
-            />
-            <Tooltip
-              shift={144} // in the real world, this would measure the child to choose the side it starts at
-              className="pointer-events-none"
-            >
-              {children}
-            </Tooltip>
-          </Portal>
-        ) : null}
-      </AnimatePresence>
-    </>
-  );
-};
-
-export const AnimatedElements = ({
-  animation,
-}: {
-  animation: animationFnName;
-}) => {
-  const media: Array<
-    | { key: string; src: StaticImageData; type: "image" }
-    | { key: string; src: string; type: "video" }
-  > = [
-    {
-      key: "the-manual",
-      src: theManual1,
-      type: "image",
-    },
-    {
-      key: "bebop-desktop",
-      src: bebopDesktop,
-      type: "image",
-    },
-    {
-      key: "profile-video",
-      src: "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/sRGuzPg7aefddqqyQhgHTZi2sM53/rDbRz9x7nIoBUpLrGOP3/624244f2-1e6d-461b-b189-e0d1c4750ebe.mp4?_a=DATAdtAAZAA0",
-      type: "video",
-    },
-  ];
-  const duration = 0.2;
-  // Intentional square crops: these previews read as floating cards, not literal screenshots.
-  const tooltipThumbnailSize = 144;
-
-  return (
-    <div className="grid grid-cols-1 grid-rows-1">
-      {media.map((item, i) => (
-        <motion.div
-          key={`${item.key}-${i}`}
-          {...animationFns[animation](i, duration)}
-          className="ak-frame ak-frame-card/0 shadow row-start-1 row-end-1 col-start-1 col-end-1"
-        >
-          <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/0 ak-frame-border w-36">
-            {item.type === "image" ? (
-              <Image
-                src={item.src}
-                alt=""
-                width={tooltipThumbnailSize}
-                aspectRatio={1}
-                objectFit="cover"
-                className="ak-frame w-full"
-              />
-            ) : (
-              <video
-                className="ak-frame w-full"
-                src={item.src}
-                autoPlay
-                loop
-                muted
-                playsInline
-              />
-            )}
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  );
-};
-const bouncyAnimation = (i: number, duration: number) => {
-  return {
-    initial: { scale: 0.5, opacity: 0, rotate: 0 },
-    animate: {
-      scale: 1,
-      opacity: 1,
-      rotate: i !== 0 ? 10 * (i % 2 === 0 ? -1 : 1) : 0,
-    },
-    exit: { scale: 0.5, opacity: 0 },
-    transition: {
-      ease: [0.175, 0.885, 0.32, 1.275],
-      duration: duration,
-      delay: i * duration * 0.3,
-    },
-    style: {
-      marginLeft: `${i * 30}px`,
-      marginTop: i !== 0 ? `${20 * (i % 2 === 0 ? 1 : -1)}px` : 0,
-    },
-  };
-};
-
-const glitchAnimation = (i: number, duration: number) => {
-  return {
-    initial: {
-      opacity: 0,
-    },
-    animate: {
-      opacity: [0, 1, 0, 1, 0, 1],
-    },
-    exit: {
-      opacity: [1, 0, 1, 0, 1, 0],
-    },
-    transition: {
-      duration: duration,
-      times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-      delay: i * duration * 0.3,
-    },
-    style: {
-      marginLeft: `${i * 30}px`,
-      marginTop: i !== 0 ? `${20 * (i % 2 === 0 ? 1 : -1)}px` : 0,
-    },
-  };
-};
-
-const animationFns = {
-  bouncy: bouncyAnimation,
-  glichy: glitchAnimation,
-} as const;
-type animationFnName = keyof typeof animationFns;
+    const move = (event: MouseEvent) =>
+      store.getState().updatePos(event.clientX, event.clientY);
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, [store]);
+  return null;
+}
 
 function BouncyTooltipPlayPage() {
   return (
-    <CursorPositionStoreProvider>
+    <>
       <div className="grid min-h-dvh place-items-center">
         <div className="flex gap-8">
           <CursorWithAttachedElement>
+            <GlobalPointerTracking />
             <CursorWithAttachedElementTrigger>
               Bouncy
             </CursorWithAttachedElementTrigger>
 
             <CursorWithAttachedElementContent>
-              <AnimatedElements animation="bouncy" />
+              <AnimatedElements media={media} animation="bouncy" />
             </CursorWithAttachedElementContent>
           </CursorWithAttachedElement>
 
           <CursorWithAttachedElement>
+            <GlobalPointerTracking />
             <CursorWithAttachedElementTrigger>
               glitchy
             </CursorWithAttachedElementTrigger>
 
             <CursorWithAttachedElementContent>
-              <AnimatedElements animation="glichy" />
+              <AnimatedElements media={media} animation="glichy" />
             </CursorWithAttachedElementContent>
           </CursorWithAttachedElement>
         </div>
       </div>
-    </CursorPositionStoreProvider>
+    </>
   );
 }
 

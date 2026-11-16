@@ -1,34 +1,40 @@
-type ContainerProps =
-  | {
-      backable?: boolean;
-      backMessage?: never;
-      backAnchor?: never;
-    }
-  | {
-      backable: true;
-      backMessage?: string;
-      backAnchor?: string;
-    };
+export type ContainerProps = React.ComponentPropsWithRef<"div"> & {
+  mainProps?: Omit<React.ComponentPropsWithRef<"main">, "children">;
+  /** undefined uses the site footer; null deliberately omits it. */
+  footer?: React.ReactNode;
+} & (
+    | (BackNavigationProps & { navigation?: never })
+    | {
+        navigation: React.ReactNode;
+        backable?: never;
+        backMessage?: never;
+        backAnchor?: never;
+      }
+  );
 
+/** Application shell: GridOverlay uses the app's PortalStoreProvider.
+ * Reusable features stay outside this shell; null navigation/footer deliberately omit them.
+ */
 function Container({
   backable,
   backMessage,
   backAnchor,
   children,
-}: React.PropsWithChildren<ContainerProps>) {
-  // const childrenArray: any[] = Children.toArray(children);
-  // let dark: boolean | undefined;
-  // if (childrenArray.length > 0) {
-  //   dark = childrenArray[childrenArray.length - 1].props.dark;
-  // }
-
+  navigation,
+  footer,
+  mainProps,
+  className,
+  ...props
+}: ContainerProps) {
   return (
     <>
       <div className="bg-canvas pointer-events-none absolute inset-0 z-30 opacity-0 motion-safe:animate-fadeOut" />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className={cn("relative mx-auto max-w-7xl", className)} {...props}>
         <div className="relative min-h-screen">
-          {!backable ? (
+          {navigation !== undefined ? (
+            navigation
+          ) : !backable ? (
             <MainNav />
           ) : (
             <MainNav
@@ -39,8 +45,16 @@ function Container({
           )}
           <GridOverlay />
           <div className="relative -mr-2 flex min-h-[calc(100vh_-_104px)] w-full flex-col justify-between gap-16">
-            <main className="flex flex-col justify-center">{children}</main>
-            <Footer />
+            <main
+              {...mainProps}
+              className={cn(
+                "flex flex-col justify-center",
+                mainProps?.className,
+              )}
+            >
+              {children}
+            </main>
+            {footer === undefined ? <Footer /> : footer}
           </div>
         </div>
       </div>
@@ -53,5 +67,6 @@ export default Container;
 import React from "react";
 
 import { Overlay as GridOverlay } from "@/components/ui/Grid/Overlay";
-import MainNav from "@/components/MainNav";
+import MainNav, { type BackNavigationProps } from "@/components/MainNav";
+import { cn } from "@/lib/styling";
 import Footer from "@/components/Footer";

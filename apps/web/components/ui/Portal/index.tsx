@@ -2,6 +2,7 @@
 import { StoreApi, createStore, useStore } from "zustand";
 import React, { useId, useRef } from "react";
 import { createPortal } from "react-dom";
+import { Role } from "@ariakit/react";
 
 /**
  * Update this dictionary to add new portals.
@@ -10,7 +11,9 @@ import { createPortal } from "react-dom";
 const PORTAL_DICTIONARY = {
   out: ["toolbox", "intentionallyEmpty"],
 } as const;
-type OutPortalName = (typeof PORTAL_DICTIONARY)["out"][number] | (string & {});
+export type OutPortalName =
+  | (typeof PORTAL_DICTIONARY)["out"][number]
+  | (string & {});
 
 type InPortal = {
   name: string;
@@ -20,53 +23,65 @@ type OutPortal = {
   name: OutPortalName;
   ref: React.RefObject<HTMLElement | null> | null;
 };
-interface PortalStore {
+export interface PortalStore {
   inPortals: Map<string, InPortal>;
   outPortals: Map<OutPortalName, OutPortal>;
 
   addInPortal: (portal: InPortal) => void;
-  removeInPortal: (id: string) => void;
+  removeInPortal: (id: string, expected?: InPortal) => void;
 
   addOutPortal: (portal: OutPortal) => void;
-  removeOutPortal: (id: OutPortalName) => void;
+  removeOutPortal: (id: OutPortalName, expected?: OutPortal) => void;
 }
 
 const PortalStoreContext = React.createContext<StoreApi<PortalStore> | null>(
   null,
 );
+export const createPortalStore = () =>
+  createStore<PortalStore>((set) => ({
+    inPortals: new Map(),
+    outPortals: new Map(),
+
+    addInPortal: (portal) =>
+      set((prev) => ({
+        inPortals: new Map(prev.inPortals).set(portal.name, portal),
+      })),
+    removeInPortal: (name, expected) =>
+      set((prev) => {
+        if (expected && prev.inPortals.get(name) !== expected) return prev;
+        const newInPortals = new Map(prev.inPortals);
+        newInPortals.delete(name);
+        return { inPortals: newInPortals };
+      }),
+
+    addOutPortal: (portal) =>
+      set((prev) => ({
+        outPortals: new Map(prev.outPortals).set(portal.name, portal),
+      })),
+    removeOutPortal: (name, expected) =>
+      set((prev) => {
+        if (expected && prev.outPortals.get(name) !== expected) return prev;
+        const newOutPortals = new Map(prev.outPortals);
+        newOutPortals.delete(name);
+        return { outPortals: newOutPortals };
+      }),
+  }));
+
+/** Store ownership is fixed at mount. Supplied stores are never cleared here. */
 export const PortalStoreProvider = ({
   children,
+  store: suppliedStore,
 }: {
   children: React.ReactNode;
+  store?: StoreApi<PortalStore>;
 }) => {
-  const [store] = React.useState(() =>
-    createStore<PortalStore>((set) => ({
-      inPortals: new Map(),
-      outPortals: new Map(),
-
-      addInPortal: (portal) =>
-        set((prev) => ({
-          inPortals: new Map(prev.inPortals).set(portal.name, portal),
-        })),
-      removeInPortal: (name) =>
-        set((prev) => {
-          const newInPortals = new Map(prev.inPortals);
-          newInPortals.delete(name);
-          return { inPortals: newInPortals };
-        }),
-
-      addOutPortal: (portal) =>
-        set((prev) => ({
-          outPortals: new Map(prev.outPortals).set(portal.name, portal),
-        })),
-      removeOutPortal: (name) =>
-        set((prev) => {
-          const newOutPortals = new Map(prev.outPortals);
-          newOutPortals.delete(name);
-          return { outPortals: newOutPortals };
-        }),
-    })),
-  );
+  const [store] = React.useState(() => suppliedStore ?? createPortalStore());
+  const initialStore = React.useRef(suppliedStore);
+  if (initialStore.current !== suppliedStore) {
+    throw new Error(
+      "PortalStoreProvider store cannot change after mount; remount the provider",
+    );
+  }
 
   return (
     <PortalStoreContext.Provider value={store}>
@@ -92,10 +107,11 @@ const useInPortal = ({
   const { addInPortal, removeInPortal } = usePortalStore();
 
   React.useLayoutEffect(() => {
-    addInPortal({ name, intendedOut });
+    const registration = { name, intendedOut };
+    addInPortal(registration);
 
     return () => {
-      removeInPortal(name);
+      removeInPortal(name, registration);
     };
   }, [name, intendedOut, addInPortal, removeInPortal]);
 };
@@ -108,10 +124,11 @@ export const useOutPortal = <T extends HTMLElement>(name: OutPortalName) => {
   const ref = useRef<T>(null);
 
   React.useLayoutEffect(() => {
-    addOutPortal({ name, ref });
+    const registration = { name, ref };
+    addOutPortal(registration);
 
     return () => {
-      removeOutPortal(name);
+      removeOutPortal(name, registration);
     };
   }, [name, ref, addOutPortal, removeOutPortal]);
 
@@ -157,8 +174,8 @@ export function InPortal({
 export function OutPortal({
   name,
   ...rest
-}: { name: OutPortalName } & React.HTMLAttributes<HTMLDivElement>) {
+}: { name: OutPortalName } & React.ComponentPropsWithRef<"div">) {
   const ref = useOutPortal<HTMLDivElement>(name);
 
-  return <div ref={ref} {...rest} />;
+  return <Role.div ref={ref} render={<div {...rest} />} />;
 }

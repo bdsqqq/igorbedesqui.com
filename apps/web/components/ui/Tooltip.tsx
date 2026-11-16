@@ -1,48 +1,132 @@
 "use client";
 
-import type { VariantProps } from "class-variance-authority";
-import { cva } from "class-variance-authority";
+import * as React from "react";
+import * as Ariakit from "@ariakit/react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/styling";
+import type { AsChildProps, OpenStateProps } from "./ownership";
 
-import {
-  Tooltip as AriaKitTooltip,
-  TooltipAnchor,
-  TooltipProvider,
-  TooltipArrow,
-  useTooltipStore,
-  useStoreState,
-} from "@ariakit/react";
+type TooltipOptions = VariantProps<typeof tooltipVariants> & {
+  side?: "bottom" | "left" | "right" | "top";
+};
 
-interface Tooltip {
-  children: React.ReactElement;
-  content: React.ReactNode;
-  options?: VariantProps<typeof tooltipVariants> & {
-    side?: "bottom" | "left" | "right" | "top" | undefined;
-  };
+type TooltipRootProps = Omit<
+  Ariakit.TooltipProviderProps,
+  "open" | "defaultOpen" | "setOpen" | "store"
+> &
+  OpenStateProps;
+
+export function TooltipRoot({
+  open,
+  defaultOpen,
+  onOpenChange,
+  ...props
+}: TooltipRootProps) {
+  if (open !== undefined && (defaultOpen !== undefined || !onOpenChange)) {
+    throw new Error(
+      "TooltipRoot requires onOpenChange with open and forbids defaultOpen with open",
+    );
+  }
+  return (
+    <Ariakit.TooltipProvider
+      showTimeout={200}
+      {...props}
+      open={open}
+      defaultOpen={defaultOpen}
+      setOpen={onOpenChange}
+    />
+  );
 }
 
-function Tooltip({ children, content, options }: Tooltip) {
-  const store = useTooltipStore({
-    placement: options?.side ?? "top",
-    showTimeout: 200,
-  });
-  const placement = useStoreState(store, "currentPlacement");
+export function TooltipTrigger({
+  asChild,
+  children,
+  ...props
+}: AsChildProps<React.ComponentPropsWithRef<typeof Ariakit.TooltipAnchor>>) {
+  if (asChild && props.render !== undefined)
+    throw new Error("TooltipTrigger accepts either asChild or render");
   return (
-    <TooltipProvider store={store}>
-      <TooltipAnchor render={children} />
-      <AriaKitTooltip
-        portal
-        gutter={0}
-        className={tooltipVariants({
-          bg: options?.bg,
-          maxW: options?.maxW,
-          size: options?.size,
-        })}
-        data-side={placement.split("-")[0]}
-      >
+    <Ariakit.TooltipAnchor
+      {...props}
+      render={
+        asChild
+          ? (React.Children.only(children) as React.ReactElement)
+          : props.render
+      }
+    >
+      {asChild ? null : children}
+    </Ariakit.TooltipAnchor>
+  );
+}
+
+export function TooltipArrow(
+  props: React.ComponentPropsWithRef<typeof Ariakit.TooltipArrow>,
+) {
+  return (
+    <Ariakit.TooltipArrow
+      {...props}
+      className={cn("stroke-(--ak-edge) drop-shadow-sm", props.className)}
+    />
+  );
+}
+
+type TooltipContentProps = React.ComponentPropsWithRef<
+  typeof Ariakit.Tooltip
+> & {
+  options?: VariantProps<typeof tooltipVariants>;
+  arrow?: React.ReactNode;
+};
+
+export function TooltipContent({
+  options,
+  className,
+  children,
+  arrow = <TooltipArrow />,
+  ...props
+}: TooltipContentProps) {
+  const context = Ariakit.useTooltipContext();
+  const store = props.store ?? context;
+  const placement = Ariakit.useStoreState(store, "currentPlacement");
+  return (
+    <Ariakit.Tooltip
+      portal
+      gutter={0}
+      data-side={placement?.split("-")[0]}
+      {...props}
+      className={cn(tooltipVariants(options), className)}
+    >
+      {children}
+      {arrow}
+    </Ariakit.Tooltip>
+  );
+}
+
+type TooltipProps = OpenStateProps & {
+  children: React.ReactElement;
+  content: React.ReactNode;
+  options?: TooltipOptions;
+  triggerProps?: Omit<
+    React.ComponentPropsWithRef<typeof Ariakit.TooltipAnchor>,
+    "children" | "render"
+  >;
+  contentProps?: Omit<TooltipContentProps, "children" | "options">;
+};
+
+export default function Tooltip({
+  children,
+  content,
+  options,
+  triggerProps,
+  contentProps,
+  ...state
+}: TooltipProps) {
+  return (
+    <TooltipRoot {...state} placement={options?.side ?? "top"}>
+      <TooltipTrigger {...triggerProps} render={children} />
+      <TooltipContent {...contentProps} options={options}>
         {content}
-        <TooltipArrow className="stroke-(--ak-edge) drop-shadow-sm" />
-      </AriaKitTooltip>
-    </TooltipProvider>
+      </TooltipContent>
+    </TooltipRoot>
   );
 }
 
@@ -52,25 +136,13 @@ const tooltipVariants = cva(
   ],
   {
     variants: {
-      bg: {
-        standard: "ak-layer-lighten-6",
-        subtle: "ak-layer-canvas",
-      },
+      bg: { standard: "ak-layer-lighten-6", subtle: "ak-layer-canvas" },
       size: {
         sm: "text-sm ak-frame-p-0.5 px-1",
         md: "text-base ak-frame-p-1 px-2",
       },
-      maxW: {
-        full: "max-w-full",
-        md: "max-w-[16rem]",
-      },
+      maxW: { full: "max-w-full", md: "max-w-[16rem]" },
     },
-    defaultVariants: {
-      bg: "standard",
-      size: "md",
-      maxW: "md",
-    },
+    defaultVariants: { bg: "standard", size: "md", maxW: "md" },
   },
 );
-
-export default Tooltip;

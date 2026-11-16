@@ -1,4 +1,4 @@
-interface StyledLinkProps extends ComponentPropsWithoutRef<"a"> {
+export interface StyledLinkProps extends ComponentProps<typeof UnstyledLink> {
   href: string;
   icon?: ReactNode;
   iconless?: boolean;
@@ -62,4 +62,4 @@ import { UnstyledLink } from "@/ui/primitives";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/styling";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
