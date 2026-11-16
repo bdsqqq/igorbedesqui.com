@@ -55,12 +55,7 @@ function SectionHeading({
   description: string;
 }) {
   return (
-    <header
-      className={cn(
-        foundationGrid,
-        "col-span-full gap-y-3 border-t border-(--ak-edge) pt-4",
-      )}
-    >
+    <header className={cn(foundationGrid, "col-span-full gap-y-3 pt-4")}>
       <p className="col-span-full font-mono text-xs ak-ink-60 md:col-span-2 lg:col-span-4">
         {eyebrow}
       </p>
@@ -84,13 +79,7 @@ function PatternEntry({
   children: ReactNode;
 }) {
   return (
-    <article
-      className={cn(
-        showcaseColumns,
-        patternGrid,
-        "gap-y-6 border-t border-(--ak-edge) pt-4",
-      )}
-    >
+    <article className={cn(showcaseColumns, patternGrid, "gap-y-6 pt-4")}>
       <div className="col-span-full md:col-span-2 lg:col-span-4">
         <p className="font-mono text-xs ak-ink-60">{number}</p>
         <h3 className="mt-2 font-semibold ak-ink-100">{title}</h3>
@@ -133,7 +122,7 @@ function FoundationalStylesPage() {
             <div
               className={cn(
                 showcaseColumns,
-                "grid gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border bg-(--ak-edge) md:grid-cols-2",
+                "grid gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-(--ak-edge) md:grid-cols-2",
               )}
             >
               <article className="flex min-h-72 flex-col ak-layer ak-layer-canvas p-6 md:p-8">
@@ -183,13 +172,13 @@ function FoundationalStylesPage() {
             <div
               className={cn(
                 showcaseColumns,
-                "overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border",
+                "overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px",
               )}
             >
               {typeScale.map((type) => (
                 <div
                   key={type.name}
-                  className="grid min-h-20 items-center gap-4 border-b border-(--ak-edge) px-4 py-5 last:border-b-0 md:grid-cols-3 md:px-6"
+                  className="grid min-h-20 items-center gap-4 px-4 py-5 md:grid-cols-3 md:px-6"
                 >
                   <p className="font-mono text-xs ak-ink-60">
                     text-{type.name} · {type.size} / {type.lineHeight}
@@ -217,7 +206,7 @@ function FoundationalStylesPage() {
                 <h3 className="font-semibold">Solid scale</h3>
                 <p className="font-mono text-xs ak-ink-60">gray-00—12</p>
               </div>
-              <div className="grid grid-cols-2 gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border bg-(--ak-edge) sm:grid-cols-4 lg:grid-cols-7">
+              <div className="grid grid-cols-2 gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-(--ak-edge) sm:grid-cols-4 lg:grid-cols-7">
                 {solidColors.map((step) => (
                   <div key={step} className="ak-layer ak-layer-canvas">
                     <div
@@ -238,7 +227,7 @@ function FoundationalStylesPage() {
                 <h3 className="font-semibold">Alpha scale</h3>
                 <p className="font-mono text-xs ak-ink-60">gray-A01—A12</p>
               </div>
-              <div className="grid grid-cols-2 gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border bg-gray-04 sm:grid-cols-4 lg:grid-cols-6">
+              <div className="grid grid-cols-2 gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-gray-04 sm:grid-cols-4 lg:grid-cols-6">
                 {alphaColors.map((step) => (
                   <div key={step} className="bg-gray-02 p-3">
                     <div
@@ -256,7 +245,7 @@ function FoundationalStylesPage() {
             <div
               className={cn(
                 showcaseColumns,
-                "grid gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border bg-(--ak-edge) md:grid-cols-3",
+                "grid gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-(--ak-edge) md:grid-cols-3",
               )}
             >
               <div className="flex min-h-48 flex-col ak-layer ak-layer-canvas p-6">
@@ -270,7 +259,7 @@ function FoundationalStylesPage() {
                 <p className="mt-1 font-mono text-xs ak-ink-60">gray-10</p>
               </div>
               <div className="flex min-h-48 flex-col ak-layer ak-layer-canvas p-6">
-                <div className="h-10 w-10 shrink-0 ak-layer ak-layer-gray-02 ak-frame ak-frame-badge/0 ak-frame-border ak-edge-gray-A04 ak-edge-raw" />
+                <div className="h-10 w-10 shrink-0 ak-layer ak-layer-gray-02 ak-frame ak-frame-badge/0 ak-frame-border -ak-frame-m-px ak-edge-gray-A04 ak-edge-raw" />
                 <p className="mt-auto pt-8">Subtle surface</p>
                 <p className="mt-1 font-mono text-xs ak-ink-60">
                   gray-02 + gray-A04
@@ -289,13 +278,13 @@ function FoundationalStylesPage() {
             <div
               className={cn(
                 showcaseColumns,
-                "overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border",
+                "overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px",
               )}
             >
               {spacing.map((space) => (
                 <div
                   key={space.name}
-                  className="grid min-h-14 grid-cols-[4rem_1fr_3rem] items-center gap-4 border-b border-(--ak-edge) px-4 py-3 last:border-b-0 md:grid-cols-[8rem_1fr_5rem] md:px-6"
+                  className="grid min-h-14 grid-cols-[4rem_1fr_3rem] items-center gap-4 px-4 py-3 md:grid-cols-[8rem_1fr_5rem] md:px-6"
                 >
                   <p className="font-mono text-xs ak-ink-70">
                     space-{space.name}
@@ -321,7 +310,7 @@ function FoundationalStylesPage() {
               ].map((example) => (
                 <article
                   key={example.label}
-                  className="flex min-h-72 flex-col ak-layer ak-frame ak-frame-card/5 ak-frame-border"
+                  className="flex min-h-72 flex-col ak-layer ak-frame ak-frame-card/5 ak-frame-border -ak-frame-m-px"
                 >
                   <div
                     className="flex min-h-48 flex-col justify-center"
@@ -353,7 +342,7 @@ function SiteLanguageSection() {
       <aside
         className={cn(
           showcaseColumns,
-          "ak-layer ak-layer-3 ak-frame ak-frame-card/6 ak-frame-border ak-edge-15 md:ak-frame-p-10",
+          "ak-layer ak-layer-3 ak-frame ak-frame-card/6 ak-frame-border -ak-frame-m-px ak-edge-15 md:ak-frame-p-10",
         )}
       >
         <p className="font-mono text-xs uppercase tracking-wider ak-ink-60">
@@ -376,7 +365,7 @@ function SiteLanguageSection() {
         title="Bands become chapters"
         description="Sections are announced with an enormous, low-contrast index and a lighter title. The label behaves as atmosphere before it behaves as text."
       >
-        <div className="min-h-64 overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border py-8">
+        <div className="min-h-64 overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px py-8">
           <Band
             headline={{ bold: "01", thin: "Work" }}
             options={{ narrow: true }}
@@ -394,7 +383,7 @@ function SiteLanguageSection() {
         title="Contrast carries meaning"
         description="Weight is rarely enough on its own. High, normal, and low contrast let a paragraph expose its essential reading path."
       >
-        <div className="flex min-h-56 items-center ak-layer ak-frame ak-frame-card/6 ak-frame-border">
+        <div className="flex min-h-56 items-center ak-layer ak-frame ak-frame-card/6 ak-frame-border -ak-frame-m-px">
           <p className="text-xl leading-relaxed ak-ink-80">
             <strong className="font-normal ak-ink-100">
               Start with the thought that must survive a skim.
@@ -413,7 +402,7 @@ function SiteLanguageSection() {
         title="Disclosure is part of the voice"
         description="Blurred asides hold doubt, jokes, and extra honesty. Hover or focus turns a private aside into an optional second reading."
       >
-        <div className="flex min-h-48 items-center ak-layer ak-frame ak-frame-card/6 ak-frame-border text-lg leading-relaxed">
+        <div className="flex min-h-48 items-center ak-layer ak-frame ak-frame-card/6 ak-frame-border -ak-frame-m-px text-lg leading-relaxed">
           <p>
             The direct version stays readable.{" "}
             <Blur>
@@ -432,7 +421,7 @@ function SiteLanguageSection() {
         title="A list reacts as one object"
         description="Project and writing indexes dim together. The item under attention returns to full contrast while its date slides quietly into view."
       >
-        <ul className="pointer-events-none flex min-h-56 flex-col justify-center ak-layer ak-frame ak-frame-card/0 ak-frame-border px-6 focus-within:ak-ink-70 hover:ak-ink-70">
+        <ul className="pointer-events-none flex min-h-56 flex-col justify-center ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px px-6 focus-within:ak-ink-70 hover:ak-ink-70">
           {[
             ["Axiom", "UI & engineering for observability.", "2023 ~ 2026"],
             ["The Manual", "A careful reading experience.", "2022"],
@@ -441,7 +430,7 @@ function SiteLanguageSection() {
             <li
               key={name}
               tabIndex={0}
-              className="group pointer-events-auto border-b border-(--ak-edge) py-3 last:border-b-0 transition-colors duration-fast-02 ease-productive-standard hover:ak-ink-100 focus:ak-ink-100 focus:outline-none"
+              className="group pointer-events-auto py-3 transition-colors duration-fast-02 ease-productive-standard hover:ak-ink-100 focus:ak-ink-100 focus:outline-none"
             >
               <p>
                 <strong className="font-bold">{name}</strong>{" "}
@@ -460,7 +449,7 @@ function SiteLanguageSection() {
         title="Quotes escape the measure"
         description="Writing remains compact until a sentence deserves the room. Large blockquotes use negative indentation to hang punctuation outside the prose edge."
       >
-        <div className="flex min-h-64 items-center ak-layer ak-frame ak-frame-card/0 ak-frame-border px-8 py-10 md:px-12">
+        <div className="flex min-h-64 items-center ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px px-8 py-10 md:px-12">
           <blockquote className="-indent-4 text-3xl leading-tight ak-ink-100 sm:-indent-6 sm:text-5xl">
             “Elevating content through presentation.”
           </blockquote>
@@ -472,7 +461,7 @@ function SiteLanguageSection() {
         title="Metadata whispers"
         description="Dates, periods, captions, and counts are small and close-set. Uppercase labels orient; italic captions step away from the main narrative."
       >
-        <div className="grid min-h-56 gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border bg-(--ak-edge) sm:grid-cols-2">
+        <div className="grid min-h-56 gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-(--ak-edge) sm:grid-cols-2">
           <div className="flex flex-col justify-between ak-layer ak-layer-canvas p-6">
             <p className="text-xs font-bold tracking-tighter ak-ink-50">
               Last updated on <time>06 Oct 2023</time>
@@ -487,7 +476,7 @@ function SiteLanguageSection() {
             </div>
           </div>
           <figure className="ak-layer ak-layer-3 ak-frame ak-frame-card/4 flex flex-col">
-            <div className="min-h-28 flex-1 ak-layer ak-frame ak-frame-field/0 ak-frame-border ak-layer-darken-3" />
+            <div className="min-h-28 flex-1 ak-layer ak-frame ak-frame-field/0 ak-layer-darken-3" />
             <figcaption className="mt-2 text-end text-sm italic tracking-wide ak-ink-70">
               The detail should reward a closer look.
             </figcaption>
@@ -500,7 +489,7 @@ function SiteLanguageSection() {
         title="Links declare their destination"
         description="Links stay inside the sentence and share a quiet underline. Internal navigation can carry a directional cue; external destinations receive the northeast arrow."
       >
-        <div className="flex min-h-48 flex-col justify-center gap-5 ak-layer ak-frame ak-frame-card/6 ak-frame-border text-lg">
+        <div className="flex min-h-48 flex-col justify-center gap-5 ak-layer ak-frame ak-frame-card/6 ak-frame-border -ak-frame-m-px text-lg">
           <p>
             Read more about the{" "}
             <a
@@ -525,12 +514,12 @@ function SiteLanguageSection() {
         title="Atmosphere stays at the edge"
         description="Warm grays do the real work. Alpha borders, faint gradients, grain, and top-and-bottom fades add tactility without becoming the subject."
       >
-        <div className="relative min-h-64 overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border">
+        <div className="relative min-h-64 overflow-hidden ak-layer ak-frame ak-frame-card/0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,var(--gray-A05),transparent_45%)]" />
           <div className="absolute inset-x-0 top-0 h-20 bg-linear-to-b from-gray-00 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-gray-00 to-transparent" />
           <div className="relative grid min-h-64 place-items-center p-8">
-            <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/6 ak-frame-bordering shadow-highlight">
+            <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/6 ak-frame-border -ak-frame-m-px shadow-highlight">
               <p className="font-semibold ak-ink-100">
                 Texture, not decoration.
               </p>
@@ -547,7 +536,7 @@ function SiteLanguageSection() {
         title="The grid permits asymmetry"
         description="Four, eight, then sixteen columns provide the shared skeleton. Content can narrow, offset, bleed, or leave a column empty while remaining visibly related."
       >
-        <div className="overflow-hidden ak-layer ak-frame ak-frame-card/4 ak-frame-border">
+        <div className="overflow-hidden ak-layer ak-frame ak-frame-card/4 ak-frame-border -ak-frame-m-px">
           <div className={cn(foundationGrid, "min-h-48 gap-y-2")}>
             {Array.from({ length: 16 }, (_, index) => (
               <div

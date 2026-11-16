@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 const stageVariants = cva("", {
   variants: {
     border: {
-      true: "ak-frame-ring",
+      true: "ak-frame-border -ak-frame-m-px h-[calc(100%+2px)]",
     },
     rounded: {
       true: "ak-frame-card",
@@ -40,7 +40,7 @@ export const Stage = ({
       {...rest}
     >
       {title && (
-        <div className="ak-frame ak-frame-cover ak-frame-start border-b px-4 py-1 text-xs ak-ink-60">
+        <div className="ak-frame ak-frame-cover ak-frame-start px-4 py-1 text-xs ak-ink-60">
           {title}
         </div>
       )}

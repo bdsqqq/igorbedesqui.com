@@ -241,7 +241,7 @@ function Scales() {
                   sameWidth={false}
                   fitViewport
                   className={cn(
-                    "surface-popover ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/1 ak-frame-bordering z-10 shadow-sm",
+                    "surface-popover ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/1 ak-frame-border z-10 shadow-sm",
                   )}
                 >
                   {filteredPreDefinedScales.map((scale) => (
@@ -300,7 +300,7 @@ function Scales() {
       </Band>
       <Band gridless options={{ padding: "none" }} id="results">
         {inputsSetAsDefault.length > 0 && (
-          <ul className="ak-ink-70 [&>li+li]:border-t [&>li+li]:border-(--ak-edge) [&>li]:py-2">
+          <ul className="ak-ink-70 [&>li]:py-2">
             {inputsSetAsDefault.map((input) => (
               <li key={`${input.name}_InputSetAsDefault`}>
                 {input.label} is not a valid number. Using the default value:{" "}
@@ -363,7 +363,7 @@ function Scales() {
 }
 
 const inputVariants = cva(
-  "relative ak-layer ak-layer-lighten-6 ak-frame ak-frame-field/1 ak-frame-ring ak-edge-contrast text-center hover:ak-state-6 focus:ak-state-6 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-within:z-10 motion-safe:transition-colors duration-fast-01 ease-productive-standard",
+  "relative ak-layer ak-layer-lighten-6 ak-frame ak-frame-field/1 text-center hover:ak-state-6 focus:ak-state-6 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-within:z-10 motion-safe:transition-colors duration-fast-01 ease-productive-standard",
   {
     variants: {
       size: {

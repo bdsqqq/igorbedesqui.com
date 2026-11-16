@@ -9,7 +9,7 @@ export const [buttonVariants, buttonPermutations] = CVAWithPerms(
     "select-none appearance-none",
     "relative whitespace-nowrap inline-flex items-center gap-1 align-middle",
     "motion-safe:duration-fast-01 motion-safe:ease-expressive-standard transition-all",
-    "ak-layer ak-frame [:where(&)]:ak-frame-field/field ak-frame-border ak-edge-contrast",
+    "ak-layer ak-frame [:where(&)]:ak-frame-field/field",
     "focus-visible:ak-outline focus-visible:ak-outline-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:z-10",
     "disabled:ak-ink-0 aria-disabled:ak-ink-0",
   ),

@@ -45,7 +45,7 @@ function LibraryPage() {
           </div>
 
           <div className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-12">
-            <ContentList className="-mx-2.5">
+            <ContentList className="-mx-2">
               {libraryEntries.map((entry) => (
                 <li key={entry.href}>
                   <UnstyledLink className={contentListRow} href={entry.href}>

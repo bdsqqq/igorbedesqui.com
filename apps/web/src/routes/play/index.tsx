@@ -48,7 +48,6 @@ const cvaConfig = {
     intent: {
       primary: [
         "ak-layer-6",
-        "ak-edge-contrast",
         "hover:ak-state-6",
         "focus-visible:ak-outline focus-visible:outline-2",
       ],
@@ -61,7 +60,6 @@ const [, permutations] = CVAWithPerms(
     "select-none appearance-none",
     "relative ak-layer ak-frame ak-frame-field/1 px-2 inline-flex items-center gap-2 align-middle",
     "motion-safe:duration-fast-01 motion-safe:ease-expressive-standard transition-all",
-    "ak-frame-border",
     "active:scale-95",
   ),
   cvaConfig,
@@ -74,13 +72,13 @@ const variantsPlaceholder = replaceLeafValuesWithDots(
 function Permutations() {
   return (
     <div className="flex min-w-0 flex-wrap items-center gap-6">
-      <div className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/2 ak-frame-bordering min-w-0 max-w-sm overflow-x-auto">
-        <pre className="">{JSON.stringify(variantsPlaceholder, null, 2)}</pre>
+      <div className="min-w-0 max-w-sm overflow-x-auto">
+        <pre>{JSON.stringify(variantsPlaceholder, null, 2)}</pre>
       </div>
       <div className="h-4 w-4 text-base">
         <ArrowRightIcon />
       </div>
-      <div className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/2 ak-frame-bordering min-w-0 max-w-full overflow-x-auto">
+      <div className="min-w-0 max-w-full overflow-x-auto">
         <pre>{JSON.stringify(permutations, null, 2)}</pre>
       </div>
       <div className="h-4 w-4 text-base">

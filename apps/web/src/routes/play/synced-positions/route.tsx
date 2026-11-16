@@ -45,7 +45,7 @@ const Test = () => {
 
   return (
     <div
-      className="ak-layer ak-layer-darken-3 ak-frame ak-frame-card/0 ak-frame-bordering relative w-full h-16"
+      className="ak-layer ak-layer-darken-3 ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px relative w-[calc(100%+2px)] h-[calc(4rem+2px)]"
       onMouseMove={handleMouseMove}
     >
       <Crosshair />

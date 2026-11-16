@@ -31,10 +31,10 @@ const VOID_ELEMENTS = [
 const MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID = ["video"];
 
 export const shadowBorderStyles =
-  "relative ak-frame ak-frame-ring ring-(--ak-edge)";
+  "relative ak-frame [:where(&)]:ak-frame-border [:where(&)]:-ak-frame-m-px";
 
 const wrapperStyles =
-  "block ak-layer ak-layer-darken-2 [:where(&)]:ak-frame-card/0.5 [&>img]:ak-frame [&>video]:ak-frame";
+  "block ak-layer ak-layer-darken-2 [:where(&)]:ak-frame-card/0 [&>img]:ak-frame [&>video]:ak-frame";
 
 export type BorderProps = PropsWithChildren<{
   className?: string;
@@ -43,11 +43,11 @@ export type BorderProps = PropsWithChildren<{
 }>;
 
 /**
- * Adds a frame edge to a child, or a recessed media bed when wrapping it.
+ * Adds a single frame edge to a child or its media wrapper.
  *
- * The ring stays outside the box so opaque media cannot paint over the edge.
- * A thin media inset lets direct image and video frames derive concentric radii.
- * The default frame has zero specificity so caller shortcuts can override it.
+ * A negative frame margin places the physical border outside the content grid.
+ * Wrappers have no bed inset; nested media derive their radius from the frame.
+ * Zero-specificity defaults let canonical caller utilities override the geometry.
  *
  * This component will try to automatically detect if the child is a void element,
  * but it's not perfect, so it's recommended to explicitly set `asWrapper` to true

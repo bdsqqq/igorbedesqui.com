@@ -24,7 +24,7 @@ function WorkIndexPage() {
       <Band gridless id="01">
         <div className={grid()}>
           <div className="col-span-full">
-            <ContentList className="-mx-4.5 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16">
+            <ContentList className="-mx-4 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16">
               {projects.map((p) => {
                 return (
                   <li className="col-span-4 lg:col-span-8" key={p.shortName}>

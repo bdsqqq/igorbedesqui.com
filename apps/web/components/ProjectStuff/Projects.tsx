@@ -6,7 +6,7 @@ type ProjectsProps = {
 };
 function Projects({ projectsMeta }: ProjectsProps) {
   return (
-    <ContentList className="-mx-2.5 w-[calc(100%+1.25rem)] hover:[&>li>a]:opacity-40 focus-within:[&>li>a]:opacity-40 md:grid md:grid-cols-2 md:gap-x-6 [&>li:first-child>a]:pt-0 [&>li:last-child>a]:pb-0 md:[&>li:nth-child(2)>a]:pt-0 md:[&>li:nth-last-child(2):nth-child(odd)>a]:pb-0">
+    <ContentList className="-mx-2 w-[calc(100%+1rem)] hover:[&>li>a]:opacity-40 focus-within:[&>li>a]:opacity-40 md:grid md:grid-cols-2 md:gap-x-6 [&>li:first-child>a]:pt-0 [&>li:last-child>a]:pb-0 md:[&>li:nth-child(2)>a]:pt-0 md:[&>li:nth-last-child(2):nth-child(odd)>a]:pb-0">
       {projectsMeta.map((project) => (
         <li key={project.name}>
           <UnstyledLink

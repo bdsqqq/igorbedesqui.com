@@ -68,7 +68,12 @@ export const LightBox = ({
         {/* Release the shared layout on close while Ariakit retains the modal
             shell for the backdrop's exit and focus restoration. */}
         {open && (
-          <MotionBorder layoutId={layoutId} transition={transition} asWrapper>
+          <MotionBorder
+            layoutId={layoutId}
+            transition={transition}
+            asWrapper
+            className="ak-frame-m-0"
+          >
             <MotionImage {...props} />
           </MotionBorder>
         )}

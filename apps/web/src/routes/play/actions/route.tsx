@@ -17,7 +17,7 @@ function Example() {
       <Ariakit.Menu
         data-side={placement.split("-")[0]}
         gutter={8}
-        className="surface-popover ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/1 ak-frame-bordering min-w-40 shadow-lg"
+        className="surface-popover ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/1 ak-frame-border min-w-40 shadow-lg"
       >
         <Ariakit.MenuItem
           className={menuItemClass}

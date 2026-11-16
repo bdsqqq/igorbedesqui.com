@@ -27,7 +27,7 @@ function Table({
   ));
 
   return (
-    <div className="ak-layer ak-layer-darken-2 ak-frame ak-frame-card/0 ak-frame-bordering overflow-x-auto">
+    <div className="overflow-x-auto">
       <table className="w-full [&_th]:px-2 [&_th]:py-1 [&_td]:px-2 [&_td]:py-1 [&_tbody_tr]:border-t [&_tbody_tr]:border-(--ak-edge) [&_th]:text-start">
         <thead>
           <tr>{headers}</tr>
@@ -50,7 +50,7 @@ function Code({
     <code
       dangerouslySetInnerHTML={{ __html: codeHTML }}
       className={cn(
-        "font-mono [&:not(pre_*)]:ak-layer [&:not(pre_*)]:ak-layer-darken-2 [&:not(pre_*)]:ak-frame [&:not(pre_*)]:ak-frame-field/0.5 [&:not(pre_*)]:ak-frame-ring [&:not(pre_*)]:px-1",
+        "font-mono [&:not(pre_*)]:ak-layer [&:not(pre_*)]:ak-layer-darken-2 [&:not(pre_*)]:ak-frame [&:not(pre_*)]:ak-frame-field/0.5 [&:not(pre_*)]:px-1",
         className,
       )}
       {...props}
@@ -101,7 +101,7 @@ const defaultComponents = {
   pre: ({ children, className, ...passthrough }: HTMLProps<HTMLPreElement>) => (
     <pre
       className={cn(
-        "ak-layer ak-layer-darken-2 ak-frame ak-frame-card/card ak-frame-bordering relative -mx-4 my-2 overflow-x-auto text-sm",
+        "relative -mx-4 my-2 overflow-x-auto p-4 text-sm",
         className,
       )}
       {...passthrough}

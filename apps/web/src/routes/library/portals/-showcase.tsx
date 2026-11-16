@@ -26,7 +26,7 @@ function FarAwaySlots_PretendNavBar() {
   return (
     <nav
       className={cn(
-        "ak-layer ak-layer-lighten-6 ak-frame ak-frame-cover ak-frame-start ak-frame-p-2 flex flex-wrap justify-between border-b",
+        "ak-layer ak-layer-lighten-6 ak-frame ak-frame-cover ak-frame-start ak-frame-p-2 flex flex-wrap justify-between",
         gap,
       )}
     >
@@ -37,7 +37,7 @@ function FarAwaySlots_PretendNavBar() {
       <div className={cn("flex flex-wrap", gap)}>
         <OutPortal
           className={cn(
-            "ak-layer ak-frame ak-frame-field/0 ak-frame-border ak-edge-[#ff9a00] ak-edge-raw min-w-8 border-dashed",
+            "ak-layer ak-frame ak-frame-field/0 ak-frame-border -ak-frame-m-px ak-edge-[#ff9a00] ak-edge-raw min-w-8 border-dashed",
             "flex flex-wrap",
             gap,
           )}
@@ -101,7 +101,7 @@ function FarAwaySlots_PretendTab({ id }: { id: string }) {
         <Button>{`action from tab ${id}`}</Button>
       </InPortalPretendNavbar>
       <TabProvider defaultSelectedId={`${subTabId}-0`}>
-        <div className="ak-layer ak-layer-darken-3 ak-frame ak-frame-field/2 ak-frame-bordering">
+        <div className="ak-layer ak-layer-darken-3 ak-frame ak-frame-field/2">
           <TabList
             aria-label={`Subtabs for tab ${id}`}
             render={<ButtonGroup />}
@@ -149,7 +149,7 @@ function FarAwaySlots_PretendSubTab({ id }: { id: string }) {
 
 export const PortalShowcase_FarAwaySlots = () => {
   return (
-    <div className="ak-layer ak-layer-lighten-3 ak-frame ak-frame-card/2 ak-frame-ring ak-edge-10 flex w-full min-w-0 flex-col gap-2">
+    <div className="ak-layer ak-layer-lighten-3 ak-frame ak-frame-card/2 ak-frame-border -ak-frame-m-px ak-edge-10 flex w-[calc(100%+2px)] min-w-0 flex-col gap-2">
       <FarAwaySlots_PretendNavBar />
       <FarAwaySlots_PretendMain />
     </div>
@@ -186,7 +186,7 @@ function PortalShowcase_Multiplexer_content() {
           Move to nowhere
         </Button>
 
-        <div className="ak-layer ak-frame ak-frame-field/1 ak-frame-border ak-edge-primary ak-edge-raw grid place-items-center border-dashed px-2">
+        <div className="ak-layer ak-frame ak-frame-field/1 ak-frame-border -ak-frame-m-px ak-edge-primary ak-edge-raw grid place-items-center border-dashed px-2">
           <span className="leading-none">in-a: {count}</span>
           <InPortal
             name={`multiplexer-content`}
@@ -206,7 +206,7 @@ function PortalShowcase_MultiPlexer_out() {
     <div className="grid w-full grid-cols-2 gap-2">
       <form
         ref={outputRef}
-        className="ak-layer ak-frame ak-frame-card/0 ak-frame-border ak-edge-[#f00] ak-edge-raw grid h-24 place-items-center border-dashed"
+        className="ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px ak-edge-[#f00] ak-edge-raw grid h-24 place-items-center border-dashed"
       />
       <OutPortal
         name="out-2"

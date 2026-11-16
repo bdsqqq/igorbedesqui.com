@@ -133,7 +133,7 @@ function TheManualWorkPage() {
               </Border>
             </div>
             <div className="col-span-3 -col-end-1 flex items-end md:col-end-9 lg:col-start-14 lg:col-end-17">
-              <div className="ak-layer ak-layer-lighten-2 ak-frame ak-frame-card/card ak-frame-bordering -mx-4 h-fit ak-ink-60">
+              <div className="ak-layer ak-layer-lighten-2 ak-frame ak-frame-card/card -mx-4 h-fit ak-ink-60">
                 <MDX>
                   {`
                       *The recent dark theme update follows the same “show, don’t tell” pattern by choosing a theme based purely on system preferences, and a “highlights” feature is planned in the [public roadmap](https://psykip-git-next-bdsq.vercel.app/roadmap).*
@@ -169,12 +169,7 @@ function TheManualWorkPage() {
                     {...props}
                   />
                 ),
-                li: (props) => (
-                  <li
-                    className="col-span-4 border-t border-(--ak-edge) pt-3"
-                    {...props}
-                  />
-                ),
+                li: (props) => <li className="col-span-4 pt-3" {...props} />,
                 strong: (props) => <span className="ak-ink-100" {...props} />,
               }}
             >

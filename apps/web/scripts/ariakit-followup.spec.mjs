@@ -1,6 +1,12 @@
 import { test, expect } from "@playwright/test";
 import { createHash } from "node:crypto";
 import { readMigrationSources } from "./check-ariakit-migration.mjs";
+import {
+  aligned,
+  borderless,
+  compensated,
+  measure,
+} from "./document-geometry.mjs";
 
 test.beforeEach(async ({}, testInfo) => {
   const sourceFingerprint = createHash("sha256")
@@ -435,50 +441,22 @@ for (const route of ["/play/style-overhaul", "/writing/macos-rice"]) {
   });
 }
 
-async function geometry(child, parentSelector) {
-  return child.evaluate((element, parentSelector) => {
-    const parent = element.parentElement.closest(parentSelector);
-    if (!parent) throw new Error(`missing containing shell: ${parentSelector}`);
-    const outer = parent.getBoundingClientRect();
-    const inner = element.getBoundingClientRect();
-    const ps = getComputedStyle(parent);
-    const cs = getComputedStyle(element);
-    return {
-      parentRadius: parseFloat(ps.borderTopLeftRadius),
-      childRadius: parseFloat(cs.borderTopLeftRadius),
-      inset: inner.left - outer.left,
-      rightInset: outer.right - inner.right,
-      padding: parseFloat(ps.paddingLeft),
-      border: parseFloat(ps.borderLeftWidth),
-      margin: parseFloat(cs.marginLeft),
-      parentBackground: ps.backgroundColor,
-      childBackground: cs.backgroundColor,
-      width: inner.width,
-    };
-  }, parentSelector);
+async function measured(locator) {
+  return locator.evaluate(measure);
 }
 
-function concentric(box) {
-  expect(box.parentRadius).toBeGreaterThan(0);
-  expect(box.childRadius).toBeGreaterThan(0);
-  expect(box.inset).toBeGreaterThan(0);
-  expect(box.inset).toBeLessThanOrEqual(4);
-  expect(box.width).toBeGreaterThan(0);
-  // The real border boxes include frame padding, silhouette border and any
-  // layout gap/margin. A thin inset should retain a common corner centre.
-  expect(
-    Math.abs(box.inset - box.padding - box.border - box.margin),
-  ).toBeLessThanOrEqual(0.6);
-  expect(
-    Math.abs(box.childRadius - (box.parentRadius - box.inset)),
-  ).toBeLessThanOrEqual(0.6);
+async function attachGeometry(testInfo, name, geometry) {
+  await testInfo.attach(name, {
+    body: JSON.stringify(geometry, null, 2),
+    contentType: "application/json",
+  });
 }
 
 for (const viewport of [
   { width: 1280, height: 900 },
   { width: 390, height: 844 },
 ]) {
-  test(`collection rows inherit thin-inset concentric geometry: ${viewport.width}`, async ({
+  test(`document geometry: collections stay on the grid: ${viewport.width}`, async ({
     page,
   }, testInfo) => {
     await page.setViewportSize(viewport);
@@ -489,58 +467,243 @@ for (const viewport of [
       { route: "/library", href: "/library/button" },
     ]) {
       await ready(page, route);
+      await page.mouse.move(0, 0);
       const row = page.locator(`ul a[href="${href}"]`).first();
-      const box = await geometry(row, "ul");
-      await testInfo.attach(
-        `geometry-${route.replaceAll("/", "_")}-${href.replaceAll("/", "_")}`,
-        { body: JSON.stringify(box, null, 2), contentType: "application/json" },
+      const list = row.locator("xpath=ancestor::ul[1]");
+      const host = await measured(list.locator(".."));
+      const boxes = await Promise.all([
+        measured(list),
+        measured(row.locator("..")),
+        measured(row),
+      ]);
+      await attachGeometry(testInfo, `collection-${route}-${href}`, {
+        host,
+        boxes,
+      });
+      boxes.forEach(borderless);
+      expect(boxes[2].width).toBeGreaterThan(0);
+      aligned(
+        boxes[2].textLeft,
+        host.contentLeft,
+        "row text vs grid content baseline",
       );
-      concentric(box);
       await row.focus();
       await expect(row).toBeFocused();
+      borderless(await measured(row));
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       ).toBe(true);
-      expect(
-        await row.evaluate((element) =>
-          element.closest("ul").getAttribute("role"),
-        ),
-      ).not.toBe("listbox");
+      expect(await list.getAttribute("role")).not.toBe("listbox");
     }
   });
 
-  test(`timeline entry/detail shells retain native corner geometry: ${viewport.width}`, async ({
+  test(`document geometry: timeline prose and inline triggers have no shells: ${viewport.width}`, async ({
     page,
   }, testInfo) => {
     await page.setViewportSize(viewport);
     await ready(page, "/work/axiom");
-    const details = page.locator("#timeline li section > article");
-    expect(await details.count()).toBeGreaterThan(0);
-    for (const detail of await details.all()) {
-      const box = await geometry(detail, "section");
-      await testInfo.attach("timeline-shell", {
-        body: JSON.stringify(box),
-        contentType: "application/json",
+    const sections = page.locator("#timeline li section[aria-labelledby]");
+    expect(await sections.count()).toBeGreaterThan(0);
+    for (const section of await sections.all()) {
+      // The grid cell reserves the rail (64px narrow, one grid column
+      // otherwise), plus its computed gutter. It is the prose baseline.
+      const host = await measured(section.locator(".."));
+      const article = section.locator("article");
+      const boxes = await Promise.all([measured(section), measured(article)]);
+      boxes.forEach(borderless);
+      const text = await Promise.all([
+        measured(section.locator(":scope > p")),
+        measured(article.locator("h2")),
+        measured(article.locator(":scope > p")),
+      ]);
+      text.forEach((box) => {
+        borderless(box);
+        aligned(
+          box.textLeft,
+          host.contentLeft,
+          "timeline text vs grid cell content",
+        );
       });
-      expect(box.parentRadius).toBeGreaterThanOrEqual(12);
-      expect(box.childRadius).toBeGreaterThan(0);
-      expect(box.inset).toBeGreaterThan(0);
-      expect(
-        Math.abs(box.inset - box.padding - box.border - box.margin),
-      ).toBeLessThanOrEqual(0.6);
-      // Large insets may reach the child's declared radius. Thin insets must
-      // stay concentric; do not assert every DOM wrapper is another material.
-      if (box.inset <= 4) concentric(box);
-      else if (box.inset < box.parentRadius - 2)
-        expect(
-          Math.abs(box.childRadius - (box.parentRadius - box.inset)),
-        ).toBeLessThanOrEqual(0.6);
-      else expect(box.childRadius).toBeLessThanOrEqual(box.parentRadius);
+      const triggers = article.getByRole("button");
+      expect(await triggers.count()).toBeGreaterThan(0);
+      for (const trigger of await triggers.all())
+        borderless(await measured(trigger));
+      await attachGeometry(testInfo, "timeline-document", {
+        host,
+        boxes,
+        text,
+      });
     }
   });
+
+  test(`document geometry: retained media and code edges cancel their stroke: ${viewport.width}`, async ({
+    page,
+  }, testInfo) => {
+    await page.setViewportSize(viewport);
+    await ready(page, "/writing/macos-rice");
+    const media = page
+      .getByRole("button", { name: "enlarge image", exact: true })
+      .first()
+      .locator("..");
+    const code = page.locator("main pre").first();
+    for (const [name, frame] of [
+      ["media", media],
+      ["code", code],
+    ]) {
+      const host = await measured(frame.locator(".."));
+      const box = await measured(frame);
+      await attachGeometry(testInfo, `${name}-edge`, { host, box });
+      // Article media/code deliberately extend through the 16px prose gutter.
+      compensated(box, { baseline: host.contentLeft, gutter: 16 });
+      aligned(
+        box.right - box.border[1],
+        host.contentRight + 16,
+        `${name} right inner edge`,
+      );
+      aligned(
+        box.margin[3] + box.border[3],
+        -16,
+        `${name} combined gutter/frame margin`,
+      );
+      aligned(
+        box.margin[0] + box.border[0],
+        name === "code" ? 8 : 0,
+        `${name} top margin cancels stroke plus intentional spacing`,
+      );
+      if (name === "code") {
+        const scroll = await measured(frame.locator('[tabindex="0"]'));
+        borderless(scroll);
+        const text = await measured(frame.locator("code"));
+        aligned(
+          text.textLeft,
+          host.contentLeft - 16 + box.padding[3] + scroll.padding[3],
+          "scrollable code text: prose baseline minus gutter plus frame/scroll padding",
+        );
+        await attachGeometry(testInfo, "scrollable-code-padding", {
+          host,
+          box,
+          scroll,
+          text,
+        });
+      } else {
+        const image = await measured(frame.locator("img"));
+        aligned(
+          image.left,
+          box.contentLeft,
+          "image start vs compensated media content",
+        );
+      }
+    }
+    const inline = page.locator("main code");
+    let inlineCount = 0;
+    for (const code of await inline.all()) {
+      if (await code.evaluate((element) => !!element.closest("pre"))) continue;
+      inlineCount++;
+      borderless(await measured(code));
+    }
+    expect(inlineCount).toBeGreaterThan(0);
+
+    await ready(page, "/library/button");
+    const pre = page.locator("section.prose > pre").first();
+    const host = await measured(pre.locator(".."));
+    const box = await measured(pre);
+    await attachGeometry(testInfo, "mdx-code-document", { host, box });
+    borderless(box);
+    const codeText = await measured(pre.locator("code"));
+    borderless(codeText);
+    aligned(
+      codeText.textLeft,
+      host.contentLeft,
+      "default MDX code text vs grid baseline",
+    );
+
+    // The first Stage in the permutation row has a natural flex-start
+    // baseline; centred demo stages have a different placement contract.
+    const stage = page.locator("main .ak-frame-p-card").first();
+    const stageHost = await measured(stage.locator(".."));
+    const stageBox = await measured(stage);
+    await attachGeometry(testInfo, "stage-edge", {
+      host: stageHost,
+      box: stageBox,
+    });
+    compensated(stageBox, { baseline: stageHost.contentLeft });
+    aligned(
+      stageBox.margin[0] + stageBox.border[0],
+      0,
+      "Stage top margin cancels stroke",
+    );
+    // The final sibling closes the auto-width row; on narrow screens all
+    // siblings stretch across the column. Both arrangements share this edge.
+    const lastStage = await measured(
+      stage.locator("..").locator(":scope > .ak-frame-p-card").last(),
+    );
+    await attachGeometry(testInfo, "stage-right-edge", {
+      host: stageHost,
+      box: lastStage,
+    });
+    aligned(
+      lastStage.right - lastStage.border[1],
+      stageHost.contentRight,
+      "Stage row right inner edge",
+    );
+  });
 }
+
+test("document geometry: default controls and inline fields have no persistent edge", async ({
+  page,
+}) => {
+  await ready(page, "/play/style-overhaul");
+  const button = page.getByRole("button", { name: "Hej", exact: true }).first();
+  borderless(await measured(button));
+  await button.focus();
+  borderless(await measured(button)); // Focus outline remains legitimate.
+  await ready(page, "/writing/scales");
+  const fields = page.locator('main input:not([type="hidden"])');
+  expect(await fields.count()).toBeGreaterThan(0);
+  for (const field of await fields.all()) borderless(await measured(field));
+  await ready(page, "/");
+  const email = page
+    .getByRole("button", { name: "email", exact: true })
+    .first();
+  borderless(await measured(email));
+  await email.click();
+  const copy = page.getByRole("button", {
+    name: "Copy email address",
+    exact: true,
+  });
+  borderless(await measured(copy.locator("..")));
+  borderless(await measured(copy));
+  // The containing native popover is allowed a meaningful edge.
+});
+
+test("document geometry verifier rejects b1 without compensation in an isolated fixture", async ({
+  page,
+}) => {
+  await page.setContent(`<style>
+    body { margin: 0 } main { margin: 40px; padding: 16px }
+    .b1 { border: 1px solid; padding: 16px }
+  </style><main><div class="b1">uncompensated</div></main>`);
+  const baseline = (await measured(page.locator("main"))).contentLeft;
+  const bad = await measured(page.locator(".b1"));
+  expect(() => compensated(bad, { baseline })).toThrow(
+    /inner edge cancels stroke/,
+  );
+  // Only this isolated fixture changes; production DOM/CSS is never patched.
+  await page.setContent(`<style>body { margin: 0 } main { margin: 40px; padding: 16px }
+    .b1 { border: 1px solid; padding: 16px; margin: -1px }
+    .gutter { margin-left: -17px; margin-right: -17px }
+    </style><main><div class="b1">compensated</div><div class="b1 gutter">gutter plus stroke</div></main>`);
+  const goodBaseline = (await measured(page.locator("main"))).contentLeft;
+  compensated(await measured(page.locator(".b1").first()), {
+    baseline: goodBaseline,
+  });
+  compensated(await measured(page.locator(".gutter")), {
+    baseline: goodBaseline,
+    gutter: 16,
+  });
+});
 
 test("timeline previews collect, select and reorder attachments by keyboard and drag", async ({
   page,

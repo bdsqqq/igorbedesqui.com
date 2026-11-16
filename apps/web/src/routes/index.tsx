@@ -87,7 +87,7 @@ function Home() {
         >
           <div className={subGrid()({ mode: "narrow" })}>
             <div className="col-span-full md:col-span-5 lg:col-span-6">
-              <ContentList className="-mx-2.5 -mt-4">
+              <ContentList className="-mx-2 -mt-4">
                 <li>
                   <div className={contentListRow}>
                     <div className="flex flex-col ">
@@ -135,7 +135,7 @@ function Home() {
             <div className="col-span-full lg:col-start-8 lg:col-end-12">
               <h2 className="mt-6 font-bold md:mt-10 lg:mt-0">Writing</h2>
               <div className="mt-2">
-                <ContentList className="-mx-2.5 gap-4">
+                <ContentList className="-mx-2 gap-4">
                   {writingPieces.map((piece) => (
                     <li key={piece.urlSlug}>
                       <UnstyledLink
