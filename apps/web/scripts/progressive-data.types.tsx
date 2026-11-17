@@ -1,25 +1,44 @@
 import { Button, Combobox, FormInput } from "@ariakit/react";
+import { copyText, type ClipboardWriter } from "../lib/clipboard";
+import { createImageLoad } from "../src/routes/play/og-preview/-model";
+
+export async function invokeOperations(
+  writer: ClipboardWriter,
+  imageFactory: () => HTMLImageElement,
+) {
+  const copied = await copyText("", writer);
+  if (copied.status === "error") copied.reason.toUpperCase();
+  else {
+    // @ts-expect-error success has no failure reason
+    copied.reason;
+  }
+  const load = createImageLoad("/supplied.png", imageFactory);
+  const image = await load.promise;
+  if (image.status === "ready") image.src.toUpperCase();
+  else image.error.message.toUpperCase();
+  load.dispose();
+}
 import {
   AxiomStory,
   AxiomTimeline,
   AxiomCollection,
   useAxiomInteraction,
   type AxiomCollectionState,
-} from "../components/features/axiom";
+} from "../src/routes/work/axiom/-story";
 import {
   Scales,
   ScalesInputs,
   ScalesResults,
   useScales,
   initialScalesValues,
-} from "../components/features/scales";
+} from "../src/routes/writing/scales/-scales";
 import {
   OgPreview,
   OgTextEditor,
   OgImagePreview,
   OgGeneratedUrl,
   useOgPreview,
-} from "../components/features/og-preview";
+} from "../src/routes/play/og-preview/-preview";
 
 function CallerRatio() {
   const { comboboxStore } = useScales();

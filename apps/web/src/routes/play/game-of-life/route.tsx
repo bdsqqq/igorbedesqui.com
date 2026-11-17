@@ -12,7 +12,7 @@ import {
   PlayPauseButton,
   CopyCurrentStateButton,
   ClearCurrentStateButton,
-} from "@/components/features/game-of-life";
+} from "~/routes/play/game-of-life/-game";
 
 function GameOfLifePlayPage() {
   return (

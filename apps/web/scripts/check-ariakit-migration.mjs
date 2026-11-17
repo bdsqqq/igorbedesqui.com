@@ -132,6 +132,16 @@ export function auditMigrationSources(sources, { boundaries = true } = {}) {
   for (const [file, text] of [...sources].sort(([a], [b]) =>
     a.localeCompare(b),
   )) {
+    if (file.startsWith("components/features/")) {
+      diagnostics.push({
+        file,
+        line: 1,
+        column: 1,
+        rule: "feature-colocation",
+        message:
+          "keep feature implementation beside its owning showcase page; reuse does not change ownership",
+      });
+    }
     if (file.endsWith(".css")) continue;
     const source = ts.createSourceFile(
       file,
@@ -354,7 +364,7 @@ export function auditMigrationSources(sources, { boundaries = true } = {}) {
 
   if (boundaries) {
     const requiredFrames = [
-      "components/ui/Button/index.tsx",
+      "src/routes/library/button/-button.tsx",
       "components/ui/Popover.tsx",
       "components/ui/Dialog.tsx",
     ];
@@ -389,10 +399,12 @@ export function auditMigrationSources(sources, { boundaries = true } = {}) {
           "shared surface needs ak-frame with an explicit radius/padding in an actual class composition",
         );
     }
-    const button = inventories.get("components/ui/Button/ClientButton.tsx");
+    const button = inventories.get(
+      "src/routes/library/button/-client-button.tsx",
+    );
     if (!button?.usesAriakitButton)
       diagnostics.push({
-        file: "components/ui/Button/ClientButton.tsx",
+        file: "src/routes/library/button/-client-button.tsx",
         line: 1,
         column: 1,
         rule: "button-boundary",

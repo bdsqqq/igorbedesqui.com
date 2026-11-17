@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { pokemonSpriteGeometry } from "./sprite.ts";
+import { pokemonSpriteGeometry } from "./-sprite.ts";
 
 test("static sprite coordinates preserve original sheet math, including zero", () => {
   assert.deepEqual(pokemonSpriteGeometry(885), {

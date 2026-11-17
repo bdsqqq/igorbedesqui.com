@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, type ButtonProps } from "@/components/ui/Button";
+import { Button, type ButtonProps } from "~/routes/library/button/-button";
 import { CheckIcon, ClipboardCopyIcon } from "@radix-ui/react-icons";
 import Tooltip from "@/components/ui/Tooltip";
 import {

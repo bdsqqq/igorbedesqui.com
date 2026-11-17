@@ -8,7 +8,7 @@ import {
   ReloadIcon,
   TimerIcon,
 } from "@radix-ui/react-icons";
-import { Button, type ButtonProps } from "@/components/ui/Button";
+import { Button, type ButtonProps } from "~/routes/library/button/-button";
 import { CopyButton } from "@/components/ui/CopyButton";
 import Tooltip from "@/components/ui/Tooltip";
 import { cn } from "@/lib/styling";
@@ -16,8 +16,8 @@ import {
   createGameOfLifeStore,
   type GameOfLifeStore,
   type GameOfLifeState,
-} from "./store";
-export * from "./store";
+} from "./-store";
+export * from "./-store";
 
 export type GameOfLifeOwner =
   | { store: GameOfLifeStore; initialCells?: never }

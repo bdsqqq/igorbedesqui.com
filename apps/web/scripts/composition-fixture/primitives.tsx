@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { CopyButton } from "../../components/ui/CopyButton";
-import { Button } from "../../components/ui/Button";
+import { Button } from "../../src/routes/library/button/-button";
 import { EmailPopoverContent } from "../../components/ui/EmailLink";
 import {
   TooltipRoot,

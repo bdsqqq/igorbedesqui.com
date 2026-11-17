@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createImageLoad, defaultOgText, generateOgUrl } from "./model.ts";
+import { createImageLoad, defaultOgText, generateOgUrl } from "./-model.ts";
 
 function imageFixture() {
   let src;
@@ -31,7 +31,9 @@ test("a rejected URL can retry; simultaneous loads own distinct image handlers",
   const first = imageFixture();
   const rejected = createImageLoad("/same.png", () => first);
   first.onerror();
-  await assert.rejects(rejected.promise, /Unable to load preview/);
+  const failure = await rejected.promise;
+  assert.equal(failure.status, "error");
+  assert.match(failure.error.message, /Unable to load preview/);
   rejected.dispose();
   assert.equal(first.onload, null);
   const second = imageFixture();
@@ -40,8 +42,11 @@ test("a rejected URL can retry; simultaneous loads own distinct image handlers",
   const parallel = createImageLoad("/same.png", () => third);
   second.onload();
   third.onload();
-  assert.equal(await retry.promise, "/same.png");
-  assert.equal(await parallel.promise, "/same.png");
+  assert.deepEqual(await retry.promise, { status: "ready", src: "/same.png" });
+  assert.deepEqual(await parallel.promise, {
+    status: "ready",
+    src: "/same.png",
+  });
   retry.dispose();
   parallel.dispose();
   assert.equal(second.onerror, null);

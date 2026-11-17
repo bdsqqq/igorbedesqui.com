@@ -4,7 +4,7 @@ import {
   createGameOfLifeStore,
   getNeighbourIndices,
   nextCells,
-} from "./store.ts";
+} from "./-store.ts";
 
 test("copies seeds, typed-array views, replacements, and prior snapshots", () => {
   const backing = new Uint8Array([9, 1, 0, 0, 1, 9]);
@@ -72,19 +72,26 @@ test("clear follows resized board; lazy copy reads the latest snapshot; stores i
   assert.equal(copy(), "000000000");
 });
 
-test("playback is a store capability and disposal stops only that store", (t) => {
-  t.mock.timers.enable({ apis: ["setInterval"] });
-  const a = createGameOfLifeStore(new Uint8Array(9).fill(1));
-  const b = createGameOfLifeStore(new Uint8Array(9).fill(1));
+test("playback uses an injected scheduler and disposal stops only that store", () => {
+  const tasks = new Set();
+  const scheduler = {
+    repeat(tick, periodMs) {
+      assert.equal(periodMs, 100);
+      tasks.add(tick);
+      return () => tasks.delete(tick);
+    },
+  };
+  const a = createGameOfLifeStore(new Uint8Array(9).fill(1), scheduler);
+  const b = createGameOfLifeStore(new Uint8Array(9).fill(1), scheduler);
   a.getState().actions.setPlaying(true);
   b.getState().actions.setPlaying(true);
   const before = a.getState().cells;
-  t.mock.timers.tick(100);
+  tasks.forEach((tick) => tick());
   assert.notStrictEqual(a.getState().cells, before);
   a.dispose();
   const stopped = a.getState().cells;
   const running = b.getState().cells;
-  t.mock.timers.tick(100);
+  tasks.forEach((tick) => tick());
   assert.strictEqual(a.getState().cells, stopped);
   assert.notStrictEqual(b.getState().cells, running);
   assert.equal(a.getState().playing, false);
@@ -92,7 +99,7 @@ test("playback is a store capability and disposal stops only that store", (t) =>
 });
 
 test("shared copy capability writes current store text and exposes clipboard failure", async () => {
-  const { copyText } = await import("../../../lib/clipboard.ts");
+  const { copyText } = await import("../../../../lib/clipboard.ts");
   const store = createGameOfLifeStore(new Uint8Array(4));
   const lazyContent = store.getState().actions.copyText;
   store.getState().actions.updateCell(2, 1);
@@ -103,12 +110,13 @@ test("shared copy capability writes current store text and exposes clipboard fai
     },
   });
   assert.equal(copied, "0010");
-  await assert.rejects(
-    copyText(lazyContent(), {
+  const denied = new Error("denied");
+  assert.deepEqual(
+    await copyText(lazyContent(), {
       writeText: async () => {
-        throw new Error("denied");
+        throw denied;
       },
     }),
-    /denied/,
+    { status: "error", reason: "write-failed", error: denied },
   );
 });

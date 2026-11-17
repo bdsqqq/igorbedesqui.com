@@ -30,15 +30,15 @@ import {
   filterScalePresets,
   type ScalesValues,
   type ScalePreset,
-} from "./model";
+} from "./-model";
 export {
   scalePresets,
   scaleDefaults,
   initialScalesValues,
   resolveScales,
   getScaleFrequency,
-} from "./model";
-export type { ScalesValues, ScalePreset } from "./model";
+} from "./-model";
+export type { ScalesValues, ScalePreset } from "./-model";
 
 type ValuesOwnership =
   | {

@@ -8,22 +8,22 @@ import {
   createGameOfLifeStore,
   useGameOfLifeStore,
   useGameOfLifeActions,
-} from "../../components/features/game-of-life";
+} from "../../src/routes/play/game-of-life/-game";
 import {
   SyncedPositions,
   SyncedPositionsRoot,
   SyncedPositionSurface,
   SyncedPositionCrosshair,
   createCursorPositionStore,
-} from "../../components/features/synced-positions";
+} from "../../src/routes/play/synced-positions/-positions";
 import {
   BouncyTooltipRoot,
   CursorWithAttachedElementTrigger,
   CursorWithAttachedElementContent,
   AnimatedElements,
   createBouncyTooltipStore,
-} from "../../components/features/bouncy-tooltip";
-import { PokemonSprite } from "../../components/features/pokemon";
+} from "../../src/routes/play/bouncy-tooltip/-tooltip";
+import { PokemonSprite } from "../../src/routes/play/pokemon/-pokemon";
 import { useExpose, type CapturedGame } from "./controller";
 
 function Capture({ capture }: { capture: CapturedGame }) {

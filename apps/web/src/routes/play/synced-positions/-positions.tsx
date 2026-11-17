@@ -9,8 +9,8 @@ import {
   type CursorPositionState,
   type CursorPositionStore,
   type Position,
-} from "./store";
-export * from "./store";
+} from "./-store";
+export * from "./-store";
 
 export type SyncedPositionsOwner =
   | { store: CursorPositionStore; initialPosition?: never }

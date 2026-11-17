@@ -44,5 +44,5 @@ export const [buttonVariants, buttonPermutations] = CVAWithPerms(
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 // Also, export the stuff from UnstyledButton to have all imports in from one file.
-import { Button, ButtonProps, Spinner, ButtonGroup } from "./ClientButton";
+import { Button, ButtonProps, Spinner, ButtonGroup } from "./-client-button";
 export { Button, type ButtonProps, Spinner, ButtonGroup };

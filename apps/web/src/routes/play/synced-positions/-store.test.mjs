@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { createCursorPositionStore } from "./store.ts";
+import { createCursorPositionStore } from "./-store.ts";
 
 test("cursor instances and reset seeds do not alias caller data or each other", () => {
   const input = { x: 0, y: 0 };

@@ -1,4 +1,4 @@
-import type { AxiomBeat, AxiomReceipt } from "./types";
+import type { AxiomBeat, AxiomReceipt } from "./-types";
 
 export type AxiomCollectionState = {
   hoveredId: string | null;

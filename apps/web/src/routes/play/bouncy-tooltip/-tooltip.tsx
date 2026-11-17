@@ -15,13 +15,13 @@ import {
   type BouncyTooltipStore,
   type BouncyTooltipState,
   type BouncyTooltipPosition,
-} from "./store";
-export * from "./store";
+} from "./-store";
+export * from "./-store";
 export {
   AnimatedElements,
   type AnimationName,
   type AnimatedMedia,
-} from "./AnimatedElements";
+} from "./-animated-elements";
 
 export type BouncyTooltipOwner =
   | { store: BouncyTooltipStore; initialPosition?: never }

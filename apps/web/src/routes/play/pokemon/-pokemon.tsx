@@ -1,7 +1,7 @@
 import type { ComponentPropsWithRef } from "react";
-import pokemonSheet from "./pokemonicons-sheet.png";
-import { pokemonSpriteGeometry } from "./sprite";
-export * from "./sprite";
+import pokemonSheet from "./-pokemonicons-sheet.png";
+import { pokemonSpriteGeometry } from "./-sprite";
+export * from "./-sprite";
 
 export type PokemonSpriteProps = ComponentPropsWithRef<"div"> & {
   dexNumber: number;

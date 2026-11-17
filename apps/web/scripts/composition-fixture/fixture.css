@@ -1,4 +1,5 @@
 @import "../../src/routes/-main.css";
 /* The fixture root is intentionally outside production source discovery. */
 @source "../../components";
+@source "../../src/routes";
 @source ".";

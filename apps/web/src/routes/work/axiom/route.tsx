@@ -3,7 +3,7 @@ import Band from "@/components/Band";
 import Container from "@/components/Container";
 import HeroBand from "@/components/HeroBand";
 import type { Meta } from "@/components/ProjectStuff/Projects";
-import { AxiomStory } from "@/components/features/axiom";
+import { AxiomStory } from "~/routes/work/axiom/-story";
 import { axiomBeats } from "./-timeline";
 
 export const axiomMeta: Meta = {

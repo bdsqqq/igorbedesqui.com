@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PokemonSprite } from "@/components/features/pokemon";
+import { PokemonSprite } from "~/routes/play/pokemon/-pokemon";
 
 function PokemonPlayPage() {
   return (

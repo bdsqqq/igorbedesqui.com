@@ -6,14 +6,14 @@ import {
   PlayPauseButton,
   createGameOfLifeStore,
   useGameOfLifeActions,
-} from "../components/features/game-of-life";
+} from "../src/routes/play/game-of-life/-game";
 import {
   SyncedPositions,
   SyncedPositionsRoot,
   SyncedPositionSurface,
   SyncedPositionCrosshair,
   createCursorPositionStore,
-} from "../components/features/synced-positions";
+} from "../src/routes/play/synced-positions/-positions";
 import {
   BouncyTooltip,
   BouncyTooltipRoot,
@@ -21,11 +21,19 @@ import {
   CursorWithAttachedElementContent,
   AnimatedElements,
   createBouncyTooltipStore,
-} from "../components/features/bouncy-tooltip";
-import { PokemonSprite } from "../components/features/pokemon";
+} from "../src/routes/play/bouncy-tooltip/-tooltip";
+import { PokemonSprite } from "../src/routes/play/pokemon/-pokemon";
 
 const cells = new Uint8Array(9);
 const game = createGameOfLifeStore(cells);
+createGameOfLifeStore(cells, {
+  repeat: (_tick, periodMs) => {
+    periodMs.toFixed();
+    return () => {};
+  },
+});
+// @ts-expect-error a scheduler must return its cancellation capability
+createGameOfLifeStore(cells, { repeat: () => undefined });
 const cursor = createCursorPositionStore();
 const tooltip = createBouncyTooltipStore();
 const divRef = createRef<HTMLDivElement>();

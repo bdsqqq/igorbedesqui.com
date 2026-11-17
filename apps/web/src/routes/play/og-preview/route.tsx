@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import Container from "@/components/Container";
 import Band from "@/components/Band";
-import { OgPreview } from "@/components/features/og-preview";
+import { OgPreview } from "~/routes/play/og-preview/-preview";
 
 function OgPreviewPlayPage() {
   return (

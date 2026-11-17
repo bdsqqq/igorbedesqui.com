@@ -11,7 +11,7 @@ import { ProjectBand } from "../../components/ProjectStuff/ProjectLayout";
 import {
   PortalStoreProvider,
   createPortalStore,
-} from "../../components/ui/Portal";
+} from "../../src/routes/library/portals/-portal";
 import { useExpose } from "./controller";
 const project: Meta = {
   shortName: "supplied",

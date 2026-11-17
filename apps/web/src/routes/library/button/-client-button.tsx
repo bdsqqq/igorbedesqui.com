@@ -177,6 +177,9 @@ export const Spinner = ({ ...props }: React.ComponentProps<"svg">) => (<svg widt
 
 import { cn } from "@/lib/styling";
 import React, { ComponentPropsWithRef } from "react";
-import { ButtonVariants, buttonVariants } from "@/components/ui/Button";
+import {
+  ButtonVariants,
+  buttonVariants,
+} from "~/routes/library/button/-button";
 
 import { Button as AriakitButton } from "@ariakit/react";

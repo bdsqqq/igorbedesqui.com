@@ -34,10 +34,16 @@ async function fixture(run, overrides = {}) {
     for (const match of imports) {
       const specifier = match[3];
       let url;
-      if (specifier.startsWith("@/") || specifier.startsWith(".")) {
-        const base = specifier.startsWith("@/")
-          ? path.join(root, specifier.slice(2))
-          : path.resolve(path.dirname(filename), specifier);
+      if (
+        specifier.startsWith("~/") ||
+        specifier.startsWith("@/") ||
+        specifier.startsWith(".")
+      ) {
+        const base = specifier.startsWith("~/")
+          ? path.join(root, "src", specifier.slice(2))
+          : specifier.startsWith("@/")
+            ? path.join(root, specifier.slice(2))
+            : path.resolve(path.dirname(filename), specifier);
         let resolved;
         for (const suffix of [".tsx", ".ts", "/index.tsx", "/index.ts"]) {
           try {
@@ -65,7 +71,7 @@ async function fixture(run, overrides = {}) {
   }
 }
 
-test("clipboard capability resolves the navigator adapter at invocation and propagates failures", async () =>
+test("clipboard capability resolves its adapter per invocation and returns expected failures", async () =>
   fixture(async (load) => {
     const { copyText } = await load("lib/clipboard.ts");
     const descriptor = Object.getOwnPropertyDescriptor(globalThis, "navigator");
@@ -75,7 +81,7 @@ test("clipboard capability resolves the navigator adapter at invocation and prop
         configurable: true,
         value: { clipboard: { writeText: async (text) => writes.push(text) } },
       });
-      await copyText("");
+      assert.deepEqual(await copyText(""), { status: "success" });
       Object.defineProperty(globalThis, "navigator", {
         configurable: true,
         value: {
@@ -85,9 +91,17 @@ test("clipboard capability resolves the navigator adapter at invocation and prop
       await copyText("value");
       assert.deepEqual(writes, ["", "next:value"]);
       const denied = new Error("denied");
-      await assert.rejects(
-        copyText("no", {
+      assert.deepEqual(
+        await copyText("no", {
           writeText: async () => {
+            throw denied;
+          },
+        }),
+        { status: "error", reason: "write-failed", error: denied },
+      );
+      await assert.rejects(
+        copyText("bug", {
+          writeText: () => {
             throw denied;
           },
         }),
@@ -97,7 +111,10 @@ test("clipboard capability resolves the navigator adapter at invocation and prop
         configurable: true,
         value: {},
       });
-      await assert.rejects(copyText("no"), /Clipboard is unavailable/);
+      const unavailable = await copyText("no");
+      assert.equal(unavailable.status, "error");
+      assert.equal(unavailable.reason, "unavailable");
+      assert.match(unavailable.error.message, /Clipboard is unavailable/);
     } finally {
       if (descriptor)
         Object.defineProperty(globalThis, "navigator", descriptor);
@@ -108,7 +125,7 @@ test("clipboard capability resolves the navigator adapter at invocation and prop
 test("portal registries are independent and stale cleanup cannot delete a newer registration", async () =>
   fixture(async (load) => {
     const { createPortalStore, InPortal } = await load(
-      "components/ui/Portal/index.tsx",
+      "src/routes/library/portals/-portal.tsx",
     );
     const first = createPortalStore();
     const second = createPortalStore();

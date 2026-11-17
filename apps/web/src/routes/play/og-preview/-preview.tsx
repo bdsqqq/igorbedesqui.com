@@ -10,9 +10,9 @@ import {
   type ReactNode,
 } from "react";
 import { FormInput, FormLabel, useFormStore } from "@ariakit/react";
-import { Button } from "@/components/ui/Button";
-import { createImageLoad, defaultOgText, generateOgUrl } from "./model";
-export { createImageLoad, defaultOgText, generateOgUrl } from "./model";
+import { Button } from "~/routes/library/button/-button";
+import { createImageLoad, defaultOgText, generateOgUrl } from "./-model";
+export { createImageLoad, defaultOgText, generateOgUrl } from "./-model";
 
 type TextOwnership =
   | { text: string; onTextChange: (text: string) => void; defaultText?: never }
@@ -148,10 +148,13 @@ export function OgImagePreview() {
     const load = createImageLoad(url);
     setResult({ url, status: "loading" });
     load.promise.then(
-      (src) => {
-        if (active) {
-          setLoadedUrl(src);
+      (outcome) => {
+        if (!active) return;
+        if (outcome.status === "ready") {
+          setLoadedUrl(outcome.src);
           setResult({ url, status: "ready" });
+        } else {
+          setResult({ url, status: "error" });
         }
       },
       () => {

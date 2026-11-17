@@ -6,7 +6,7 @@ import {
   initialScalesValues,
   resolveScales,
   scalePresets,
-} from "./model.ts";
+} from "./-model.ts";
 
 test("default calculation and original invalid-input fallbacks retain the text draft", () => {
   assert.deepEqual(resolveScales(initialScalesValues), {

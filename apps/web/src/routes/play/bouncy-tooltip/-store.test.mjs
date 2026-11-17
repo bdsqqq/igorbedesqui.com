@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { createBouncyTooltipStore } from "./store.ts";
+import { createBouncyTooltipStore } from "./-store.ts";
 
 test("tooltip hover and position isolate; reset restores a copied seed", () => {
   const seed = { x: 0, y: 0 };

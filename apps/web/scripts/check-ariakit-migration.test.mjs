@@ -256,15 +256,39 @@ test("variant parsing respects arbitrary selector colons and supports inherited 
   );
 });
 
+test("feature ownership stays with the page even when another feature imports it", () => {
+  const unit = "export const invoke = value => value;";
+  const misplaced = new Map([["components/features/demo/model.ts", unit]]);
+  assert.deepEqual(
+    auditMigrationSources(misplaced, { boundaries: false }).map(
+      (issue) => issue.rule,
+    ),
+    ["feature-colocation"],
+  );
+  const colocated = new Map([
+    ["src/routes/play/demo/-model.ts", unit],
+    [
+      "src/routes/play/other/-model.ts",
+      'import { invoke } from "~/routes/play/demo/-model"; export const reuse = invoke;',
+    ],
+  ]);
+  assert.deepEqual(auditMigrationSources(colocated, { boundaries: false }), []);
+});
+
 function completeFixture() {
   const sources = new Map();
-  for (const name of ["Button/index", "Popover", "Dialog", "Border"])
+  for (const file of [
+    "src/routes/library/button/-button.tsx",
+    "components/ui/Popover.tsx",
+    "components/ui/Dialog.tsx",
+    "components/ui/Border.tsx",
+  ])
     sources.set(
-      `components/ui/${name}.tsx`,
+      file,
       'export const variants = cva("ak-layer ak-frame ak-frame-card/card ak-frame-border");',
     );
   sources.set(
-    "components/ui/Button/ClientButton.tsx",
+    "src/routes/library/button/-client-button.tsx",
     'import { Button as Action } from "@ariakit/react"; export const Button = () => <Action />;',
   );
   sources.set(
@@ -312,7 +336,7 @@ test("unused imports, comment-only frames and a canvas on html cannot fake compl
     '// ak-frame ak-frame-dialog/dialog\nconst fake = "ak-frame ak-frame-dialog/dialog";',
   );
   sources.set(
-    "components/ui/Button/ClientButton.tsx",
+    "src/routes/library/button/-client-button.tsx",
     'import { Button } from "@ariakit/react"; const A = () => <div />;',
   );
   sources.set(

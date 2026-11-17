@@ -5,7 +5,7 @@ import { ButtonPageContent } from "./-content";
 
 const getButtonSource = createServerFn().handler(async () => {
   return fs.readFile(
-    process.cwd() + "/components/ui/Button/ClientButton.tsx",
+    process.cwd() + "/src/routes/library/button/-client-button.tsx",
     "utf8",
   );
 });

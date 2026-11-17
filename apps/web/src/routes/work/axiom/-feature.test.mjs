@@ -5,7 +5,7 @@ import {
   emptyCollection,
   normalizeCollection,
   updateCollection,
-} from "./model.ts";
+} from "./-model.ts";
 
 const receipt = (label) => ({
   id: "shared",

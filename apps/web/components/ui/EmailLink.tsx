@@ -6,7 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
-import { Button } from "@/components/ui/Button";
+import { Button } from "~/routes/library/button/-button";
 import { CopyButton, type CopyButtonProps } from "./CopyButton";
 import type { UnstyledLinkProps } from "./primitives/UnstyledLink";
 import Tooltip from "@/components/ui/Tooltip";

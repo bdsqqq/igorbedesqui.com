@@ -1,7 +1,7 @@
 import { useLayoutEffect } from "react";
-import type { AxiomCollectionState } from "../../components/features/axiom";
-import type { ScalesValues } from "../../components/features/scales";
-import type { GameOfLifeStore } from "../../components/features/game-of-life";
+import type { AxiomCollectionState } from "../../src/routes/work/axiom/-story";
+import type { ScalesValues } from "../../src/routes/writing/scales/-scales";
+import type { GameOfLifeStore } from "../../src/routes/play/game-of-life/-game";
 
 export interface FixtureController {
   host?: {

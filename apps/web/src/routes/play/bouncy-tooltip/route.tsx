@@ -6,7 +6,7 @@ import {
   CursorWithAttachedElementTrigger,
   CursorWithAttachedElementContent,
   useBouncyTooltipStore,
-} from "@/components/features/bouncy-tooltip";
+} from "~/routes/play/bouncy-tooltip/-tooltip";
 import type { StaticImageData } from "@/lib/static-image";
 import theManual1 from "../../work/the-manual/-1.jpg?as=img";
 import bebopDesktop from "../../work/bebop/-desktop-screenshot.png?as=img";

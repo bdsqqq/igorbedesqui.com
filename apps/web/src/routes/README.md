@@ -1,6 +1,10 @@
-# feature composition
+# page-owned features
 
-routes own page layout, navigation, and toolbox placement. feature roots own their data interpretation and local behavior; parts use the nearest root. changing a host or replacing an input must not require another implementation of that behavior.
+a showcase page is part of the feature it demonstrates. keep its implementation, operations, types, tests, and assets in the same directory. reuse does not transfer ownership to a central `components/features` tree.
+
+`route.tsx` is the router entry; `-`-prefixed files are importable feature modules ignored by route discovery. import those modules directly—even from another feature—rather than importing the route entry. physical colocation does not make an operation depend on the router or a mounted page.
+
+page adapters compose layout, navigation, and toolbox placement with feature roots. roots own data interpretation and local behavior; parts use the nearest root. changing a host or replacing an input must not require another implementation of that behavior.
 
 these demos have no business-data query layer. static metadata, presets, cells, and sprite indexes stay static; there is no invented ID-fetch mode. supplied `[]`, `0`, empty drafts, and `false` are deliberate values. OG previews still load the selected image URL; supplied previews bypass URL generation, not image loading.
 
@@ -40,11 +44,13 @@ ownership defaults initialize once. keep controlled/uncontrolled mode and suppli
 
 receipt cards can lift 48px above their hand. packed hosts can reserve that overhang through `AxiomCollection`'s native layout props (the bounded fixture uses 64px top padding); changing layout does not change selection or data ownership.
 
+game playback accepts a `PlaybackScheduler` dependency at `createGameOfLifeStore(cells, scheduler)`. UI callers use its runtime default; standalone callers/tests supply `repeat(tick, periodMs) => cancel` without replacing timer globals.
+
 creators own external-store disposal. unmounting a supplied game root does not stop its store's timer; unmounting an owned root does. removing or replacing controls does not own playback. seeds, replacements, and snapshots are copied so one game cannot mutate another caller's cells. `clear()` preserves current dimensions; `reset()` restores the seed.
 
 ## effects and shells
 
-`copyText` in `lib/clipboard.ts` is callable without a component and resolves its browser adapter only when invoked. `CopyButton` and `EmailPopoverContent` reuse that capability. rejection reports failure and permits retry; it does not call `onCopied` or close a host. a caller can choose that outcome explicitly:
+`copyText` in `lib/clipboard.ts` is callable without a component and resolves its browser adapter only when invoked. it returns a tagged success/error result for unavailable or rejected clipboard access; synchronous adapter bugs still reject. `CopyButton` and `EmailPopoverContent` handle failure and permit retry without calling `onCopied` or closing a host. image loading likewise returns ready/error outcomes, independently of its preview UI. a caller can choose that outcome explicitly:
 
 ```tsx
 <EmailPopoverContent

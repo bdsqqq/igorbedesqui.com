@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { copyText } from "@/lib/clipboard";
+import { copyText, type CopyResult } from "@/lib/clipboard";
 
 export type CopyContent = string | (() => string);
 export type CopyFeedback = {
@@ -30,18 +30,26 @@ export function useCopyText({ onCopied, onCopyError }: CopyFeedback = {}) {
     clearTimeout(timeout.current);
     setError(undefined);
     setStatus("copying");
-    let text: string;
-    try {
-      text = typeof content === "function" ? content() : content;
-      await copyText(text);
-    } catch (error) {
+    const fail = (error: unknown) => {
       if (current !== attempt.current) return;
       setError(error);
       setStatus("error");
       onCopyError?.(error);
+    };
+    let text: string;
+    let result: CopyResult;
+    try {
+      text = typeof content === "function" ? content() : content;
+      result = await copyText(text);
+    } catch (error) {
+      fail(error);
       return;
     }
     if (current !== attempt.current) return;
+    if (result.status === "error") {
+      fail(result.error);
+      return;
+    }
     setStatus("success");
     timeout.current = setTimeout(() => setStatus("idle"), 1000);
     // Consumer effects are separate from clipboard failures.

@@ -1,6 +1,6 @@
 "use client";
 import { Border } from "@/components/ui/Border";
-import { Button } from "@/components/ui/Button";
+import { Button } from "~/routes/library/button/-button";
 import {
   Dialog,
   DialogClose,

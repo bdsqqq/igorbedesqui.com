@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import Container from "@/components/Container";
 import { Stage } from "@/components/Stage";
-import { Button } from "@/components/ui/Button";
+import { Button } from "~/routes/library/button/-button";
 import { CVAWithPerms } from "@/lib/CVAPermutations";
 import { ArrowRightIcon, PlusIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";

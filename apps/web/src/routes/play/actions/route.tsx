@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import * as Ariakit from "@ariakit/react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "~/routes/library/button/-button";
 
 const menuItemClass =
   "ak-layer ak-layer-transparent ak-frame ak-frame-field/1.5 px-3 hover:ak-state-6 data-active-item:ak-state-6 disabled:ak-ink-0 cursor-default";

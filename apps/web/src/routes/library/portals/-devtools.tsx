@@ -1,4 +1,4 @@
-import { usePortalStore } from "@/components/ui/Portal";
+import { usePortalStore } from "~/routes/library/portals/-portal";
 
 /**
  * Keeps track of the name and type of rendered portals.

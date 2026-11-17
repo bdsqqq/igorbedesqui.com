@@ -8,17 +8,19 @@ import test from "node:test";
 // A bounded TSX loader lets these real-component output checks run without a server/build.
 const require = createRequire(import.meta.url);
 const ts = require("typescript");
-const web = fileURLToPath(new URL("../../../", import.meta.url));
+const web = fileURLToPath(new URL("../../../../", import.meta.url));
 registerHooks({
   resolve(specifier, context, next) {
-    const local = specifier.startsWith("@/")
-      ? path.join(web, specifier.slice(2))
-      : specifier.startsWith(".") && context.parentURL?.startsWith("file:")
-        ? path.resolve(
-            path.dirname(fileURLToPath(context.parentURL)),
-            specifier,
-          )
-        : null;
+    const local = specifier.startsWith("~/")
+      ? path.join(web, "src", specifier.slice(2))
+      : specifier.startsWith("@/")
+        ? path.join(web, specifier.slice(2))
+        : specifier.startsWith(".") && context.parentURL?.startsWith("file:")
+          ? path.resolve(
+              path.dirname(fileURLToPath(context.parentURL)),
+              specifier,
+            )
+          : null;
     if (local) {
       const found = [
         local + ".tsx",
@@ -51,11 +53,11 @@ registerHooks({
 const { createElement: h } = await import("react");
 const { renderToStaticMarkup: render } = await import("react-dom/server");
 const { AxiomStory, AxiomCollection, AxiomTimeline } =
-  await import("./index.tsx");
+  await import("./-story.tsx");
 const { Scales, ScalesResults, ScalesInputs } =
-  await import("../scales/index.tsx");
+  await import("../../writing/scales/-scales.tsx");
 const { OgPreview, OgTextEditor, OgGeneratedUrl } =
-  await import("../og-preview/index.tsx");
+  await import("../../play/og-preview/-preview.tsx");
 
 const beat = (label) => ({
   id: "same-beat",

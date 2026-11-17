@@ -7,7 +7,7 @@ import {
   useAxiomInteraction,
   type AxiomBeat,
   type AxiomCollectionState,
-} from "../../components/features/axiom";
+} from "../../src/routes/work/axiom/-story";
 import {
   Scales,
   ScalesInputs,
@@ -15,13 +15,13 @@ import {
   useScales,
   initialScalesValues,
   type ScalesValues,
-} from "../../components/features/scales";
+} from "../../src/routes/writing/scales/-scales";
 import {
   OgPreview,
   OgImagePreview,
   OgGeneratedUrl,
   useOgPreview,
-} from "../../components/features/og-preview";
+} from "../../src/routes/play/og-preview/-preview";
 import { useExpose } from "./controller";
 
 function CustomRatio() {

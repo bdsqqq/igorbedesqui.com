@@ -2,6 +2,16 @@ import { createStore, type StoreApi } from "zustand/vanilla";
 
 export const DEFAULT_BOARD_SIZE = 50;
 
+export type PlaybackScheduler = {
+  repeat: (tick: () => void, periodMs: number) => () => void;
+};
+const runtimeScheduler: PlaybackScheduler = {
+  repeat(tick, periodMs) {
+    const timer = setInterval(tick, periodMs);
+    return () => clearInterval(timer);
+  },
+};
+
 export function makeBoard(size: number) {
   if (!Number.isSafeInteger(size) || size < 0) {
     throw new Error("GameOfLife: board size must be a nonnegative integer");
@@ -89,10 +99,11 @@ export type GameOfLifeStore = StoreApi<GameOfLifeState> & {
  */
 export function createGameOfLifeStore(
   initialCells: Uint8Array = makeBoard(DEFAULT_BOARD_SIZE),
+  scheduler: PlaybackScheduler = runtimeScheduler,
 ): GameOfLifeStore {
   validateCells(initialCells);
   const seed = new Uint8Array(initialCells);
-  let interval: ReturnType<typeof setInterval> | undefined;
+  let stopPlayback: (() => void) | undefined;
   const store = createStore<GameOfLifeState>((set, get) => ({
     cells: new Uint8Array(seed),
     gridSize: Math.sqrt(seed.length),
@@ -123,11 +134,14 @@ export function createGameOfLifeStore(
         set({ cells: nextCells(get().cells) });
       },
       setPlaying(playing) {
-        clearInterval(interval);
-        interval = undefined;
+        stopPlayback?.();
+        stopPlayback = undefined;
         set({ playing });
         if (playing)
-          interval = setInterval(() => get().actions.calculateNextState(), 100);
+          stopPlayback = scheduler.repeat(
+            () => get().actions.calculateNextState(),
+            100,
+          );
       },
       togglePlaying() {
         get().actions.setPlaying(!get().playing);

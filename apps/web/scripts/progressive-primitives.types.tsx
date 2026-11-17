@@ -1,5 +1,5 @@
 import { createRef } from "react";
-import { Button } from "../components/ui/Button";
+import { Button } from "../src/routes/library/button/-button";
 import { CopyButton } from "../components/ui/CopyButton";
 import EmailLink, { EmailPopoverContent } from "../components/ui/EmailLink";
 import {
@@ -21,7 +21,7 @@ import {
   PortalStoreProvider,
   OutPortal,
   createPortalStore,
-} from "../components/ui/Portal";
+} from "../src/routes/library/portals/-portal";
 import { copyText } from "../lib/clipboard";
 
 /** Compile-only consumer contracts; the primary's integrated tsc includes this file. */

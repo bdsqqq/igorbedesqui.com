@@ -64,13 +64,13 @@ import type {
   AxiomBeat,
   AxiomReceipt,
   AxiomReveal,
-} from "@/components/features/axiom/types";
+} from "~/routes/work/axiom/-types";
 export type {
   AxiomBeat,
   AxiomReceipt,
   AxiomReveal,
   AxiomRevealNode,
-} from "@/components/features/axiom/types";
+} from "~/routes/work/axiom/-types";
 
 // personal screenshots and calendar moments can be added here without citations.
 export const axiomFreeReceipts: readonly AxiomReceipt[] = [];

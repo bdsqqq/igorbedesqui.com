@@ -5,7 +5,7 @@ import {
   Scales as ScalesFeature,
   ScalesInputs,
   ScalesResults,
-} from "@/components/features/scales";
+} from "~/routes/writing/scales/-scales";
 
 export const scalesMeta = {
   shortName: "Scales",

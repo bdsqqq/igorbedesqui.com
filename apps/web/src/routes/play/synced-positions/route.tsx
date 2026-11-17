@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SyncedPositions } from "@/components/features/synced-positions";
+import { SyncedPositions } from "~/routes/play/synced-positions/-positions";
 
 function SyncedPositionsPlayPage() {
   return (

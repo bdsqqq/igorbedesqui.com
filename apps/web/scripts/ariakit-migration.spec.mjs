@@ -390,6 +390,9 @@ for (const state of [
     await expect(copy).toBeVisible();
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
+    // Visibility ignores opacity; capture the entered surface, not its first disclosure frame.
+    await expect(dialog).toHaveAttribute("data-enter", "true");
+    await expect(dialog).toHaveCSS("opacity", "1");
     const geometry = await dialog.evaluate((element) => {
       const rect = element.getBoundingClientRect();
       const style = getComputedStyle(element);

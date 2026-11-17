@@ -24,21 +24,21 @@ import {
 } from "@ariakit/react";
 import { grid } from "@/components/ui/Grid";
 import { cn } from "@/lib/styling";
-import type { AxiomBeat, AxiomReceipt, AxiomReveal } from "./types";
+import type { AxiomBeat, AxiomReceipt, AxiomReveal } from "./-types";
 import {
   createReceiptIndex,
   emptyCollection,
   normalizeCollection,
   updateCollection,
   type AxiomCollectionState,
-} from "./model";
+} from "./-model";
 export type {
   AxiomBeat,
   AxiomReceipt,
   AxiomReveal,
   AxiomRevealNode,
-} from "./types";
-export type { AxiomCollectionState } from "./model";
+} from "./-types";
+export type { AxiomCollectionState } from "./-model";
 const receiptLayoutId = (id: string) => `axiom-attachment-${id}`;
 const fastEase = [0.16, 1, 0.3, 1] as const;
 const fastSpring = {

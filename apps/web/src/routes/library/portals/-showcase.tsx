@@ -2,8 +2,12 @@ import React from "react";
 import { Tab, TabList, TabPanel, TabProvider } from "@ariakit/react";
 
 import { cn } from "@/lib/styling";
-import { ButtonGroup, Button } from "@/components/ui/Button";
-import { InPortal, OutPortal, useOutPortal } from "@/components/ui/Portal";
+import { ButtonGroup, Button } from "~/routes/library/button/-button";
+import {
+  InPortal,
+  OutPortal,
+  useOutPortal,
+} from "~/routes/library/portals/-portal";
 
 const PRETEND_NAVBAR_PORTAL_NAME = "out-nav";
 const InPortalPretendNavbar = ({

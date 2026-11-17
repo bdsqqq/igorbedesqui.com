@@ -6,7 +6,7 @@ import {
   buttonPermutations,
   Button,
   ButtonGroup,
-} from "@/components/ui/Button";
+} from "~/routes/library/button/-button";
 import { grid, subGrid } from "@/components/ui/Grid";
 import { UnstyledLink } from "@/components/ui/primitives";
 import { cn } from "@/lib/styling";
