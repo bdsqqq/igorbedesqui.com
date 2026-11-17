@@ -48,11 +48,7 @@ function PopoverTrigger({
     <Ariakit.PopoverDisclosure
       data-state={open ? "open" : "closed"}
       {...props}
-      render={
-        asChild
-          ? (React.Children.only(children) as React.ReactElement)
-          : props.render
-      }
+      render={asChild ? React.Children.only(children) : props.render}
     >
       {asChild ? undefined : children}
     </Ariakit.PopoverDisclosure>

@@ -45,11 +45,7 @@ function DialogTrigger({
     <Ariakit.DialogDisclosure
       data-state={open ? "open" : "closed"}
       {...props}
-      render={
-        asChild
-          ? (React.Children.only(children) as React.ReactElement)
-          : props.render
-      }
+      render={asChild ? React.Children.only(children) : props.render}
     >
       {asChild ? undefined : children}
     </Ariakit.DialogDisclosure>
@@ -67,11 +63,7 @@ function DialogClose({
   return (
     <Ariakit.DialogDismiss
       {...props}
-      render={
-        asChild
-          ? (React.Children.only(children) as React.ReactElement)
-          : props.render
-      }
+      render={asChild ? React.Children.only(children) : props.render}
     >
       {asChild ? null : children}
     </Ariakit.DialogDismiss>

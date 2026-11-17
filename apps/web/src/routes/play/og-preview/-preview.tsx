@@ -150,12 +150,8 @@ export function OgImagePreview() {
     load.promise.then(
       (outcome) => {
         if (!active) return;
-        if (outcome.status === "ready") {
-          setLoadedUrl(outcome.src);
-          setResult({ url, status: "ready" });
-        } else {
-          setResult({ url, status: "error" });
-        }
+        if (outcome.status === "ready") setLoadedUrl(outcome.src);
+        setResult({ url, status: outcome.status });
       },
       () => {
         if (active) setResult({ url, status: "error" });

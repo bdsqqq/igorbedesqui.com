@@ -11,7 +11,7 @@ export type PokemonSpriteProps = ComponentPropsWithRef<"div"> & {
 /** Static sprite presentation. Caller owns semantics (e.g. aria-label), layout, and styles. */
 export function PokemonSprite({
   dexNumber,
-  scale = 3,
+  scale,
   style,
   ...props
 }: PokemonSpriteProps) {

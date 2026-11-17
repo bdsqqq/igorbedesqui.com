@@ -252,9 +252,7 @@ export function ScalesResults() {
           {inputsSetAsDefault.map((input) => (
             <li key={`${input.name}_InputSetAsDefault`}>
               {input.label} is not a valid number. Using the default value:{" "}
-              {Object.keys(scaleDefaults)
-                .filter((key) => key === input.name)
-                .map((key) => scaleDefaults[key as keyof typeof scaleDefaults])}
+              {scaleDefaults[input.name]}
             </li>
           ))}
         </ul>

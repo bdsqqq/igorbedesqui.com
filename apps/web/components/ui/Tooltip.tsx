@@ -48,11 +48,7 @@ export function TooltipTrigger({
   return (
     <Ariakit.TooltipAnchor
       {...props}
-      render={
-        asChild
-          ? (React.Children.only(children) as React.ReactElement)
-          : props.render
-      }
+      render={asChild ? React.Children.only(children) : props.render}
     >
       {asChild ? null : children}
     </Ariakit.TooltipAnchor>
@@ -89,7 +85,6 @@ export function TooltipContent({
   const placement = Ariakit.useStoreState(store, "currentPlacement");
   return (
     <Ariakit.Tooltip
-      portal
       gutter={0}
       data-side={placement?.split("-")[0]}
       {...props}
@@ -131,9 +126,7 @@ export default function Tooltip({
 }
 
 const tooltipVariants = cva(
-  [
-    "surface-tooltip ak-layer ak-frame ak-frame-field ak-frame-border ak-edge-20 shadow-sm",
-  ],
+  "surface-tooltip ak-layer ak-frame ak-frame-field ak-frame-border ak-edge-20 shadow-sm",
   {
     variants: {
       bg: { standard: "ak-layer-lighten-6", subtle: "ak-layer-canvas" },

@@ -4,7 +4,7 @@ import { EnvelopeClosedIcon, PaperPlaneIcon } from "@radix-ui/react-icons";
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger,
+  StyledPopoverTrigger,
 } from "@/components/ui/Popover";
 import { Button } from "~/routes/library/button/-button";
 import { CopyButton, type CopyButtonProps } from "./CopyButton";
@@ -71,7 +71,7 @@ export type EmailLinkProps = OpenStateProps & {
   email?: string;
   children: ReactNode;
   triggerProps?: Omit<
-    ComponentProps<typeof PopoverTrigger>,
+    ComponentProps<typeof StyledPopoverTrigger>,
     "asChild" | "children"
   >;
   contentProps?: Omit<ComponentProps<typeof PopoverContent>, "children">;
@@ -88,18 +88,18 @@ export default function EmailLink({
 }: EmailLinkProps) {
   return (
     <Popover {...state}>
-      <PopoverTrigger
+      <StyledPopoverTrigger
         {...triggerProps}
         className={cn(
-          "inline-flex items-center gap-1 underline underline-offset-2 ak-ink-80 hover:ak-ink-100 focus-visible:ak-ink-100 data-[state=open]:ak-ink-100 aria-expanded:ak-ink-100 focus-visible:ak-outline focus-visible:ak-outline-primary focus-visible:outline-2 focus-visible:outline-offset-2",
+          "aria-expanded:ak-ink-100 focus-visible:ak-outline focus-visible:ak-outline-primary focus-visible:outline-2 focus-visible:outline-offset-2",
           triggerProps?.className,
         )}
       >
         {children} <EnvelopeClosedIcon />
-      </PopoverTrigger>
+      </StyledPopoverTrigger>
       <PopoverContent
         sideOffset={0}
-        options={{ padding: "none", maxW: "full", bg: "standard" }}
+        options={{ padding: "none", maxW: "full" }}
         {...contentProps}
         className={cn("overflow-visible", contentProps?.className)}
       >
