@@ -8,21 +8,23 @@ async function ready(page) {
   ).toBeVisible();
   await expect(
     page.locator('[data-resolved="--gray-00"]').first(),
-  ).not.toHaveText("…");
+  ).not.toContainText("…");
 }
 
 const swatch = (page, theme, name) =>
   page.locator(`[data-token-theme="${theme}"][data-swatch="${name}"]`);
 
-async function rgba(locator) {
-  return locator.evaluate((element) => {
+async function rgba(locator, property) {
+  return locator.evaluate((element, property) => {
     const canvas = document.createElement("canvas");
     canvas.width = canvas.height = 1;
     const context = canvas.getContext("2d");
-    context.fillStyle = getComputedStyle(element).backgroundColor;
+    context.fillStyle = property
+      ? getComputedStyle(element).getPropertyValue(property)
+      : getComputedStyle(element).backgroundColor;
     context.fillRect(0, 0, 1, 1);
     return [...context.getImageData(0, 0, 1, 1).data];
-  });
+  }, property);
 }
 
 test("token page uses the site bands without cards, subtitles, or disclosures", async ({
@@ -40,13 +42,116 @@ test("token page uses the site bands without cards, subtitles, or disclosures", 
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: /01.*Colors/ })).toBeVisible();
   await expect(
-    page.locator("#colors [data-definition]").first().locator("[data-swatch]"),
+    page
+      .locator("#colors [data-palette] > li")
+      .first()
+      .locator("[data-swatch]"),
   ).toHaveCount(2);
   const sizes = await page.evaluate(() => [
     getComputedStyle(document.querySelector("main h1")).fontSize,
     getComputedStyle(document.body).fontSize,
   ]);
   expect(sizes[0]).toBe(sizes[1]);
+});
+
+test("type specimens keep their complete line boxes", async ({ page }) => {
+  await ready(page);
+  await page.getByRole("searchbox").fill("--text-");
+  const metrics = await page
+    .locator('[data-definition^="--text-"] [aria-hidden]')
+    .evaluateAll((elements) =>
+      elements.map((element) => {
+        const box = element.getBoundingClientRect();
+        const range = document.createRange();
+        range.selectNodeContents(element);
+        const text = range.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return {
+          name: element.closest("[data-definition]").dataset.definition,
+          height: box.height,
+          client: element.clientHeight,
+          scroll: element.scrollHeight,
+          max: style.maxHeight,
+          overflow: style.overflowY,
+          top: box.top,
+          bottom: box.bottom,
+          textTop: text.top,
+          textBottom: text.bottom,
+        };
+      }),
+    );
+  expect(metrics.length).toBeGreaterThan(0);
+  for (const metric of metrics) {
+    expect(metric.max, metric.name).toBe("none");
+    expect(metric.overflow, metric.name).toBe("visible");
+    expect(metric.scroll, metric.name).toBeLessThanOrEqual(metric.client + 1);
+    expect(metric.textTop, metric.name).toBeGreaterThanOrEqual(metric.top - 1);
+    expect(metric.textBottom, metric.name).toBeLessThanOrEqual(
+      metric.bottom + 1,
+    );
+  }
+});
+
+test("palette grids stay compact and expose sources by pointer, tap, and keyboard", async ({
+  page,
+}) => {
+  for (const width of [320, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await ready(page);
+    const palette = page.locator("[data-palette]");
+    const size = await palette.evaluate((element) => ({
+      height: element.getBoundingClientRect().height,
+      columns: getComputedStyle(element).gridTemplateColumns.split(" ").length,
+    }));
+    expect(size.columns).toBe(width < 640 ? 2 : 5);
+    expect(size.height).toBeLessThan(width < 640 ? 1500 : 700);
+    expect(
+      (await page.locator("[data-layer-palette]").boundingBox()).height,
+    ).toBeLessThan(width < 640 ? 1200 : 600);
+    const first = page.locator('[data-palette-token="--gray-00"]');
+    await first.focus();
+    await first.press("Enter");
+    await expect(
+      page.getByRole("region", { name: "Color definitions", exact: true }),
+    ).toBeFocused();
+    await first.focus();
+    await first.press("Tab");
+    await expect(
+      page.locator('[data-palette-token="--gray-01"]'),
+    ).toBeFocused();
+    await expect(page.locator('[data-definition="--gray-01"]')).toBeVisible();
+    const last = page.locator('[data-palette-token="--color-white"]');
+    await last.click();
+    await expect(last).toHaveAttribute("aria-pressed", "true");
+    await expect(
+      page.locator('[data-definition="--color-white"]'),
+    ).toBeVisible();
+    await first.hover();
+    await expect(
+      page.locator('[data-definition="--color-canvas"]'),
+    ).toBeVisible();
+  }
+});
+
+test("touch selects a swatch without hover", async ({ browser }) => {
+  const context = await browser.newContext({
+    baseURL: process.env.MIGRATION_BASE_URL,
+    hasTouch: true,
+    viewport: { width: 320, height: 900 },
+    reducedMotion: "reduce",
+  });
+  try {
+    const page = await context.newPage();
+    await ready(page);
+    const choice = page.locator('[data-palette-token="--blue-A09"]');
+    await choice.tap();
+    await expect(choice).toHaveAttribute("aria-pressed", "true");
+    await expect(
+      page.locator('[data-definition="--color-primary"]'),
+    ).toBeVisible();
+  } finally {
+    await context.close();
+  }
 });
 
 test("dev token inventory never imports the inspected source modules", async ({
@@ -63,7 +168,7 @@ test("dev token inventory never imports the inspected source modules", async ({
   expect(await response.text()).not.toMatch(imports);
 });
 
-for (const width of [390, 1280]) {
+for (const width of [320, 1440]) {
   for (const colorScheme of ["dark", "light"]) {
     test(`source palettes preserve local schemes and page bounds: ${width} ${colorScheme}`, async ({
       page,
@@ -93,11 +198,10 @@ for (const width of [390, 1280]) {
           ),
         ).toEqual(color);
         expect(
-          await rgba(
-            swatch(page, theme, "--color-canvas").locator("[data-color-token]"),
-          ),
+          await rgba(swatch(page, theme, "--gray-00"), "--color-canvas"),
         ).toEqual(color);
       }
+      await page.locator('[data-palette-token="--gray-01"]').focus();
       const definition = page.locator('[data-definition="--gray-01"]');
       await expect(definition).toContainText("src/routes/-main.css:");
       await expect(definition).toContainText("@media (color-gamut: p3)");
@@ -126,6 +230,7 @@ test("Display P3 previews use the actual conditional definitions and update thei
   page,
 }) => {
   await ready(page);
+  await page.locator('[data-palette-token="--gray-01"]').click();
   const session = await page.context().newCDPSession(page);
   await session.send("Emulation.setEmulatedMedia", {
     features: [
@@ -163,7 +268,8 @@ test("token search includes inherited tokens, aliases, provenance, and empty res
   await expect(
     page.locator('[data-definition="--color-primary"]'),
   ).toBeVisible();
-  await expect(page.locator('[data-swatch="--color-primary"]')).toHaveCount(2);
+  await expect(page.locator("[data-palette-token]")).toHaveCount(1);
+  await expect(page.locator('[data-swatch="--blue-A09"]')).toHaveCount(2);
   await search.fill("no-such-token-please");
   await expect(page.getByText("No matches.", { exact: true })).toBeVisible();
   await expect(page.locator("[data-definition]")).toHaveCount(0);
@@ -171,6 +277,32 @@ test("token search includes inherited tokens, aliases, provenance, and empty res
   await expect(page.getByRole("status", { name: "Token results" })).toHaveText(
     /^\d+ \/ \d+$/,
   );
+});
+
+test("numeric layer samples match the literal site utilities", async ({
+  page,
+}) => {
+  await ready(page);
+  const colors = await page.locator("[data-offset]").evaluateAll((elements) =>
+    elements
+      .filter((element) => /^ak-layer-\d/.test(element.dataset.offset))
+      .map((element) => {
+        const native = document.createElement("span");
+        native.className = `ak-layer ${element.dataset.offset}`;
+        element.parentElement.append(native);
+        const result = {
+          utility: element.dataset.offset,
+          theme: element.dataset.offsetTheme,
+          sample: getComputedStyle(element).backgroundColor,
+          native: getComputedStyle(native).backgroundColor,
+        };
+        native.remove();
+        return result;
+      }),
+  );
+  expect(colors.length).toBeGreaterThan(0);
+  for (const color of colors)
+    expect(color.sample, `${color.utility} ${color.theme}`).toBe(color.native);
 });
 
 test("source-derived state samples match the real row and keyboard adjustment stays local", async ({

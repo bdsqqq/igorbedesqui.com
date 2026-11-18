@@ -1,5 +1,5 @@
 import { Role } from "@ariakit/react";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import catalog from "virtual:design-tokens";
 import Band from "@/components/Band";
 import Container from "@/components/Container";
@@ -7,7 +7,8 @@ import { ContentList, contentListRow } from "@/components/ContentList";
 import { grid, subGrid } from "@/components/ui/Grid";
 import { Button } from "../button/-button";
 import { cn } from "@/lib/styling";
-import type { Offset, Token } from "./-catalog";
+import type { Token } from "./-catalog";
+import { groupColors } from "./-palette";
 
 const tokensByName = new Map(
   catalog.tokens.map((token) => [token.name, token]),
@@ -66,62 +67,144 @@ function Definitions({ token }: { token: Token }) {
   );
 }
 
+const swatchGrid = "grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-5";
+const paletteGroups = groupColors(
+  catalog.tokens.filter((token) => category(token) === "Colors"),
+  catalog.tokens,
+);
+
 function ColorSample({
   theme,
   token,
-  resolved,
 }: {
   theme: "dark" | "light";
   token: Token;
-  resolved?: string;
 }) {
   return (
-    <div className={sampleColumn}>
-      <figure
+    <span className="block min-w-0">
+      <span
+        role="img"
         data-token-theme={theme}
         data-swatch={token.name}
         aria-label={`${token.name} ${theme}`}
-        className="ak-layer ak-layer-canvas"
+        className="block ak-layer ak-layer-canvas"
         style={{
           backgroundImage:
             "conic-gradient(var(--gray-A04) 25%, transparent 0 50%, var(--gray-A04) 0 75%, transparent 0)",
           backgroundSize: "16px 16px",
         }}
       >
-        <div
+        <span
           data-color-token={token.name}
           data-color-theme={theme}
-          className="h-16"
+          className="block h-8"
           style={{ backgroundColor: `var(${token.name})` }}
         />
-      </figure>
-      <code
-        data-resolved={token.name}
-        data-resolved-theme={theme}
-        className="mt-2 block text-xs ak-ink-60 [overflow-wrap:anywhere]"
-      >
-        {resolved ?? "…"}
-      </code>
-    </div>
+      </span>
+      <span className="mt-1 block text-xs capitalize ak-ink-70">{theme}</span>
+    </span>
   );
 }
 
-function ThemeColumns() {
+function focusReadout(id: string) {
+  const source = document.getElementById(id);
+  source?.focus({ preventScroll: true });
+  source?.scrollIntoView({ behavior: "instant", block: "nearest" });
+}
+
+function ColorPalette({
+  entries,
+  resolved,
+}: {
+  entries: Token[];
+  resolved: Record<string, string>;
+}) {
+  const [selection, setSelection] = useState("");
+  const sourceId = useId();
+  const matching = new Set(entries.map((token) => token.name));
+  const groups = paletteGroups.filter((group) =>
+    group.members.some((token) => matching.has(token.name)),
+  );
+  const selected =
+    groups.find((group) => group.token.name === selection) ?? groups[0];
   return (
-    <div className={cn(tokenGrid, "mb-4 text-xs ak-ink-60")}>
-      <span className={nameColumn} />
-      {themes.map((theme) => (
-        <span key={theme} className={cn(sampleColumn, "capitalize")}>
-          {theme}
-        </span>
-      ))}
-    </div>
+    <>
+      <ul data-palette="" className={swatchGrid}>
+        {groups.map((group) => (
+          <li key={group.token.name} className="min-w-0">
+            <Role.button
+              aria-label={group.members.map((token) => token.name).join(", ")}
+              aria-pressed={group === selected}
+              aria-controls={sourceId}
+              data-palette-token={group.token.name}
+              onFocus={() => setSelection(group.token.name)}
+              onClick={(event) => {
+                setSelection(group.token.name);
+                if (event.detail === 0) focusReadout(sourceId);
+              }}
+              onPointerEnter={(event) => {
+                if (event.pointerType === "mouse")
+                  setSelection(group.token.name);
+              }}
+              className="group block w-full min-w-0 text-left ak-ink-85"
+            >
+              <span className="grid grid-cols-2 gap-1">
+                {themes.map((theme) => (
+                  <ColorSample key={theme} theme={theme} token={group.token} />
+                ))}
+              </span>
+              <code className="mt-2 block text-xs group-aria-pressed:underline underline-offset-4 [overflow-wrap:anywhere]">
+                {group.token.name}
+              </code>
+            </Role.button>
+          </li>
+        ))}
+      </ul>
+      {selected && (
+        <section
+          id={sourceId}
+          data-palette-readout=""
+          aria-label="Color definitions"
+          tabIndex={0}
+          className="mt-6 min-w-0"
+        >
+          <div className="grid gap-2 sm:grid-cols-2">
+            {themes.map((theme) => (
+              <code
+                key={theme}
+                data-resolved={selected.token.name}
+                data-resolved-theme={theme}
+                className="text-xs ak-ink-70 [overflow-wrap:anywhere]"
+              >
+                {theme} {resolved[`${theme}/${selected.token.name}`] ?? "…"}
+              </code>
+            ))}
+          </div>
+          <ul className="mt-4 grid gap-4 md:grid-cols-2">
+            {[
+              selected.token,
+              ...selected.members.filter((token) => token !== selected.token),
+            ].map((token) => (
+              <li
+                key={token.name}
+                data-definition={token.name}
+                className="min-w-0"
+              >
+                <code className="text-sm">{token.name}</code>
+                <Definitions token={token} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </>
   );
 }
 
 const offsetClasses = {
   layer: {
-    auto: "ak-layer-(--token-offset)",
+    // Disambiguate a numeric offset from a custom-property color source.
+    auto: "ak-layer-offset-(--token-offset)",
     lighten: "ak-layer-lighten-(--token-offset)",
     darken: "ak-layer-darken-(--token-offset)",
   },
@@ -132,35 +215,85 @@ const offsetClasses = {
   },
 };
 
-function OffsetSamples({ offset }: { offset: Offset }) {
+function LayerPalette() {
+  const [selection, setSelection] = useState(catalog.offsets[0]?.utility);
+  const sourceId = useId();
+  const selected = catalog.offsets.find(
+    (offset) => offset.utility === selection,
+  );
   return (
-    <li className={cn(tokenGrid, "gap-y-2")}>
-      <div className={nameColumn}>
-        <code className="text-sm">{offset.utility}</code>
-        <ul className="mt-2 space-y-1 font-mono text-xs ak-ink-60 [overflow-wrap:anywhere]">
-          {offset.references.map((reference) => (
-            <li key={`${reference.file}:${reference.line}`}>
-              {reference.file}:{reference.line}
-            </li>
-          ))}
-        </ul>
-      </div>
-      {themes.map((theme) => (
-        <div key={theme} className={sampleColumn}>
-          <div data-token-theme={theme} className="ak-layer ak-layer-canvas">
-            <div
-              data-offset={offset.utility}
-              data-offset-theme={theme}
-              className={cn(
-                "h-16 ak-layer",
-                offsetClasses[offset.kind][offset.direction],
-              )}
-              style={{ "--token-offset": offset.amount / 100 } as CSSProperties}
-            />
-          </div>
-        </div>
-      ))}
-    </li>
+    <>
+      <ul data-layer-palette="" className={swatchGrid}>
+        {catalog.offsets.map((offset) => (
+          <li key={offset.utility} className="min-w-0">
+            <Role.button
+              aria-label={offset.utility}
+              aria-pressed={offset === selected}
+              aria-controls={sourceId}
+              onFocus={() => setSelection(offset.utility)}
+              onClick={(event) => {
+                setSelection(offset.utility);
+                if (event.detail === 0) focusReadout(sourceId);
+              }}
+              onPointerEnter={(event) => {
+                if (event.pointerType === "mouse") setSelection(offset.utility);
+              }}
+              className="group block w-full min-w-0 text-left ak-ink-85"
+            >
+              <span className="grid grid-cols-2 gap-1">
+                {themes.map((theme) => (
+                  <span key={theme} className="min-w-0">
+                    <span
+                      data-token-theme={theme}
+                      className="block ak-layer ak-layer-canvas"
+                    >
+                      <span
+                        data-offset={offset.utility}
+                        data-offset-theme={theme}
+                        className={cn(
+                          "block h-8 ak-layer",
+                          offsetClasses[offset.kind][offset.direction],
+                        )}
+                        style={
+                          {
+                            "--token-offset": offset.amount / 100,
+                          } as CSSProperties
+                        }
+                      />
+                    </span>
+                    <span className="mt-1 block text-xs capitalize ak-ink-70">
+                      {theme}
+                    </span>
+                  </span>
+                ))}
+              </span>
+              <code className="mt-2 block text-xs group-aria-pressed:underline underline-offset-4 [overflow-wrap:anywhere]">
+                {offset.utility}
+              </code>
+            </Role.button>
+          </li>
+        ))}
+      </ul>
+      {selected && (
+        <section
+          id={sourceId}
+          aria-label="Layer references"
+          tabIndex={0}
+          className="mt-6 [overflow-wrap:anywhere]"
+        >
+          <code className="text-sm">{selected.utility}</code>
+          <ul className="mt-2 grid gap-x-4 text-xs ak-ink-60 md:grid-cols-2">
+            {selected.references.map((reference) => (
+              <li key={`${reference.file}:${reference.line}`}>
+                <code>
+                  {reference.file}:{reference.line}
+                </code>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </>
   );
 }
 
@@ -236,7 +369,8 @@ function TokenSample({ token }: { token: Token }) {
     return (
       <span
         aria-hidden="true"
-        className="block max-h-24 overflow-hidden"
+        data-type-sample={token.name}
+        className="block"
         style={{ fontSize: value }}
       >
         Ag
@@ -327,38 +461,27 @@ export function TokenExplorer() {
                 thin: group,
               }}
             >
-              {group === "Colors" && <ThemeColumns />}
-              <ul className="space-y-8">
-                {entries.map((token) => (
-                  <li
-                    key={token.name}
-                    data-definition={token.name}
-                    className={cn(tokenGrid, "gap-y-3")}
-                  >
-                    <div className={nameColumn}>
-                      <code className="text-sm">{token.name}</code>
-                      <Definitions token={token} />
-                    </div>
-                    {group === "Colors" &&
-                    token.definitions.some(
-                      (definition) => definition.scope !== "component",
-                    ) ? (
-                      themes.map((theme) => (
-                        <ColorSample
-                          key={theme}
-                          theme={theme}
-                          token={token}
-                          resolved={resolved[`${theme}/${token.name}`]}
-                        />
-                      ))
-                    ) : (
+              {group === "Colors" ? (
+                <ColorPalette entries={entries} resolved={resolved} />
+              ) : (
+                <ul className="space-y-8">
+                  {entries.map((token) => (
+                    <li
+                      key={token.name}
+                      data-definition={token.name}
+                      className={cn(tokenGrid, "gap-y-3")}
+                    >
+                      <div className={nameColumn}>
+                        <code className="text-sm">{token.name}</code>
+                        <Definitions token={token} />
+                      </div>
                       <div className="col-span-full md:col-span-4 lg:col-span-8">
                         <TokenSample token={token} />
                       </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </Band>
           );
         })}
@@ -372,12 +495,7 @@ export function TokenExplorer() {
           </Band>
         )}
         <Band headline={{ bold: "07", thin: "Layers" }}>
-          <ThemeColumns />
-          <ul className="space-y-6">
-            {catalog.offsets.map((offset) => (
-              <OffsetSamples key={offset.utility} offset={offset} />
-            ))}
-          </ul>
+          <LayerPalette />
         </Band>
         <Band headline={{ bold: "08", thin: "States" }}>
           <div className={tokenGrid}>
