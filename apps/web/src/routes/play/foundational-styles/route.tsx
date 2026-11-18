@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import type { ReactNode } from "react";
 import Band from "@/components/Band";
@@ -566,16 +567,14 @@ export function SiteLanguagePage() {
   );
 }
 
+const page = {
+  name: "Foundational styles",
+  description:
+    "Typography, color, and spacing primitives used across the site.",
+};
+
 export const Route = createFileRoute("/play/foundational-styles")({
   component: FoundationalStylesPage,
-  head: () => ({
-    meta: [
-      { title: "Foundational styles — Play — Igor Bedesqui" },
-      {
-        name: "description",
-        content:
-          "Typography, color, and spacing primitives used across the site.",
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page, "Play"),
 });

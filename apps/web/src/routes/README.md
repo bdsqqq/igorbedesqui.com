@@ -8,6 +8,21 @@ page adapters compose layout, navigation, and toolbox placement with feature roo
 
 these demos have no business-data query layer. static metadata, presets, cells, and sprite indexes stay static; there is no invented ID-fetch mode. supplied `[]`, `0`, empty drafts, and `false` are deliberate values. OG previews still load the selected image URL; supplied previews bypass URL generation, not image loading.
 
+## route indexes
+
+keep listing copy on the route, alongside its head metadata:
+
+```tsx
+const page = { name: "Example", description: "What this page demonstrates." };
+export const Route = createFileRoute("/play/example")({
+  component: Example,
+  staticData: { page },
+  head: () => pageHead(page, "Play"),
+});
+```
+
+`pageHead` comes from `@/lib/route-catalog`. `useSectionPages("/play")` reads the initialized router's routes, not page-module imports. adding a page automatically adds its URL; missing metadata falls back to a humanized name. optional `order` ranks pages, with name/URL tie-breakers. layouts, redirects, dynamic routes, APIs, and the section index itself are omitted.
+
 ## choose data, state, and markup independently
 
 ```tsx

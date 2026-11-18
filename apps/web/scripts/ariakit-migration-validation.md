@@ -42,7 +42,7 @@ standalone class factories and component callers may supply fragments whose base
 
 the node suite also evaluates the real DialogClose wrapper with installed ariakit, using isolated icon-slot and text consumers. an isolated mutation restoring the old `undefined` fallback must introduce the extra icon. native-button, import, class, theme, route discovery, quoted CSS glob and inventory fixtures exercise both bad and near-match source.
 
-the route smoke derives public page paths from source; API routes, dynamic parameters, and the Outlet-only `/writing` layout are excluded. modal assertions follow ariakit's inert-based contract: `body` is an allowed Tab destination; interactive background elements are not.
+the route smoke derives public page paths from source; API routes, dynamic parameters, and the parent `/writing` layout are excluded. its child index is included. modal assertions follow ariakit's inert-based contract: `body` is an allowed Tab destination; interactive background elements are not.
 
 ## follow-up motion and geometry regressions
 

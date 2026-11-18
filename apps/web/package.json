@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "start": "node .output/server/index.mjs",
     "routes:generate": "tsr generate",
-    "check:ui": "node --test --test-concurrency=1 scripts/check-ariakit-migration.test.mjs scripts/document-geometry.test.mjs scripts/progressive-primitives.test.mjs src/routes/*/*/-*.test.mjs && node scripts/check-ariakit-migration.mjs",
+    "check:ui": "node --test --test-concurrency=1 scripts/check-ariakit-migration.test.mjs scripts/document-geometry.test.mjs scripts/progressive-primitives.test.mjs lib/*.test.mjs src/routes/*/*/-*.test.mjs && node scripts/check-ariakit-migration.mjs",
     "check:api": "node scripts/check-progressive-types.mjs",
     "test:ui": "playwright test --config scripts/ariakit-migration.playwright.config.mjs",
     "lint": "pnpm routes:generate && pnpm check:ui && oxlint --type-aware --format=stylish --type-check --report-unused-disable-directives",

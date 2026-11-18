@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import { createServerFn } from "@tanstack/react-start";
 import { renderServerComponent } from "@tanstack/react-start/rsc";
 import { MDX } from "@/components/MDX";
@@ -17,18 +18,13 @@ const getNotJustTheBasics = createServerFn({ method: "GET" }).handler(() =>
   renderServerComponent(<NotJustTheBasicsContent />),
 );
 
+const page = { ...basicsMeta, order: 40 };
+
 export const Route = createFileRoute("/writing/not-just-the-basics")({
   loader: () => getNotJustTheBasics(),
   component: NotJustTheBasicsRoute,
-  head: () => ({
-    meta: [
-      { title: `${basicsMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: basicsMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });
 
 function NotJustTheBasicsRoute() {

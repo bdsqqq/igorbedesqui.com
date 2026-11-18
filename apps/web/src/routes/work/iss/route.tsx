@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
@@ -186,15 +187,10 @@ function IssWorkPage() {
   );
 }
 
+const page = { ...issMeta, order: 40 };
+
 export const Route = createFileRoute("/work/iss")({
   component: IssWorkPage,
-  head: () => ({
-    meta: [
-      { title: `${issMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: issMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });

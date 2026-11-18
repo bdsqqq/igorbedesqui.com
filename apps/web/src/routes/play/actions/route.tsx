@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import * as Ariakit from "@ariakit/react";
 import { Button } from "~/routes/library/button/-button";
 
@@ -46,9 +47,12 @@ function ActionsPlayPage() {
   );
 }
 
+const page = {
+  name: "Actions",
+};
+
 export const Route = createFileRoute("/play/actions")({
   component: ActionsPlayPage,
-  head: () => ({
-    meta: [{ title: "Actions — Play — Igor Bedesqui" }],
-  }),
+  staticData: { page },
+  head: () => pageHead(page, "Play"),
 });

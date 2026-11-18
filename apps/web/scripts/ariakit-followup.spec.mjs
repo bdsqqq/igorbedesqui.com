@@ -482,9 +482,28 @@ for (const viewport of [
       });
       boxes.forEach(borderless);
       expect(boxes[2].width).toBeGreaterThan(0);
+      // Catalog growth can move a card to another column. Derive its baseline
+      // from the grid tracks, not from the card's possibly shifted position.
+      const columnOffset = await row.evaluate((anchor) => {
+        const item = anchor.parentElement;
+        const list = item.parentElement;
+        const style = getComputedStyle(list);
+        if (style.display !== "grid") return 0;
+        const tracks = style.gridTemplateColumns.split(/\s+/).map(parseFloat);
+        const span = Number(
+          getComputedStyle(item).gridColumnStart.match(/\d+/)?.[0] ?? 1,
+        );
+        const index = [...list.children].indexOf(item);
+        const column = (index * span) % tracks.length;
+        const gap = parseFloat(style.columnGap) || 0;
+        return (
+          tracks.slice(0, column).reduce((sum, width) => sum + width, 0) +
+          column * gap
+        );
+      });
       aligned(
         boxes[2].textLeft,
-        host.contentLeft,
+        host.contentLeft + columnOffset,
         "row text vs grid content baseline",
       );
       await row.focus();

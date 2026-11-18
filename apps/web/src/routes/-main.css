@@ -5,6 +5,7 @@
 @import "tailwindcss";
 @import "@ariakit/tailwind";
 @import "../../components/ui/surface-motion.css";
+@import "../../components/ui/CopyButton.css";
 @import "tw-animate-css";
 @import "streamdown/styles.css";
 @source "../../../../node_modules/streamdown/dist/*.js";

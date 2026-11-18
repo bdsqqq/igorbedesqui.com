@@ -9,23 +9,7 @@ import { Blur } from "@/components/ui/Blur";
 import StyledLink from "@/components/ui/StyledLink";
 import { cn } from "@/lib/styling";
 
-import { ibmMeta } from "./work/ibm/route";
-import { psykipMeta } from "./work/the-manual/route";
-import { bebopMeta } from "./work/bebop/route";
-import { dontBelieveMeta } from "./writing/dont-believe-in-yourself";
-import { macosRice } from "./writing/macos-rice/route";
-import { basicsMeta } from "./writing/not-just-the-basics";
-import { onWritingMeta } from "./writing/on-writing";
-import { schrodingerMinimalism } from "./writing/schrodinger-minimalism/route";
-
-const writingPieces = [
-  macosRice,
-  schrodingerMinimalism,
-  onWritingMeta,
-  basicsMeta,
-  dontBelieveMeta,
-];
-const projsMeta = [ibmMeta, psykipMeta, bebopMeta];
+import { useSectionPages } from "@/lib/use-section-pages";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -40,6 +24,8 @@ export const Route = createFileRoute("/")({
  * When the MDX component gets a client-safe variant, these can converge.
  */
 function Home() {
+  const writingPieces = useSectionPages("/writing");
+  const projects = useSectionPages("/work");
   return (
     <Container key="index">
       <div className="flex flex-col gap-20">
@@ -88,30 +74,12 @@ function Home() {
           <div className={subGrid()({ mode: "narrow" })}>
             <div className="col-span-full md:col-span-5 lg:col-span-6">
               <ContentList className="-mx-2 -mt-4">
-                <li>
-                  <div className={contentListRow}>
-                    <div className="flex flex-col ">
-                      <div>
-                        <h3 className="inline-block font-bold">
-                          <StyledLink href="https://axiom.co">Axiom</StyledLink>
-                        </h3>{" "}
-                        <span className="text-bold inline-block transform text-end text-xs tracking-tighter ak-ink-85 transition-all duration-moderate-01 ease-productive-standard group-focus-within:translate-x-0 group-focus-within:opacity-100 group-hover:translate-x-0 group-hover:opacity-100 md:-translate-x-4 md:opacity-0">
-                          2023 ~ 2026
-                        </span>
-                      </div>
-                      <p>
-                        UI & Engineering for making sense of petabytes of logs.
-                      </p>
-                    </div>
-                  </div>
-                </li>
-
-                {projsMeta.map((projMeta) => {
+                {projects.map((projMeta) => {
                   return (
-                    <li key={projMeta.shortName}>
+                    <li key={projMeta.href}>
                       <UnstyledLink
                         className={contentListRow}
-                        href={`/work/${projMeta.urlSlug}`}
+                        href={projMeta.href}
                       >
                         <div className="flex flex-col ">
                           <div>
@@ -137,10 +105,10 @@ function Home() {
               <div className="mt-2">
                 <ContentList className="-mx-2 gap-4">
                   {writingPieces.map((piece) => (
-                    <li key={piece.urlSlug}>
+                    <li key={piece.href}>
                       <UnstyledLink
                         className={cn(contentListRow, "py-0 leading-none")}
-                        href={`/writing/${piece.urlSlug}`}
+                        href={piece.href}
                       >
                         <h3 className="inline">{piece.name}</h3>
                         {piece.description.length > 0 && (
@@ -204,7 +172,7 @@ function Home() {
                   detailed polish I strive for will come as I build{" "}
                   <UnstyledLink
                     className="underline"
-                    href={`/writing/${basicsMeta.urlSlug}`}
+                    href="/writing/not-just-the-basics"
                   >
                     &ldquo;Just&rdquo; the basics
                   </UnstyledLink>{" "}

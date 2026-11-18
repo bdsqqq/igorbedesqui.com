@@ -21,7 +21,7 @@ type BaseButtonProps = {
 /**
  * type guard to check if an icon prop is an oject with left and right OR a single element
  */
-const isIconObject = (
+export const isIconObject = (
   icon: BaseButtonProps["icon"],
 ): icon is { left?: React.ReactNode; right?: React.ReactNode } => {
   return (

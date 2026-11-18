@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import { createServerFn } from "@tanstack/react-start";
 import { renderServerComponent } from "@tanstack/react-start/rsc";
 import { MDX } from "@/components/MDX";
@@ -17,18 +18,13 @@ const getDontBelieve = createServerFn({ method: "GET" }).handler(() =>
   renderServerComponent(<DontBelieveContent />),
 );
 
+const page = { ...dontBelieveMeta, order: 50 };
+
 export const Route = createFileRoute("/writing/dont-believe-in-yourself")({
   loader: () => getDontBelieve(),
   component: DontBelieveRoute,
-  head: () => ({
-    meta: [
-      { title: `${dontBelieveMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: dontBelieveMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });
 
 function DontBelieveRoute() {

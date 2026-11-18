@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import HeroBand from "@/components/HeroBand";
 import type { Meta } from "@/components/ProjectStuff/Projects";
 import { MDX } from "@/components/MDX";
@@ -151,15 +152,10 @@ function IbmWorkPage() {
   );
 }
 
+const page = { ...ibmMeta, order: 10 };
+
 export const Route = createFileRoute("/work/ibm")({
   component: IbmWorkPage,
-  head: () => ({
-    meta: [
-      { title: `${ibmMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: ibmMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });

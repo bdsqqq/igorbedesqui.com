@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import { useEffect } from "react";
 import {
   AnimatedElements,
@@ -76,9 +77,12 @@ function BouncyTooltipPlayPage() {
   );
 }
 
+const page = {
+  name: "Bouncy tooltip",
+};
+
 export const Route = createFileRoute("/play/bouncy-tooltip")({
   component: BouncyTooltipPlayPage,
-  head: () => ({
-    meta: [{ title: "Bouncy tooltip — Play — Igor Bedesqui" }],
-  }),
+  staticData: { page },
+  head: () => pageHead(page, "Play"),
 });

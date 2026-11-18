@@ -12,7 +12,10 @@ function WritingLayout() {
   const isWidePage = pathname === "/writing/scales";
 
   return (
-    <Container backable backAnchor="/writing">
+    <Container
+      backable
+      backAnchor={pathname.replace(/\/$/, "") === "/writing" ? "/" : "/writing"}
+    >
       {isWidePage ? (
         <Outlet />
       ) : (

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import Container from "@/components/Container";
 import Band from "@/components/Band";
 import { OgPreview } from "~/routes/play/og-preview/-preview";
@@ -15,9 +16,12 @@ function OgPreviewPlayPage() {
   );
 }
 
+const page = {
+  name: "OG Preview",
+};
+
 export const Route = createFileRoute("/play/og-preview")({
   component: OgPreviewPlayPage,
-  head: () => ({
-    meta: [{ title: "OG Preview — Play — Igor Bedesqui" }],
-  }),
+  staticData: { page },
+  head: () => pageHead(page, "Play"),
 });

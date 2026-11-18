@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import { createServerFn } from "@tanstack/react-start";
 import { promises as fs } from "node:fs";
 import { PortalsPageContent } from "./-content";
@@ -10,12 +11,16 @@ const getPortalSource = createServerFn({ method: "GET" }).handler(async () => {
   );
 });
 
+const page = {
+  name: "Portals",
+  description: "Portal helpers, examples, and source.",
+};
+
 export const Route = createFileRoute("/library/portals")({
   loader: () => getPortalSource(),
   component: PortalsRoute,
-  head: () => ({
-    meta: [{ title: "Portals — Library — Igor Bedesqui" }],
-  }),
+  staticData: { page },
+  head: () => pageHead(page, "Library"),
 });
 
 function PortalsRoute() {

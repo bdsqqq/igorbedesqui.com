@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import { createServerFn } from "@tanstack/react-start";
 import { renderServerComponent } from "@tanstack/react-start/rsc";
 import { MDX } from "@/components/MDX";
@@ -16,18 +17,13 @@ const getGrowContent = createServerFn({ method: "GET" }).handler(() => {
   return renderServerComponent(<GrowContent />);
 });
 
+const page = { ...growMeta, order: 70 };
+
 export const Route = createFileRoute("/writing/grow")({
   loader: () => getGrowContent(),
   component: GrowRoute,
-  head: () => ({
-    meta: [
-      { title: `${growMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: growMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });
 
 function GrowRoute() {

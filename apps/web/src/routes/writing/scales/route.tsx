@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import Container from "@/components/Container";
 import Band from "@/components/Band";
 import {
@@ -16,17 +17,12 @@ export const scalesMeta = {
   backMessage: "",
 };
 
+const page = { ...scalesMeta, order: 60 };
+
 export const Route = createFileRoute("/writing/scales")({
   component: Scales,
-  head: () => ({
-    meta: [
-      { title: `${scalesMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: scalesMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });
 
 function Scales() {

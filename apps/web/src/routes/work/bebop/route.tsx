@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
@@ -163,15 +164,10 @@ function BebopWorkPage() {
   );
 }
 
+const page = { ...bebopMeta, order: 30 };
+
 export const Route = createFileRoute("/work/bebop")({
   component: BebopWorkPage,
-  head: () => ({
-    meta: [
-      { title: `${bebopMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: bebopMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });

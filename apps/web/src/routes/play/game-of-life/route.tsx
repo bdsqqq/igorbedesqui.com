@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import Band from "@/components/Band";
 import Container from "@/components/Container";
 import { MDX } from "@/components/MDX";
@@ -56,9 +57,12 @@ function GameOfLifePlayPage() {
   );
 }
 
+const page = {
+  name: "Game of Life",
+};
+
 export const Route = createFileRoute("/play/game-of-life")({
   component: GameOfLifePlayPage,
-  head: () => ({
-    meta: [{ title: "Game of Life — Play — Igor Bedesqui" }],
-  }),
+  staticData: { page },
+  head: () => pageHead(page, "Play"),
 });

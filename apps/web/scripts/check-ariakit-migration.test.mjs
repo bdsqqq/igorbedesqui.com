@@ -118,12 +118,15 @@ test("public routes derive from real router calls, excluding dynamic/API/layout 
     ["src/routes/api/example.tsx", `${router} route("/api/example")({});`],
     ["src/routes/p/$slug.tsx", `${router} route("/p/$slug")({});`],
     ["src/routes/writing/route.tsx", `${router} route("/writing")({});`],
+    ["src/routes/writing/index.tsx", `${router} route("/writing/")({});`],
     [
       "src/routes/near.tsx",
       'import { createFileRoute } from "other-router"; createFileRoute("/fake")({});',
     ],
     ["components/example.tsx", `${router} route("/not-a-route")({});`],
   ]);
+  assert.deepEqual(staticPageRoutes(sources), ["/", "/new", "/writing"]);
+  sources.delete("src/routes/writing/index.tsx");
   assert.deepEqual(staticPageRoutes(sources), ["/", "/new"]);
 });
 

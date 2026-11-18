@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import { SyncedPositions } from "~/routes/play/synced-positions/-positions";
 
 function SyncedPositionsPlayPage() {
@@ -9,9 +10,12 @@ function SyncedPositionsPlayPage() {
   );
 }
 
+const page = {
+  name: "Synced positions",
+};
+
 export const Route = createFileRoute("/play/synced-positions")({
   component: SyncedPositionsPlayPage,
-  head: () => ({
-    meta: [{ title: "Synced positions — Play — Igor Bedesqui" }],
-  }),
+  staticData: { page },
+  head: () => pageHead(page, "Play"),
 });

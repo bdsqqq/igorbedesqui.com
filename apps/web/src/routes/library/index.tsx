@@ -1,38 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ContentList, contentListRow } from "@/components/ContentList";
+import { RoutePageList } from "@/components/RoutePageList";
+import { useSectionPages } from "@/lib/use-section-pages";
+import { pageHead } from "@/lib/route-catalog";
 import Band from "@/components/Band";
 import Container from "@/components/Container";
 import { grid } from "@/components/ui/Grid";
-import { UnstyledLink } from "@/components/ui/primitives";
 import { cn } from "@/lib/styling";
 
-const libraryEntries = [
-  {
-    href: "/library/button",
-    name: "Button",
-    description: "Button primitive permutations, composition, and source.",
-  },
-  {
-    href: "/library/portals",
-    name: "Portals",
-    description: "Portal helpers, examples, and source.",
-  },
-];
+const page = {
+  name: "Library",
+  description: "Component library and utilities.",
+};
 
 export const Route = createFileRoute("/library/")({
   component: LibraryPage,
-  head: () => ({
-    meta: [
-      { title: "Library — Igor Bedesqui" },
-      {
-        name: "description",
-        content: "Component library and utilities.",
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });
 
 function LibraryPage() {
+  const libraryEntries = useSectionPages("/library");
   return (
     <Container backable>
       <Band gridless id="">
@@ -45,16 +32,7 @@ function LibraryPage() {
           </div>
 
           <div className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-12">
-            <ContentList className="-mx-2">
-              {libraryEntries.map((entry) => (
-                <li key={entry.href}>
-                  <UnstyledLink className={contentListRow} href={entry.href}>
-                    <h2 className="font-bold">{entry.name}</h2>
-                    <p>{entry.description}</p>
-                  </UnstyledLink>
-                </li>
-              ))}
-            </ContentList>
+            <RoutePageList pages={libraryEntries} />
           </div>
         </div>
       </Band>

@@ -7,15 +7,16 @@ import { UnstyledLink } from "@/components/ui/primitives";
 import HeroBand from "@/components/HeroBand";
 import { cn } from "@/lib/styling";
 
-import { ibmMeta } from "./ibm/route";
-import { psykipMeta } from "./the-manual/route";
-import { bebopMeta } from "./bebop/route";
-import { issMeta } from "./iss/route";
-import { wasmGifMeta } from "./wasmgif/route";
+import { useSectionPages } from "@/lib/use-section-pages";
+import { pageHead } from "@/lib/route-catalog";
 
-const projects = [ibmMeta, psykipMeta, bebopMeta, issMeta, wasmGifMeta];
+const page = {
+  name: "Work",
+  description: "Selected work by Igor Bedesqui.",
+};
 
 function WorkIndexPage() {
+  const projects = useSectionPages("/work");
   return (
     <Container backable>
       <HeroBand>
@@ -27,10 +28,10 @@ function WorkIndexPage() {
             <ContentList className="-mx-4 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16">
               {projects.map((p) => {
                 return (
-                  <li className="col-span-4 lg:col-span-8" key={p.shortName}>
+                  <li className="col-span-4 lg:col-span-8" key={p.href}>
                     <UnstyledLink
                       className={cn(contentListRow, "px-4")}
-                      href={`/work/${p.urlSlug}`}
+                      href={p.href}
                     >
                       <div className="flex flex-col ">
                         <div>
@@ -55,13 +56,6 @@ function WorkIndexPage() {
 
 export const Route = createFileRoute("/work/")({
   component: WorkIndexPage,
-  head: () => ({
-    meta: [
-      { title: "Work — Igor Bedesqui" },
-      {
-        name: "description",
-        content: "Selected work by Igor Bedesqui.",
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });

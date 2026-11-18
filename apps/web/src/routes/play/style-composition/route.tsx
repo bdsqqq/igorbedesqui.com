@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import Container from "@/components/Container";
 import { ArrowRightIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 import { Border } from "@/components/ui/Border";
@@ -63,9 +64,12 @@ function StyleCompositionPlayPage() {
   );
 }
 
+const page = {
+  name: "Style composition",
+};
+
 export const Route = createFileRoute("/play/style-composition")({
   component: StyleCompositionPlayPage,
-  head: () => ({
-    meta: [{ title: "Style composition — Play — Igor Bedesqui" }],
-  }),
+  staticData: { page },
+  head: () => pageHead(page, "Play"),
 });

@@ -1,5 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { RoutePageList } from "@/components/RoutePageList";
+import { useSectionPages } from "@/lib/use-section-pages";
+import { pageHead } from "@/lib/route-catalog";
+import { grid } from "@/components/ui/Grid";
 import Container from "@/components/Container";
 import { Stage } from "@/components/Stage";
 import { Button } from "~/routes/library/button/-button";
@@ -130,6 +134,7 @@ function BorderExamples() {
 }
 
 function PlayIndexPage() {
+  const pages = useSectionPages("/play");
   const [count, setCount] = useState(0);
   const [walled, setWalled] = useState(false);
   const toggleWalled = () => setWalled((prev) => !prev);
@@ -138,6 +143,14 @@ function PlayIndexPage() {
   return (
     <Container>
       <div className="flex flex-col gap-16">
+        <Band gridless id="pages">
+          <div className={grid()}>
+            <div className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
+              <h1 className="mb-4 font-semibold">Play</h1>
+              <RoutePageList pages={pages} />
+            </div>
+          </div>
+        </Band>
         <Band headline={{ bold: "01", thin: "Permutations" }}>
           <Permutations />
         </Band>
@@ -182,15 +195,13 @@ function PlayIndexPage() {
   );
 }
 
+const page = {
+  name: "Play",
+  description: "Interactive experiments and component explorations.",
+};
+
 export const Route = createFileRoute("/play/")({
   component: PlayIndexPage,
-  head: () => ({
-    meta: [
-      { title: "Play — Igor Bedesqui" },
-      {
-        name: "description",
-        content: "Interactive experiments and component explorations.",
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });

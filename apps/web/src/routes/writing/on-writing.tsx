@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import { createServerFn } from "@tanstack/react-start";
 import { renderServerComponent } from "@tanstack/react-start/rsc";
 import { MDX } from "@/components/MDX";
@@ -22,18 +23,13 @@ const getOnWriting = createServerFn({ method: "GET" }).handler(() =>
   renderServerComponent(<OnWritingContent />),
 );
 
+const page = { ...onWritingMeta, order: 30 };
+
 export const Route = createFileRoute("/writing/on-writing")({
   loader: () => getOnWriting(),
   component: OnWritingRoute,
-  head: () => ({
-    meta: [
-      { title: `${onWritingMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: onWritingMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });
 
 function OnWritingRoute() {

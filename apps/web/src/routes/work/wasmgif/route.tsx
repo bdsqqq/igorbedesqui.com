@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
@@ -90,15 +91,10 @@ function WasmGifWorkPage() {
   );
 }
 
+const page = { ...wasmGifMeta, order: 50 };
+
 export const Route = createFileRoute("/work/wasmgif")({
   component: WasmGifWorkPage,
-  head: () => ({
-    meta: [
-      { title: `${wasmGifMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: wasmGifMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });

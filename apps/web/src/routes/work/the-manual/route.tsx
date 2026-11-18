@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import Container from "@/components/Container";
@@ -392,15 +393,10 @@ function TheManualWorkPage() {
   );
 }
 
+const page = { ...psykipMeta, order: 20 };
+
 export const Route = createFileRoute("/work/the-manual")({
   component: TheManualWorkPage,
-  head: () => ({
-    meta: [
-      { title: `${psykipMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: psykipMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });

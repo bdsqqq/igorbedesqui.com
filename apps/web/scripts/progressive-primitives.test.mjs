@@ -195,6 +195,28 @@ test("runtime owner conflicts fail clearly, including false open", async () =>
     );
   }));
 
+test("copy feedback preserves caller icon slots, including zero and no icon", async () =>
+  fixture(async (load) => {
+    const { CopyButton } = await load("components/ui/CopyButton.tsx");
+    for (const icon of [
+      0,
+      null,
+      false,
+      { right: h("svg", { "data-caller-icon": "right" }) },
+      { left: 0, right: h("svg", { "data-caller-icon": "right" }) },
+    ]) {
+      const markup = renderToStaticMarkup(
+        h(CopyButton, { contentToCopy: "", icon }, "copy"),
+      );
+      assert.match(markup, /class="copy-feedback"/);
+      assert.match(markup, /data-visible="false"/);
+      if (icon === 0 || icon?.left === 0)
+        assert.match(markup, /data-visible="true">0<\/span>/);
+      if (typeof icon === "object" && icon?.right)
+        assert.match(markup, /data-caller-icon="right"/);
+    }
+  }));
+
 test("copy forwards native render props; its own handler respects cancellation and lazy reads", async () =>
   fixture(async (load) => {
     const { CopyButton } = await load("components/ui/CopyButton.tsx");

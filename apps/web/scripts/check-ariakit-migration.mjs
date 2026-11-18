@@ -65,11 +65,11 @@ export function staticPageRoutes(sources) {
       const argument = node.arguments[0];
       if (!argument || !ts.isStringLiteralLike(argument)) return;
       const route = argument.text.replace(/\/$/, "") || "/";
-      // /writing is an Outlet-only layout, with no public index content.
+      // The article shell is not a page; its child index owns /writing.
       if (
         route.includes("$") ||
         /^\/api(?:\/|$)/.test(route) ||
-        route === "/writing"
+        file === "src/routes/writing/route.tsx"
       )
         return;
       routes.add(route);
