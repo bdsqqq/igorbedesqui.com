@@ -251,8 +251,13 @@ export function ScalesResults() {
           ))}
         </ul>
       )}
-      <div className="overflow-x-auto">
-        <div className="relative w-full overflow-x-visible overflow-y-hidden whitespace-nowrap pb-8 text-center">
+      <div
+        role="region"
+        aria-label="Font size preview"
+        tabIndex={0}
+        className="min-w-0 max-w-full overflow-x-auto overflow-y-hidden"
+      >
+        <div className="relative w-full whitespace-nowrap pb-8 text-center">
           {[...Array(scaleLength + 2)].map((_, i) => {
             const f = getScaleFrequency(i - 1, ratio, scaleLength, f0);
             return (

@@ -271,6 +271,59 @@ test("code CopyButton copies the displayed source and resets its feedback", asyn
   await expect(copy).toBeVisible();
 });
 
+for (const width of [390, 1280]) {
+  test(`scales confines horizontal scrolling to the font preview: ${width}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await gotoReady(page, "/writing/scales");
+    const pageFits = () =>
+      page.evaluate(() => document.documentElement.scrollWidth <= innerWidth);
+    await expect.poll(pageFits).toBe(true);
+    await expect(page.getByRole("main")).toHaveCount(1);
+    const preview = page.getByRole("region", {
+      name: "Font size preview",
+      exact: true,
+    });
+    const ratio = page.getByRole("combobox", { name: "Ratio" });
+    await ratio.fill("1.25");
+    await ratio.press("ArrowDown");
+    await page.getByRole("option", { name: /Major Third/ }).click();
+    await expect.poll(pageFits).toBe(true);
+    await page
+      .getByRole("textbox", { name: "Fundamental frequency (f0)", exact: true })
+      .fill("4");
+    await expect.poll(pageFits).toBe(true);
+    await expect(preview).toHaveCSS("overflow-x", "auto");
+    expect(
+      await preview.evaluate(
+        (element) => element.scrollWidth > element.clientWidth,
+      ),
+    ).toBe(true);
+    await preview.focus();
+    await preview.press("ArrowRight");
+    await expect
+      .poll(() => preview.evaluate((element) => element.scrollLeft))
+      .toBeGreaterThan(0);
+    expect(await page.evaluate(() => scrollX)).toBe(0);
+    const paragraph = page
+      .locator("p")
+      .filter({ hasText: "Recently I've been curious" })
+      .first();
+    const bounds = await paragraph.boundingBox();
+    expect(bounds.x).toBeGreaterThanOrEqual(0);
+    expect(bounds.x + bounds.width).toBeLessThanOrEqual(width);
+    expect(
+      await page
+        .locator("html")
+        .evaluate((element) => [
+          getComputedStyle(element).overflowX,
+          getComputedStyle(document.body).overflowX,
+        ]),
+    ).not.toContain("hidden");
+  });
+}
+
 test("button library keeps link semantics and exclusive keyboard toggle selection", async ({
   page,
 }) => {

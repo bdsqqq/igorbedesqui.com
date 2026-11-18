@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { pageHead } from "@/lib/route-catalog";
-import Container from "@/components/Container";
 import Band from "@/components/Band";
 import {
   Scales as ScalesFeature,
@@ -27,7 +26,7 @@ export const Route = createFileRoute("/writing/scales")({
 
 function Scales() {
   return (
-    <Container>
+    <>
       <Band headline={{ bold: "01", thin: "what's this?" }}>
         <p className="lg:max-w-prose">
           {`Recently I've been curious about Design and its relation to website development. During one of my usual rabbit hole deep dives, I stumbled upon a blog post by spencer Mortensen. It was a fascinating read that went into detail about the history of the typographic scale. But more importantly to me, it presented a mathematical formula that can generate harmonic scales.`}
@@ -44,6 +43,6 @@ function Scales() {
           <ScalesResults />
         </Band>
       </ScalesFeature>
-    </Container>
+    </>
   );
 }
