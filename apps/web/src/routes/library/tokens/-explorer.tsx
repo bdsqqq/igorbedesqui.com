@@ -1,9 +1,10 @@
 import { Role } from "@ariakit/react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import catalog from "virtual:design-tokens";
+import Band from "@/components/Band";
 import Container from "@/components/Container";
 import { ContentList, contentListRow } from "@/components/ContentList";
-import { grid } from "@/components/ui/Grid";
+import { grid, subGrid } from "@/components/ui/Grid";
 import { Button } from "../button/-button";
 import { cn } from "@/lib/styling";
 import type { Offset, Token } from "./-catalog";
@@ -29,123 +30,92 @@ function isColor(token: Token, seen = new Set<string>()): boolean {
 }
 
 function category(token: Token) {
-  if (isColor(token)) return "Color";
-  if (/^--(?:font-|text-|leading-|tracking-)/.test(token.name))
-    return "Typography";
-  if (/^--(?:spacing|container-|breakpoint-)/.test(token.name)) return "Layout";
+  if (token.definitions.every((definition) => definition.scope === "component"))
+    return "Other";
+  if (isColor(token)) return "Colors";
+  if (/^--(?:font-|text-|leading-|tracking-)/.test(token.name)) return "Type";
+  if (/^--(?:spacing|container-|breakpoint-)/.test(token.name)) return "Space";
   if (
     /^--(?:radius-|shadow-|inset-shadow-|drop-shadow-|blur-|aspect-|perspective-)/.test(
       token.name,
     )
   )
-    return "Shape & effects";
+    return "Shape";
   if (/^--(?:ease-|duration-|animate-)/.test(token.name)) return "Motion";
-  return "Ariakit & component aliases";
+  return "Other";
 }
+
+const tokenGrid = subGrid({ sm: 4, md: 7, lg: 15 })();
+const nameColumn = "col-span-full md:col-span-3 lg:col-span-7";
+const sampleColumn = "col-span-2 md:col-span-2 lg:col-span-4";
+const themes = ["dark", "light"] as const;
 
 function Definitions({ token }: { token: Token }) {
   return (
-    <details className="mt-2 text-xs">
-      <summary className="cursor-pointer ak-ink-70">
-        Source · {token.definitions.length} definition
-        {token.definitions.length === 1 ? "" : "s"}
-      </summary>
-      <ol className="mt-3 space-y-4">
-        {token.definitions.map((definition, index) => (
-          <li key={index} className="space-y-1 [overflow-wrap:anywhere]">
-            <code className="block ak-ink-100">{definition.value}</code>
-            <p className="font-mono ak-ink-60">
-              {definition.file}:{definition.line}
-            </p>
-            <p className="ak-ink-60">{definition.context.join(" → ")}</p>
-          </li>
-        ))}
-      </ol>
-    </details>
+    <ul className="mt-2 space-y-2 text-xs ak-ink-60 [overflow-wrap:anywhere]">
+      {token.definitions.map((definition, index) => (
+        <li key={index}>
+          <code className="ak-ink-85">{definition.value}</code>
+          <p>{definition.context.join(" → ")}</p>
+          <code>
+            {definition.file}:{definition.line}
+          </code>
+        </li>
+      ))}
+    </ul>
   );
 }
 
-const colorTokens = catalog.tokens.filter(
-  (token) =>
-    category(token) === "Color" &&
-    !token.name.startsWith("--color-gray-") &&
-    token.definitions.some((definition) => definition.scope !== "component"),
-);
-
-function Palette({
+function ColorSample({
   theme,
-  tokens,
+  token,
+  resolved,
 }: {
   theme: "dark" | "light";
-  tokens: Token[];
+  token: Token;
+  resolved?: string;
 }) {
-  const root = useRef<HTMLElement>(null);
-  const [resolved, setResolved] = useState<Record<string, string>>({});
-  useEffect(() => {
-    const measure = () =>
-      setResolved(
-        Object.fromEntries(
-          [
-            ...(root.current?.querySelectorAll<HTMLElement>(
-              "[data-color-token]",
-            ) ?? []),
-          ].map((element) => [
-            element.dataset.colorToken!,
-            getComputedStyle(element).backgroundColor,
-          ]),
-        ),
-      );
-    measure();
-    const gamut = matchMedia("(color-gamut: p3)");
-    gamut.addEventListener("change", measure);
-    return () => gamut.removeEventListener("change", measure);
-  }, [tokens]);
   return (
-    <section
-      ref={root}
-      data-token-theme={theme}
-      aria-label={`${theme} palette`}
-      className="min-w-0 ak-layer ak-layer-canvas ak-frame ak-frame-card/4 ak-frame-border -ak-frame-m-px"
-    >
-      <header className="mb-6 flex items-baseline justify-between gap-4">
-        <h3 className="text-xl font-bold capitalize">{theme}</h3>
-        <span className="font-mono text-xs ak-ink-60">
-          real CSS · live gamut
+    <div className={sampleColumn}>
+      <figure
+        data-token-theme={theme}
+        data-swatch={token.name}
+        aria-label={`${token.name} ${theme}`}
+        className="ak-layer ak-layer-canvas"
+        style={{
+          backgroundImage:
+            "conic-gradient(var(--gray-A04) 25%, transparent 0 50%, var(--gray-A04) 0 75%, transparent 0)",
+          backgroundSize: "16px 16px",
+        }}
+      >
+        <div
+          data-color-token={token.name}
+          data-color-theme={theme}
+          className="h-16"
+          style={{ backgroundColor: `var(${token.name})` }}
+        />
+      </figure>
+      <code
+        data-resolved={token.name}
+        data-resolved-theme={theme}
+        className="mt-2 block text-xs ak-ink-60 [overflow-wrap:anywhere]"
+      >
+        {resolved ?? "…"}
+      </code>
+    </div>
+  );
+}
+
+function ThemeColumns() {
+  return (
+    <div className={cn(tokenGrid, "mb-4 text-xs ak-ink-60")}>
+      <span className={nameColumn} />
+      {themes.map((theme) => (
+        <span key={theme} className={cn(sampleColumn, "capitalize")}>
+          {theme}
         </span>
-      </header>
-      <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
-        {tokens.map((token) => (
-          <figure key={token.name} className="min-w-0" data-swatch={token.name}>
-            <div
-              className="ak-layer ak-layer-transparent ak-edge-10 ak-frame ak-frame-field/0 ak-frame-border -ak-frame-m-px overflow-hidden"
-              style={{
-                backgroundImage:
-                  "conic-gradient(var(--gray-A04) 25%, transparent 0 50%, var(--gray-A04) 0 75%, transparent 0)",
-                backgroundSize: "16px 16px",
-              }}
-            >
-              <div
-                data-color-token={token.name}
-                className="h-20"
-                style={{ backgroundColor: `var(${token.name})` }}
-              />
-            </div>
-            <figcaption className="mt-2 min-w-0">
-              <code className="text-xs font-semibold [overflow-wrap:anywhere]">
-                {token.name}
-              </code>
-              <p
-                className="mt-1 font-mono text-[10px] ak-ink-60 [overflow-wrap:anywhere]"
-                data-resolved={token.name}
-              >
-                {resolved[token.name] ?? "resolving…"}
-              </p>
-              <Definitions token={token} />
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </section>
+      ))}
+    </div>
   );
 }
 
@@ -162,30 +132,35 @@ const offsetClasses = {
   },
 };
 
-function OffsetSample({ offset }: { offset: Offset }) {
+function OffsetSamples({ offset }: { offset: Offset }) {
   return (
-    <details className="min-w-0">
-      <summary className="cursor-pointer list-none">
-        <div
-          data-offset={offset.utility}
-          className={cn(
-            "h-14 ak-layer ak-frame ak-frame-field/2",
-            offsetClasses[offset.kind][offset.direction],
-          )}
-          style={{ "--token-offset": offset.amount / 100 } as CSSProperties}
-        />
-        <code className="mt-2 block text-[11px] [overflow-wrap:anywhere]">
-          {offset.utility}
-        </code>
-      </summary>
-      <ul className="mt-2 space-y-1 font-mono text-[10px] ak-ink-60 [overflow-wrap:anywhere]">
-        {offset.references.map((reference) => (
-          <li key={`${reference.file}:${reference.line}`}>
-            {reference.file}:{reference.line}
-          </li>
-        ))}
-      </ul>
-    </details>
+    <li className={cn(tokenGrid, "gap-y-2")}>
+      <div className={nameColumn}>
+        <code className="text-sm">{offset.utility}</code>
+        <ul className="mt-2 space-y-1 font-mono text-xs ak-ink-60 [overflow-wrap:anywhere]">
+          {offset.references.map((reference) => (
+            <li key={`${reference.file}:${reference.line}`}>
+              {reference.file}:{reference.line}
+            </li>
+          ))}
+        </ul>
+      </div>
+      {themes.map((theme) => (
+        <div key={theme} className={sampleColumn}>
+          <div data-token-theme={theme} className="ak-layer ak-layer-canvas">
+            <div
+              data-offset={offset.utility}
+              data-offset-theme={theme}
+              className={cn(
+                "h-16 ak-layer",
+                offsetClasses[offset.kind][offset.direction],
+              )}
+              style={{ "--token-offset": offset.amount / 100 } as CSSProperties}
+            />
+          </div>
+        </div>
+      ))}
+    </li>
   );
 }
 
@@ -202,23 +177,21 @@ function Interactions({ theme }: { theme: "dark" | "light" }) {
     <section
       data-token-theme={theme}
       aria-label={`${theme} interactions`}
-      className="min-w-0 ak-layer ak-layer-canvas ak-frame ak-frame-card/4 ak-frame-border -ak-frame-m-px"
+      className="min-w-0 ak-layer ak-layer-canvas p-2"
     >
-      <h3 className="mb-5 text-xl font-bold capitalize">{theme}</h3>
-      <p className="mb-3 text-sm ak-ink-70">
-        The actual list-row recipe and Button component:
-      </p>
       <ContentList>
         <li>
           <Role.button className={cn(contentListRow, "text-left")}>
-            Hover or focus this row{" "}
-            <span className="text-xs ak-ink-60">{rowState}</span>
+            List row <span className="text-xs ak-ink-60">{rowState}</span>
           </Role.button>
         </li>
       </ContentList>
-      <Button className="mt-3">Hover, focus, press</Button>
-      <label className="mt-8 block text-sm" htmlFor={`depth-${theme}`}>
-        Try a state offset <output className="font-mono">{depth}</output>
+      <Button>Button</Button>
+      <label
+        className="mt-6 block font-mono text-xs"
+        htmlFor={`depth-${theme}`}
+      >
+        ak-state-<output>{depth}</output>
       </label>
       <Role.input
         id={`depth-${theme}`}
@@ -233,17 +206,8 @@ function Interactions({ theme }: { theme: "dark" | "light" }) {
         className="w-full ak-layer ak-layer-transparent ak-frame ak-frame-field/4 text-left hover:ak-state-(--token-offset) focus-visible:ak-state-(--token-offset)"
         style={{ "--token-offset": depth / 100 } as CSSProperties}
       >
-        Hover / focus · {depth} lightness points
+        hover:ak-state-{depth}
       </Role.button>
-      <p className="mt-8 mb-4 text-sm ak-ink-70">
-        Numeric layer/state modifiers found in site source. These show the
-        settled fill, not a simulated pointer state. Open one for its callers.
-      </p>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-        {catalog.offsets.map((offset) => (
-          <OffsetSample key={offset.utility} offset={offset} />
-        ))}
-      </div>
     </section>
   );
 }
@@ -291,6 +255,8 @@ function TokenSample({ token }: { token: Token }) {
 
 export function TokenExplorer() {
   const [query, setQuery] = useState("");
+  const root = useRef<HTMLDivElement>(null);
+  const [resolved, setResolved] = useState<Record<string, string>>({});
   const search = query.trim().toLowerCase();
   const tokens = catalog.tokens.filter(
     (token) =>
@@ -304,181 +270,126 @@ export function TokenExplorer() {
         ]),
       ].some((value) => value.toLowerCase().includes(search)),
   );
-  const swatches = colorTokens.filter((token) => tokens.includes(token));
-  const groups = [...new Set(tokens.map(category))];
+  useEffect(() => {
+    const measure = () =>
+      setResolved(
+        Object.fromEntries(
+          [
+            ...(root.current?.querySelectorAll<HTMLElement>(
+              "[data-color-token]",
+            ) ?? []),
+          ].map((element) => [
+            `${element.dataset.colorTheme}/${element.dataset.colorToken}`,
+            getComputedStyle(element).backgroundColor,
+          ]),
+        ),
+      );
+    measure();
+    const gamut = matchMedia("(color-gamut: p3)");
+    gamut.addEventListener("change", measure);
+    return () => gamut.removeEventListener("change", measure);
+  }, [search]);
+  const groups = ["Colors", "Type", "Space", "Shape", "Motion", "Other"];
   return (
-    <Container>
+    <Container backable backAnchor="library">
       <style>{catalog.previewCss}</style>
-      <div className={cn(grid(), "py-12 md:py-20")}>
-        <div className="col-span-full min-w-0 space-y-14 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
-          <header className="max-w-3xl space-y-5">
-            <p className="font-mono text-xs uppercase tracking-wider ak-ink-60">
-              Library / live definitions
-            </p>
-            <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">
-              Color, without guesswork.
-            </h1>
-            <p className="text-lg ak-ink-80">
-              Warm grays, a blue accent, and colors that change with the
-              material beneath them. This is an inventory of the definitions—not
-              another palette to keep in sync.
-            </p>
-            <details className="text-sm">
-              <summary className="cursor-pointer font-semibold">
-                What dictates our colors?
-              </summary>
-              <ol className="mt-4 space-y-3 ak-ink-70">
-                <li>
-                  <strong className="ak-ink-100">01 · Authored colors.</strong>{" "}
-                  <code>src/routes/-main.css</code> defines both schemes, alpha
-                  colors, Display P3 overrides, and semantic aliases such as
-                  canvas and primary.
-                </li>
-                <li>
-                  <strong className="ak-ink-100">02 · Inherited tokens.</strong>{" "}
-                  Tailwind supplies type, spacing, radii, and effects. The site
-                  resets its default color namespace:{" "}
-                  {catalog.resets.map((reset) => (
-                    <code key={`${reset.file}:${reset.line}`}>
-                      {reset.name}: {reset.value}
-                    </code>
-                  ))}
-                  .
-                </li>
-                <li>
-                  <strong className="ak-ink-100">03 · Derived colors.</strong>{" "}
-                  Ariakit computes layers, ink, edges, and state responses
-                  relative to their parent. A state number is a lightness
-                  offset—not an opacity or a gray-scale index.
-                </li>
-              </ol>
-            </details>
-            <p className="text-xs ak-ink-60">
-              Extracted from the installed CSS files and literal numeric
-              modifiers in production TS/TSX at build time; refreshed by Vite in
-              development. Feature-local literal colors and dynamically
-              assembled classes are outside this token inventory. No global
-              theme overrides.
-            </p>
-          </header>
-          <section aria-label="Token search" className="space-y-2">
-            <label
-              htmlFor="token-search"
-              className="block text-sm font-semibold"
-            >
-              Find a token, value, condition, or source
-            </label>
-            <Role.input
-              id="token-search"
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Try gray-A, radius, P3, or primary…"
-              className="w-full ak-layer ak-layer-darken-3 ak-frame ak-frame-field/3"
-            />
-            <p
-              role="status"
-              aria-label="Token results"
-              className="font-mono text-xs ak-ink-60"
-            >
-              {tokens.length} / {catalog.tokens.length} tokens ·{" "}
-              {catalog.offsets.length} source-derived offsets
-            </p>
-          </section>
-          <section aria-labelledby="palette-heading" className="space-y-6">
-            <div>
-              <h2 id="palette-heading" className="text-2xl font-semibold">
-                The palette, in both schemes.
-              </h2>
-              <p className="mt-2 text-sm ak-ink-70">
-                All base colors and semantic color roles. Alpha swatches sit
-                over a checkerboard. Gray utility aliases share these values;
-                every alias and conditional definition is listed below.
-              </p>
-            </div>
-            {swatches.length ? (
-              <div className="grid items-start gap-6 lg:grid-cols-2">
-                {(["dark", "light"] as const).map((theme) => (
-                  <Palette key={theme} theme={theme} tokens={swatches} />
-                ))}
-              </div>
-            ) : (
-              <p>No matching color swatches.</p>
-            )}
-          </section>
-          <section aria-labelledby="states-heading" className="space-y-6">
-            <div>
-              <h2 id="states-heading" className="text-2xl font-semibold">
-                Why a hover can disappear.
-              </h2>
-              <p className="mt-2 max-w-3xl text-sm ak-ink-70">
-                A small lightness shift near black can be real but hard to see.
-                Compare the same native recipes on dark and light canvases, then
-                try a larger offset. This page does not change the site’s
-                interaction colors.
-              </p>
-            </div>
-            <div className="grid items-start gap-6 lg:grid-cols-2">
-              {(["dark", "light"] as const).map((theme) => (
-                <Interactions key={theme} theme={theme} />
-              ))}
-            </div>
-          </section>
-          <section
-            data-token-reference=""
-            aria-labelledby="definitions-heading"
-            className="space-y-6"
-          >
-            <div>
-              <h2 id="definitions-heading" className="text-2xl font-semibold">
-                Every definition, including the other thingies.
-              </h2>
-              <p className="mt-2 text-sm ak-ink-70">
-                The active namespace after resets, including unused definitions.
-                Open a token for its original values, selectors, conditions, and
-                source lines. Component-scoped aliases are identified by their
-                selectors, not treated as global colors.
-              </p>
-            </div>
-            {!tokens.length && <p>No matching definitions.</p>}
-            {groups.map((group) => (
-              <details
-                key={group}
-                open={search ? true : undefined}
-                className="py-3"
+      <div ref={root} data-token-reference="" className="flex flex-col gap-16">
+        <Band gridless id="tokens">
+          <div className={grid()}>
+            <div className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-2 lg:col-end-10">
+              <h1 className="font-semibold">Tokens</h1>
+              <Role.input
+                aria-label="Filter tokens"
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Filter"
+                className="mt-4 -mx-2 w-[calc(100%+1rem)] ak-layer ak-layer-transparent ak-frame ak-frame-field/2"
+              />
+              <p
+                role="status"
+                aria-label="Token results"
+                className="mt-2 text-xs tracking-tighter ak-ink-60"
               >
-                <summary className="cursor-pointer text-lg font-semibold">
-                  {group}{" "}
-                  <span className="font-mono text-xs ak-ink-60">
-                    {tokens.filter((token) => category(token) === group).length}
-                  </span>
-                </summary>
-                <dl className="mt-6 grid gap-x-8 gap-y-6 sm:grid-cols-2">
-                  {tokens
-                    .filter((token) => category(token) === group)
-                    .map((token) => (
-                      <div
-                        key={token.name}
-                        data-definition={token.name}
-                        className="min-w-0 space-y-2"
-                      >
-                        <dt className="font-mono text-xs font-semibold [overflow-wrap:anywhere]">
-                          {token.name}
-                        </dt>
-                        <dd className="space-y-2">
-                          <TokenSample token={token} />
-                          <code className="block text-xs ak-ink-70 [overflow-wrap:anywhere]">
-                            {token.definitions.at(-1)?.value}
-                          </code>
-                          <Definitions token={token} />
-                        </dd>
+                {tokens.length} / {catalog.tokens.length}
+              </p>
+            </div>
+          </div>
+        </Band>
+        {groups.map((group, index) => {
+          const entries = tokens.filter((token) => category(token) === group);
+          if (!entries.length) return null;
+          return (
+            <Band
+              key={group}
+              headline={{
+                bold: String(index + 1).padStart(2, "0"),
+                thin: group,
+              }}
+            >
+              {group === "Colors" && <ThemeColumns />}
+              <ul className="space-y-8">
+                {entries.map((token) => (
+                  <li
+                    key={token.name}
+                    data-definition={token.name}
+                    className={cn(tokenGrid, "gap-y-3")}
+                  >
+                    <div className={nameColumn}>
+                      <code className="text-sm">{token.name}</code>
+                      <Definitions token={token} />
+                    </div>
+                    {group === "Colors" &&
+                    token.definitions.some(
+                      (definition) => definition.scope !== "component",
+                    ) ? (
+                      themes.map((theme) => (
+                        <ColorSample
+                          key={theme}
+                          theme={theme}
+                          token={token}
+                          resolved={resolved[`${theme}/${token.name}`]}
+                        />
+                      ))
+                    ) : (
+                      <div className="col-span-full md:col-span-4 lg:col-span-8">
+                        <TokenSample token={token} />
                       </div>
-                    ))}
-                </dl>
-              </details>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </Band>
+          );
+        })}
+        {!tokens.length && (
+          <Band gridless id="empty">
+            <div className={grid()}>
+              <p className="col-span-full md:col-start-2 lg:col-start-2">
+                No matches.
+              </p>
+            </div>
+          </Band>
+        )}
+        <Band headline={{ bold: "07", thin: "Layers" }}>
+          <ThemeColumns />
+          <ul className="space-y-6">
+            {catalog.offsets.map((offset) => (
+              <OffsetSamples key={offset.utility} offset={offset} />
             ))}
-          </section>
-        </div>
+          </ul>
+        </Band>
+        <Band headline={{ bold: "08", thin: "States" }}>
+          <div className={tokenGrid}>
+            <div className={nameColumn} />
+            {themes.map((theme) => (
+              <div key={theme} className={sampleColumn}>
+                <p className="mb-2 text-xs capitalize ak-ink-60">{theme}</p>
+                <Interactions theme={theme} />
+              </div>
+            ))}
+          </div>
+        </Band>
       </div>
     </Container>
   );

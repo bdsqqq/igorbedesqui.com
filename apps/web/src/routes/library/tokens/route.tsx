@@ -3,9 +3,8 @@ import { pageHead } from "@/lib/route-catalog";
 import { TokenExplorer } from "./-explorer";
 
 const page = {
-  name: "Design tokens",
-  description:
-    "Source-generated palettes, color recipes, and the site’s type, spacing, shape, and motion definitions.",
+  name: "Tokens",
+  description: "Colors, type, spacing, and motion from the site’s CSS.",
 };
 
 export const Route = createFileRoute("/library/tokens")({
