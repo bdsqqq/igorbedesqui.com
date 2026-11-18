@@ -14,6 +14,7 @@ export default defineConfig({
     "ariakit-followup.spec.mjs",
     "copy-feedback.spec.mjs",
     "page-catalog.spec.mjs",
+    "design-tokens.spec.mjs",
   ],
   fullyParallel: false,
   workers: 1,

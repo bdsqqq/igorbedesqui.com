@@ -137,6 +137,9 @@ importers:
       oxlint-tsgolint:
         specifier: ^0.11.5
         version: 0.11.5
+      postcss:
+        specifier: ^8.5.25
+        version: 8.5.25
       tailwindcss:
         specifier: ^4
         version: 4.2.2
