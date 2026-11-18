@@ -139,6 +139,21 @@ test("real scales parts keep supplied drafts and output separate, with empty pre
   assert.equal(ids.length, new Set(ids).size);
 });
 
+test("scales input widths use the supplied draft before refs mount", () => {
+  for (const [values, expected] of [
+    [{ ratio: "1.250", f0: "0.125", scaleLength: "14" }, [5, 5, 2]],
+    [{ ratio: "", f0: "", scaleLength: "" }, [1, 1, 2]],
+  ]) {
+    const markup = render(
+      h(Scales, { values, onValuesChange() {}, presets: [] }, h(ScalesInputs)),
+    );
+    const widths = [
+      ...markup.matchAll(/width:calc\((\d+)ch \+ 0\.5rem\)/g),
+    ].map((match) => Number(match[1]));
+    assert.deepEqual(widths, expected);
+  }
+});
+
 test("supplied og data renders editor/url parts without generating or requesting images", () => {
   const originalFetch = globalThis.fetch;
   const originalImage = globalThis.Image;

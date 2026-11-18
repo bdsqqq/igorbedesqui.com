@@ -80,6 +80,19 @@ async function controlledHostEvidence(page, host) {
     page.getByRole("button", { name: "open host", exact: true }),
   ).toBeFocused();
 }
+async function inputWidth(input) {
+  const dimensions = await input.evaluate((element) => ({
+    width: element.getBoundingClientRect().width,
+    client: element.clientWidth,
+    scroll: element.scrollWidth,
+  }));
+  expect(
+    dimensions.scroll,
+    "input value must fit without horizontal scrolling",
+  ).toBeLessThanOrEqual(dimensions.client);
+  return dimensions.width;
+}
+
 async function assertReplacement(page) {
   expect(
     await page.evaluate(() => window.composition.copy.inspect().ref),
@@ -204,6 +217,8 @@ for (const host of ["page", "dialog", "popover"]) {
   test(`scales controlled/uncontrolled drafts and parts in ${host}`, async ({
     page,
   }) => {
+    if (host === "page")
+      await page.setViewportSize({ width: 390, height: 844 });
     const api = [];
     page.on("request", (request) => {
       if (
@@ -224,6 +239,45 @@ for (const host of ["page", "dialog", "popover"]) {
       ).toBeVisible();
       await expect(root.locator("sub")).toHaveCount(16);
     }
+    const ratioInput = a.getByRole("combobox", { name: "Ratio" });
+    await ratioInput.fill("1");
+    const shortRatio = await inputWidth(ratioInput);
+    await ratioInput.pressSequentially(".250");
+    expect(await inputWidth(ratioInput)).toBeGreaterThan(shortRatio);
+    await ratioInput.fill("1");
+    expect(await inputWidth(ratioInput)).toBeCloseTo(shortRatio, 1);
+    // A controlled update must resize before a later keystroke or unrelated render.
+    await page.evaluate(() =>
+      window.composition.scales.setValues({
+        ratio: "1.250",
+        f0: "0.125",
+        scaleLength: "14",
+      }),
+    );
+    await expect(ratioInput).toHaveValue("1.250");
+    expect(await inputWidth(ratioInput)).toBeGreaterThan(shortRatio);
+    const frequency = a.getByRole("textbox", {
+      name: "Fundamental frequency (f0)",
+      exact: true,
+    });
+    const longFrequency = await inputWidth(frequency);
+    await frequency.fill("0");
+    expect(await inputWidth(frequency)).toBeLessThan(longFrequency);
+    const length = a.getByRole("textbox", {
+      name: "Scale length",
+      exact: true,
+    });
+    const longLength = await inputWidth(length);
+    await length.fill("1");
+    expect(await inputWidth(length)).toBeLessThan(longLength);
+    await page.evaluate(() =>
+      window.composition.scales.setValues({
+        ratio: "",
+        f0: "",
+        scaleLength: "",
+      }),
+    );
+    await inputWidth(length);
     await a.getByRole("combobox", { name: "Ratio" }).fill("garbage");
     await expect(a.getByRole("combobox", { name: "Ratio" })).toHaveValue(
       "garbage",
@@ -272,6 +326,13 @@ for (const host of ["page", "dialog", "popover"]) {
     ).toBeVisible();
     await page.getByRole("option", { name: /Minor Second/ }).click();
     await expect(defaults).toHaveValue("1.067");
+    await defaults.fill("1");
+    const shortDefault = await inputWidth(defaults);
+    await defaults.fill("1.25");
+    await defaults.press("ArrowDown");
+    await page.getByRole("option", { name: /Major Third/ }).click();
+    await expect(defaults).toHaveValue("1.250");
+    expect(await inputWidth(defaults)).toBeGreaterThan(shortDefault);
     expect(api).toEqual([]);
     await controlledHostEvidence(page, host);
   });

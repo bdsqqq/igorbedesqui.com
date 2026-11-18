@@ -4,7 +4,6 @@ import React, {
   createContext,
   useContext,
   useId,
-  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -98,6 +97,7 @@ function useScalesState(props: ScalesProps) {
     }));
   return {
     instanceId,
+    values,
     form,
     comboboxStore,
     comboboxPlacement,
@@ -139,15 +139,12 @@ export function Scales(props: ScalesProps) {
 export function ScalesInputs() {
   const {
     instanceId,
+    values,
     form,
     comboboxStore,
     comboboxPlacement,
     filteredPreDefinedScales,
   } = useScales();
-  const ratio = useRef<HTMLInputElement>(null);
-  const scaleLength = useRef<HTMLInputElement>(null);
-  const f0 = useRef<HTMLInputElement>(null);
-  const refs = { ratio, scaleLength, f0 };
   return (
     <>
       <Formula
@@ -169,9 +166,8 @@ export function ScalesInputs() {
             <Combobox
               className={inputVariants()}
               style={{
-                width: `calc(${refs.ratio?.current?.value.toString().length || 1}ch + 0.5rem)`,
+                width: `calc(${(values.ratio || "1").length}ch + 0.5rem)`,
               }}
-              ref={refs.ratio}
               id={`${instanceId}-ratio`}
               name="Ratio"
               aria-label="Ratio"
@@ -213,9 +209,8 @@ export function ScalesInputs() {
             store={form}
             className={inputVariants()}
             style={{
-              width: `calc(${refs.f0?.current?.value.length || 1}ch + 0.5rem)`,
+              width: `calc(${(values.f0 || "1").length}ch + 0.5rem)`,
             }}
-            ref={refs.f0}
             id={`${instanceId}-f0`}
             name="Fundamental frequency (f0)"
             aria-label="Fundamental frequency (f0)"
@@ -228,9 +223,8 @@ export function ScalesInputs() {
             store={form}
             className={inputVariants({ size: "sm" })}
             style={{
-              width: `calc(${refs.scaleLength?.current?.value.length || 1}ch + 0.5rem)`,
+              width: `calc(${(values.scaleLength || "14").length}ch + 0.5rem)`,
             }}
-            ref={refs.scaleLength}
             id={`${instanceId}-scaleLength`}
             name="Scale Length"
             aria-label="Scale length"
