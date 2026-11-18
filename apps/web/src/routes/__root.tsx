@@ -27,7 +27,7 @@ export const Route = createRootRoute({
       },
       {
         name: "theme-color",
-        content: "var(--color-gray-01)",
+        content: "var(--color-canvas)",
       },
       { title: "Igor Bedesqui" },
       {

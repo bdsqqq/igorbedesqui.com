@@ -129,7 +129,7 @@ const tooltipVariants = cva(
   "surface-tooltip ak-layer ak-frame ak-frame-field ak-frame-border ak-edge-20 shadow-sm",
   {
     variants: {
-      bg: { standard: "ak-layer-lighten-6", subtle: "ak-layer-canvas" },
+      bg: { standard: "ak-layer-lighten-6", subtle: "" },
       size: {
         sm: "text-sm ak-frame-p-0.5 px-1",
         md: "text-base ak-frame-p-1 px-2",

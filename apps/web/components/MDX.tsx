@@ -50,7 +50,7 @@ function Code({
     <code
       dangerouslySetInnerHTML={{ __html: codeHTML }}
       className={cn(
-        "font-mono [&:not(pre_*)]:ak-layer [&:not(pre_*)]:ak-layer-darken-2 [&:not(pre_*)]:ak-frame [&:not(pre_*)]:ak-frame-field/0.5 [&:not(pre_*)]:px-1",
+        "syntax-code font-mono [&:not(pre_*)]:ak-layer [&:not(pre_*)]:ak-layer-darken-2 [&:not(pre_*)]:ak-frame [&:not(pre_*)]:ak-frame-field/0.5 [&:not(pre_*)]:px-1",
         className,
       )}
       {...props}

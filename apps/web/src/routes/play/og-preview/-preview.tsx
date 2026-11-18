@@ -114,7 +114,7 @@ export function OgTextEditor() {
         id={inputId}
         render={<textarea rows={3} />}
         placeholder="hello, *world*"
-        className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-field/2 w-full resize-none px-3 placeholder:ak-ink-50 hover:ak-state-6 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-field/2 w-full resize-none px-3 placeholder:ak-ink-50 hover:ak-state-8 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2"
       />
     </div>
   );

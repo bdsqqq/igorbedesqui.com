@@ -20,6 +20,37 @@ const audit = (source) =>
   });
 const rules = (source) => audit(source).map((diagnostic) => diagnostic.rule);
 
+test("legacy palette references are rejected without banning inherited materials or authored artwork", () => {
+  assert.ok(
+    rules('<span className="hover:text-gray-11" />').includes("legacy-palette"),
+  );
+  assert.ok(
+    rules('<div style={{ background: "var(--gray-A04)" }} />').includes(
+      "legacy-palette",
+    ),
+  );
+  const css = auditMigrationSources(
+    new Map([
+      [
+        "src/routes/-main.css",
+        ":root { --gray-01: #111; } .mask { color: var(--color-gray-12); }",
+      ],
+    ]),
+    { boundaries: false },
+  );
+  assert.equal(css.filter((item) => item.rule === "legacy-palette").length, 2);
+  assert.deepEqual(
+    rules(
+      '<div className="ak-layer ak-layer-primary ak-layer-mix-15 ak-ink-70" />',
+    ),
+    [],
+  );
+  assert.deepEqual(
+    rules('const artwork = { gray01: "#101010" }; // var(--gray-01)'),
+    [],
+  );
+});
+
 test("real DialogClose preserves icon-only and text children; the old undefined fallback is detected", async () => {
   const directory = await mkdtemp(
     path.join(os.tmpdir(), "ariakit-dialog-composition-"),

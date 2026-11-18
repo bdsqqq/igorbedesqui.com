@@ -133,7 +133,7 @@ export const BandHeadline = ({
       )}
       {...props}
     >
-      <span className="text-gray-A02 text-7xl font-bold leading-none [grid-area:1/1/1/1] md:[writing-mode:vertical-lr]">
+      <span className="text-(--ak-text) opacity-[0.035] text-7xl font-bold leading-none [grid-area:1/1/1/1] md:[writing-mode:vertical-lr]">
         {bold}
       </span>
       <div className="ak-ink-60 pb-4 align-top text-lg font-bold [grid-area:1/1/1/1] md:w-min md:pb-3 md:pl-3 md:[writing-mode:vertical-lr]">

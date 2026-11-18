@@ -1,0 +1,16 @@
+/* Sugar High uses inline color variables. Bind each token on its own span so
+   Ariakit can resolve ink against the actual code surface, including nested layers. */
+.syntax-code .sh__token--keyword {
+  @apply ak-ink-100;
+  --sh-keyword: var(--ak-text);
+}
+
+.syntax-code .sh__token--sign {
+  @apply ak-ink-70;
+  --sh-sign: var(--ak-text);
+}
+
+.syntax-code .sh__token--comment {
+  @apply ak-ink-60;
+  --sh-comment: var(--ak-text);
+}

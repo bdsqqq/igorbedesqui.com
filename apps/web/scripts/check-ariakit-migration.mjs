@@ -142,7 +142,29 @@ export function auditMigrationSources(sources, { boundaries = true } = {}) {
           "keep feature implementation beside its owning showcase page; reuse does not change ownership",
       });
     }
-    if (file.endsWith(".css")) continue;
+    if (file.endsWith(".css")) {
+      const css = text.replace(
+        /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|\/\*[\s\S]*?\*\//g,
+        (match, quoted) => quoted ?? match.replace(/[^\n]/g, " "),
+      );
+      const source = ts.createSourceFile(
+        file,
+        text,
+        ts.ScriptTarget.Latest,
+        true,
+      );
+      for (const match of css.matchAll(
+        /--(?:(?:color-)?gray-(?:A)?\d+|blue-A09)\b/g,
+      ))
+        report(
+          file,
+          source,
+          match.index,
+          "legacy-palette",
+          "use semantic pigments or derive paint from the current Ariakit material",
+        );
+      continue;
+    }
     const source = ts.createSourceFile(
       file,
       text,
@@ -202,6 +224,18 @@ export function auditMigrationSources(sources, { boundaries = true } = {}) {
     };
 
     visit(source, (node) => {
+      if (
+        !/\.(?:test|types)\./.test(file) &&
+        ts.isStringLiteralLike(node) &&
+        /var\(\s*--(?:(?:color-)?gray-(?:A)?\d+|blue-A09)\b/.test(node.text)
+      )
+        report(
+          file,
+          source,
+          node,
+          "legacy-palette",
+          "resolve ink, edges, or paint from the current Ariakit material",
+        );
       let module;
       if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node))
         module = node.moduleSpecifier;
@@ -314,6 +348,20 @@ export function auditMigrationSources(sources, { boundaries = true } = {}) {
     inventories.set(file, { source, contexts, usesAriakitButton });
     for (const { node, inherited, tokens } of contexts) {
       const has = (token) => tokens.includes(token);
+      if (
+        tokens.some((token) =>
+          /^(?:bg|text|border|outline|ring|fill|stroke|divide|decoration|caret|accent|from|via|to|shadow|ak-layer|ak-edge|ak-text)-(?:gray-(?:A)?\d+|blue-A09)(?:\/.*)?$/.test(
+            token,
+          ),
+        )
+      )
+        report(
+          file,
+          source,
+          node,
+          "legacy-palette",
+          "replace fixed palette utilities with contextual Ariakit layers, ink, or edges",
+        );
       const frameModifiers = tokens.filter((token) =>
         /^-?ak-frame-/.test(token),
       );

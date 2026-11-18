@@ -124,7 +124,7 @@ const tooltipVariants = cva(
   "surface-popover ak-layer ak-frame ak-frame-card ak-frame-border ak-edge-15 shadow-md outline-none z-10",
   {
     variants: {
-      bg: { standard: "ak-layer-lighten-6", subtle: "ak-layer-canvas" },
+      bg: { standard: "ak-layer-lighten-6", subtle: "" },
       padding: {
         none: "ak-frame-p-0",
         sm: "ak-frame-p-0.5 px-1",

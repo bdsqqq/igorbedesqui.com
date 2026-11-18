@@ -115,7 +115,7 @@ function ProgressCard({
   return (
     <aside
       aria-live="polite"
-      className="agentation-progress-card pointer-events-none w-72 max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl border border-gray-A04 bg-gray-01/95 text-gray-12 shadow-2xl backdrop-blur-xl"
+      className="agentation-progress-card pointer-events-none w-72 max-w-[calc(100vw-2rem)] overflow-hidden ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px ak-edge-15 shadow-2xl backdrop-blur-xl"
       style={{
         left: `${annotation.x}%`,
         position: annotation.isFixed ? "fixed" : "absolute",
@@ -126,8 +126,12 @@ function ProgressCard({
         zIndex: 2_147_483_646,
       }}
     >
-      <div className="flex items-center gap-2 border-b border-gray-A03 px-3 py-2 font-mono text-[11px] text-gray-10">
-        <span className={status === "failed" ? "text-red-500" : "text-gray-12"}>
+      <div className="flex items-center gap-2 border-b border-(--ak-edge) px-3 py-2 font-mono text-[11px] ak-ink-70">
+        <span
+          className={
+            status === "failed" ? "ak-text ak-text-danger" : "ak-ink-100"
+          }
+        >
           {isStreaming ? spinner : status === "completed" ? "✓" : "×"}
         </span>
         <span>{statusText}</span>

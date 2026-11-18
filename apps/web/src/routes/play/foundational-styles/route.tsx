@@ -14,12 +14,35 @@ const showcaseColumns =
   "col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15";
 const patternGrid = subGrid({ sm: 4, md: 6, lg: 12 })();
 
-const solidColors = Array.from({ length: 13 }, (_, index) =>
-  String(index).padStart(2, "0"),
-);
-const alphaColors = Array.from({ length: 12 }, (_, index) =>
-  String(index + 1).padStart(2, "0"),
-);
+const relativeLayers = [
+  "ak-layer-0",
+  "ak-layer-5",
+  "ak-layer-10",
+  "ak-layer-15",
+  "ak-layer-20",
+  "ak-layer-25",
+  "ak-layer-30",
+  "ak-layer-35",
+  "ak-layer-40",
+  "ak-layer-45",
+  "ak-layer-50",
+  "ak-layer-55",
+  "ak-layer-60",
+];
+const primaryMixes = [
+  "ak-layer-mix-5",
+  "ak-layer-mix-10",
+  "ak-layer-mix-15",
+  "ak-layer-mix-20",
+  "ak-layer-mix-25",
+  "ak-layer-mix-30",
+  "ak-layer-mix-35",
+  "ak-layer-mix-40",
+  "ak-layer-mix-45",
+  "ak-layer-mix-50",
+  "ak-layer-mix-55",
+  "ak-layer-mix-60",
+];
 
 const typeScale = [
   { name: "xs", size: "0.75rem", lineHeight: "1rem" },
@@ -126,7 +149,7 @@ function FoundationalStylesPage() {
                 "grid gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-(--ak-edge) md:grid-cols-2",
               )}
             >
-              <article className="flex min-h-72 flex-col ak-layer ak-layer-canvas p-6 md:p-8">
+              <article className="flex min-h-72 flex-col ak-layer p-6 md:p-8">
                 <p className="font-mono text-xs ak-ink-60">font-serif</p>
                 <p className="mt-12 text-2xl leading-tight md:text-4xl">
                   Almost before we knew it, we had left the ground.
@@ -135,7 +158,7 @@ function FoundationalStylesPage() {
                   IBM Plex Serif · Regular 400
                 </p>
               </article>
-              <article className="flex min-h-72 flex-col ak-layer ak-layer-canvas p-6 font-mono md:p-8">
+              <article className="flex min-h-72 flex-col ak-layer p-6 font-mono md:p-8">
                 <p className="text-xs ak-ink-60">font-mono</p>
                 <p className="mt-12 text-xl leading-snug md:text-2xl">
                   Almost before we knew it,
@@ -198,25 +221,24 @@ function FoundationalStylesPage() {
           <section className={cn(foundationGrid, "mt-24 gap-y-10 md:mt-32")}>
             <SectionHeading
               eyebrow="02 / Color"
-              title="Warm, neutral, and intentionally restrained."
-              description="A thirteen-step solid gray scale handles surfaces and text. Its alpha companion builds borders, overlays, and states that adapt to their background."
+              title="Relative surfaces, ink, and edges."
+              description="Layers separate surfaces from their parent. Mixing blends primary color into the local material; ink and edges adapt to that surface."
             />
 
             <div className={showcaseColumns}>
               <div className="mb-4 flex items-baseline justify-between">
-                <h3 className="font-semibold">Solid scale</h3>
-                <p className="font-mono text-xs ak-ink-60">gray-00—12</p>
+                <h3 className="font-semibold">Relative layers</h3>
+                <p className="font-mono text-xs ak-ink-60">ak-layer-0—60</p>
               </div>
               <div className="grid grid-cols-2 gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-(--ak-edge) sm:grid-cols-4 lg:grid-cols-7">
-                {solidColors.map((step) => (
-                  <div key={step} className="ak-layer ak-layer-canvas">
+                {relativeLayers.map((layer, index) => (
+                  <div key={layer} className="ak-layer">
                     <div
-                      className="min-h-24 sm:min-h-28"
-                      style={{ backgroundColor: `var(--gray-${step})` }}
+                      className={cn("min-h-24 ak-layer sm:min-h-28", layer)}
                     />
                     <div className="flex items-center justify-between px-3 py-2 font-mono text-[11px]">
-                      <span>gray-{step}</span>
-                      <span className="ak-ink-60">{step}</span>
+                      <span>ak-layer</span>
+                      <span className="ak-ink-60">{index * 5}</span>
                     </div>
                   </div>
                 ))}
@@ -225,18 +247,20 @@ function FoundationalStylesPage() {
 
             <div className={showcaseColumns}>
               <div className="mb-4 flex items-baseline justify-between">
-                <h3 className="font-semibold">Alpha scale</h3>
-                <p className="font-mono text-xs ak-ink-60">gray-A01—A12</p>
+                <h3 className="font-semibold">Primary mixing</h3>
+                <p className="font-mono text-xs ak-ink-60">ak-layer-mix-5—60</p>
               </div>
-              <div className="grid grid-cols-2 gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-gray-04 sm:grid-cols-4 lg:grid-cols-6">
-                {alphaColors.map((step) => (
-                  <div key={step} className="bg-gray-02 p-3">
+              <div className="grid grid-cols-2 gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-(--ak-edge) sm:grid-cols-4 lg:grid-cols-6">
+                {primaryMixes.map((mix) => (
+                  <div key={mix} className="ak-layer ak-layer-lighten-2 p-3">
                     <div
-                      className="ak-frame ak-frame-field/0 min-h-20"
-                      style={{ backgroundColor: `var(--gray-A${step})` }}
+                      className={cn(
+                        "ak-layer ak-layer-primary ak-frame ak-frame-field/0 min-h-20",
+                        mix,
+                      )}
                     />
                     <p className="mt-3 font-mono text-[11px] ak-ink-80">
-                      gray-A{step}
+                      {mix}
                     </p>
                   </div>
                 ))}
@@ -249,21 +273,21 @@ function FoundationalStylesPage() {
                 "grid gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-(--ak-edge) md:grid-cols-3",
               )}
             >
-              <div className="flex min-h-48 flex-col ak-layer ak-layer-canvas p-6">
-                <div className="h-10 w-10 shrink-0 ak-frame ak-frame-badge/0 bg-gray-12" />
+              <div className="flex min-h-48 flex-col ak-layer p-6">
+                <div className="h-10 w-10 shrink-0 ak-frame ak-frame-badge/0 ak-ink-100 bg-current" />
                 <p className="mt-auto pt-8 font-semibold">High emphasis</p>
-                <p className="mt-1 font-mono text-xs ak-ink-60">gray-12</p>
+                <p className="mt-1 font-mono text-xs ak-ink-60">ak-ink-100</p>
               </div>
-              <div className="flex min-h-48 flex-col ak-layer ak-layer-canvas p-6">
-                <div className="h-10 w-10 shrink-0 ak-frame ak-frame-badge/0 bg-gray-10" />
+              <div className="flex min-h-48 flex-col ak-layer p-6">
+                <div className="h-10 w-10 shrink-0 ak-frame ak-frame-badge/0 ak-ink-70 bg-current" />
                 <p className="mt-auto pt-8 ak-ink-70">Secondary content</p>
-                <p className="mt-1 font-mono text-xs ak-ink-60">gray-10</p>
+                <p className="mt-1 font-mono text-xs ak-ink-60">ak-ink-70</p>
               </div>
-              <div className="flex min-h-48 flex-col ak-layer ak-layer-canvas p-6">
-                <div className="h-10 w-10 shrink-0 ak-layer ak-layer-gray-02 ak-frame ak-frame-badge/0 ak-frame-border -ak-frame-m-px ak-edge-gray-A04 ak-edge-raw" />
+              <div className="flex min-h-48 flex-col ak-layer p-6">
+                <div className="h-10 w-10 shrink-0 ak-layer ak-layer-lighten-2 ak-frame ak-frame-badge/0 ak-frame-border -ak-frame-m-px ak-edge-15" />
                 <p className="mt-auto pt-8">Subtle surface</p>
                 <p className="mt-1 font-mono text-xs ak-ink-60">
-                  gray-02 + gray-A04
+                  ak-layer-lighten-2 + ak-edge-15
                 </p>
               </div>
             </div>
@@ -463,7 +487,7 @@ function SiteLanguageSection() {
         description="Dates, periods, captions, and counts are small and close-set. Uppercase labels orient; italic captions step away from the main narrative."
       >
         <div className="grid min-h-56 gap-px overflow-hidden ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px bg-(--ak-edge) sm:grid-cols-2">
-          <div className="flex flex-col justify-between ak-layer ak-layer-canvas p-6">
+          <div className="flex flex-col justify-between ak-layer p-6">
             <p className="text-xs font-bold tracking-tighter ak-ink-50">
               Last updated on <time>06 Oct 2023</time>
             </p>
@@ -513,12 +537,12 @@ function SiteLanguageSection() {
       <PatternEntry
         number="04.08"
         title="Atmosphere stays at the edge"
-        description="Warm grays do the real work. Alpha borders, faint gradients, grain, and top-and-bottom fades add tactility without becoming the subject."
+        description="Relative surfaces do the real work. Translucent edges, faint gradients, grain, and top-and-bottom fades add tactility without becoming the subject."
       >
         <div className="relative min-h-64 overflow-hidden ak-layer ak-frame ak-frame-card/0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,var(--gray-A05),transparent_45%)]" />
-          <div className="absolute inset-x-0 top-0 h-20 bg-linear-to-b from-gray-00 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-gray-00 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,var(--ak-edge),transparent_45%)]" />
+          <div className="absolute inset-x-0 top-0 h-20 bg-linear-to-b from-(--ak-layer) to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-(--ak-layer) to-transparent" />
           <div className="relative grid min-h-64 place-items-center p-8">
             <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/6 ak-frame-border -ak-frame-m-px shadow-highlight">
               <p className="font-semibold ak-ink-100">

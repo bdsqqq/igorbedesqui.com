@@ -90,7 +90,7 @@ function ColorSample({
         className="block ak-layer ak-layer-canvas"
         style={{
           backgroundImage:
-            "conic-gradient(var(--gray-A04) 25%, transparent 0 50%, var(--gray-A04) 0 75%, transparent 0)",
+            "conic-gradient(color-mix(in oklab, var(--ak-text) 8%, transparent) 25%, transparent 0 50%, color-mix(in oklab, var(--ak-text) 8%, transparent) 0 75%, transparent 0)",
           backgroundSize: "16px 16px",
         }}
       >
@@ -129,7 +129,10 @@ function ColorPalette({
     groups.find((group) => group.token.name === selection) ?? groups[0];
   return (
     <>
-      <ul data-palette="" className={swatchGrid}>
+      <ul
+        data-palette=""
+        className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3"
+      >
         {groups.map((group) => (
           <li key={group.token.name} className="min-w-0">
             <Role.button
@@ -389,10 +392,20 @@ function TokenSample({ token }: { token: Token }) {
 
 export function TokenExplorer() {
   const [query, setQuery] = useState("");
+  const [defaults, setDefaults] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const [resolved, setResolved] = useState<Record<string, string>>({});
   const search = query.trim().toLowerCase();
-  const tokens = catalog.tokens.filter(
+  const available = defaults
+    ? catalog.tokens
+    : catalog.tokens.filter((token) =>
+        token.definitions.some(
+          (definition) =>
+            definition.file === "src/routes/-main.css" &&
+            definition.scope !== "component",
+        ),
+      );
+  const tokens = available.filter(
     (token) =>
       !search ||
       [
@@ -422,7 +435,7 @@ export function TokenExplorer() {
     const gamut = matchMedia("(color-gamut: p3)");
     gamut.addEventListener("change", measure);
     return () => gamut.removeEventListener("change", measure);
-  }, [search]);
+  }, [search, defaults]);
   const groups = ["Colors", "Type", "Space", "Shape", "Motion", "Other"];
   return (
     <Container backable backAnchor="library">
@@ -440,12 +453,20 @@ export function TokenExplorer() {
                 placeholder="Filter"
                 className="mt-4 -mx-2 w-[calc(100%+1rem)] ak-layer ak-layer-transparent ak-frame ak-frame-field/2"
               />
+              <label className="mt-2 flex items-center gap-2 text-xs ak-ink-70">
+                <Role.input
+                  type="checkbox"
+                  checked={defaults}
+                  onChange={(event) => setDefaults(event.target.checked)}
+                />
+                Defaults
+              </label>
               <p
                 role="status"
                 aria-label="Token results"
                 className="mt-2 text-xs tracking-tighter ak-ink-60"
               >
-                {tokens.length} / {catalog.tokens.length}
+                {tokens.length} / {available.length}
               </p>
             </div>
           </div>

@@ -1,6 +1,8 @@
 import { cn } from "@/lib/styling";
 import { HTMLProps } from "react";
 
+/** Optional asides are deliberately obscured before interaction; opacity-based paint
+ * avoids turning that hidden state into normal readable ink via the contrast floor. */
 export const Blur = ({
   tabIndex,
   className,
@@ -10,7 +12,7 @@ export const Blur = ({
   <span
     tabIndex={tabIndex ?? (focusable ? 0 : -1)}
     className={cn(
-      "group/blur text-gray-03 blur-sm filter transition-all  duration-moderate-02 ease-productive-standard focus-within:text-gray-11 focus-within:blur-none hover:text-gray-11 hover:blur-none focus:text-gray-11 focus:blur-none",
+      "group/blur [:where(&)]:[color:color-mix(in_oklab,var(--ak-text)_15%,transparent)] blur-sm filter transition-[filter,color] duration-moderate-02 ease-productive-standard focus-within:ak-ink-80 focus-within:blur-none hover:ak-ink-80 hover:blur-none focus:ak-ink-80 focus:blur-none",
       className,
     )}
     {...rest}

@@ -7,7 +7,7 @@ async function ready(page) {
     page.getByRole("heading", { name: "Tokens", exact: true }),
   ).toBeVisible();
   await expect(
-    page.locator('[data-resolved="--gray-00"]').first(),
+    page.locator('[data-resolved="--color-canvas"]').first(),
   ).not.toContainText("…");
 }
 
@@ -56,6 +56,7 @@ test("token page uses the site bands without cards, subtitles, or disclosures", 
 
 test("type specimens keep their complete line boxes", async ({ page }) => {
   await ready(page);
+  await page.getByRole("checkbox", { name: "Defaults", exact: true }).check();
   await page.getByRole("searchbox").fill("--text-");
   const metrics = await page
     .locator('[data-definition^="--text-"] [aria-hidden]')
@@ -103,12 +104,12 @@ test("palette grids stay compact and expose sources by pointer, tap, and keyboar
       height: element.getBoundingClientRect().height,
       columns: getComputedStyle(element).gridTemplateColumns.split(" ").length,
     }));
-    expect(size.columns).toBe(width < 640 ? 2 : 5);
+    expect(size.columns).toBe(width < 640 ? 2 : 3);
     expect(size.height).toBeLessThan(width < 640 ? 1500 : 700);
     expect(
       (await page.locator("[data-layer-palette]").boundingBox()).height,
     ).toBeLessThan(width < 640 ? 1200 : 600);
-    const first = page.locator('[data-palette-token="--gray-00"]');
+    const first = page.locator('[data-palette-token="--color-canvas"]');
     await first.focus();
     await first.press("Enter");
     await expect(
@@ -117,14 +118,16 @@ test("palette grids stay compact and expose sources by pointer, tap, and keyboar
     await first.focus();
     await first.press("Tab");
     await expect(
-      page.locator('[data-palette-token="--gray-01"]'),
+      page.locator('[data-palette-token="--color-primary"]'),
     ).toBeFocused();
-    await expect(page.locator('[data-definition="--gray-01"]')).toBeVisible();
-    const last = page.locator('[data-palette-token="--color-white"]');
+    await expect(
+      page.locator('[data-definition="--color-primary"]'),
+    ).toBeVisible();
+    const last = page.locator('[data-palette-token="--color-primary"]');
     await last.click();
     await expect(last).toHaveAttribute("aria-pressed", "true");
     await expect(
-      page.locator('[data-definition="--color-white"]'),
+      page.locator('[data-definition="--color-primary"]'),
     ).toBeVisible();
     await first.hover();
     await expect(
@@ -143,7 +146,7 @@ test("touch selects a swatch without hover", async ({ browser }) => {
   try {
     const page = await context.newPage();
     await ready(page);
-    const choice = page.locator('[data-palette-token="--blue-A09"]');
+    const choice = page.locator('[data-palette-token="--color-primary"]');
     await choice.tap();
     await expect(choice).toHaveAttribute("aria-pressed", "true");
     await expect(
@@ -184,28 +187,29 @@ for (const width of [320, 1440]) {
       ]) {
         await expect(
           page.locator(
-            `[data-token-theme="${theme}"][data-swatch^="--gray-"]:not([data-swatch^="--gray-A"])`,
+            `[data-token-theme="${theme}"][data-swatch^="--color-"]`,
           ),
-        ).toHaveCount(13);
-        await expect(
-          page.locator(
-            `[data-token-theme="${theme}"][data-swatch^="--gray-A"]`,
-          ),
-        ).toHaveCount(12);
+        ).toHaveCount(3);
         expect(
           await rgba(
-            swatch(page, theme, "--gray-00").locator("[data-color-token]"),
+            swatch(page, theme, "--color-canvas").locator("[data-color-token]"),
           ),
         ).toEqual(color);
         expect(
-          await rgba(swatch(page, theme, "--gray-00"), "--color-canvas"),
+          await rgba(swatch(page, theme, "--color-canvas"), "--color-canvas"),
         ).toEqual(color);
       }
-      await page.locator('[data-palette-token="--gray-01"]').focus();
-      const definition = page.locator('[data-definition="--gray-01"]');
+      await page.locator('[data-palette-token="--color-canvas"]').focus();
+      const definition = page.locator('[data-definition="--color-canvas"]');
       await expect(definition).toContainText("src/routes/-main.css:");
-      await expect(definition).toContainText("@media (color-gamut: p3)");
-      await expect(definition).toContainText("color(display-p3");
+      await expect(definition).toContainText(
+        "@media (prefers-color-scheme: light)",
+      );
+      await expect(
+        page.locator(
+          '[data-swatch^="--gray-"], [data-swatch^="--color-gray-"]',
+        ),
+      ).toHaveCount(0);
       expect(await rgba(page.locator("body"))).toEqual(
         colorScheme === "dark" ? [10, 10, 10, 255] : [255, 255, 255, 255],
       );
@@ -226,32 +230,38 @@ for (const width of [320, 1440]) {
   }
 }
 
-test("Display P3 previews use the actual conditional definitions and update their readouts", async ({
+test("semantic pigments and readouts remain consistent when the browser gamut changes", async ({
   page,
 }) => {
   await ready(page);
-  await page.locator('[data-palette-token="--gray-01"]').click();
+  await page.locator('[data-palette-token="--color-primary"]').click();
   const session = await page.context().newCDPSession(page);
-  await session.send("Emulation.setEmulatedMedia", {
-    features: [
-      { name: "prefers-color-scheme", value: "dark" },
-      { name: "color-gamut", value: "p3" },
-    ],
-  });
-  for (const theme of ["dark", "light"]) {
-    await expect(
-      swatch(page, theme, "--gray-01").locator("[data-color-token]"),
-    ).toHaveCSS("background-color", /color\(display-p3/);
-    await expect(
-      page.locator(
-        `[data-resolved="--gray-01"][data-resolved-theme="${theme}"]`,
-      ),
-    ).toContainText("color(display-p3");
+  try {
+    for (const gamut of ["srgb", "p3"]) {
+      await session.send("Emulation.setEmulatedMedia", {
+        features: [{ name: "color-gamut", value: gamut }],
+      });
+      for (const theme of ["dark", "light"]) {
+        expect(
+          await rgba(
+            swatch(page, theme, "--color-primary").locator(
+              "[data-color-token]",
+            ),
+          ),
+        ).toEqual([0, 144, 255, 255]);
+        await expect(
+          page.locator(
+            `[data-resolved="--color-primary"][data-resolved-theme="${theme}"]`,
+          ),
+        ).toHaveText(`${theme} rgb(0, 144, 255)`);
+      }
+    }
+  } finally {
+    await session.detach();
   }
-  await session.detach();
 });
 
-test("token search includes inherited tokens, aliases, provenance, and empty results", async ({
+test("token search includes authored values, provenance, and empty results", async ({
   page,
 }) => {
   await ready(page);
@@ -269,7 +279,7 @@ test("token search includes inherited tokens, aliases, provenance, and empty res
     page.locator('[data-definition="--color-primary"]'),
   ).toBeVisible();
   await expect(page.locator("[data-palette-token]")).toHaveCount(1);
-  await expect(page.locator('[data-swatch="--blue-A09"]')).toHaveCount(2);
+  await expect(page.locator('[data-swatch="--color-primary"]')).toHaveCount(2);
   await search.fill("no-such-token-please");
   await expect(page.getByText("No matches.", { exact: true })).toBeVisible();
   await expect(page.locator("[data-definition]")).toHaveCount(0);
@@ -277,6 +287,26 @@ test("token search includes inherited tokens, aliases, provenance, and empty res
   await expect(page.getByRole("status", { name: "Token results" })).toHaveText(
     /^\d+ \/ \d+$/,
   );
+});
+
+test("framework defaults are available without masquerading as authored configuration", async ({
+  page,
+}) => {
+  await ready(page);
+  const status = page.getByRole("status", { name: "Token results" });
+  const authored = Number((await status.textContent()).split("/")[1]);
+  expect(authored).toBeGreaterThan(0);
+  const search = page.getByRole("searchbox");
+  await search.fill("--text-9xl");
+  await expect(page.getByText("No matches.", { exact: true })).toBeVisible();
+  await page.getByRole("checkbox", { name: "Defaults", exact: true }).check();
+  await expect(page.locator('[data-definition="--text-9xl"]')).toBeVisible();
+  await search.fill("");
+  expect(Number((await status.textContent()).split("/")[1])).toBeGreaterThan(
+    authored,
+  );
+  await page.getByRole("checkbox", { name: "Defaults", exact: true }).uncheck();
+  expect(Number((await status.textContent()).split("/")[1])).toBe(authored);
 });
 
 test("numeric layer samples match the literal site utilities", async ({

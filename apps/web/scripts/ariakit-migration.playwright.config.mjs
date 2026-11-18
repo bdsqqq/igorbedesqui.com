@@ -15,6 +15,7 @@ export default defineConfig({
     "copy-feedback.spec.mjs",
     "page-catalog.spec.mjs",
     "design-tokens.spec.mjs",
+    "semantic-material.spec.mjs",
   ],
   fullyParallel: false,
   workers: 1,

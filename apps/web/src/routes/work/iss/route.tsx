@@ -58,7 +58,7 @@ function IssWorkPage() {
           </Tooltip>
           ?
         </span>
-        <p className="text-gray-A01" aria-hidden="true">
+        <p className="text-transparent" aria-hidden="true">
           (In space, probably, don’t tell anyone)
         </p>
         <div className="mt-6">

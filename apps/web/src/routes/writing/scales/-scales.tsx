@@ -194,7 +194,7 @@ export function ScalesInputs() {
                 {filteredPreDefinedScales.map((scale) => (
                   <ComboboxItem
                     key={`${scale.name}_ComboboxItem`}
-                    className="ak-layer ak-layer-transparent ak-frame ak-frame-field/1 hover:ak-state-6 data-active-item:ak-state-6 aria-selected:ak-state-10 cursor-pointer px-3 duration-fast-01 ease-productive-standard motion-safe:transition-colors"
+                    className="ak-layer ak-layer-transparent ak-frame ak-frame-field/1 hover:ak-state-8 data-active-item:ak-state-8 aria-selected:ak-state-12 cursor-pointer px-3 duration-fast-01 ease-productive-standard motion-safe:transition-colors"
                     value={scale.value}
                   >
                     {scale.name}
@@ -304,7 +304,7 @@ export function ScalesResults() {
   );
 }
 const inputVariants = cva(
-  "relative ak-layer ak-layer-lighten-6 ak-frame ak-frame-field/1 text-center hover:ak-state-6 focus:ak-state-6 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-within:z-10 motion-safe:transition-colors duration-fast-01 ease-productive-standard",
+  "relative ak-layer ak-layer-lighten-6 ak-frame ak-frame-field/1 text-center hover:ak-state-8 focus:ak-state-8 focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-within:z-10 motion-safe:transition-colors duration-fast-01 ease-productive-standard",
   {
     variants: {
       size: {

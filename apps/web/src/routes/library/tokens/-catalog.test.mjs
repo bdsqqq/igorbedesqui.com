@@ -102,7 +102,7 @@ test("literal modifiers are discovered, deduplicated, and tied to source; dynami
   assert.deepEqual(state.references, [{ file: "rows.tsx", line: 2 }]);
 });
 
-test("installed definitions retain the site palette and remove Tailwind’s default rainbow", async () => {
+test("installed definitions expose semantic pigments without a legacy ramp or default rainbow", async () => {
   const files = [
     ["tailwindcss/theme.css", require.resolve("tailwindcss/theme.css")],
     ["@ariakit/tailwind", require.resolve("@ariakit/tailwind")],
@@ -116,15 +116,26 @@ test("installed definitions retain the site palette and remove Tailwind’s defa
       })),
     ),
   );
-  assert.equal(
-    catalog.tokens.filter((token) => /^--gray-\d+$/.test(token.name)).length,
-    13,
+  assert.deepEqual(
+    catalog.tokens
+      .filter((token) => token.name.startsWith("--color-"))
+      .map((token) => token.name)
+      .sort(),
+    ["--color-canvas", "--color-danger", "--color-primary"],
+  );
+  assert.ok(
+    !catalog.tokens.some((token) =>
+      /^--(?:gray-|blue-|color-gray-)/.test(token.name),
+    ),
   );
   assert.equal(
-    catalog.tokens.filter((token) => /^--gray-A\d+$/.test(token.name)).length,
-    12,
+    catalog.tokens
+      .find((token) => token.name === "--color-canvas")
+      .definitions.filter(
+        (definition) => definition.file === "src/routes/-main.css",
+      ).length,
+    2,
   );
-  assert.ok(catalog.tokens.some((token) => token.name === "--color-primary"));
   assert.ok(catalog.tokens.some((token) => token.name === "--hue-blue"));
   assert.ok(catalog.tokens.some((token) => token.name === "--radius-card"));
   assert.ok(

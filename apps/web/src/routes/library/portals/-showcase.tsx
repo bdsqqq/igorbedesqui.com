@@ -75,7 +75,7 @@ function FarAwaySlots_PretendMain() {
               <Tab
                 key={`tab-${i}`}
                 id={`${tabId}-${i}`}
-                className="aria-selected:ak-state-10"
+                className="aria-selected:ak-state-12"
                 render={<Button />}
               >
                 Tab {i + 1}
@@ -115,7 +115,7 @@ function FarAwaySlots_PretendTab({ id }: { id: string }) {
               <Tab
                 key={`subtab-${i}`}
                 id={`${subTabId}-${i}`}
-                className="aria-selected:ak-state-10"
+                className="aria-selected:ak-state-12"
                 render={<Button />}
               >
                 SubTab {i + 1}

@@ -72,7 +72,7 @@ export const LightBox = ({
             <Button
               aria-label="enlarge image"
               icon={<EnterFullScreenIcon />}
-              className="absolute right-0 top-0 bg-gray-00"
+              className="absolute right-0 top-0 ak-layer ak-layer-canvas"
             />
           </DialogTrigger>
         </>

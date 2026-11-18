@@ -22,9 +22,9 @@ export const [buttonVariants, buttonPermutations] = CVAWithPerms(
       variant: {
         primary: cn(
           "ak-layer-5",
-          "data-[state=on]:ak-state-10 data-[state=open]:ak-state-10",
-          "aria-pressed:ak-state-10 aria-expanded:ak-state-10",
-          "enabled:hover:ak-state-5 enabled:focus-visible:ak-state-5",
+          "data-[state=on]:ak-state-12 data-[state=open]:ak-state-12",
+          "aria-pressed:ak-state-12 aria-expanded:ak-state-12",
+          "enabled:hover:ak-state-8 enabled:focus-visible:ak-state-8",
           "enabled:active:ak-state-darken-5",
         ),
       },

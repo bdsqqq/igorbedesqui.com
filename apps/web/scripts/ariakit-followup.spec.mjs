@@ -388,6 +388,8 @@ test.describe("native overlay motion", () => {
     await expect(
       page.getByRole("option", { name: "1.618 – Golden Ratio" }),
     ).toBeVisible();
+    // A leave sample needs a settled entry, not a reversal from near-zero opacity.
+    await expect(page.getByRole("listbox")).toHaveCSS("opacity", "1");
     await page.keyboard.press("Escape");
     await motionRecord(page, "listbox", "leave", testInfo);
     await expect(page.getByRole("listbox")).toBeHidden();

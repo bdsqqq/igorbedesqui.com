@@ -18,4 +18,4 @@ export function ContentList({
 }
 
 export const contentListRow =
-  "ak-layer ak-layer-transparent ak-frame ak-frame-field/2 group pointer-events-auto block w-full py-4 transition-colors duration-fast-02 ease-productive-standard hover:ak-state-4 hover:ak-ink-100 focus-within:ak-state-4 focus-within:ak-ink-100 active:ak-state-darken-3";
+  "ak-layer ak-layer-transparent ak-frame ak-frame-field/2 group pointer-events-auto block w-full py-4 transition-colors duration-fast-02 ease-productive-standard hover:ak-state-8 hover:ak-ink-100 focus-within:ak-state-8 focus-within:ak-ink-100 active:ak-state-darken-5";

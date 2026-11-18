@@ -305,9 +305,9 @@ function InlineReveal({
           aria-expanded={isOpen}
           className={cn(
             "ak-layer ak-layer-transparent ak-frame ak-frame-field/0 mx-0.5 inline px-1 text-[0.9em] font-medium leading-none",
-            "motion-safe:transition-colors hover:ak-state-5 active:ak-state-darken-5",
+            "motion-safe:transition-colors hover:ak-state-8 active:ak-state-darken-5",
             "focus-visible:ak-outline focus-visible:outline-2 focus-visible:outline-offset-2",
-            "aria-expanded:ak-state-8",
+            "aria-expanded:ak-state-12",
           )}
           type="button"
         >

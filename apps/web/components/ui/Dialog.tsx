@@ -91,7 +91,7 @@ function DialogOverlay({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-state={open ? "open" : "closed"}
       className={cn(
-        "surface-backdrop fixed inset-0 z-aboveVignette bg-gray-00",
+        "surface-backdrop ak-layer ak-layer-canvas fixed inset-0 z-aboveVignette",
         className,
       )}
       {...props}

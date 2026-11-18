@@ -58,7 +58,9 @@ test("tooltip responds to hover, keyboard focus and Escape without moving focus"
   await page.keyboard.press("Tab");
   await page.keyboard.press("Shift+Tab");
   await expect(button).toBeFocused();
-  await expect(tooltip).toBeVisible();
+  // Visible bounds can precede Ariakit's entered state after keyboard focus.
+  await expect(tooltip).toHaveAttribute("data-enter", "true");
+  await expect(tooltip).toHaveCSS("opacity", "1");
   await page.keyboard.press("Escape");
   await expect(tooltip).toBeHidden();
   await expect(button).toBeFocused();

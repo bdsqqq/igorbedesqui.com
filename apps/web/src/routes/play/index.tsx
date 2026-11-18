@@ -52,7 +52,7 @@ const cvaConfig = {
     intent: {
       primary: [
         "ak-layer-6",
-        "hover:ak-state-6",
+        "hover:ak-state-8",
         "focus-visible:ak-outline focus-visible:outline-2",
       ],
     },
