@@ -103,11 +103,11 @@ function Home() {
             <div className="col-span-full lg:col-start-8 lg:col-end-12">
               <h2 className="mt-6 font-bold md:mt-10 lg:mt-0">Writing</h2>
               <div className="mt-2">
-                <ContentList className="-mx-2 gap-4">
+                <ContentList className="-m-2">
                   {writingPieces.map((piece) => (
                     <li key={piece.href}>
                       <UnstyledLink
-                        className={cn(contentListRow, "py-0 leading-none")}
+                        className={cn(contentListRow, "py-2 leading-none")}
                         href={piece.href}
                       >
                         <h3 className="inline">{piece.name}</h3>

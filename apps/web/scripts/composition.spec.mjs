@@ -806,6 +806,10 @@ test("layouts honor empty supplied inputs then populated rows, refs, native slot
   const row = page.getByRole("link", { name: "caller project", exact: true });
   await expect(row).toHaveAttribute("href", "/work/caller");
   await expect(row).toHaveAttribute("title", "caller row");
+  // Even a single first-and-last item keeps its complete hover surface.
+  await expect(row).toHaveCSS("padding-top", "24px");
+  await expect(row).toHaveCSS("padding-bottom", "24px");
+
   const options = await page
     .locator("#caller-project-band")
     .evaluate((element) => ({
@@ -817,4 +821,10 @@ test("layouts honor empty supplied inputs then populated rows, refs, native slot
   expect(parseFloat(options.padding)).toBeGreaterThan(0);
   expect(options.columns).toBe(8);
   await expect(page.getByRole("contentinfo")).toHaveCount(0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(row).toHaveCSS("padding-top", "32px");
+  await expect(row).toHaveCSS("padding-bottom", "32px");
+  const bandBox = await page.locator("#caller-project-band").boundingBox();
+  const rowBox = await row.boundingBox();
+  expect(rowBox.y).toBeGreaterThanOrEqual(bandBox.y + bandBox.height);
 });

@@ -456,6 +456,63 @@ for (const viewport of [
   { width: 1280, height: 900 },
   { width: 390, height: 844 },
 ]) {
+  test(`homepage rows keep full hover padding and grid-aligned text: ${viewport.width}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport);
+    await ready(page, "/");
+    for (const [href, padding] of [
+      ["/work/axiom", 16],
+      ["/writing/macos-rice", 8],
+    ]) {
+      const list = page
+        .locator("ul")
+        .filter({ has: page.locator(`a[href="${href}"]`) })
+        .first();
+      const rows = list.locator(":scope > li > a");
+      const count = await rows.count();
+      expect(count).toBeGreaterThan(2);
+      const host = await measured(list.locator(".."));
+      for (const index of [0, Math.floor(count / 2), count - 1]) {
+        const row = rows.nth(index);
+        const box = await measured(row);
+        expect(box.padding[0]).toBe(padding);
+        expect(box.padding[2]).toBe(padding);
+        aligned(
+          box.textLeft,
+          host.contentLeft,
+          "list text, not hover edge, follows the grid",
+        );
+        aligned(
+          box.left + box.padding[3],
+          host.contentLeft,
+          "hover surface outsets by its padding",
+        );
+        await page.mouse.move(0, 0);
+        await row.blur();
+        const resting = await row.evaluate(
+          (element) => getComputedStyle(element).backgroundColor,
+        );
+        await row.hover({ position: { x: box.width / 2, y: padding / 2 } });
+        await expect
+          .poll(() =>
+            row.evaluate(
+              (element) => getComputedStyle(element).backgroundColor,
+            ),
+          )
+          .not.toBe(resting);
+        await page.mouse.move(0, 0);
+        await row.focus();
+        await expect(row).toBeFocused();
+      }
+    }
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  });
+
   test(`document geometry: collections stay on the grid: ${viewport.width}`, async ({
     page,
   }, testInfo) => {
