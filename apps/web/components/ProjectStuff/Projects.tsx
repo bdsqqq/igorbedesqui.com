@@ -1,26 +1,78 @@
-type ProjectsProps = {
-  projectsMeta: Meta[];
+import { ContentList, contentListRow } from "@/components/ContentList";
+import { cn } from "@/lib/styling";
+
+export type ProjectLinkProps = Omit<
+  React.ComponentPropsWithRef<typeof UnstyledLink>,
+  "href"
+> & {
+  project: Meta;
+  href?: string;
 };
-function Projects({ projectsMeta }: ProjectsProps) {
+
+export function ProjectLink({
+  project,
+  href = `/work/${project.urlSlug}`,
+  children,
+  className,
+  ...props
+}: ProjectLinkProps) {
   return (
-    <ul className="pointer-events-none flex w-full flex-col flex-wrap items-start justify-start hover:text-gray-10 md:grid md:grid-cols-2 md:gap-x-6 [&_>_a]:hover:opacity-40">
-      {projectsMeta.map((project, i) => {
-        return (
-          <UnstyledLink
-            className="pointer-events-auto w-full py-8 duration-moderate-01 ease-productive-standard first:pt-0 last:pb-0 hover:!text-gray-12 hover:!opacity-100 motion-safe:transition-all md:py-6 md:[&:nth-child(2)]:pt-0 md:[&:nth-last-child(2)_:nth-child(odd)]:pb-0"
-            href={`/work/${project.urlSlug}`}
-            key={project.name}
-          >
-            <li>
-              <h3 className="text-xl font-semibold tracking-tighter">
-                {project.name}
-              </h3>
-              <p>{project.description}</p>
-            </li>
-          </UnstyledLink>
-        );
-      })}
-    </ul>
+    <UnstyledLink
+      className={cn(
+        contentListRow,
+        "py-8 hover:opacity-100! focus:opacity-100! md:py-6",
+        className,
+      )}
+      href={href}
+      {...props}
+    >
+      {children === undefined ? (
+        <>
+          <h3 className="text-xl font-semibold tracking-tighter">
+            {project.name}
+          </h3>
+          <p>{project.description}</p>
+        </>
+      ) : (
+        children
+      )}
+    </UnstyledLink>
+  );
+}
+
+export type ProjectsProps = Omit<
+  React.ComponentPropsWithRef<typeof ContentList>,
+  "children"
+> & {
+  projectsMeta: readonly Meta[];
+  renderProject?: (
+    props: ProjectLinkProps & { href: string },
+  ) => React.ReactNode;
+};
+function Projects({
+  projectsMeta,
+  renderProject,
+  className,
+  ...props
+}: ProjectsProps) {
+  return (
+    <ContentList
+      className={cn(
+        "-mx-2 w-[calc(100%+1rem)] hover:[&>li>a]:opacity-40 focus-within:[&>li>a]:opacity-40 md:grid md:grid-cols-2 md:gap-x-6",
+        className,
+      )}
+      {...props}
+    >
+      {projectsMeta.map((project) => (
+        <li key={project.name}>
+          {renderProject === undefined ? (
+            <ProjectLink project={project} />
+          ) : (
+            renderProject({ project, href: `/work/${project.urlSlug}` })
+          )}
+        </li>
+      ))}
+    </ContentList>
   );
 }
 
@@ -32,9 +84,9 @@ export type Meta = {
   shortName: string;
   name: string;
   description: string;
-  roles: string[];
+  roles: readonly string[];
   type: string;
-  tools: string[];
+  tools: readonly string[];
   date: string;
   urlSlug: string;
   backMessage?: string;

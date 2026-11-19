@@ -1,0 +1,111 @@
+@layer components {
+  /* Ariakit paints this resting state before adding data-enter. Transitions
+     reverse in place when its disclosure lifecycle is interrupted. */
+  .surface-popover,
+  .surface-tooltip {
+    --surface-x: 0px;
+    --surface-y: 0px;
+    --surface-origin: center;
+    opacity: 0;
+    translate: var(--surface-x) var(--surface-y);
+    scale: 0.95;
+    transform-origin: var(--popover-transform-origin, var(--surface-origin));
+    transition:
+      opacity 150ms cubic-bezier(0.2, 0, 0.38, 0.9),
+      translate 150ms cubic-bezier(0.2, 0, 0.38, 0.9),
+      scale 150ms cubic-bezier(0.2, 0, 0.38, 0.9);
+  }
+
+  :is(.surface-popover, .surface-tooltip)[data-side="top"] {
+    --surface-y: 4px;
+    --surface-origin: bottom;
+  }
+
+  :is(.surface-popover, .surface-tooltip)[data-side="bottom"] {
+    --surface-y: -4px;
+    --surface-origin: top;
+  }
+
+  :is(.surface-popover, .surface-tooltip)[data-side="left"] {
+    --surface-x: 4px;
+    --surface-origin: right;
+  }
+
+  :is(.surface-popover, .surface-tooltip)[data-side="right"] {
+    --surface-x: -4px;
+    --surface-origin: left;
+  }
+
+  :is(.surface-popover, .surface-tooltip)[data-enter] {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    transition-timing-function: cubic-bezier(0, 0, 0.38, 0.9);
+  }
+
+  /* The skip window spans separate stores. data-open also bypasses the
+     before-enter frame when Ariakit replaces a neighbouring tooltip. */
+  .surface-tooltip[data-instant] {
+    transition-duration: 0s;
+  }
+
+  .surface-tooltip[data-instant][data-open] {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+
+  .surface-tooltip[data-instant]:not([data-open]) {
+    opacity: 0;
+  }
+
+  .surface-dialog {
+    opacity: 0;
+    scale: 0.95;
+    transition:
+      opacity 200ms cubic-bezier(0.2, 0, 0.38, 0.9),
+      scale 200ms cubic-bezier(0.2, 0, 0.38, 0.9);
+  }
+
+  .surface-dialog[data-enter] {
+    opacity: 1;
+    scale: 1;
+    transition-timing-function: cubic-bezier(0, 0, 0.38, 0.9);
+  }
+
+  .surface-backdrop {
+    opacity: 0;
+    transition: opacity 300ms cubic-bezier(0.2, 0, 0.38, 0.9);
+  }
+
+  .surface-backdrop[data-enter] {
+    opacity: 0.7;
+  }
+
+  /* Motion owns the image's shared layout. Keep its full-screen coordinate
+     space stable while Ariakit waits for the backdrop to finish leaving. */
+  .surface-lightbox {
+    opacity: 1;
+    scale: none;
+    transition: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .surface-popover,
+    .surface-tooltip,
+    .surface-dialog,
+    .surface-backdrop {
+      transition: none;
+    }
+
+    .surface-popover,
+    .surface-tooltip {
+      translate: none;
+      scale: none;
+    }
+
+    .surface-dialog {
+      scale: none;
+    }
+  }
+}

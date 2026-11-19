@@ -13,7 +13,7 @@ import { Grain } from "../components/shell/Grain";
 import { Fade } from "../components/shell/Vignette";
 import { HistoryTracker } from "../providers/breadcrumbs";
 import { Fuck_you_safari_for_taking_my_fullscreen_overlays_I_guess_Im_stuck_rendering_solids_behind_your_liquid_ass } from "../../components/force-solid-backdrop-under-safari-liquid-glass-url-and-topbar";
-import { PortalStoreProvider } from "../../components/ui/Portal";
+import { PortalStoreProvider } from "./library/portals/-portal";
 import { Toolbox } from "../../components/toolbox";
 
 export const Route = createRootRoute({
@@ -27,7 +27,7 @@ export const Route = createRootRoute({
       },
       {
         name: "theme-color",
-        content: "var(--color-gray-01)",
+        content: "var(--color-canvas)",
       },
       { title: "Igor Bedesqui" },
       {
@@ -77,14 +77,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      className="bg-gray-00 text-gray-11 min-h-lvh overflow-auto antialiased smooth-scroll"
+      className="bg-canvas min-h-lvh overflow-auto antialiased scroll-smooth"
     >
       <head>
         <link rel="preload" href={css} as="style" />
         <link rel="stylesheet" href={css} />
         <HeadContent />
       </head>
-      <body className="font-serif leading-normal relative">
+      <body className="ak-layer ak-layer-canvas ak-ink-60 dark:ak-ink-70 font-serif leading-normal relative">
         <PortalStoreProvider>
           <HistoryTracker />
           <Fuck_you_safari_for_taking_my_fullscreen_overlays_I_guess_Im_stuck_rendering_solids_behind_your_liquid_ass />
@@ -123,9 +123,9 @@ export function RootError({ error }: ErrorComponentProps) {
 
   return (
     <div className="flex min-h-lvh items-center justify-center p-8">
-      <div className="max-w-md text-center">
+      <div className="ak-frame ak-frame-card/card max-w-md text-center">
         <h1 className="text-2xl font-bold">Something went wrong</h1>
-        <p className="text-gray-09 mt-2">
+        <p className="ak-ink-60 mt-2">
           {error instanceof Error ? error.message : String(error)}
           <br />
           How did you get here...?

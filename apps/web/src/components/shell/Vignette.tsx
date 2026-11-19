@@ -47,7 +47,7 @@ export const Fade = ({
     <div
       className={cn(
         "pointer-events-none select-none",
-        "from-transparent to-gray-01 fixed z-vignette",
+        "from-transparent to-(--ak-layer) fixed z-vignette",
         orientation_of_dir[direction] === "vertical" && "w-full",
         orientation_of_dir[direction] === "horizontal" && "h-full",
         direction === "top" && "bg-linear-to-t",

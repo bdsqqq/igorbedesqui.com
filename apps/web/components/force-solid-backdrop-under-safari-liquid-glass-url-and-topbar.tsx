@@ -48,7 +48,7 @@ export function Fuck_you_safari_for_taking_my_fullscreen_overlays_I_guess_Im_stu
           right: 0,
           bottom: 0,
           height: "4px",
-          background: "var(--color-gray-01)",
+          background: "var(--color-canvas)",
           pointerEvents: "none",
 
           zIndex: 999,
@@ -61,7 +61,7 @@ export function Fuck_you_safari_for_taking_my_fullscreen_overlays_I_guess_Im_stu
           right: 0,
           top: 0,
           height: "5px",
-          background: "var(--color-gray-01)",
+          background: "var(--color-canvas)",
           pointerEvents: "none",
           zIndex: 999,
         }}

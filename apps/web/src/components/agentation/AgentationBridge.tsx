@@ -7,7 +7,9 @@ const AGENTATION_SERVER = "http://127.0.0.1:4748";
 const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 
 const Streamdown = React.lazy(() =>
-  import("streamdown").then(({ Streamdown: Component }) => ({ default: Component })),
+  import("streamdown").then(({ Streamdown: Component }) => ({
+    default: Component,
+  })),
 );
 
 type ProgressStatus = "queued" | "running" | "completed" | "failed";
@@ -44,7 +46,8 @@ function updateProgress(
   for (const annotationId of event.annotationIds) {
     const progress = next.get(annotationId);
     if (!progress) continue;
-    if (event.type !== "batch.queued" && progress.batchId !== event.batchId) continue;
+    if (event.type !== "batch.queued" && progress.batchId !== event.batchId)
+      continue;
 
     switch (event.type) {
       case "batch.queued":
@@ -56,7 +59,11 @@ function updateProgress(
         });
         break;
       case "child.started":
-        next.set(annotationId, { ...progress, status: "running", statusText: "Working" });
+        next.set(annotationId, {
+          ...progress,
+          status: "running",
+          statusText: "Working",
+        });
         break;
       case "tool.started":
         next.set(annotationId, {
@@ -94,7 +101,13 @@ function updateProgress(
   return next;
 }
 
-function ProgressCard({ progress, spinner }: { progress: AnnotationProgress; spinner: string }) {
+function ProgressCard({
+  progress,
+  spinner,
+}: {
+  progress: AnnotationProgress;
+  spinner: string;
+}) {
   const { annotation, markdown, status, statusText } = progress;
   const isStreaming = status === "queued" || status === "running";
   const placeLeft = annotation.x > 65;
@@ -102,7 +115,7 @@ function ProgressCard({ progress, spinner }: { progress: AnnotationProgress; spi
   return (
     <aside
       aria-live="polite"
-      className="agentation-progress-card pointer-events-none w-72 max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl border border-gray-A04 bg-gray-01/95 text-gray-12 shadow-2xl backdrop-blur-xl"
+      className="agentation-progress-card pointer-events-none w-72 max-w-[calc(100vw-2rem)] overflow-hidden ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px ak-edge-15 shadow-2xl backdrop-blur-xl"
       style={{
         left: `${annotation.x}%`,
         position: annotation.isFixed ? "fixed" : "absolute",
@@ -113,15 +126,21 @@ function ProgressCard({ progress, spinner }: { progress: AnnotationProgress; spi
         zIndex: 2_147_483_646,
       }}
     >
-      <div className="flex items-center gap-2 border-b border-gray-A03 px-3 py-2 font-mono text-[11px] text-gray-10">
-        <span className={status === "failed" ? "text-red-500" : "text-gray-12"}>
+      <div className="flex items-center gap-2 border-b border-(--ak-edge) px-3 py-2 font-mono text-[11px] ak-ink-70">
+        <span
+          className={
+            status === "failed" ? "ak-text ak-text-danger" : "ak-ink-100"
+          }
+        >
           {isStreaming ? spinner : status === "completed" ? "✓" : "×"}
         </span>
         <span>{statusText}</span>
       </div>
       {markdown ? (
         <div className="max-h-56 overflow-auto px-3 py-2 text-xs leading-relaxed">
-          <React.Suspense fallback={<p className="whitespace-pre-wrap">{markdown}</p>}>
+          <React.Suspense
+            fallback={<p className="whitespace-pre-wrap">{markdown}</p>}
+          >
             <Streamdown
               animated
               className="[&_p]:my-1 [&_pre]:max-w-full [&_pre]:overflow-auto"
@@ -137,7 +156,11 @@ function ProgressCard({ progress, spinner }: { progress: AnnotationProgress; spi
   );
 }
 
-function ProgressLayer({ progress }: { progress: Map<string, AnnotationProgress> }) {
+function ProgressLayer({
+  progress,
+}: {
+  progress: Map<string, AnnotationProgress>;
+}) {
   const [frame, setFrame] = React.useState(0);
   const isStreaming = [...progress.values()].some(
     ({ status }) => status === "queued" || status === "running",
@@ -172,14 +195,16 @@ export function AgentationBridge() {
   const [isReady, setIsReady] = React.useState(false);
   const [clientId] = React.useState(() => crypto.randomUUID());
   const pendingTimers = React.useRef(new Map<string, number>());
-  const [progress, setProgress] = React.useState<Map<string, AnnotationProgress>>(
-    () => new Map(),
-  );
+  const [progress, setProgress] = React.useState<
+    Map<string, AnnotationProgress>
+  >(() => new Map());
 
   React.useEffect(() => {
     try {
       const stored = localStorage.getItem(AGENTATION_SETTINGS_KEY);
-      const settings = stored ? (JSON.parse(stored) as Record<string, unknown>) : {};
+      const settings = stored
+        ? (JSON.parse(stored) as Record<string, unknown>)
+        : {};
       localStorage.setItem(
         AGENTATION_SETTINGS_KEY,
         JSON.stringify({
@@ -202,7 +227,9 @@ export function AgentationBridge() {
 
   React.useEffect(() => {
     const timers = pendingTimers.current;
-    const events = new EventSource(`${AGENTATION_SERVER}/events?clientId=${clientId}`);
+    const events = new EventSource(
+      `${AGENTATION_SERVER}/events?clientId=${clientId}`,
+    );
     events.onmessage = ({ data }) => {
       try {
         const event = JSON.parse(data) as ProgressEvent;
@@ -252,41 +279,45 @@ export function AgentationBridge() {
     });
   }, []);
 
-  const submitAnnotations = React.useCallback((_output: string, annotations: Annotation[]) => {
-    setProgress((current) => {
-      const next = new Map(current);
-      for (const annotation of annotations) {
-        const previousTimer = pendingTimers.current.get(annotation.id);
-        if (previousTimer !== undefined) window.clearTimeout(previousTimer);
-        pendingTimers.current.set(
-          annotation.id,
-          window.setTimeout(() => {
-            setProgress((latest) => {
-              const item = latest.get(annotation.id);
-              if (!item || item.batchId !== undefined) return latest;
-              const failed = new Map(latest);
-              failed.set(annotation.id, {
-                ...item,
-                markdown: "**Failed:** The Agentation coordinator is unavailable.",
-                status: "failed",
-                statusText: "Failed",
+  const submitAnnotations = React.useCallback(
+    (_output: string, annotations: Annotation[]) => {
+      setProgress((current) => {
+        const next = new Map(current);
+        for (const annotation of annotations) {
+          const previousTimer = pendingTimers.current.get(annotation.id);
+          if (previousTimer !== undefined) window.clearTimeout(previousTimer);
+          pendingTimers.current.set(
+            annotation.id,
+            window.setTimeout(() => {
+              setProgress((latest) => {
+                const item = latest.get(annotation.id);
+                if (!item || item.batchId !== undefined) return latest;
+                const failed = new Map(latest);
+                failed.set(annotation.id, {
+                  ...item,
+                  markdown:
+                    "**Failed:** The Agentation coordinator is unavailable.",
+                  status: "failed",
+                  statusText: "Failed",
+                });
+                return failed;
               });
-              return failed;
-            });
-            pendingTimers.current.delete(annotation.id);
-          }, 5_000),
-        );
-        next.set(annotation.id, {
-          annotation,
-          batchId: undefined,
-          markdown: "",
-          status: "queued",
-          statusText: "Sending",
-        });
-      }
-      return next;
-    });
-  }, []);
+              pendingTimers.current.delete(annotation.id);
+            }, 5_000),
+          );
+          next.set(annotation.id, {
+            annotation,
+            batchId: undefined,
+            markdown: "",
+            status: "queued",
+            statusText: "Sending",
+          });
+        }
+        return next;
+      });
+    },
+    [],
+  );
 
   return isReady ? (
     <>

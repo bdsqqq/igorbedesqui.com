@@ -1,11 +1,8 @@
+"use client";
+
 import { cn } from "@/lib/styling";
-import {
-  Children,
-  isValidElement,
-  type PropsWithChildren,
-  type Ref,
-} from "react";
-import * as Slot from "@radix-ui/react-slot";
+import { Children, isValidElement, type Ref } from "react";
+import { Role } from "@ariakit/react";
 
 /**
  * @see https://html.spec.whatwg.org/multipage/syntax.html#void-elements
@@ -29,21 +26,27 @@ const VOID_ELEMENTS = [
 const MANUALLY_ADDED_ELEMENTS_THAT_BEHAVE_LIKE_VOID = ["video"];
 
 export const shadowBorderStyles =
-  "relative after:pointer-events-none after:absolute after:inset-0 after:block after:rounded-inherit after:shadow-[0px_0px_0px_1px_inset_--tw-shadow-color] after:shadow-gray-A05";
+  "relative ak-frame [:where(&)]:ak-frame-border [:where(&)]:-ak-frame-m-px";
 
-export type BorderProps = PropsWithChildren<{
-  className?: string;
-  asWrapper?: boolean;
+const wrapperStyles =
+  "block ak-layer ak-layer-darken-2 [:where(&)]:ak-frame-card/0 [&>img]:ak-frame [&>video]:ak-frame";
+
+export type BorderProps = Omit<
+  React.ComponentPropsWithRef<"span">,
+  "children" | "ref"
+> & {
   ref?: Ref<HTMLElement>;
-}>;
+} & (
+    | { asWrapper: true; children: React.ReactNode }
+    | { asWrapper?: false; children: React.ReactElement }
+  );
 
 /**
- * Nice gradient borders around elements.
+ * Adds a single frame edge to a child or its media wrapper.
  *
- * This relies on the :after pseudo-element
- * any void element (elements that can't contain children
- * eg: img, video, inputs, other self-closing elements)
- * should use the `asWrapper` prop to render a helper div.
+ * A negative frame margin places the physical border outside the content grid.
+ * Wrappers have no bed inset; nested media derive their radius from the frame.
+ * Zero-specificity defaults let canonical caller utilities override the geometry.
  *
  * This component will try to automatically detect if the child is a void element,
  * but it's not perfect, so it's recommended to explicitly set `asWrapper` to true
@@ -56,10 +59,21 @@ export function Border({
   ref,
   ...rest
 }: BorderProps) {
+  if (asWrapper) {
+    return (
+      <span
+        className={cn(shadowBorderStyles, wrapperStyles, className)}
+        ref={ref}
+        {...rest}
+      >
+        {children}
+      </span>
+    );
+  }
+
   if (children === undefined || children === null) {
     console.error("Border must have a child");
     throw new Error("Border must have a child");
-    return null;
   }
 
   if (
@@ -70,7 +84,6 @@ export function Border({
   ) {
     console.error("Border's child must be a single React element");
     throw new Error("Border's child must be a single React element");
-    return null;
   }
 
   const child = Children.only(children) as React.ReactElement;
@@ -96,7 +109,7 @@ export function Border({
       );
       return (
         <span
-          className={cn("block", shadowBorderStyles, className)}
+          className={cn(shadowBorderStyles, wrapperStyles, className)}
           ref={ref}
           {...rest}
         >
@@ -106,24 +119,12 @@ export function Border({
     }
   }
 
-  if (asWrapper)
-    return (
-      <span
-        className={cn("block", shadowBorderStyles, className)}
-        ref={ref}
-        {...rest}
-      >
-        {children}
-      </span>
-    );
-
   return (
-    <Slot.Root
+    <Role.span
       className={cn(shadowBorderStyles, className)}
       ref={ref}
       {...rest}
-    >
-      {children}
-    </Slot.Root>
+      render={child}
+    />
   );
 }

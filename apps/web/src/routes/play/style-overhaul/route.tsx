@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import Container from "@/components/Container";
-import { Button } from "@/components/ui/Button";
+import { Button } from "~/routes/library/button/-button";
 import {
   Popover,
   PopoverTrigger,
@@ -37,9 +38,12 @@ function StyleOverhaulPlayPage() {
   );
 }
 
+const page = {
+  name: "Style overhaul",
+};
+
 export const Route = createFileRoute("/play/style-overhaul")({
   component: StyleOverhaulPlayPage,
-  head: () => ({
-    meta: [{ title: "Style overhaul — Play — Igor Bedesqui" }],
-  }),
+  staticData: { page },
+  head: () => pageHead(page, "Play"),
 });

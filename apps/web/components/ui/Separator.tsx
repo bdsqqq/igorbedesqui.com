@@ -1,31 +1,34 @@
-"use client";
-// Radix separator has an useEffect for some reason??
-
-import * as React from "react";
-import * as SeparatorPrimitive from "@radix-ui/react-separator";
+import type * as React from "react";
+import { Role } from "@ariakit/react";
 import { cn } from "@/lib/styling";
 
 function Separator({
   className,
   orientation = "horizontal",
   decorative = true,
-  ref,
+  asChild,
+  children,
   ...props
-}: React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> & {
-  ref?: React.Ref<React.ElementRef<typeof SeparatorPrimitive.Root>>;
+}: React.ComponentProps<"div"> & {
+  orientation?: "horizontal" | "vertical";
+  decorative?: boolean;
+  asChild?: boolean;
 }) {
   return (
-    <SeparatorPrimitive.Root
-      ref={ref}
-      decorative={decorative}
-      orientation={orientation}
+    <Role
+      role={decorative ? "none" : "separator"}
+      aria-orientation={decorative ? undefined : orientation}
+      data-orientation={orientation}
       className={cn(
-        "bg-gray-04",
-        orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
+        "shrink-0 bg-(--ak-edge)",
+        orientation === "horizontal" ? "h-px w-full" : "h-full w-px",
         className,
       )}
       {...props}
-    />
+      render={asChild ? (children as React.ReactElement) : undefined}
+    >
+      {asChild ? undefined : children}
+    </Role>
   );
 }
 

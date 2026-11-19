@@ -1,9 +1,14 @@
+"use client";
+
+import { Role } from "@ariakit/react";
 import { Link } from "@tanstack/react-router";
 import type { ComponentPropsWithoutRef, Ref } from "react";
 
 export type UnstyledLinkProps = ComponentPropsWithoutRef<"a"> & {
   href: string;
   ref?: Ref<HTMLAnchorElement>;
+  /** Supplying a host keeps routing with the caller, even for local hrefs. */
+  render?: React.ComponentProps<typeof Role.a>["render"];
 };
 
 function UnstyledLink({
@@ -11,29 +16,36 @@ function UnstyledLink({
   href,
   children,
   ref,
+  render,
   ...rest
 }: UnstyledLinkProps) {
   const isInternalRoute = href.startsWith("/");
   const isHashLink = href.startsWith("#");
 
-  if (isInternalRoute) {
+  if (isInternalRoute && render === undefined) {
     return (
-      <Link ref={ref} to={href} className={className} {...rest}>
+      <Role.a
+        ref={ref}
+        render={<Link to={href} />}
+        className={className}
+        {...rest}
+      >
         {children}
-      </Link>
+      </Role.a>
     );
   }
 
   return (
-    <a
+    <Role.a
       ref={ref}
       className={className}
       href={href}
-      {...(!isHashLink && { target: "_blank" })}
+      render={render}
+      {...(!isInternalRoute && !isHashLink && { target: "_blank" })}
       {...rest}
     >
       {children}
-    </a>
+    </Role.a>
   );
 }
 UnstyledLink.displayName = "UnstyledLink";

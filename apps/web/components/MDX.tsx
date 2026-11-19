@@ -27,12 +27,14 @@ function Table({
   ));
 
   return (
-    <table>
-      <thead>
-        <tr>{headers}</tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
+    <div className="overflow-x-auto">
+      <table className="w-full [&_th]:px-2 [&_th]:py-1 [&_td]:px-2 [&_td]:py-1 [&_tbody_tr]:border-t [&_tbody_tr]:border-(--ak-edge) [&_th]:text-start">
+        <thead>
+          <tr>{headers}</tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
   );
 }
 
@@ -48,7 +50,7 @@ function Code({
     <code
       dangerouslySetInnerHTML={{ __html: codeHTML }}
       className={cn(
-        "rounded border-gray-06 bg-gray-02 font-mono [&:not(pre_*)]:border [&:not(pre_*)]:px-1 [&:not(pre_*)]:py-0.5",
+        "syntax-code font-mono [&:not(pre_*)]:ak-layer [&:not(pre_*)]:ak-layer-darken-2 [&:not(pre_*)]:ak-frame [&:not(pre_*)]:ak-frame-field/0.5 [&:not(pre_*)]:px-1",
         className,
       )}
       {...props}
@@ -94,12 +96,12 @@ const defaultComponents = {
   h5: createHeading(5),
   h6: createHeading(6),
   strong: (props: HTMLProps<HTMLElement>) => (
-    <strong className="font-bold text-gray-12" {...props} />
+    <strong className="font-bold ak-ink-90 dark:ak-ink-95" {...props} />
   ),
   pre: ({ children, className, ...passthrough }: HTMLProps<HTMLPreElement>) => (
     <pre
       className={cn(
-        "relative -mx-4 my-2 overflow-x-auto rounded-sm bg-gray-02 p-4 text-sm",
+        "relative -mx-4 my-2 overflow-x-auto p-4 text-sm",
         className,
       )}
       {...passthrough}
@@ -109,7 +111,7 @@ const defaultComponents = {
   ),
   img: (props: HTMLProps<HTMLImageElement>) => (
     // eslint-disable-next-line jsx-a11y/alt-text
-    <img className="-mx-4 rounded-sm" {...props} />
+    <img className="ak-frame ak-frame-card/0 -mx-4" {...props} />
   ),
   a: (props: HTMLProps<HTMLAnchorElement>) => <a {...props} />,
   code: Code,

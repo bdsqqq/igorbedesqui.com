@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import HeroBand from "@/components/HeroBand";
 import CodeAndDemoButtons from "@/components/ProjectStuff/CodeAndDemoButtons";
 import ProjectContainer from "@/components/ProjectStuff/ProjectContainer";
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/Popover";
 import type { Meta } from "@/components/ProjectStuff/Projects";
 import { MDX } from "@/components/MDX";
+import { Border } from "@/components/ui/Border";
 import { Image } from "@/components/ui/Image";
 
 import noodles_webm from "./-noodles.webm";
@@ -70,7 +72,7 @@ function BebopWorkPage() {
 
       <ProjectLayout projMeta={bebopMeta} nextProjMeta={nextFromBebop}>
         <ProjectBand options={{ padding: "none" }} gridless id="update">
-          <h2 className="mb-2 text-xl font-bold uppercase text-gray-11">
+          <h2 className="mb-2 text-xl font-bold uppercase ak-ink-60 dark:ak-ink-70">
             Update
           </h2>
           <MDX>
@@ -133,18 +135,22 @@ function BebopWorkPage() {
           </MDX>
           <div className="my-1 grid min-h-0 grid-cols-4 items-center gap-2">
             <div className="col-start-1 col-end-2">
-              <Image
-                className="border-gray-03 relative z-31 overflow-hidden rounded-sm border"
-                src={smartphoneScreenshot}
-                alt=""
-              />
+              <Border asWrapper className="relative z-31">
+                <Image
+                  className="ak-frame w-full"
+                  src={smartphoneScreenshot}
+                  alt=""
+                />
+              </Border>
             </div>
             <div className="col-start-2 col-end-5">
-              <Image
-                className="border-gray-03 relative z-31 overflow-hidden rounded-sm border"
-                src={desktopScreenshot}
-                alt=""
-              />
+              <Border asWrapper className="relative z-31">
+                <Image
+                  className="ak-frame w-full"
+                  src={desktopScreenshot}
+                  alt=""
+                />
+              </Border>
             </div>
           </div>
           <MDX>
@@ -160,15 +166,10 @@ function BebopWorkPage() {
   );
 }
 
+const page = { ...bebopMeta, order: 30 };
+
 export const Route = createFileRoute("/work/bebop")({
   component: BebopWorkPage,
-  head: () => ({
-    meta: [
-      { title: `${bebopMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: bebopMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });

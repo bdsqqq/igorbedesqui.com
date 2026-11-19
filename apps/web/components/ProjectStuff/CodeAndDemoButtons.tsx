@@ -31,5 +31,5 @@ const CodeAndDemoButtons = ({
 export default CodeAndDemoButtons;
 
 import { UnstyledLink } from "@/components/ui/primitives";
-import { Button } from "@/ui/Button";
+import { Button } from "~/routes/library/button/-button";
 import { GitHubLogoIcon, ImageIcon } from "@radix-ui/react-icons";

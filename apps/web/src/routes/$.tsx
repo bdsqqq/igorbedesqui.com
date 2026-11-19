@@ -24,7 +24,8 @@ export const Route = createFileRoute("/$")({
           { title: "Site language — Igor Bedesqui" },
           {
             name: "description",
-            content: "The recurring visual patterns that make igorbedesqui.com distinct.",
+            content:
+              "The recurring visual patterns that make igorbedesqui.com distinct.",
           },
         ]
       : [
@@ -47,7 +48,7 @@ function NotFound() {
   return (
     <Container backable>
       <HeroBand heroVideo={{ webm: zoro_webm, mp4: zoro_mp4 }}>
-        <span className="text-gray-12">404</span>
+        <span className="ak-ink-90 dark:ak-ink-95">404</span>
         <br />
         how did you get here...?
         <br />

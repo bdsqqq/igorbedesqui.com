@@ -1,15 +1,15 @@
 import { cn } from "@/lib/styling";
 import type { HTMLProps } from "react";
-import { shadowBorderStyles } from "./ui/Border";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const stageVariants = cva("", {
   variants: {
     border: {
-      true: shadowBorderStyles,
+      true: "ak-frame-border -ak-frame-m-px h-[calc(100%+2px)]",
     },
     rounded: {
-      true: "rounded-md",
+      true: "ak-frame-card",
+      false: "ak-frame-force ak-frame-rounded-none",
     },
   },
   defaultVariants: {
@@ -31,22 +31,21 @@ export const Stage = ({
   ...rest
 }: { options?: {} & StageVariants } & HTMLProps<HTMLDivElement>) => {
   return (
-    <div className="relative isolate">
+    <div
+      className={cn(
+        "ak-layer ak-layer-darken-2 ak-frame ak-frame-p-card relative isolate flex h-full min-w-0 flex-col overflow-visible",
+        stageVariants({ ...options }),
+        className,
+      )}
+      {...rest}
+    >
+      {title && (
+        <div className="ak-frame ak-frame-cover ak-frame-start px-4 py-1 text-xs ak-ink-60">
+          {title}
+        </div>
+      )}
       <div
-        className={cn(
-          "text-gray-09 bg-gray-00 absolute -top-3 left-4 z-10 whitespace-nowrap px-0.5 text-center text-xs",
-          title ? "block" : "hidden",
-        )}
-      >
-        {title}
-      </div>
-      <div
-        className={cn(
-          "relative grid h-full w-full place-items-center overflow-visible p-4",
-          stageVariants({ ...options }),
-          className,
-        )}
-        {...rest}
+        className={cn("grid w-full flex-1 place-items-center", title && "pt-4")}
       >
         {children}
       </div>

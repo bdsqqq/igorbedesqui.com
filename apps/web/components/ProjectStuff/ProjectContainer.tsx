@@ -1,9 +1,20 @@
 function ProjectContainer({
   children,
   backMessage,
-}: React.PropsWithChildren<{ backMessage?: string }>) {
+  backAnchor = "/work",
+  ...props
+}: React.ComponentPropsWithRef<"div"> &
+  Pick<ContainerProps, "mainProps" | "footer"> & {
+    backMessage?: string;
+    backAnchor?: string;
+  }) {
   return (
-    <Container backable backAnchor="/work" backMessage={backMessage}>
+    <Container
+      backable
+      backAnchor={backAnchor}
+      backMessage={backMessage}
+      {...props}
+    >
       {children}
     </Container>
   );
@@ -11,4 +22,4 @@ function ProjectContainer({
 
 export default ProjectContainer;
 
-import Container from "@/components/Container";
+import Container, { type ContainerProps } from "@/components/Container";

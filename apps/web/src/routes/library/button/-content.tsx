@@ -6,7 +6,7 @@ import {
   buttonPermutations,
   Button,
   ButtonGroup,
-} from "@/components/ui/Button";
+} from "~/routes/library/button/-button";
 import { grid, subGrid } from "@/components/ui/Grid";
 import { UnstyledLink } from "@/components/ui/primitives";
 import { cn } from "@/lib/styling";
@@ -18,7 +18,14 @@ import {
   TextAlignLeftIcon,
   TextAlignRightIcon,
 } from "@radix-ui/react-icons";
-import * as ToggleGroup from "@radix-ui/react-toggle-group";
+import {
+  CheckboxProvider,
+  Composite,
+  CompositeItem,
+  CompositeProvider,
+  useCheckboxContext,
+  useStoreState,
+} from "@ariakit/react";
 import { isValidElement } from "react";
 import jsxToString from "react-element-to-jsx-string";
 
@@ -228,6 +235,34 @@ A \`Button\` is usually the first component you'll create, and the one your user
   );
 }
 
+function AlignmentToggle({
+  value,
+  icon,
+  className,
+}: {
+  value: string;
+  icon: React.ReactNode;
+  className?: string;
+  "data-display-name"?: string;
+}) {
+  const store = useCheckboxContext();
+  const selected = useStoreState(store, (state) => state?.value === value);
+
+  return (
+    <CompositeItem
+      className={className}
+      render={
+        <Button
+          aria-pressed={selected}
+          aria-label={`Align ${value}`}
+          icon={icon}
+          onClick={() => store?.setValue(selected ? false : value)}
+        />
+      }
+    />
+  );
+}
+
 const usages = [
   {
     title: "As a button",
@@ -251,58 +286,54 @@ const usages = [
     description:
       "By composing primitives, you can extend behaviour. For example, a group of toggle buttons where only one can be active simultaneously.",
     code: (
-      <ToggleGroup.Root
-        data-display-name="ToggleGroup"
-        type="single"
-        defaultValue="left"
-        asChild
+      <CompositeProvider
+        data-display-name="CompositeProvider"
+        orientation="horizontal"
+        focusLoop
       >
-        <ButtonGroup data-display-name="ButtonGroup" orientation="horizontal">
-          <ToggleGroup.Item
-            data-display-name="ToggleGroupItem"
-            value="left"
-            asChild
+        <CheckboxProvider
+          data-display-name="CheckboxProvider"
+          defaultValue="left"
+        >
+          <Composite
+            data-display-name="Composite"
+            role="group"
+            aria-label="Text alignment"
+            render={<ButtonGroup data-display-name="ButtonGroup" />}
           >
-            <Button
-              data-display-name="Button"
+            <AlignmentToggle
+              data-display-name="AlignmentToggle"
+              value="left"
               icon={<TextAlignLeftIcon data-display-name="TextAlignLeftIcon" />}
             />
-          </ToggleGroup.Item>
-          <ToggleGroup.Item
-            data-display-name="ToggleGroupItem"
-            value="center"
-            asChild
-          >
-            <Button
-              data-display-name="Button"
+            <AlignmentToggle
+              data-display-name="AlignmentToggle"
+              value="center"
               icon={
                 <TextAlignCenterIcon data-display-name="TextAlignCenterIcon" />
               }
             />
-          </ToggleGroup.Item>
-          <ToggleGroup.Item
-            data-display-name="ToggleGroupItem"
-            value="right"
-            asChild
-          >
-            <Button
-              data-display-name="Button"
+            <AlignmentToggle
+              data-display-name="AlignmentToggle"
+              value="right"
               icon={
                 <TextAlignRightIcon data-display-name="TextAlignRightIcon" />
               }
             />
-          </ToggleGroup.Item>
-        </ButtonGroup>
-      </ToggleGroup.Root>
+          </Composite>
+        </CheckboxProvider>
+      </CompositeProvider>
     ),
   },
 ];
 
 const ButtonPermutations = () => {
   return (
-    <div className="flex items-center gap-6">
-      <div className="max-w-sm">
-        <pre className="">{JSON.stringify(buttonPermutations, null, 2)}</pre>
+    <div className="flex min-w-0 flex-wrap items-center gap-6">
+      <div className="min-w-0 max-w-full">
+        <pre className="ak-layer ak-layer-darken-3 ak-frame ak-frame-card/2 overflow-x-auto text-sm">
+          {JSON.stringify(buttonPermutations, null, 2)}
+        </pre>
       </div>
       <div className="h-4 w-4 text-base">
         <ArrowRightIcon />

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/route-catalog";
 import { createServerFn } from "@tanstack/react-start";
 import { renderServerComponent } from "@tanstack/react-start/rsc";
 import { MDX } from "@/components/MDX";
@@ -17,18 +18,13 @@ const getDontBelieve = createServerFn({ method: "GET" }).handler(() =>
   renderServerComponent(<DontBelieveContent />),
 );
 
+const page = { ...dontBelieveMeta, order: 50 };
+
 export const Route = createFileRoute("/writing/dont-believe-in-yourself")({
   loader: () => getDontBelieve(),
   component: DontBelieveRoute,
-  head: () => ({
-    meta: [
-      { title: `${dontBelieveMeta.name} — Igor Bedesqui` },
-      {
-        name: "description",
-        content: dontBelieveMeta.description,
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });
 
 function DontBelieveRoute() {
@@ -39,24 +35,24 @@ function DontBelieveContent() {
   return (
     <>
       <MDX
-              components={{
-                Blur: (props) => (
-                  <Blur className="cursor-not-allowed" {...props} />
-                  // https://twitter.com/MarcosNASAG/status/1656626373534916608?s=20
-                ),
-                blockquote: (props) => (
-                  <blockquote
-                    className="-indent-4 text-3xl text-gray-12 sm:-indent-6 sm:text-5xl"
-                    {...props}
-                  />
-                ),
-                strong: (props) => <span className="text-gray-12" {...props} />,
-                em: (props) => (
-                  <em className="italic text-gray-10" {...props} />
-                ),
-              }}
-            >
-              {`
+        components={{
+          Blur: (props) => (
+            <Blur className="cursor-not-allowed" {...props} />
+            // https://twitter.com/MarcosNASAG/status/1656626373534916608?s=20
+          ),
+          blockquote: (props) => (
+            <blockquote
+              className="-indent-4 text-3xl ak-ink-90 dark:ak-ink-95 sm:-indent-6 sm:text-5xl"
+              {...props}
+            />
+          ),
+          strong: (props) => (
+            <span className="ak-ink-90 dark:ak-ink-95" {...props} />
+          ),
+          em: (props) => <em className="italic ak-ink-70" {...props} />,
+        }}
+      >
+        {`
                > "Don't believe in yourself. Believe in the me that believes in you"
                
                Is a cheesy quote from an over the top animation that had way too much of an impact on me recently. 
@@ -71,7 +67,7 @@ function DontBelieveContent() {
                <br />
                I'll eventually outgrow this, but right now, I'm happy to use such amazing people as facades that enable trust in myself, even if indirectly.
             `}
-            </MDX>
+      </MDX>
     </>
   );
 }

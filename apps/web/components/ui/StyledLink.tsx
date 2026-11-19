@@ -1,4 +1,4 @@
-interface StyledLinkProps extends ComponentPropsWithoutRef<"a"> {
+export interface StyledLinkProps extends ComponentProps<typeof UnstyledLink> {
   href: string;
   icon?: ReactNode;
   iconless?: boolean;
@@ -29,7 +29,7 @@ function StyledLinkWithIcon({
     <UnstyledLink
       className={cn(
         cva(
-          "cursor-pointer underline underline-offset-2 focus-within:text-gray-12 hover:text-gray-12 motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard",
+          "cursor-pointer underline underline-offset-2 [:where(&)]:text-inherit hover:ak-ink-100 focus-visible:ak-ink-100 focus-visible:ak-outline focus-visible:ak-outline-primary focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard",
           {
             variants: {
               bold: {
@@ -62,4 +62,4 @@ import { UnstyledLink } from "@/ui/primitives";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/styling";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";

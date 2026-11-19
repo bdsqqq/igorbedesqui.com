@@ -1,103 +1,67 @@
 "use client";
 
+import { useState } from "react";
+import { grid } from "@/components/ui/Grid";
+import { Button } from "~/routes/library/button/-button";
+import { GridIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/styling";
+import { ToolboxItem } from "@/components/toolbox";
+
+/** This diagnostic must remain see-through; derive transparent paint from ink,
+ * rather than opening opaque layers over the content being inspected. */
 export const Overlay = () => {
-  const [mode, setMode] = useState<"wide" | "narrow" | "condensed">("narrow");
-  const [visible, setVisible] = useState<boolean>(false);
-
-  const setVisibleCallback = useCallback(() => {
-    setVisible((v) => !v);
-  }, []);
-
+  const [visible, setVisible] = useState(false);
   return (
     <>
       <ToolboxItem name="grid-overlay">
         <Button
           aria-pressed={visible}
           aria-label="toggle grid overlay"
-          // onClick={setVisibleCallback}
-          onClick={() => {
-            setVisible((v) => !v);
-          }}
+          className="ak-frame-join-item"
+          onClick={() => setVisible((value) => !value)}
           icon={<GridIcon />}
         />
       </ToolboxItem>
-
       <div
+        aria-hidden="true"
         className={cn(
-          !visible ? "opacity-0" : "opacity-100",
-          "pointer-events-none absolute inset-0 z-50 bg-gray-A01 transition-opacity duration-fast-01 ease-productive-standard",
+          visible ? "opacity-100" : "opacity-0",
+          "pointer-events-none absolute inset-0 z-50 transition-opacity duration-fast-01 ease-productive-standard",
         )}
+        style={{
+          backgroundColor:
+            "color-mix(in oklab, var(--ak-text) 1%, transparent)",
+        }}
       >
         <div
-          className={cn(grid({ mode: mode }), "h-full w-full px-4 md:px-16")}
+          className={cn(
+            grid({ mode: "narrow" }),
+            "h-full w-full px-4 md:px-16",
+          )}
         >
-          <GridColumns />
+          {Array.from({ length: 16 }, (_, index) => (
+            <div
+              key={index}
+              className={cn(
+                "hidden border-x",
+                index < 4 && "block",
+                index < 8 && "md:block",
+                index < 16 && "lg:block",
+              )}
+              style={{
+                borderColor:
+                  "color-mix(in oklab, var(--ak-text) 8%, transparent)",
+                backgroundColor:
+                  "color-mix(in oklab, var(--ak-text) 4%, transparent)",
+              }}
+            >
+              <div className="relative h-full w-full text-center ak-ink-70">
+                <div className="sticky inset-x-0 top-4">{index + 1}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-
-      {/* Subtle grid overlay visible at all times */}
-      {/* <div className={cn("pointer-events-none absolute inset-0")}>
-        <div
-          className={cn(grid({ mode: mode }), "h-full w-full px-4 md:px-16")}
-        >
-          {[...Array(16)].map((_, i) => {
-            return (
-              <div
-                key={`${i}-always_visible`}
-                className={cn(
-                  "hidden border-l border-dashed border-gray-A01",
-                  i < 4 && "block",
-                  i + 1 == 4 && "border-r md:border-r-0",
-                  i < 8 && "md:block",
-                  i + 1 == 8 && "md:border-r lg:border-r-0",
-                  i < 16 && "lg:block",
-                  i + 1 == 16 && "lg:border-r"
-                )}
-              >
-                <div className="relative h-full w-full border-x border-dashed border-gray-A02" />
-              </div>
-            );
-          })}
-        </div>
-      </div> */}
     </>
   );
 };
-
-const GridColumns = () => {
-  return (
-    <>
-      {[...Array(16)].map((_, i) => {
-        return (
-          <div
-            key={i}
-            className={cn(
-              "hidden border-x border-gray-A03 bg-gray-A02",
-              i < 4 && "block",
-              i < 8 && "md:block",
-              i < 16 && "lg:block",
-            )}
-          >
-            <div className="relative h-full w-full bg-gray-A02 text-center text-gray-10">
-              <div className="sticky left-0 right-0 top-4">{i + 1}</div>
-            </div>
-          </div>
-        );
-      })}
-    </>
-  );
-};
-
-import { grid } from "@/components/ui/Grid";
-
-import { useState, Fragment, useCallback } from "react";
-import { Button } from "@/ui/Button";
-import { GridIcon, MixerHorizontalIcon } from "@radix-ui/react-icons";
-import { cn } from "@/lib/styling";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/Popover";
-import { OutPortal } from "@/components/ui/Portal";
-import { ToolboxItem } from "@/components/toolbox";

@@ -1,5 +1,4 @@
-import { cn } from "@/lib/styling";
-import { usePortalStore } from "@/components/ui/Portal";
+import { usePortalStore } from "~/routes/library/portals/-portal";
 
 /**
  * Keeps track of the name and type of rendered portals.
@@ -12,18 +11,18 @@ export function PortalDevtools() {
   const outPortals = Array.from(outPortalsMap.values());
 
   return (
-    <div>
-      <h2>Portals</h2>
-      <div className="flex gap-2">
-        <div>
-          <h3>out</h3>
-          <ul>
+    <div className="min-w-0">
+      <h2 className="pb-2 font-bold">Portals</h2>
+      <div className="grid grid-cols-2 gap-2 pt-2">
+        <div className="min-w-0">
+          <h3 className="ak-ink-60">out</h3>
+          <ul className="break-words">
             {outPortals.map((p) => {
               const linked = inPortals.find((i) => i.intendedOut === p.name);
 
               return (
                 <li
-                  className={cn(linked ? "text-gray-12" : "text-gray-11")}
+                  className={linked ? "ak-ink-100" : "ak-ink-85"}
                   key={p.name}
                 >
                   {p.name}
@@ -33,15 +32,15 @@ export function PortalDevtools() {
           </ul>
         </div>
 
-        <div>
-          <h3>in</h3>
-          <ul>
+        <div className="min-w-0">
+          <h3 className="ak-ink-60">in</h3>
+          <ul className="break-words">
             {inPortals.map((p) => {
               const linked = outPortals.find((o) => o.name === p.intendedOut);
 
               return (
                 <li
-                  className={cn(linked ? "text-gray-12" : "text-gray-11")}
+                  className={linked ? "ak-ink-100" : "ak-ink-85"}
                   key={p.name}
                 >
                   {p.name}

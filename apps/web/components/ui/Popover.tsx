@@ -1,98 +1,138 @@
 "use client";
 
 import * as React from "react";
-import * as PopoverPrimitive from "@radix-ui/react-popover";
-
+import * as Ariakit from "@ariakit/react";
 import { cn } from "@/lib/styling";
-import { VariantProps, cva } from "class-variance-authority";
+import type { OpenStateProps, AsChildProps } from "./ownership";
+import { type VariantProps, cva } from "class-variance-authority";
 
-const Popover = PopoverPrimitive.Root;
+const PopoverModalContext = React.createContext(false);
 
-const PopoverTrigger = PopoverPrimitive.Trigger;
+function Popover({
+  children,
+  open,
+  defaultOpen,
+  onOpenChange,
+  modal = false,
+}: React.PropsWithChildren<OpenStateProps & { modal?: boolean }>) {
+  if (open !== undefined && (defaultOpen !== undefined || !onOpenChange)) {
+    throw new Error(
+      "Popover requires onOpenChange with open and forbids defaultOpen with open",
+    );
+  }
+  return (
+    <Ariakit.PopoverProvider
+      open={open}
+      defaultOpen={defaultOpen}
+      setOpen={onOpenChange}
+    >
+      <PopoverModalContext value={modal}>{children}</PopoverModalContext>
+    </Ariakit.PopoverProvider>
+  );
+}
+
+function PopoverTrigger({
+  asChild,
+  children,
+  ...props
+}: AsChildProps<
+  React.ComponentPropsWithRef<typeof Ariakit.PopoverDisclosure>
+>) {
+  if (asChild && props.render !== undefined) {
+    throw new Error("PopoverTrigger accepts either asChild or render");
+  }
+  const context = Ariakit.usePopoverContext();
+  const store = props.store ?? context;
+  const open = Ariakit.useStoreState(store, "open");
+  return (
+    <Ariakit.PopoverDisclosure
+      data-state={open ? "open" : "closed"}
+      {...props}
+      render={asChild ? React.Children.only(children) : props.render}
+    >
+      {asChild ? undefined : children}
+    </Ariakit.PopoverDisclosure>
+  );
+}
 
 function StyledPopoverTrigger({
   className,
-  ref,
-  ...rest
-}: React.PropsWithoutRef<PopoverPrimitive.PopoverTriggerProps> & {
-  ref?: React.Ref<React.ElementRef<typeof PopoverPrimitive.Trigger>>;
-}) {
+  ...props
+}: React.ComponentProps<typeof PopoverTrigger>) {
   return (
-    <PopoverPrimitive.Trigger
-      ref={ref}
+    <PopoverTrigger
       className={cn(
-        "inline-flex items-center gap-1 underline underline-offset-2 hover:text-gray-12 focus-visible:text-gray-12 data-[state=open]:text-gray-12",
+        "[:where(&)]:text-inherit inline-flex items-center gap-1 underline underline-offset-2 hover:ak-ink-100 focus-visible:ak-ink-100 data-[state=open]:ak-ink-100",
         className,
       )}
-      {...rest}
+      {...props}
     />
   );
 }
-StyledPopoverTrigger.displayName = PopoverPrimitive.Trigger.displayName;
 
 function PopoverContent({
   className,
   align = "center",
   side = "top",
   sideOffset = 4,
+  alignOffset = 0,
+  avoidCollisions = true,
+  collisionPadding = 0,
   options,
-  ref,
   ...props
-}: React.PropsWithoutRef<
-  PopoverPrimitive.PopoverContentProps & {
-    options?: VariantProps<typeof tooltipVariants>;
-  }
-> & {
-  ref?: React.Ref<React.ElementRef<typeof PopoverPrimitive.Content>>;
+}: Ariakit.PopoverProps & {
+  align?: "start" | "center" | "end";
+  side?: "top" | "right" | "bottom" | "left";
+  sideOffset?: number;
+  alignOffset?: number;
+  avoidCollisions?: boolean;
+  collisionPadding?: number;
+  options?: VariantProps<typeof tooltipVariants>;
 }) {
+  const context = Ariakit.usePopoverContext();
+  const store = props.store ?? context;
+  const modal = React.useContext(PopoverModalContext);
+  const open = Ariakit.useStoreState(store, "open");
+  const currentPlacement = Ariakit.useStoreState(store, "currentPlacement");
+  const placement = align === "center" ? side : (`${side}-${align}` as const);
+  // Placement belongs to the store so disclosure and collision handling agree.
+  React.useLayoutEffect(() => {
+    store?.setState("placement", placement);
+  }, [store, placement]);
   return (
-    <PopoverPrimitive.Portal>
-      <PopoverPrimitive.Content
-        ref={ref}
-        align={align}
-        sideOffset={sideOffset}
-        side={side}
-        className={cn(tooltipVariants(options), className)}
-        {...props}
-      />
-    </PopoverPrimitive.Portal>
+    <Ariakit.Popover
+      portal
+      unmountOnHide
+      modal={modal}
+      backdrop={false}
+      gutter={sideOffset}
+      shift={align === "center" ? 0 : alignOffset}
+      flip={avoidCollisions}
+      slide={avoidCollisions}
+      overflowPadding={collisionPadding}
+      data-state={open ? "open" : "closed"}
+      data-side={currentPlacement?.split("-")[0] ?? side}
+      className={cn(tooltipVariants(options), className)}
+      {...props}
+    />
   );
 }
-PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 export { Popover, PopoverTrigger, PopoverContent, StyledPopoverTrigger };
 
 const tooltipVariants = cva(
-  [
-    `
-    rounded-sm shadow-md outline-none
-    border border-gray-A04
-    data-[state=open]:animate-in data-[state=closed]:animate-out
-    data-[state=closed]:ease-productive-exit data-[state=open]:ease-productive-enter data-[state=open]:duration-fast-01 data-[state=closed]:duration-fast-01 data-[state=open]:zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95  origin-(--radix-popover-content-transform-origin) data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-[side=bottom]:slide-out-to-top-1 data-[side=left]:slide-out-to-right-1 data-[side=right]:slide-out-to-left-1 data-[side=top]:slide-out-to-bottom-1
-    z-10
-    `,
-  ],
+  "surface-popover ak-layer ak-frame ak-frame-card ak-frame-border ak-edge-15 shadow-md outline-none z-10",
   {
     variants: {
-      bg: {
-        standard: "bg-gray-01",
-        subtle: "bg-gray-00",
-      },
+      bg: { standard: "ak-layer-lighten-6", subtle: "" },
       padding: {
-        none: "p-0",
-        sm: "py-0.5 px-1",
-        md: "py-1 px-2",
-        lg: "p-4",
+        none: "ak-frame-p-0",
+        sm: "ak-frame-p-0.5 px-1",
+        md: "ak-frame-p-1 px-2",
+        lg: "ak-frame-p-card",
       },
-      maxW: {
-        full: "max-w-full",
-        md: "max-w-[16rem]",
-      },
+      maxW: { full: "max-w-full", md: "max-w-[16rem]" },
     },
-    defaultVariants: {
-      bg: "standard",
-      maxW: "md",
-      padding: "lg",
-    },
+    defaultVariants: { bg: "standard", maxW: "md", padding: "lg" },
   },
 );

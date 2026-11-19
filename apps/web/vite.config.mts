@@ -11,6 +11,7 @@ import { imagetools } from "vite-imagetools";
 import { nitro } from "nitro/vite";
 
 import { vercelNitroImageSizes } from "./vercelNitroImageSizes";
+import { designTokens } from "./src/routes/library/tokens/-vite";
 
 const appsWebRoot = path.dirname(fileURLToPath(import.meta.url));
 
@@ -97,6 +98,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    designTokens(appsWebRoot),
     FontaineTransform.vite({
       fallbacks: {},
       resolvePath: (id) => {

@@ -1,8 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { RoutePageList } from "@/components/RoutePageList";
+import { useSectionPages } from "@/lib/use-section-pages";
+import { pageHead } from "@/lib/route-catalog";
+import { grid } from "@/components/ui/Grid";
 import Container from "@/components/Container";
 import { Stage } from "@/components/Stage";
-import { Button } from "@/components/ui/Button";
+import { Button } from "~/routes/library/button/-button";
 import { CVAWithPerms } from "@/lib/CVAPermutations";
 import { ArrowRightIcon, PlusIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/styling";
@@ -47,11 +51,9 @@ const cvaConfig = {
     },
     intent: {
       primary: [
-        "border-gray-A04",
-        "shadow-gray-A03",
-        "from-gray-A02 to-gray-A04",
-        "hover:border-gray-A08",
-        "focus-visible:border-gray-A08",
+        "ak-layer-6",
+        "hover:ak-state-8",
+        "focus-visible:ak-outline focus-visible:outline-2",
       ],
     },
   },
@@ -60,13 +62,9 @@ const cvaConfig = {
 const [, permutations] = CVAWithPerms(
   cn(
     "select-none appearance-none",
-    "relative rounded-sm px-2 py-1 inline-flex items-center gap-2 align-middle outline-none focus-within:outline-none",
+    "relative ak-layer ak-frame ak-frame-field/1 px-2 inline-flex items-center gap-2 align-middle",
     "motion-safe:duration-fast-01 motion-safe:ease-expressive-standard transition-all",
-    "border",
-    "shadow-input ",
-    "bg-gradient-to-tr",
     "active:scale-95",
-    "before:absolute before:inset-0 before:rounded before:shadow-lg before:shadow-gray-00/50 before:transition-all before:motion-safe:duration-fast-02 before:motion-safe:ease-expressive-standard",
   ),
   cvaConfig,
 );
@@ -77,14 +75,14 @@ const variantsPlaceholder = replaceLeafValuesWithDots(
 
 function Permutations() {
   return (
-    <div className="flex items-center gap-6">
-      <div className="max-w-sm">
-        <pre className="">{JSON.stringify(variantsPlaceholder, null, 2)}</pre>
+    <div className="flex min-w-0 flex-wrap items-center gap-6">
+      <div className="min-w-0 max-w-sm overflow-x-auto">
+        <pre>{JSON.stringify(variantsPlaceholder, null, 2)}</pre>
       </div>
       <div className="h-4 w-4 text-base">
         <ArrowRightIcon />
       </div>
-      <div className="">
+      <div className="min-w-0 max-w-full overflow-x-auto">
         <pre>{JSON.stringify(permutations, null, 2)}</pre>
       </div>
       <div className="h-4 w-4 text-base">
@@ -108,13 +106,13 @@ function Permutations() {
 
 function BorderExamples() {
   return (
-    <div className="flex items-center justify-center gap-6">
+    <div className="flex flex-wrap items-center justify-center gap-6">
       <Border>
-        <div className="h-44 w-44 bg-gradient-to-l from-gray-A07 to-gray-A04" />
+        <div className="ak-layer ak-layer-8 ak-frame ak-frame-card/0 h-44 w-44 bg-gradient-to-l from-(--ak-edge) to-(--ak-layer)" />
       </Border>
-      <Border asWrapper className="max-w-sm rounded">
+      <Border asWrapper className="max-w-sm">
         <video
-          className=""
+          className="ak-frame ak-frame-cover ak-frame-start ak-frame-end"
           autoPlay={false}
           controls={true}
           loop={true}
@@ -124,14 +122,19 @@ function BorderExamples() {
           <source src={reading_progress_mp4} type="video/mp4" />
         </video>
       </Border>
-      <Border asWrapper className="rounded">
-        <Image className="w-full rounded" alt="" src={manual_2} />
+      <Border asWrapper>
+        <Image
+          className="ak-frame ak-frame-cover ak-frame-start ak-frame-end w-full"
+          alt=""
+          src={manual_2}
+        />
       </Border>
     </div>
   );
 }
 
 function PlayIndexPage() {
+  const pages = useSectionPages("/play");
   const [count, setCount] = useState(0);
   const [walled, setWalled] = useState(false);
   const toggleWalled = () => setWalled((prev) => !prev);
@@ -140,6 +143,14 @@ function PlayIndexPage() {
   return (
     <Container>
       <div className="flex flex-col gap-16">
+        <Band gridless id="pages">
+          <div className={grid()}>
+            <div className="col-span-full md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-15">
+              <h1 className="mb-4 font-semibold">Play</h1>
+              <RoutePageList pages={pages} />
+            </div>
+          </div>
+        </Band>
         <Band headline={{ bold: "01", thin: "Permutations" }}>
           <Permutations />
         </Band>
@@ -147,9 +158,11 @@ function PlayIndexPage() {
           <BorderExamples />
         </Band>
         <Band headline={{ bold: "03", thin: "Composition" }}>
-          <div className="flex items-center justify-center gap-8">
+          <div className="flex w-full flex-wrap items-center justify-center gap-8">
             <Stage>
-              <Button onClick={toggleWalled}>Toggle lock</Button>
+              <Button aria-pressed={walled} onClick={toggleWalled}>
+                Toggle lock
+              </Button>
             </Stage>
             <Stage title={`${!walled ? "unlocked" : "locked"}`}>
               <Lock
@@ -182,15 +195,13 @@ function PlayIndexPage() {
   );
 }
 
+const page = {
+  name: "Play",
+  description: "Interactive experiments and component explorations.",
+};
+
 export const Route = createFileRoute("/play/")({
   component: PlayIndexPage,
-  head: () => ({
-    meta: [
-      { title: "Play — Igor Bedesqui" },
-      {
-        name: "description",
-        content: "Interactive experiments and component explorations.",
-      },
-    ],
-  }),
+  staticData: { page },
+  head: () => pageHead(page),
 });
