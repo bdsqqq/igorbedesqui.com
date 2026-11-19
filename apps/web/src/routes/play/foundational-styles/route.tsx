@@ -373,7 +373,7 @@ function SiteLanguageSection() {
         <p className="font-mono text-xs uppercase tracking-wider ak-ink-60">
           Disclaimer
         </p>
-        <p className="mt-4 max-w-3xl text-2xl leading-tight ak-ink-100 md:text-4xl">
+        <p className="mt-4 max-w-3xl text-2xl leading-tight ak-ink-90 dark:ak-ink-95 md:text-4xl">
           This is agent slop, but Igor found it cool and wanted to share it with
           friends.
         </p>
@@ -410,7 +410,7 @@ function SiteLanguageSection() {
       >
         <div className="flex min-h-56 items-center ak-layer ak-frame ak-frame-card/6 ak-frame-border -ak-frame-m-px">
           <p className="text-xl leading-relaxed ak-ink-80">
-            <strong className="font-normal ak-ink-100">
+            <strong className="font-normal ak-ink-90 dark:ak-ink-95">
               Start with the thought that must survive a skim.
             </strong>{" "}
             Let the supporting sentence sit at the site&apos;s natural reading
@@ -434,7 +434,7 @@ function SiteLanguageSection() {
               The messier version is still here for anyone curious enough to
               reach for it.
             </Blur>{" "}
-            <strong className="font-normal ak-ink-100">
+            <strong className="font-normal ak-ink-90 dark:ak-ink-95">
               Important words can remain clear inside the aside.
             </strong>
           </p>
@@ -475,7 +475,7 @@ function SiteLanguageSection() {
         description="Writing remains compact until a sentence deserves the room. Large blockquotes use negative indentation to hang punctuation outside the prose edge."
       >
         <div className="flex min-h-64 items-center ak-layer ak-frame ak-frame-card/0 ak-frame-border -ak-frame-m-px px-8 py-10 md:px-12">
-          <blockquote className="-indent-4 text-3xl leading-tight ak-ink-100 sm:-indent-6 sm:text-5xl">
+          <blockquote className="-indent-4 text-3xl leading-tight ak-ink-90 dark:ak-ink-95 sm:-indent-6 sm:text-5xl">
             “Elevating content through presentation.”
           </blockquote>
         </div>
@@ -545,7 +545,7 @@ function SiteLanguageSection() {
           <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-(--ak-layer) to-transparent" />
           <div className="relative grid min-h-64 place-items-center p-8">
             <div className="ak-layer ak-layer-lighten-6 ak-frame ak-frame-card/6 ak-frame-border -ak-frame-m-px shadow-highlight">
-              <p className="font-semibold ak-ink-100">
+              <p className="font-semibold ak-ink-90 dark:ak-ink-95">
                 Texture, not decoration.
               </p>
               <p className="mt-1 text-sm ak-ink-70">

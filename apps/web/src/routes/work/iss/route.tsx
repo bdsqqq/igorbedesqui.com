@@ -54,7 +54,7 @@ function IssWorkPage() {
         <span>
           Where’s the{" "}
           <Tooltip content="International Space Station">
-            <strong className="ak-ink-100">ISS</strong>
+            <strong className="ak-ink-90 dark:ak-ink-95">ISS</strong>
           </Tooltip>
           ?
         </span>

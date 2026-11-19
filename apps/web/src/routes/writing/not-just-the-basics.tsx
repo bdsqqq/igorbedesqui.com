@@ -37,8 +37,12 @@ function NotJustTheBasicsContent() {
       <MDX
         components={{
           Blur,
-          strong: (props) => <span className="ak-ink-100" {...props} />,
-          h1: (props) => <h1 className="mb-8 text-2xl ak-ink-100" {...props} />,
+          strong: (props) => (
+            <span className="ak-ink-90 dark:ak-ink-95" {...props} />
+          ),
+          h1: (props) => (
+            <h1 className="mb-8 text-2xl ak-ink-90 dark:ak-ink-95" {...props} />
+          ),
           del: (props) => <span aria-hidden className="hidden" {...props} />,
         }}
       >

@@ -39,7 +39,9 @@ function IbmWorkPage() {
             <div className="col-span-5 text-xl lg:col-span-9">
               <MDX
                 components={{
-                  strong: (props) => <span className="ak-ink-100" {...props} />,
+                  strong: (props) => (
+                    <span className="ak-ink-90 dark:ak-ink-95" {...props} />
+                  ),
                 }}
               >
                 {`
@@ -116,7 +118,9 @@ function IbmWorkPage() {
                       {children}
                     </ol>
                   ),
-                  strong: (props) => <span className="ak-ink-100" {...props} />,
+                  strong: (props) => (
+                    <span className="ak-ink-90 dark:ak-ink-95" {...props} />
+                  ),
                 }}
               >
                 {`
@@ -132,7 +136,7 @@ function IbmWorkPage() {
                 components={{
                   Blur: Blur,
                   strong: ({ children }) => (
-                    <span className="ak-ink-50 transition-colors duration-moderate-02 ease-productive-standard group-hover/blur:ak-ink-100 group-focus/blur:ak-ink-100">
+                    <span className="ak-ink-50 transition-colors duration-moderate-02 ease-productive-standard group-hover/blur:ak-ink-90 dark:group-hover/blur:ak-ink-95 group-focus/blur:ak-ink-90 dark:group-focus/blur:ak-ink-95">
                       {children}
                     </span>
                   ),

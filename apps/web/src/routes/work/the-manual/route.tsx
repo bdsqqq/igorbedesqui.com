@@ -68,7 +68,7 @@ function TheManualWorkPage() {
       backMessage={psykipMeta.backMessage}
     >
       <HeroBand heroVideo={{ webm: cat_webm, mp4: cat_mp4 }}>
-        <span className="ak-ink-100">
+        <span className="ak-ink-90 dark:ak-ink-95">
           The best way to read the Enchiridion.
         </span>
         <div className="mt-6">
@@ -85,7 +85,9 @@ function TheManualWorkPage() {
             <div className="prose col-span-4 mb-8 mt-16 space-y-4 lg:col-span-8 lg:col-start-2">
               <MDX
                 components={{
-                  strong: (props) => <span className="ak-ink-100" {...props} />,
+                  strong: (props) => (
+                    <span className="ak-ink-90 dark:ak-ink-95" {...props} />
+                  ),
                 }}
               >
                 {`
@@ -107,7 +109,9 @@ function TheManualWorkPage() {
                   h2: (props) => (
                     <h2 className="mb-4 block text-2xl font-bold" {...props} />
                   ),
-                  strong: (props) => <span className="ak-ink-100" {...props} />,
+                  strong: (props) => (
+                    <span className="ak-ink-90 dark:ak-ink-95" {...props} />
+                  ),
                 }}
               >
                 {`
@@ -152,7 +156,9 @@ function TheManualWorkPage() {
             <div className={cn(slottedInMiddle)}>
               <MDX
                 components={{
-                  strong: (props) => <span className="ak-ink-100" {...props} />,
+                  strong: (props) => (
+                    <span className="ak-ink-90 dark:ak-ink-95" {...props} />
+                  ),
                 }}
               >
                 {`**The visual design of the site exaggerates the print aesthetic and feel by heavily borrowing defining characteristics and working within carefully built constraints**:`}
@@ -171,7 +177,9 @@ function TheManualWorkPage() {
                   />
                 ),
                 li: (props) => <li className="col-span-4 pt-3" {...props} />,
-                strong: (props) => <span className="ak-ink-100" {...props} />,
+                strong: (props) => (
+                  <span className="ak-ink-90 dark:ak-ink-95" {...props} />
+                ),
               }}
             >
               {`
@@ -185,20 +193,20 @@ function TheManualWorkPage() {
             <div
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
-              <figure className={"space-y-2"}>
+              <figure className="flex flex-col gap-3">
                 <Border asWrapper>
                   <Image className="ak-frame w-full" alt="" src={manual_1} />
                 </Border>
-                <figcaption className="text-sm italic tracking-wide ak-ink-70">
+                <figcaption className="text-sm italic tracking-wide ak-ink-55">
                   The landing page mimics a book cover.
                 </figcaption>
               </figure>
 
-              <figure className={"space-y-2"}>
+              <figure className="flex flex-col gap-3">
                 <Border asWrapper>
                   <Image className="ak-frame w-full" alt="" src={manual_2} />
                 </Border>
-                <figcaption className="text-sm italic tracking-wide ak-ink-70">
+                <figcaption className="text-sm italic tracking-wide ak-ink-55">
                   The chapters borrow from actual books with generous line
                   heights, chapter numbers and drop caps.
                 </figcaption>
@@ -208,11 +216,11 @@ function TheManualWorkPage() {
             <div
               className={cn("col-span-4 flex flex-col gap-y-8 lg:col-span-8")}
             >
-              <figure className={"space-y-2"}>
+              <figure className="flex flex-col gap-3">
                 <Border asWrapper>
                   <Image className="w-full " alt="" src={manual_5} />
                 </Border>
-                <figcaption className="text-sm italic tracking-wide ak-ink-70">
+                <figcaption className="text-sm italic tracking-wide ak-ink-55">
                   The “compare” pages were inspired by newspapers’s approach to
                   dense information in using columns, adapted to the infinite
                   scrollable canvas of the web to include more whitespace and
@@ -220,8 +228,8 @@ function TheManualWorkPage() {
                 </figcaption>
               </figure>
 
-              <figure className={"space-y-2"}>
-                <div className="space-y-2">
+              <figure className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3">
                   <Border asWrapper>
                     <Image className="w-full" alt="" src={manual_3} />
                   </Border>
@@ -229,7 +237,7 @@ function TheManualWorkPage() {
                     <Image className="w-full" alt="" src={manual_4} />
                   </Border>
                 </div>
-                <figcaption className="text-sm italic tracking-wide ak-ink-70">
+                <figcaption className="text-sm italic tracking-wide ak-ink-55">
                   The About and Sources pages use layouts inspired by magazines
                   with their horizontal spread and use of whitespace.
                 </figcaption>
@@ -252,11 +260,12 @@ function TheManualWorkPage() {
                         <QuestionMarkCircledIcon />
                       </StyledPopoverTrigger>
                       <PopoverContent
+                        className="overflow-hidden"
                         options={{
                           padding: "none",
                         }}
                       >
-                        <figure className="space-y-1 pb-2">
+                        <figure className="flex flex-col gap-2 pb-2">
                           <Image alt="" src={manual_kindle} />
                           <figcaption className="text-center">
                             <MDX>{`[More pics on Twitter](https://twitter.com/bedesqui/status/1579608624514871296?s=20)`}</MDX>
@@ -265,7 +274,9 @@ function TheManualWorkPage() {
                       </PopoverContent>
                     </Popover>
                   ),
-                  strong: (props) => <span className="ak-ink-100" {...props} />,
+                  strong: (props) => (
+                    <span className="ak-ink-90 dark:ak-ink-95" {...props} />
+                  ),
                 }}
               >
                 {`

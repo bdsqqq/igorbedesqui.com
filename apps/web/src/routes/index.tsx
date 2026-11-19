@@ -33,8 +33,8 @@ function Home() {
           <div className={cn(grid({ mode: "narrow" }), "mt-32")}>
             <div className="col-span-full md:col-start-2 md:col-end-7 lg:col-start-5 lg:col-end-12">
               <br />
-              <h1 className="text-2xl ak-ink-100">
-                <span className="col-span-full text-base ak-ink-85">
+              <h1 className="text-2xl ak-ink-90 dark:ak-ink-95">
+                <span className="col-span-full text-base ak-ink-60 dark:ak-ink-70">
                   Igor Bedesqui
                 </span>
                 <p>
@@ -86,7 +86,7 @@ function Home() {
                             <h3 className="inline-block font-bold">
                               {projMeta.name}
                             </h3>{" "}
-                            <span className="text-bold inline-block transform text-end text-xs tracking-tighter ak-ink-85 transition-all duration-moderate-01 ease-productive-standard group-hover:translate-x-0 group-hover:opacity-100 group-focus:translate-x-0 group-focus:opacity-100 md:-translate-x-4 md:opacity-0">
+                            <span className="text-bold inline-block transform text-end text-xs tracking-tighter ak-ink-60 dark:ak-ink-70 transition-all duration-moderate-01 ease-productive-standard group-hover:translate-x-0 group-hover:opacity-100 group-focus:translate-x-0 group-focus:opacity-100 md:-translate-x-4 md:opacity-0">
                               {projMeta.date}
                             </span>
                           </div>
@@ -144,15 +144,15 @@ function Home() {
               <p>
                 <Blur className="[&_strong]:ak-ink-50 [&_strong]:transition-colors [&_strong]:duration-moderate-02 [&_strong]:ease-productive-standard">
                   Trying my hardest to heal my declining mental health,{" "}
-                  <strong className="font-normal ak-ink-100 group-hover/blur:ak-ink-100 group-focus/blur:ak-ink-100">
+                  <strong className="font-normal ak-ink-90 dark:ak-ink-95 group-hover/blur:ak-ink-90 dark:group-hover/blur:ak-ink-95 group-focus/blur:ak-ink-90 dark:group-focus/blur:ak-ink-95">
                     one
                   </strong>{" "}
                   <del>small</del>{" "}
-                  <strong className="font-normal ak-ink-100 group-hover/blur:ak-ink-100 group-focus/blur:ak-ink-100">
+                  <strong className="font-normal ak-ink-90 dark:ak-ink-95 group-hover/blur:ak-ink-90 dark:group-hover/blur:ak-ink-95 group-focus/blur:ak-ink-90 dark:group-focus/blur:ak-ink-95">
                     win at a time
                   </strong>
                   ,{" "}
-                  <strong className="font-normal ak-ink-100 group-hover/blur:ak-ink-100 group-focus/blur:ak-ink-100">
+                  <strong className="font-normal ak-ink-90 dark:ak-ink-95 group-hover/blur:ak-ink-90 dark:group-hover/blur:ak-ink-95 group-focus/blur:ak-ink-90 dark:group-focus/blur:ak-ink-95">
                     every single day
                   </strong>
                   .
@@ -167,7 +167,7 @@ function Home() {
 
               <p>
                 Now,{" "}
-                <strong className="font-bold ak-ink-100">
+                <strong className="font-bold ak-ink-90 dark:ak-ink-95">
                   I&apos;m focusing on the basics of my craft. The fine and
                   detailed polish I strive for will come as I build{" "}
                   <UnstyledLink
@@ -193,7 +193,7 @@ function Home() {
                 <Blur className="[&_strong]:ak-ink-50 [&_strong]:transition-colors [&_strong]:duration-moderate-02 [&_strong]:ease-productive-standard">
                   Naively trying to raise the bar for an industry, knowing that
                   I myself am below the current one.{" "}
-                  <strong className="font-normal ak-ink-100 group-hover/blur:ak-ink-100 group-focus/blur:ak-ink-100">
+                  <strong className="font-normal ak-ink-90 dark:ak-ink-95 group-hover/blur:ak-ink-90 dark:group-hover/blur:ak-ink-95 group-focus/blur:ak-ink-90 dark:group-focus/blur:ak-ink-95">
                     I&apos;ll get there.
                   </strong>
                 </Blur>

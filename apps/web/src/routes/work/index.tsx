@@ -36,7 +36,7 @@ function WorkIndexPage() {
                       <div className="flex flex-col ">
                         <div>
                           <h2 className="inline-block font-bold">{p.name}</h2>{" "}
-                          <span className="text-bold inline-block transform text-end text-xs tracking-tighter ak-ink-85 transition-all duration-moderate-01 ease-productive-standard group-hover:translate-x-0 group-hover:opacity-100 group-focus:translate-x-0 group-focus:opacity-100 md:-translate-x-4 md:opacity-0">
+                          <span className="text-bold inline-block transform text-end text-xs tracking-tighter ak-ink-60 dark:ak-ink-70 transition-all duration-moderate-01 ease-productive-standard group-hover:translate-x-0 group-hover:opacity-100 group-focus:translate-x-0 group-focus:opacity-100 md:-translate-x-4 md:opacity-0">
                             {p.date}
                           </span>
                         </div>

@@ -12,7 +12,7 @@ export const Blur = ({
   <span
     tabIndex={tabIndex ?? (focusable ? 0 : -1)}
     className={cn(
-      "group/blur [:where(&)]:[color:color-mix(in_oklab,var(--ak-text)_15%,transparent)] blur-sm filter transition-[filter,color] duration-moderate-02 ease-productive-standard focus-within:ak-ink-80 focus-within:blur-none hover:ak-ink-80 hover:blur-none focus:ak-ink-80 focus:blur-none",
+      "group/blur [:where(&)]:[color:color-mix(in_oklab,var(--ak-text)_15%,transparent)] blur-sm filter transition-[filter,color] duration-moderate-02 ease-productive-standard focus-within:ak-ink-60 dark:focus-within:ak-ink-70 focus-within:blur-none hover:ak-ink-60 dark:hover:ak-ink-70 hover:blur-none focus:ak-ink-60 dark:focus:ak-ink-70 focus:blur-none",
       className,
     )}
     {...rest}

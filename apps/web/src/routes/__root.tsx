@@ -84,7 +84,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <link rel="stylesheet" href={css} />
         <HeadContent />
       </head>
-      <body className="ak-layer ak-layer-canvas ak-ink-80 font-serif leading-normal relative">
+      <body className="ak-layer ak-layer-canvas ak-ink-60 dark:ak-ink-70 font-serif leading-normal relative">
         <PortalStoreProvider>
           <HistoryTracker />
           <Fuck_you_safari_for_taking_my_fullscreen_overlays_I_guess_Im_stuck_rendering_solids_behind_your_liquid_ass />

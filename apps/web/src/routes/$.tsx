@@ -48,7 +48,7 @@ function NotFound() {
   return (
     <Container backable>
       <HeroBand heroVideo={{ webm: zoro_webm, mp4: zoro_mp4 }}>
-        <span className="ak-ink-100">404</span>
+        <span className="ak-ink-90 dark:ak-ink-95">404</span>
         <br />
         how did you get here...?
         <br />

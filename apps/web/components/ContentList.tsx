@@ -9,7 +9,7 @@ export function ContentList({
   return (
     <ul
       className={cn(
-        "pointer-events-none flex flex-col focus-within:ak-ink-70 hover:ak-ink-70",
+        "pointer-events-none flex flex-col focus-within:ak-ink-55 hover:ak-ink-55",
         className,
       )}
       {...props}

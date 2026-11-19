@@ -42,11 +42,13 @@ function DontBelieveContent() {
           ),
           blockquote: (props) => (
             <blockquote
-              className="-indent-4 text-3xl ak-ink-100 sm:-indent-6 sm:text-5xl"
+              className="-indent-4 text-3xl ak-ink-90 dark:ak-ink-95 sm:-indent-6 sm:text-5xl"
               {...props}
             />
           ),
-          strong: (props) => <span className="ak-ink-100" {...props} />,
+          strong: (props) => (
+            <span className="ak-ink-90 dark:ak-ink-95" {...props} />
+          ),
           em: (props) => <em className="italic ak-ink-70" {...props} />,
         }}
       >

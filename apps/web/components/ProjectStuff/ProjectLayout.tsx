@@ -58,7 +58,7 @@ export function ProjectLayout({
             <>
               <div className="col-span-4 mt-12">
                 <span className="ak-ink-60 font-bold">Next project</span>
-                <span className="flex items-center gap-0.5 ak-ink-85">
+                <span className="flex items-center gap-0.5 ak-ink-60 dark:ak-ink-70">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
                     {nextProjMeta.name}
                   </StyledLink>
@@ -89,7 +89,7 @@ export function ProjectLayout({
                 <Separator className="mb-12 w-11" />
 
                 <span className="ak-ink-60 font-bold">Next project</span>
-                <span className="flex items-center gap-0.5 ak-ink-85">
+                <span className="flex items-center gap-0.5 ak-ink-60 dark:ak-ink-70">
                   <StyledLink href={`/work/${nextProjMeta.urlSlug}`}>
                     {nextProjMeta.name}
                   </StyledLink>

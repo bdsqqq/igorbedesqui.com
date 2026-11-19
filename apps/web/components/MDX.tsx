@@ -96,7 +96,7 @@ const defaultComponents = {
   h5: createHeading(5),
   h6: createHeading(6),
   strong: (props: HTMLProps<HTMLElement>) => (
-    <strong className="font-bold ak-ink-100" {...props} />
+    <strong className="font-bold ak-ink-90 dark:ak-ink-95" {...props} />
   ),
   pre: ({ children, className, ...passthrough }: HTMLProps<HTMLPreElement>) => (
     <pre

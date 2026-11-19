@@ -29,7 +29,7 @@ function StyledLinkWithIcon({
     <UnstyledLink
       className={cn(
         cva(
-          "cursor-pointer underline underline-offset-2 ak-ink-80 hover:ak-ink-100 focus-visible:ak-ink-100 focus-visible:ak-outline focus-visible:ak-outline-primary focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard",
+          "cursor-pointer underline underline-offset-2 [:where(&)]:text-inherit hover:ak-ink-100 focus-visible:ak-ink-100 focus-visible:ak-outline focus-visible:ak-outline-primary focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:duration-moderate-01 motion-safe:ease-productive-standard",
           {
             variants: {
               bold: {

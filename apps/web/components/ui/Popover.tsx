@@ -62,7 +62,7 @@ function StyledPopoverTrigger({
   return (
     <PopoverTrigger
       className={cn(
-        "ak-ink-80 inline-flex items-center gap-1 underline underline-offset-2 hover:ak-ink-100 focus-visible:ak-ink-100 data-[state=open]:ak-ink-100",
+        "[:where(&)]:text-inherit inline-flex items-center gap-1 underline underline-offset-2 hover:ak-ink-100 focus-visible:ak-ink-100 data-[state=open]:ak-ink-100",
         className,
       )}
       {...props}

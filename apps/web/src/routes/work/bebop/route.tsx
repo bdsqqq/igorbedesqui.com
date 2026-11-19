@@ -72,7 +72,9 @@ function BebopWorkPage() {
 
       <ProjectLayout projMeta={bebopMeta} nextProjMeta={nextFromBebop}>
         <ProjectBand options={{ padding: "none" }} gridless id="update">
-          <h2 className="mb-2 text-xl font-bold uppercase ak-ink-85">Update</h2>
+          <h2 className="mb-2 text-xl font-bold uppercase ak-ink-60 dark:ak-ink-70">
+            Update
+          </h2>
           <MDX>
             {`
               On november 2nd 2021 I got a notification on my discord with the amazing news that this project had won the competition with the majority of votes. Now, I bask in the glory!! [I'll leave the screenshot of the announcement here because I'm very proud of this](https://raw.githubusercontent.com/bdsqqq/bebop-webjam/main/docs/img/winner.jpg).
